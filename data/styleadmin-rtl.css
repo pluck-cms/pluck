@@ -1,0 +1,167 @@
+body {
+background-color:white;
+font-family:Trebuchet MS;
+margin:0px;
+direction:rtl;
+}
+.menuheader {
+background-image:url(image/back.jpg);
+border-bottom:1px solid #CCCCCC;
+height:100px;
+right:0px;
+position:absolute;
+top:0px;
+width:100%;
+}
+.cmssystem {
+bottom:5px;
+color:#3766AC;
+font-size:25pt;
+font-weight:bold;
+right:75px;
+margin-left:100px;
+position:absolute;
+}
+.menu {
+position:absolute;
+height:100px;
+right:185px;
+top:0px;
+#direction:ltr;
+}
+.menuitem {
+height:100px;
+float:right;
+}
+.menu div:hover {
+background-image:url(image/back_hover.jpg);
+}
+.menu table {
+color:#B6B6B6;
+font-size:14px;
+padding-right:6px;
+padding-left:6px;
+margin-top: 65px;
+text-align:center;
+text-decoration:none;
+}
+.menu a:hover {
+color:#3766AC;
+}
+.menu table:hover {
+color:#3766AC;
+}
+.menu2 {
+bottom:5px;
+right:205px;
+position:absolute;
+}
+.menuitems {
+color:#B6B6B6;
+font-size:15pt;
+}
+.kop {
+color:#3766AC;
+font-size:20pt;
+font-weight:bold;
+}
+.kop2 {
+color:#3766AC;
+font-size:14pt;
+font-weight:bold;
+}
+.kop3 {
+color:gray;
+font-size:17pt;
+}
+.kop4 {
+color:gray;
+font-size:12px;
+}
+.text {
+right:75px;
+position:absolute;
+top:115px;
+width:90%;
+}
+a {
+color:gray;
+text-decoration:none;
+}
+a:hover {
+color:#3766AC;
+text-decoration:none;
+}
+.somp {
+border-top:1px dashed gray;
+color:gray;
+font-size:12px;
+margin-top:30px;
+padding-top:5px;
+}
+.somp a {
+color:#3766AC;
+text-decoration:none;
+}
+.somp a:hover {
+color:gray;
+text-decoration:none;
+}
+.logo {
+bottom:5px;
+right:0px;
+position:absolute;
+}
+input {
+background-color:#F4F4F4;
+border:1px solid gray;
+color:gray;
+font-family:Trebuchet MS;
+margin-top:2px;
+}
+textarea {
+background-color:#F4F4F4;
+border:1px solid gray;
+color:gray;
+font-family:Trebuchet MS;
+margin-top:2px;
+}
+.leftmenu {
+color:#3766AC;
+float:left;
+font-size:12px;
+height:600px;
+overflow:auto;
+}
+.menudiv {
+background-color:#F4F4F4;
+border:1px dotted gray;
+}
+.statusbox {
+border-right:1px dotted #CCCCCC;
+height:80%;
+padding-right:15px;
+position:absolute;
+left:25px;
+top:10px;
+width:150px;
+}
+.statusbox table {
+font-family:Verdana;
+font-size:11px;
+}
+.smallmenu {
+text-align:left;
+margin:0px;
+margin-bottom:-8px;
+font-size:13px;
+color:gray;
+height:25px;
+width:98%;
+}
+.smallmenu_button {
+margin-right:10px;
+}
+.smallmenu_a {
+padding-left:22px;
+}

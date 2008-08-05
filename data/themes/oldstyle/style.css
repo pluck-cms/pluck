@@ -1,0 +1,108 @@
+body	
+		{
+		 background-color: #E3E3E3;
+		 font-family: Trebuchet MS;
+		 color: #000000;
+		}
+a:link { color: #DD0B0B; text-decoration: underline }
+a:visited { color: #DD0B0B; text-decoration: underline }
+a:active { color: #DD0B0B; text-decoration: underline }
+a:hover { color: #CCCCCC; text-decoration: underline }
+
+.menu a:link { color: white; text-decoration: underline }
+.menu a:visited { color: white; text-decoration: underline }
+.menu a:active { color: white; text-decoration: underline }
+.menu a:hover { color: #CCCCCC; text-decoration: underline }
+
+.head
+		{
+		 width: 660px;
+		 background-color: white;
+		 position: absolute;
+		 top: 0px;
+		 left: 18%;
+		 }
+
+.header
+		{
+		 margin-bottom: 10px;
+		 margin-left: 2%;
+		 width: 633px;
+		 height: 256px;
+		 background-color: #DD0B0B;
+		}
+.headerkop
+		{
+		font-size: 50px;
+		color: white;
+		padding-top: 70px;
+		margin-left: 35px;
+		width: 580px;
+		}
+		
+.menu
+		{
+		font-size: 15px;
+		color: white;
+		position: absolute;
+		top: 215px;
+		margin-left: 35px;
+		width: 600px;
+		}
+		
+.content
+		{
+		 width: 633px;
+		 background-color: #F2F2F2;
+		 margin-top: 0px;
+		 margin-left: 2%;
+		 margin-bottom: 10px;
+		}
+		
+.kop	{
+		 font-size: 25px;
+		 color: #DD0B0B;
+		 padding-top: 20px;
+		 padding-right: 20px;
+		 padding-left: 20px;
+		}
+		
+.txt	{
+		 font-size: 14px;
+		 padding-bottom: 20px;
+		 padding-right: 20px;
+		 padding-left: 20px;
+		}
+		  
+.footer {
+		 width: 100%;
+		 border-top: 1px dotted gray;
+		 margin-top: 30px;
+		 font-size: 10px;
+		 text-align: right;
+		 color: gray;
+		  }
+input {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color: black;
+	background-color: white;
+	border: 1px solid black;
+	padding: 1pt;
+	margin: 5px;
+   }
+        
+textarea {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color: black;
+	background-color: white;
+	border: 1px solid black;
+	padding: 1pt;
+	margin: 5px;
+	}
+.album{
+	background:#ffffff;
+	border:1px solid #DD0B0B;
+	border-left:5px solid #DD0B0B;
+	padding:7px}

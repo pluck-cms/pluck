@@ -1,0 +1,138 @@
+html,body{
+	margin:0;
+	padding:0;
+	border:0;
+	font-size:12px;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#1D1D1D}
+html{
+	background:#FAFEEB url(img/bghtml.jpg) top repeat-x}
+*{
+	margin:0;
+	padding:0}
+a{
+	font-weight:bold;
+	outline:none;
+	color:#1D1D1D}
+	a:hover{
+		text-decoration:none}
+h1{
+	font-size:18px;
+	font-weight:normal;
+	color:#5B7900;	
+	padding:0 0 8px 0}
+p,blockquote{	
+	line-height:140%;
+	margin:0 0 16px 0}
+blockquote{
+	background:#fff;
+	color:#333;
+	border:1px solid #95CB42;
+	border-left:5px solid #95CB42;
+	padding:7px}
+.album{
+	background:#fff;
+	border:1px solid #95CB42;
+	border-left:5px solid #95CB42;
+	padding:7px}
+	blockquote p{
+		margin:0}
+#container {
+	width:760px;
+	margin:0 auto;}
+#hd{
+	height:150px}
+	#hd h2{	
+		font-size:34px;
+		font-weight:normal;
+		text-align:center;
+		color:white;
+		float:left;
+		margin-top: 60px;	
+		}
+	#hd h2 small{
+		font-size:11px;
+		margin:-14px 0 0 0;
+		display:block}
+	#hd ul{
+		float:right;
+		list-style:none;
+		margin:61px 0 0 0}
+		#hd ul li{
+			float:left}
+		#hd ul a{
+			color:#323538;
+			display:block;
+			line-height:47px;
+			text-decoration:none;
+			padding:1px 14px;
+			margin:0 2px;
+			font-size:20px}
+		#hd ul a.act,#hd ul a:hover{
+			border:1px solid #5B7900;
+			border-bottom:0;
+			padding:0 14px;
+			margin:0 1px;
+			background:#FAFEEB}
+#ct{
+	width:730px}
+	#ct ul{
+		list-style:none;
+		margin:0 0 13px 20px}
+	#ct ul li{
+		padding:0 0 3px 18px;
+		background:url(img/bllt.gif) left 4px no-repeat}
+#sdm{
+	float:right;
+	width:200px}
+	#sdm h2{
+		border:1px solid #95CB42;
+		background:#fff;
+		text-transform:uppercase;
+		font-size:12px;		
+		padding:2px 0 0 6px;
+		line-height:22px;
+		margin:0 0 10px 0}
+	#sdm p{
+		padding:0 0 0 7px}
+		#sdm p a{
+			font-weight:bold;
+			color:#1D1D1D}
+		#sdm p a:hover{
+			text-decoration:none}
+	#sdm ul{
+		list-style:none;
+		padding:0 0 0 7px}
+		#sdm li{
+			padding:0 0 4px 0}
+#ft{
+	clear:both;
+	width:730px;
+	margin:0 230px 0 0;
+	padding:10px 0 20px 0;
+	text-align:center;
+	font-size:11px;
+	color:#666;
+	border-top:1px solid #95CB42}
+
+input {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color: black;
+	background-color: white;
+	border: 1px solid black;
+	border-left:5px solid #95CB42;
+	padding: 1pt;
+	margin: 5px;
+   }
+        
+textarea {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color: black;
+	background-color: white;
+	border: 1px solid black;
+	border-left:5px solid #95CB42;
+	padding: 1pt;
+	margin: 5px;
+	}

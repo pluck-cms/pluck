@@ -1,0 +1,66 @@
+/* Dennis */
+/* Freelance WebDesigner */
+/* CSS Design Name: Website 001 */
+/* Description: liquid, height-width 100%, container center - left fixed, right scrollable */
+/* Created 25 april 2007 */
+/* Lastupdate 25 april 2007 */
+/* License layout-design: Creative Commons - Public Domain */
+/* W3C: (X)HTML 1.0 Strict and CSS */
+
+/* Colors: colorschemer.com/schemes - Proposition by entitydesigns */
+/* Arrow: freewebstuff.be */ 
+/* Used for pluck: http://www.pluck-cms.org */
+   
+html{font-size:100%;margin:0;padding:0;height:100%;min-height:100%;overflow:hidden}
+body{background:#fff;color:#000;font:83.33%/1.2em Verdana,sans-serif;text-align:center;margin:0;padding:0;height:100%;max-height:100%;overflow:hidden}
+div#container{width:800px;height:100%;min-height:100%;border:0px solid #3C3827;text-align:left;margin:auto;padding:0;overflow:hidden}
+
+div#top{height:5%;background:#58564F;margin:0;padding:0}
+div#mainblok{float:left;width:100%;height:90%;overflow:hidden}
+div#blok1{height:100%;margin:0;width:39%;float:left;border:0px solid #000;overflow:hidden;background:#CED665}
+div#blok2{height:100%;margin:0;width:59%;float:right;border:0px solid #000;overflow:auto}
+div#footer{clear:both;height:5%;background:#ECECDE;width:100%;font-size:10px;text-align:right; color: #58564F}
+
+ul.menu1{margin:5px;padding:5px;list-style:none}
+ul.menu1 li{margin:0;padding:0}
+ul.menu1 a{display:block;color:#ECECDE;width:12em;padding:0.3em 0.2em 0.3em 0.3em;text-decoration:none}
+ul.menu1 a:visited{color:#ECECDE;text-decoration:none}
+ul.menu1 a:hover{background:#A0AC01;color:#CED665}
+li.menu1 {background:none;}
+
+.color1{float:left;background:#ECECDE;width:50px;height:30px;display:block;border:5px outset #fff;font-size:60%;margin:5px;padding:5px}
+.color2{float:left;background:#CED665;width:50px;height:30px;display:block;border:5px outset #fff;font-size:60%;margin:5px;padding:5px}
+.color3{float:left;background:#58564F;width:50px;height:30px;display:block;border:5px outset #fff;font-size:60%;margin:5px;padding:5px}
+.color4{float:left;background:#A0AC01;width:50px;height:30px;display:block;border:5px outset #fff;font-size:60%;margin:5px;padding:5px}
+.color5{float:left;background:#3C3827;width:50px;height:30px;display:block;border:5px outset #fff;font-size:60%;margin:5px;padding:5px}
+
+h1, h2, h3{font-family:Verdana,Sans-serif;font-weight:bold;margin-left:10px}
+h1{font-size:120%;color:#A0AC01;text-align:left}
+h2{font-size:115%;color:#3C3827;text-transform:uppercase;text-align:right}
+h3{font-size:110%;color:#ECECDE;font-style:italic;text-align:center}
+
+li{background:url(bullet.gif) left center no-repeat;list-style-type:none;list-style-position:outside;padding-left:20px;line-height:20px}
+
+.description{margin:5px;padding:5px;font-family:Verdana,Sans-serif;font-size:80%;line-height:20px;font-weight:bold;color:#58564F}
+.binnen{margin:5px;padding:5px}
+.bordertop{clear:both;margin:5px;padding:5px;border-top:2px dotted #3C3827}
+.headtext{color:#58564F;font-style:italic;text-align:left;text-transform:lowercase;margin-right:5px;font-size:20pt;}
+.center{margin:5px;padding:5px;text-align:center}
+
+fieldset{border:0}
+form{margin:15px;padding:15px;border:1px solid #58564F;background:#ECECDE}
+p.formlabel{display:block;font-weight:bold;margin:15px 0}
+input{padding:5px;border:1px solid #3C3827;color:#A0AC01}
+textarea{width:200px;padding:5px;border:1px solid #58564F;height:100px;display:block;color:#A0AC01}
+input.button{margin:5px;border:1px solid #3C3827;color:#A0AC01}
+
+a:link { color: #58564F; text-decoration: underline }
+a:visited { color: #58564F; text-decoration: underline }
+a:active { color: #58564F; text-decoration: underline }
+a:hover { color: #CCCCCC; text-decoration: underline }
+
+.album{
+	background:#ffffff;
+	border:1px solid #58564F;
+	border-left:5px solid #58564F;
+	padding:7px}

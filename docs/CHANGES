@@ -1,0 +1,81 @@
+pluck 4.6
+----------------------------------------
+- added predefined module variables in administration center
+- [bug] close button and loading image in Lightbox didn't show up
+
+pluck 4.6 beta 1
+----------------------------------------
+- implemented new module-function
+- implemented new theming engine
+- now using curl to check for updates
+- now using md5 to encrypt the password
+- now using Tarlib from The Maxg Network for extraction of theme- and module-files
+- now only showing themes compatible with new theming engine in the administration center
+- introduced new module icon
+- made some big changes in the directory structure
+- deleted stats-function
+- [bug] TinyMCE didn't always show up with Internet Explorer 7 (#31)
+- [bug] viewing a page in the trashcan caused an error (#29)
+- [bug] the top menu shows again when using Internet Explorer with Hebrew (#30)
+- [bug] check if we chose a language/theme before saving data in administration center
+- [bug] inserting links in TinyMCE didn't work due to a problem with the XHTML Compatibility mode
+
+pluck 4.5
+----------------------------------------
+- implemented the trashcan-function
+- brand-new update-notifier has been implemented
+- a credit-page has been added
+- title of a blogpost is now a link
+- included the possibility to turn on the TinyMCE Full XHTML Ruleset
+- included Bulgarian translation
+- included Italian translation
+- included Latvian translation
+- included Thai translation
+- updated TinyMCE to version 2.1.3
+- the usual small code optimizations
+- [bug] special characters in album- and blognames are now possible (#1)
+- [bug] now blocking upload of images with spaces in the filename (#2)
+- [bug] posts displayed double when inserting multiple blog-categories (#11)
+- [bug] points in album/blognames are now blocked (#24)
+- [bug] blogposts were sorted in wrong order (#8)
+- [bug] logging in with IE is now possible with Enter-key (#25)
+- [bug] problems with strange characters in pluck-URLs have been fixed (#13)
+
+pluck 4.4
+----------------------------------------
+- included a blogging/news module
+- included support for right-to-left languages
+- included the option to exclude a page from the menu
+- added option to edit metatags for each page apart
+- included Catalan language, thanks Cesc!
+- included Spanish language, thanks Cesc!
+- included Norwegian language, thanks John Erik!
+- included Hungarian language, thanks Wix!
+- included Lithuanian language, thanks Mindaugas!
+- included Hebrew language, thanks Erez!
+- added security enhancements that check for hacking attempts and block them
+- you can now scroll through images when viewing an image in an album
+- adjustments to the TinyMCE theme, should look better now
+- TinyMCE now uses the same language as pluck (if language is available)
+- updated TinyMCE to version 2.1.2
+- the usual small code optimizations
+- [bug] 404 error-page shows up alright now
+- [bug] installed themes now get the right permissions
+- [bug] and many small bugfixes
+- [security] closed vulnerability in index.php
+
+pluck 4.3
+----------------------------------------
+- included a nice photoalbum that you can use to show your favourite photos and images
+- included an option to include a emailform on any page you want
+- included an option that automatically installs new themes
+- included a new default theme, thanks Kristaps! The old theme is still available under the name "Oldstyle".
+- included French language, thanks Vincent!
+- included Swedish language, thanks Carl!
+- included Russian language, thanks Tkachev!
+- did some overall code cleanup and optimization
+- updated from GPLv2 to GPLv3 license
+- did some optimization regarding W3C-compatibilty
+- [bug] stats couldn't be deleted on some servers due to permission problems
+- [bug] single quotes (apostrophes) will now display correct when saving a page
+- [bug] all kinds of "special characters" display correct now
