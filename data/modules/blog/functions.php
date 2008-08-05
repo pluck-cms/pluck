@@ -2,9 +2,15 @@
 //Some functions needed for the album-module are defined here
 
 //Predefined variables
-$var = $_GET['var'];
-$var2 = $_GET['var2'];
-$var3 = $_GET['var3'];
+if (isset($_GET['var'])) {
+	$var = $_GET['var'];
+}
+if (isset($_GET['var2'])) {
+	$var2 = $_GET['var2'];
+}
+if (isset($_GET['var2'])) {
+	$var3 = $_GET['var3'];
+}
 
 //Function: readout blog categories
 //------------
