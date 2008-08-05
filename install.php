@@ -15,6 +15,8 @@
 require("data/inc/security.php");
 //Include pluck version information
 include("data/inc/pluck_info.php");
+//Include functions
+include("data/inc/functions.all.php");
 //Include Translation data
 include("data/inc/variables.all.php");
 

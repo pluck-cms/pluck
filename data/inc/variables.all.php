@@ -28,7 +28,9 @@ include("data/inc/lang/$langpref");
 //Variables for module programmers
 //----------------
 //First, get some information
-include("data/settings/options.php");
+if(file_exists("data/settings/options.php")) {
+	include("data/settings/options.php");
+}
 include("data/inc/pluck_info.php");
 //General variables
 $site_title = get_sitetitle();

@@ -89,8 +89,10 @@ function recursive_remove_directory($directory, $empty=FALSE)	{
 //Function: get site title
 //---------------------------------
 function get_sitetitle() {
-	include("data/settings/options.php");
-	return $sitetitle;
+	if(file_exists("data/settings/options.php")) {
+		include("data/settings/options.php");
+		return $sitetitle;
+	}
 }
 
 ?>
