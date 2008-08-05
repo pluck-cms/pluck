@@ -34,7 +34,7 @@ include ("data/inc/footer.php"); }
 //If we didn't:
 elseif ($install=="no") {
 
-if ($action == "") {
+if (!isset($action)) {
 $titelkop = $lang_install;
 include ("data/inc/header2.php");
 //Introduction text
