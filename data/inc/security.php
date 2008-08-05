@@ -21,7 +21,9 @@
 //If Register Globals are ON, unset injected variables
 if(isset($_REQUEST)) {
 	foreach ($_REQUEST as $key => $value) { 
-		unset($GLOBALS[$key]); 
+		if(isset($GLOBALS[$key])) {
+			unset($GLOBALS[$key]); 
+		}
 	}
 }
 //--------------------------------
@@ -29,12 +31,13 @@ if(isset($_REQUEST)) {
 //--------------------------------
 //Cross Site Scripting, Remote File Inclusion, etc.
 //Check for strange characters in $_GET keys
-//All keys with "/" or ":" or "<" or ">" or "=" or ";" or ")" are blocked, so that it's virtually impossible to inject any HTML-code, or external websites
-  foreach ($_GET as $get_key => $get_value) {
-    if ((ereg("/", $get_value)) || (ereg(":", $get_value)) || (ereg("<", $get_value)) || (ereg(">", $get_value)) || (ereg("=", $get_value)) || (ereg(";", $get_value)) || (ereg(")", $get_value))) {
-    eval("unset(\${$get_key});");
-    die("A hacking attempt has been detected. For security reasons, we're blocking any code execution."); }
-  } 
+//All keys with or "/" or ":" or "<" or ">" or "=" or ";" or ")" are blocked, so that it's virtually impossible to inject any HTML-code, or external websites
+foreach ($_GET as $get_key => $get_value) {
+	if ((ereg("[\]+", $get_value)) || (ereg("/", $get_value)) || (ereg(":", $get_value)) || (ereg("<", $get_value)) || (ereg(">", $get_value)) || (ereg("=", $get_value)) || (ereg(";", $get_value)) || (ereg(")", $get_value))) {
+		eval("unset(\${$get_key});");
+		die("A hacking attempt has been detected. For security reasons, we're blocking any code execution.");
+	}
+}
 //--------------------------------
-  
+
 ?>
