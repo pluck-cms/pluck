@@ -18,34 +18,12 @@
 
 //--------------------------------
 //Register Globals
-//If Register Globals are ON, emulate that they are OFF
-function unregister_GLOBALS()
-{
-    if (!ini_get("register_globals")) {
-        return;
-    }
-
-    if (isset($_REQUEST['GLOBALS']) || isset($_FILES['GLOBALS'])) {
-        die("A hacking attempt has been detected. For security reasons, we're blocking any code execution.");
-    }
-
-    $noUnset = array('GLOBALS',  '_GET',
-                     '_POST',    '_COOKIE',
-                     '_REQUEST', '_SERVER',
-                     '_ENV',     '_FILES');
-
-    $input = array_merge($_GET,    $_POST,
-                         $_COOKIE, $_SERVER,
-                         $_ENV,    $_FILES,
-                         isset($_SESSION) && is_array($_SESSION) ? $_SESSION : array());
-   
-    foreach ($input as $k => $v) {
-        if (!in_array($k, $noUnset) && isset($GLOBALS[$k])) {
-            unset($GLOBALS[$k]);
-        }
-    }
+//If Register Globals are ON, unset injected variables
+if(isset($_REQUEST)) {
+	foreach ($_REQUEST as $key => $value) { 
+		unset($GLOBALS[$key]); 
+	}
 }
-unregister_GLOBALS();
 //--------------------------------
 
 //--------------------------------
