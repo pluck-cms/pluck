@@ -118,23 +118,6 @@ if (isset($_POST['cont5'])) {
 //FUNCTIONS
 //---------------
 
-//Function: redirect
-//------------
-function redirect($url,$time) {
-//First, urlencode the entire url
-$url = urlencode($url);
-
-//Then undo that for ? chars
-$url = str_replace("%3F", "?", $url);
-//And undo that for = chars
-$url = str_replace("%3D", "=", $url);
-//And undo that for & chars
-$url = str_replace("%26", "&", $url);
-
-//finally generate the metatag for redirecting
-echo "<meta http-equiv=\"refresh\" content=\"$time; url=$url\">";
-}
-
 //Function: define menudiv
 //------------
 function showmenudiv($title,$text,$image,$url,$blank,$more=NULL) {
