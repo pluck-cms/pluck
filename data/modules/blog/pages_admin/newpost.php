@@ -73,8 +73,8 @@ fputs($file, "<?php
 \$postdate = \"$date\";
 ?>");
 fclose($file);
-mkdir ("data/blog/$var/reactions/$filename");
-chmod ("data/blog/$var/reactions/$filename", 0777);
+mkdir("data/blog/$var/reactions/$filename");
+chmod("data/blog/$var/reactions/$filename", 0777);
 
 redirect("?module=blog&page=editblog&var=$var","0"); }
 ?>

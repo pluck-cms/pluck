@@ -12,53 +12,6 @@ if (isset($_GET['var2'])) {
 	$var3 = $_GET['var3'];
 }
 
-//Function: readout blog categories
-//------------
-function read_blog_catg($dir) {
-   $path = opendir($dir);
-   while (false !== ($file = readdir($path))) {
-       if(($file !== ".") and ($file !== "..")) {
-           if(is_file($dir."/".$file))
-               $files[]=$file;
-           else
-               $dirs[]=$file;           
-       }
-   }
-   if (!$dirs) {
-	//Include Translation data
-	include ("data/settings/langpref.php");
-	include ("data/inc/lang/en.php");
-	include ("data/inc/lang/$langpref");
-	echo "<span class=\"kop4\">$lang_albums14</span>"; }
-	
-   if($dirs) {
-   natcasesort($dirs);
-   foreach ($dirs as $dir) {
-		//Include Translation data
-		include ("data/settings/langpref.php");
-		include ("data/inc/lang/en.php");
-		include ("data/inc/lang/$langpref");
-		echo "<div class=\"menudiv\" style=\"margin: 20px;\">
-			<table>
-				<tr>
-					<td>
-						<img src=\"data/modules/blog/images/blog.png\" border=\"0\" alt=\"\">
-					</td>
-					<td style=\"width: 350px;\">
-						<span style=\"font-size: 17pt;\">$dir</span>
-					</td>
-					<td>
-					<a href=\"?module=blog&page=editblog&var=$dir\"><img src=\"data/image/edit.png\" border=\"0\" title=\"$lang_blog7\" alt=\"$lang_blog7\"></a>		
-					</td>
-					<td>
-					<a href=\"?module=blog&page=deleteblog&var=$dir\"><img src=\"data/image/delete_from_trash.png\" border=\"0\" title=\"$lang_blog6\" alt=\"$lang_blog6\"></a>		
-					</td>
-				</tr>
-			</table>
-			</div>"; }
-   }
-   closedir($path);
-}
 
 //Function: readout blogposts
 //------------

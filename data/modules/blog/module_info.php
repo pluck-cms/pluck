@@ -37,6 +37,6 @@ $module_website = "http://www.pluck-cms.org";
 $tinymce = "yes";
 
 //Compatibility
-//$module_compatibility = "4.6";
+$module_compatibility = "4.6";
 
 ?>
