@@ -20,36 +20,31 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 }
 
 //Introduction text
-echo "<p><b>$lang_page1</b></p>";
-
+?>
+<p><strong><?php echo $lang_page1; ?></strong></p>
+<?php
 //Add newpage button
-echo "<div style=\"background-color: #f4f4f4; border: 1px dotted gray; margin: 20px; margin-bottom: 10px;\">
-<table>
-	<tr>
-		<td>
-			<img src=\"data/image/newpage.png\" border=\"0\" alt=\"\">
-		</td>
-		<td>
-			<span style=\"font-size: 17pt;\"><a href=\"?action=newpage\">$lang_page2</a></span>
-		</td>
-	</tr>
-</table>
-</div>";
-
+?>
+<div class="menudiv">
+	<span>
+		<img src="data/image/newpage.png" alt="">
+	</span>
+	<span>
+	<a href="?action=newpage"><?php echo $lang_page2; ?></a>
+	</span>
+</div>
+<?php
 //Add image button
-echo "<div style=\"background-color: #f4f4f4; border: 1px dotted gray; margin: 20px; margin-top: 10px;\">
-<table>
-	<tr>
-		<td>
-			<img src=\"data/image/image.png\" border=\"0\" alt=\"\">
-		</td>
-		<td>
-			<span style=\"font-size: 17pt;\"><a href=\"?action=images\">$lang_kop17</a></span>
-		</td>
-	</tr>
-</table>
-</div>";
-
+?>
+<div class="menudiv">
+	<span>
+		<img src="data/image/image.png" alt="">
+	</span>
+	<span>
+		<a href="?action=images"><?php echo $lang_kop17; ?></a>
+	</span>
+</div>
+<?php
 //Show pages
 read_pages("data/settings/pages");
 ?>

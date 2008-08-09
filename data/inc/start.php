@@ -20,9 +20,11 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 }
 
 //Introduction text
-echo "<p><b>$lang_start1</b><br>$lang_start9</p>";
+?>
+<p><strong><?php echo $lang_start1; ?></strong><br /><?php echo $lang_start9; ?></p>
 
-echo "<span class=\"kop2\">$lang_start10</span>";
+<span class="kop2"><?php echo $lang_start10; ?></span>
+<?php
 //Show the divs
 showmenudiv($lang_install20,$lang_install21,"website.png","index.php","true");
 showmenudiv($lang_credits,$lang_credits1,"credits.png","?action=credits","false");

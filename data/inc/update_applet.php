@@ -2,7 +2,8 @@
 /* 
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -83,12 +84,8 @@ else {
 	$update_image = "update-no.png";
 	$update_note = "$lang_update1";
 }
-
-
-echo "<table>
-<tr>
-<td><img src=\"data/image/$update_image\" border=\"0\" align=\"right\"></td>
-<td>$update_note</td>
-</tr>
-</table>";
 ?>
+<div>
+<span><img src="data/image/<?php echo $update_image; ?>" alt="" /></span>
+<span><?php echo $update_note; ?></span>
+</div>

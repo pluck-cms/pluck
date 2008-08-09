@@ -2,7 +2,8 @@
 /* 
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -25,22 +26,23 @@ $tinymce = "yes";
 //Then set character encoding
 header("Content-Type:text/html;charset=utf-8");
 ?>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title>pluck <?php echo $pluck_version; ?> - <?php echo $titelkop; ?></title>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <?php
 if ((isset($direction)) && ($direction == "rtl")) {
-	echo "<link href=\"data/styleadmin-rtl.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\">";
+	echo "<link href=\"data/styleadmin-rtl.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\" />";
 }
 else {
-	echo "<link href=\"data/styleadmin.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\">";
+	echo "<link href=\"data/styleadmin.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\" />";
 }
 
 //Include tinyMCE
 include("data/inc/tinymce_inc.php");
 ?>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex" />
 <script language="javascript" type="text/javascript">
 <!--
 function refresh() {
@@ -67,12 +69,11 @@ if (document.layers)
 </head>
 
 <body>
-<div class="menuheader">
-<div class="menu2">
-	<span class="menuitems"><?php echo $titelkop; ?></span>
-
+<div id="menuheader">
+<div id="menu2">
+	<span class="menuitem2"><?php echo $titelkop; ?></span>
 </div>
-<span class="cmssystem">pluck</span>
+<h1>pluck</h1>
 </div>
 
-<div class="text">
+<div id="text">

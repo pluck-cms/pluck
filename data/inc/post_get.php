@@ -2,7 +2,8 @@
 /* 
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -121,22 +122,22 @@ if (isset($_POST['cont5'])) {
 //Function: define menudiv
 //------------
 function showmenudiv($title,$text,$image,$url,$blank,$more=NULL) {
-echo "<div class=\"menudiv\" style=\"margin: 10px;\">
-	<table>
-		<tr>
-			<td>
-				<img src=\"data/image/$image\" border=\"0\" alt=\"\">
-			</td>
-			<td>
-				<span style=\"font-size: 17pt;\"><a href=\"$url\"";
-			   if ($blank == "true") {
-			   echo " target=\"_blank\""; }				
-				echo ">$title</a></span>  <span style=\"font-size: 8pt; color: gray;\">$more</span><br>
-				$text
-			</td>
-		</tr>
-	</table>
-</div>"; }
+?>
+<div class="menudiv">
+	<span>
+		<img src="data/image/<?php echo $image; ?>" alt="" />
+	</span>
+	<span>
+		<span><a href="<?php echo $url; ?>"
+		<?php if ($blank == 'true') {
+		echo ' target="_blank"'; }?>
+		><?php echo $title; ?></a></span>
+		<span class="more"><?php echo $more; ?></span><br />
+		<?php echo $text; ?>
+	</span>
+</div>
+<?php
+}
 
 
 //Function: read out the albums to show checkboxes
@@ -148,7 +149,7 @@ function read_albumsinpages($dir) {
            if(is_file($dir."/".$file))
                $files[]=$file;
            else
-               $dirs[]=$file;           
+               $dirs[]=$file;
        }
    }
    if($dirs) {
@@ -158,7 +159,7 @@ function read_albumsinpages($dir) {
 		include ("data/settings/langpref.php");
 		include ("data/inc/lang/en.php");
 		include ("data/inc/lang/$langpref");
-		//Some variables		
+		//Some variables
 		$editpage = $_GET['editpage'];
 		$action = $_GET['action'];
 		//Check if we need to include the existing page
@@ -245,33 +246,30 @@ function read_pages($dir) {
 				include ("data/settings/langpref.php");
 				include ("data/inc/lang/en.php");
 				include ("data/inc/lang/$langpref");
-echo "<div class=\"menudiv\" style=\"margin: 20px;\">
-<table>
-	<tr>
-		<td>
-			<img src=\"data/image/page.png\" border=\"0\" alt=\"\">
-		</td>
-		<td style=\"width: 350px;\">
-			<span style=\"font-size: 17pt;\">$title</span>
-		</td>
-		<td>
-		<a href=\"?editpage=$file\"><img src=\"data/image/edit.png\" border=\"0\" title=\"$lang_page3\"></a>		
-		</td>
-		<td>
-		<a href=\"?editmeta=$file\"><img src=\"data/image/siteinformation.png\" border=\"0\" title=\"$lang_meta1\" alt=\"$lang_meta1\"></a>		
-		</td>
-		<td>
-		<a href=\"?pageup=$file\"><img src=\"data/image/up.png\" border=\"0\" title=\"$lang_updown1\" alt=\"$lang_updown1\"></a>		
-		</td>
-		<td>
-		<a href=\"?pagedown=$file\"><img src=\"data/image/down.png\" border=\"0\" title=\"$lang_updown1\" alt=\"$lang_updown1\"></a>		
-		</td>
-		<td>
-		<a href=\"?deletepage=$file\"><img src=\"data/image/delete.png\" border=\"0\" title=\"$lang_trash1\" alt=\"$lang_trash1\"></a>		
-		</td>
-	</tr>
-</table>
-</div>"; }
+?>
+<div class="menudiv">
+	<span>
+		<img src="data/image/page.png" alt="">
+	</span>
+	<span class="title"><?php echo $title; ?></span>
+	<span>
+	<a href="?editpage=<?php echo $file; ?>"><img src="data/image/edit.png" title="<?php echo $lang_page3; ?>"></a>		
+	</span>
+	<span>
+	<a href="?editmeta=<?php echo $file; ?>"><img src="data/image/siteinformation.png" title="<?php echo $lang_meta1; ?>" alt="<?php echo $lang_meta1; ?>"></a>		
+	</span>
+	<span>
+	<a href="?pageup=<?php echo $file; ?>"><img src="data/image/up.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>"></a>		
+	</span>
+	<span>
+	<a href="?pagedown=<?php echo $file; ?>"><img src="data/image/down.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>"></a>		
+	</span>
+	<span>
+	<a href="?deletepage=<?php echo $file; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>"></a>		
+	</span>
+</div>
+<?php
+		}
    }
    closedir($path);
 }
@@ -363,7 +361,7 @@ function read_images($dir) {
            if(is_file($dir."/".$file))
                $files[]=$file;
            else
-               $dirs[]=$dir."/".$file;           
+               $dirs[]=$dir."/".$file;
        }
    }
    if (!$files) {
