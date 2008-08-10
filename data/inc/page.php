@@ -27,7 +27,7 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 ?>
 <div class="menudiv">
 	<span>
-		<img src="data/image/newpage.png" alt="">
+		<img src="data/image/newpage.png" alt="" />
 	</span>
 	<span>
 	<a href="?action=newpage"><?php echo $lang_page2; ?></a>
@@ -38,7 +38,7 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 ?>
 <div class="menudiv">
 	<span>
-		<img src="data/image/image.png" alt="">
+		<img src="data/image/image.png" alt="" />
 	</span>
 	<span>
 		<a href="?action=images"><?php echo $lang_kop17; ?></a>

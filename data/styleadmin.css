@@ -50,9 +50,9 @@ body {
 }
 
 #menu2 {
-	bottom:5px;
-	left:205px;
-	position:absolute;
+	bottom: 5px;
+	left: 205px;
+	position: absolute;
 }
 
 .menuitem2 {
@@ -128,9 +128,15 @@ h3 {
 	margin: 10px;
 }
 
-.menudiv .title {
+.menudiv .title-page {
 	width: 350px;
 	font-size: 17pt;
+}
+
+.menudiv .title-module {
+	width: 600px;
+	font-size: 17pt;
+	color: gray;
 }
 
 .menudiv span {
@@ -228,4 +234,8 @@ p {
 
 .smallmenu_a {
 	padding-left: 22px;
+}
+
+.red {
+	color: red;
 }

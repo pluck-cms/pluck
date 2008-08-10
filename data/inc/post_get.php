@@ -232,7 +232,7 @@ function read_pages($dir) {
            if(is_file($dir."/".$file))
                $files[]=$file;
            else
-               $dirs[]=$dir."/".$file;    
+               $dirs[]=$dir."/".$file;
        }
    }
    if($dirs) {
@@ -249,23 +249,23 @@ function read_pages($dir) {
 ?>
 <div class="menudiv">
 	<span>
-		<img src="data/image/page.png" alt="">
+		<img src="data/image/page.png" alt="" />
 	</span>
-	<span class="title"><?php echo $title; ?></span>
+	<span class="title-page"><?php echo $title; ?></span>
 	<span>
-	<a href="?editpage=<?php echo $file; ?>"><img src="data/image/edit.png" title="<?php echo $lang_page3; ?>"></a>		
-	</span>
-	<span>
-	<a href="?editmeta=<?php echo $file; ?>"><img src="data/image/siteinformation.png" title="<?php echo $lang_meta1; ?>" alt="<?php echo $lang_meta1; ?>"></a>		
+	<a href="?editpage=<?php echo $file; ?>"><img src="data/image/edit.png" title="<?php echo $lang_page3; ?>" alt="<?php echo $lang_page3; ?>" /></a>		
 	</span>
 	<span>
-	<a href="?pageup=<?php echo $file; ?>"><img src="data/image/up.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>"></a>		
+	<a href="?editmeta=<?php echo $file; ?>"><img src="data/image/siteinformation.png" title="<?php echo $lang_meta1; ?>" alt="<?php echo $lang_meta1; ?>" /></a>		
 	</span>
 	<span>
-	<a href="?pagedown=<?php echo $file; ?>"><img src="data/image/down.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>"></a>		
+	<a href="?pageup=<?php echo $file; ?>"><img src="data/image/up.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" /></a>		
 	</span>
 	<span>
-	<a href="?deletepage=<?php echo $file; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>"></a>		
+	<a href="?pagedown=<?php echo $file; ?>"><img src="data/image/down.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" /></a>		
+	</span>
+	<span>
+	<a href="?deletepage=<?php echo $file; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" /></a>		
 	</span>
 </div>
 <?php
