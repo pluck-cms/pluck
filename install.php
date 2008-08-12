@@ -159,6 +159,7 @@ $data1 = "data/settings/langpref.php";
 $file = fopen($data1, "w");
 fputs($file, "<?php \$langpref = \"$chosen_lang\"; ?>");
 fclose($file);
+chmod($data1,0777);
 
 //Save options
 if (!$cont) {
@@ -174,6 +175,7 @@ fputs($file, "<?php
 \$xhtmlruleset = \"false\";
 ?>");
 fclose($file);
+chmod($data2,0777);
 
 //MD5-hash password
 $password = md5($password);
@@ -182,6 +184,7 @@ $data3 = "data/settings/pass.php";
 $file = fopen($data3, "w");
 fputs($file, "<?php \$ww = \"$password\"; ?>");
 fclose($file);
+chmod($data3,0777);
 
 //Make some dirs for the trashcan and modulesettings
 mkdir("data/trash/pages", 0777);
@@ -242,6 +245,7 @@ fputs($file2, "<?php
 \$install = \"yes\";
 ?>");  
 fclose($file2);
+chmod($data2,0777);
 
 //Display success message
 $titelkop = $lang_install;
