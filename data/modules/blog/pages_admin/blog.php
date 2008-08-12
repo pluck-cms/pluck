@@ -47,8 +47,9 @@ include("data/modules/blog/functions.php");
 if(file_exists("data/settings/modules/blog/categories.dat")) {
 	//Load them
 	$categories = file_get_contents("data/settings/modules/blog/categories.dat");
+	
 	//Then in an array
-	$categories = split(",",$categories);
+	$categories = split(',',$categories);
 	
 	//And show them
 	//start table first
@@ -62,7 +63,7 @@ if(file_exists("data/settings/modules/blog/categories.dat")) {
 
 //If no categories exist, show a message
 else {
-	echo "<span class=\"kop4\">$lang_albums14</span>";
+	echo "<span class=\"kop4\">$lang_albums14</span><br>";
 }
 
 
