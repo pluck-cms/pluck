@@ -23,37 +23,67 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 include("data/modules/blog/functions.php");
 
 //Include the postinformation
-include("data/blog/$var2/posts/$var");
+if(file_exists('data/settings/modules/blog/posts/'.$var.'.php')) {
+	include('data/settings/modules/blog/posts/'.$var.'.php');
+}
+else {
+	exit;
+}
+?>
 
+<div class="rightmenu">
+<?php echo $lang_page8; ?><br />
+<?php
 //Generate the menu on the right
-echo "<div class=\"rightmenu\">";
-echo "$lang_page8 <br>";
 read_imagesinpages("images");
-echo "</div>";
+?>
+</div>
 
-//Form
-echo "<form method=\"post\" action=\"\">
-<span class=\"kop2\">$lang_install17</span><br>
-<input name=\"kop\" type=\"text\" value=\"$title\"><br><br>
+<form method="post" action="">
+	<span class="kop2"><?php echo $lang_install17; ?></span><br>
+	<input name="cont1" type="text" value="<?php echo $post_title; ?>"><br><br>
 
-<span class=\"kop2\">$lang_install18</span><br>
-<textarea class=\"tinymce\" name=\"tekst\" cols=\"70\" rows=\"20\">$content</textarea><br>";
+	<span class="kop2"><?php echo $lang_blog26; ?></span><br>
+	<select name="cont2">
+		<option value="<?php echo $lang_blog27; ?>" /> <?php echo $lang_blog25; ?>
+<?php
+//If there are categories
+if(file_exists("data/settings/modules/blog/categories.dat")) {
+	//Load them
+	$categories = file_get_contents("data/settings/modules/blog/categories.dat");
+	
+	//Then in an array
+	$categories = split(',',$categories);
+	
+	//And show them
+	//start table first
+	foreach($categories as $key => $name) {
+		echo '<option value="'.$name.'" />'.$name; 
+	}
+}
+?>
+	</select><br /><br />
 
-echo "<input type=\"submit\" name=\"Submit\" value=\"$lang_install13\">
-<input type=\"button\" name=\"Cancel\" value=\"$lang_install14\" onclick=\"javascript: window.location='?editblog=$var2';\">
-</form>";
+	<span class="kop2"><?php echo $lang_install18; ?></span><br>
+	<textarea class="tinymce" name="cont3" cols="70" rows="20"><?php echo $post_content; ?></textarea><br>
 
+	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>">
+	<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?module=blog';">
+</form>
+
+<?php
 //If form is posted...
 if(isset($_POST['Submit'])) {
-$data = "data/blog/$var2/posts/$var";
-include("data/inc/page_stripslashes.php");
 
-$file = fopen($data, "w");
-fputs($file, "<?php
-\$title = \"$kop\";
-\$content = \"$tekst\";
-\$postdate = \"$postdate\";
-?>");
-fclose($file);
-redirect("?module=blog&page=editblog&var=$var2","0"); }
+	//Strip slashes
+	include("data/inc/page_stripslashes.php");
+
+	//Save information
+	$file = fopen('data/settings/modules/blog/posts/'.$var.'.php', "w");
+	fputs($file, "<?php \n\$post_title = \"$cont1\";\n\$post_category = \"$cont2\";\n\$post_content = \"$cont3\";\n\$post_day = \"$post_day\";\n\$post_month = \"$post_month\";\n\$post_year = \"$post_year\";\n\$post_time = \"$post_time\";\n?>");
+	fclose($file);
+		
+	//Redirect user
+	redirect("?module=blog","0");
+}
 ?>

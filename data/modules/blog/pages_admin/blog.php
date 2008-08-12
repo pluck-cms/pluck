@@ -66,7 +66,6 @@ else {
 	echo "<span class=\"kop4\">$lang_albums14</span><br />";
 }
 
-
 //New category
 ?>
 <br /><span class="kop2"><?php echo $lang_blog4; ?></span><br />
@@ -88,6 +87,7 @@ if(isset($_POST['Submit'])) {
 		$cont1 = str_replace (",","", $cont1);
 		$cont1 = str_replace (".","", $cont1);
 		$cont1 = str_replace ("/","", $cont1);
+		$cont1 = str_replace ("\\","", $cont1);
 		
 		//Read out existing categories, if they exist
 		if(file_exists("data/settings/modules/blog/categories.dat")) {

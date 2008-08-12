@@ -235,7 +235,7 @@ $lang_blog13 = "include blog category in this page:"; //DELETE!!
 $lang_blog14 = "posted in";
 $lang_blog16 = "reactions";
 $lang_blog17 = "Title:";
-$lang_blog18 = "posted by";
+$lang_blog18 = "posted by"; //DELETE!!
 $lang_blog19 = "edit reactions";
 $lang_blog20 = "Here, you can edit the reactions of your visitors on the post.";
 
@@ -308,4 +308,7 @@ $lang_trash11 = "Are you sure you want to empty the trashcan? Please note that a
 $lang_modules27 =	"This module is not compatible with your version of pluck, and has been disabled.";
 $lang_settings7 = "The emailaddress you entered is invalid!";
 $lang_blog24 = "Here, you can make new posts to add to your blog. Posts will be automatically sorted on date.";
+$lang_blog25 = "Choose category...";
+$lang_blog26 = "category";
+$lang_blog27 = "no category";
 ?>
