@@ -95,7 +95,7 @@ if(isset($_POST['Submit'])) {
 		}
 		
 		//Make sure category doesn't already exist
-		if((!ereg($cont1,$categories)) || (!isset($categories))) {
+		if((!ereg($cont1.',',$categories)) || (!ereg(','.$cont1,$categories)) || (!isset($categories))) {
 			
 			//If there are already existing categories...
 			if(file_exists("data/settings/modules/blog/categories.dat")) {
