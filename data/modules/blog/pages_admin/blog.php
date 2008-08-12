@@ -23,7 +23,7 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 include("data/modules/blog/functions.php");
 ?>
 
-<p><b><?php $lang_blog24; ?></b></p>
+<p><b><?php echo $lang_blog24; ?></b></p>
 
 <div style="background-color: #f4f4f4; border: 1px dotted gray; margin: 10px; margin-bottom: 25px;">
 <table>
