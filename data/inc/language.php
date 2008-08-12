@@ -62,6 +62,9 @@ if((isset($_POST['Submit'])) && ($cont != "0") && (file_exists("data/inc/lang/$c
 	fputs($file, "<?php \$langpref = \"$cont\"; ?>");  
 	fclose($file);
 	chmod($data,0777);
-	echo "$lang_lang3 <META HTTP-EQUIV=\"REFRESH\" CONTENT=\"1; URL=?action=options\">";
+
+	//Redirect user
+	echo $lang_lang3;
+	redirect("?action=options","0");
 }
 ?>

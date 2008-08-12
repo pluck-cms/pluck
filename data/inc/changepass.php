@@ -52,7 +52,10 @@ if(isset($_POST['Submit'])) {
 		fputs($file, "<?php \$ww = \"$pass\"; ?>");  
 		fclose($file);
 		chmod($data,0777);
-		echo "$lang_cpass5 <META HTTP-EQUIV=\"REFRESH\" CONTENT=\"2; URL=?action=options\">";
+
+		//Redirect user
+		echo $lang_cpass5;
+		redirect("?action=options","0");
 	}
 }
 ?>

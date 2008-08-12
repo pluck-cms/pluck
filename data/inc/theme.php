@@ -89,6 +89,9 @@ if((isset($_POST['Submit'])) && ($cont != "0") && (file_exists("data/themes/$con
 	fputs($file, "<?php \$themepref = \"$cont\"; ?>");  
 	fclose($file);
 	chmod($data,0777);
-	echo "$lang_theme3 <META HTTP-EQUIV=\"REFRESH\" CONTENT=\"1; URL=?action=options\">";
+	
+	//Redirect user
+	echo $lang_theme3;
+	redirect("?action=options","0");
 }
 ?>
