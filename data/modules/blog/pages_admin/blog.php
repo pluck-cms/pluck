@@ -21,31 +21,28 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 
 //Include functions
 include("data/modules/blog/functions.php");
+?>
 
-//Introduction text
-echo "<p><b>$lang_blog24</b></p>";
+<p><b><?php $lang_blog24; ?></b></p>
 
-//Add new post button
-echo "<div style=\"background-color: #f4f4f4; border: 1px dotted gray; margin: 10px; margin-bottom: 25px;\">
+<div style="background-color: #f4f4f4; border: 1px dotted gray; margin: 10px; margin-bottom: 25px;">
 <table>
 	<tr>
 		<td>
-			<img src=\"data/image/newpage.png\" border=\"0\" alt=\"\">
+			<img src="data/image/newpage.png" border="0" alt="">
 		</td>
 		<td>
-			<span style=\"font-size: 17pt;\"><a href=\"?module=blog&page=newpost\">$lang_blog10</a></span>
+			<span style="font-size: 17pt;"><a href="?module=blog&page=newpost"><?php echo $lang_blog10; ?></a></span>
 		</td>
 	</tr>
 </table>
-</div>";
+</div>
 
-//Edit posts
-echo "<span class=\"kop2\">$lang_blog9</span><br>";
+<span class="kop2"><?php echo $lang_blog9; ?></span><br>
 
+<span class="kop2"><?php echo $lang_blog3; ?></span><br>
 
-//Existing categories
-echo "<span class=\"kop2\">$lang_blog3</span><br>";
-
+<?php
 //If there already are categories
 if(file_exists("data/settings/modules/blog/categories.dat")) {
 	//Load them
@@ -70,11 +67,16 @@ else {
 
 
 //New category
-echo "<br><span class=\"kop2\">$lang_blog4</span><br>";
-echo "<form method=\"post\"><span class=\"kop4\">$lang_blog5</span><br>
-<input name=\"cont1\" type=\"text\" value=\"\"> <input type=\"submit\" name=\"Submit\" value=\"$lang_install13\">
-</form>";
+?>
+<br><span class="kop2"><?php echo $lang_blog4; ?></span><br>
 
+<form method="post">
+	<span class="kop4"><?php echo $lang_blog5; ?></span><br>
+	<input name="cont1" type="text" value="">
+	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>">
+</form>
+
+<?php
 //When form is submitted
 if(isset($_POST['Submit'])) {
 	if($cont1) {
@@ -137,6 +139,6 @@ if(isset($_POST['Submit'])) {
 		redirect("?module=blog","0");
 	}
 }
-
-echo "<p><a href=\"?action=modules\"><<< $lang_theme12</a></p>";
 ?>
+
+<p><a href="?action=modules"><<< <?php echo $lang_theme12; ?></a></p>
