@@ -84,6 +84,7 @@ if(isset($_POST['Submit'])) {
 		$cont1 = stripslashes($cont1);
 		$cont1 = str_replace ("\"","", $cont1);
 		$cont1 = str_replace ("'","", $cont1);
+		$cont1 = str_replace (",","", $cont1);
 		$cont1 = str_replace (".","", $cont1);
 		$cont1 = str_replace ("/","", $cont1);
 		
@@ -128,7 +129,7 @@ if(isset($_POST['Submit'])) {
 					fputs($file,"$name,");
 				}
 				else {
-					fputs($file,"$name");
+					fputs($file,$name);
 				}
 			}
 			//Close file, and chmod it
