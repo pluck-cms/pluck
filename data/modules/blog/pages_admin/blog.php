@@ -38,9 +38,9 @@ include("data/modules/blog/functions.php");
 </table>
 </div>
 
-<span class="kop2"><?php echo $lang_blog9; ?></span><br>
+<span class="kop2"><?php echo $lang_blog9; ?></span><br />
 
-<span class="kop2"><?php echo $lang_blog3; ?></span><br>
+<span class="kop2"><?php echo $lang_blog3; ?></span><br />
 
 <?php
 //If there already are categories
@@ -63,16 +63,16 @@ if(file_exists("data/settings/modules/blog/categories.dat")) {
 
 //If no categories exist, show a message
 else {
-	echo "<span class=\"kop4\">$lang_albums14</span><br>";
+	echo "<span class=\"kop4\">$lang_albums14</span><br />";
 }
 
 
 //New category
 ?>
-<br><span class="kop2"><?php echo $lang_blog4; ?></span><br>
+<br /><span class="kop2"><?php echo $lang_blog4; ?></span><br />
 
 <form method="post">
-	<span class="kop4"><?php echo $lang_blog5; ?></span><br>
+	<span class="kop4"><?php echo $lang_blog5; ?></span><br />
 	<input name="cont1" type="text" value="">
 	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>">
 </form>
