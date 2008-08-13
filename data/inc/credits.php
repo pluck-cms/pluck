@@ -18,21 +18,32 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
     //Block all other code
     exit();
 }
+?>
 
-//Introduction text
-echo "<p><b>$lang_credits2</b></p>";
+<p>
+	<b><?php echo $lang_credits2; ?></b>
+</p>
 
-//Project leader
-//-----------
-echo "<p><span class=\"kop2\">$lang_credits3</span><br>
-Sander Thijsen
-</p>";
+<p>
+	<span class="kop2"><?php echo $lang_credits3; ?></span><br>
+	Sander Thijsen
+</p>
 
+<p>
+	<span class="kop2"><?php echo $lang_credits6; ?></span><br>
+	Sander Thijsen
+</p>
+
+<p>
+	<span class="kop2"><?php echo $lang_credits7; ?></span><br>
+	Kristaps Ancāns<br />
+	Dennis Sewbarath
+</p>
+
+<?php
 //Translation
 //-----------
 //First seek out who's the translator
-if ($langpref == "en.php") {
-$translator = "Sander Thijsen"; }
 if ($langpref == "nl.php") {
 $translator = "Sander Thijsen"; }
 if ($langpref == "da.php") {
@@ -53,34 +64,36 @@ if ($langpref == "lt.php") {
 $translator = "Mindaugas Salamachinas"; }
 if ($langpref == "no.php") {
 $translator = "John Erik Kristensen"; }
-if ($langpref == "pt.php") { 
+if ($langpref == "pt.php") {
 $translator = "Hélio Carrasqueira"; }
-if ($langpref == "pt_br.php") { 
+if ($langpref == "pt_br.php") {
 $translator = "Gilnei Moraes, sarkioja"; }
-if ($langpref == "ru.php") { 
+if ($langpref == "ru.php") {
 $translator = "Tkachev Vasily"; }
-if ($langpref == "sv.php") { 
+if ($langpref == "sv.php") {
 $translator = "Carl Jansson"; }
-if ($langpref == "bg.php") { 
+if ($langpref == "bg.php") {
 $translator = "smartx"; }
-if ($langpref == "th.php") { 
+if ($langpref == "th.php") {
 $translator = "meandev"; }
-if ($langpref == "lv.php") { 
+if ($langpref == "lv.php") {
 $translator = "Munky"; }
-if ($langpref == "it.php") { 
+if ($langpref == "it.php") {
 $translator = "Skc"; }
 
-//Then display
+//Then display, if language is not English
+if ($langpref != "en.php") {
 echo "<p><span class=\"kop2\">$lang_credits4</span><br>
 $translator
-</p>";
-
-//Project leader
-//-----------
-echo "<p><span class=\"kop2\">$lang_credits5</span><br>
-<a href=\"http://tinymce.moxiecode.com\" target=\"_blank\">MoxieCode</a>, for making the excellent TinyMCE-editor used in pluck<br>
-<a href=\"http://www.phpconcept.net\" target=\"_blank\">PhpConcept</a>, for making PclTar, used in the automatic theme-installer<br>
-<a href=\"http://www.huddletogether.com/projects/lightbox2\" target=\"_blank\">Lokesh</a>, for developing LightBox2, used in pluck to serve the images in your albums with flair<br>
-<a href=\"http://tango.freedesktop.org\" target=\"_blank\">The Tango Desktop Project</a>, for designing the wonderful icons used in the pluck administration center
-</p>";
+</p>"; }
 ?>
+
+<p>
+	<span class="kop2"><?php echo $lang_credits5; ?></span><br />
+	<a href="http://tinymce.moxiecode.com" target="_blank">MoxieCode</a>, for making the excellent TinyMCE-editor used in pluck<br />
+	<a href="http://www.phpconcept.net" target="_blank">PhpConcept</a>, for making PclTar, used in the automatic theme-installer<br />
+	<a href="http://www.huddletogether.com/projects/lightbox2" target="_blank">Lokesh</a>, for developing LightBox2, used in pluck to serve the images in your albums with flair<br />
+	<a href="http://www.justinbarkhuff.com/lab/lightbox_slideshow/" target="_blank">Justin Barkhuff</a>, for providing the slideshow feature for LightBox2<br />
+	<a href="http://tango.freedesktop.org" target="_blank">The Tango Desktop Project</a>, for designing the wonderful icons used in the pluck administration center<br />
+	<a href="http://www.famfamfam.com/lab/icons/silk/" target="_blank">Mark James</a>, for designing the "Silk" icons, also used in pluck 
+</p>
