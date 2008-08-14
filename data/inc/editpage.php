@@ -157,10 +157,15 @@ $file = fopen($data, "w");
 fputs($file, "<?php
 \$title = \"$kop\";
 \$content = \"$tekst\";
-\$hidden = \"$hidepage\";
-\$description = \"$description\";
-\$keywords = \"$keywords\";
-\$copyright = \"$copyright\";");
+\$hidden = \"$hidepage\";\n");
+
+//Only save other variables if they are set
+if(isset($description)) {
+	fputs($file, "\$description = \"$description\";\n");
+}
+if (isset($keywords)) {
+	fputs($file, "\$keywords = \"$keywords\";\n");
+}
 
 //Save the module information
 foreach ($incmodule as $modulename => $order) {

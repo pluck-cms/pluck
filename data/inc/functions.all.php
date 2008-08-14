@@ -22,8 +22,8 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 //Function: check if module is compatible
 //------------
 function module_is_compatible($module) {
-	//Include pluck version
-	include("data/inc/pluck_info.php");
+	//Include variables
+	include("data/inc/variables.all.php");
 	//Include module information
 	if (file_exists("data/modules/$module/module_info.php")) {
 		include("data/modules/$module/module_info.php");
@@ -109,7 +109,7 @@ $url = str_replace("%3D", "=", $url);
 $url = str_replace("%26", "&", $url);
 
 //finally generate the metatag for redirecting
-echo "<meta http-equiv=\"refresh\" content=\"$time; url=$url\">";
+echo '<meta http-equiv="refresh" content="'.$time.'; url='.$url.'">';
 }
 
 ?>

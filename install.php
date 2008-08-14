@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
  * http://www.pluck-cms.org
@@ -7,14 +7,12 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- 
+
  * See docs/COPYING for the complete license.
 */
 
 //Include security-enhancements
 require("data/inc/security.php");
-//Include pluck version information
-include("data/inc/pluck_info.php");
 //Include functions
 include("data/inc/functions.all.php");
 //Include Translation data

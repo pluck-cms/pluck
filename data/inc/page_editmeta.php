@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
  * http://www.pluck-cms.org
@@ -7,7 +7,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- 
+
  * See docs/COPYING for the complete license.
 */
 
@@ -31,7 +31,7 @@ echo "<p><b>$lang_meta2</b></p>
 <textarea name=\"cont1\" rows=\"3\" cols=\"50\">$description</textarea><br><br>
 
 <span class=\"kop2\">$lang_siteinfo4</span> ($lang_siteinfo5)<br>
-<textarea name=\"sleutel\" rows=\"5\" cols=\"50\">$keywords</textarea><br><br>
+<textarea name=\"cont2\" rows=\"5\" cols=\"50\">$keywords</textarea><br><br>
 
 <input type=\"submit\" name=\"Submit\" value=\"$lang_install13\">
 <input type=\"button\" name=\"Cancel\" value=\"$lang_install14\" onclick=\"javascript: window.location='?action=page';\">
@@ -45,20 +45,27 @@ $file = fopen($data, "w");
 fputs($file, "<?php 
 \$title = \"$title\";
 \$content = \"$content\";
-\$contactinc = \"$contactinc\";
-\$hidden = \"$hidden\";
-\$description = \"$cont1\";
-\$keywords = \"$sleutel\";
-\$copyright = \"$copyr\";");
+\$hidden = \"$hidden\";\n");
+
+//Only save other variables if they are set
+if (!empty($cont1)) {
+	fputs($file, "\$description = \"$cont1\";\n");
+}
+if (!empty($cont2)) {
+	fputs($file, "\$keywords = \"$cont2\";\n");
+}
 
 //Save the module information
 foreach ($module_pageinc as $modulename => $order) {
 fputs($file, "\n\$module_pageinc['$modulename'] = \"$order\";");
 }
 
-fputs($file, "\n ?>");
+fputs($file, "\n?>");
+//Close file and chmod
 fclose($file); 
-echo "$lang_meta4
-<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"0; URL=?action=page\">"; } 
+chmod($data, 0777);
 
+//Redirect user
+echo $lang_meta4;
+redirect('?action=page','0');} 
 ?>
