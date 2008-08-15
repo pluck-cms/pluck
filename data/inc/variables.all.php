@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
  * http://www.pluck-cms.org
@@ -7,7 +7,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- 
+
  * See docs/COPYING for the complete license.
 */
 
@@ -31,8 +31,9 @@ include("data/inc/lang/$langpref");
 if(file_exists("data/settings/options.php")) {
 	include("data/settings/options.php");
 }
-include("data/inc/pluck_info.php");
+
 //General variables
+$pluck_version = "4.6";
 $site_title = get_sitetitle();
 $site_langfile = $langpref;
 $site_lang = preg_replace('/.php/','',$site_langfile);

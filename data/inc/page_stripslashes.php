@@ -20,40 +20,58 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 }
 
 //For pages with TinyMCE
-if ($tinymce == "yes") {
-$tekst = stripslashes($tekst);
-$tekst = str_replace("\"", "\\\"", $tekst);
-$kop = stripslashes($kop);
-$kop = str_replace("\"", "\\\"", $kop);
-$keywords = stripslashes($keywords);
-$keywords = str_replace("\"", "\\\"", $keywords);
-$description = stripslashes($description);
-$description = str_replace("\"", "\\\"", $description);
+if($tinymce == "yes") {
+	$tekst = stripslashes($tekst);
+	$tekst = str_replace("\"", "\\\"", $tekst);
+	$kop = stripslashes($kop);
+	$kop = str_replace("\"", "\\\"", $kop);
+	if(isset($keywords)) {
+		$keywords = stripslashes($keywords);
+		$keywords = str_replace("\"", "\\\"", $keywords);
+	}
+	if(isset($description)) {
+		$description = stripslashes($description);
+		$description = str_replace("\"", "\\\"", $description);
+	}
 }
 
 //For editmeta
-elseif ($editmeta) {
-$title = stripslashes($title);
-$title = str_replace("\"", "\\\"", $title);
-$content = stripslashes($content);
-$content = str_replace("\"", "\\\"", $content);
-$sleutel = stripslashes($sleutel);
-$sleutel = str_replace("\"", "\\\"", $sleutel);
-$cont1 = stripslashes($cont1);
-$cont1 = str_replace("\"", "\\\"", $cont1);
+elseif($editmeta) {
+	$title = stripslashes($title);
+	$title = str_replace("\"", "\\\"", $title);
+	$content = stripslashes($content);
+	$content = str_replace("\"", "\\\"", $content);
+	if(isset($cont1)) {
+		$cont1 = stripslashes($cont1);
+		$cont1 = str_replace("\"", "\\\"", $cont1);
+	}
+	if(isset($cont2)) {
+		$cont2 = stripslashes($cont2);
+		$cont2 = str_replace("\"", "\\\"", $cont2);
+	}
 }
 
 //For other instances
 else {
-$cont1 = stripslashes($cont1);
-$cont1 = str_replace("\"", "\\\"", $cont1);
-$cont2 = stripslashes($cont2);
-$cont2 = str_replace("\"", "\\\"", $cont2);
-$cont3 = stripslashes($cont3);
-$cont3 = str_replace("\"", "\\\"", $cont3);
-$cont4 = stripslashes($cont4);
-$cont4 = str_replace("\"", "\\\"", $cont4);
-$cont5 = stripslashes($cont5);
-$cont5 = str_replace("\"", "\\\"", $cont5);
+	if(isset($cont1)) {
+		$cont1 = stripslashes($cont1);
+		$cont1 = str_replace("\"", "\\\"", $cont1);
+	}
+	if(isset($cont2)) {
+		$cont2 = stripslashes($cont2);
+		$cont2 = str_replace("\"", "\\\"", $cont2);
+	}
+	if(isset($cont3)) {
+		$cont3 = stripslashes($cont3);
+		$cont3 = str_replace("\"", "\\\"", $cont3);
+	}
+	if(isset($cont4)) {
+		$cont4 = stripslashes($cont4);
+		$cont4 = str_replace("\"", "\\\"", $cont4);
+	}
+	if(isset($cont5)) {
+		$cont5 = stripslashes($cont5);
+		$cont5 = str_replace("\"", "\\\"", $cont5);
+	}
 }
 ?>

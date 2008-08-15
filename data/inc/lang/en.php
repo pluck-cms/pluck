@@ -258,7 +258,7 @@ $lang_trash10 = "restore item";
 $lang_blog23 = "view or post reactions";
 $lang_credits = "credits";
 $lang_credits1 = "all the people who helped developing pluck";
-$lang_credits2 = "Our thanks goes to all the following people, for helping in pluck's development.";
+$lang_credits2 = "Our thanks goes to all the following people, for helping in the development of pluck.";
 $lang_credits3 = "project leader";
 $lang_credits4 = "translation";
 $lang_credits5 = "more thanks";
@@ -307,4 +307,6 @@ $lang_trash11 = "Are you sure you want to empty the trashcan? Please note that a
 //---------------
 $lang_modules27 =	"This module is not compatible with your version of pluck, and has been disabled.";
 $lang_settings7 = "The emailaddress you entered is invalid!";
+$lang_credits6 = "main developers";
+$lang_credits7 = "contributions";
 ?>

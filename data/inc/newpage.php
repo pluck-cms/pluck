@@ -165,10 +165,7 @@ $file = fopen($data, "w");
 fputs($file, "<?php
 \$title = \"$kop\";
 \$content = \"$tekst\";
-\$hidden = \"$hidepage\";
-\$description = \"$description\";
-\$keywords = \"$keywords\";
-\$copyright = \"$copyright\";");
+\$hidden = \"$hidepage\";");
 
 //Save the module information
 foreach ($incmodule as $modulename => $order) {

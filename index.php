@@ -1,13 +1,14 @@
 <?php
-/* 
+/*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- 
+
  * See docs/COPYING for the complete license.
 */
 
@@ -28,8 +29,6 @@ require("data/inc/security.php");
 //Include functions
 include("data/inc/functions.all.php");
 include("data/inc/functions.site.php");
-//Include pluck version information
-include("data/inc/pluck_info.php");
 //Include Theme data
 include("data/settings/themepref.php");
 //Then, if we have a RTL-language and theme hasn't been converted
@@ -140,20 +139,25 @@ function theme_meta() {
 	//Get pagetitle
 	$pagetitle = get_pagetitle();
 
-	echo "<meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\" />\n";
-	echo "<title>$pagetitle - $sitetitle</title>\n";
-	echo "<link href=\"$cssfile\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\" />\n";
+	echo '<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />'."\n";
+	echo '<meta name="generator" content="pluck '.$pluck_version.'" />'."\n";
+	echo '<title>'.$pagetitle.' - '.$sitetitle.'</title>'."\n";
+	echo '<link href="'.$cssfile.'" rel="stylesheet" type="text/css" media="screen" />'."\n";
 
 	//If we are not looking at a module: include metatag information
 	if ((isset($filetoread)) && (file_exists("data/settings/pages/$filetoread"))) {
-		echo "<meta name=\"title\" content=\"$title\" />\n";
-		echo "<meta name=\"keywords\" content=\"$keywords\" />\n";
-		echo "<meta name=\"description\" content=\"$description\" />\n";
+		echo '<meta name="title" content="'.$title.'" />'."\n";
+		if (isset($keywords)) {
+			echo '<meta name="keywords" content="'.$keywords.'" />'."\n";
+		}
+		if (isset($description)) {
+			echo '<meta name="description" content="'.$description.'" />'."\n";
+		}
 	}
 
 	//If RTL, set direction to RTL in CSS
 	if ((isset($direction)) && ($direction == "rtl")) {
-		echo "<style type=\"text/css\">body {direction:rtl;}</style>\n";
+		echo '<style type=\"text/css\">body {direction:rtl;}</style>'."\n";
 	}
 
 	//Also include module head-inclusion files (inc_site_head.php)

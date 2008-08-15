@@ -1,6 +1,8 @@
 pluck 4.6
 ----------------------------------------
 - added predefined module variables in administration center
+- added support for slideshows in Lightbox
+- now showing image name and description in Lightbox
 - [bug] close button and loading image in Lightbox didn't show up
 
 pluck 4.6 beta 1
