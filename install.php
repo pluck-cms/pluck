@@ -250,10 +250,6 @@ $titelkop = $lang_install;
 include ("data/inc/header2.php");
 echo "<p><b>$lang_install19</b>";
 
-//Delete temporary packaging-files
-unlink ("images/delete_me");
-unlink ("data/trash/delete_me");
-
 echo "<div style=\"background-color: #f4f4f4; border: 1px dotted gray; margin: 10px;\">
 	<table>
 		<tr>
