@@ -20,8 +20,9 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 }
 
 //Introduction text
-echo "<p><b>$lang_options1</b></p>";
-
+?>
+<p><strong><?php echo $lang_options1; ?></strong></p>
+<?php
 //Show the divs
 showmenudiv($lang_settings,$lang_settings3,"page.png","?action=settings","false");
 showmenudiv($lang_modules3,$lang_modules4,"modules.png","?action=managemodules","false");

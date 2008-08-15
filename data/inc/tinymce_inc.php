@@ -2,7 +2,8 @@
 /* 
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -115,6 +116,7 @@ $tinymce_lang = "en"; }
 
 echo "<script language=\"javascript\" type=\"text/javascript\" src=\"data/inc/tinymce/jscripts/tiny_mce/tiny_mce.js\"></script>
 <script language=\"javascript\" type=\"text/javascript\">
+//<![CDATA[
 tinyMCE.init({
 	mode : \"textareas\",
 	editor_selector : \"tinymce\",
@@ -399,5 +401,6 @@ echo "valid_elements : \"\" +
   +\"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style\"
   +\"|title]\""; }
 echo "});
+//]]>
 </script>";
 ?>

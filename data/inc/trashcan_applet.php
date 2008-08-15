@@ -2,7 +2,8 @@
 /* 
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -27,12 +28,9 @@ if ($trashcan_items == "0") {
 $trash_image = "trash.png"; }
 else {
 $trash_image = "trash-full.png"; }
-
-echo "<table>
-<tr>
-<td><a href=\"?action=trashcan\"><img src=\"data/image/$trash_image\" border=\"0\" align=\"right\" alt=\"$lang_trash\" title=\"$lang_trash\"></a></td>
-<td>$trashcan_items $lang_trash3</td>
-</tr>
-</table>";
-
 ?>
+<div>
+<span><a href="?action=trashcan"><img src="data/image/<?php echo $trash_image; ?>" alt="<?php echo $lang_trash; ?>" title="<?php echo $lang_trash; ?>" /></a></span>
+<span><?php echo $trashcan_items; ?> <?php echo $lang_trash3; ?></span>
+</div>
+

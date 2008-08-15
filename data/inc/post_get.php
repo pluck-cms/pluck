@@ -2,7 +2,8 @@
 /* 
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -119,22 +120,22 @@ if (isset($_POST['cont5'])) {
 //Function: define menudiv
 //------------
 function showmenudiv($title,$text,$image,$url,$blank,$more=NULL) {
-echo "<div class=\"menudiv\" style=\"margin: 10px;\">
-	<table>
-		<tr>
-			<td>
-				<img src=\"data/image/$image\" border=\"0\" alt=\"\">
-			</td>
-			<td>
-				<span style=\"font-size: 17pt;\"><a href=\"$url\"";
-			   if ($blank == "true") {
-			   echo " target=\"_blank\""; }				
-				echo ">$title</a></span>  <span style=\"font-size: 8pt; color: gray;\">$more</span><br>
-				$text
-			</td>
-		</tr>
-	</table>
-</div>"; }
+?>
+<div class="menudiv">
+	<span>
+		<img src="data/image/<?php echo $image; ?>" alt="" />
+	</span>
+	<span>
+		<span><a href="<?php echo $url; ?>"
+		<?php if ($blank == 'true') {
+		echo ' target="_blank"'; }?>
+		><?php echo $title; ?></a></span>
+		<span class="more"><?php echo $more; ?></span><br />
+		<?php echo $text; ?>
+	</span>
+</div>
+<?php
+}
 
 
 //Function: read out the albums to show checkboxes
@@ -146,7 +147,7 @@ function read_albumsinpages($dir) {
            if(is_file($dir."/".$file))
                $files[]=$file;
            else
-               $dirs[]=$file;           
+               $dirs[]=$file;
        }
    }
    if($dirs) {
@@ -156,7 +157,7 @@ function read_albumsinpages($dir) {
 		include ("data/settings/langpref.php");
 		include ("data/inc/lang/en.php");
 		include ("data/inc/lang/$langpref");
-		//Some variables		
+		//Some variables
 		$editpage = $_GET['editpage'];
 		$action = $_GET['action'];
 		//Check if we need to include the existing page
@@ -171,9 +172,9 @@ function read_albumsinpages($dir) {
 		echo ""; }
 		//...but is needed when album has previously been included
 		elseif ($incalbum[$dir] == "yes") {
-		echo "checked"; }
+		echo "checked=\"checked\""; }
 		
-		echo "> $lang_albums17 $dir<br>"; }
+		echo " /> $lang_albums17 $dir<br />"; }
    }
    closedir($path);
 }
@@ -212,9 +213,9 @@ function read_bloginpages($dir) {
 		echo ""; }
 		//...but is needed when blog has previously been included
 		elseif ($incblog[$dir] == "yes") {
-		echo "checked"; }
+		echo "checked=\"checked\""; }
 		
-		echo "> $lang_blog13 $dir<br>"; }
+		echo " /> $lang_blog13 $dir<br />"; }
    }
    closedir($path);
 }
@@ -229,7 +230,7 @@ function read_pages($dir) {
            if(is_file($dir."/".$file))
                $files[]=$file;
            else
-               $dirs[]=$dir."/".$file;    
+               $dirs[]=$dir."/".$file;
        }
    }
    if($dirs) {
@@ -243,33 +244,30 @@ function read_pages($dir) {
 				include ("data/settings/langpref.php");
 				include ("data/inc/lang/en.php");
 				include ("data/inc/lang/$langpref");
-echo "<div class=\"menudiv\" style=\"margin: 20px;\">
-<table>
-	<tr>
-		<td>
-			<img src=\"data/image/page.png\" border=\"0\" alt=\"\">
-		</td>
-		<td style=\"width: 350px;\">
-			<span style=\"font-size: 17pt;\">$title</span>
-		</td>
-		<td>
-		<a href=\"?editpage=$file\"><img src=\"data/image/edit.png\" border=\"0\" title=\"$lang_page3\"></a>		
-		</td>
-		<td>
-		<a href=\"?editmeta=$file\"><img src=\"data/image/siteinformation.png\" border=\"0\" title=\"$lang_meta1\" alt=\"$lang_meta1\"></a>		
-		</td>
-		<td>
-		<a href=\"?pageup=$file\"><img src=\"data/image/up.png\" border=\"0\" title=\"$lang_updown1\" alt=\"$lang_updown1\"></a>		
-		</td>
-		<td>
-		<a href=\"?pagedown=$file\"><img src=\"data/image/down.png\" border=\"0\" title=\"$lang_updown1\" alt=\"$lang_updown1\"></a>		
-		</td>
-		<td>
-		<a href=\"?deletepage=$file\"><img src=\"data/image/delete.png\" border=\"0\" title=\"$lang_trash1\" alt=\"$lang_trash1\"></a>		
-		</td>
-	</tr>
-</table>
-</div>"; }
+?>
+<div class="menudiv">
+	<span>
+		<img src="data/image/page.png" alt="" />
+	</span>
+	<span class="title-page"><?php echo $title; ?></span>
+	<span>
+	<a href="?editpage=<?php echo $file; ?>"><img src="data/image/edit.png" title="<?php echo $lang_page3; ?>" alt="<?php echo $lang_page3; ?>" /></a>		
+	</span>
+	<span>
+	<a href="?editmeta=<?php echo $file; ?>"><img src="data/image/siteinformation.png" title="<?php echo $lang_meta1; ?>" alt="<?php echo $lang_meta1; ?>" /></a>		
+	</span>
+	<span>
+	<a href="?pageup=<?php echo $file; ?>"><img src="data/image/up.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" /></a>		
+	</span>
+	<span>
+	<a href="?pagedown=<?php echo $file; ?>"><img src="data/image/down.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" /></a>		
+	</span>
+	<span>
+	<a href="?deletepage=<?php echo $file; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" /></a>		
+	</span>
+</div>
+<?php
+		}
    }
    closedir($path);
 }
@@ -294,19 +292,22 @@ function read_imagesinpages($dir) {
 		include ("data/settings/langpref.php");
 		include ("data/inc/lang/en.php");
 		include ("data/inc/lang/$langpref");
-      echo "<div class=\"menudiv\" style=\"width: 200px; margin: 2px;\">
-					<table>
-						<tr>
-							<td>
-								<img src=\"data/image/image_small.png\" border=\"0\" alt=\"\">
-							</td>
-							<td style=\"font-size: 14px;\">
-								<span style=\"font-size: 16px;\"><a href=\"images/$file\" target=\"_blank\"\">$file</a></span><br>
-								<a href=\"#\" onclick=\"tinyMCE.execCommand('mceInsertContent',false,'<img src=images/$file alt=>');return false;\">$lang_page7</a>
-							</td>
-						</tr>
-					</table>
-				</div>"; }
+?>
+		<div class="menudiv" style="width: 200px; margin: 2px;">
+			<table>
+				<tr>
+					<td>
+						<img src="data/image/image_small.png" alt="" />
+					</td>
+					<td style="font-size: 14px;">
+						<span style="font-size: 16px;"><a href="images/<?php echo $file; ?>" target="_blank"><?php echo $file; ?></a></span><br>
+						<a href="#" onclick="tinyMCE.execCommand('mceInsertContent',false,'<img src=images/<?php echo $file; ?> alt=>');return false;"><?php echo $lang_page7; ?></a>
+					</td>
+				</tr>
+			</table>
+		</div>
+<?php
+		}
    }
    closedir($path);
 }
@@ -361,7 +362,7 @@ function read_images($dir) {
            if(is_file($dir."/".$file))
                $files[]=$file;
            else
-               $dirs[]=$dir."/".$file;           
+               $dirs[]=$dir."/".$file;
        }
    }
    if (!$files) {
@@ -382,16 +383,16 @@ function read_images($dir) {
 							<table>
 								<tr>
 									<td>
-										<img src=\"data/image/image.png\" border=\"0\" alt=\"\">
+										<img src=\"data/image/image.png\" alt=\"\">
 									</td>
 									<td style=\"width: 350px\">
 										<span style=\"font-size: 17pt;\">$file</span>
 									</td>
 									<td>
-										<a href=\"images/$file\" target=\"_blank\"\"><img src=\"data/image/view.png\" border=\"0\" alt=\"\"></a>									
+										<a href=\"images/$file\" target=\"_blank\"\"><img src=\"data/image/view.png\" alt=\"\"></a>									
 									</td>
 									<td>
-										<a href=\"?deleteimage=$file\"><img src=\"data/image/delete.png\" border=\"0\" title=\"$lang_trash1\" alt=\"$lang_trash1\"></a>		
+										<a href=\"?deleteimage=$file\"><img src=\"data/image/delete.png\" title=\"$lang_trash1\" alt=\"$lang_trash1\"></a>		
 									</td>
 								</tr>
 							</table>
@@ -430,19 +431,19 @@ echo "<div class=\"menudiv\" style=\"margin: 20px;\">
 <table>
 	<tr>
 		<td>
-			<img src=\"data/image/page.png\" border=\"0\" alt=\"\">
+			<img src=\"data/image/page.png\" alt=\"\">
 		</td>
 		<td style=\"width: 350px;\">
 			<span style=\"font-size: 17pt;\">$title</span>
 		</td>
 		<td>
-		<a href=\"?trash_viewitem=$file&cat=page\"><img src=\"data/image/view.png\" border=\"0\" alt=\"$lang_trash7\" title=\"$lang_trash7\"></a>		
+		<a href=\"?trash_viewitem=$file&cat=page\"><img src=\"data/image/view.png\" alt=\"$lang_trash7\" title=\"$lang_trash7\"></a>		
 		</td>
 		<td>
-		<a href=\"?trash_restoreitem=$file&cat=page\"><img src=\"data/image/restore.png\" border=\"0\" title=\"$lang_trash10\" alt=\"$lang_trash10\"></a>		
+		<a href=\"?trash_restoreitem=$file&cat=page\"><img src=\"data/image/restore.png\" title=\"$lang_trash10\" alt=\"$lang_trash10\"></a>		
 		</td>
 		<td>
-		<a href=\"?trash_deleteitem=$file&cat=page\"><img src=\"data/image/delete_from_trash.png\" border=\"0\" title=\"$lang_trash8\" alt=\"$lang_trash8\"></a>		
+		<a href=\"?trash_deleteitem=$file&cat=page\"><img src=\"data/image/delete_from_trash.png\" title=\"$lang_trash8\" alt=\"$lang_trash8\"></a>		
 		</td>
 	</tr>
 </table>
@@ -480,19 +481,19 @@ echo "<div class=\"menudiv\" style=\"margin: 20px;\">
 <table>
 	<tr>
 		<td>
-			<img src=\"data/image/image.png\" border=\"0\" alt=\"\">
+			<img src=\"data/image/image.png\" alt=\"\">
 		</td>
 		<td style=\"width: 350px;\">
 			<span style=\"font-size: 17pt;\">$file</span>
 		</td>
 		<td>
-		<a href=\"data/trash/images/$file\" target=\"_blank\"><img src=\"data/image/view.png\" border=\"0\" alt=\"$lang_trash7\" title=\"$lang_trash7\"></a>		
+		<a href=\"data/trash/images/$file\" target=\"_blank\"><img src=\"data/image/view.png\" alt=\"$lang_trash7\" title=\"$lang_trash7\"></a>		
 		</td>
 		<td>
-		<a href=\"?trash_restoreitem=$file&cat=image\"><img src=\"data/image/restore.png\" border=\"0\" title=\"$lang_trash10\" alt=\"$lang_trash10\"></a>		
+		<a href=\"?trash_restoreitem=$file&cat=image\"><img src=\"data/image/restore.png\" title=\"$lang_trash10\" alt=\"$lang_trash10\"></a>		
 		</td>
 		<td>
-		<a href=\"?trash_deleteitem=$file&cat=image\"><img src=\"data/image/delete_from_trash.png\" border=\"0\" title=\"$lang_trash8\" alt=\"$lang_trash8\"></a>		
+		<a href=\"?trash_deleteitem=$file&cat=image\"><img src=\"data/image/delete_from_trash.png\" title=\"$lang_trash8\" alt=\"$lang_trash8\"></a>		
 		</td>
 	</tr>
 </table>

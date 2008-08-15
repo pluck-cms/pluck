@@ -20,8 +20,9 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 }
 
 //Introduction text
-echo "<p><b>$lang_modules1</b></p>";
-
+?>
+<p><strong><?php echo $lang_modules1; ?></strong></p>
+<?php
 //Define path to the module-dir
 $path = "data/modules";
 //Open the folder

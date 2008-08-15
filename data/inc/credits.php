@@ -21,21 +21,21 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 ?>
 
 <p>
-	<b><?php echo $lang_credits2; ?></b>
+	<strong><?php echo $lang_credits2; ?></strong>
 </p>
 
 <p>
-	<span class="kop2"><?php echo $lang_credits3; ?></span><br>
+	<span class="kop2"><?php echo $lang_credits3; ?></span><br />
 	Sander Thijsen
 </p>
 
 <p>
-	<span class="kop2"><?php echo $lang_credits6; ?></span><br>
+	<span class="kop2"><?php echo $lang_credits6; ?></span><br />
 	Sander Thijsen
 </p>
 
 <p>
-	<span class="kop2"><?php echo $lang_credits7; ?></span><br>
+	<span class="kop2"><?php echo $lang_credits7; ?></span><br />
 	Kristaps Ancāns<br />
 	Dennis Sewbarath
 </p>
@@ -83,7 +83,7 @@ $translator = "Skc"; }
 
 //Then display, if language is not English
 if ($langpref != "en.php") {
-echo "<p><span class=\"kop2\">$lang_credits4</span><br>
+echo "<p><span class=\"kop2\">$lang_credits4</span><br />
 $translator
 </p>"; }
 ?>
