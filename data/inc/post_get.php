@@ -174,9 +174,9 @@ function read_albumsinpages($dir) {
 		echo ""; }
 		//...but is needed when album has previously been included
 		elseif ($incalbum[$dir] == "yes") {
-		echo "checked"; }
+		echo "checked=\"checked\""; }
 		
-		echo "> $lang_albums17 $dir<br>"; }
+		echo " /> $lang_albums17 $dir<br />"; }
    }
    closedir($path);
 }
@@ -215,9 +215,9 @@ function read_bloginpages($dir) {
 		echo ""; }
 		//...but is needed when blog has previously been included
 		elseif ($incblog[$dir] == "yes") {
-		echo "checked"; }
+		echo "checked=\"checked\""; }
 		
-		echo "> $lang_blog13 $dir<br>"; }
+		echo " /> $lang_blog13 $dir<br />"; }
    }
    closedir($path);
 }
@@ -294,19 +294,22 @@ function read_imagesinpages($dir) {
 		include ("data/settings/langpref.php");
 		include ("data/inc/lang/en.php");
 		include ("data/inc/lang/$langpref");
-      echo "<div class=\"menudiv\" style=\"width: 200px; margin: 2px;\">
-					<table>
-						<tr>
-							<td>
-								<img src=\"data/image/image_small.png\" border=\"0\" alt=\"\">
-							</td>
-							<td style=\"font-size: 14px;\">
-								<span style=\"font-size: 16px;\"><a href=\"images/$file\" target=\"_blank\"\">$file</a></span><br>
-								<a href=\"#\" onclick=\"tinyMCE.execCommand('mceInsertContent',false,'<img src=images/$file alt=>');return false;\">$lang_page7</a>
-							</td>
-						</tr>
-					</table>
-				</div>"; }
+?>
+		<div class="menudiv" style="width: 200px; margin: 2px;">
+			<table>
+				<tr>
+					<td>
+						<img src="data/image/image_small.png" alt="" />
+					</td>
+					<td style="font-size: 14px;">
+						<span style="font-size: 16px;"><a href="images/<?php echo $file; ?>" target="_blank"><?php echo $file; ?></a></span><br>
+						<a href="#" onclick="tinyMCE.execCommand('mceInsertContent',false,'<img src=images/<?php echo $file; ?> alt=>');return false;"><?php echo $lang_page7; ?></a>
+					</td>
+				</tr>
+			</table>
+		</div>
+<?php
+		}
    }
    closedir($path);
 }
@@ -382,16 +385,16 @@ function read_images($dir) {
 							<table>
 								<tr>
 									<td>
-										<img src=\"data/image/image.png\" border=\"0\" alt=\"\">
+										<img src=\"data/image/image.png\" alt=\"\">
 									</td>
 									<td style=\"width: 350px\">
 										<span style=\"font-size: 17pt;\">$file</span>
 									</td>
 									<td>
-										<a href=\"images/$file\" target=\"_blank\"\"><img src=\"data/image/view.png\" border=\"0\" alt=\"\"></a>									
+										<a href=\"images/$file\" target=\"_blank\"\"><img src=\"data/image/view.png\" alt=\"\"></a>									
 									</td>
 									<td>
-										<a href=\"?deleteimage=$file\"><img src=\"data/image/delete.png\" border=\"0\" title=\"$lang_trash1\" alt=\"$lang_trash1\"></a>		
+										<a href=\"?deleteimage=$file\"><img src=\"data/image/delete.png\" title=\"$lang_trash1\" alt=\"$lang_trash1\"></a>		
 									</td>
 								</tr>
 							</table>
@@ -430,19 +433,19 @@ echo "<div class=\"menudiv\" style=\"margin: 20px;\">
 <table>
 	<tr>
 		<td>
-			<img src=\"data/image/page.png\" border=\"0\" alt=\"\">
+			<img src=\"data/image/page.png\" alt=\"\">
 		</td>
 		<td style=\"width: 350px;\">
 			<span style=\"font-size: 17pt;\">$title</span>
 		</td>
 		<td>
-		<a href=\"?trash_viewitem=$file&cat=page\"><img src=\"data/image/view.png\" border=\"0\" alt=\"$lang_trash7\" title=\"$lang_trash7\"></a>		
+		<a href=\"?trash_viewitem=$file&cat=page\"><img src=\"data/image/view.png\" alt=\"$lang_trash7\" title=\"$lang_trash7\"></a>		
 		</td>
 		<td>
-		<a href=\"?trash_restoreitem=$file&cat=page\"><img src=\"data/image/restore.png\" border=\"0\" title=\"$lang_trash10\" alt=\"$lang_trash10\"></a>		
+		<a href=\"?trash_restoreitem=$file&cat=page\"><img src=\"data/image/restore.png\" title=\"$lang_trash10\" alt=\"$lang_trash10\"></a>		
 		</td>
 		<td>
-		<a href=\"?trash_deleteitem=$file&cat=page\"><img src=\"data/image/delete_from_trash.png\" border=\"0\" title=\"$lang_trash8\" alt=\"$lang_trash8\"></a>		
+		<a href=\"?trash_deleteitem=$file&cat=page\"><img src=\"data/image/delete_from_trash.png\" title=\"$lang_trash8\" alt=\"$lang_trash8\"></a>		
 		</td>
 	</tr>
 </table>
@@ -480,19 +483,19 @@ echo "<div class=\"menudiv\" style=\"margin: 20px;\">
 <table>
 	<tr>
 		<td>
-			<img src=\"data/image/image.png\" border=\"0\" alt=\"\">
+			<img src=\"data/image/image.png\" alt=\"\">
 		</td>
 		<td style=\"width: 350px;\">
 			<span style=\"font-size: 17pt;\">$file</span>
 		</td>
 		<td>
-		<a href=\"data/trash/images/$file\" target=\"_blank\"><img src=\"data/image/view.png\" border=\"0\" alt=\"$lang_trash7\" title=\"$lang_trash7\"></a>		
+		<a href=\"data/trash/images/$file\" target=\"_blank\"><img src=\"data/image/view.png\" alt=\"$lang_trash7\" title=\"$lang_trash7\"></a>		
 		</td>
 		<td>
-		<a href=\"?trash_restoreitem=$file&cat=image\"><img src=\"data/image/restore.png\" border=\"0\" title=\"$lang_trash10\" alt=\"$lang_trash10\"></a>		
+		<a href=\"?trash_restoreitem=$file&cat=image\"><img src=\"data/image/restore.png\" title=\"$lang_trash10\" alt=\"$lang_trash10\"></a>		
 		</td>
 		<td>
-		<a href=\"?trash_deleteitem=$file&cat=image\"><img src=\"data/image/delete_from_trash.png\" border=\"0\" title=\"$lang_trash8\" alt=\"$lang_trash8\"></a>		
+		<a href=\"?trash_deleteitem=$file&cat=image\"><img src=\"data/image/delete_from_trash.png\" title=\"$lang_trash8\" alt=\"$lang_trash8\"></a>		
 		</td>
 	</tr>
 </table>

@@ -50,8 +50,12 @@ if(isset($_POST['Submit'])) {
 		$data = "data/settings/pass.php";    
 		$file = fopen($data, "w");  
 		fputs($file, "<?php \$ww = \"$pass\"; ?>");  
-		fclose($file);    
-		echo "$lang_cpass5 <META HTTP-EQUIV=\"REFRESH\" CONTENT=\"2; URL=?action=options\">";
+		fclose($file);
+		chmod($data,0777);
+
+		//Redirect user
+		echo $lang_cpass5;
+		redirect("?action=options","0");
 	}
 }
 ?>

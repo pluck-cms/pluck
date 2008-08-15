@@ -16,9 +16,9 @@ if (isset($_GET['module'])) {
 	$module = $_GET['module'];
 }
 if ((isset($module)) && ($module == "albums")) {
-echo "<link href=\"data/inc/lightbox/css/lightbox.css\" rel=\"stylesheet\"  type=\"text/css\" media=\"screen\" />
-<script src=\"data/inc/lightbox/js/prototype.js\" type=\"text/javascript\"></script>
-<script src=\"data/inc/lightbox/js/scriptaculous.js?load=effects\" type=\"text/javascript\"></script>
-<script src=\"data/inc/lightbox/js/lightbox.js\" type=\"text/javascript\"></script>";
+echo "<link href=\"data/inc/lightbox/lightbox.css\" rel=\"stylesheet\"  type=\"text/css\" media=\"screen\" />
+<script src=\"data/inc/lightbox/prototype.js\" type=\"text/javascript\"></script>
+<script src=\"data/inc/lightbox/scriptaculous.js?load=effects\" type=\"text/javascript\"></script>
+<script src=\"data/inc/lightbox/lightbox.js\" type=\"text/javascript\"></script>";
 }
 ?>

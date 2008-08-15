@@ -24,32 +24,34 @@ include ("data/settings/options.php");
 
 //Generate the menu on the right
 echo "<div class=\"rightmenu\">";
-echo "$lang_page8 <br>";
+echo "$lang_page8 <br />";
 read_imagesinpages("images");
 read_pagesinpages("data/settings/pages");
 echo "</div>";
 
 //Form
-echo "<form method=\"post\" action=\"\">
-<span class=\"kop2\">$lang_install17</span><br>
-<input name=\"kop\" type=\"text\" value=\"\"><br><br>
+?>
+<form method="post" action="">
+<span class="kop2"><?php echo $lang_install17; ?></span><br />
+<input name="kop" type="text" value="" /><br /><br />
 
-<span class=\"kop2\">$lang_install18</span><br>
-<textarea class=\"tinymce\" name=\"tekst\" cols=\"70\" rows=\"20\"></textarea><br>";
+<span class="kop2"><?php echo $lang_install18; ?></span><br />
+<textarea class="tinymce" name="tekst" cols="70" rows="20"></textarea><br />
 			
-
+<?php
 //Modules div
-echo "<div style=\"background-color: #f4f4f4; width: 600px; padding: 5px; border: 1px dotted gray; margin: 5px;\">
+?>
+<div style="background-color: #f4f4f4; width: 600px; padding: 5px; border: 1px dotted gray; margin: 5px;">
 <table>
 <tr>
 <td>
-<img src=\"data/image/modules.png\" border=\"0\" alt=\"\">
+<img src="data/image/modules.png" alt="" />
 </td>
 <td>
-<span class=\"kop3\">$lang_modules</span><br>
-<b>$lang_modules16</b><br>
-<table>";
-
+<span class="kop3"><?php echo $lang_modules; ?></span><br />
+<strong><?php echo $lang_modules16; ?></><br />
+<table>
+<?php
 //Define path to the module-dir
 $path = "data/modules";
 //Open the folder
@@ -96,37 +98,39 @@ while ($dir = readdir($dir_handle)) {
 				$counting_modules++;
 			}
 		}
-		echo "</select></td></tr>";
+?>
+		</select></td></tr>
+<?php
 	}
 }
 closedir($dir_handle);
-
-echo "</table>
+?>
+</table>
 </td>
 </tr>
 </table>
-</div>"; 
-
+</div>
+<?php
 //Options div		
 echo "<div style=\"background-color: #f4f4f4; width: 600px; padding: 5px; border: 1px dotted gray; margin: 5px;\">
 <table>
 <tr>
 <td>
-<img src=\"data/image/options.png\" border=\"0\" alt=\"\">
+<img src=\"data/image/options.png\" border=\"0\" alt=\"\" />
 </td>
 <td>
-<span class=\"kop3\">$lang_contact2</span><br>";
+<span class=\"kop3\">$lang_contact2</span><br />";
 
 //Display checkbox for the hidepage-option
-echo "<input type=\"checkbox\" name=\"hidepage\" value=\"no\" checked> $lang_pagehide1<br>
+echo "<input type=\"checkbox\" name=\"hidepage\" value=\"no\" checked> $lang_pagehide1<br />
 </td>
 </tr>
 </table>
 </div>";
 			
 //Submit button
-echo "<input type=\"submit\" name=\"Submit\" value=\"$lang_install13\">
-<input type=\"button\" name=\"Cancel\" value=\"$lang_install14\" onclick=\"javascript: window.location='?action=page';\">
+echo "<input type=\"submit\" name=\"Submit\" value=\"$lang_install13\" />
+<input type=\"button\" name=\"Cancel\" value=\"$lang_install14\" onclick=\"javascript: window.location='?action=page';\" />
 </form>";
 
 //If form is posted...

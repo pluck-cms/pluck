@@ -1,4 +1,4 @@
-Thanks to all people that did suggestions, reported bugs, designed a theme, helped betatesting or contributed in any other manner.
+Thanks to all people that contributed code, did suggestions, reported bugs, designed a theme, helped betatesting or contributed in any other manner.
 Special thanks to the following persons, for contributing to plucks development:
 
 General
@@ -35,5 +35,7 @@ Other
 - MoxieCode [http://tinymce.moxiecode.com], for developing the excellent TinyMCE-editor used in pluck
 - The Maxg Network [http://maxg.info/], for developing Tarlib, used in the automatic theme- and module-installer
 - Lokesh [http://www.huddletogether.com/projects/lightbox2], for developing LightBox2, used in pluck to serve the images in your albums with flair
+- Justin Barkhuff [http://www.justinbarkhuff.com/lab/lightbox_slideshow/], for providing the slideshow feature for LightBox2
 - The Tango Desktop Project [http://tango.freedesktop.org], for designing the wonderful icons used in the pluck administration center
 - The Gnome Project [http://www.gnome.org], for designing some other wonderful icons used in the pluck administration center
+- Mark James [http://www.famfamfam.com/lab/icons/silk/], for designing the "Silk" icons, also used in pluck

@@ -20,14 +20,16 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 }
 
 //Introduction text
-echo "<p><b>$lang_credits2</b></p>";
-
+?>
+<p><strong><?php echo $lang_credits2; ?></strong></p>
+<?php
 //Project leader
 //-----------
-echo "<p><span class=\"kop2\">$lang_credits3</span><br>
+?>
+<p><span class="kop2"><?php echo $lang_credits3; ?></span><br />
 Sander Thijsen
-</p>";
-
+</p>
+<?php
 //Translation
 //-----------
 //First seek out who's the translator
@@ -71,16 +73,17 @@ if ($langpref == "it.php") {
 $translator = "Skc"; }
 
 //Then display
-echo "<p><span class=\"kop2\">$lang_credits4</span><br>
-$translator
-</p>";
-
+?>
+<p><span class="kop2"><?php echo $lang_credits4; ?></span><br />
+<?php echo $translator; ?>
+</p>
+<?php
 //Project leader
 //-----------
-echo "<p><span class=\"kop2\">$lang_credits5</span><br>
-<a href=\"http://tinymce.moxiecode.com\" target=\"_blank\">MoxieCode</a>, for making the excellent TinyMCE-editor used in pluck<br>
-<a href=\"http://www.phpconcept.net\" target=\"_blank\">PhpConcept</a>, for making PclTar, used in the automatic theme-installer<br>
-<a href=\"http://www.huddletogether.com/projects/lightbox2\" target=\"_blank\">Lokesh</a>, for developing LightBox2, used in pluck to serve the images in your albums with flair<br>
-<a href=\"http://tango.freedesktop.org\" target=\"_blank\">The Tango Desktop Project</a>, for designing the wonderful icons used in the pluck administration center
-</p>";
 ?>
+<p><span class="kop2"><?php echo $lang_credits5; ?></span><br />
+<a href="http://tinymce.moxiecode.com" target="_blank">MoxieCode</a>, for making the excellent TinyMCE-editor used in pluck<br />
+<a href="http://www.phpconcept.net" target="_blank">PhpConcept</a>, for making PclTar, used in the automatic theme-installer<br />
+<a href="http://www.huddletogether.com/projects/lightbox2" target="_blank">Lokesh</a>, for developing LightBox2, used in pluck to serve the images in your albums with flair<br />
+<a href="http://tango.freedesktop.org" target="_blank">The Tango Desktop Project</a>, for designing the wonderful icons used in the pluck administration center
+</p>

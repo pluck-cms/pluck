@@ -56,7 +56,7 @@ function read_albumimages($dir) {
 							<table>
 							<tr>
 								<td>
-									<a href=\"data/modules/albums/pages_admin/albums_getimage.php?image=$album/$fdirname.jpg\" rel=\"lightbox[album]\"><img src=\"data/modules/albums/pages_admin/albums_getimage.php?image=$album/thumb/$fdirname.jpg\" alt=\"$name\" style=\"border: 0px;\" /></a>
+									<a href=\"data/modules/albums/pages_admin/albums_getimage.php?image=$album/$fdirname.jpg\" rel=\"lightbox[album]\" title=\"$name - $info\"><img src=\"data/modules/albums/pages_admin/albums_getimage.php?image=$album/thumb/$fdirname.jpg\" alt=\"$name\" style=\"border: 0px;\" /></a>
 								</td>
 								<td>
 									<span style=\"font-size: 17pt;\">$name</span><br />
@@ -74,7 +74,6 @@ function read_albumimages($dir) {
 //Start reading out those images...
 read_albumimages("data/settings/modules/albums/$album");
 }
-
-//Show a link to go back
-echo "<p><a href=\"?file=$pageback\">&lt;&lt;&lt; $lang_theme12</a></p>";
 ?>
+
+<p><a href="?file=<?php echo $pageback; ?>">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a></p>
