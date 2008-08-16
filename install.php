@@ -2,7 +2,8 @@
 /*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -14,25 +15,24 @@
 //Include security-enhancements
 require("data/inc/security.php");
 //Include functions
-include("data/inc/functions.all.php");
+require("data/inc/functions.all.php");
 //Include Translation data
-include("data/inc/variables.all.php");
+require("data/inc/variables.all.php");
 
 //Include POST/GET data
-include ("data/inc/post_get.php");
+require ("data/inc/post_get.php");
 
 //Check if we've installed pluck
-require ("data/settings/install.dat");
-//If we did:
-if ($install == "yes") {
-$titelkop = $lang_install;
-include ("data/inc/header2.php");
-echo "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"3; URL=login.php\">
-$lang_install1"; 
-include ("data/inc/footer.php"); }
+if ( file_exists( 'data/settings/install.dat' ) ) {
+	$titelkop = $lang_install;
+	include ('data/inc/header2.php');
+	redirect( 'login.php', '3');
+	echo $lang_install1;
+	include ('data/inc/footer.php');
+}
 
 //If we didn't:
-elseif ($install=="no") {
+else {
 
 if (!isset($action)) {
 $titelkop = $lang_install;
@@ -79,7 +79,6 @@ check_writable("data/themes");
 check_writable("data/themes/default");
 check_writable("data/themes/green");
 check_writable("data/themes/oldstyle");
-check_writable("data/settings/install.dat");
 check_writable("data/settings/langpref.php");
 check_writable("data/settings/themepref.php");
 
@@ -239,9 +238,7 @@ include ("data/inc/footer.php");
 if ($action == "install5") {
 $data2 = "data/settings/install.dat";
 $file2 = fopen($data2, "w");  
-fputs($file2, "<?php
-\$install = \"yes\";
-?>");  
+fputs($file2, '');
 fclose($file2);
 chmod($data2,0777);
 

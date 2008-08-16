@@ -18,19 +18,18 @@ header("Content-Type:text/html;charset=utf-8");
 $homepage = "?file=kop1.php";
 
 //Check if pluck has been installed. If not, redirect.
-include("data/settings/install.dat");
-if ($install == "no") {
-	header("Location: install.php");
+if ( ! file_exists( 'data/settings/install.dat' ) ) {
+	header('Location: install.php');
 	exit;
 }
 
 //Include security-enhancements
 require("data/inc/security.php");
 //Include functions
-include("data/inc/functions.all.php");
-include("data/inc/functions.site.php");
+require("data/inc/functions.all.php");
+require("data/inc/functions.site.php");
 //Include Theme data
-include("data/settings/themepref.php");
+require("data/settings/themepref.php");
 //Then, if we have a RTL-language and theme hasn't been converted
 if ((isset($direction)) && ($direction == "rtl") && (!file_exists("data/themes/$themepref/style-rtl.css"))) {
 	//Convert theme and save CSS

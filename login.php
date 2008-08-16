@@ -2,7 +2,8 @@
 /*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -14,26 +15,24 @@
 //Include security-enhancements
 require("data/inc/security.php");
 //Include functions
-include("data/inc/functions.all.php");
+require("data/inc/functions.all.php");
 //Include variables
-include("data/inc/variables.all.php");
+require("data/inc/variables.all.php");
 
 //Include POST/GET data
-include ("data/inc/post_get.php");
+require ("data/inc/post_get.php");
 
 //Check if we've installed pluck
-require ("data/settings/install.dat");
-//If not:
-if ($install=="no") {
+if ( ! file_exists( 'data/settings/install.dat' ) ) {
 	$titelkop = $lang_login1;
 	include ("data/inc/header2.php");
-	echo "<p><b>$lang_login2</b></p>";
-	echo "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"2; URL=install.php\">";
+	redirect( 'install.php', '3');
+	echo $lang_login2;
 	include ("data/inc/footer.php");
 } 
 
 //If pluck is installed:
-elseif ($install=="yes") {
+else {
 	require ("data/settings/pass.php");
 
 	//Check if we're already logged in
