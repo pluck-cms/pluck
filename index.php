@@ -18,7 +18,7 @@ header("Content-Type:text/html;charset=utf-8");
 $homepage = "?file=kop1.php";
 
 //Check if pluck has been installed. If not, redirect.
-if ( ! file_exists( 'data/settings/install.dat' ) ) {
+if (!file_exists('data/settings/install.dat')) {
 	header('Location: install.php');
 	exit;
 }

@@ -23,10 +23,10 @@ require("data/inc/variables.all.php");
 require ("data/inc/post_get.php");
 
 //Check if we've installed pluck
-if ( file_exists( 'data/settings/install.dat' ) ) {
+if (file_exists('data/settings/install.dat')) {
 	$titelkop = $lang_install;
 	include ('data/inc/header2.php');
-	redirect( 'login.php', '3');
+	redirect('login.php', '3');
 	echo $lang_install1;
 	include ('data/inc/footer.php');
 }
