@@ -36,6 +36,7 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 
 <p>
 	<span class="kop2"><?php echo $lang_credits7; ?></span><br />
+	Anders Jørgensen<br />
 	Kristaps Ancāns<br />
 	Dennis Sewbarath
 </p>
