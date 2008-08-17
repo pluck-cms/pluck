@@ -20,14 +20,14 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 }
 
 //Include functions
-include("data/modules/blog/functions.php");
+include('data/modules/blog/functions.php');
 ?>
 
 <div class="rightmenu">
 <?php echo $lang_page8; ?><br />
 <?php
 //Generate the menu on the right
-read_imagesinpages("images");
+read_imagesinpages('images');
 ?>
 </div>
 
@@ -57,7 +57,7 @@ if(file_exists("data/settings/modules/blog/categories.dat")) {
 	</select><br /><br />
 
 	<span class="kop2"><?php echo $lang_install18; ?></span><br>
-	<textarea class="tinymce" name="cont3" cols="70" rows="20"></textarea><br>
+	<textarea class="tinymce" name="cont3" cols="70" rows="20"></textarea><br />
 
 	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>">
 	<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?module=blog';">
@@ -75,28 +75,28 @@ if(isset($_POST['Submit'])) {
 	$month = date("m");
 	$year = date("Y");
 	$time = date("H:i");
-	
+
 	//Check if 'posts' directory exists, if not; create it
 	if(!file_exists("data/settings/modules/blog/posts")) {
 		mkdir("data/settings/modules/blog/posts",0777);
 		chmod("data/settings/modules/blog/posts",0777);
 	}
-	
+
 	//Generate filename
 	$newfile = strtolower($cont1);
-	$newfile = str_replace(".","",$newfile);
-	$newfile = str_replace(",","",$newfile);
-	$newfile = str_replace("?","",$newfile);
-	$newfile = str_replace(":","",$newfile);
-	$newfile = str_replace("<","",$newfile);
-	$newfile = str_replace(">","",$newfile);
-	$newfile = str_replace("=","",$newfile);
-	$newfile = str_replace("\"","",$newfile);
-	$newfile = str_replace("/","",$newfile);
-	$newfile = str_replace("\\","",$newfile);
-	$newfile = str_replace("  ","-",$newfile);
-	$newfile = str_replace(" ","-",$newfile);
-	
+	$newfile = str_replace('.','',$newfile);
+	$newfile = str_replace(',','',$newfile);
+	$newfile = str_replace('?','',$newfile);
+	$newfile = str_replace(':','',$newfile);
+	$newfile = str_replace('<','',$newfile);
+	$newfile = str_replace('>','',$newfile);
+	$newfile = str_replace('=','',$newfile);
+	$newfile = str_replace('"','',$newfile);
+	$newfile = str_replace('/','',$newfile);
+	$newfile = str_replace("\\",'',$newfile);
+	$newfile = str_replace('  ','-',$newfile);
+	$newfile = str_replace(' ','-',$newfile);
+
 	//Make sure chosen filename doesn't exist
 	if(file_exists('data/settings/modules/blog/posts/'.$newfile.'.php')) {
 		$newfile = $newfile.'-new';
@@ -106,8 +106,8 @@ if(isset($_POST['Submit'])) {
 	$file = fopen('data/settings/modules/blog/posts/'.$newfile.'.php', "w");
 	fputs($file, "<?php \n\$post_title = \"$cont1\";\n\$post_category = \"$cont2\";\n\$post_content = \"$cont3\";\n\$post_day = \"$day\";\n\$post_month = \"$month\";\n\$post_year = \"$year\";\n\$post_time = \"$time\";\n?>");
 	fclose($file);
-		
+
 	//Redirect user
-	redirect("?module=blog","0");
+	redirect('?module=blog','0');
 }
 ?>

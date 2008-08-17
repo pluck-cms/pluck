@@ -23,8 +23,8 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 include("data/modules/blog/functions.php");
 
 //Include the postinformation
-if(file_exists('data/settings/modules/blog/posts/'.$var.'.php')) {
-	include('data/settings/modules/blog/posts/'.$var.'.php');
+if(file_exists('data/settings/modules/blog/posts/'.$var)) {
+	include('data/settings/modules/blog/posts/'.$var);
 }
 else {
 	exit;
@@ -58,13 +58,18 @@ if(file_exists("data/settings/modules/blog/categories.dat")) {
 	//And show them
 	//start table first
 	foreach($categories as $key => $name) {
-		echo '<option value="'.$name.'" />'.$name; 
+		if($post_category == $name) {
+			echo '<option value="'.$name.'" selected />'.$name;
+		}
+		else {
+			echo '<option value="'.$name.'" />'.$name;
+		} 
 	}
 }
 ?>
 	</select><br /><br />
 
-	<span class="kop2"><?php echo $lang_install18; ?></span><br>
+	<span class="kop2"><?php echo $lang_install18; ?></span><br />
 	<textarea class="tinymce" name="cont3" cols="70" rows="20"><?php echo $post_content; ?></textarea><br>
 
 	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>">
@@ -79,10 +84,10 @@ if(isset($_POST['Submit'])) {
 	include("data/inc/page_stripslashes.php");
 
 	//Save information
-	$file = fopen('data/settings/modules/blog/posts/'.$var.'.php', "w");
+	$file = fopen('data/settings/modules/blog/posts/'.$var, "w");
 	fputs($file, "<?php \n\$post_title = \"$cont1\";\n\$post_category = \"$cont2\";\n\$post_content = \"$cont3\";\n\$post_day = \"$post_day\";\n\$post_month = \"$post_month\";\n\$post_year = \"$post_year\";\n\$post_time = \"$post_time\";\n?>");
 	fclose($file);
-		
+
 	//Redirect user
 	redirect("?module=blog","0");
 }

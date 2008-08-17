@@ -20,15 +20,14 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 }
 
 //Include functions
-include("data/modules/blog/functions.php");
+include('data/modules/blog/functions.php');
 
-//Delete the post
-unlink("data/blog/$var2/posts/$var");
-//Check for reactions
-if (file_exists("data/blog/$var2/reactions/$var")) {
-//...and delete them
-unlink("data/blog/$var2/reactions/$var"); }
+//Check if post exists, then delete it
+if(file_exists('data/settings/modules/blog/posts/'.$var)) {
+	//Delete the post
+	unlink('data/settings/modules/blog/posts/'.$var);
+}
 
 //Redirect
-redirect("?module=blog&page=editblog&var=$var2","0");
+redirect("?module=blog","0");
 ?>

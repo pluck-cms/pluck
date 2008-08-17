@@ -40,6 +40,55 @@ include("data/modules/blog/functions.php");
 
 <span class="kop2"><?php echo $lang_blog9; ?></span><br />
 
+<?php
+//Display existing posts
+//Define path to the module-dir
+$path = "data/settings/modules/blog/posts";
+//Open the folder
+$dir_open = @opendir($path) or die("Unable to open $path. Check if it's readable.");
+
+//Loop through dirs, and display the modules
+while($file = readdir($dir_open)) {
+	if($file != '.' && $file != '..') {
+		include('data/settings/modules/blog/posts/'.$file);
+?>
+
+<div class="menudiv" style="margin: 10px;">
+	<table>
+		<tr>
+			<td>
+				<img src="data/modules/blog/images/blog.png" alt="" border="0">
+			</td>
+			<td style="width: 500px;">
+				<span style="font-size: 17pt;"><?php echo $post_title; ?></span>
+			</td>
+			<td>
+				<a href="?module=blog&page=editpost&var=<?php echo $file; ?>"><img src="data/image/edit.png" border="0" title="<?php echo $lang_blog11; ?>" alt="<?php echo $lang_blog11; ?>"></a>		
+			</td>
+			<td>
+				<a href="?module=blog&page=editreactions&var=<?php echo $file; ?>"><img src="data/modules/blog/images/reactions.png" border="0" title="<?php echo $lang_blog19; ?>" alt="<?php echo $lang_blog19; ?>"></a>		
+			</td>
+			<td>
+				<a href="?module=blog&page=deletepost&var=<?php echo $file; ?>"><img src="data/image/delete_from_trash.png" border="0" title="<?php echo $lang_blog12; ?>" alt="<?php echo $lang_blog12; ?>"></a>		
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<span style="font-size: 12px; font-style: italic"><?php echo $post_month.'-'.$post_day.'-'.$post_year; ?></span>
+			</td>				
+		</tr>
+	</table>
+</div>
+
+<?php
+	}
+}
+//Close module-dir
+closedir($dir_open); 
+?>
+<br />
+
 <span class="kop2"><?php echo $lang_blog3; ?></span><br />
 
 <?php
