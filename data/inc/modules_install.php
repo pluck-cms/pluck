@@ -18,43 +18,44 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
     //Block all other code
     exit();
 }
+?>
 
-//Introduction text
-echo "<p><b>$lang_modules20</b></p>";
+<p><b><?php echo $lang_modules20; ?></b></p>
 
-if(!isset($_POST['Submit'])) {
-echo "<div style=\"background-color: #f4f4f4; padding: 5px; width: 500px; margin-top: 15px; border: 1px dotted gray;\">
-<table><tr><td><img src=\"data/image/install.png\" border=\"0\" alt=\"\">
-</td><td><form method=\"post\" action=\"\" enctype=\"multipart/form-data\">
-<input type=\"file\" name=\"sendfile\">
-<input type=\"submit\" name=\"Submit\" value=\"$lang_image9\"></form>
-</td></tr></table>
-</div>";
+<?php
+if(!isset($_POST['Submit'])) { ?>
 
-echo "<div style=\"background-color: #f4f4f4; padding: 5px; width: 500px; margin-top: 15px; border: 1px dotted gray;\">
-<table>
-<tr>
-<td>
-<img src=\"data/image/download.png\" border=\"0\" alt=\"\">
-</td>
-<td>
-<span style=\"font-size: 17pt;\"><a href=\"http://www.pluck-cms.org/addons/\" target=\"_blank\">$lang_modules22</a></span><br>
-$lang_modules21
-</td>
-</tr>
-</table></div>";
+<div style="background-color: #f4f4f4; padding: 5px; width: 500px; margin-top: 15px; border: 1px dotted gray;">
+	<table>
+		<tr>
+			<td>
+				<img src="data/image/install.png" border="0" alt="" />
+			</td>
+			<td>
+				<form method="post" action="" enctype="multipart/form-data">
+					<input type="file" name="sendfile">
+					<input type="submit" name="Submit" value="<?php echo $lang_image9; ?>">
+				</form>
+			</td>
+		</tr>
+	</table>
+</div>
 
-echo "<div style=\"background-color: #f4f4f4; padding: 5px; width: 500px; margin-top: 15px; border: 1px dotted gray;\">
-<table>
-<tr>
-<td>
-<img src=\"data/image/modules.png\" border=\"0\" alt=\"\">
-</td>
-<td>
-<span class=\"kop3\"><a href=\"?action=managemodules\"><<< $lang_theme12</a></span>
-</td>
-</tr>
-</table></div>"; }
+<div style="background-color: #f4f4f4; padding: 5px; width: 500px; margin-top: 15px; border: 1px dotted gray;">
+	<table>
+		<tr>
+			<td>
+				<img src="data/image/modules.png" border="0" alt="" />
+			</td>
+			<td>
+				<span class="kop3"><a href="?action=managemodules"><<< <?php echo $lang_theme12; ?></a></span>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<?php
+}
 
 if(isset($_POST['Submit'])) {	//If no file has been sent
 	if (!$_FILES['sendfile'])  
@@ -105,7 +106,7 @@ if(isset($_POST['Submit'])) {	//If no file has been sent
 										<img src=\"data/image/install.png\" border=\"0\" alt=\"\">
 									</td>
 									<td>
-										<span class=\"kop3\">$lang_modules25</span><br>
+										<span class=\"kop3\">$lang_modules25</span><br />
 										$lang_modules26
 									</td>
 									</tr>
