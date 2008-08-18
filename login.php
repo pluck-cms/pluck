@@ -13,32 +13,32 @@
 */
 
 //Include security-enhancements
-require("data/inc/security.php");
+require('data/inc/security.php');
 //Include functions
-require("data/inc/functions.all.php");
+require('data/inc/functions.all.php');
 //Include variables
-require("data/inc/variables.all.php");
+require('data/inc/variables.all.php');
 
 //Include POST/GET data
-require ("data/inc/post_get.php");
+require('data/inc/post_get.php');
 
 //Check if we've installed pluck
 if (!file_exists('data/settings/install.dat')) {
 	$titelkop = $lang_login1;
-	include ("data/inc/header2.php");
-	redirect( 'install.php', '3');
+	include('data/inc/header2.php');
+	redirect('install.php', '3');
 	echo $lang_login2;
-	include ("data/inc/footer.php");
+	include('data/inc/footer.php');
 } 
 
 //If pluck is installed:
 else {
-	require ("data/settings/pass.php");
+	require('data/settings/pass.php');
 
 	//Check if we're already logged in
 	session_start();
-	if ((isset($_SESSION["cmssystem_loggedin"])) && ($_SESSION["cmssystem_loggedin"] == "ok")) {
-		header("Location: admin.php");
+	if (isset($_SESSION['cmssystem_loggedin']) && ($_SESSION['cmssystem_loggedin'] == 'ok')) {
+		header('Location: admin.php');
 		exit;
 	}
 
@@ -46,16 +46,16 @@ else {
 	if(!isset($_POST['Submit'])) {
 		//Include header-file
 		$titelkop = $lang_login1;
-		include ("data/inc/header2.php");
-
-		echo "<span class=\"kop2\">$lang_login3</span><br>
-		<form action=\"login.php\" method=\"post\" name=\"passform\">
-		<input name=\"pass\" size=\"25\" type=\"password\" value=\"\" size=\"9\">
-		<input type=\"text\" name=\"bogusField\" style=\"display: none;\" />
-		<input type=\"submit\" name=\"Submit\" value=\"$lang_login4\">
-		</form>";
-
-		include ("data/inc/footer.php");
+		include('data/inc/header2.php');
+?>
+		<span class="kop2"><?php echo $lang_login3; ?></span><br />
+		<form action="login.php" method="post" name="passform">
+			<input name="pass" size="25" type="password" />
+			<input type="text" name="bogusField" style="display: none;" />
+			<input type="submit" name="Submit" value="<?php echo $lang_login4; ?>" />
+		</form>
+<?php
+		include ('data/inc/footer.php');
 	}
 
 	//If password has been sent...
@@ -67,29 +67,23 @@ else {
 		//...and is correct:
 		if ($pass == $ww) {
 			//Save session
-			$_SESSION["cmssystem_loggedin"] = "ok";
+			$_SESSION['cmssystem_loggedin'] = 'ok';
 			//Display successmessage   
 			$titelkop = $lang_login1;
-			include ("data/inc/header2.php");
-			echo "$lang_login5
-			<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"1; URL=admin.php?action=start\">";
-			include ("data/inc/footer.php");
-		}
-
-		//---------------
-		//...or is empty:
-		elseif ($pass == "") {
-			echo "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"0; URL=login.php\">";
+			include('data/inc/header2.php');
+			echo $lang_login5;
+			redirect('admin.php?action=start', '3');
+			include('data/inc/footer.php');
 		}
 
 		//---------------
 		//...or is NOT correct:
-		elseif ($pass != "$ww") {
+		else {
 			$titelkop = $lang_login1;
-			include ("data/inc/header2.php");
-			echo "$lang_login6
-			<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"2; URL=login.php\">";
-			include ("data/inc/footer.php");
+			include('data/inc/header2.php');
+			echo $lang_login6;
+			redirect('login.php', '3');
+			include('data/inc/footer.php');
 		}
 	}
 }
