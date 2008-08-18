@@ -169,12 +169,6 @@ else {
 				include('data/inc/footer.php');
 			exit;
 			}
-			
-			//FIX ME: What is this for?
-			if ($chosen_lang == $lang_lang2 ) {
-				include ('data/inc/footer.php');
-				exit;
-			}
 
 			//Save prefered language
 			$data1 = 'data/settings/langpref.php';
@@ -249,14 +243,14 @@ else {
 			$file = fopen($data, 'w');
 			$cont1 = stripslashes($cont1);
 			//FIX ME: How do you write it, if you want to use ' instead of " in the PHP code? I'm not sure about all the slashes.
-			$cont1 = str_replace("\"", "\\\"", $cont1);
+			$cont1 = str_replace('"', '\"', $cont1);
 			$cont2 = stripslashes($cont2);
-			$cont2 = str_replace("\"", "\\\"", $cont2);
-			fputs($file, '<?php
-			$title = "' . $cont1 . '";
-			$content = "' . $cont2 . '";
-			$hidden = "no";
-			?>');
+			$cont2 = str_replace('"', '\"', $cont2);
+			fputs($file, '<?php'."/n"
+			.'$title = "' . $cont1 . '";'."\n"
+			.'$content = "' . $cont2 . '";'."\n"
+			.'$hidden = "no";'."\n"
+			.'?>');
 			fclose($file);
 			chmod($data, 0777);
 
