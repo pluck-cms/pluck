@@ -191,11 +191,11 @@ else {
 			$cont = stripslashes($cont);
 			$data2 = 'data/settings/options.php';
 			$file = fopen($data2, 'w');
-			fputs($file, '<?php
-			$sitetitle = "' . $cont . '";
-			$email = "' . $email . '";
-			$xhtmlruleset = "false";
-			?>');
+			fputs($file, '<?php'."\n"
+			.'$sitetitle = "' . $cont . '";'."\n"
+			.'$email = "' . $email . '";'."\n"
+			.'$xhtmlruleset = "false";'."\n"
+			.'?>');
 			fclose($file);
 			chmod($data2,0777);
 
@@ -221,7 +221,7 @@ else {
 			chmod('data/settings/modules/albums', 0777);
 			mkdir('data/settings/modules/blog', 0777);
 			chmod('data/settings/modules/blog', 0777);
-			
+
 			redirect('?action=install4', '0');
 		}
 		include('data/inc/footer.php');
@@ -259,7 +259,7 @@ else {
 			?>');
 			fclose($file);
 			chmod($data, 0777);
-			
+
 			redirect('?action=install5', '0');
 		}
 		include('data/inc/footer.php');
