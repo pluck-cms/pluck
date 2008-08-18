@@ -84,9 +84,7 @@ $translator = "Skc"; }
 
 //Then display, if language is not English
 if ($langpref != "en.php") {
-echo "<p><span class=\"kop2\">$lang_credits4</span><br />
-$translator
-</p>"; }
+echo "<p><span class=\"kop2\">$lang_credits4</span><br />$translator</p>"; }
 ?>
 
 <p>

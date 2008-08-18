@@ -61,7 +61,6 @@ if((isset($_POST['Submit'])) && ($cont != "0") && (file_exists("data/inc/lang/$c
 	$file = fopen($data, "w");  
 	fputs($file, "<?php \$langpref = \"$cont\"; ?>");  
 	fclose($file);
-	chmod($data,0777);
 
 	//Redirect user
 	echo $lang_lang3;

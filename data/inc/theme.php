@@ -102,7 +102,6 @@ if((isset($_POST['Submit'])) && ($cont != "0") && (file_exists("data/themes/$con
 	$file = fopen($data, "w");  
 	fputs($file, "<?php \$themepref = \"$cont\"; ?>");  
 	fclose($file);
-	chmod($data,0777);
 
 	//Redirect user
 	echo $lang_theme3;

@@ -181,7 +181,6 @@ else {
 			$file = fopen($data1, 'w');
 			fputs($file, '<?php $langpref = "' . $chosen_lang . '"; ?>');
 			fclose($file);
-			chmod($data1,0777);
 
 			//Save options
 			if (!$cont) {
