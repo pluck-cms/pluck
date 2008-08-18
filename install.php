@@ -246,7 +246,7 @@ else {
 			$cont1 = str_replace('"', '\"', $cont1);
 			$cont2 = stripslashes($cont2);
 			$cont2 = str_replace('"', '\"', $cont2);
-			fputs($file, '<?php'."/n"
+			fputs($file, '<?php'."\n"
 			.'$title = "' . $cont1 . '";'."\n"
 			.'$content = "' . $cont2 . '";'."\n"
 			.'$hidden = "no";'."\n"
