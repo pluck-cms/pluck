@@ -43,16 +43,8 @@ else {
 	//Include proper POST/GETs
 	include('data/inc/post_get.php');
 
-	//Variables for module programmers
-	//----------------
-	//First, get some information
-	include('data/settings/options.php');
-	//General variables
-	$site_langfile = $langpref;
-	$site_lang = preg_replace('/.php/','',$site_langfile);
-	$site_email = $email;
-
-	//Action pages
+	//Define pages
+	//------------
 	if($action) {
 		switch ($action)
 		{
