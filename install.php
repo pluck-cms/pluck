@@ -242,7 +242,6 @@ else {
 			$data = 'data/settings/pages/kop1.php';   
 			$file = fopen($data, 'w');
 			$cont1 = stripslashes($cont1);
-			//FIX ME: How do you write it, if you want to use ' instead of " in the PHP code? I'm not sure about all the slashes.
 			$cont1 = str_replace('"', '\"', $cont1);
 			$cont2 = stripslashes($cont2);
 			$cont2 = str_replace('"', '\"', $cont2);
