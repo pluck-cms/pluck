@@ -24,7 +24,7 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 //Page variables
 if (isset($_GET['file'])) {
 	$page_filename = $_GET['file'];
-	$page_title = get_pagetitle();
 }
+$page_title = get_pagetitle(); //Also works for modules
 
 ?>

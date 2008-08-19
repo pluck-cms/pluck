@@ -13,9 +13,9 @@
 */
 
 //First set the charset: utf-8
-header("Content-Type:text/html;charset=utf-8");
+header('Content-Type:text/html;charset=utf-8');
 //Set our homepage (where we can redirect if a page doesn't exist or something)
-$homepage = "?file=kop1.php";
+$homepage = '?file=kop1.php';
 
 //Check if pluck has been installed. If not, redirect.
 if (!file_exists('data/settings/install.dat')) {
@@ -47,6 +47,7 @@ if (isset($_GET['page'])) {
 }
 
 //Include module-inclusion files (inc_site.php)
+//---------------
 //Open the folder
 $dir_handle = @opendir("data/modules") or die("Unable to open module directory. Check if it's readable.");
 
@@ -79,7 +80,7 @@ elseif ((isset($filetoread)) && ($filetoread == "")) {
 //If a module has been specified...
 if (isset($module)) {
 	//check if the module exists
-	if (file_exists("data/modules/$module")) {
+	if (file_exists('data/modules/'.$module)) {
 		//and check if we also specified a page (if not, redirect)
 		if ((isset($module)) && (!isset($page))) {
 			header("Location: $homepage");
@@ -87,8 +88,7 @@ if (isset($module)) {
 		}
 		//if a page has been set, check if it exists (if not, redirect) 
 		elseif((isset($module)) && (isset($page))) {
-			$page_ext = "$page.php";
-			if (!file_exists("data/modules/$module/pages_site/$page_ext")) {
+			if (!file_exists('data/modules/'.$module.'/pages_site/'.$page.'.php')) {
 				header("Location: $homepage");
 				exit;
 			}
@@ -102,9 +102,9 @@ if (isset($module)) {
 }
 
 //Include Theme data
-include("data/settings/themepref.php");
+include('data/settings/themepref.php');
 //Set themedir
-$themedirectory = "data/themes/$themepref";
+$themedirectory = 'data/themes/'.$themepref;
 
 
 //FUNCTIONS FOR FILLING IN THE PAGE
@@ -229,8 +229,8 @@ function theme_menu($html,$htmlactive = NULL) {
 //[THEME] FUNCTION TO SHOW PAGE TITLE
 //---------------------------------
 function theme_pagetitle() {
-	$pagetitle = get_pagetitle();
-	echo $pagetitle;
+	$page_title = get_pagetitle();
+	echo $page_title;
 }
 
 //[THEME] FUNCTION TO SHOW PAGE CONTENTS
@@ -269,8 +269,8 @@ if (isset($_GET['page'])) {
 }
 
 //Module variables
-include("data/inc/variables.all.php");
-include("data/inc/variables.site.php");
+include('data/inc/variables.all.php');
+include('data/inc/variables.site.php');
 
 //If mainspace: include the page-specific modules
 if ($place == "main") {
@@ -337,7 +337,7 @@ if ($place == "main") {
 
 //Include the other modules
 //Include theme data
-include("data/settings/themepref.php");
+include('data/settings/themepref.php');
 
 	//Include info of theme (to see which modules we should include etc), but only if file exists
 	if (file_exists("data/settings/themes/$themepref/moduleconf.php")) {
