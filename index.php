@@ -121,9 +121,9 @@ function theme_meta() {
 	require('data/inc/variables.site.php');
 
 	//Get page-info (for meta-information)
-	if(isset($page_filename)) {
-		if(file_exists('data/settings/pages/'.$page_filename)) {
-			include('data/settings/pages/'.$page_filename);
+	if(isset($current_page_filename)) {
+		if(file_exists('data/settings/pages/'.$current_page_filename)) {
+			include('data/settings/pages/'.$current_page_filename);
 		}
 	}
 
@@ -141,7 +141,7 @@ function theme_meta() {
 	echo '<link href="'.$cssfile.'" rel="stylesheet" type="text/css" media="screen" />'."\n";
 
 	//If we are not looking at a module: include metatag information
-	if ((isset($page_filename)) && (file_exists('data/settings/pages/'.$page_filename))) {
+	if ((isset($current_page_filename)) && (file_exists('data/settings/pages/'.$current_page_filename))) {
 		echo '<meta name="title" content="'.$page_title.'" />'."\n";
 		if ((isset($keywords)) && (!empty($keywords))) {
 			echo '<meta name="keywords" content="'.$keywords.'" />'."\n";
@@ -247,7 +247,7 @@ function theme_content() {
 		//If page doesn't exist, show error message
 		else {
 			//Include Translation data
-			include("data/inc/variables.all.php");
+			include('data/inc/variables.all.php');
 			$content = $lang_front2;
 			echo $content;
 		}
@@ -257,48 +257,35 @@ function theme_content() {
 //[THEME] FUNCTION TO INCLUDE MODULES
 //---------------------------------
 function theme_module($place) {
-//Get some variables
-if (isset($_GET['file'])) {
-	$filetoread = $_GET['file'];
-}
-if (isset($_GET['module'])) {
-	$module = $_GET['module'];
-}
-if (isset($_GET['page'])) {
-	$page = $_GET['page'];
-}
 
-//Module variables
+//Include needed variables
 include('data/inc/variables.all.php');
 include('data/inc/variables.site.php');
 
 //If mainspace: include the page-specific modules
-if ($place == "main") {
+if($place == 'main') {
 
 	//If we are looking at a normal page: include the inclusion file of the module (but only if specified page exists)
-	if ((!isset($module)) && (isset($filetoread)) && (file_exists("data/settings/pages/$filetoread"))) {
+	if((!isset($current_module_dir)) && (isset($current_page_filename)) && (file_exists('data/settings/pages/'.$current_page_filename))) {
 		//Include page-information
-		include("data/settings/pages/$filetoread");		
+		include('data/settings/pages/'.$current_page_filename);		
 		//First, check if we want to include any modules 
-		if (isset($module_pageinc)) {
+		if(isset($module_pageinc)) {
 			//Let's make sure that the modules are dislayed in the right order
 			natcasesort($module_pageinc);
 
-			foreach ($module_pageinc as $module_to_include => $order) {
+			foreach($module_pageinc as $module_to_include => $order) {
 				//Check if module is set to be displayed
-				if ($order != "0") {
+				if($order != '0') {
 					//Include module information
-					include("data/modules/$module_to_include/module_info.php");
-					
+					include('data/modules/'.$module_to_include.'/module_info.php');
 					//Check if module is compatible
 					if(module_is_compatible($module_to_include)) {
-
 						//Check if module wants to insert pages
-						if (file_exists("data/modules/$module_to_include/module_pages_site.php")) {
-						include("data/modules/$module_to_include/module_pages_site.php");
-
-						//Include the file for the "main" module area
-						include("data/modules/$module_to_include/pages_site/$includepage");
+						if(file_exists('data/modules/'.$module_to_include.'/module_pages_site.php')) {
+							include('data/modules/'.$module_to_include.'/module_pages_site.php');
+							//Include the file for the "main" module area
+							include('data/modules/'.$module_to_include.'/pages_site/'.$includepage);
 						}
 					}
 				}
@@ -306,22 +293,21 @@ if ($place == "main") {
  		}
  	}
  	//If we are looking at a module-page: include that page
- 	elseif (isset($module)) {
+ 	elseif(isset($current_module_dir)) {
  		//Include module files (but only if they exist)
- 		if (file_exists("data/modules/$module/module_info.php")) {
- 			include("data/modules/$module/module_info.php");
- 			if(module_is_compatible($module)) {
-				if (file_exists("data/modules/$module/module_pages_site.php")) {
- 					include("data/modules/$module/module_pages_site.php");
+ 		if(file_exists('data/modules/'.$current_module_dir.'/module_info.php')) {
+ 			include('data/modules/'.$current_module_dir.'/module_info.php');
+ 			if(module_is_compatible($current_module_dir)) {
+				if(file_exists('data/modules/'.$current_module_dir.'/module_pages_site.php')) {
+ 					include('data/modules/'.$current_module_dir.'/module_pages_site.php');
 
 					//Only include pages if array has been given
-					if (isset($module_page)) {
-			 			//Include all module-pages
- 						foreach ($module_page as $filename => $pagetitle) {
-	 						//Generate filename with extension
-							$filename_ext = "$filename.php";
-							if (($module == $module_dir) && ($page == $filename)) {
-								include("data/modules/$module_dir/pages_site/$filename_ext");
+					if(isset($module_page)) {
+			 			//Loop through module-pages
+ 						foreach($module_page as $filename => $pagetitle) {
+ 							//And include them
+							if(($current_module_dir == $module_dir) && ($current_module_page == $filename)) {
+								include('data/modules/'.$module_dir.'/pages_site/'.$filename.'.php');
 							}
 						}
  					}
@@ -340,27 +326,27 @@ if ($place == "main") {
 include('data/settings/themepref.php');
 
 	//Include info of theme (to see which modules we should include etc), but only if file exists
-	if (file_exists("data/settings/themes/$themepref/moduleconf.php")) {
-		include("data/settings/themes/$themepref/moduleconf.php");
+	if(file_exists('data/settings/themes/'.$themepref.'/moduleconf.php')) {
+		include('data/settings/themes/'.$themepref.'/moduleconf.php');
 
 		//Get the array and sort it
-		foreach ($space as $area => $number) {
+		foreach($space as $area => $number) {
 
 		//Sort the array, so that the modules will be displayed in correct order
 		natcasesort($number);
 
 			//Get final variables
-			foreach ($number as $module => $order) {
+			foreach($number as $module => $order) {
 
 				//If the area where the module should be displayed is the same as the area we're currently...
 				//...processing: include the module
-				if (($area == $place) && ($order != "0")) {
+				if(($area == $place) && ($order != '0')) {
 					//Check if module wants to insert pages
-					if (file_exists("data/modules/$module/module_pages_site.php")) {
+					if(file_exists('data/modules/'.$module.'/module_pages_site.php')) {
 						if(module_is_compatible($module)) {
-							include("data/modules/$module/module_pages_site.php"); 
+							include('data/modules/'.$module.'/module_pages_site.php'); 
 							//...and include the module
-							include("data/modules/$module/pages_site/$includepage");
+							include('data/modules/'.$module.'/pages_site/'.$includepage);
 						}
 					}
 				}
@@ -373,5 +359,5 @@ include('data/settings/themepref.php');
 //NOW, INCLUDE THE PAGE
 //---------------------------------
 //---------------------------------
-include("$themedirectory/theme.php");
+include($themedirectory.'/theme.php');
 ?>

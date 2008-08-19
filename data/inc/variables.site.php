@@ -21,9 +21,17 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 
 //Variables for module programmers
 //----------------
-//Page variables
+//Filename of current page
 if (isset($_GET['file'])) {
-	$page_filename = $_GET['file'];
+	$current_page_filename = $_GET['file'];
+}
+//Name of directory of current module
+if (isset($_GET['module'])) {
+	$current_module_dir = $_GET['module'];
+}
+//Name of current module page
+if (isset($_GET['page'])) {
+	$current_module_page = $_GET['page'];
 }
 $page_title = get_pagetitle(); //Also works for modules
 
