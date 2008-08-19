@@ -121,8 +121,10 @@ function theme_meta() {
 	require('data/inc/variables.site.php');
 
 	//Get page-info (for meta-information)
-	if (file_exists('data/settings/pages/'.$page_filename)) {
-		include('data/settings/pages/'.$page_filename);
+	if(isset($page_filename)) {
+		if(file_exists('data/settings/pages/'.$page_filename)) {
+			include('data/settings/pages/'.$page_filename);
+		}
 	}
 
 	//Check which CSS-file we need to use (LTR or RTL)
