@@ -84,9 +84,18 @@ if(isset($_POST['Submit'])) {
 	include("data/inc/page_stripslashes.php");
 
 	//Save information
-	$file = fopen('data/settings/modules/blog/posts/'.$var, "w");
-	fputs($file, "<?php \n\$post_title = \"$cont1\";\n\$post_category = \"$cont2\";\n\$post_content = \"$cont3\";\n\$post_day = \"$post_day\";\n\$post_month = \"$post_month\";\n\$post_year = \"$post_year\";\n\$post_time = \"$post_time\";\n?>");
+	$file = fopen('data/settings/modules/blog/posts/'.$var, 'w');
+	fputs($file, '<?php'."\n"
+	.'$post_title = "'.$cont1.'";'."\n"
+	.'$post_category = "'.$cont2.'";'."\n"
+	.'$post_content = "'.$cont3.'";'."\n"
+	.'$post_day = "'.$post_day.'";'."\n"
+	.'$post_month = "'.$post_month.'";'."\n"
+	.'$post_year = "'.$post_year.'";'."\n"
+	.'$post_time = "'.$post_time.'";'."\n"
+	.'?>');
 	fclose($file);
+	chmod('data/settings/modules/blog/posts/'.$var,0777);
 
 	//Redirect user
 	redirect("?module=blog","0");

@@ -102,10 +102,33 @@ if(isset($_POST['Submit'])) {
 		$newfile = $newfile.'-new';
 	}
 
-	//Save information
-	$file = fopen('data/settings/modules/blog/posts/'.$newfile.'.php', "w");
-	fputs($file, "<?php \n\$post_title = \"$cont1\";\n\$post_category = \"$cont2\";\n\$post_content = \"$cont3\";\n\$post_day = \"$day\";\n\$post_month = \"$month\";\n\$post_year = \"$year\";\n\$post_time = \"$time\";\n?>");
+	//Create/update the post_index.dat file
+	if(file_exists('data/settings/modules/blog/post_index.dat')) {
+		$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
+		$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
+		fputs($file,$newfile.'.php'."\n".$contents);
+	}
+	else {
+		$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
+		fputs($file,$newfile.'.php');
+	}
 	fclose($file);
+	unset($file);
+	chmod('data/settings/modules/blog/post_index.dat',0777);
+
+	//Save information
+	$file = fopen('data/settings/modules/blog/posts/'.$newfile.'.php', 'w');
+	fputs($file, '<?php'."\n"
+	.'$post_title = "'.$cont1.'";'."\n"
+	.'$post_category = "'.$cont2.'";'."\n"
+	.'$post_content = "'.$cont3.'";'."\n"
+	.'$post_day = "'.$day.'";'."\n"
+	.'$post_month = "'.$month.'";'."\n"
+	.'$post_year = "'.$year.'";'."\n"
+	.'$post_time = "'.$time.'";'."\n"
+	.'?>');
+	fclose($file);
+	chmod('data/settings/modules/blog/posts/'.$newfile.'.php',0777);
 
 	//Redirect user
 	redirect('?module=blog','0');
