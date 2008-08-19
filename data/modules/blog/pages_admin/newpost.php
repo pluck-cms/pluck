@@ -106,7 +106,12 @@ if(isset($_POST['Submit'])) {
 	if(file_exists('data/settings/modules/blog/post_index.dat')) {
 		$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
 		$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
-		fputs($file,$newfile.'.php'."\n".$contents);
+		if(!empty($contents)) {
+			fputs($file,$newfile.'.php'."\n".$contents);
+		}
+		else {
+			fputs($file,$newfile.'.php');
+		}
 	}
 	else {
 		$file = fopen('data/settings/modules/blog/post_index.dat', 'w');

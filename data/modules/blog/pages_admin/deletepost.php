@@ -22,6 +22,28 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 //Include functions
 include('data/modules/blog/functions.php');
 
+//First, update the post index
+if(file_exists('data/settings/modules/blog/post_index.dat')) {
+	//Get post index
+	$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
+
+	//Check if post index contains post we want to delete, and filter out the post
+	if(ereg($var."\n",$contents)) {
+		$contents = str_replace($var."\n",'',$contents);
+	}
+	elseif(ereg("\n".$var,$contents)) {
+		$contents = str_replace("\n".$var,'',$contents);
+	}
+	elseif(ereg($var,$contents)) {
+		$contents = str_replace($var,'',$contents);
+	}
+
+	//Save updated post index
+	$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
+	fputs($file,$contents);
+	fclose($file);
+}
+
 //Check if post exists, then delete it
 if(file_exists('data/settings/modules/blog/posts/'.$var)) {
 	//Delete the post
