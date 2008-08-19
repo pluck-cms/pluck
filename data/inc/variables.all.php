@@ -33,7 +33,7 @@ if(file_exists("data/settings/options.php")) {
 }
 
 //General variables
-$pluck_version = "4.6";
+$pluck_version = '4.6';
 $site_title = get_sitetitle();
 $site_langfile = $langpref;
 $site_lang = preg_replace('/.php/','',$site_langfile);

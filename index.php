@@ -114,64 +114,60 @@ $themedirectory = "data/themes/$themepref";
 //[THEME] FUNCTION TO INCLUDE META-DATA IN THE PAGE
 //---------------------------------
 function theme_meta() {
+	//Get themedir
+	include('data/settings/themepref.php');
+	//Include variables
+	require('data/inc/variables.all.php');
+	require('data/inc/variables.site.php');
+
 	//Get page-info (for meta-information)
-	if (isset($_GET['file'])) {
-		$filetoread = $_GET['file'];
-		if (file_exists("data/settings/pages/$filetoread")) {
-			include("data/settings/pages/$filetoread");
-		}
+	if (file_exists('data/settings/pages/'.$page_filename)) {
+		include('data/settings/pages/'.$page_filename);
 	}
 
-	//Get themedir
-	include ("data/settings/themepref.php");
-	//Include Translation data
-	include("data/inc/variables.all.php");
 	//Check which CSS-file we need to use (LTR or RTL)
-	if ((isset($direction)) && ($direction == "rtl")) {
-		$cssfile = "data/themes/$themepref/style-rtl.css";
+	if ((isset($direction)) && ($direction == 'rtl')) {
+		$cssfile = 'data/themes/'.$themepref.'/style-rtl.css';
 	}
 	else {
-		$cssfile = "data/themes/$themepref/style.css";
-	}	
-	//Get site title
-	$sitetitle = get_sitetitle();
-	//Get pagetitle
-	$pagetitle = get_pagetitle();
+		$cssfile = 'data/themes/'.$themepref.'/style.css';
+	}
 
 	echo '<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />'."\n";
 	echo '<meta name="generator" content="pluck '.$pluck_version.'" />'."\n";
-	echo '<title>'.$pagetitle.' - '.$sitetitle.'</title>'."\n";
+	echo '<title>'.$page_title.' - '.$site_title.'</title>'."\n";
 	echo '<link href="'.$cssfile.'" rel="stylesheet" type="text/css" media="screen" />'."\n";
 
 	//If we are not looking at a module: include metatag information
-	if ((isset($filetoread)) && (file_exists("data/settings/pages/$filetoread"))) {
-		echo '<meta name="title" content="'.$title.'" />'."\n";
-		if (isset($keywords)) {
+	if ((isset($page_filename)) && (file_exists('data/settings/pages/'.$page_filename))) {
+		echo '<meta name="title" content="'.$page_title.'" />'."\n";
+		if ((isset($keywords)) && (!empty($keywords))) {
 			echo '<meta name="keywords" content="'.$keywords.'" />'."\n";
 		}
-		if (isset($description)) {
+		if ((isset($description)) && (!empty($description))) {
 			echo '<meta name="description" content="'.$description.'" />'."\n";
 		}
 	}
 
 	//If RTL, set direction to RTL in CSS
-	if ((isset($direction)) && ($direction == "rtl")) {
+	if ((isset($direction)) && ($direction == 'rtl')) {
 		echo '<style type=\"text/css\">body {direction:rtl;}</style>'."\n";
 	}
 
 	//Also include module head-inclusion files (inc_site_head.php)
+	//--------------
 	//Open the folder
-	$dir_handle = @opendir("data/modules") or die("Unable to open module directory. Check if it's readable.");
+	$dir_handle = @opendir('data/modules') or die('Unable to open module directory. Check if it\'s readable.');
 
 	//Loop through dirs
 	while ($dir = readdir($dir_handle)) {
-		if($dir == "." || $dir == "..")
+		if($dir == '.' || $dir == '..')
    		continue;
 		//Include the inc_site.php if it exists, and if module is compatible
-		include("data/modules/$dir/module_info.php");
+		include('data/modules/'.$dir.'/module_info.php');
 		if(module_is_compatible($dir)) {
-			if(file_exists("data/modules/$dir/inc_site_head.php")) {
-				include("data/modules/$dir/inc_site_head.php");
+			if(file_exists('data/modules/'.$dir.'/inc_site_head.php')) {
+				include('data/modules/'.$dir.'/inc_site_head.php');
 			}
 		}	
 	}
@@ -182,8 +178,8 @@ function theme_meta() {
 //[THEME] FUNCTION TO SHOW SITE TITLE
 //---------------------------------
 function theme_sitetitle() {
-	$sitetitle = get_sitetitle();
-	echo $sitetitle;
+	$site_title = get_sitetitle();
+	echo $site_title;
 }
 
 //[THEME] FUNCTION TO SHOW THE MENU
@@ -270,8 +266,7 @@ if (isset($_GET['page'])) {
 	$page = $_GET['page'];
 }
 
-//Variables for module programmers
-//----------------
+//Module variables
 include("data/inc/variables.all.php");
 include("data/inc/variables.site.php");
 
