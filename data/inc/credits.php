@@ -12,9 +12,9 @@
 */
 
 //Make sure the file isn't accessed directly
-if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("install.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("login.php", $_SERVER['SCRIPT_FILENAME']))){
+if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
     //Give out an "access denied" error
-    echo "access denied";
+    echo 'access denied';
     //Block all other code
     exit();
 }
@@ -84,8 +84,8 @@ $translator = "Skc"; }
 
 //Then display, if language is not English
 if ($langpref != "en.php") {
-echo "<p><span class=\"kop2\">$lang_credits4</span><br />$translator</p>"; }
 ?>
+<p><span class="kop2"><?php echo $lang_credits4; ?></span><br /><?php echo $translator; ?></p>
 
 <p>
 	<span class="kop2"><?php echo $lang_credits5; ?></span><br />
