@@ -44,22 +44,21 @@ if(isset($_POST['Submit'])) {
 	fputs($file, '<?php'."\n"
 	.'$title = "'.$title.'";'."\n"
 	.'$content = "'.$content.'";'."\n"
-	.'$hidden = "'.$hidden.'";'."\n".'');
+	.'$hidden = "'.$hidden.'";'."\n");
 
 	//Only save other variables if they are set
 	if (!empty($cont1)) {
-		fputs($file,'$description = "'.$cont1.'";'."\n".'');
+		fputs($file,'$description = "'.$cont1.'";'."\n");
 	}
 	if (!empty($cont2)) {
-		fputs($file,'$keywords = "'.$cont2.'";'."\n".'');
+		fputs($file,'$keywords = "'.$cont2.'";'."\n");
 	}
 	
 	//Save the module information
 	if (isset($module_pageinc))
 	{
 		foreach ($module_pageinc as $modulename => $order) {
-			//FIX ME: How do I write this with ' and not "?
-			fputs($file,"\$module_pageinc['$modulename'] = \"$order\";\n");
+			fputs($file,'$module_pageinc[\''.$modulename.'\'] = "'.$order.'";'."\n");
 		}
 	}
 

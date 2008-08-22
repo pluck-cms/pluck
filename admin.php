@@ -267,7 +267,6 @@ else {
 	}
 
 	//Include module pages
-	//FIX ME: What is this for? Should it be here?
 	include('data/inc/modules_admininclude.php');
 
 	//Include footer
