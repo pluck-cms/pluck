@@ -13,32 +13,32 @@
 */
 
 //Make sure the file isn't accessed directly
-if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("install.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("login.php", $_SERVER['SCRIPT_FILENAME']))){
+if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
     //Give out an "access denied" error
-    echo "access denied";
+    echo 'access denied';
     //Block all other code
     exit();
 }
 
 //First get the day of the year
-$dayofyear = date("z");
+$dayofyear = date('z');
 
 //If the updatecheckfile existst, include it
-if (file_exists("data/settings/update_lastcheck.php")) {
-	include("data/settings/update_lastcheck.php");
+if (file_exists('data/settings/update_lastcheck.php')) {
+	include('data/settings/update_lastcheck.php');
 }
 
 //We want to check for updates if:
 //1 Updatecheckfile doesn't exist
-//2 Updatecheckfile exists, but last check was more not today
-if (((!file_exists("data/settings/update_lastcheck.php"))) || ((file_exists("data/settings/update_lastcheck.php")) && ($lastcheck != $dayofyear))) {
+//2 Updatecheckfile exists, but last check was not today
+if (((!file_exists('data/settings/update_lastcheck.php'))) || ((file_exists('data/settings/update_lastcheck.php')) && ($lastcheck != $dayofyear))) {
 
 //Iniate CURL to fetch update-info,
 //but only if CURL-extension is loaded
-if (extension_loaded("curl")) {
+if (extension_loaded('curl')) {
 	$geturl = curl_init();
 	$timeout = 10;
-	curl_setopt ($geturl, CURLOPT_URL, "http://www.pluck-cms.org/update.php?version=$pluck_version");
+	curl_setopt ($geturl, CURLOPT_URL, 'http://www.pluck-cms.org/update.php?version='.$pluck_version);
 	curl_setopt ($geturl, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt ($geturl, CURLOPT_CONNECTTIMEOUT, $timeout);
 	$update_available = curl_exec($geturl);
@@ -47,42 +47,43 @@ if (extension_loaded("curl")) {
 
 //If CURL isn't loaded, save an error-status
 else {
-	$update_available = "error";
+	$update_available = 'error';
 }
 
-$data1 = "data/settings/update_lastcheck.php";
-$file = fopen($data1, "w");
-fputs($file, "<?php
-\$lastcheck = \"$dayofyear\";
-\$lastupdatestatus = \"$update_available\";
-?>");
+$data = 'data/settings/update_lastcheck.php';
+$file = fopen($data, 'w');
+fputs($file, '<?php'."\n"
+.'$lastcheck = "'.$dayofyear.'";'."\n"
+.'$lastupdatestatus = "'.$update_available.'";'."\n"
+.'?>');
 fclose($file);
+chmod($data,0777);
 }
 
 //If update-file exists and we already checked for updates today, use old updatecheck result
-elseif ((file_exists("data/settings/update_lastcheck.php")) && ($lastcheck == $dayofyear)) {
+elseif ((file_exists('data/settings/update_lastcheck.php')) && ($lastcheck == $dayofyear)) {
 	$update_available = $lastupdatestatus;
 }
 
 //Then determine which icon we need to show... and show it
-if ($update_available == "yes") {
-	$update_image = "update-available.png";
-	$update_note = "<a href=\"http://www.pluck-cms.org/cmsupdate.php?versie=$pluck_version\" target=\"_blank\">$lang_update2</a>";
+if ($update_available == 'yes') {
+	$update_image = 'update-available.png';
+	$update_note = '<a href="http://www.pluck-cms.org/" target="_blank">'.$lang_update2.'</a>';
 }
 
-elseif ($update_available == "urgent") {
-	$update_image = "update-available-urgent.png";
-	$update_note = "<a href=\"http://www.pluck-cms.org/cmsupdate.php?versie=$pluck_version\" target=\"_blank\">$lang_update3</a>";
+elseif ($update_available == 'urgent') {
+	$update_image = 'update-available-urgent.png';
+	$update_note = '<a href="http://www.pluck-cms.org/" target="_blank">'.$lang_update3.'</a>';
 }
 
-elseif ($update_available == "error") {
-	$update_image = "error.png";
-	$update_note = "<a href=\"http://www.pluck-cms.org/docs/doku.php/docs:updatecheckfailed\" target=\"_blank\">$lang_update4</a>";
+elseif ($update_available == 'error') {
+	$update_image = 'error.png';
+	$update_note = $lang_update4;
 }
 
 else {
-	$update_image = "update-no.png";
-	$update_note = "$lang_update1";
+	$update_image = 'update-no.png';
+	$update_note = $lang_update1;
 }
 ?>
 <div>
