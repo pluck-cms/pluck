@@ -70,10 +70,14 @@ body {
 	width: 150px;
 }
 
-#statusbox div{
+#statusbox div {
 	font-family: Verdana;
 	font-size: 11px;
 	margin-top: 15px;
+}
+
+#statusbox img {
+	margin-top: -4px;
 }
 
 #text {
