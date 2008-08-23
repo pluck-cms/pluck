@@ -86,6 +86,9 @@ $translator = "Skc"; }
 if ($langpref != "en.php") {
 ?>
 <p><span class="kop2"><?php echo $lang_credits4; ?></span><br /><?php echo $translator; ?></p>
+<?php
+}
+?>
 
 <p>
 	<span class="kop2"><?php echo $lang_credits5; ?></span><br />
