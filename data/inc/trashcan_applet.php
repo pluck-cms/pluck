@@ -29,8 +29,5 @@ $trash_image = "trash.png"; }
 else {
 $trash_image = "trash-full.png"; }
 ?>
-<div>
-<span><a href="?action=trashcan"><img src="data/image/<?php echo $trash_image; ?>" alt="<?php echo $lang_trash; ?>" title="<?php echo $lang_trash; ?>" /></a></span>
-<span><?php echo $trashcan_items; ?> <?php echo $lang_trash3; ?></span>
-</div>
-
+<a href="?action=trashcan"><img src="data/image/<?php echo $trash_image; ?>" alt="<?php echo $lang_trash; ?>" title="<?php echo $lang_trash; ?>" /></a>
+<?php echo $trashcan_items; ?> <?php echo $lang_trash3; ?>

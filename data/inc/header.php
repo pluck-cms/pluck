@@ -40,8 +40,8 @@ else {
 }
 
 //Include TinyMCE, if needed
-if ((isset($tinymce)) && ($tinymce == "yes")) {
-	include("data/inc/tinymce_inc.php");
+if ((isset($tinymce)) && ($tinymce == 'yes')) {
+	include('data/inc/tinymce_inc.php');
 }
 ?>
 <meta name="robots" content="noindex" />
@@ -78,30 +78,40 @@ function confirmation(message) {
 <div id="menuheader">
 	<div id="menu">
 		<div class="menuitem">
-			<span><img src="data/image/menu/start.png" border="0" alt="" /></span>
-			<span><a href="?action=start" title="<?php echo $lang_kop1; ?>"><?php echo $lang_kop1; ?></a></span>
+			<span>
+				<img src="data/image/menu/start.png" border="0" alt="" />
+				<a href="?action=start" title="<?php echo $lang_kop1; ?>"><?php echo $lang_kop1; ?></a>
+			</span>
 		</div>
 		<div class="menuitem">
-			<span><img src="data/image/menu/pages.png" border="0" alt="" /></span>
-			<span><a href="?action=page" title="<?php echo $lang_kop2; ?>"><?php echo $lang_kop2; ?></a></span>
+			<span>
+				<img src="data/image/menu/pages.png" border="0" alt="" />
+				<a href="?action=page" title="<?php echo $lang_kop2; ?>"><?php echo $lang_kop2; ?></a>
+			</span>
 		</div>
 		<div class="menuitem">
-			<span><img src="data/image/menu/modules.png" border="0" alt="" /></span>
-			<span><a href="?action=modules" title="<?php echo $lang_modules; ?>"><?php echo $lang_modules; ?></a></span>
+			<span>
+				<img src="data/image/menu/modules.png" border="0" alt="" />
+				<a href="?action=modules" title="<?php echo $lang_modules; ?>"><?php echo $lang_modules; ?></a>
+			</span>
 		</div>
 		<div class="menuitem">
-			<span><img src="data/image/menu/options.png" border="0" alt="" /></span>
-			<span><a href="?action=options" title="<?php echo $lang_kop4; ?>"><?php echo $lang_kop4; ?></a></span>
+			<span>
+				<img src="data/image/menu/options.png" border="0" alt="" />
+				<a href="?action=options" title="<?php echo $lang_kop4; ?>"><?php echo $lang_kop4; ?></a>
+			</span>
 		</div>
 		<div class="menuitem">
-			<span><img src="data/image/menu/logout.png" border="0" alt="" /></span>
-			<span><a href="?action=logout" title="<?php echo $lang_kop5; ?>"><?php echo $lang_kop5; ?></a></span>
+			<span>
+				<img src="data/image/menu/logout.png" border="0" alt="" />
+				<a href="?action=logout" title="<?php echo $lang_kop5; ?>"><?php echo $lang_kop5; ?></a>
+			</span>
 		</div>
 	</div>
 	<h1>pluck</h1>
 	<div id="statusbox">
-	<?php include("data/inc/trashcan_applet.php"); ?>
-	<?php include("data/inc/update_applet.php"); ?>
+		<div><?php include('data/inc/trashcan_applet.php'); ?></div>
+		<div><?php include('data/inc/update_applet.php'); ?></div>
 	</div>
 </div>
 

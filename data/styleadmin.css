@@ -19,12 +19,9 @@ body {
 	width: 100%;
 }
 
-#menuheader span {
-	vertical-align: top;
-}
-
 #menuheader img {
-	margin-top: -2px;
+	position: relative;
+	top: 6px;
 }
 
 #menu {
@@ -43,6 +40,11 @@ body {
 	text-decoration: none;
 	height: 30px;
 	float: left;
+}
+
+.menuitem span {
+	position: relative;
+	bottom: 8px;
 }
 
 .menuitem:hover {
@@ -73,11 +75,7 @@ body {
 #statusbox div {
 	font-family: Verdana;
 	font-size: 11px;
-	margin-top: 15px;
-}
-
-#statusbox img {
-	margin-top: -4px;
+	margin-top: 5px;
 }
 
 #text {
