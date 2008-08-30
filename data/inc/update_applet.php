@@ -86,5 +86,7 @@ else {
 	$update_note = $lang_update1;
 }
 ?>
-<img src="data/image/<?php echo $update_image; ?>" alt="" />
-<?php echo $update_note; ?>
+<div>
+	<img src="data/image/<?php echo $update_image; ?>" alt="" />
+	<?php echo $update_note; ?>
+</div>

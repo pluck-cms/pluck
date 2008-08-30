@@ -110,8 +110,8 @@ function confirmation(message) {
 	</div>
 	<h1>pluck</h1>
 	<div id="statusbox">
-		<div><?php include('data/inc/trashcan_applet.php'); ?></div>
-		<div><?php include('data/inc/update_applet.php'); ?></div>
+		<?php include('data/inc/trashcan_applet.php'); ?>
+		<?php include('data/inc/update_applet.php'); ?>
 	</div>
 </div>
 
