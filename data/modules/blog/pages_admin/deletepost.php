@@ -42,6 +42,13 @@ if(file_exists('data/settings/modules/blog/post_index.dat')) {
 	$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
 	fputs($file,$contents);
 	fclose($file);
+
+	//Reload contents of post index in variable
+	$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
+	//If variable/file is empty, delete post index
+	if(empty($contents)) {
+		unlink('data/settings/modules/blog/post_index.dat');
+	}
 }
 
 //Check if post exists, then delete it
@@ -51,5 +58,5 @@ if(file_exists('data/settings/modules/blog/posts/'.$var)) {
 }
 
 //Redirect
-redirect("?module=blog","0");
+redirect('?module=blog','0');
 ?>

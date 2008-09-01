@@ -46,8 +46,10 @@ if(file_exists('data/settings/modules/blog/post_index.dat')) {
 	$handle = fopen('data/settings/modules/blog/post_index.dat', 'r');
 	while(!feof($handle)) {
 		$file = fgets($handle, 4096);
+		//Filter out line breaks
+		$file = str_replace ("\n",'', $file);		
 		//Check if post exists
-		if(file_exists('data/settings/modules/blog/posts/'.$file)) {
+		if((file_exists('data/settings/modules/blog/posts/'.$file)) && (is_file('data/settings/modules/blog/posts/'.$file))) {
 			//Include post information
 			include('data/settings/modules/blog/posts/'.$file);
 ?>
@@ -76,11 +78,11 @@ if(file_exists('data/settings/modules/blog/post_index.dat')) {
 			<td>
 				<span style="font-size: 12px; font-style: italic">
 					<?php
-						//Show post date and category
-						echo $post_month.'-'.$post_day.'-'.$post_year;
-						if(isset($post_category)) {
-							echo ', '.$lang_blog14.' '.$post_category; 
-						}
+					//Show post date and category
+					echo $post_month.'-'.$post_day.'-'.$post_year;
+					if(isset($post_category)) {
+						echo ', '.$lang_blog14.' '.$post_category; 
+					}
 					?>
 				</span>
 			</td>				
@@ -151,17 +153,17 @@ if(isset($_POST['Submit'])) {
 		$cont1 = str_replace ("\\","", $cont1);
 		
 		//Read out existing categories, if they exist
-		if(file_exists("data/settings/modules/blog/categories.dat")) {
-			$categories = file_get_contents("data/settings/modules/blog/categories.dat");
+		if(file_exists('data/settings/modules/blog/categories.dat')) {
+			$categories = file_get_contents('data/settings/modules/blog/categories.dat');
 		}
 		
 		//Make sure category doesn't already exist
 		if((!ereg($cont1.',',$categories)) || (!ereg(','.$cont1,$categories)) || (!isset($categories))) {
 			
 			//If there are already existing categories...
-			if(file_exists("data/settings/modules/blog/categories.dat")) {
+			if(file_exists('data/settings/modules/blog/categories.dat')) {
 				//Load existing categories in array
-				$categories = split(",",$categories);
+				$categories = split(',',$categories);
 
 				//Determine the array number for our new category
 				$num = 0; 
@@ -183,12 +185,12 @@ if(isset($_POST['Submit'])) {
 			$categories = array_merge(array(),$categories); 
 
 			//Open config file to save categories
-			$file = fopen("data/settings/modules/blog/categories.dat", "w");
+			$file = fopen('data/settings/modules/blog/categories.dat', 'w');
 			
 			foreach($categories as $number => $name) {			
 				$number_next = $number + 1;
 				if(isset($categories[$number_next])) {
-					fputs($file,"$name,");
+					fputs($file,$name.',');
 				}
 				else {
 					fputs($file,$name);
@@ -196,10 +198,10 @@ if(isset($_POST['Submit'])) {
 			}
 			//Close file, and chmod it
 			fclose($file);
-			chmod("data/settings/modules/blog/categories.dat", 0777);
+			chmod('data/settings/modules/blog/categories.dat', 0777);
 		}
 		//Redirect user
-		redirect("?module=blog","0");
+		redirect('?module=blog','0');
 	}
 }
 ?>
