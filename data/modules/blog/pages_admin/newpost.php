@@ -40,9 +40,9 @@ read_imagesinpages('images');
 		<option value="<?php echo $lang_blog27; ?>" /> <?php echo $lang_blog25; ?>
 <?php
 //If there are categories
-if(file_exists("data/settings/modules/blog/categories.dat")) {
+if(file_exists('data/settings/modules/blog/categories.dat')) {
 	//Load them
-	$categories = file_get_contents("data/settings/modules/blog/categories.dat");
+	$categories = file_get_contents('data/settings/modules/blog/categories.dat');
 	
 	//Then in an array
 	$categories = split(',',$categories);
@@ -68,7 +68,7 @@ if(file_exists("data/settings/modules/blog/categories.dat")) {
 if(isset($_POST['Submit'])) {
 
 	//Strip slashes
-	include("data/inc/page_stripslashes.php");
+	include('data/inc/page_stripslashes.php');
 
 	//Determine the date
 	$day = date("d");
@@ -77,9 +77,9 @@ if(isset($_POST['Submit'])) {
 	$time = date("H:i");
 
 	//Check if 'posts' directory exists, if not; create it
-	if(!file_exists("data/settings/modules/blog/posts")) {
-		mkdir("data/settings/modules/blog/posts",0777);
-		chmod("data/settings/modules/blog/posts",0777);
+	if(!file_exists('data/settings/modules/blog/posts')) {
+		mkdir('data/settings/modules/blog/posts',0777);
+		chmod('data/settings/modules/blog/posts',0777);
 	}
 
 	//Generate filename

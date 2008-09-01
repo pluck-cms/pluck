@@ -41,16 +41,15 @@ include("data/modules/blog/functions.php");
 <span class="kop2"><?php echo $lang_blog9; ?></span><br />
 
 <?php
-//Display existing posts
-//Define path to the module-dir
-$path = "data/settings/modules/blog/posts";
-//Open the folder
-$dir_open = @opendir($path) or die("Unable to open $path. Check if it's readable.");
-
-//Loop through dirs, and display the modules
-while($file = readdir($dir_open)) {
-	if($file != '.' && $file != '..') {
-		include('data/settings/modules/blog/posts/'.$file);
+//Display existing posts, but only if post-index file exists
+if(file_exists('data/settings/modules/blog/post_index.dat')) {
+	$handle = fopen('data/settings/modules/blog/post_index.dat', 'r');
+	while(!feof($handle)) {
+		$file = fgets($handle, 4096);
+		//Check if post exists
+		if(file_exists('data/settings/modules/blog/posts/'.$file)) {
+			//Include post information
+			include('data/settings/modules/blog/posts/'.$file);
 ?>
 
 <div class="menudiv" style="margin: 10px;">
@@ -75,17 +74,30 @@ while($file = readdir($dir_open)) {
 		<tr>
 			<td></td>
 			<td>
-				<span style="font-size: 12px; font-style: italic"><?php echo $post_month.'-'.$post_day.'-'.$post_year; ?></span>
+				<span style="font-size: 12px; font-style: italic">
+					<?php
+						//Show post date and category
+						echo $post_month.'-'.$post_day.'-'.$post_year;
+						if(isset($post_category)) {
+							echo ', '.$lang_blog14.' '.$post_category; 
+						}
+					?>
+				</span>
 			</td>				
 		</tr>
 	</table>
 </div>
 
 <?php
+		}
 	}
+	//Close module-dir
+	fclose($handle); 
 }
-//Close module-dir
-closedir($dir_open); 
+//If no posts exist, display message
+else {
+	echo '<span class="kop4">'.$lang_albums14.'</span><br />';
+}
 ?>
 <br />
 
@@ -93,9 +105,9 @@ closedir($dir_open);
 
 <?php
 //If there already are categories
-if(file_exists("data/settings/modules/blog/categories.dat")) {
+if(file_exists('data/settings/modules/blog/categories.dat')) {
 	//Load them
-	$categories = file_get_contents("data/settings/modules/blog/categories.dat");
+	$categories = file_get_contents('data/settings/modules/blog/categories.dat');
 	
 	//Then in an array
 	$categories = split(',',$categories);
@@ -105,14 +117,14 @@ if(file_exists("data/settings/modules/blog/categories.dat")) {
 	echo "<table>";
 	foreach($categories as $key => $name) {
 		echo "<tr><td>$name &nbsp;"; 
-		echo "<td><a href=\"?module=blog&page=deletecategory&var=$name\"><img src=\"data/image/trash_small.png\" width=\"16\" height=\"16\" alt=\"$lang_blog6\" title=\"$lang_blog6\" style=\"border:0px;\"></a></td></tr>";
+		echo "<td><a href=\"?module=blog&page=deletecategory&var=$name\"><img src=\"data/image/delete_from_trash_small.png\" width=\"16\" height=\"16\" alt=\"$lang_blog6\" title=\"$lang_blog6\" style=\"border:0px;\"></a></td></tr>";
 	}
 	echo "</table>";
 }
 
 //If no categories exist, show a message
 else {
-	echo "<span class=\"kop4\">$lang_albums14</span><br />";
+	echo '<span class="kop4">'.$lang_albums14.'</span><br />';
 }
 
 //New category
