@@ -12,17 +12,17 @@
 */
 
 //Define which css-file we have to convert
-include ("data/settings/themepref.php");
+include('data/settings/themepref.php');
 
-$handle = fopen("data/themes/$themepref/style.css", "r");
-while (!feof ($handle)) {
+$handle = fopen('data/themes/'.$themepref.'/style.css', 'r');
+while(!feof($handle)) {
 	$buffer = fgets($handle, 4096);
 
 	//First change all 'left' to 'right'
 	//... and 'right' to 'left'
-   $buffer = str_replace("left","letempft",$buffer);
-  	$buffer = str_replace("right","left",$buffer);
-   $buffer = str_replace("letempft","right",$buffer);
+   $buffer = str_replace('left','letempft',$buffer);
+  	$buffer = str_replace('right','left',$buffer);
+   $buffer = str_replace('letempft','right',$buffer);
 
 	//Then we have to check for 'nested' css-attributes
 	//First define the reg.exprs strings
@@ -42,10 +42,10 @@ while (!feof ($handle)) {
 	}
 
 	//Save the line in our css-file
-	$file = fopen("data/themes/$themepref/style-rtl.css", "a");	fputs($file, "$buffer");  
+	$file = fopen('data/themes/'.$themepref.'/style-rtl.css', 'a');	fputs($file, $buffer);  
 	fclose($file); 
-	chmod("data/themes/$themepref/style-rtl.css", 0755);
+	chmod('data/themes/'.$themepref.'/style-rtl.css', 0755);
 
 }
-fclose ($handle);
+fclose($handle);
 ?>

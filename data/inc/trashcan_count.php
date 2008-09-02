@@ -20,12 +20,16 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 }
 
 //PAGES
-$directory = "data/trash/pages";
-$count_pages = count(glob($directory."/*.*"));
+$count_pages_array = glob("data/trash/pages/*.*");
+if((isset($count_pages_array)) && (!empty($count_pages_array))) {
+	$count_pages = count($count_pages_array);
+}
 
 //IMAGES
-$directory = "data/trash/images";
-$count_images = count(glob($directory."/*.*"));
+$count_images_array = glob("data/trash/images/*.*");
+if((isset($count_images_array)) && (!empty($count_images_array))) {
+	$count_images = count($count_images_array);
+}
 
 //Combine all numbers...
 $trashcan_items = $count_pages + $count_images;
