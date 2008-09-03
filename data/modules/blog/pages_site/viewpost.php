@@ -20,14 +20,26 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 }
 
 //Predefined variable
-$blogpost = $_GET['blogpost'];
-$cat = $_GET['cat'];
+$post = $_GET['post'];
 $pageback = $_GET['pageback'];
-list($reactiondir, $extension) = explode(".", $blogpost);
 
-//Include the blogpost
-include("data/blog/$cat/posts/$blogpost");
+//First, check if the page exists
+if(file_exists('data/settings/modules/blog/posts/'.$post)) {
+	include('data/settings/modules/blog/posts/'.$post);
+?>
 
+<div class="blogpost" style="margin-top: 20px">
+	<span class="posttitle" style="font-size: 18px;">
+		<?php echo $post_title; ?>
+	</span><br />
+	<span class="postinfo" style="font-size: 10px;">
+		<?php echo $lang_blog14; ?> <span style="font-weight: bold;"><?php echo $post_category; ?></span> - <?php echo $post_month; ?>-<?php echo $post_day; ?>-<?php echo $post_year; ?>, <?php echo $post_time; ?>
+	</span><br /><br />
+	<?php echo $post_content; ?>
+</div>
+
+<?php
+}
 echo "<div style=\"margin-bottom: 20px;\">
 <span class=\"postinfo\" style=\"font-size: 10px;\">$lang_blog14 <span style=\"font-weight: bold;\">$cat</span> - $postdate</span><br /><br />
 $content
@@ -77,12 +89,12 @@ function read_reactions($dir) {
 read_reactions("data/blog/$cat/reactions/$reactiondir/");
 
 //...and show a form to place new reactions
-echo "<form method=\"post\" action=\"\" style=\"margin-top: 5px; margin-bottom: 15px;\"><div>
-$lang_blog17 <br /><input name=\"title\" type=\"text\" value=\"\" /><br />
-$lang_contact3 <br /><input name=\"name\" type=\"text\" value=\"\" /><br />
-$lang_contact5 <br /><textarea name=\"message\" rows=\"7\" cols=\"45\"></textarea><br />
-<input type=\"submit\" name=\"Submit\" value=\"$lang_contact10\" />
-</div></form>";
+//echo "<form method=\"post\" action=\"\" style=\"margin-top: 5px; margin-bottom: 15px;\"><div>
+//$lang_blog17 <br /><input name=\"title\" type=\"text\" value=\"\" /><br />
+//$lang_contact3 <br /><input name=\"name\" type=\"text\" value=\"\" /><br />
+//$lang_contact5 <br /><textarea name=\"message\" rows=\"7\" cols=\"45\"></textarea><br />
+//<input type=\"submit\" name=\"Submit\" value=\"$lang_contact10\" />
+//</div></form>";
 
 //If form is posted...
 if(isset($_POST['Submit'])) {

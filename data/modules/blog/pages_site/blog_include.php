@@ -1,3 +1,4 @@
+
 <?php
 /* 
  * This file is part of pluck, the easy content management system
@@ -19,52 +20,36 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
     exit();
 }
 
-//Check if we want to include blog
-if ($incblog) {
+//Display existing posts, but only if post-index file exists
+if(file_exists('data/settings/modules/blog/post_index.dat')) {
+	$handle = fopen('data/settings/modules/blog/post_index.dat', 'r');
+	while(!feof($handle)) {
+		$file = fgets($handle, 4096);
+		//Filter out line breaks
+		$file = str_replace ("\n",'', $file);		
+		//Check if post exists
+		if((file_exists('data/settings/modules/blog/posts/'.$file)) && (is_file('data/settings/modules/blog/posts/'.$file))) {
+			//Include post information
+			include('data/settings/modules/blog/posts/'.$file);
+?>
 
-//Execute the code for every blogcategory
-foreach ($incblog as $blogcat => $value) {
-
-//Check if the album exists
-if (file_exists("data/blog/$blogcat")) {
-
-//Readout the posts
-$dir = "data/blog/$blogcat/posts";
-$path = opendir($dir);
-while (false !== ($file = readdir($path))) {
-    if(($file !== ".") and ($file !== "..")) {
-        if(is_file($dir."/".$file))
-            $files[]=$file;
-        else
-            $dirs[]=$file;           
-    }
-}
-if($files) {
-natcasesort($files);
-$files = array_reverse($files);
-foreach ($files as $file) {
-//Unset our old variable
-unset($files);
-
-//Include Translation data
-include ("data/settings/langpref.php");
-include ("data/inc/lang/en.php");
-include ("data/inc/lang/$langpref");
-//Include the post
-include("data/blog/$blogcat/posts/$file");
-
-echo "<div class=\"blogpost\" style=\"margin-top: 20px\">
-<span class=\"posttitle\" style=\"font-size: 18px;\"><a href=\"?blogpost=$file&amp;cat=$blogcat&amp;pageback=$filetoread\">$title</a></span><br />
-<span class=\"postinfo\" style=\"font-size: 10px;\">$lang_blog14 <span style=\"font-weight: bold;\">$blogcat</span> - $postdate</span><br /><br />
-$content
-<p><a href=\"?blogpost=$file&amp;cat=$blogcat&amp;pageback=$filetoread\">&raquo; $lang_blog23</a></p></div>";
-		
-}
-}
-closedir($path);
-
-
+<div class="blogpost" style="margin-top: 20px">
+	<span class="posttitle" style="font-size: 18px;">
+		<a href="?module=blog&amp;page=viewpost&amp;post=<?php echo $file; ?>&amp;pageback=<?php echo $current_page_filename; ?>"><?php echo $post_title; ?></a>
+	</span><br />
+	<span class="postinfo" style="font-size: 10px;">
+		<?php echo $lang_blog14; ?> <span style="font-weight: bold;"><?php echo $post_category; ?></span> - <?php echo $post_month; ?>-<?php echo $post_day; ?>-<?php echo $post_year; ?>, <?php echo $post_time; ?>
+	</span><br /><br />
+	<?php echo $post_content; ?>
+	<p>
+		<a href="?module=blog&amp;page=viewpost&amp;post=<?php echo $file; ?>&amp;pageback=<?php echo $current_page_filename; ?>">&raquo; <?php echo $lang_blog23; ?></a>
+	</p>
+</div>
+	
+<?php		
 		}
 	}
+	//Close module-dir
+	fclose($handle); 
 }
 ?>
