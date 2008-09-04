@@ -47,6 +47,15 @@
  * FULL_ARCHIVE is a -1 constant that means "the complete archive" when
  * extracting. This is explained in Extract()
  */
+
+//Make sure the file isn't accessed directly
+if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
+    //Give out an "access denied" error
+    echo 'access denied';
+    //Block all other code
+    exit();
+}
+
 define('COMPRESS_GZIP',1);
 define('COMPRESS_BZIP',2);
 define('COMPRESS_AUTO',3);
