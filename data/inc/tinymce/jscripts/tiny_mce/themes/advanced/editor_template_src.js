@@ -1,5 +1,5 @@
 /**
- * $Id: editor_template_src.js 829 2008-04-30 14:35:32Z spocke $
+ * $Id: editor_template_src.js 901 2008-08-18 11:44:21Z spocke $
  *
  * @author Moxiecode
  * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
@@ -75,7 +75,8 @@
 				theme_advanced_more_colors : 1,
 				theme_advanced_row_height : 23,
 				theme_advanced_resize_horizontal : 1,
-				theme_advanced_resizing_use_cookie : 1
+				theme_advanced_resizing_use_cookie : 1,
+				readonly : ed.settings.readonly
 			}, ed.settings);
 
 			if ((v = s.theme_advanced_path_location) && v != 'none')
@@ -158,7 +159,7 @@
 			return false;
 		},
 
-		_importClasses : function() {
+		_importClasses : function(e) {
 			var ed = this.editor, c = ed.controlManager.get('styleselect');
 
 			if (c.getLength() == 0) {
@@ -188,8 +189,8 @@
 				});
 
 				c.onPostRender.add(function(ed, n) {
-					Event.add(n, 'focus', t._importClasses, t);
-					Event.add(n, 'mousedown', t._importClasses, t);
+					Event.add(n.id + '_text', 'focus', t._importClasses, t);
+					Event.add(n.id + '_text', 'mousedown', t._importClasses, t);
 				});
 			}
 
@@ -446,6 +447,12 @@
 
 		_simpleLayout : function(s, tb, o, p) {
 			var t = this, ed = t.editor, lo = s.theme_advanced_toolbar_location, sl = s.theme_advanced_statusbar_location, n, ic, etb, c;
+
+			if (s.readonly) {
+				n = DOM.add(tb, 'tr');
+				n = ic = DOM.add(n, 'td', {'class' : 'mceIframeContainer'});
+				return ic;
+			}
 
 			// Create toolbar container at top
 			if (lo == 'top')
@@ -742,6 +749,9 @@
 
 		_nodeChanged : function(ed, cm, n, co) {
 			var t = this, p, de = 0, v, c, s = t.settings;
+
+			if (s.readonly)
+				return;
 
 			tinymce.each(t.stateControls, function(c) {
 				cm.setActive(c, ed.queryCommandState(t.controls[c][1]));
