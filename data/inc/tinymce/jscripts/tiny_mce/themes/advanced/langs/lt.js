@@ -58,10 +58,5 @@ clipboard_msg:"Kopijavimas/I\u0161kirpimas/\u012Eklijavimas negalimas Mozilla ir
 path:"Kelias",
 newdocument:"Ar tikrai norite i\u0161trinti vis\u0105 turin\u012F?",
 toolbar_focus:"Per\u0161okimas prie \u012Franki\u0173 juostos mygtuk\u0173 - Alt+Q, Per\u0161okimas prie redaktoriaus - Alt-Z, Per\u0161okimas prie element\u0173 kelio - Alt-X",
-more_colors:"Daugiau spalv\u0173",
-advanced_image_delta_width:"10",
-advanced_link_delta_width:"10",
-advanced_colorpicker_delta_width:"10",
-advanced_charmap_delta_width:"10",
-advanced_anchor_delta_width:"10"
+more_colors:"Daugiau spalv\u0173"
 });

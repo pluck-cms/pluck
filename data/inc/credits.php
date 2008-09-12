@@ -66,7 +66,7 @@ $translator = "Mindaugas Salamachinas"; }
 if ($langpref == "no.php") {
 $translator = "John Erik Kristensen"; }
 if ($langpref == "pt.php") {
-$translator = "Hélio Carrasqueira"; }
+$translator = "Marco Paulo Ferreira, Hélio Carrasqueira"; }
 if ($langpref == "pt_br.php") {
 $translator = "Gilnei Moraes, sarkioja"; }
 if ($langpref == "ru.php") {
@@ -81,6 +81,18 @@ if ($langpref == "lv.php") {
 $translator = "Munky"; }
 if ($langpref == "it.php") {
 $translator = "Skc"; }
+if ($langpref == "hr.php") {
+$translator = "atghoust"; }
+if ($langpref == "pl.php") {
+$translator = "Leszek Soltys"; }
+if ($langpref == "fa.php") {
+$translator = "heam"; }
+if ($langpref == "fi.php") {
+$translator = "maxtuska"; }
+if ($langpref == "sl.php") {
+$translator = "Evelina"; }
+if ($langpref == "sk.php") {
+$translator = "greppi"; }
 
 //Then display, if language is not English
 if ($langpref != "en.php") {

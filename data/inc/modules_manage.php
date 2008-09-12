@@ -29,9 +29,6 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 		<a class="smallmenu_a" href="?action=module_addtosite" style="background:url(data/image/add_small.png) no-repeat;"><?php echo $lang_modules13; ?></a>
 	</span>
 	<span class="smallmenu_button">
-		<a class="smallmenu_a" href="http://www.pluck-cms.org/addons/" target="_blank" style="background:url(data/image/download_small.png) no-repeat;"><?php echo $lang_modules12; ?></a>
-	</span>
-	<span class="smallmenu_button">
 		<a class="smallmenu_a" href="?action=installmodule" style="background:url(data/image/install_small.png) no-repeat;"><?php echo $lang_modules11; ?></a>
 	</span>
 </div>

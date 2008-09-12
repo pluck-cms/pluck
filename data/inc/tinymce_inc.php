@@ -102,6 +102,22 @@ $tinymce_lang = 'pl'; }
 elseif ($langpref == 'sk.php') {
 $tinymce_lang = 'sk'; }
 
+//Slovenian
+elseif ($langpref == 'sl.php') {
+$tinymce_lang = 'sl'; }
+
+//Finnish
+elseif ($langpref == 'fi.php') {
+$tinymce_lang = 'fi'; }
+
+//Croatian
+elseif ($langpref == 'hr.php') {
+$tinymce_lang = 'hr'; }
+
+//Persian
+elseif ($langpref == 'fa.php') {
+$tinymce_lang = 'fa'; }
+
 //Thai (not (yet) supported!)
 elseif ($langpref == 'th.php') {
 $tinymce_lang = 'en'; }

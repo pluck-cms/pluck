@@ -279,7 +279,6 @@ $lang_modules8 = "module-informatie";
 $lang_modules9 = "Het is ook mogelijk een module in slechts één pagina in te voegen. Dit kunt u doen door een pagina aan te passen, en dan de module te kiezen die u in wilt voegen.";
 $lang_modules10 = "deïnstalleer module";
 $lang_modules11 = "Installeer een module...";
-$lang_modules12 = "Download nieuwe modules...";
 $lang_modules13 = "Modules aan website toevoegen...";
 $lang_modules14 = "modules aan website toevoegen";
 $lang_modules15 = "Configureer hier op welke plaats op uw website modules getoond moeten worden. Deze instellingen zijn thema-specifiek: als u van thema verandert, zult u deze instellingen opnieuw moeten doen. Ook zullen deze instellingen gelden voor alle pagina's op uw website.";

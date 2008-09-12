@@ -1,5 +1,5 @@
 tinyMCE.addI18n('sk.style_dlg',{
-title:"Editova\u0165 CSS \u0160t\u00FDl",
+title:"Editova\u0165 CSS \u0161t\u00FDl",
 apply:"Aplikova\u0165",
 text_tab:"Text",
 background_tab:"Pozadie",

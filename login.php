@@ -72,7 +72,7 @@ else {
 			$titelkop = $lang_login1;
 			include('data/inc/header2.php');
 			echo $lang_login5;
-			redirect('admin.php?action=start', '3');
+			redirect('admin.php?action=start', '1');
 			include('data/inc/footer.php');
 		}
 

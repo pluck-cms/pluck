@@ -1,23 +1,23 @@
 <?php 
 /* 
-this is a pluck language file. you can find pluck at http://www.pluck-cms.org
-if you want to help us, please translate this file in your own language and send it to us at
-sander@somp.nl
-it wil be included in the next release of pluck.
-	if you translate, please note the use of capitals: use them sparely
+This is a pluck language file. You can find pluck at http://www.pluck-cms.org/.
+If you want to help us, please start a new translation on http://www.pluck-cms.org/dev/translate/
+The translation will be included in the next release of pluck.
 
-pluck is licensed under the GNU General Public License, so opensource.
-see docs/COPYING for the full license text.
+Note: if you translate, please note the use of capitals: use them sparely.
+
+pluck is licensed under the GNU General Public License, and thus open source.
+This language file is also licensed under the GPL.
+See docs/COPYING for the full license text.
 
 ------------------------------------------------
 Language					Hebrew
-Translated by			Erez Wolf (info@rumba.co.il)
+Translated by			Erez Wolf
 Translators website	http://www.we-cms.info
 ------------------------------------------------
 */
 
-//Version of pluck
-$currentversion = "4.4";
+//Name of the language (in English!)
 $lang = "Hebrew";
 $direction = "rtl";
 
@@ -66,21 +66,15 @@ $lang_kop5	=	"יציאה";
 $lang_kop6	=	"עריכת הכותרת"; 
 $lang_kop10	=	"שינוי סיסמה"; 
 $lang_kop11	=	"דף חדש"; 
-$lang_kop12	=	"מחיקת דף"; 
 $lang_kop13	=	"מחיקת קובץ"; 
 $lang_kop14	=	"הגדרות שפה"; 
 $lang_kop15	=	"סטטיסטיקה"; 
 $lang_start1	=	"ברוכים הבאים לממשק הניהול של pluck."; 
-$lang_start2	=	"מכאן ניתן לנהל את האתר. גישה מהירה:"; 
 $lang_start3	=	"צריך עזרה?"; 
 $lang_start4	=	"נשמח לעזור לך"; 
-$lang_start5	=	"יצירה, עריכה ומחיקת דפי תוכן"; 
-$lang_start7	=	"שנה את מאפייני האתר כך שיתאימו לצרכיך"; 
-$lang_start8	=	"מי ביקר באתר"; 
 $lang_page1	=	"ניהול, עריכה ומחיקת דפים."; 
 $lang_page2	=	"דף חדש"; 
 $lang_page3	=	"עריכת דף"; 
-$lang_page4	=	"מחיקת דף"; 
 $lang_page5	=	"מחיקה מתבצעת..."; 
 $lang_page7	=	"הכנס"; 
 $lang_image1	=	"כאן ניתן להעלות תמונות, אותן יהיה ניתן לשלב בדפי האתר. ישנם שלושה סוגי קבצים נתמכים: JPG, PNG ו- GIF."; 
@@ -92,16 +86,12 @@ $lang_image6	=	"הקובץ נשלח בהצלחה!";
 $lang_image7	=	"קבצים שנשלחו"; 
 $lang_image8	=	"שלח קובץ"; 
 $lang_image9	=	"שליחה"; 
-$lang_image10	=	"מחיקת תמונה"; 
 $lang_image11	=	"לא ניתן למחוק תמונה זו."; 
 $lang_image12	=	"לא ניתן למחוק את התמונה. בדוק את בעלות המשתמש על הקובץ והתיקיה."; 
 $lang_options1	=	"כאן תוכל לקבוע את מאפייני המערכת כך שיתאימו לצרכיך."; 
 $lang_options2	=	"שנה את שם האתר כאן"; 
 $lang_options3	=	"שינוי העיצוב ומראה האתר"; 
-$lang_options4	=	"לשיפור התוצאות במנועי החיפוש"; 
 $lang_options5	=	"רצוי לשנות את סיסמת הניהול מפעם לפעם"; 
-$lang_options6	=	"האם קיימים עדכונים למערכת"; 
-$lang_options7	=	"ביצוע בדיקה לזמינות גרסאות מעודכנות עבור pluck"; 
 $lang_options8	=	"בחירת השפה עבור האתר"; 
 $lang_stitle2	=	"עליך לבחור ולמלא שם לאתר, לא ניתן להשאיר שדה זה ריק."; 
 $lang_siteinfo4	=	"מילות מפתח"; 
@@ -135,13 +125,11 @@ $lang_updown3	=	"משנה מספור...";
 $lang_updown4	=	"דף זה כבר אחרון, כך שלא ניתן לשנות את המספור עבורו."; 
 $lang_theme5	=	"התקנת תבנית עיצוב"; 
 $lang_theme6	=	"כאן ניתן להתקין תבניות עיצוב חדשות. ראשית יש להוריד את קובץ ההתקנה מהאינטרנט."; 
-$lang_theme7	=	"ההתקנה נכשלה: הקובץ שבחרת אינו קובץ התקנת תבנית."; 
 $lang_theme8	=	"קובץ התקנת התבנית גדול מידי; הגודל המקסימלי הוא 1MB."; 
 $lang_theme9	=	"ההתקנה נכשלה. כנראה שלא מותקן על השרת המודול php-zlib. תוכל לפנות אל מנהל השרת ולבקש ממנו שיתקין אפשרות זו."; 
 $lang_theme10	=	"התבנית הותקנה בהצלחה"; 
 $lang_theme11	=	"חזרה אל <a href=\"?action=theme\">ניהול תבניות</a>"; 
 $lang_theme12	=	"חזרה"; 
-$lang_theme13	=	"שרת זה אינו תומך בהתקנת התבניות. תאלץ לעשות את התקנת התבניות <a href=\"http://www.pluck-cms.org/wiki/index.php?title=InstallThemeManual\" target=\"_blank\">ידנית</a>"; 
 $lang_install24	=	"אימייל"; 
 $lang_install25	=	"כתובת האימייל שלך תשמש עבור שליחת נתונים מטפסים שימלאו גולשים באתר"; 
 $lang_install26	=	"הקלד סיסמה שנית"; 
@@ -152,7 +140,6 @@ $lang_settings	=	"הגדרות הכלליות";
 $lang_settings2	=	"בחירת כותרת לאתר"; 
 $lang_settings3	=	"שינוי הגדרות כלליות כגון כותרת האתר וכתובת האימייל שלך"; 
 $lang_settings4	=	"משנה את ההגדרות הכלליות..."; 
-$lang_contact1	=	"הוספת טופס לדף זה"; 
 $lang_contact2	=	"אפשרויות נוספות"; 
 $lang_contact3	=	"שם:"; 
 $lang_contact4	=	"אימייל:"; 
@@ -162,7 +149,6 @@ $lang_contact7	=	"הודעה מאתרך מאת";
 $lang_contact8	=	"ההודעה נשלחה בהצלחה."; 
 $lang_contact9	=	"ההודעה לא נשלחה, ארעה שגיאה."; 
 $lang_contact10	=	"שליחה"; 
-$lang_contact11	=	"ראשית יש לציין כתובת אימייל"; 
 $lang_kop17	=	"ניהול תמונות"; 
 $lang_albums	=	"גלריות"; 
 $lang_albums1	=	"כאן ניתן לנהל גלריות תמונות. הצגת תמונות בגלריות שונות באתר. את הגלריות ניתן לשלב בדפים, בעת יצירת דף תוכן על ידי לחיצה על \"הכנסת גלריה\" בעת עריכת הדף."; 
@@ -184,7 +170,6 @@ $lang_albums16	=	"הגלריות לא נתמכות בשרת זה: כנראה ש�
 $lang_albums17	=	"הוספת גלריה לדף זה:"; 
 $lang_modules	=	"מודולים"; 
 $lang_modules1	=	"מודולים זמינים עבור Pluck בהם תוכל להשתמש כדי להוסיף תכנים מגוונים לאתר."; 
-$lang_modules2	=	"הוספת תכנים מגוונים לאתר"; 
 $lang_updown5	=	"שינוי סדר התמונות"; 
 $lang_updown6	=	"תמונה זו כבר עליונה, כך שלא ניתן לשנות את מספרה."; 
 $lang_updown7	=	"תמונה זו כבר תחתונה, כך שלא ניתן לשנות את מספרה."; 
@@ -210,10 +195,67 @@ $lang_blog11	=	"עריכת פריט תוכן";
 $lang_blog12	=	"מחיקת פריט תוכן"; 
 $lang_blog13	=	"כלול קטגוריה מהבלוג בדף זה:"; 
 $lang_blog14	=	"מופיע ב"; 
-$lang_blog15	=	"הוספת תגובה"; 
 $lang_blog16	=	"תגובות"; 
 $lang_blog17	=	"כותרת:"; 
 $lang_blog18	=	"מאת"; 
 $lang_blog19	=	"עריכת תגובות"; 
 $lang_blog20	=	"כאן תוכל לערוך את תגובות הגולשים לפריט התוכן."; 
+$lang_blog21	=	"מחיקת תגובות"; 
+$lang_albums18	=	"האלבום שנבחר אינו קיים."; 
+$lang_blog22	=	"לא ניתן להשתמש בקוד HTML."; 
+$lang_trash	=	"סל מחזור"; 
+$lang_trash1	=	"העבר את הפריט לסל המחזור"; 
+$lang_trash2	=	"מעביר פריט לסל מחזור..."; 
+$lang_trash3	=	"פריטים בסל המחזור"; 
+$lang_trash4	=	"לא ניתן להעביר את הפריט לסל המחזור: סל המחזור מכיל פריט בשם זהה."; 
+$lang_trash5	=	"כאן ניתן למצוא את רשימת הפריטים שנמחקו. תוכל לצפות בהם, לשחזר אותם או למחוק אותם לגמרי מסל המחזור."; 
+$lang_trash6	=	"רוקן את סל המחזור"; 
+$lang_trash7	=	"צפיה בפריט"; 
+$lang_trash8	=	"מחיקת הפריט מסל המחזור"; 
+$lang_trash9	=	"תמונות"; 
+$lang_trash10	=	"שחזור הפריט"; 
+$lang_blog23	=	"צפו או הגיבו"; 
+$lang_credits	=	"קרדיט"; 
+$lang_credits1	=	"כל האנשים אשר סייעו בפיתוח Pluck"; 
+$lang_credits2	=	"תודתינו נתונה לכל האנשים הבאים, אשר סייעו בתהליך הפיתוח של Pluck."; 
+$lang_credits3	=	"ניהול הפרויקט"; 
+$lang_credits4	=	"תרגום"; 
+$lang_credits5	=	"תודות נוספות"; 
+$lang_start9	=	"כאן ניתן לנהל את האתר. בחר בקישור מתוך התפריט שבראש המסך."; 
+$lang_start10	=	"עוד..."; 
+$lang_update1	=	"גרסת Pluck עדכנית"; 
+$lang_update2	=	"קיים עדכון גרסה"; 
+$lang_update3	=	"קיים עדכון גרסה <b>דחוף</b>"; 
+$lang_settings6	=	"הפעלת מצב התאמה ל- XHTML (יתכן כי יגרום להאטה)"; 
+$lang_modules2	=	"גרסה"; 
+$lang_modules3	=	"ניהול המודולים"; 
+$lang_modules4	=	"נהל מודולים וכלול אותם באתרך"; 
+$lang_modules5	=	"נהל את המודולים שלך כאן. הסר מודולים שאינם בשימוש, או חפש אחר מודולים חדשים שיוסיפו אפשרויות חדשות לאתרך. תוכל גם להוסיף מודולים לאתרך על ידי בחירת <i>הוספת מודולים לאתר</i>."; 
+$lang_modules6	=	"לא להציג"; 
+$lang_modules7	=	"בחר באיזה סדר המודולים יופיעו."; 
+$lang_modules8	=	"פרטי המודול"; 
+$lang_modules9	=	"אפשר גם לכלול מודול בדף בודד אחד. תוכל לעשות זאת באמצעות עריכת הדף ובחירת המודול שתרצה לכלול בו."; 
+$lang_modules10	=	"הסרת מודולים"; 
+$lang_modules11	=	"התקנת מודולים..."; 
+$lang_modules12	=	"הורד מודולים חדשים..."; 
+$lang_modules13	=	"הוספת מודול לאתר..."; 
+$lang_modules14	=	"הוספת מודולים לאתר"; 
+$lang_modules15	=	"הגדר כאן באילו איזורים באתר יוצגו המודולים.  הגדרות אלו הן ספציפיות לתבנית: אם תבחר להשתמש בתבנית אחרת, יהיה עליך לבצע הגדרות אלו שוב. בבקשה שים לב שהגדרות אלו יחולו על כל הדפים באתר."; 
+$lang_modules16	=	"בחר אם ברצונך להציג מודולים בדף זה ואת סדר הצגתם."; 
+$lang_modules17	=	"אתר"; 
+$lang_modules18	=	"מחבר"; 
+$lang_modules19	=	"האם אתה בטוח כי ברצונך להסיר מודול זה? שים לב, כל מאפייני המודול ימחקו."; 
+$lang_modules20	=	"כאן תוכל להתקין מודולים חדשים. בבקשה וודא שקודם לכן הורדת ושמרת את המודול על מחשב שלך."; 
+$lang_modules21	=	"באמצעות הורדה והתקנת מודולים חדשים, תוכל להעשיר ואת האתר ולהוסיף לו תכונות חדשות בקליק אחד."; 
+$lang_modules22	=	"קבל מודולים חדשים"; 
+$lang_modules23	=	"התקנת מודולים"; 
+$lang_modules24	=	"קובץ המודול גדול מידי; ההגבלה היא 2MB."; 
+$lang_modules25	=	"המודול הותקן"; 
+$lang_modules26	=	"בחזרה אל <a href=\"?action=managemodules\">דף המודולים</a>"; 
+$lang_theme14	=	"התקנת תבניות ומודולים לא נתמכים בשרת זה יהיה עליך לבצע זאת <a href=\"http://www.pluck-cms.org/docs/doku.php/docs:install_nozlib\" target=\"_blank\">באופן ידני</a>"; 
+$lang_theme15	=	"התקנה נכשלה: הקובץ שבחרת אינו קובץ תקין."; 
+$lang_update4	=	"בדיקת עדכונים נכשלה"; 
+$lang_contact12	=	"טופס יצירת קשר"; 
+$lang_contact13	=	"עם טופס יצירת הקשר, תוכל לאפשר לגולשים לשלוח לך הודעות"; 
+$lang_trash11	=	"האם אתה בטוח כי ברצונך לרוקן את סל המחזור? שים לב, הפריטים בסל ימחקו לצמיתות ולא יהיה ניתן לשחזרם."; 
 ?>

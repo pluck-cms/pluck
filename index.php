@@ -146,7 +146,7 @@ function theme_meta() {
 
 	//If RTL, set direction to RTL in CSS
 	if ((isset($direction)) && ($direction == 'rtl')) {
-		echo '<style type=\"text/css\">body {direction:rtl;}</style>'."\n";
+		echo '<style type="text/css">body {direction:rtl;}</style>'."\n";
 	}
 
 	//Also include module head-inclusion files (inc_site_head.php)
