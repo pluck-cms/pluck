@@ -11,13 +11,27 @@
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
-if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("install.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("login.php", $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo "access denied";
-    //Block all other code
-    exit();
-}
+//Open the module-folder
+$dir_handle = @opendir('data/settings/modules/albums') or die('Unable to open data/modules. Check if it\'s readable.');
 
-showalbums("data/settings/modules/albums");
+//Loop through dirs
+while ($dir = readdir($dir_handle)) {
+	if(file_exists('data/settings/modules/albums/'.$dir.'/thumb/image1.jpg')) {
+
+?>
+<div class="album" style="margin: 15px; padding: 5px;">
+	<table>
+		<tr>
+			<td><img alt="<?php echo $dir; ?>" src="data/modules/albums/pages_admin/albums_getimage.php?image=<?php echo $dir; ?>/thumb/image1.jpg" /></td>
+			<td>
+				<span style="font-size: 17pt">
+					<a href="?module=albums&amp;page=viewalbum&amp;album=<?php echo $dir; ?>&amp;pageback=<?php echo $current_page_filename; ?>"><?php echo $dir; ?></a>
+				</span>
+			</td>
+		</tr>
+	</table>
+</div>
+<?php
+	}
+}
 ?>

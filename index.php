@@ -61,12 +61,12 @@ closedir($dir_handle);
 
 //Check if a page or module has been specified, if not: redirect to kop1.php
 if ((!isset($current_page_filename)) && (!isset($current_module_dir))) {
-	header("Location: $homepage");
+	header('Location: '.$homepage);
 	exit;
 }
 //Or if a page has been specified but it's empty
-elseif ((isset($current_page_filename)) && ($current_page_filename == '')) {
-	header("Location: $homepage");
+elseif ((isset($current_page_filename)) && (empty($current_page_filename))) {
+	header('Location: '.$homepage);
 	exit;
 }
 
