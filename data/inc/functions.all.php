@@ -112,4 +112,18 @@ $url = str_replace("%26", "&", $url);
 echo '<meta http-equiv="refresh" content="'.$time.'; url='.$url.'">';
 }
 
+//Function: read files in a dir, and return the names in an array.
+//--------------------
+function read_files($dir) {
+	$path = opendir($dir);
+	while (false !== ($file = readdir($path))) {
+		if(($file != '.') && ($file != '..')) {
+			if(is_file($dir.'/'.$file)) {
+				$files[] = $file;
+			}
+		}
+	}
+	closedir($path);
+	return $files;
+}
 ?>

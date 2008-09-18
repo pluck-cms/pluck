@@ -105,32 +105,6 @@ else {
 	if ($action == 'install2') {
 		$titelkop = $lang_install;
 		include ('data/inc/header2.php');
-
-		//Read the available languages
-		function read_dir($dir) {
-			$path = opendir($dir);
-			while (false !== ($file = readdir($path))) {
-				if(($file !== '.') and ($file !== '..') and ($file !== 'en.php')) {
-				   if(is_file($dir.'/'.$file))
-						$files[]=$file;
-				   else
-						$dirs[]=$dir.'/'.$file;
-				}
-			}
-			if($dirs) {
-				echo '';
-			}
-			if($files) {
-				natcasesort($files);
-				foreach ($files as $file) {
-					include ('data/inc/lang/' . $file . '');
-					?>
-					<option value='<?php echo $file; ?>'><?php echo $lang; ?></option>';
-					<?php
-				}
-			}
-			closedir($path);
-		}
 		?>
 		<span class="kop2"><?php echo $lang_install; ?> :: <?php echo $lang_install5; ?></span><br />
 		<p><strong><?php echo $lang_install27 ?></strong></p>
@@ -147,7 +121,24 @@ else {
 				<span class="kop2"><?php echo $lang_kop14 ?></span><br />
 				<select name="chosen_lang">
 					<option selected="selected" value="en.php">English</option>
-					<?php read_dir('data/inc/lang'); ?>
+					<?php 
+						$files = read_files('data/inc/lang');
+						
+						//Read the available languages
+						if($files) {
+							natcasesort($files);
+							foreach ($files as $file) {
+								if ($file != 'en.php') {
+									//FIXME: Big problem here! We need a list with the languages,
+									//because the last languages file will be used in the rest of the instalation. (It's Thai ATM, look at the password fields.)
+									include ('data/inc/lang/' . $file . '');
+									?>
+									<option value='<?php echo $file; ?>'><?php echo $lang; ?></option>
+									<?php
+								}
+							}
+						}
+					?>
 				</select>
 			</p>
 			<p>
