@@ -13,14 +13,15 @@
 */
 
 //Include security-enhancements
-require('data/inc/security.php');
+require_once('data/inc/security.php');
 //Include functions
-require('data/inc/functions.all.php');
+require_once('data/inc/functions.all.php');
+require_once('data/inc/functions.admin.php');
 //Include Translation data
-require('data/inc/variables.all.php');
+require_once('data/inc/variables.all.php');
 
 //Include POST/GET data
-require('data/inc/post_get.php');
+require_once('data/inc/post_get.php');
 
 //Check if we've installed pluck
 if (file_exists('data/settings/install.dat')) {
@@ -121,24 +122,7 @@ else {
 				<span class="kop2"><?php echo $lang_kop14 ?></span><br />
 				<select name="chosen_lang">
 					<option selected="selected" value="en.php">English</option>
-					<?php 
-						$files = read_files('data/inc/lang');
-						
-						//Read the available languages
-						if($files) {
-							natcasesort($files);
-							foreach ($files as $file) {
-								if ($file != 'en.php') {
-									//FIXME: Big problem here! We need a list with the languages,
-									//because the last languages file will be used in the rest of the instalation. (It's Thai ATM, look at the password fields.)
-									include ('data/inc/lang/' . $file . '');
-									?>
-									<option value='<?php echo $file; ?>'><?php echo $lang; ?></option>
-									<?php
-								}
-							}
-						}
-					?>
+					<?php read_lang_files('en.php'); ?>
 				</select>
 			</p>
 			<p>
@@ -230,7 +214,7 @@ else {
 		<?php
 		//Save the homepage
 		if(isset($_POST['Submit'])) {
-			$data = 'data/settings/pages/kop1.php';   
+			$data = 'data/settings/pages/kop1.php';
 			$file = fopen($data, 'w');
 			$cont1 = stripslashes($cont1);
 			$cont1 = str_replace('"', '\"', $cont1);

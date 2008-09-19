@@ -20,28 +20,6 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
     exit();
 }
 
-//Function to read out the languagefiles
-function read_dir($dir) {
-   $path = opendir($dir);
-   while (false !== ($file = readdir($path))) {
-       if(($file !== '.') and ($file !== '..') and ($file !== 'langpref.php')) {
-           if(is_file($dir.'/'.$file))
-               $files[]=$file;
-           else
-               $dirs[]=$dir.'/'.$file;           
-       }
-   }
-   if($dirs) {
-   }
-   if($files) {
-       natcasesort($files);
-       foreach ($files as $file) {
-       	  include ('lang/'.$file.'');
-           echo '<option value="'.$file.'">'.$lang.'</option>'; }
-   }
-   closedir($path);
-}
-
 //Introduction text
 ?>
 <p><strong><?php echo $lang_lang1; ?></strong></p>
@@ -49,11 +27,9 @@ function read_dir($dir) {
 <form action="" method="post">
 	<select name="cont">
 	        <option selected="selected" value="0"><?php echo $lang_lang2; ?></option>
-			<?php
-			//Actually read out the dir
-			read_dir('data/inc/lang');
-			?>
-	</select><br /><br />
+			<?php read_lang_files(); ?>
+	</select>
+	<br /><br />
 	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
 	<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=options';" />
 </form>
