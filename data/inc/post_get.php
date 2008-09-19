@@ -119,54 +119,7 @@ if (isset($_POST['cont5'])) {
 
 //Function: read out the pages
 //------------
-function read_pages($dir) {
-   $path = opendir($dir);
-   while (false !== ($file = readdir($path))) {
-       if(($file !== ".") and ($file !== "..")) {
-           if(is_file($dir."/".$file))
-               $files[]=$file;
-           else
-               $dirs[]=$dir."/".$file;
-       }
-   }
-   if($dirs) {
-   echo "";
-   }
-   if($files) {
-       natcasesort($files);
-       foreach ($files as $file) {
-           include "data/settings/pages/$file"; 
-            //Include Translation data
-				include ("data/settings/langpref.php");
-				include ("data/inc/lang/en.php");
-				include ("data/inc/lang/$langpref");
-?>
-<div class="menudiv">
-	<span>
-		<img src="data/image/page.png" alt="" />
-	</span>
-	<span class="title-page"><?php echo $title; ?></span>
-	<span>
-	<a href="?editpage=<?php echo $file; ?>"><img src="data/image/edit.png" title="<?php echo $lang_page3; ?>" alt="<?php echo $lang_page3; ?>" /></a>		
-	</span>
-	<span>
-	<a href="?editmeta=<?php echo $file; ?>"><img src="data/image/siteinformation.png" title="<?php echo $lang_meta1; ?>" alt="<?php echo $lang_meta1; ?>" /></a>		
-	</span>
-	<span>
-	<a href="?pageup=<?php echo $file; ?>"><img src="data/image/up.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" /></a>		
-	</span>
-	<span>
-	<a href="?pagedown=<?php echo $file; ?>"><img src="data/image/down.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" /></a>		
-	</span>
-	<span>
-	<a href="?deletepage=<?php echo $file; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" /></a>		
-	</span>
-</div>
-<?php
-		}
-   }
-   closedir($path);
-}
+
 
 
 //Function: read out the images to let them include in pages

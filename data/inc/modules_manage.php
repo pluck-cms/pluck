@@ -23,7 +23,6 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 //Introduction text
 ?>
 <p><strong><?php echo $lang_modules5; ?></strong></p>
-
 <div class="smallmenu">
 	<span class="smallmenu_button">
 		<a class="smallmenu_a" href="?action=module_addtosite" style="background:url(data/image/add_small.png) no-repeat;"><?php echo $lang_modules13; ?></a>
