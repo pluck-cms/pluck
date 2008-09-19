@@ -13,12 +13,12 @@
 */
 
 //Include security-enhancements
-require('data/inc/security.php');
+require_once('data/inc/security.php');
 //Include functions
-require('data/inc/functions.all.php');
+require_once('data/inc/functions.all.php');
 require_once('data/inc/functions.admin.php');
 //Include variables
-require('data/inc/variables.all.php');
+require_once('data/inc/variables.all.php');
 
 //First check if we've installed pluck
 if (!file_exists('data/settings/install.dat')) {

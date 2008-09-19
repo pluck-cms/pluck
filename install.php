@@ -58,32 +58,6 @@ else {
 		<p><strong><?php echo $lang_install7; ?></strong></p>
 		<?php
 		//Writable checks
-		//-----------------
-
-		//First define the function
-		//---------------------------
-		function check_writable($file) {
-			//Include Translation data
-			if (is_writable($file)) {
-			?>
-				<span>
-					<img src="data/image/update-no.png" width="15" height="15" alt="<?php echo $lang_install8; ?>" />
-				</span>
-				<span>&nbsp;/<?php echo $file; ?></span>
-				<br />
-			<?php
-			}
-			else {
-			?>
-				<span>
-					<img src="data/image/error.png" width="15" height="15" alt="<?php echo $lang_install9; ?>" />
-				</span>
-				<span>&nbsp;/<?php echo $file; ?></span>
-				<br />
-			<?php
-			}
-		}
-
 		check_writable('images');
 		check_writable('data/modules');
 		check_writable('data/settings');
@@ -136,47 +110,33 @@ else {
 		</form>
 		<?php
 		if(isset($_POST['Submit'])) {
-			//Check the passwords
+			//Check the passwords.
 			if (($password != $password2) || ($password == "")) {
 				?>
 				<br /><span class="red"><?php echo $lang_install28; ?></span>
 				<?php
 				include('data/inc/footer.php');
-			exit;
+				exit;
 			}
-
-			//Save prefered language
-			$data1 = 'data/settings/langpref.php';
-			$file = fopen($data1, 'w');
-			fputs($file, '<?php $langpref = "' . $chosen_lang . '"; ?>');
-			fclose($file);
-
-			//Save options
+			
+			//Check sitetitle.
 			if (!$cont) {
-				echo $lang_install15;
+				?>
+				<br /><span class="red"><?php echo $lang_install15; ?></span>
+				<?php
 				include('data/inc/footer.php');
 				exit;
 			}
-			$cont = stripslashes($cont);
-			$data2 = 'data/settings/options.php';
-			$file = fopen($data2, 'w');
-			fputs($file, '<?php'."\n"
-			.'$sitetitle = "' . $cont . '";'."\n"
-			.'$email = "' . $email . '";'."\n"
-			.'$xhtmlruleset = "false";'."\n"
-			.'?>');
-			fclose($file);
-			chmod($data2,0777);
-
-			//MD5-hash password
-			$password = md5($password);
+			
+			//Save prefered language
+			save_language($chosen_lang);
+			
+			//Save options
+			save_options($cont, $email, 'false');
+			
 			//Save password
-			$data3 = 'data/settings/pass.php';
-			$file = fopen($data3, 'w');
-			fputs($file, '<?php $ww = "' . $password . '"; ?>');
-			fclose($file);
-			chmod($data3,0777);
-
+			save_password($password);
+			
 			//Make some dirs for the trashcan and modulesettings
 			mkdir('data/trash/pages', 0777);
 			chmod('data/trash/pages', 0777);
