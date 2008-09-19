@@ -26,35 +26,37 @@ require_once('data/inc/post_get.php');
 //Check if we've installed pluck
 if (file_exists('data/settings/install.dat')) {
 	$titelkop = $lang_install;
-	include('data/inc/header2.php');
+	include_once('data/inc/header2.php');
 	redirect('login.php', '3');
 	echo $lang_install1;
-	include('data/inc/footer.php');
+	include_once('data/inc/footer.php');
 }
 
 //If we didn't:
 else {
 	if (!isset($action)) {
 		$titelkop = $lang_install;
-		include('data/inc/header2.php');
+		include_once('data/inc/header2.php');
 		//Introduction text
 		?>
-		<span class="kop2"><?php echo $lang_install; ?></span><br />
+		<span class="kop2"><?php echo $lang_install; ?></span>
+		<br />
 		<p><strong><?php echo $lang_install2; ?></strong></p>
 		<?php
 		//Show installation button
 		?>
 		<a href="?action=install"><?php echo $lang_install3; ?></a>
 		<?php
-		include('data/inc/footer.php');
+		include_once('data/inc/footer.php');
 	}
 
 	//Installation Step 1: CHMOD
 	if ($action == 'install') {
 		$titelkop = $lang_install;
-		include ('data/inc/header2.php');
+		include_once ('data/inc/header2.php');
 		?>
-		<span class="kop2"><?php echo $lang_install; ?> :: <?php echo $lang_install4; ?></span><br />
+		<span class="kop2"><?php echo $lang_install; ?> :: <?php echo $lang_install4; ?></span>
+		<br />
 		<p><strong><?php echo $lang_install7; ?></strong></p>
 		<?php
 		//Writable checks
@@ -73,36 +75,45 @@ else {
 		<br /><br />
 		<a href="?action=install2"><strong><?php echo $lang_install11; ?></strong></a>
 		<?php
-		include ('data/inc/footer.php');
+		include_once ('data/inc/footer.php');
 	}
 
 	//Installation Step 2: General Info
 	if ($action == 'install2') {
 		$titelkop = $lang_install;
-		include ('data/inc/header2.php');
+		include_once ('data/inc/header2.php');
 		?>
-		<span class="kop2"><?php echo $lang_install; ?> :: <?php echo $lang_install5; ?></span><br />
+		<span class="kop2"><?php echo $lang_install; ?> :: <?php echo $lang_install5; ?></span>
+		<br />
 		<p><strong><?php echo $lang_install27 ?></strong></p>
 		<form method="post" action="">
 			<p>
-				<span class="kop2"><?php echo $lang_install17 ?></span><br />
-				<span class="kop4"><?php echo $lang_settings2 ?></span><br />
+				<span class="kop2"><?php echo $lang_install17 ?></span>
+				<br />
+				<span class="kop4"><?php echo $lang_settings2 ?></span>
+				<br />
 				<input name="cont" type="text" /><br />
-				<span class="kop2"><?php echo $lang_install24 ?></span><br />
-				<span class="kop4"><?php echo $lang_install25 ?></span><br />
+				<span class="kop2"><?php echo $lang_install24 ?></span>
+				<br />
+				<span class="kop4"><?php echo $lang_install25 ?></span>
+				<br />
 				<input name="email" type="text" />
 			</p>
 			<p>
-				<span class="kop2"><?php echo $lang_kop14 ?></span><br />
+				<span class="kop2"><?php echo $lang_kop14 ?></span>
+				<br />
 				<select name="chosen_lang">
 					<option selected="selected" value="en.php">English</option>
 					<?php read_lang_files('en.php'); ?>
 				</select>
 			</p>
 			<p>
-				<span class="kop2"><?php echo $lang_login3 ?></span><br />
-				<input name="password" type="password" /><br />
-				<span class="kop2"><?php echo $lang_install26 ?></span><br />
+				<span class="kop2"><?php echo $lang_login3 ?></span>
+				<br />
+				<input name="password" type="password" />
+				<br />
+				<span class="kop2"><?php echo $lang_install26 ?></span>
+				<br />
 				<input name="password2" type="password" />
 			</p>
 			<input type="submit" name="Submit" value="<?php echo $lang_install13 ?>" />
@@ -115,7 +126,7 @@ else {
 				?>
 				<br /><span class="red"><?php echo $lang_install28; ?></span>
 				<?php
-				include('data/inc/footer.php');
+				include_once('data/inc/footer.php');
 				exit;
 			}
 			
@@ -124,20 +135,20 @@ else {
 				?>
 				<br /><span class="red"><?php echo $lang_install15; ?></span>
 				<?php
-				include('data/inc/footer.php');
+				include_once('data/inc/footer.php');
 				exit;
 			}
 			
-			//Save prefered language
+			//Save prefered language.
 			save_language($chosen_lang);
 			
-			//Save options
+			//Save options.
 			save_options($cont, $email, 'false');
 			
-			//Save password
+			//Save password.
 			save_password($password);
 			
-			//Make some dirs for the trashcan and modulesettings
+			//Make some dirs for the trashcan and modulesettings.
 			mkdir('data/trash/pages', 0777);
 			chmod('data/trash/pages', 0777);
 			mkdir('data/trash/images', 0777);
@@ -153,79 +164,50 @@ else {
 
 			redirect('?action=install4', '0');
 		}
-		include('data/inc/footer.php');
+		include_once('data/inc/footer.php');
 	}
 
 	//Installation Step 4: Homepage
 	if ($action == 'install4') {
 		$titelkop = $lang_install;
-		include('data/inc/header2.php');
+		include_once('data/inc/header2.php');
 		?>
-		<span class="kop2"><?php echo $lang_install; ?> :: <?php echo $lang_install29; ?></span><br />
+		<span class="kop2"><?php echo $lang_install; ?> :: <?php echo $lang_install29; ?></span>
+		<br />
 		<p><strong><?php echo $lang_install16; ?></strong></p>
 		<form method="post" action="">
-			<span class="kop2"><?php echo $lang_install17; ?></span><br />
-			<input name="cont1" type="text" /><br /><br />
-			<span class="kop2"><?php echo $lang_install18; ?></span><br />
-			<textarea name="cont2" class="tinymce" cols="70" rows="20"></textarea><br />
+			<span class="kop2"><?php echo $lang_install17; ?></span>
+			<br />
+			<input name="cont1" type="text" />
+			<br /><br />
+			<span class="kop2"><?php echo $lang_install18; ?></span>
+			<br />
+			<textarea name="cont2" class="tinymce" cols="70" rows="20"></textarea>
+			<br />
 			<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
 			<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=install3';" />
 		</form>
 		<?php
-		//Save the homepage
+		//Save the homepage.
 		if(isset($_POST['Submit'])) {
-			$data = 'data/settings/pages/kop1.php';
-			$file = fopen($data, 'w');
-			$cont1 = stripslashes($cont1);
-			$cont1 = str_replace('"', '\"', $cont1);
-			$cont2 = stripslashes($cont2);
-			$cont2 = str_replace('"', '\"', $cont2);
-			fputs($file, '<?php'."\n"
-			.'$title = "' . $cont1 . '";'."\n"
-			.'$content = "' . $cont2 . '";'."\n"
-			.'$hidden = "no";'."\n"
-			.'?>');
-			fclose($file);
-			chmod($data, 0777);
-
+			save_page('kop1', $cont1, $cont2, false);
 			redirect('?action=install5', '0');
 		}
-		include('data/inc/footer.php');
+		include_once('data/inc/footer.php');
 	}
 
 	//Installation Step 5: Save Installation data
 	if ($action == "install5") {
-		$data2 = 'data/settings/install.dat';
-		$file2 = fopen($data2, 'w');  
-		fputs($file2, '');
-		fclose($file2);
-		chmod($data2,0777);
+		install_done();
 
-		//Display success message
+		//Display success message.
 		$titelkop = $lang_install;
-		include ('data/inc/header2.php');
-		?>
-		<p><strong><?php echo $lang_install19; ?></strong>
-		<div class="menudiv">
-			<span>
-				<img src="data/image/website.png" alt="" />
-			</span>
-			<span>
-				<span><a href="index.php"><?php echo $lang_install20; ?></a></span><br />
-				<?php echo $lang_install21; ?>
-			</span>
-		</div>
-		<div class="menudiv">
-			<span>
-				<img src="data/image/password.png" alt="" />
-			</span>
-			<span>
-				<span><a href="login.php"><?php echo $lang_install22; ?></a></span><br />
-				<?php echo $lang_install23; ?>
-			</span>
-		</div>
-		<?php
-		include('data/inc/footer.php');
+		include_once('data/inc/header2.php');
+		
+		showmenudiv($lang_install20, $lang_install21, 'website.png', 'index.php', false, null);
+		showmenudiv($lang_install22, $lang_install23, 'password.png', 'login.php', false, null);
+		
+		include_once('data/inc/footer.php');
 	}
 }
 ?>

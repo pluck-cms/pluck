@@ -117,26 +117,6 @@ if (isset($_POST['cont5'])) {
 //FUNCTIONS
 //---------------
 
-//Function: define menudiv
-//------------
-function showmenudiv($title,$text,$image,$url,$blank,$more=NULL) {
-?>
-<div class="menudiv">
-	<span>
-		<img src="data/image/<?php echo $image; ?>" alt="" />
-	</span>
-	<span>
-		<span><a href="<?php echo $url; ?>"
-		<?php if ($blank == 'true') {
-		echo ' target="_blank"'; }?>
-		><?php echo $title; ?></a></span>
-		<span class="more"><?php echo $more; ?></span><br />
-		<?php echo $text; ?>
-	</span>
-</div>
-<?php
-}
-
 //Function: read out the pages
 //------------
 function read_pages($dir) {

@@ -12,15 +12,15 @@
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
+//Make sure the file isn't accessed directly.
 if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
+    //Give out an "access denied" error.
     echo 'access denied';
-    //Block all other code
+    //Block all other code.
     exit();
 }
 
-//Introduction text
+//Introduction text.
 ?>
 <p><strong><?php echo $lang_lang1; ?></strong></p>
 
@@ -34,15 +34,12 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 	<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=options';" />
 </form>
 <?php
-//Check if chosen language is valid, and then save data
+//Check if chosen language is valid, and then save data.
 if ((isset($_POST['Submit'])) && ($cont != '0') && (file_exists('data/inc/lang/'.$cont.''))) {
-	$data = 'data/settings/langpref.php';
-	$file = fopen($data, 'w');
-	fputs($file, '<?php $langpref = "'.$cont.'"; ?>');
-	fclose($file);
+	save_language($cont);
 
-	//Redirect user
+	//Redirect user.
 	echo $lang_lang3;
-	redirect('?action=options','0');
+	redirect('?action=options','2');
 }
 ?>

@@ -12,64 +12,65 @@
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
+//Make sure the file isn't accessed directly.
 if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
+    //Give out an "access denied" error.
     echo 'access denied';
-    //Block all other code
+    //Block all other code.
     exit();
 }
 
-//Function: check if module is compatible
-//------------
+//Function: check if module is compatible.
+//--------------------
 function module_is_compatible($module) {
-	//Include variables
-	include("data/inc/variables.all.php");
-	//Include module information
-	if (file_exists("data/modules/$module/module_info.php")) {
-		include("data/modules/$module/module_info.php");
+	//Include variables.
+	require_once('data/inc/variables.all.php');
+	//Include module information.
+	if (file_exists('data/modules/$module/module_info.php')) {
+		include_once('data/modules/$module/module_info.php');
 	}
 
 	if (isset($module_compatibility)) {
-		if (preg_match("/,/", $module_compatibility)) {
-			$version_compat = explode(",",$module_compatibility);
+		if (preg_match('/,/', $module_compatibility)) {
+			$version_compat = explode(',', $module_compatibility);
 		}
 		else {
 			$version_compat[0] = $module_compatibility;
 		}
-		//Now check if we have an incompatible version
+		//Now check if we have an incompatible version.
 		foreach ($version_compat as $number => $version) {
 			if ($version == $pluck_version) {
-				$compatible = "yes";
+				$compatible = 'yes';
 			}
 		}
 	}
 
-	if ($compatible == "yes") {
-		return TRUE;
+	if ($compatible == 'yes') {
+		return true;
 	}
 	else {
-		return FALSE;
+		return false;
 	}
 	unset($compatible);
 }
 
-//Function: recursively delete an entire directory
-//------------
-function recursive_remove_directory($directory, $empty=FALSE)	{
+//Function: recursively delete an entire directory.
+//--------------------
+function recursive_remove_directory($directory, $empty = false)	{
 	if(substr($directory,-1) == '/') {
-		$directory = substr($directory,0,-1);
+		$directory = substr($directory, 0, -1);
 	}
+	
 	if(!file_exists($directory) || !is_dir($directory)) {
-		return FALSE;
+		return false;
 	}
 	elseif(is_readable($directory)) {
 		$handle = opendir($directory);
 
-		while (FALSE !== ($item = readdir($handle))) {
+		while (false !== ($item = readdir($handle))) {
 			if($item != '.' && $item != '..') {
 				$path = $directory.'/'.$item;
-            if(is_dir($path)) {
+				if(is_dir($path)) {
 					recursive_remove_directory($path);
 				}
 				else {
@@ -78,39 +79,39 @@ function recursive_remove_directory($directory, $empty=FALSE)	{
 			}
 		}
 		closedir($handle);
-		if($empty == FALSE) {
+		if($empty == false) {
 			if(!rmdir($directory)) {
-				return FALSE;
+				return false;
 			}
 		}
 	}
-	return TRUE;
+	return true;
 }
 
-//Function: get site title
-//---------------------------------
+//Function: get site title.
+//--------------------
 function get_sitetitle() {
-	if(file_exists("data/settings/options.php")) {
-		include("data/settings/options.php");
+	if(file_exists('data/settings/options.php')) {
+		include('data/settings/options.php');
 		return $sitetitle;
 	}
 }
 
-//Function: redirect
-//---------------------------------
-function redirect($url,$time) {
-//First, urlencode the entire url
-$url = urlencode($url);
+//Function: redirect.
+//--------------------
+function redirect($url, $time) {
+	//First, urlencode the entire url.
+	$url = urlencode($url);
 
-//Then undo that for ? chars
-$url = str_replace("%3F", "?", $url);
-//And undo that for = chars
-$url = str_replace("%3D", "=", $url);
-//And undo that for & chars
-$url = str_replace("%26", "&", $url);
+	//Then undo that for ? chars.
+	$url = str_replace('%3F', '?', $url);
+	//And undo that for = chars.
+	$url = str_replace('%3D', '=', $url);
+	//And undo that for & chars.
+	$url = str_replace('%26', '&', $url);
 
-//finally generate the metatag for redirecting
-echo '<meta http-equiv="refresh" content="'.$time.'; url='.$url.'">';
+	//finally generate the metatag for redirecting
+	echo '<meta http-equiv="refresh" content="'.$time.'; url='.$url.'">';
 }
 
 //Function: read files in a dir, and return the names in an array.

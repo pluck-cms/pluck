@@ -33,11 +33,11 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 				if (get_extension_funcs('zlib')) {
 					echo '<span style="font-size: 17pt;"><a href="?action=themeinstall">'.$lang_theme5.'</a></span>';
 				}
-				// if zlib is not installed				
+				// if zlib is not installed
 				elseif (!get_extension_funcs('zlib')) {
 					echo '<span class="kop3">'.$lang_theme5.'</span><br>';
 					echo '<span style="color: red;">'.$lang_theme14.'</span>';
-				} 
+				}
 			?></td>
 		</tr>
 	</table>
@@ -61,7 +61,7 @@ function read_dir($dir) {
            if(is_file($dir."/".$file))
                $files[]=$file;
            else
-               $dirs[]=$dir."/".$file;           
+               $dirs[]=$dir."/".$file;
        }
  	}
    if($dirs) {
@@ -87,7 +87,7 @@ function read_dir($dir) {
 }
 
 //Actually read out the dir
-read_dir("data/themes"); 
+read_dir("data/themes");
 ?>
 
 	</select><br />
@@ -98,13 +98,10 @@ read_dir("data/themes");
 <?php
 //Save the theme-data
 if((isset($_POST['Submit'])) && ($cont != "0") && (file_exists("data/themes/$cont"))) {
-	$data = "data/settings/themepref.php";    
-	$file = fopen($data, "w");  
-	fputs($file, "<?php \$themepref = \"$cont\"; ?>");  
-	fclose($file);
+	save_theme($cont);
 
 	//Redirect user
 	echo $lang_theme3;
-	redirect("?action=options","0");
+	redirect('?action=options','2');
 }
 ?>
