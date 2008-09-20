@@ -20,7 +20,7 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 //Function: read the available languages.
 //-------------------
 function read_lang_files($not_this_file) {
-	$files = read_files('data/inc/lang');
+	$files = read_dir('data/inc/lang');
 	if ($files) {
 		natcasesort($files);
 			foreach ($files as $file) {
