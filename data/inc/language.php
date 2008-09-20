@@ -27,7 +27,22 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 <form action="" method="post">
 	<select name="cont">
 		<option selected="selected" value="0"><?php echo $lang_lang2; ?></option>
-		<?php read_lang_files($langpref); ?>
+<?php
+	$files = read_dir('data/inc/lang');
+	if(isset($files)) {
+		natcasesort($files);
+			foreach ($files as $file) {
+			if ($file != $langpref) {
+				include('data/inc/lang/'.$file);
+				?>
+		<option value='<?php echo $file; ?>'><?php echo $lang; ?></option>
+				<?php
+			}
+		}
+	}
+//Include user-specified langfile, to override langfiles included above
+include('data/inc/lang/'.$langpref);
+?>
 	</select>
 	<br /><br />
 	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />

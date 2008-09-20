@@ -17,22 +17,6 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 	//Block all other code
 	exit();
 }
-//Function: read the available languages.
-//-------------------
-function read_lang_files($not_this_file) {
-	$files = read_dir('data/inc/lang');
-	if ($files) {
-		natcasesort($files);
-			foreach ($files as $file) {
-			if ($file != $not_this_file) {
-				include('data/inc/lang/'.$file);
-				?>
-				<option value='<?php echo $file; ?>'><?php echo $lang; ?></option>
-				<?php
-			}
-		}
-	}
-}
 //Function: read out the pages.
 //------------
 function read_pages() {
