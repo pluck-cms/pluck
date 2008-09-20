@@ -116,7 +116,7 @@ function redirect($url, $time) {
 
 //Function: read files in a dir, and return the names in an array.
 //--------------------
-function read_dir($directory) {
+function read_dir_contents($directory) {
 	$path = opendir($directory);
 	while(false !== ($file = readdir($path))) {
 		if(($file != '.') && ($file != '..')) {

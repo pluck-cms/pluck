@@ -28,7 +28,7 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 	<select name="cont">
 		<option selected="selected" value="0"><?php echo $lang_lang2; ?></option>
 <?php
-	$files = read_dir('data/inc/lang');
+	$files = read_dir_contents('data/inc/lang');
 	if(isset($files)) {
 		natcasesort($files);
 			foreach ($files as $file) {
