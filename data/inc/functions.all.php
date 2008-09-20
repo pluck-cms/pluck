@@ -24,10 +24,10 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 //--------------------
 function module_is_compatible($module) {
 	//Include variables.
-	require_once('data/inc/variables.all.php');
+	require('data/inc/variables.all.php');
 	//Include module information.
-	if (file_exists('data/modules/$module/module_info.php')) {
-		include_once('data/modules/$module/module_info.php');
+	if (file_exists('data/modules/'.$module.'/module_info.php')) {
+		include('data/modules/'.$module.'/module_info.php');
 	}
 
 	if (isset($module_compatibility)) {
@@ -38,7 +38,7 @@ function module_is_compatible($module) {
 			$version_compat[0] = $module_compatibility;
 		}
 		//Now check if we have an incompatible version.
-		foreach ($version_compat as $number => $version) {
+		foreach ($version_compat as $number => $version) {		
 			if ($version == $pluck_version) {
 				$compatible = 'yes';
 			}
