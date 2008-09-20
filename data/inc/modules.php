@@ -23,7 +23,6 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 ?>
 <p><strong><?php echo $lang_modules1; ?></strong></p>
 <?php
-//FIXME: Somehow, the modules does not work anymore.
 //Define path to the module-dir
 $path = "data/modules";
 //Open the folder

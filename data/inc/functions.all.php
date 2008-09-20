@@ -23,8 +23,8 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 //Function: check if module is compatible.
 //--------------------
 function module_is_compatible($module) {
-	//Include variables.
-	require('data/inc/variables.all.php');
+	//Global variable.
+	global $pluck_version;
 	//Include module information.
 	if (file_exists('data/modules/'.$module.'/module_info.php')) {
 		include('data/modules/'.$module.'/module_info.php');
