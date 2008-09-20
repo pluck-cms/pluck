@@ -20,7 +20,7 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 //Function: read out the pages.
 //------------
 function read_pages() {
-	$files = read_files('data/settings/pages');
+	$files = read_dir_contents('data/settings/pages');
 	if($files) {
 		natcasesort($files);
 		//Translation data.
