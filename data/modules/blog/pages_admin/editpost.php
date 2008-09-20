@@ -20,7 +20,7 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 }
 
 //Include functions
-include("data/modules/blog/functions.php");
+include('data/modules/blog/functions.php');
 
 //Include the postinformation
 if(file_exists('data/settings/modules/blog/posts/'.$var)) {
@@ -35,7 +35,7 @@ else {
 <?php echo $lang_page8; ?><br />
 <?php
 //Generate the menu on the right
-read_imagesinpages("images");
+read_imagesinpages('images');
 ?>
 </div>
 
@@ -48,9 +48,9 @@ read_imagesinpages("images");
 		<option value="<?php echo $lang_blog27; ?>" /> <?php echo $lang_blog25; ?>
 <?php
 //If there are categories
-if(file_exists("data/settings/modules/blog/categories.dat")) {
+if(file_exists('data/settings/modules/blog/categories.dat')) {
 	//Load them
-	$categories = file_get_contents("data/settings/modules/blog/categories.dat");
+	$categories = file_get_contents('data/settings/modules/blog/categories.dat');
 	
 	//Then in an array
 	$categories = split(',',$categories);
@@ -81,7 +81,12 @@ if(file_exists("data/settings/modules/blog/categories.dat")) {
 if(isset($_POST['Submit'])) {
 
 	//Strip slashes
-	include("data/inc/page_stripslashes.php");
+	$cont1 = stripslashes($cont1);
+	$cont1 = str_replace("\"", "\\\"", $cont1);
+	$cont2 = stripslashes($cont2);
+	$cont2 = str_replace("\"", "\\\"", $cont2);
+	$cont3 = stripslashes($cont3);
+	$cont3 = str_replace("\"", "\\\"", $cont3);
 
 	//Save information
 	$file = fopen('data/settings/modules/blog/posts/'.$var, 'w');
@@ -92,12 +97,26 @@ if(isset($_POST['Submit'])) {
 	.'$post_day = "'.$post_day.'";'."\n"
 	.'$post_month = "'.$post_month.'";'."\n"
 	.'$post_year = "'.$post_year.'";'."\n"
-	.'$post_time = "'.$post_time.'";'."\n"
-	.'?>');
+	.'$post_time = "'.$post_time.'";'."\n");
+
+	//Check if there are reactions
+	if(isset($post_reaction_title)) {
+		foreach($post_reaction_title as $reaction_key => $value) {
+			//And save the existing reaction
+			fputs($file, '$post_reaction_title['.$reaction_key.'] = "'.$post_reaction_title[$reaction_key].'";'."\n"
+			.'$post_reaction_name['.$reaction_key.'] = "'.$post_reaction_name[$reaction_key].'";'."\n"
+			.'$post_reaction_content['.$reaction_key.'] = "'.$post_reaction_content[$reaction_key].'";'."\n"
+			.'$post_reaction_day['.$reaction_key.'] = "'.$post_reaction_day[$reaction_key].'";'."\n"
+			.'$post_reaction_month['.$reaction_key.'] = "'.$post_reaction_month[$reaction_key].'";'."\n"
+			.'$post_reaction_year['.$reaction_key.'] = "'.$post_reaction_year[$reaction_key].'";'."\n"
+			.'$post_reaction_time['.$reaction_key.'] = "'.$post_reaction_time[$reaction_key].'";'."\n");
+		}
+	}
+	fputs($file, '?>');	
 	fclose($file);
 	chmod('data/settings/modules/blog/posts/'.$var,0777);
 
 	//Redirect user
-	redirect("?module=blog","0");
+	redirect('?module=blog','0');
 }
 ?>

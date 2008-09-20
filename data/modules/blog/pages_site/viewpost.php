@@ -51,23 +51,20 @@ else {
 //Check if there are reactions
 if(isset($post_reaction_title)) {
 	foreach($post_reaction_title as $key => $value) { ?>
-<div class="blogpost" style="margin-bottom: 15px; margin-top: 5px;">
+<div class="blogpost_reaction" style="margin-bottom: 15px; margin-top: 5px;">
 	<span class="posttitle" style="font-size: 16px;">
 		<?php echo $post_reaction_title[$key]; ?>
 	</span><br />
 
 	<span class="postinfo" style="font-size: 10px;">
-		<?php echo $lang_blog18; ?> <span style="font-weight: bold;"><?php echo $post_reaction_name[$key]; ?></span> - $postdate
+		<?php echo $lang_blog18; ?> <span style="font-weight: bold;"><?php echo $post_reaction_name[$key]; ?></span> -  <?php echo $post_reaction_month[$key]; ?>-<?php echo $post_reaction_day[$key]; ?>-<?php echo $post_reaction_year[$key]; ?>, <?php echo $post_reaction_time[$key]; ?>
 	</span><br />
 	<?php echo $post_reaction_content[$key]; ?>
 </div>
 	<?php }
 }
 
-//REACTION HTML
-//echo 
-
-//...and show a form to place new reactions
+//Show a form to post new reactions
 ?>
 
 	<form method="post" action="" style="margin-top: 5px; margin-bottom: 15px;">
@@ -83,9 +80,11 @@ if(isset($post_reaction_title)) {
 if(isset($_POST['Submit'])) {
 
 	//Check if everything has been filled in
-	if((!isset($_POST['title'])) && (!isset($_POST['name'])) && (!isset($_POST['message']))) { ?>
+	if((!isset($_POST['title'])) || (!isset($_POST['name'])) || (!isset($_POST['message']))) { ?>
 		<span style="color: red;"><?php echo $lang_contact6; ?></span>
-	<?php }
+	<?php
+		exit;
+	}
 
 	else {
 		//Then fetch our posted variables
@@ -102,12 +101,20 @@ if(isset($_POST['Submit'])) {
 		else {
 			//Delete unwanted characters
 			$title = stripslashes($title);
-			$title = str_replace("\"", "\\\"", $title);
+			$title = str_replace('"', '', $title);
 			$name = stripslashes($name);
-			$name = str_replace("\"", "\\\"", $name);
+			$name = str_replace('"', '', $name);
 			$message = stripslashes($message);
-			$message = str_replace("\"", "\\\"", $message);
-			$message = str_replace("\n", "<br />", $message);
+			$message = str_replace('"', '', $message);
+			$message = str_replace("\n", '<br />', $message);
+
+			//Strip slashes from post itself too
+			$post_title = stripslashes($post_title);
+			$post_title = str_replace("\"", "\\\"", $post_title);
+			$post_category = stripslashes($post_category);
+			$post_category = str_replace("\"", "\\\"", $post_category);
+			$post_content = stripslashes($post_content);
+			$post_content = str_replace("\"", "\\\"", $post_content);
 
 			//Determine the date
 			$day = date("d");

@@ -68,7 +68,12 @@ if(file_exists('data/settings/modules/blog/categories.dat')) {
 if(isset($_POST['Submit'])) {
 
 	//Strip slashes
-	include('data/inc/page_stripslashes.php');
+	$cont1 = stripslashes($cont1);
+	$cont1 = str_replace("\"", "\\\"", $cont1);
+	$cont2 = stripslashes($cont2);
+	$cont2 = str_replace("\"", "\\\"", $cont2);
+	$cont3 = stripslashes($cont3);
+	$cont3 = str_replace("\"", "\\\"", $cont3);
 
 	//Determine the date
 	$day = date("d");
