@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
  * http://www.pluck-cms.org
@@ -8,7 +8,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- 
+
  * See docs/COPYING for the complete license.
 */
 
@@ -27,24 +27,9 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 <form action="" method="post">
 	<select name="cont">
 		<option selected="selected" value="0"><?php echo $lang_lang2; ?></option>
-<?php
-	$files = read_dir_contents('data/inc/lang');
-	if(isset($files)) {
-		natcasesort($files);
-			foreach ($files as $file) {
-			if ($file != $langpref) {
-				include('data/inc/lang/'.$file);
-				?>
-		<option value='<?php echo $file; ?>'><?php echo $lang; ?></option>
-				<?php
-			}
-		}
-	}
-//Include user-specified langfile, to override langfiles included above
-include('data/inc/lang/'.$langpref);
-?>
+		<?php read_lang_files(); ?>
 	</select>
-	<br /><br />
+	<br />
 	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
 	<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=options';" />
 </form>

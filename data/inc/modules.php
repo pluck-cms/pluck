@@ -24,13 +24,13 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 <p><strong><?php echo $lang_modules1; ?></strong></p>
 <?php
 //Define path to the module-dir
-$path = "data/modules";
+$path = 'data/modules';
 //Open the folder
 $dir_handle = @opendir($path) or die("Unable to open $path. Check if it's readable.");
 
 //Loop through dirs, and display the modules
 while ($dir = readdir($dir_handle)) {
-if($dir == "." || $dir == "..")
+if($dir == '.' || $dir == '..')
    continue;
    if(file_exists("data/modules/$dir/module_info.php")) {
 		include("data/modules/$dir/module_info.php");
