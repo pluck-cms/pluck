@@ -27,7 +27,7 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 <form action="" method="post">
 	<select name="cont">
 		<option selected="selected" value="0"><?php echo $lang_lang2; ?></option>
-		<?php read_lang_files(); ?>
+		<?php read_lang_files($langpref); ?>
 	</select>
 	<br /><br />
 	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
@@ -35,7 +35,7 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 </form>
 <?php
 //Check if chosen language is valid, and then save data.
-if ((isset($_POST['Submit'])) && ($cont != '0') && (file_exists('data/inc/lang/'.$cont.''))) {
+if ((isset($_POST['Submit'])) && ($cont != '0') && (file_exists('data/inc/lang/'.$cont))) {
 	save_language($cont);
 
 	//Redirect user.
