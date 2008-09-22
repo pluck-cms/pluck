@@ -1,13 +1,14 @@
 <?php
 /* 
-this is a pluck language file. you can find pluck at http://pluck-cms.org
-if you want to help us, please translate this file in your own language and send it to us at
-sander@somp.nl
-it wil be included in the next release of pluck.
-	if you translate, please note the use of capitals: use them sparely
+This is a pluck language file. You can find pluck at http://www.pluck-cms.org/.
+If you want to help us, please start a new translation on http://www.pluck-cms.org/dev/translate/
+The translation will be included in the next release of pluck.
 
-pluck is licensed under the GNU General Public License, so opensource.
-see license.txt for the full license text.
+Note: if you translate, please note the use of capitals: use them sparely.
+
+pluck is licensed under the GNU General Public License, and thus open source.
+This language file is also licensed under the GPL.
+See docs/COPYING for the full license text.
 
 ------------------------------------------------
 Language					Dutch

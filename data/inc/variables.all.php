@@ -21,16 +21,16 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 
 //Include Translation data
 //----------------
-include("data/settings/langpref.php");
-include("data/inc/lang/en.php");
-include("data/inc/lang/$langpref");
+include('data/settings/langpref.php');
+include('data/inc/lang/en.php');
+if ($langpref != 'en.php')
+	include('data/inc/lang/'.$langpref);
 
 //Variables for module programmers
 //----------------
 //First, get some information
-if(file_exists("data/settings/options.php")) {
-	include("data/settings/options.php");
-}
+if (file_exists('data/settings/options.php'))
+	include('data/settings/options.php');
 
 //General variables
 $pluck_version = '4.6';

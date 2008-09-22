@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
  * http://www.pluck-cms.org
@@ -7,7 +7,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- 
+
  * See docs/COPYING for the complete license.
 */
 
@@ -18,31 +18,28 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
     //Block all other code
     exit();
 }
-
-//Introduction text
 ?>
 <p><strong><?php echo $lang_cpass1; ?></strong></p>
 
 <form method="post" action="">
 	<span class="kop2"><?php echo $lang_cpass2; ?></span><br />
-	<input name="passoud" type="password"/><br /><br />
+	<input name="cont1" type="password"/><br /><br />
 	<span class="kop2"><?php echo $lang_cpass3; ?></span><br />
-	<input name="pass" type="password" /><br /><br />
+	<input name="cont2" type="password" /><br /><br />
 	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
 	<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=options';" />
 </form>
 <?php
 if(isset($_POST['Submit'])) {
-
 	//Include old password
 	require('data/settings/pass.php');
 
 	//MD5-encrypt posted passwords
-	$passoud = md5($passoud);
-	$pass = md5($pass);
+	if (!empty($cont1))
+		$cont1 = md5($cont1);
 
 	//Check if the old password entered is correct. If it isn't, do:
-	if ($ww != $passoud) {
+	if ($ww != $cont1) {
 		?>
 		<span class="red"><?php echo $lang_cpass4; ?></span>
 		<?php
@@ -50,15 +47,12 @@ if(isset($_POST['Submit'])) {
 
 	//If the old password entered is correct, save it
 	else {
-		$data = 'data/settings/pass.php';
-		$file = fopen($data, 'w');
-		fputs($file, '<?php $ww = "'.$pass.'"; ?>');
-		fclose($file);
-		chmod($data,0777);
-
-		//Redirect user
-		echo $lang_cpass5;
-		redirect('?action=options','0');
+		if (!empty($cont2)) {
+			save_password($cont2);
+			//Redirect user
+			echo $lang_cpass5;
+			redirect('?action=options','0');
+		}
 	}
 }
 ?>

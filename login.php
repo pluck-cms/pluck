@@ -50,7 +50,7 @@ else {
 ?>
 		<span class="kop2"><?php echo $lang_login3; ?></span><br />
 		<form action="login.php" method="post" name="passform">
-			<input name="pass" size="25" type="password" />
+			<input name="cont1" size="25" type="password" />
 			<input type="text" name="bogusField" style="display: none;" />
 			<input type="submit" name="Submit" value="<?php echo $lang_login4; ?>" />
 		</form>
@@ -60,9 +60,8 @@ else {
 
 	//If password has been sent...
 	elseif(isset($_POST['Submit'])) {
-
 		//...first MD5-encrypt password that has been posted
-		$pass = md5($pass);
+		$pass = md5($cont1);
 
 		//...and is correct:
 		if ($pass == $ww) {
