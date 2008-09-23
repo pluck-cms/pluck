@@ -51,7 +51,7 @@ if(isset($_POST['Submit'])) {
 			save_password($cont2);
 			//Redirect user
 			echo $lang_cpass5;
-			redirect('?action=options','0');
+			redirect('?action=options','2');
 		}
 	}
 }

@@ -148,9 +148,9 @@ foreach ($_POST as $variabletosplice => $display_order) {
 //Close the file
 fputs($file, "\n?>");
 fclose($file);
-chmod("data/settings/themes/$themedir/moduleconf.php", 0777);
+chmod('data/settings/themes/'.$themedir.'/moduleconf.php', 0777);
 
 //And redirect the user
-redirect("?action=managemodules","0");
+redirect('?action=managemodules','0');
 }
 ?>

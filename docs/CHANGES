@@ -1,9 +1,26 @@
 pluck 4.6
 ----------------------------------------
 - added predefined module variables in administration center
+- added functions for common tasks
 - added support for slideshows in Lightbox
 - now showing image name and description in Lightbox
+- update TinyMCE to 3.2
+- lots of code cleanups and enhancements
+- [bug] now showing thumbnail when an album name contains a strange character (#261833)
 - [bug] close button and loading image in Lightbox didn't show up
+
+pluck 4.5.3
+----------------------------------------
+- [security] new unregister_globals function to unregister globals properly
+- [security] blocked "/" and ".." characters in security filter, to prevent local file inclusion
+
+pluck 4.5.2
+----------------------------------------
+- [security] Local file inclusion was possible in predefined_variables.php (thanks to AmnPardaz)
+- [bug] TinyMCE didn't always show up with Internet Explorer 7 (#31)
+- [bug] viewing a page in the trashcan caused an error (#29)
+- [bug] the top menu shows again when using Internet Explorer with Hebrew (#30)
+- [bug] inserting links in TinyMCE didn't work due to a problem with the XHTML Compatibility mode
 
 pluck 4.6 beta 1
 ----------------------------------------

@@ -31,6 +31,8 @@ if ($langpref != 'en.php')
 //First, get some information
 if (file_exists('data/settings/options.php'))
 	include('data/settings/options.php');
+if (file_exists('data/settings/themepref.php'))
+	include('data/settings/themepref.php');
 
 //General variables
 $pluck_version = '4.6';
@@ -38,4 +40,5 @@ $site_title = get_sitetitle();
 $site_langfile = $langpref;
 $site_lang = preg_replace('/.php/','',$site_langfile);
 $site_email = $email;
+$site_theme = $themepref;
 ?>

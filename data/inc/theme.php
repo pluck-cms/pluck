@@ -50,44 +50,23 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 		<option value="0"><?php echo $lang_lang2; ?>
 
 <?php
-//Function to read out the themes
-function read_dir($dir) {
-	//Include theme information
-	include('data/settings/themepref.php');
-
-   $path = opendir($dir);
-   while (false !== ($file = readdir($path))) {
-       if(($file !== ".") and ($file !== "..") and ($file !== "themepref.php") and ($file !== "predefined_variables.php")) {
-           if(is_file($dir."/".$file))
-               $files[]=$file;
-           else
-               $dirs[]=$dir."/".$file;
-       }
- 	}
-   if($dirs) {
-
-       foreach ($dirs as $dir) {
-			if (file_exists("$dir/info.php")) {
-				include ("$dir/info.php");
-				//If theme is current theme, select it
-				if($themepref == $themedir) {
-					echo '<option value="'.$themedir.'" selected>'.$themename."\n";
-				}
-				//Otherwise, don't select it
-				else {
-					echo '<option value="'.$themedir.'">'.$themename."\n";
-				}
-			}
-       }
-   }
-   if($files) {
-
-   }
-   closedir($path);
+$dirs = read_dir_contents('data/themes','dirs');
+if($dirs) {
+	natcasesort($dirs);
+	foreach ($dirs as $dir) {
+		if (file_exists('data/themes/'.$dir.'/info.php')) {
+			include ('data/themes/'.$dir.'/info.php');
+			//If theme is current theme, select it
+			if ($themedir == $site_theme) { ?>
+				<option value="<?php echo $themedir; ?>" selected><?php echo $themename; ?>
+			<?php }
+			//Otherwise, don't select it
+			else { ?>
+				<option value="<?php echo $themedir; ?>"><?php echo $themename; ?>
+			<?php }
+		}
+	}
 }
-
-//Actually read out the dir
-read_dir("data/themes");
 ?>
 
 	</select><br />
@@ -97,7 +76,7 @@ read_dir("data/themes");
 
 <?php
 //Save the theme-data
-if((isset($_POST['Submit'])) && ($cont != "0") && (file_exists("data/themes/$cont"))) {
+if((isset($_POST['Submit'])) && ($cont != '0') && (file_exists('data/themes/'.$cont))) {
 	save_theme($cont);
 
 	//Redirect user

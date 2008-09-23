@@ -21,7 +21,7 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 //Function: read the available languages.
 //-------------------
 function read_lang_files($not_this_file) {
-	$files = read_dir_contents('data/inc/lang');
+	$files = read_dir_contents('data/inc/lang','files');
 	if($files) {
 		natcasesort($files);
 			foreach($files as $file) {
@@ -37,7 +37,7 @@ function read_lang_files($not_this_file) {
 //Function: read out the pages.
 //------------
 function read_pages() {
-	$files = read_dir_contents('data/settings/pages');
+	$files = read_dir_contents('data/settings/pages','files');
 	if($files) {
 		natcasesort($files);
 		//Translation data.

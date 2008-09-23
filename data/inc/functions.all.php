@@ -116,7 +116,7 @@ function redirect($url, $time) {
 
 //Function: read files in a dir, and return the names in an array.
 //--------------------
-function read_dir_contents($directory) {
+function read_dir_contents($directory,$mode) {
 	$path = opendir($directory);
 	while(false !== ($file = readdir($path))) {
 		if(($file != '.') && ($file != '..')) {
@@ -129,10 +129,10 @@ function read_dir_contents($directory) {
 		}
 	}
 	closedir($path);
-	if(isset($files)) {
+	if($mode == 'files') {
 		return $files;
 	}
-	if(isset($dirs)) {
+	if($mode == 'dirs') {
 		return $dirs;
 	}
 }
