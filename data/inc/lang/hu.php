@@ -12,7 +12,7 @@ See docs/COPYING for the full license text.
 
 ------------------------------------------------
 Language					Hungarian
-Translated by			Wix (mr.nagy@gmail.com)
+Translated by			Wix
 Translators website	http://pluck.extra.hu
 ------------------------------------------------
 */
@@ -237,4 +237,22 @@ $lang_modules11	=	"Modul telepítés...";
 $lang_modules12	=	"Új modulok állnak rendelkezésre..."; 
 $lang_modules13	=	"Modul hozzáadása a weblaphoz..."; 
 $lang_modules14	=	"adj hozzá modulokat a honlaphoz"; 
+$lang_modules15	=	"Beállíthatod azokat a modulokat melyek honlapodon megjelennek. Egyes beállítások téma specifikusak, tehát előfordulhat hogy más témáknál újból be kell állítani ezeket. Ezek a beállítások honlapod minden oldalán egységesek lesznek."; 
+$lang_modules16	=	"Válaszd ki azokat a modulokat melyeket ezen az oldalon szeretnél használni."; 
+$lang_modules17	=	"weboldal"; 
+$lang_modules18	=	"szerző"; 
+$lang_modules19	=	"Tényleg eltávolítod ezt a modult? A modul beállításai ezzel nem törlődnek."; 
+$lang_modules20	=	"Itt új modulokat tudsz beszerezni. Először győződj meg róla, hogy amit letöltöttél az modul."; 
+$lang_modules21	=	"az új modulok letöltése és telepítése által, új funkciókkal ruházhatod fel honlapod"; 
+$lang_modules22	=	"kapj új modulokat"; 
+$lang_modules23	=	"modulok telepítése"; 
+$lang_modules24	=	"A modul fájl túlnagy; 2MB a limit."; 
+$lang_modules25	=	"a modul telepítve"; 
+$lang_modules26	=	"visszatérés a <a href=\"?action=managemodules\">modul lapra</a>"; 
+$lang_theme14	=	"a téma és modul telepítés nem működik ezen a szerveren, látogasd meg az <a href=\"http://www.pluck-cms.org/docs/doku.php/docs:install_nozlib\" target=\"_blank\">útmutatót</a>"; 
+$lang_theme15	=	"Telepítési hiba: az a fájl, amit megadtál, nem érvényes fájl."; 
+$lang_update4	=	"frissítés ellenörzés nem sikerült"; 
+$lang_contact12	=	"kapcsolatfelvétel"; 
+$lang_contact13	=	"a kapcsolatfelvétel modullal biztosíthatod látogatóidnak, hogy felvegyék veled a kapcsolatot"; 
+$lang_trash11	=	"Tényleg kiűríted a kukát? Ne feledd minden tétel megsemmisül!"; 
 ?>
