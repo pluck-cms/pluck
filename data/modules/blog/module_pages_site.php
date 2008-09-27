@@ -11,7 +11,11 @@
 $includepage = 'blog_include.php';
 //Only set 'view post'-page if a post has been specified
 if (isset($_GET['post'])) {
-	$module_page['viewpost'] = $_GET['post'];
+	//Check if post exists, and include information
+	if (file_exists('data/settings/modules/blog/posts/'.$_GET['post'])) {
+		include('data/settings/modules/blog/posts/'.$_GET['post']);
+		$module_page['viewpost'] = $post_title;
+	}
 }
 
 ?>

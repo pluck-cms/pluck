@@ -7,7 +7,7 @@
 //LICENSE: GPLv3
 //This module is included with pluck
 
-$startpage = "blog.php";
+$startpage = 'blog.php';
 $module_page['deletecategory'] = $lang_blog6;
 $module_page['editreactions'] = $lang_blog19;
 $module_page['deletereactions'] = $lang_blog21;

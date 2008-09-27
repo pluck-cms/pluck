@@ -22,21 +22,9 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 //Predefined variable
 $post = $_GET['post'];
 $pageback = $_GET['pageback'];
-
-//First, check if the page exists
-if(file_exists('data/settings/modules/blog/posts/'.$post)) {
-	include('data/settings/modules/blog/posts/'.$post);
-}
-else {
-	redirect('?file=kop1.php','0');
-	exit;
-}
 ?>
 
-<div class="blogpost" style="margin-top: 20px;">
-	<span class="posttitle" style="font-size: 18px;">
-		<?php echo $post_title; ?>
-	</span><br />
+<div class="blogpost">
 	<span class="postinfo" style="font-size: 10px;">
 		<?php echo $lang_blog14; ?> <span style="font-weight: bold;"><?php echo $post_category; ?></span> - <?php echo $post_month; ?>-<?php echo $post_day; ?>-<?php echo $post_year; ?>, <?php echo $post_time; ?>
 	</span><br /><br />
