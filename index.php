@@ -262,8 +262,8 @@ if($place == 'main') {
 			natcasesort($module_pageinc);
 
 			foreach($module_pageinc as $module_to_include => $order) {
-				//Check if module is set to be displayed
-				if($order != '0') {
+				//Check if module is set to be displayed, and make sure module exists
+				if(($order != '0') && (file_exists('data/modules/'.$module_to_include.'/module_info.php'))) {
 					//Include module information
 					include('data/modules/'.$module_to_include.'/module_info.php');
 					//Check if module is compatible
