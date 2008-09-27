@@ -12,7 +12,7 @@ See docs/COPYING for the full license text.
 
 ------------------------------------------------
 Language					Dutch
-Translated by			Sander Thijsen (sander@somp.nl)
+Translated by			Sander Thijsen
 Translators website	http://www.somp.nl
 ------------------------------------------------
 */

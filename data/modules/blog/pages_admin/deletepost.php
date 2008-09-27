@@ -20,15 +20,43 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 }
 
 //Include functions
-include("data/modules/blog/functions.php");
+include('data/modules/blog/functions.php');
 
-//Delete the post
-unlink("data/blog/$var2/posts/$var");
-//Check for reactions
-if (file_exists("data/blog/$var2/reactions/$var")) {
-//...and delete them
-unlink("data/blog/$var2/reactions/$var"); }
+//First, update the post index
+if(file_exists('data/settings/modules/blog/post_index.dat')) {
+	//Get post index
+	$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
+
+	//Check if post index contains post we want to delete, and filter out the post
+	if(ereg($var."\n",$contents)) {
+		$contents = str_replace($var."\n",'',$contents);
+	}
+	elseif(ereg("\n".$var,$contents)) {
+		$contents = str_replace("\n".$var,'',$contents);
+	}
+	elseif(ereg($var,$contents)) {
+		$contents = str_replace($var,'',$contents);
+	}
+
+	//Save updated post index
+	$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
+	fputs($file,$contents);
+	fclose($file);
+
+	//Reload contents of post index in variable
+	$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
+	//If variable/file is empty, delete post index
+	if(empty($contents)) {
+		unlink('data/settings/modules/blog/post_index.dat');
+	}
+}
+
+//Check if post exists, then delete it
+if(file_exists('data/settings/modules/blog/posts/'.$var)) {
+	//Delete the post
+	unlink('data/settings/modules/blog/posts/'.$var);
+}
 
 //Redirect
-redirect("?module=blog&page=editblog&var=$var2","0");
+redirect('?module=blog','0');
 ?>
