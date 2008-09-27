@@ -20,44 +20,44 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 }
 
 //Include functions
-include("data/modules/blog/functions.php");
+include('data/modules/blog/functions.php');
 
 //Check if config file exists
-if(file_exists("data/settings/modules/blog/categories.dat")) {
-	$categories = file_get_contents("data/settings/modules/blog/categories.dat");
+if(file_exists('data/settings/modules/blog/categories.dat')) {
+	$categories = file_get_contents('data/settings/modules/blog/categories.dat');
 	
 	//Open config file
-	$file = fopen("data/settings/modules/blog/categories.dat", "w");
+	$file = fopen('data/settings/modules/blog/categories.dat', 'w');
 	
 	//Check if category exists in file, and if it has been saved comma seperated or not
 	//Then generate new category list...
 	//If category is not last in list:
 	if(ereg($var.',',$categories)) {
-		$categories = str_replace($var.',',"",$categories);
+		$categories = str_replace($var.',','',$categories);
 		//Save categories
 		fputs($file,$categories);
 		//Close file, and chmod it
 		fclose($file);
-		chmod("data/settings/modules/blog/categories.dat", 0777);
+		chmod('data/settings/modules/blog/categories.dat', 0777);
 	}
 	//If category is last in list...
 	elseif(ereg($var,$categories)) {
 		//...but category is not the only one
 		if(ereg(','.$var,$categories)) {
-			$categories = str_replace(','.$var,"",$categories);
+			$categories = str_replace(','.$var,'',$categories);
 			//Save categories
 			fputs($file,$categories);
 			//Close file, and chmod it
 			fclose($file);
-			chmod("data/settings/modules/blog/categories.dat", 0777);
+			chmod('data/settings/modules/blog/categories.dat', 0777);
 		}
 		//...and category is the only one
 		elseif(ereg($var,$categories)) {
-			unlink("data/settings/modules/blog/categories.dat");
+			unlink('data/settings/modules/blog/categories.dat');
 		}
 	}
 }
 
 //Redirect
-redirect("?module=blog","0");
+redirect('?module=blog','0');
 ?>

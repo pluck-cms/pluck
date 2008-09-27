@@ -32,10 +32,10 @@ read_imagesinpages('images');
 </div>
 
 <form method="post" action="">
-	<span class="kop2"><?php echo $lang_install17; ?></span><br>
-	<input name="cont1" type="text" value=""><br><br>
+	<span class="kop2"><?php echo $lang_install17; ?></span><br />
+	<input name="cont1" type="text" value=""><br /><br />
 
-	<span class="kop2"><?php echo $lang_blog26; ?></span><br>
+	<span class="kop2"><?php echo $lang_blog26; ?></span><br />
 	<select name="cont2">
 		<option value="<?php echo $lang_blog27; ?>" /> <?php echo $lang_blog25; ?>
 <?php
@@ -56,7 +56,7 @@ if(file_exists('data/settings/modules/blog/categories.dat')) {
 ?>
 	</select><br /><br />
 
-	<span class="kop2"><?php echo $lang_install18; ?></span><br>
+	<span class="kop2"><?php echo $lang_install18; ?></span><br />
 	<textarea class="tinymce" name="cont3" cols="70" rows="20"></textarea><br />
 
 	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>">
