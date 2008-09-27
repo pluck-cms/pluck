@@ -31,8 +31,8 @@ require('data/inc/functions.site.php');
 //Include variables
 require('data/inc/variables.all.php');
 require('data/inc/variables.site.php');
-//Include Theme data
-require('data/settings/themepref.php');
+//Set themedir
+$themedirectory = 'data/themes/'.$site_theme;
 //Then, if we have a RTL-language and theme hasn't been converted
 if ((isset($direction)) && ($direction == 'rtl') && (!file_exists('data/themes/'.$themepref.'/style-rtl.css'))) {
 	//Convert theme and save CSS
@@ -93,12 +93,6 @@ if (isset($current_module_dir)) {
 		exit;
 	}
 }
-
-//Include Theme data
-include('data/settings/themepref.php');
-//Set themedir
-$themedirectory = 'data/themes/'.$themepref;
-
 
 //FUNCTIONS FOR FILLING IN THE PAGE
 //---------------------------------

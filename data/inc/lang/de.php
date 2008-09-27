@@ -1,23 +1,23 @@
 <?php 
 /* 
-this is a pluck language file. you can find pluck at http://www.pluck-cms.org
-if you want to help us, please translate this file in your own language and send it to us at
-sander@somp.nl
-it wil be included in the next release of pluck.
-	if you translate, please note the use of capitals: use them sparely
+This is a pluck language file. You can find pluck at http://www.pluck-cms.org/.
+If you want to help us, please start a new translation on http://www.pluck-cms.org/dev/translate/
+The translation will be included in the next release of pluck.
 
-pluck is licensed under the GNU General Public License, so opensource.
-see docs/COPYING for the full license text.
+Note: if you translate, please note the use of capitals: use them sparely.
+
+pluck is licensed under the GNU General Public License, and thus open source.
+This language file is also licensed under the GPL.
+See docs/COPYING for the full license text.
 
 ------------------------------------------------
 Language					German
-Translated by			Max Effenberger (mail@maxeffenberger.de)
+Translated by			Max Effenberger
 Translators website	none
 ------------------------------------------------
 */
 
-//Version of pluck
-$currentversion = "4.4";
+//Name of the language (in English!)
 $lang = "German";
 
 
@@ -90,7 +90,6 @@ $lang_image12	=	"Dieses Bild kann nicht entfernt werden. Überprüfen Sie die Be
 $lang_options1	=	"Hier können Sie pluck so konfigurieren, dass es Ihren Vorstellungen entspricht."; 
 $lang_options2	=	"hier können Sie einen Titel für ihre Website eingeben"; 
 $lang_options3	=	"hier können Sie das Aussehen von pluck ändern"; 
-$lang_options4	=	"um bessere Suchmaschinenergebnisse zu erzielen"; 
 $lang_options5	=	"es ist sinnvoll das Passwort regelmäßig zu ändern"; 
 $lang_options8	=	"wählen Sie die zu verwendene Sprache"; 
 $lang_stitle2	=	"Sie müssen einen Namen für die Website angeben."; 
@@ -125,13 +124,11 @@ $lang_updown3	=	"Reihenfolge ändern...";
 $lang_updown4	=	"Diese Seite ist bereits die Letzte und kann daher nicht weiter nach unten verschoben werden."; 
 $lang_theme5	=	"design installieren"; 
 $lang_theme6	=	"Hier können Sie neue Designs installieren. Stellen Sie sicher, dass sie diese zuvor gedownloadet haben."; 
-$lang_theme7	=	"Installation fehlgeschlagen: bei der ausgewählten Datei handelt es sich um keine gültige Design-Datein."; 
 $lang_theme8	=	"Die Design-Datei ist zu groß. Die maximale Größe beträgt 1MB."; 
 $lang_theme9	=	"Installation fehlgeschlagen. Das Modul php-zlib ist möglicherweise nicht auf dem Server installiert. Sie können den Systemadministrator kontaktieren und ihn darum beten das Modul zu installieren."; 
 $lang_theme10	=	"design installiert"; 
 $lang_theme11	=	"zurück zur <a href=\"?action=theme\">Design-Seite</a>"; 
 $lang_theme12	=	"zurück"; 
-$lang_theme13	=	"Die Design-Installation wird auf diesem Server nicht unterstützt. Sie müssen das Design <a href=\"http://www.pluck-cms.org/wiki/index.php?title=InstallThemeManual\" target=\"_blank\">manuell</a> installieren."; 
 $lang_install24	=	"e-Mail"; 
 $lang_install25	=	"Ihre e-Mail-Adresse wird verwendet um Ihren Besuchern die Möglichkeit zu gegen, über ein e-Mail-Formular mit Ihnen in Kontakt zu treten."; 
 $lang_install26	=	"passwort wiederholen"; 
@@ -142,7 +139,6 @@ $lang_settings	=	"generelle Einstellungen";
 $lang_settings2	=	"Bitte wählen Sie hier einen Titel für Ihre Website."; 
 $lang_settings3	=	"generelle Einstellungen wie Titel der Website oder Ihre e-Mail-Adresse ändern"; 
 $lang_settings4	=	"Generellen Einstellungen werden geändert."; 
-$lang_contact1	=	"e-Mail-Formular in die Seite einfügen"; 
 $lang_contact2	=	"sonstige Einstellungen"; 
 $lang_contact4	=	"e-Mail:"; 
 $lang_contact5	=	"Nachricht:"; 
@@ -151,7 +147,6 @@ $lang_contact7	=	"Nachricht von der Website von";
 $lang_contact8	=	"Ihre Nachricht wurde gesendet."; 
 $lang_contact9	=	"Ihre Nachricht kann nicht gesendet werden, es ist ein Fehler aufgetreten."; 
 $lang_contact10	=	"Senden"; 
-$lang_contact11	=	"e-Mail-Adresse als erstes angeben"; 
 $lang_kop17	=	"bilder verwalten"; 
 $lang_albums	=	"alben"; 
 $lang_albums1	=	"Hier können Sie ihre Alben verwalten. Nutzen Sie Alben um ihren Besuchern ihre Lieblingsfotos und Bilder zu zeigen. Um ein Album in eine Seite einzufügen, wählen sie \"Album einfügen\", wenn Sie die Seite bearbeiten."; 
@@ -229,8 +224,25 @@ $lang_start10	=	"mehr...";
 $lang_update1	=	"pluck ist auf dem aktuellsten Stand"; 
 $lang_update2	=	"Update verfügbar"; 
 $lang_update3	=	"<b>dringendes</b> Update verfügbar"; 
+$lang_settings6	=	"In den XHTML-Kompatibilitätsmodus wechseln (unter Umständen langsamer)"; 
+$lang_modules2	=	"Version"; 
 $lang_modules3	=	"Modul-Einstellungen"; 
 $lang_modules4	=	"Änder die Einstellungen der Module hier"; 
 $lang_modules5	=	"Hier kannst du die Einstellungen der Installierten Module ändern"; 
-$lang_settings6	=	"In den XHTML-Kompatibilitätsmodus wechseln (unter Umständen langsamer)"; 
+$lang_modules6	=	"Nicht anzeigen"; 
+$lang_modules7	=	"Wähle die Reihenfolge in der die Module angezeigt werden sollen"; 
+$lang_modules8	=	"Modul-Informationen"; 
+$lang_modules9	=	"Es ist auch möglich ein Modul auf einer einzelnen, separaten Seite einzufügen. Dazu muss die Seite bearbeitet werden und das Modul, dass angezeigt werden soll, ausgewählt werden."; 
+$lang_modules10	=	"Modul deinstallieren"; 
+$lang_modules11	=	"Ein Modul installieren..."; 
+$lang_modules12	=	"Neues Modul bekommen..."; 
+$lang_modules13	=	"Modul zur Website hinzufügen..."; 
+$lang_modules14	=	"Modul zur Website hinzufügen"; 
+$lang_modules17	=	"Website"; 
+$lang_modules18	=	"Autor"; 
+$lang_modules23	=	"Modul installieren"; 
+$lang_modules24	=	"Diese Modul-Datei ist zu groß; 2MB ist das Limit."; 
+$lang_modules25	=	"Modul installiert"; 
+$lang_modules26	=	"zurück zur <a href=\"?action=managemodules\">Modul-Seite</a>"; 
+$lang_contact12	=	"Kontaktformular"; 
 ?>
