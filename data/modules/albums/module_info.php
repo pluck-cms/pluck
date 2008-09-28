@@ -28,7 +28,7 @@ $module_icon = "images/albums.png";
 $module_version = "0.1";
 
 //Author of the module
-$module_author = "pluck developers";
+$module_author = "pluck development team";
 
 //Website of the module
 $module_website = "http://www.pluck-cms.org";
