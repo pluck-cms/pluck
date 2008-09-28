@@ -17,5 +17,4 @@ if (isset($_GET['post'])) {
 		$module_page['viewpost'] = $post_title;
 	}
 }
-
 ?>

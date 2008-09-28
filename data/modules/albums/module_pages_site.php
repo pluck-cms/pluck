@@ -12,5 +12,5 @@ if (isset($_GET['album'])) {
 	$module_page['viewalbum'] = $_GET['album'];
 }
 
-$includepage = "albums_include.php";
+$includepage = 'albums_include.php';
 ?>

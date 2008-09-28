@@ -1,11 +1,13 @@
 pluck 4.6
 ----------------------------------------
+- rewritten blog module
 - added predefined module variables in administration center
 - added functions for common tasks
 - added support for slideshows in Lightbox
 - now showing image name and description in Lightbox
 - update TinyMCE to 3.2
 - lots of code cleanups and enhancements
+- [bug] trashcan sometimes showed 2 items when it was empty
 - [bug] now showing thumbnail when an album name contains a strange character (#261833)
 - [bug] close button and loading image in Lightbox didn't show up
 

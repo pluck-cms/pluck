@@ -28,7 +28,7 @@ $module_icon = "images/contactform.png";
 $module_version = "0.1";
 
 //Author of the module
-$module_author = "Sander Thijsen";
+$module_author = "pluck developers";
 
 //Website of the module
 $module_website = "http://www.pluck-cms.org";

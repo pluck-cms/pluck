@@ -7,7 +7,7 @@
 //LICENSE: GPLv3
 //This module is included with pluck
 
-$startpage = "albums.php";
+$startpage = 'albums.php';
 $module_page['editalbum'] = $lang_albums6;
 $module_page['deletealbum'] = $lang_albums5;
 $module_page['deleteimage'] = $lang_kop13;
