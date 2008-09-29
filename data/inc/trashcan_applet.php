@@ -21,13 +21,13 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 }
 
 //Count items in trashcan
-include("data/inc/trashcan_count.php");
+$trashcan_items = count_trashcan();
 
 //Define which image we have to display, a full trashcan or an empty one
-if ($trashcan_items == "0") {
-$trash_image = "trash.png"; }
-else {
-$trash_image = "trash-full.png"; }
+if ($trashcan_items == '0')
+	$trash_image = 'trash.png';
+else
+	$trash_image = 'trash-full.png';
 ?>
 <div>
 	<a href="?action=trashcan"><img src="data/image/<?php echo $trash_image; ?>" alt="<?php echo $lang_trash; ?>" title="<?php echo $lang_trash; ?>" /></a>

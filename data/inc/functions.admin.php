@@ -8,7 +8,8 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * See docs/COPYING for the complete license.
+
+ * See docs/COPYING for the complete license.
 */
 //Make sure the file isn't accessed directly
 if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
@@ -34,7 +35,8 @@ function read_lang_files($not_this_file) {
 		}
 	}
 }
-//Function: read out the pages.
+
+//Function: read out the pages.
 //------------
 function read_pages() {
 	$files = read_dir_contents('data/settings/pages','files');
@@ -91,7 +93,24 @@ function showmenudiv($title, $text, $image, $url, $blank, $more = null) {
 	</div>
 	<?php
 }
-/*INSTALL FUNCTIONS*/
+
+function count_trashcan() {
+	//Pages
+	$count_pages_array = glob('data/trash/pages/*.*');
+	if((isset($count_pages_array)) && (!empty($count_pages_array)))
+		$count_pages = count($count_pages_array);
+
+	//Images
+	$count_images_array = glob('data/trash/images/*.*');
+	if((isset($count_images_array)) && (!empty($count_images_array)))
+		$count_images = count($count_images_array);
+
+	//Combine all numbers...
+	$trashcan_items = $count_pages + $count_images;
+	return $trashcan_items;
+}
+
+/*INSTALL FUNCTIONS*/
 
 //Function: check if files are writable.
 //-------------------
@@ -117,7 +136,8 @@ function check_writable($file) {
 	<?php
 	}
 }
-//Function: write the install file.
+
+//Function: write the install file.
 //-------------------
 function install_done() {
 	$data = 'data/settings/install.dat';
@@ -141,10 +161,13 @@ function save_password($password) {
 	fclose($file);
 	chmod($data, 0777);
 }
-//Function: save the options.
+
+//Function: save the options.
 //-------------------
 function save_options($title, $email, $xhtml) {
 	$title = stripslashes($title);
+	$title = htmlspecialchars($title);
+	$email = htmlspecialchars($email);
 	$data = 'data/settings/options.php';
 	$file = fopen($data, 'w');
 	fputs($file, '<?php'."\n"
@@ -155,7 +178,8 @@ function save_options($title, $email, $xhtml) {
 	fclose($file);
 	chmod($data, 0777);
 }
-//Function: save the prefered language.
+
+//Function: save the prefered language.
 //-------------------
 function save_language($language) {
 	$data = 'data/settings/langpref.php';
@@ -163,7 +187,8 @@ function save_language($language) {
 	fputs($file, '<?php $langpref = "'.$language.'"; ?>');
 	fclose($file);
 }
-//Function: save theme.
+
+//Function: save theme.
 //-------------------
 function save_theme($theme) {
 	$data = 'data/settings/themepref.php';
@@ -171,7 +196,8 @@ function save_theme($theme) {
 	fputs($file, '<?php $themepref = "'.$theme.'"; ?>');
 	fclose($file);
 }
-//Function: save a page.
+
+//Function: save a page.
 //-------------------
 function save_page($name, $title, $content, $hidden = false) {
 	//Check if the file should be hidden.
@@ -179,7 +205,8 @@ function save_page($name, $title, $content, $hidden = false) {
 		$hidden = 'yes';
 	else
 		$hidden = 'no';
-	$data = 'data/settings/pages/'.$name.'.php';
+
+	$data = 'data/settings/pages/'.$name.'.php';
 	$file = fopen($data, 'w');
 	$title = stripslashes($title);
 	$title = str_replace('"', '\"', $title);
