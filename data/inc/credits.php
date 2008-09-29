@@ -50,7 +50,7 @@ $translator = "Sander Thijsen"; }
 if ($langpref == "da.php") {
 $translator = "Lone Hansen"; }
 if ($langpref == "de.php") {
-$translator = "Max Effenberger, Dennis Sewberath"; }
+$translator = "Max Effenberger, Dennis Sewberath, stoffal"; }
 if ($langpref == "es.php") {
 $translator = "Cesc"; }
 if ($langpref == "ct.php") {
