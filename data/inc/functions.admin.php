@@ -144,7 +144,7 @@ function save_password($password) {
 //Function: save the options.
 //-------------------
 function save_options($title, $email, $xhtml) {
-	$title = stripslashes($cont);
+	$title = stripslashes($title);
 	$data = 'data/settings/options.php';
 	$file = fopen($data, 'w');
 	fputs($file, '<?php'."\n"
