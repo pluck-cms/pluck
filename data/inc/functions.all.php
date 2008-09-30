@@ -60,7 +60,7 @@ function recursive_remove_directory($directory, $empty = false)	{
 	if(substr($directory,-1) == '/') {
 		$directory = substr($directory, 0, -1);
 	}
-	
+
 	if(!file_exists($directory) || !is_dir($directory)) {
 		return false;
 	}

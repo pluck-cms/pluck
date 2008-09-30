@@ -40,7 +40,7 @@ else
 			</td>
 			<td>
 				<?php echo $trashcan_items.' '.$lang_trash3; ?><br>
-				<a href="?action=trashcan_empty" onclick="return confirm('$lang_trash11');"><?php echo $lang_trash6; ?></a>
+				<a href="?action=trashcan_empty" onclick="return confirm('<?php echo $lang_trash11; ?>');"><?php echo $lang_trash6; ?></a>
 			</td>
 		</tr>
 	</table>
