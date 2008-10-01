@@ -204,8 +204,8 @@ else {
 		$titelkop = $lang_install;
 		include_once('data/inc/header2.php');
 		
-		showmenudiv($lang_install20, $lang_install21, 'website.png', 'index.php', false, null);
-		showmenudiv($lang_install22, $lang_install23, 'password.png', 'login.php', false, null);
+		showmenudiv($lang_install20, $lang_install21, 'data/image/website.png', 'index.php', false, null);
+		showmenudiv($lang_install22, $lang_install23, 'data/image/password.png', 'login.php', false, null);
 		
 		include_once('data/inc/footer.php');
 	}

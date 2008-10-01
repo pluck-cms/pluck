@@ -79,16 +79,17 @@ function showmenudiv($title, $text, $image, $url, $blank, $more = null) {
 ?>
 	<div class="menudiv">
 		<span>
-			<img src="data/image/<?php echo $image; ?>" alt="" />
+		<a href="<?php echo $url; ?>" <?php if ($blank == 'true') echo ' target="_blank"'; ?>><img src="<?php echo $image; ?>" alt="" /></a>
 		</span>
 		<span>
-			<span><a href="<?php echo $url; ?>"
-			<?php if ($blank == 'true')
-			echo ' target="_blank"'; ?>
-			><?php echo $title; ?></a></span>
+			<span>
+				<a href="<?php echo $url; ?>" <?php if ($blank == 'true') echo 'target="_blank"'; ?>><?php echo $title; ?></a>
+			</span>
+			<?php if($more != null) { ?>
 			<span class="more"><?php echo $more; ?></span>
+			<?php } ?>
 			<br />
-			<?php echo $text; ?>
+			<?php if($text != null) echo $text; ?>
 		</span>
 	</div>
 	<?php

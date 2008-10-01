@@ -2,7 +2,8 @@
 /*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -20,23 +21,14 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 }
 
 //Include functions
-include("data/modules/blog/functions.php");
+include('data/modules/blog/functions.php');
 ?>
 
 <p><b><?php echo $lang_blog24; ?></b></p>
 
-<div style="background-color: #f4f4f4; border: 1px dotted gray; margin: 10px; margin-bottom: 25px;">
-<table>
-	<tr>
-		<td>
-			<img src="data/image/newpage.png" border="0" alt="">
-		</td>
-		<td>
-			<span style="font-size: 17pt;"><a href="?module=blog&page=newpost"><?php echo $lang_blog10; ?></a></span>
-		</td>
-	</tr>
-</table>
-</div>
+<?php
+showmenudiv($lang_blog10,false,'data/image/newpage.png','?module=blog&amp;page=newpost',false);
+?>
 
 <span class="kop2"><?php echo $lang_blog9; ?></span><br />
 

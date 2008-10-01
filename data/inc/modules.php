@@ -1,13 +1,14 @@
 <?php
-/* 
+/*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- 
+
  * See docs/COPYING for the complete license.
 */
 
@@ -32,14 +33,14 @@ $dir_handle = @opendir($path) or die("Unable to open $path. Check if it's readab
 while ($dir = readdir($dir_handle)) {
 if($dir == '.' || $dir == '..')
    continue;
-   if(file_exists("data/modules/$dir/module_info.php")) {
-		include("data/modules/$dir/module_info.php");
+   if(file_exists('data/modules/'.$dir.'/module_info.php')) {
+		include('data/modules/'.$dir.'/module_info.php');
 	}
 	//Only show the button if there are admincenter pages for the module, and if the modules is compatible
-	if((file_exists("data/modules/$dir/module_pages_admin.php")) && (module_is_compatible($dir))) {
-		showmenudiv($module_name,$module_intro,"../modules/$module_dir/$module_icon","?module=$module_dir","false", "");
+	if((file_exists('data/modules/'.$dir.'/module_pages_admin.php')) && (module_is_compatible($dir))) {
+		showmenudiv($module_name,$module_intro,'data/modules/'.$module_dir.'/'.$module_icon,'?module='.$module_dir,false);
 	}
 }
 //Close module-dir
-closedir($dir_handle); 
+closedir($dir_handle);
 ?>

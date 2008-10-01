@@ -2,7 +2,8 @@
 /* 
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -23,28 +24,10 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 ?>
 <p><strong><?php echo $lang_page1; ?></strong></p>
 <?php
-//Add newpage button
-?>
-<div class="menudiv">
-	<span>
-		<img src="data/image/newpage.png" alt="" />
-	</span>
-	<span>
-	<a href="?action=newpage"><?php echo $lang_page2; ?></a>
-	</span>
-</div>
-<?php
-//Add image button
-?>
-<div class="menudiv">
-	<span>
-		<img src="data/image/image.png" alt="" />
-	</span>
-	<span>
-		<a href="?action=images"><?php echo $lang_kop17; ?></a>
-	</span>
-</div>
-<?php
+//New page button
+showmenudiv($lang_page2, null, 'data/image/newpage.png', '?action=newpage', false);
+//Manage images button
+showmenudiv($lang_kop17, null, 'data/image/image.png', '?action=images', false);
 //Show pages
 read_pages();
 ?>
