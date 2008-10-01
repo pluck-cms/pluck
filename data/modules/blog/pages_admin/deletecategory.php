@@ -2,7 +2,8 @@
 /*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -25,15 +26,13 @@ include('data/modules/blog/functions.php');
 //Check if config file exists
 if(file_exists('data/settings/modules/blog/categories.dat')) {
 	$categories = file_get_contents('data/settings/modules/blog/categories.dat');
-	
-	//Open config file
-	$file = fopen('data/settings/modules/blog/categories.dat', 'w');
-	
+
 	//Check if category exists in file, and if it has been saved comma seperated or not
-	//Then generate new category list...
 	//If category is not last in list:
 	if(ereg($var.',',$categories)) {
 		$categories = str_replace($var.',','',$categories);
+		//Open config file
+		$file = fopen('data/settings/modules/blog/categories.dat', 'w');
 		//Save categories
 		fputs($file,$categories);
 		//Close file, and chmod it
@@ -45,6 +44,8 @@ if(file_exists('data/settings/modules/blog/categories.dat')) {
 		//...but category is not the only one
 		if(ereg(','.$var,$categories)) {
 			$categories = str_replace(','.$var,'',$categories);
+			//Open config file
+			$file = fopen('data/settings/modules/blog/categories.dat', 'w');
 			//Save categories
 			fputs($file,$categories);
 			//Close file, and chmod it
