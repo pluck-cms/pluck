@@ -21,22 +21,23 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 }
 
 //Check if image exists
-if (file_exists('images/'.$deleteimage.'')) {
+if (file_exists('images/'.$deleteimage)) {
 
 	//First check if there isn't an item with the same name in the trashcan
-	if (!file_exists('data/trash/images/'.$deleteimage.'')) {
+	if (!file_exists('data/trash/images/'.$deleteimage)) {
 		//Move the page to the trashcan
-		copy('images/'.$deleteimage.'', 'data/trash/images/'.$deleteimage.'');
-		chmod('data/trash/images/'.$deleteimage.'', 0777);
-		unlink('images/'.$deleteimage.'');
+		copy('images/'.$deleteimage, 'data/trash/images/'.$deleteimage);
+		chmod('data/trash/images/'.$deleteimage, 0777);
+		unlink('images/'.$deleteimage);
 
 		//Redirect user
-		redirect('?action=images','0');
+		redirect('?action=images', 2);
 	}
 
 	//If there is an item with the same name in the trashcan: display error
 	else {
 		echo $lang_trash4;
+		redirect('?action=images', 3);
 	}
 }
 ?>
