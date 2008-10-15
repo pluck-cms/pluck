@@ -215,7 +215,7 @@ function save_page($name, $title, $content, $hidden = false) {
 	$cont = str_replace('"', '\"', $content);
 	fputs($file, '<?php'."\n"
 	.'$title = "'.$title.'";'."\n"
-	.'$content = "'.$content.'";'."\n"
+	.'$content = "'.$cont.'";'."\n"
 	.'$hidden = "'.$hidden.'";'."\n"
 	.'?>');
 	fclose($file);
