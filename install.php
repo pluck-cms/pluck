@@ -92,12 +92,12 @@ else {
 				<br />
 				<span class="kop4"><?php echo $lang_settings2 ?></span>
 				<br />
-				<input name="cont" type="text" /><br />
+				<input name="cont" type="text" value="<?php echo htmlentities($_POST['cont']) ?>" /><br />
 				<span class="kop2"><?php echo $lang_install24 ?></span>
 				<br />
 				<span class="kop4"><?php echo $lang_install25 ?></span>
 				<br />
-				<input name="email" type="text" />
+				<input name="email" type="text" value="<?php echo htmlentities($_POST['email']) ?>" />
 			</p>
 			<p>
 				<span class="kop2"><?php echo $lang_kop14 ?></span>
