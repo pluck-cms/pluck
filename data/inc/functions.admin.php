@@ -211,8 +211,8 @@ function save_page($name, $title, $content, $hidden = false) {
 	$file = fopen($data, 'w');
 	$title = stripslashes($title);
 	$title = str_replace('"', '\"', $title);
-	$cont = stripslashes($content);
-	$cont = str_replace('"', '\"', $content);
+	$content = stripslashes($content);
+	$content = str_replace('"', '\"', $content);
 	fputs($file, '<?php'."\n"
 	.'$title = "'.$title.'";'."\n"
 	.'$content = "'.$content.'";'."\n"
