@@ -306,7 +306,7 @@ $lang_trash11 = "Are you sure you want to empty the trashcan? Please note that a
 
 //VERSION 4.7 NEW
 //---------------
-$lang_modules27 =	"This module is not compatible with your version of pluck, and has been disabled.";
+$lang_modules27 = "This module is not compatible with your version of pluck, and has been disabled.";
 $lang_settings7 = "The emailaddress you entered is invalid!";
 $lang_blog24 = "Here, you can make new posts to add to your blog. Posts will be automatically sorted on date.";
 $lang_blog25 = "Choose category...";

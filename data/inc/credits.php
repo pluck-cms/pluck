@@ -2,7 +2,8 @@
 /* 
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -38,6 +39,7 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 <p>
 	<span class="kop2"><?php echo $lang_credits7; ?></span><br />
 	Kristaps Ancāns<br />
+	Callan Barrett<br />
 	Dennis Sewbarath
 </p>
 
@@ -97,7 +99,10 @@ $translator = "greppi"; }
 //Then display, if language is not English
 if ($langpref != "en.php") {
 ?>
-<p><span class="kop2"><?php echo $lang_credits4; ?></span><br /><?php echo $translator; ?></p>
+<p>
+	<span class="kop2"><?php echo $lang_credits4.' ('.$lang.')'; ?></span><br />
+	<?php echo $translator; ?>
+</p>
 <?php
 }
 ?>

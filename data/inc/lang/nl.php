@@ -110,7 +110,7 @@ $lang_image12 = "De afbeelding kon niet verwijderd worden. Controleer of de rech
 //Admincenter:: Options
 $lang_options1 = "Hier kunt u pluck configureren en helemaal aanpassen naar uw eigen wensen.";
 $lang_options2 = "geef hier de naam van uw website op";
-$lang_options3 = "verander hier de look van uw website";
+$lang_options3 = "verander hier het uiterlijk van uw website";
 $lang_options5 = "regelmatig een nieuw wachtwoord is een goed idee";
 $lang_options8 = "kies de taal die pluck moet gebruiken";
 
@@ -148,7 +148,7 @@ $lang_stats10 = "hits deze maand";
 //VERSION 4.2 NEW
 //---------------
 $lang_kop16 = "thema kiezen";
-$lang_theme1 = "Hier kiest u welk van de ge&iuml;nstalleerde thema's u wilt gebruiken.";
+$lang_theme1 = "Hier kiest u welk van de geïnstalleerde thema's u wilt gebruiken.";
 $lang_theme3 = "De thema-instellingen zijn opgeslagen.";
 $lang_updown1 = "paginavolgorde veranderen";
 $lang_updown2 = "Deze pagina staat al bovenaan, de volgorde kan dus niet gewijzigd worden.";
@@ -219,22 +219,18 @@ $lang_meta4 = "Pagina-informatie aan het veranderen...";
 $lang_settings5 = "Verander algemene instellingen zoals de titel van uw website en uw emailadres hier.";
 $lang_blog = "blog";
 $lang_blog1 = "gebruik een blog om nieuws of artikelen te posten";
-$lang_blog2 = "Hier kunt u nieuwe categorieën aanmaken, waarin u later nieuwe posts kunt plaatsen. Deze categorieën kunt u invoegen in een pagina tijdens het aanpassen van de pagina.";
 $lang_blog3 = "categorieën";
 $lang_blog4 = "nieuwe categorie";
 $lang_blog5 = "kies eerst een naam voor de categorie, en klik dan op \"opslaan\"";
 $lang_blog6 = "categorie verwijderen";
 $lang_blog7 = "categorie aanpassen";
-$lang_blog8 = "Hier kunt u nieuwe posts voor deze categorie aanmaken. De posts worden automatisch op datum gesorteerd.";
 $lang_blog9 = "bestaande posts";
 $lang_blog10 = "schrijf nieuwe post";
 $lang_blog11 = "post aanpassen";
 $lang_blog12 = "post verwijderen";
-$lang_blog13 = "blogcategorie toevoegen aan deze pagina:";
 $lang_blog14 = "toegevoegd aan";
 $lang_blog16 = "reacties";
 $lang_blog17 = "Titel:";
-$lang_blog18 = "gepost door";
 $lang_blog19 = "reacties aanpassen";
 $lang_blog20 = "Hier kunt u de reacties van uw bezoekers op de post aanpassen.";
 
@@ -298,4 +294,15 @@ $lang_update4 = "updatecontrole mislukt";
 $lang_contact12 = "contactformulier";
 $lang_contact13 = "bezoekers kunnen een contactformulier gebruiken om u een berichtje te sturen";
 $lang_trash11 = "Weet u zeker dat u de prullenbak wilt legen? Alle objecten zullen verloren gaan!";
+
+//VERSION 4.7 NEW
+//---------------
+$lang_modules27 = "Deze module werkt niet goed met uw versie van pluck, en is daarom uitgeschakeld.";
+$lang_settings7 = "Het opgegeven emailadres is niet geldig!";
+$lang_blog24 = "Hier kunt u nieuwe posts toevoegen aan uw blog. Posts zullen automatisch op datum gesorteerd worden.";
+$lang_blog25 = "Kies categorie...";
+$lang_blog26 = "categorie";
+$lang_blog27 = "geen category";
+$lang_credits6 = "hoofdontwikkelaars";
+$lang_credits7 = "bijdragen";
 ?>
