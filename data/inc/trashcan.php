@@ -20,7 +20,7 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
     exit();
 }
 ?>
-<p><b><?php echo $lang_trash5; ?></b></p>
+<p><strong><?php echo $lang_trash5; ?></strong></p>
 <?php
 //Define how much items we have in the trashcan
 $trashcan_items = count_trashcan();
@@ -32,14 +32,15 @@ else
 	$trash_image = 'trash-full-big.png';
 ?>
 
-<div style="background-color: #f4f4f4; border: 1px dotted gray; margin: 20px; margin-bottom: 10px;">
+<div class="menudiv">
 	<table>
 		<tr>
 			<td>
-				<img src="data/image/<?php echo $trash_image; ?>" border="0">
+				<img src="data/image/<?php echo $trash_image; ?>" />
 			</td>
 			<td>
-				<?php echo $trashcan_items.' '.$lang_trash3; ?><br>
+				<?php echo $trashcan_items.' '.$lang_trash3; ?>
+				<br />
 				<a href="?action=trashcan_empty" onclick="return confirm('<?php echo $lang_trash11; ?>');"><?php echo $lang_trash6; ?></a>
 			</td>
 		</tr>
@@ -55,68 +56,69 @@ if(!isset($pages)) { ?>
 <?php }
 else {
 	foreach ($pages as $page) { 
-		include('data/trash/pages/'.$page); ?>
-
-<div class="menudiv" style="margin: 20px;">
-	<table>
-		<tr>
-			<td>
-				<img src="data/image/page.png" alt="">
-			</td>
-			<td style="width: 350px;">
-				<pan style="font-size: 17pt;"><?php echo $title; ?></span>
-			</td>
-			<td>
-				<a href="?trash_viewitem=<?php echo $page; ?>&amp;cat=page"><img src="data/image/view.png" alt="<?php echo $lang_trash7; ?>" title="<?php echo $lang_trash7; ?>"></a>		
-			</td>
-			<td>
-				<a href="?trash_restoreitem=<?php echo $page; ?>&amp;cat=page"><img src="data/image/restore.png" title="<?php echo $lang_trash10; ?>" alt="<?php echo $lang_trash10; ?>"></a>		
-			</td>
-			<td>
-				<a href="?trash_deleteitem=<?php echo $page; ?>&amp;cat=page"><img src="data/image/delete_from_trash.png" title="<?php echo $lang_trash8; ?>" alt="<?php echo $lang_trash8; ?>"></a>
-			</td>
-		</tr>
-	</table>
-</div>
-
-<?php
+		include_once('data/trash/pages/'.$page);
+		?>
+		<div class="menudiv">
+			<table>
+				<tr>
+					<td>
+						<img src="data/image/page.png" alt="">
+					</td>
+					<td style="width: 350px;">
+						<span style="font-size: 17pt;"><?php echo $title; ?></span>
+					</td>
+					<td>
+						<a href="?trash_viewitem=<?php echo $page; ?>&amp;cat=page"><img src="data/image/view.png" alt="<?php echo $lang_trash7; ?>" title="<?php echo $lang_trash7; ?>"></a>		
+					</td>
+					<td>
+						<a href="?trash_restoreitem=<?php echo $page; ?>&amp;cat=page"><img src="data/image/restore.png" title="<?php echo $lang_trash10; ?>" alt="<?php echo $lang_trash10; ?>"></a>		
+					</td>
+					<td>
+						<a href="?trash_deleteitem=<?php echo $page; ?>&amp;cat=page"><img src="data/image/delete_from_trash.png" title="<?php echo $lang_trash8; ?>" alt="<?php echo $lang_trash8; ?>"></a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	<?php
 	}
 }
 ?>
-	<br /><br />
-	<span class="kop2"><?php echo $lang_trash9; ?></span><br>
+<br /><br />
+<span class="kop2"><?php echo $lang_trash9; ?></span>
+<br />
 <?php
 //Read images in array
 $images = read_dir_contents('data/trash/images','files');
-if(!isset($images)) { ?>
+if(!isset($images)) {
+?>
 	<span class="kop4"><?php echo $lang_albums14; ?></span>
-<?php }
-else {
-	foreach ($images as $image) { ?>
-
-<div class="menudiv" style="margin: 20px;">
-	<table>
-		<tr>
-			<td>
-				<img src="data/image/image.png" alt="">
-			</td>
-			<td style="width: 350px;">
-				<pan style="font-size: 17pt;"><?php echo $image; ?></span>
-			</td>
-			<td>
-				<a href="?trash_viewitem=<?php echo $image; ?>&amp;cat=image"><img src="data/image/view.png" alt="<?php echo $lang_trash7; ?>" title="<?php echo $lang_trash7; ?>"></a>		
-			</td>
-			<td>
-				<a href="?trash_restoreitem=<?php echo $image; ?>&amp;cat=image"><img src="data/image/restore.png" title="<?php echo $lang_trash10; ?>" alt="<?php echo $lang_trash10; ?>"></a>		
-			</td>
-			<td>
-				<a href="?trash_deleteitem=<?php echo $image; ?>&amp;cat=image"><img src="data/image/delete_from_trash.png" title="<?php echo $lang_trash8; ?>" alt="<?php echo $lang_trash8; ?>"></a>
-			</td>
-		</tr>
-	</table>
-</div>
-
 <?php
+}
+else {
+	foreach ($images as $image) {
+	?>
+	<div class="menudiv">
+		<table>
+			<tr>
+				<td>
+					<img src="data/image/image.png" alt="">
+				</td>
+				<td style="width: 350px;">
+					<span style="font-size: 17pt;"><?php echo $image; ?></span>
+				</td>
+				<td>
+					<a href="?trash_viewitem=<?php echo $image; ?>&amp;cat=image"><img src="data/image/view.png" alt="<?php echo $lang_trash7; ?>" title="<?php echo $lang_trash7; ?>" /></a>		
+				</td>
+				<td>
+					<a href="?trash_restoreitem=<?php echo $image; ?>&amp;cat=image"><img src="data/image/restore.png" title="<?php echo $lang_trash10; ?>" alt="<?php echo $lang_trash10; ?>" /></a>		
+				</td>
+				<td>
+					<a href="?trash_deleteitem=<?php echo $image; ?>&amp;cat=image"><img src="data/image/delete_from_trash.png" title="<?php echo $lang_trash8; ?>" alt="<?php echo $lang_trash8; ?>" /></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<?php
 	}
 }
 ?>

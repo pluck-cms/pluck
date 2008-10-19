@@ -66,7 +66,7 @@ if(isset($_POST['Submit'])) {
 
 		//Then, save the settings
 		save_options($_POST['title'],$_POST['email'],$xhtml);
-		redirect('?action=options',0);
+		redirect('?action=options', 0);
 		echo $lang_settings4;
 	}
 } 

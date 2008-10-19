@@ -42,7 +42,8 @@ foreach($dirs as $dir) {
 			<img src="data/modules/<?php echo $module_dir; ?>/<?php echo $module_icon; ?>" alt="" />
 		</span>
 		<span>
-		<span class="title-module"><?php echo $module_name; ?></span><br />
+		<span class="title-module"><?php echo $module_name; ?></span>
+		<br />
 		<?php //If module has been disabled, show warning
 		if (!module_is_compatible($dir)) { ?>
 			<span class="red"><?php echo $lang_modules27; ?></span>
@@ -56,11 +57,15 @@ foreach($dirs as $dir) {
 		</span>
 	</div>
 	<div>
-		<p id="<?php echo $dir; ?>" style="display:none;padding-left:43px;">
-			<?php echo $module_intro; ?><br />
-			<strong><?php echo $lang_modules2; ?></strong>: <?php echo $module_version; ?><br />
-			<strong><?php echo $lang_modules18; ?></strong>: <?php echo $module_author; ?><br />
-			<strong><?php echo $lang_modules17; ?></strong>: <a href="<?php echo $module_website; ?>" target="_blank"><?php echo $module_website; ?></a><br />
+		<p id="<?php echo $dir; ?>" style="display:none; padding-left:43px;">
+			<?php echo $module_intro; ?>
+			<br />
+			<strong><?php echo $lang_modules2; ?></strong>: <?php echo $module_version; ?>
+			<br />
+			<strong><?php echo $lang_modules18; ?></strong>: <?php echo $module_author; ?>
+			<br />
+			<strong><?php echo $lang_modules17; ?></strong>: <a href="<?php echo $module_website; ?>" target="_blank"><?php echo $module_website; ?></a>
+			<br />
 		</p>
 	</div>
 </div>

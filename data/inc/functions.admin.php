@@ -23,11 +23,11 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 //-------------------
 function read_lang_files($not_this_file) {
 	$files = read_dir_contents('data/inc/lang','files');
-	if($files) {
+	if ($files) {
 		natcasesort($files);
-			foreach($files as $file) {
-			if($file != $not_this_file) {
-				include('data/inc/lang/'.$file);
+			foreach ($files as $file) {
+			if ($file != $not_this_file) {
+				include ('data/inc/lang/'.$file);
 				?>
 				<option value='<?php echo $file; ?>'><?php echo $lang; ?></option>
 				<?php
@@ -40,12 +40,12 @@ function read_lang_files($not_this_file) {
 //------------
 function read_pages() {
 	$files = read_dir_contents('data/settings/pages','files');
-	if($files) {
+	if ($files) {
 		natcasesort($files);
 		//Translation data.
 		global $lang_page3, $lang_meta1, $lang_updown1, $lang_trash1;
 		foreach ($files as $file) {
-			include('data/settings/pages/'.$file);
+			include ('data/settings/pages/'.$file);
 			?>
 			<div class="menudiv">
 				<span>
@@ -92,18 +92,18 @@ function showmenudiv($title, $text, $image, $url, $blank, $more = null) {
 			<?php if($text != null) echo $text; ?>
 		</span>
 	</div>
-	<?php
+<?php
 }
 
 function count_trashcan() {
 	//Pages
 	$count_pages_array = glob('data/trash/pages/*.*');
-	if((isset($count_pages_array)) && (!empty($count_pages_array)))
+	if ((isset($count_pages_array)) && (!empty($count_pages_array)))
 		$count_pages = count($count_pages_array);
 
 	//Images
 	$count_images_array = glob('data/trash/images/*.*');
-	if((isset($count_images_array)) && (!empty($count_images_array)))
+	if ((isset($count_images_array)) && (!empty($count_images_array)))
 		$count_images = count($count_images_array);
 
 	//Combine all numbers...
