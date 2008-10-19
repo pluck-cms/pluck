@@ -139,7 +139,7 @@ else {
 				include_once ('data/inc/footer.php');
 				exit;
 			}
-			
+
 			//Check sitetitle.
 			if (!$cont) {
 				?>
@@ -149,16 +149,16 @@ else {
 				include_once ('data/inc/footer.php');
 				exit;
 			}
-			
+
 			//Save prefered language.
 			save_language($chosen_lang);
-			
+
 			//Save options.
 			save_options($cont, $email, false);
-			
+
 			//Save password.
 			save_password($password);
-			
+
 			//Make some dirs for the trashcan and modulesettings.
 			mkdir('data/trash/pages', 0777);
 			chmod('data/trash/pages', 0777);
@@ -213,13 +213,16 @@ else {
 	if ($action == "install5") {
 		install_done();
 
-		//Display success message.
+		//Set pagetitle
 		$titelkop = $lang_install;
 		include_once ('data/inc/header2.php');
-		
-		showmenudiv($lang_install20, $lang_install21, 'data/image/website.png', 'index.php', false, null);
+		?>
+
+		<p><strong><?php echo $lang_install19; ?></strong></p>
+
+		<?php showmenudiv($lang_install20, $lang_install21, 'data/image/website.png', 'index.php', false, null);
 		showmenudiv($lang_install22, $lang_install23, 'data/image/password.png', 'login.php', false, null);
-		
+
 		include_once ('data/inc/footer.php');
 	}
 }

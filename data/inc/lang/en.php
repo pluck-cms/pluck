@@ -12,8 +12,8 @@ See docs/COPYING for the full license text.
 
 ------------------------------------------------
 Language					English
-Translated by			Sander Thijsen
-Translators website	http://www.somp.nl
+Translated by				Sander Thijsen
+Translators website			http://www.somp.nl
 ------------------------------------------------
 */
 
@@ -32,7 +32,7 @@ $lang_pluck = "pluck";
 $lang_footer = "pluck &copy; 2005-2008 <a href=\"http://www.somp.nl\" target=\"_blank\">somp</a>. pluck is available under the terms of the GNU General Public License.";
 $lang_error1 = "not installed";
 $lang_error3 = "not logged in";
-$lang_error4 = "You are not logged in! A moment, please... ";
+$lang_error4 = "You are not logged in! A moment, please...";
 
 //Login page
 $lang_login1 = "log in";
@@ -43,7 +43,7 @@ $lang_login5 = "Password correct. Logging you in...";
 $lang_login6 = "Password incorrect. A moment, please...";
 
 //Install page
-$lang_install	= "installation";
+$lang_install = "installation";
 $lang_install1 = "pluck has already been installed. A moment, please...";
 $lang_install2 = "Welcome! Before you can setup your new website, you have to install pluck.";
 $lang_install3 = "Start the installation...";
@@ -65,7 +65,7 @@ $lang_install18 = "contents";
 $lang_install19 = "pluck has been successfully installed!";
 $lang_install20 = "take a look at your website";
 $lang_install21 = "take a look at the result";
-$lang_install22 = "administrationcenter";
+$lang_install22 = "administration center";
 $lang_install23 = "manage your website";
 
 //Admincenter:Titles
@@ -78,7 +78,7 @@ $lang_kop10 = "change password";
 $lang_kop11 = "new page";
 $lang_kop13 = "delete image";
 $lang_kop14 = "language settings";
-$lang_kop15 = "stats";
+$lang_kop15 = "stats"; //DELETE!!
 
 //Admincenter:: Start
 $lang_start1 = "Welcome at the administrationcenter of pluck.";

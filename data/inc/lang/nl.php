@@ -78,7 +78,6 @@ $lang_kop10 = "wachtwoord wijzigen";
 $lang_kop11 = "nieuwe pagina";
 $lang_kop13 = "afbeelding verwijderen";
 $lang_kop14 = "taalinstellingen";
-$lang_kop15 = "stats";
 
 //Admincenter:: Start
 $lang_start1 = "Welkom bij het administratiecentrum van pluck.";
