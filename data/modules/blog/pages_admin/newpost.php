@@ -2,7 +2,8 @@
 /*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -97,6 +98,7 @@ if(isset($_POST['Submit'])) {
 	$newfile = str_replace('>','',$newfile);
 	$newfile = str_replace('=','',$newfile);
 	$newfile = str_replace('"','',$newfile);
+	$newfile = str_replace('\'','',$newfile);
 	$newfile = str_replace('/','',$newfile);
 	$newfile = str_replace("\\",'',$newfile);
 	$newfile = str_replace('  ','-',$newfile);
@@ -124,7 +126,7 @@ if(isset($_POST['Submit'])) {
 	}
 	fclose($file);
 	unset($file);
-	chmod('data/settings/modules/blog/post_index.dat',0777);
+	chmod('data/settings/modules/blog/post_index.dat', 0777);
 
 	//Save information
 	$file = fopen('data/settings/modules/blog/posts/'.$newfile.'.php', 'w');

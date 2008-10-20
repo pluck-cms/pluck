@@ -11,8 +11,10 @@ echo "<h3>Pluck update</h3>";
 
 if(!isset($_GET['step'])) {
 echo "<p>Welcome to the pluck upgrading script. This script will help you upgrade your pluck to the newest version,
-<b>4.6</b>. This script only supports upgrading your pluck installation if you use pluck 4.3, 4.4, 4.5.x.
+<b>4.6</b>. This script only supports upgrading your pluck installation if you use pluck 4.3, 4.4 or 4.5.x.
 Any older versions are not tested, but may work.</p>
+
+<p><b>We strongly recommend creating a complete backup of your pluck installation before proceeding with the upgrade procedure.</b></p>
 
 <a href=\"?step=2\"><b>Proceed...</b></a>";
 }
@@ -25,7 +27,7 @@ $step = $_GET['step'];
 //Make files writable
 //----------------
 
-if($step == "2") {
+if($step == '2') {
 	//First define the function
 	function check_writable($file) {
 		//Include Translation data
@@ -60,8 +62,6 @@ if($step == "2") {
 		<li><a href="?step=3">version 4.3 or 4.4</a></li>
 		<li><a href="?step=4">version 4.5 or 4.5.x (eg, 4.5.1, 4.5.2 etc.)</a></li>
 	</ul>';
-
-	include('data/inc/footer.php');
 }
 
 //----------------
@@ -70,7 +70,7 @@ if($step == "2") {
 //Rearrange files for pluck 4.5 compatibility
 //----------------
 
-elseif($step == "3") {
+elseif($step == '3') {
 	echo 'Rearranging files for compatibility with pluck 4.5...<br />';
 
 	//title.dat file
@@ -86,14 +86,18 @@ elseif($step == "3") {
 	copy("data/inc/lang/langpref.php", "data/settings/langpref.php");
 
 	//make needed folders
-	mkdir('data/trash/pages', 0777);
-	chmod('data/trash/pages', 0777);
-	mkdir('data/trash/images', 0777);
-	chmod('data/trash/images', 0777);
+	if(!file_exists('data/trash/pages')) {
+		mkdir('data/trash/pages', 0777);
+		chmod('data/trash/pages', 0777);
+	}
+	if(!file_exists('data/trash/images')) {
+		mkdir('data/trash/images', 0777);
+		chmod('data/trash/images', 0777);
+	}
 
 	echo '<p>We just did a file reorganization, to make your pluck installation compatible
 	with the directory structure of pluck 4.5. We can now proceed to the next step.<br />
-	<b><a href="?step=4"><b>Proceed...</b></a></p>';
+	<a href="?step=4"><b>Proceed...</b></a></p>';
 }
 
 /*----------------
@@ -102,37 +106,153 @@ Upgrade files to pluck 4.6 structure
  - move pages to data/settings/page
  - read out blogposts and transfer to new location
  - tell the user how to transfer albums
+ - convert password to md5
+ - add site title to data/settings/options.php
 ----------------*/
-
 elseif($step == '4') {
 	//First, create needed folders
-	mkdir('data/settings/modules', 0777);
-	chmod('data/settings/modules', 0777);
-	mkdir('data/settings/pages', 0777);
-	chmod('data/settings/pages', 0777);
-	mkdir('data/settings/modules/albums', 0777);
-	chmod('data/settings/modules/albums', 0777);
-	mkdir('data/settings/modules/blog', 0777);
-	chmod('data/settings/modules/blog', 0777);
+	if(!file_exists('data/settings/modules')) {
+		mkdir('data/settings/modules', 0777);
+		chmod('data/settings/modules', 0777);
+	}
+	if(!file_exists('data/settings/pages')) {
+		mkdir('data/settings/pages', 0777);
+		chmod('data/settings/pages', 0777);
+	}
+	if(!file_exists('data/settings/modules/albums')) {
+		mkdir('data/settings/modules/albums', 0777);
+		chmod('data/settings/modules/albums', 0777);
+	}
+	if(!file_exists('data/settings/modules/blog')) {
+		mkdir('data/settings/modules/blog', 0777);
+		chmod('data/settings/modules/blog', 0777);
+	}
+	if(!file_exists('data/settings/modules/blog/posts')) {
+		mkdir('data/settings/modules/blog/posts', 0777);
+		chmod('data/settings/modules/blog/posts', 0777);
+	}
 
 	//Then, copy all pages to new location
 	$pages = read_dir_contents('data/content','files');
 	if(isset($pages)) {
 		foreach ($pages as $page) {
-			copy('data/content/'.$file,'data/settings/pages/'.$file);
-			unlink('data/content/'.$file);
-			echo 'Transferred page "'.$file.'"...<br />';
+			copy('data/content/'.$page,'data/settings/pages/'.$page);
+			unlink('data/content/'.$page);
+			echo 'Transferred page "'.$page.'"...<br />';
 		}
 	}
 
-	//Convert blog posts (TODO)
+	//Convert blog posts
+	$blog_categories = read_dir_contents('data/blog','dirs');
+	if(isset($blog_categories)) {
+		foreach ($blog_categories as $blog_category) {
+			$blog_posts = read_dir_contents('data/blog/'.$blog_category.'/posts','files');
+			foreach ($blog_posts as $blog_post) {
+				//Include the blog post information
+				include('data/blog/'.$blog_category.'/posts/'.$blog_post);
 
-	echo '<p>Your pages and blogposts have just been transferred. If you have any albums in your pluck installation, please go to <a href="?step=5">step 5</a>. Otherwise, directly go to <a href="?step=6">step 6</a></p>';
+				//Extract time variables
+				list($date, $time) = split(', ', $postdate);
+				list($month, $day, $year) = split('[/.-]', $date);
 
+				//Generate new filename
+				$newfile = strtolower($title);
+				$newfile = str_replace('.','',$newfile);
+				$newfile = str_replace(',','',$newfile);
+				$newfile = str_replace('?','',$newfile);
+				$newfile = str_replace(':','',$newfile);
+				$newfile = str_replace('<','',$newfile);
+				$newfile = str_replace('>','',$newfile);
+				$newfile = str_replace('=','',$newfile);
+				$newfile = str_replace('"','',$newfile);
+				$newfile = str_replace('\'','',$newfile);
+				$newfile = str_replace('/','',$newfile);
+				$newfile = str_replace("\\",'',$newfile);
+				$newfile = str_replace('  ','-',$newfile);
+				$newfile = str_replace(' ','-',$newfile);
+
+				//Make sure chosen filename doesn't exist
+				if(file_exists('data/settings/modules/blog/posts/'.$newfile.'.php')) {
+					$newfile = $newfile.'-new';
+				}
+
+				//Strip slashes from post
+				$title = stripslashes($title);
+				$title = str_replace("\"", "\\\"", $title);
+				$blog_category = stripslashes($blog_category);
+				$blog_category = str_replace("\"", "\\\"", $blog_category);
+				$content = stripslashes($content);
+				$content = str_replace("\"", "\\\"", $content);
+
+				//Save post
+				$file = fopen('data/settings/modules/blog/posts/'.$newfile.'.php', 'w');
+				fputs($file, '<?php'."\n"
+				.'$post_title = "'.$title.'";'."\n"
+				.'$post_category = "'.$blog_category.'";'."\n"
+				.'$post_content = "'.$content.'";'."\n"
+				.'$post_day = "'.$day.'";'."\n"
+				.'$post_month = "'.$month.'";'."\n"
+				.'$post_year = "'.$year.'";'."\n"
+				.'$post_time = "'.$time.'";'."\n"
+				.'?>');
+				chmod('data/settings/modules/blog/posts/'.$newfile.'.php', 0777);
+			}
+		}
+		//Now, create array with all new posts
+		$new_posts = read_dir_contents('data/settings/modules/blog/posts','files');
+		//And put those in a new array, sorted on time
+		foreach ($new_posts as $new_post) {
+			include('data/settings/modules/blog/posts/'.$new_post);
+			$time = $post_year.'-'.$post_month.'-'.$post_day.'-'.$post_time;
+			$unix_time = strtotime($time);
+			$time_array[$new_post] = $unix_time;
+		}
+		//Now, sort the new array
+		arsort($time_array);
+
+		//Create the post_index.dat file
+		foreach ($time_array as $newfile => $timestamp) {
+			if(file_exists('data/settings/modules/blog/post_index.dat')) {
+				$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
+				$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
+				if(!empty($contents)) {
+					fputs($file,$newfile."\n".$contents);
+				}
+				else {
+					fputs($file,$newfile);
+				}
+			}
+			else {
+				$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
+				fputs($file,$newfile);
+			}
+			fclose($file);
+			unset($file);
+			chmod('data/settings/modules/blog/post_index.dat',0777);
+
+			//Show message
+			echo 'Transferred blog post "'.$newfile.'"...<br />';
+		}
+	}
+
+	//Convert pass to MD5 (TODO)
+
+	echo '<p>Your pages and blog posts have just been transferred. If you have any albums in your pluck installation, please go to <a href="?step=5">step 5</a>. Otherwise, directly go to <a href="?step=6">step 6</a>.</p>';
 }
 
 /*----------------
-STEP 4
+STEP 5
+Upgrade files to pluck 4.6 structure
+ - tell the user how to transfer albums
+----------------*/
+elseif($step == '5') {
+echo '<p>Now, you need to move your albums manually. First, download all folders in the <b>data/albums</b> dir onto your hardrive, using a FTP-application. Then, upload all these directories into the <b>data/settings/modules/albums</b> directory.</p>
+
+<p>Done moving the albums? <a href="?step=6"><b>Proceed...</b></a></p>';
+}
+
+/*----------------
+STEP 6
 Upgrade has been finished
 ----------------*/
 elseif($step == '6') {
