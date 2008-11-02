@@ -29,7 +29,7 @@ if (!file_exists('data/settings/install.dat')) {
 	redirect('install.php', '3');
 	echo $lang_login2;
 	include('data/inc/footer.php');
-} 
+}
 
 //If pluck is installed:
 else {
