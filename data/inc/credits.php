@@ -50,7 +50,7 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 if ($langpref == "nl.php") {
 $translator = "Sander Thijsen"; }
 if ($langpref == "da.php") {
-$translator = "Lone Hansen"; }
+$translator = "Thomas Andresen, Lone Hansen"; }
 if ($langpref == "de.php") {
 $translator = "Max Effenberger, Dennis Sewberath, stoffal"; }
 if ($langpref == "es.php") {
