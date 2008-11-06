@@ -47,57 +47,57 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 //Translation
 //-----------
 //First seek out who's the translator
-if ($langpref == "nl.php") {
-$translator = "Sander Thijsen"; }
-if ($langpref == "da.php") {
-$translator = "Thomas Andresen, Lone Hansen"; }
-if ($langpref == "de.php") {
-$translator = "Max Effenberger, Dennis Sewberath, stoffal"; }
-if ($langpref == "es.php") {
-$translator = "Cesc"; }
-if ($langpref == "ct.php") {
-$translator = "Cesc"; }
-if ($langpref == "fr.php") {
-$translator = "zigzagbe, Dominique Heimler"; }
-if ($langpref == "he.php") {
-$translator = "Erez Wolf"; }
-if ($langpref == "hu.php") {
-$translator = "Wix"; }
-if ($langpref == "lt.php") {
-$translator = "Mindaugas Salamachinas"; }
-if ($langpref == "no.php") {
-$translator = "John Erik Kristensen"; }
-if ($langpref == "pt.php") {
-$translator = "Marco Paulo Ferreira, Hélio Carrasqueira"; }
-if ($langpref == "pt_br.php") {
-$translator = "Gilnei Moraes, sarkioja"; }
-if ($langpref == "ru.php") {
-$translator = "Tkachev Vasily"; }
-if ($langpref == "sv.php") {
-$translator = "Carl Jansson"; }
-if ($langpref == "bg.php") {
-$translator = "smartx"; }
-if ($langpref == "th.php") {
-$translator = "meandev"; }
-if ($langpref == "lv.php") {
-$translator = "Munky"; }
-if ($langpref == "it.php") {
-$translator = "Skc"; }
-if ($langpref == "hr.php") {
-$translator = "atghoust"; }
-if ($langpref == "pl.php") {
-$translator = "Leszek Soltys"; }
-if ($langpref == "fa.php") {
-$translator = "heam"; }
-if ($langpref == "fi.php") {
-$translator = "maxtuska"; }
-if ($langpref == "sl.php") {
-$translator = "Evelina"; }
-if ($langpref == "sk.php") {
-$translator = "greppi"; }
+if ($langpref == 'nl.php')
+	$translator = 'Sander Thijsen';
+if ($langpref == 'da.php')
+	$translator = 'Thomas Andresen<br />Lone Hansen';
+if ($langpref == 'de.php')
+	$translator = 'Max Effenberger<br />Dennis Sewberath<br />stoffal';
+if ($langpref == 'es.php')
+	$translator = 'Cesc';
+if ($langpref == 'ct.php')
+	$translator = 'Cesc';
+if ($langpref == 'fr.php')
+	$translator = 'zigzagbe<br />Dominique Heimler';
+if ($langpref == 'he.php')
+	$translator = 'Erez Wolf';
+if ($langpref == 'hu.php')
+	$translator = 'Wix';
+if ($langpref == 'lt.php')
+	$translator = 'Mindaugas Salamachinas';
+if ($langpref == 'no.php')
+	$translator = 'John Erik Kristensen';
+if ($langpref == 'pt.php')
+	$translator = 'Marco Paulo Ferreira<br />Hélio Carrasqueira';
+if ($langpref == 'pt_br.php')
+	$translator = 'Gilnei Moraes<br />sarkioja';
+if ($langpref == 'ru.php')
+	$translator = 'Tkachev Vasily';
+if ($langpref == 'sv.php')
+	$translator = 'Carl Jansson';
+if ($langpref == 'bg.php')
+	$translator = 'smartx';
+if ($langpref == 'th.php')
+	$translator = 'meandev';
+if ($langpref == 'lv.php')
+	$translator = 'Munky';
+if ($langpref == 'it.php')
+	$translator = 'Skc';
+if ($langpref == 'hr.php')
+	$translator = 'atghoust';
+if ($langpref == 'pl.php')
+	$translator = 'Leszek Soltys';
+if ($langpref == 'fa.php')
+	$translator = 'heam';
+if ($langpref == 'fi.php')
+	$translator = 'maxtuska';
+if ($langpref == 'sl.php')
+	$translator = 'Evelina';
+if ($langpref == 'sk.php')
+	$translator = 'greppi';
 
 //Then display, if language is not English
-if ($langpref != "en.php") {
+if ($langpref != 'en.php') {
 ?>
 <p>
 	<span class="kop2"><?php echo $lang_credits4.' ('.$lang.')'; ?></span><br />
