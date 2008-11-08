@@ -26,101 +26,109 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 //---------------
 
 //Dutch
-if ($langpref == 'nl.php') {
-$tinymce_lang = 'nl'; }
+if ($langpref == 'nl.php')
+	$tinymce_lang = 'nl';
 
 //Danish
-elseif ($langpref == 'da.php') {
-$tinymce_lang = 'da'; }
+elseif ($langpref == 'da.php')
+	$tinymce_lang = 'da';
 
 //German
-elseif ($langpref == 'de.php') {
-$tinymce_lang = 'de'; }
+elseif ($langpref == 'de.php')
+	$tinymce_lang = 'de';
 
 //French
-elseif ($langpref == 'fr.php') {
-$tinymce_lang = 'fr'; }
+elseif ($langpref == 'fr.php')
+	$tinymce_lang = 'fr';
 
 //Portuguese/Brazilian (using normal Portuguese)
-elseif ($langpref == 'pt_br.php') {
-$tinymce_lang = 'pt'; }
+elseif ($langpref == 'pt_br.php')
+	$tinymce_lang = 'pt';
 
 //Russian
-elseif ($langpref == 'ru.php') {
-$tinymce_lang = 'ru'; }
+elseif ($langpref == 'ru.php')
+	$tinymce_lang = 'ru';
 
 //Hungarian
-elseif ($langpref == 'hu.php') {
-$tinymce_lang = 'hu'; }
+elseif ($langpref == 'hu.php')
+	$tinymce_lang = 'hu';
 
 //Spanish
-elseif ($langpref == 'es.php') {
-$tinymce_lang = 'es'; }
+elseif ($langpref == 'es.php')
+	$tinymce_lang = 'es';
 
 //Swedish
-elseif ($langpref == 'sv.php') {
-$tinymce_lang = 'sv'; }
+elseif ($langpref == 'sv.php')
+	$tinymce_lang = 'sv';
 
 //Catalan
-elseif ($langpref == 'ct.php') {
-$tinymce_lang = 'ca'; }
+elseif ($langpref == 'ct.php')
+	$tinymce_lang = 'ca';
 
 //Italian
-elseif ($langpref == 'it.php') {
-$tinymce_lang = 'it'; }
+elseif ($langpref == 'it.php')
+	$tinymce_lang = 'it';
 
 //Hebrew
-elseif ($langpref == 'he.php') {
-$tinymce_lang = 'he'; }
+elseif ($langpref == 'he.php')
+	$tinymce_lang = 'he';
 
 //Portuguese
-elseif ($langpref == 'pt.php') {
-$tinymce_lang = 'pt'; }
+elseif ($langpref == 'pt.php')
+	$tinymce_lang = 'pt';
 
 //Lithuanian
-elseif ($langpref == 'lt.php') {
-$tinymce_lang = 'lt'; }
+elseif ($langpref == 'lt.php')
+	$tinymce_lang = 'lt';
 
 //Norwegian
 //Using Bokmål by default, if you'd rather use Nynorsk, change 'nb' into 'nn'
-elseif ($langpref == 'no.php') {
-$tinymce_lang = 'nb'; }
+elseif ($langpref == 'no.php')
+	$tinymce_lang = 'nb';
 
 //Bulgarian
-elseif ($langpref == 'bg.php') {
-$tinymce_lang = 'bg'; }
+elseif ($langpref == 'bg.php')
+	$tinymce_lang = 'bg';
 
 //Latvian
-elseif ($langpref == 'lv.php') {
-$tinymce_lang = 'lv'; }
+elseif ($langpref == 'lv.php')
+	$tinymce_lang = 'lv';
 
 //Polish
-elseif ($langpref == 'pl.php') {
-$tinymce_lang = 'pl'; }
+elseif ($langpref == 'pl.php')
+	$tinymce_lang = 'pl';
 
 //Slovak
-elseif ($langpref == 'sk.php') {
-$tinymce_lang = 'sk'; }
+elseif ($langpref == 'sk.php')
+	$tinymce_lang = 'sk';
 
 //Slovenian
-elseif ($langpref == 'sl.php') {
-$tinymce_lang = 'sl'; }
+elseif ($langpref == 'sl.php')
+	$tinymce_lang = 'sl';
 
 //Finnish
-elseif ($langpref == 'fi.php') {
-$tinymce_lang = 'fi'; }
+elseif ($langpref == 'fi.php')
+	$tinymce_lang = 'fi';
 
 //Croatian
-elseif ($langpref == 'hr.php') {
-$tinymce_lang = 'hr'; }
+elseif ($langpref == 'hr.php')
+	$tinymce_lang = 'hr';
 
 //Persian
-elseif ($langpref == 'fa.php') {
-$tinymce_lang = 'fa'; }
+elseif ($langpref == 'fa.php')
+	$tinymce_lang = 'fa';
+
+//Turkish (set to English for now)
+elseif ($langpref == 'tr.php')
+	$tinymce_lang = 'en';
+
+//Greek (set to English for now)
+elseif ($langpref == 'el.php')
+	$tinymce_lang = 'en';
 
 //Thai (not (yet) supported!)
-elseif ($langpref == 'th.php') {
-$tinymce_lang = 'en'; }
+elseif ($langpref == 'th.php')
+	$tinymce_lang = 'en';
 
 //In any other case: English
 else {
