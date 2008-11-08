@@ -1,23 +1,23 @@
 <?php 
-/* 
-this is a pluck language file. you can find pluck at http://www.pluck-cms.org
-if you want to help us, please translate this file in your own language and send it to us at
-sander@somp.nl
-it wil be included in the next release of pluck.
-	if you translate, please note the use of capitals: use them sparely
+/*
+This is a pluck language file. You can find pluck at http://www.pluck-cms.org/.
+If you want to help us, please start a new translation on http://www.pluck-cms.org/dev/translate/
+The translation will be included in the next release of pluck.
 
-pluck is licensed under the GNU General Public License, so opensource.
-see docs/COPYING for the full license text.
+Note: if you translate, please note the use of capitals: use them sparely.
+
+pluck is licensed under the GNU General Public License, and thus open source.
+This language file is also licensed under the GPL.
+See docs/COPYING for the full license text.
 
 ------------------------------------------------
-Language					Latvian
-Translated by			Munky (kristaps.ancans@gmail.com)
+Language		Latvian
+Translated by		Munky
 Translators website	http://fyfi.net
 ------------------------------------------------
 */
 
-//Version of pluck
-$currentversion = "4.4";
+//Name of the language (in English!)
 $lang = "Latvian";
 
 
@@ -91,7 +91,6 @@ $lang_image12	=	"Nav iespējams dzēst attēlu. Pārbaudiet  datņu un mapju pie
 $lang_options1	=	"Šeit Jūs varat uzstādīt <i>pluck</i> atbilstoši Jūsu vēlmēm un vajadzībām."; 
 $lang_options2	=	"mainīt lapas nosaukumu"; 
 $lang_options3	=	"mainīt <i>pluck</i> izskatu"; 
-$lang_options4	=	"labākiem meklētāju rezultātiem"; 
 $lang_options5	=	"paroli ieteicams mainīt regulāri"; 
 $lang_options8	=	"izvēlieties valodu, kuru lietos <i>pluck</i>"; 
 $lang_stitle2	=	"Jums ir jāievada lapas nosaukums, nosaukuma lauks nevar būt tukšs lauks."; 

@@ -1,5 +1,5 @@
 <?php 
-/* 
+/*
 This is a pluck language file. You can find pluck at http://www.pluck-cms.org/.
 If you want to help us, please start a new translation on http://www.pluck-cms.org/dev/translate/
 The translation will be included in the next release of pluck.
@@ -11,14 +11,15 @@ This language file is also licensed under the GPL.
 See docs/COPYING for the full license text.
 
 ------------------------------------------------
-Language					Slovenian
-Translated by			Evelina (little.ely@gmail.com)
+Language		Slovenian
+Translated by		Evelina
 Translators website	http://neverendingdream.zxq.net/
 ------------------------------------------------
 */
 
 //Name of the language (in English!)
 $lang = "Slovenian";
+
 
 //----------------
 //Translation data
@@ -129,7 +130,6 @@ $lang_theme9	=	"Naložitev ni uspela. Server najbž nima naloženega php-zlib mo
 $lang_theme10	=	"tema naložena"; 
 $lang_theme11	=	"vrnite se na <a href=\"?action=theme\">stran s temami</a>"; 
 $lang_theme12	=	"nazaj"; 
-$lang_install24	=	"email"; 
 $lang_install25	=	"vaš email naslov bo uporabljen, da vas lahko vaši obiskovalnci kontaktirajo preko email vprašalnika"; 
 $lang_install26	=	"ponovi geslo"; 
 $lang_install27	=	"Prosimo, dajte nekaj splošnih informacij o vas in vaši strani."; 
@@ -141,7 +141,6 @@ $lang_settings3	=	"spremenite splošne nastavitve, kot je naslov strani in vaš 
 $lang_settings4	=	"Spreminjamo splošne nastavitve..."; 
 $lang_contact2	=	"druge možnosti"; 
 $lang_contact3	=	"Ime:"; 
-$lang_contact4	=	"Email:"; 
 $lang_contact5	=	"Sporočilo:"; 
 $lang_contact6	=	"Niste pravilno vnesli vseh podatkov."; 
 $lang_contact7	=	"Sporočila od vaše spletne strani od"; 
@@ -173,13 +172,11 @@ $lang_updown5	=	"spremenite zaporedje slik";
 $lang_updown6	=	"Ta slika je že na vrhu, zato mesto ne more biti spremenjeno."; 
 $lang_updown7	=	"Ta slika je že na dnu, zato mesto ne more biti spremenjeno."; 
 $lang_pagehide1	=	"pokaži stran v menuju"; 
-$lang_page8	=	""; 
 $lang_page9	=	"vstavite povezavo"; 
 $lang_meta1	=	"uredite informacije o strani"; 
 $lang_meta2	=	"Tu lahko dodate nekaj informacij o strani, da dobite boljše rezultate v iskalnikih."; 
 $lang_meta4	=	"Spreminjamo informacije o strani..."; 
 $lang_settings5	=	"Spremenite splošne nastavitve, kot je naslov strani ali vaš email naslov."; 
-$lang_blog	=	"blog"; 
 $lang_blog1	=	"uporabite blog da pošljete novice ali pišete članke za obiskovalce"; 
 $lang_blog2	=	"Na tej strani lahko dodate nove categorije, v katerih lahko dodate nove vpise. Kategorijo lahko dodate na stran, ko jo urejate."; 
 $lang_blog3	=	"kategorije"; 

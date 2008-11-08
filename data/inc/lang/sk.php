@@ -1,5 +1,5 @@
 <?php 
-/* 
+/*
 This is a pluck language file. You can find pluck at http://www.pluck-cms.org/.
 If you want to help us, please start a new translation on http://www.pluck-cms.org/dev/translate/
 The translation will be included in the next release of pluck.
@@ -11,8 +11,8 @@ This language file is also licensed under the GPL.
 See docs/COPYING for the full license text.
 
 ------------------------------------------------
-Language					Slovak
-Translated by			greppi (greppi314@azet.sk)
+Language		Slovak
+Translated by		greppi
 Translators website	none
 ------------------------------------------------
 */
@@ -91,7 +91,6 @@ $lang_image12	=	"Nemožno tento obrázok vymazať ! Skontrolujte, či máte dost
 $lang_options1	=	"Tuto môžte konfigurovať pluck podľa Vašej chuti a nálady"; 
 $lang_options2	=	"zmeniť meno vašej stránky"; 
 $lang_options3	=	"zmente vzhľad stránky"; 
-$lang_options4	=	"pre lepšie výsledky vo vyhľadávacích systémoch"; 
 $lang_options5	=	"je bezpečnejšie ak raz za čas zmeníte svoje heslo"; 
 $lang_options8	=	"vyberte si jazyk, ktorý chcete používať"; 
 $lang_stitle2	=	"Musíte vyplniť meno Vašej stránky, nemôže byť prázdne"; 
@@ -126,13 +125,11 @@ $lang_updown3	=	"Prebieha zmena poradia ...";
 $lang_updown4	=	"Táto stránka je posledná, nemôžte meniť jej poradie."; 
 $lang_theme5	=	"inštalovať tému"; 
 $lang_theme6	=	"Tuto môžte inštalovať nové témy. Prosím uistite sa, že ste už nejakú stiahli."; 
-$lang_theme7	=	"Inštalácia zlyhala: súbor, ktoré ste vybrali je chybný."; 
 $lang_theme8	=	"Téma je príliž veľká. Max. veľkosť je 1MB"; 
 $lang_theme9	=	"Inštalácia zlyhala. Server pravdepodobne nema nainštalovaný php-zlib modul. Mali by ste kontaktovať administrátora a požiadať ho o nainštalovanie modulu."; 
 $lang_theme10	=	"téma bola nainštalovaná"; 
 $lang_theme11	=	"vrátiť sa <a href=\"?action=theme\">späť</a>"; 
 $lang_theme12	=	"späť"; 
-$lang_theme13	=	"inštalácia témy nie je podporovaná serverom, tento problém sa dá vyriešiť aj manualne<a href=\"http://www.pluck-cms.org/wiki/index.php?title=InstallThemeManual\" target=\"_blank\">manuálne</a>"; 
 $lang_install24	=	"e-mail"; 
 $lang_install25	=	"vaša e-mailová adresa bude použitá pre návštevníkov pre kontaktovanie cez e-mailový formulár"; 
 $lang_install26	=	"zopakujte heslo"; 
@@ -143,7 +140,6 @@ $lang_settings	=	"všeobecné nastavenia";
 $lang_settings2	=	"zadajte názov Vašej stránky"; 
 $lang_settings3	=	"zmente všeobecné nastavenia ako názov stránky alebo e-mail"; 
 $lang_settings4	=	"Práve prebieha zmena nastavení ..."; 
-$lang_contact1	=	"vložiť e-mailový formulár do tejto stránky"; 
 $lang_contact2	=	"ostatné možnosti"; 
 $lang_contact3	=	"Meno:"; 
 $lang_contact4	=	"E-mail:"; 
@@ -153,7 +149,6 @@ $lang_contact7	=	"Správa z Vašej stránky od";
 $lang_contact8	=	"Vaša správa bola úspešne odoslaná"; 
 $lang_contact9	=	"Vaša správa nemôže byť odoslaná, nastala chyba."; 
 $lang_contact10	=	"Poslať"; 
-$lang_contact11	=	"nastaviť e-mailovú adresu ako prvú"; 
 $lang_kop17	=	"spravovať obrázky"; 
 $lang_albums	=	"albumy"; 
 $lang_albums1	=	"Tuto môžete spravovať Vaše albumy. Vložte album do Vašej stránky/stránok vybratím \"vložiť album\" pri upravovaní príslušnej stránky."; 
@@ -230,8 +225,8 @@ $lang_start10	=	"viac...";
 $lang_update1	=	"pluck je aktualizovaný"; 
 $lang_update2	=	"aktualizácia je dostupná"; 
 $lang_update3	=	"<b>dôležitá</b> aktualizácia je dostupná"; 
+$lang_settings6	=	"Zmeniť HTML štandard na XHTML (môže byť pomalší)"; 
 $lang_modules3	=	"nastavenie modulov"; 
 $lang_modules4	=	"zmena nastavení modulov"; 
 $lang_modules5	=	"Tuto môžte zmeniť nastavenia modulov."; 
-$lang_settings6	=	"Zmeniť HTML štandard na XHTML (môže byť pomalší)"; 
 ?>

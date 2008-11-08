@@ -1,5 +1,5 @@
 <?php 
-/* 
+/*
 This is a pluck language file. You can find pluck at http://www.pluck-cms.org/.
 If you want to help us, please start a new translation on http://www.pluck-cms.org/dev/translate/
 The translation will be included in the next release of pluck.
@@ -11,9 +11,9 @@ This language file is also licensed under the GPL.
 See docs/COPYING for the full license text.
 
 ------------------------------------------------
-Language					Persian
-Translated by			heam (aghahamidgol@yahoo.com.hk)
-Translators website	www.dsl-iran.com
+Language		Persian
+Translated by		heam
+Translators website	http://www.dsl-iran.com/
 ------------------------------------------------
 */
 
@@ -58,7 +58,6 @@ $lang_install19	=	"پلوک با موفقیت نصب شد.";
 $lang_install20	=	"نگاهی کلی به سایتتان کنید."; 
 $lang_install21	=	"نتیجه را مشاهده کنید"; 
 $lang_install22	=	"بخش مدیریت"; 
-$lang_install23	=	"manage your website"; 
 $lang_kop1	=	"شروع"; 
 $lang_kop2	=	"صفحات"; 
 $lang_kop4	=	"تنظیمات"; 

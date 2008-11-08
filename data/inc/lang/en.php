@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
 This is a pluck language file. You can find pluck at http://www.pluck-cms.org/.
 If you want to help us, please start a new translation on http://www.pluck-cms.org/dev/translate/
 The translation will be included in the next release of pluck.
@@ -11,9 +11,7 @@ This language file is also licensed under the GPL.
 See docs/COPYING for the full license text.
 
 ------------------------------------------------
-Language					English
-Translated by				Sander Thijsen
-Translators website			http://www.somp.nl
+Language		English
 ------------------------------------------------
 */
 
