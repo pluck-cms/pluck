@@ -37,9 +37,9 @@ function module_is_compatible($module) {
 		else {
 			$version_compat[0] = $module_compatibility;
 		}
-		//Now check if we have an incompatible version.
-		foreach ($version_compat as $number => $version) {		
-			if ($version == $pluck_version) {
+		//Now check if we have a compatible version. NOTE: If pluck is an alpha or beta version, it will always be compatible.
+		foreach ($version_compat as $number => $version) {
+			if ($version == $pluck_version || preg_match('/(alpha|beta)/', $pluck_version)) {
 				$compatible = 'yes';
 			}
 		}
