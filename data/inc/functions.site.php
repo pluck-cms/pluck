@@ -101,7 +101,7 @@ function theme_meta() {
 
 	echo '<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />'."\n";
 	echo '<meta name="generator" content="pluck '.PLUCK_VERSION.'" />'."\n";
-	echo '<title>'.$page_title.' - '.TITLE.'</title>'."\n";
+	echo '<title>'.$page_title.' - '.SITE_TITLE.'</title>'."\n";
 	echo '<link href="'.$cssfile.'" rel="stylesheet" type="text/css" media="screen" />'."\n";
 
 	//If we are not looking at a module: include metatag information
@@ -142,7 +142,6 @@ function theme_meta() {
 }
 
 //[THEME] FUNCTION TO SHOW SITE TITLE
-//FIXME: Any need for this?
 //---------------------------------
 function theme_sitetitle() {
 	$site_title = get_sitetitle();
@@ -182,7 +181,6 @@ function theme_menu($html,$htmlactive = NULL) {
 }
 
 //[THEME] FUNCTION TO SHOW PAGE TITLE
-//FIXME: Any need for this?
 //---------------------------------
 function theme_pagetitle() {
 	$page_title = get_pagetitle();

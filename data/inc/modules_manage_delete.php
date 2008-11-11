@@ -22,7 +22,7 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 
 //Check if we defined a module to uninstall
 if(isset($var1)) {
-	recursive_remove_directory('data/modules/$var1');
+	recursive_remove_directory('data/modules/'.$var1);
 }
  
 redirect('?action=managemodules', 0);

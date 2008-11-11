@@ -2,7 +2,8 @@
 /* 
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -19,20 +20,25 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
     exit();
 }
 
-//Variables for module programmers
+//Constants for module programmers
+//Variables are included for compatibility with pluck 4.6
 //----------------
 //Filename of current page
 if (isset($_GET['file'])) {
-	$current_page_filename = $_GET['file'];
+	define(CURRENT_PAGE_FILENAME, $_GET['file']);
+	$current_page_filename = CURRENT_PAGE_FILENAME;
 }
 //Name of directory of current module
 if (isset($_GET['module'])) {
-	$current_module_dir = $_GET['module'];
+	define(CURRENT_MODULE_DIR, $_GET['module']);
+	$current_module_dir = CURRENT_MODULE_DIR;
 }
 //Name of current module page
 if (isset($_GET['page'])) {
-	$current_module_page = $_GET['page'];
+	define(CURRENT_MODULE_PAGE, $_GET['page']);
+	$current_module_page = CURRENT_MODULE_PAGE;
 }
-$page_title = get_pagetitle(); //Also works for modules
-
+//Page title
+define(PAGE_TITLE, get_pagetitle()); //Also works for modules
+$page_title = PAGE_TITLE;
 ?>

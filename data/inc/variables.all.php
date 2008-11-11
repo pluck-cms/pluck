@@ -32,27 +32,23 @@ if (file_exists('data/settings/options.php'))
 if (file_exists('data/settings/themepref.php'))
 	require_once ('data/settings/themepref.php');
 
-//General variables.
-$pluck_version = '4.7 alpha';
-$site_title = get_sitetitle();
-$site_langfile = $langpref;
-$site_lang = preg_replace('/.php/','',$site_langfile);
-$site_email = $email;
-$site_theme = $themepref;
-
-//Set our homepage (where we can redirect if a page doesn't exist or something).
-$homepage = '?file=kop1.php';
-
-//Set themedir.
-$themedirectory = 'data/themes/'.$site_theme;
-
 //New constants in 4.7.
 define(PLUCK_VERSION, '4.7 alpha');
-define(TITLE, get_sitetitle());
+define(SITE_TITLE, get_sitetitle());
 define(EMAIL, $email);
 define(LANG, preg_replace('/.php/','',$langpref));
 define(LANG_FILE, $langpref);
 define(THEME, $themepref);
 define(THEME_DIR, 'data/themes/'.$themepref);
 define(HOME_PAGE, '?file=kop1.php');
+
+//General variables (included for compatibiltiy with pluck 4.6)
+$pluck_version = PLUCK_VERSION;
+$site_title = SITE_TITLE;
+$site_langfile = LANG_FILE;
+$site_lang = LANG;
+$site_email = EMAIL;
+$site_theme = THEME;
+$themedirectory = THEME_DIR;
+$homepage = HOME_PAGE;
 ?>
