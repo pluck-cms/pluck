@@ -136,9 +136,9 @@ function read_imagesinpages($dir) {
        natcasesort($files);
        foreach ($files as $file) {
       //Include Translation data
-		include ("data/settings/langpref.php");
-		include ("data/inc/lang/en.php");
-		include ("data/inc/lang/$langpref");
+		//include ("data/settings/langpref.php");
+		//include ("data/inc/lang/en.php");
+		//include ("data/inc/lang/$langpref");
 ?>
 		<div class="menudiv" style="width: 200px; margin: 2px;">
 			<table>
@@ -179,9 +179,9 @@ function read_pagesinpages($dir) {
        foreach ($files as $file) {
            include "data/settings/pages/$file"; 
             //Include Translation data
-				include ("data/settings/langpref.php");
-				include ("data/inc/lang/en.php");
-				include ("data/inc/lang/$langpref");
+				//include ("data/settings/langpref.php");
+				//include ("data/inc/lang/en.php");
+				//include ("data/inc/lang/$langpref");
 				echo "<div class=\"menudiv\" style=\"width: 200px; margin: 2px;\">
 							<table>
 								<tr>
@@ -214,18 +214,18 @@ function read_images($dir) {
    }
    if (!$files) {
 	//Include Translation data
-	include ("data/settings/langpref.php");
-	include ("data/inc/lang/en.php");
-	include ("data/inc/lang/$langpref");
+	//include ("data/settings/langpref.php");
+	//include ("data/inc/lang/en.php");
+	//include ("data/inc/lang/$langpref");
 	echo "<span class=\"kop4\">$lang_albums14</span>"; }
 	
    if($files) {
        natcasesort($files);
        foreach ($files as $file) {
        //Include Translation data
-		include ("data/settings/langpref.php");
-		include ("data/inc/lang/en.php");
-		include ("data/inc/lang/$langpref");
+		//include ("data/settings/langpref.php");
+		//include ("data/inc/lang/en.php");
+		//include ("data/inc/lang/$langpref");
 				echo "<div class=\"menudiv\" style=\"margin: 15px;\">
 							<table>
 								<tr>

@@ -23,11 +23,9 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 //Function: check if module is compatible.
 //--------------------
 function module_is_compatible($module) {
-	//Global variable.
-	global $pluck_version;
 	//Include module information.
 	if (file_exists('data/modules/'.$module.'/module_info.php')) {
-		include('data/modules/'.$module.'/module_info.php');
+		include ('data/modules/'.$module.'/module_info.php');
 	}
 
 	if (isset($module_compatibility)) {
@@ -35,11 +33,11 @@ function module_is_compatible($module) {
 			$version_compat = explode(',', $module_compatibility);
 		}
 		else {
-			$version_compat[0] = $module_compatibility;
+			$version_compat [0] = $module_compatibility;
 		}
 		//Now check if we have a compatible version. NOTE: If pluck is an alpha or beta version, it will always be compatible.
 		foreach ($version_compat as $number => $version) {
-			if ($version == $pluck_version || preg_match('/(alpha|beta)/', $pluck_version)) {
+			if ($version == PLUCK_VERSION || preg_match('/(alpha|beta)/', PLUCK_VERSION)) {
 				$compatible = 'yes';
 			}
 		}
@@ -57,20 +55,20 @@ function module_is_compatible($module) {
 //Function: recursively delete an entire directory.
 //--------------------
 function recursive_remove_directory($directory, $empty = false)	{
-	if(substr($directory,-1) == '/') {
+	if (substr($directory, -1) == '/') {
 		$directory = substr($directory, 0, -1);
 	}
 
-	if(!file_exists($directory) || !is_dir($directory)) {
+	if (!file_exists($directory) || !is_dir($directory)) {
 		return false;
 	}
-	elseif(is_readable($directory)) {
+	elseif (is_readable($directory)) {
 		$handle = opendir($directory);
 
 		while (false !== ($item = readdir($handle))) {
-			if($item != '.' && $item != '..') {
+			if ($item != '.' && $item != '..') {
 				$path = $directory.'/'.$item;
-				if(is_dir($path)) {
+				if (is_dir($path)) {
 					recursive_remove_directory($path);
 				}
 				else {
@@ -79,8 +77,8 @@ function recursive_remove_directory($directory, $empty = false)	{
 			}
 		}
 		closedir($handle);
-		if($empty == false) {
-			if(!rmdir($directory)) {
+		if ($empty == false) {
+			if (!rmdir($directory)) {
 				return false;
 			}
 		}
@@ -91,8 +89,8 @@ function recursive_remove_directory($directory, $empty = false)	{
 //Function: get site title.
 //--------------------
 function get_sitetitle() {
-	if(file_exists('data/settings/options.php')) {
-		include('data/settings/options.php');
+	if (file_exists('data/settings/options.php')) {
+		global $sitetitle;
 		return $sitetitle;
 	}
 }
@@ -111,28 +109,28 @@ function redirect($url, $time) {
 	$url = str_replace('%26', '&', $url);
 
 	//finally generate the metatag for redirecting
-	echo '<meta http-equiv="refresh" content="'.$time.'; url='.$url.'">';
+	echo '<meta http-equiv="refresh" content="'.$time.'; url='.$url.'" />';
 }
 
 //Function: read files in a dir, and return the names in an array.
 //--------------------
-function read_dir_contents($directory,$mode) {
+function read_dir_contents($directory, $mode) {
 	$path = opendir($directory);
-	while(false !== ($file = readdir($path))) {
-		if(($file != '.') && ($file != '..')) {
-			if(is_file($directory.'/'.$file)) {
+	while (false !== ($file = readdir($path))) {
+		if (($file != '.') && ($file != '..')) {
+			if (is_file($directory.'/'.$file)) {
 				$files[] = $file;
 			}
-			elseif(is_dir($directory.'/'.$file)) {
+			elseif (is_dir($directory.'/'.$file)) {
 				$dirs[] = $file;
 			}
 		}
 	}
 	closedir($path);
-	if($mode == 'files') {
+	if ($mode == 'files') {
 		return $files;
 	}
-	if($mode == 'dirs') {
+	if ($mode == 'dirs') {
 		return $dirs;
 	}
 }

@@ -23,10 +23,14 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 <p><strong><?php echo $lang_cpass1; ?></strong></p>
 
 <form method="post" action="">
-	<span class="kop2"><?php echo $lang_cpass2; ?></span><br />
-	<input name="cont1" type="password"/><br /><br />
-	<span class="kop2"><?php echo $lang_cpass3; ?></span><br />
-	<input name="cont2" type="password" /><br /><br />
+	<span class="kop2"><?php echo $lang_cpass2; ?></span>
+	<br />
+	<input name="cont1" type="password"/>
+	<br /><br />
+	<span class="kop2"><?php echo $lang_cpass3; ?></span>
+	<br />
+	<input name="cont2" type="password" />
+	<br /><br />
 	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
 	<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=options';" />
 </form>
@@ -41,9 +45,9 @@ if(isset($_POST['Submit'])) {
 
 	//Check if the old password entered is correct. If it isn't, do:
 	if ($ww != $cont1) {
-		?>
+	?>
 		<span class="red"><?php echo $lang_cpass4; ?></span>
-		<?php
+	<?php
 	}
 
 	//If the old password entered is correct, save it
@@ -52,7 +56,7 @@ if(isset($_POST['Submit'])) {
 			save_password($cont2);
 			//Redirect user
 			echo $lang_cpass5;
-			redirect('?action=options','2');
+			redirect('?action=options', 2);
 		}
 	}
 }

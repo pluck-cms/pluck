@@ -13,15 +13,15 @@
  * This is a file that checks for hacking attempts and blocks them.
 */
 
-//Developer error reporting
-//error_reporting(E_NONE);
+//Error reporting
+//error_reporting(E_ALL|E_STRICT);
 
 //--------------------------------
 //Register Globals
 //If Register Globals are ON, unset injected variables
 if(isset($_REQUEST)) {
 	foreach ($_REQUEST as $key => $value) { 
-		if(isset($GLOBALS[$key])) {
+		if (isset($GLOBALS[$key])) {
 			unset($GLOBALS[$key]); 
 		}
 	}
@@ -34,7 +34,7 @@ if(isset($_REQUEST)) {
 //All keys with or "/" or ".." or ":" or "<" or ">" or "=" or ";" or ")" are blocked, so that it's virtually impossible to inject any HTML-code, or external websites
 foreach ($_GET as $get_key => $get_value) {
 	if ((ereg("[\]+", $get_value)) || (ereg("\.\.", $get_value)) || (ereg("/", $get_value)) || (ereg(":", $get_value)) || (ereg("<", $get_value)) || (ereg(">", $get_value)) || (ereg("=", $get_value)) || (ereg(";", $get_value)) || (ereg(")", $get_value))) {
-		die("A hacking attempt has been detected. For security reasons, we're blocking any code execution.");
+		die ("A hacking attempt has been detected. For security reasons, we're blocking any code execution.");
 	}
 }
 //--------------------------------

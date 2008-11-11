@@ -13,175 +13,174 @@
 */
 
 //Include security-enhancements
-require_once('data/inc/security.php');
+require_once ('data/inc/security.php');
 //Include functions
-require_once('data/inc/functions.all.php');
-require_once('data/inc/functions.admin.php');
+require_once ('data/inc/functions.all.php');
+require_once ('data/inc/functions.admin.php');
 //Include variables
-require_once('data/inc/variables.all.php');
+require_once ('data/inc/variables.all.php');
 
 //First check if we've installed pluck
 if (!file_exists('data/settings/install.dat')) {
 	$titelkop = $lang_error1;
-	include_once('data/inc/header2.php');
-	redirect('install.php', '3');
+	include_once ('data/inc/header2.php');
+	redirect('install.php', 3);
 	echo $lang_login2;
-	include_once('data/inc/footer.php');
+	include_once ('data/inc/footer.php');
 } 
 
 else {
 	session_start();
 	//Then check if we are properly logged in
-	if ($_SESSION['cmssystem_loggedin'] != 'ok') {
+	if ($_SESSION ['cmssystem_loggedin'] != 'ok') {
 		$titelkop = $lang_error3;
-		include_once('data/inc/header2.php');
-		redirect('login.php', '3');
+		include_once ('data/inc/header2.php');
+		redirect('login.php', 3);
 		echo $lang_error4;
-		include_once('data/inc/footer.php');
+		include_once ('data/inc/footer.php');
 		exit;
 	}
 
 	//Include proper POST/GETs
-	require_once('data/inc/post_get.php');
+	require_once ('data/inc/post_get.php');
 
 	//Define pages
 	//------------
-	if($action) {
-		switch ($action)
-		{
+	if ($action) {
+		switch ($action) {
 			//Page:Start
 			case 'start':
 				$titelkop = $lang_kop1;
-				include_once('data/inc/header.php');
-				include_once('data/inc/start.php');
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/start.php');
 				break;
 
 			//Page:Credits
 			case 'credits':
 				$titelkop = $lang_credits;
-				include_once('data/inc/header.php');
-				include_once('data/inc/credits.php');
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/credits.php');
 				break;
 
 			//Page:Pages
 			case 'page':
 				$titelkop = $lang_kop2;
-				include_once('data/inc/header.php');
-				include_once('data/inc/page.php');
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/page.php');
 				break;
 
 			//Page:New Page
 			case 'newpage':
 				$tinymce = 'yes';
 				$titelkop = $lang_kop11;
-				include_once('data/inc/header.php');
-				include_once('data/inc/newpage.php');
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/newpage.php');
 				break;
 
 			//Page:Manage Images
 			case 'images':
 				$titelkop = $lang_kop17;
-				include_once('data/inc/header.php');
-				include_once('data/inc/images.php');
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/images.php');
 				break;
 
 			//Page:Modules
 			case 'modules':
 				$titelkop = $lang_modules;
-				include_once('data/inc/header.php');
-				include_once('data/inc/modules.php');
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/modules.php');
 				break;
 
 			//Page:Manage Modules
 			case 'managemodules':
 				$titelkop = $lang_modules3;
-				include_once('data/inc/header.php');
-				include_once('data/inc/modules_manage.php');
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/modules_manage.php');
 				break;
 
 			//Page:Module Add To Site
 			case 'module_addtosite':
 				$titelkop = $lang_modules14;
-				include_once('data/inc/header.php');
-				include_once('data/inc/modules_manage_addtosite.php');
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/modules_manage_addtosite.php');
 				break;
 
 			//Page:Options
 			case 'options':
 				$titelkop = $lang_kop4;
-				include_once('data/inc/header.php');
-				include_once('data/inc/options.php');
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/options.php');
 				break;
 
 			//Page:Options:Settings
 			case 'settings':
 				$titelkop = $lang_settings;
-				include_once('data/inc/header.php');
-				include_once('data/inc/settings.php');
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/settings.php');
 				break;
 
 			//Page:Options:Language
 			case 'language':
 				$titelkop = $lang_kop14;
-				include_once('data/inc/header.php');
-				include_once('data/inc/language.php');
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/language.php');
 				break;
 
 			//Page:Options:Theme
 			case 'theme':
 				$titelkop = $lang_kop16;
-				include_once('data/inc/header.php');
-				include_once('data/inc/theme.php');
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/theme.php');
 				break;
 
 			//Page:Options:Changepass
 			case 'changepass':
 				$titelkop = $lang_kop10;
-				include_once('data/inc/header.php');
-				include_once('data/inc/changepass.php');
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/changepass.php');
 				break;
 
 			//Page:Options:Themeinstall
 			case 'themeinstall':
 				$titelkop = $lang_theme5;
-				include_once('data/inc/header.php');
-				include_once('data/inc/themeinstall.php');
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/themeinstall.php');
 				break;
 
 			//Page:Options:Moduleinstall
 			case 'installmodule':
 				$titelkop = $lang_modules23;
-				include_once('data/inc/header.php');
-				include_once('data/inc/modules_install.php');
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/modules_install.php');
 				break;
 
 			//Page:Trashcan
 			case 'trashcan':
 				$titelkop = $lang_trash;
-				include_once('data/inc/header.php');
-				include_once('data/inc/trashcan.php');
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/trashcan.php');
 				break;
 
 			//Page:Empty Trashcan
 			case 'trashcan_empty':
 				$titelkop = $lang_trash;
-				include_once('data/inc/header.php');
-				include_once('data/inc/trashcan_empty.php');
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/trashcan_empty.php');
 				break;
 
 			//Page:Logout
 			case 'logout':
 				$titelkop = $lang_kop5;
 				session_destroy();
-				include_once('data/inc/header.php');
-				include_once('data/inc/logout.php');
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/logout.php');
 				break;
 
 			//Page:Uninstall module
 			case 'module_delete':
 				$titelkop = $lang_modules10;
-				include_once('data/inc/header.php');
-				include_once('data/inc/modules_manage_delete.php');
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/modules_manage_delete.php');
 				break;
 
 			//Unknown page => Redirect
@@ -194,69 +193,69 @@ else {
 
 
 	//Editpage pages
-	elseif($editpage) {
+	elseif ($editpage) {
 		$tinymce = 'yes';
 		$titelkop = $lang_page3;
-		include_once('data/inc/header.php');
-		include_once('data/inc/editpage.php'); 
+		include_once ('data/inc/header.php');
+		include_once ('data/inc/editpage.php'); 
 	}
 
 	//Editmeta pages
-	elseif($editmeta) {
+	elseif ($editmeta) {
 		$titelkop = $lang_meta1;
-		include_once('data/inc/header.php');
-		include_once('data/inc/page_editmeta.php'); 
+		include_once ('data/inc/header.php');
+		include_once ('data/inc/page_editmeta.php'); 
 	}
 
 	//Deletepage pages
-	elseif($deletepage) {
+	elseif ($deletepage) {
 		$titelkop = $lang_trash1;
-		include_once('data/inc/header.php');
+		include_once ('data/inc/header.php');
 		echo $lang_trash2;
-		include_once('data/inc/deletepage.php'); 
+		include_once ('data/inc/deletepage.php'); 
 	}
 
 	//Deleteimage pages
-	elseif($deleteimage) {
+	elseif ($deleteimage) {
 		$titelkop = $lang_trash1;
-		include_once('data/inc/header.php');
+		include_once ('data/inc/header.php');
 		echo $lang_trash2;
-		include_once('data/inc/deleteimage.php'); 
+		include_once ('data/inc/deleteimage.php'); 
 	}
 
 	//Pageup pages
-	elseif($pageup) {
+	elseif ($pageup) {
 		$titelkop = $lang_updown1;
-		include_once('data/inc/header.php');
-		include_once('data/inc/pageup.php'); 
+		include_once ('data/inc/header.php');
+		include_once ('data/inc/pageup.php'); 
 	}
 
 	//Pagedown pages
-	elseif($pagedown) {
+	elseif ($pagedown) {
 		$titelkop = $lang_updown1;
-		include_once('data/inc/header.php');
-		include_once('data/inc/pagedown.php'); 
+		include_once ('data/inc/header.php');
+		include_once ('data/inc/pagedown.php'); 
 	}
 
 	//Trash_viewitem pages
-	elseif($trash_viewitem) {
+	elseif ($trash_viewitem) {
 		$titelkop = $lang_trash7;
-		include_once('data/inc/header.php');
-		include_once('data/inc/trashcan_viewitem.php');
+		include_once ('data/inc/header.php');
+		include_once ('data/inc/trashcan_viewitem.php');
 	}
 
 	//Trash_restoreitem pages
-	elseif($trash_restoreitem) {
+	elseif ($trash_restoreitem) {
 		$titelkop = $lang_trash10;
-		include_once('data/inc/header.php');
-		include_once('data/inc/trashcan_restoreitem.php');
+		include_once ('data/inc/header.php');
+		include_once ('data/inc/trashcan_restoreitem.php');
 	}
 
 	//Trash_deleteitem pages
-	elseif($trash_deleteitem) {
+	elseif ($trash_deleteitem) {
 		$titelkop = $lang_trash8;
-		include_once('data/inc/header.php');
-		include_once('data/inc/trashcan_deleteitem.php');
+		include_once ('data/inc/header.php');
+		include_once ('data/inc/trashcan_deleteitem.php');
 	}
 
 	//Unknown pages
@@ -268,9 +267,9 @@ else {
 	}
 
 	//Include module pages
-	include_once('data/inc/modules_admininclude.php');
+	include_once ('data/inc/modules_admininclude.php');
 
 	//Include footer
-	include_once('data/inc/footer.php');
+	include_once ('data/inc/footer.php');
 }
 ?>
