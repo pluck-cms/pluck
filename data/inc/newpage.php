@@ -141,32 +141,34 @@ if ((!ereg('index.php', $_SERVER ['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_
 <?php
 //TODO: Cleanup the rest.
 //If form is posted...
-if(isset($_POST['Submit'])) {
-
-//Check if we want to show the page in the menu
-if ($hidepage != "no") {
-	$hidepage = "yes";
-}
-
-//Now we have to check which filenames are already in use
-if (file_exists("data/settings/pages/kop1.php")) {
-	$i = 2;
-	$o = 3;
-	while ((file_exists("data/settings/pages/kop$i.php")) || (file_exists("data/settings/pages/kop$o.php"))) {
-		$i = $i+1;
-		$o = $o+1;
+if (isset($_POST['Submit'])) {
+	//Check if we want to show the page in the menu.
+	if ($hidepage != 'no') {
+		$hidepage = 'yes';
 	}
-	$newfile = "data/settings/pages/kop$i.php";
-}
-else {
-	$newfile = "data/settings/pages/kop1.php";
-}
 
-$data = $newfile;
-include_once ('data/inc/page_stripslashes.php');
+	//Now we have to check which filenames are already in use.
+	if (file_exists('data/settings/pages/kop1.php')) {
+		$i = 2;
+		$o = 3;
+		while ((file_exists('data/settings/pages/kop'.$i.'.php')) || (file_exists('data/settings/pages/kop'.$o.'.php'))) {
+			$i = $i + 1;
+			$o = $o + 1;
+		}
+		$newfile = 'data/settings/pages/kop'.$i.'.php';
+	}
+	else {
+		$newfile = 'data/settings/pages/kop1.php';
+	}
 
-//Sanitize data
-$kop = htmlentities($kop);
+	$data = $newfile;
+
+	//FIXME: Do we need this file?
+	include_once ('data/inc/page_stripslashes.php');
+
+	//TODO: We should use the save_page function, but it can not save $module_pageinc.
+	//Sanitize data
+	$kop = htmlentities($kop);
 
 $file = fopen($data, "w");
 fputs($file, "<?php
@@ -174,17 +176,18 @@ fputs($file, "<?php
 \$content = \"$tekst\";
 \$hidden = \"$hidepage\";");
 
-//Save the module information
-foreach ($incmodule as $modulename => $order) {
-	fputs($file, "\n\$module_pageinc['$modulename'] = \"$order\";");
+	//Save the module information
+	foreach ($incmodule as $modulename => $order) {
+		fputs($file, "\n\$module_pageinc['$modulename'] = \"$order\";");
+	}
+
+	//Close the file
+	fputs($file, "\n".'?>');
+	fclose($file);
+	//Give the file the right permissions
+	chmod($data, 0777);
+
+	//and redirect user
+	redirect('?action=page', 0);
 }
-
-//Close the file
-fputs($file, "\n?>");
-fclose($file);
-//Give the file the right permissions
-chmod($data, 0777);
-
-//and redirect user
-echo "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"0; URL=?action=page\">"; }
 ?>
