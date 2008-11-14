@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
  * http://www.pluck-cms.org
@@ -7,28 +7,28 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- 
+
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
-if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("install.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("login.php", $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo "access denied";
-    //Block all other code
+//Make sure the file isn't accessed directly.
+if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
+    //Give out an "access denied" error.
+    echo 'access denied';
+    //Block all other code.
     exit();
 }
 
 //Introduction text
-echo "<p><b>$lang_modules15</b></p>";
+?>
+<p><strong><?php echo $lang_modules15; ?></strong></p>
+<?php
 
-//Include Theme data
-include("data/settings/themepref.php");
 //Include info of theme (to see which positions we can use)
-include("data/themes/$themepref/info.php");
+include_once ('data/themes/'.$themepref.'/info.php');
 //Include the existing module-settings for the theme
-if (file_exists("data/settings/themes/$themedir/moduleconf.php")) {
-	include("data/settings/themes/$themedir/moduleconf.php");
+if (file_exists('data/settings/themes/'.$themedir.'/moduleconf.php')) {
+	include_once ('data/settings/themes/'.$themedir.'/moduleconf.php');
 }
 
 //Start html-form
@@ -41,7 +41,7 @@ foreach ($module_space as $index => $position) {
 	<td>
 	<img src=\"data/image/page.png\" border=\"0\" alt=\"\">
 	</td>
-	
+
 	<td>
 	<span style=\"font-size: 17pt; color:gray;\">$position</span><br>
 	<b>$lang_modules7</b>
@@ -63,7 +63,7 @@ foreach ($module_space as $index => $position) {
 		}
 	}
 	closedir($dir_handle);
-	
+
 	//Loop through dirs, and display the modules
 	$dir_handle = @opendir($path) or die("Unable to open $path. Check if it's readable.");
 	while ($dir = readdir($dir_handle)) {
@@ -73,14 +73,15 @@ foreach ($module_space as $index => $position) {
 				include("data/modules/$dir/module_info.php");
 
 				echo "<td>$module_name</td>
-				<td><select name=\"$position|$module_dir\">  
+				<td><select name=\"$position|$module_dir\">
 				<option value=\"0\">$lang_modules6";
 
 				$counting_modules = 1;
 				while ($counting_modules <= $number_modules) {
 					//Check if this is the current setting
 					//...and select the html-option if needed
-					$currentsetting = $space[$position][$module_dir];
+					$space = null;
+					$currentsetting = $space [$position] [$module_dir];
 					if ($currentsetting == $counting_modules) {
 						echo "<option value=\"$counting_modules\" selected>$counting_modules";
 					}
@@ -103,19 +104,21 @@ foreach ($module_space as $index => $position) {
 }
 
 //Show submit button etc.
-echo "<input type=\"submit\" name=\"Submit\" value=\"$lang_install13\"> 
+echo "<input type=\"submit\" name=\"Submit\" value=\"$lang_install13\">
 <input type=\"button\" name=\"Cancel\" value=\"$lang_install14\" onclick=\"javascript: window.location='?action=managemodules';\">
 </form>";
 
 
 //If the form has been posted, save the data
 //------------------------------------------
-if(isset($_POST['Submit'])) {
+if (isset($_POST['Submit'])) {
 
 //Get POST-data
 $themedir = $themepref;
-$moduledir = $_POST['moduledir'];
-$position = $_POST['position'];
+if (isset($_POST ['moduledir']))
+	$moduledir = $_POST ['moduledir'];
+if (isset($_POST ['position']))
+	$position = $_POST ['position'];
 
 //First, check if the settings/modules_inc dir exists
 //If not, create the dir
@@ -151,6 +154,6 @@ fclose($file);
 chmod('data/settings/themes/'.$themedir.'/moduleconf.php', 0777);
 
 //And redirect the user
-redirect('?action=managemodules','0');
+//redirect('?action=managemodules','0');
 }
 ?>

@@ -1,13 +1,15 @@
-<?php
+﻿<?php
 /*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
  * http://www.pluck-cms.org
- * Pluck is free software: you can redistribute it and/or modify
+
+ * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * See docs/COPYING for the complete license.
+
+ * See docs/COPYING for the complete license.
 */
 
 //Make sure the file isn't accessed directly.
@@ -17,10 +19,11 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
     //Block all other code.
     exit();
 }
-//Function: read the available languages.
+
+//Function: read the available languages.
 //-------------------
 function read_lang_files($not_this_file) {
-	$files = read_dir_contents('data/inc/lang','files');
+	$files = read_dir_contents('data/inc/lang', 'files');
 	if ($files) {
 		natcasesort($files);
 			foreach ($files as $file) {
@@ -33,14 +36,15 @@ function read_lang_files($not_this_file) {
 		}
 	}
 }
-//Function: read out the pages.
+
+//Function: read out the pages.
 //------------
 function read_pages() {
+	//Translation data.
+	global $lang_page3, $lang_meta1, $lang_updown1, $lang_trash1;
 	$files = read_dir_contents('data/settings/pages','files');
 	if ($files) {
 		natcasesort($files);
-		//Translation data.
-		global $lang_page3, $lang_meta1, $lang_updown1, $lang_trash1;
 		foreach ($files as $file) {
 			include ('data/settings/pages/'.$file);
 			?>
@@ -50,61 +54,151 @@ function read_pages() {
 				</span>
 				<span class="title-page"><?php echo $title; ?></span>
 				<span>
-				<a href="?editpage=<?php echo $file; ?>"><img src="data/image/edit.png" title="<?php echo $lang_page3; ?>" alt="<?php echo $lang_page3; ?>" /></a>		
+					<a href="?editpage=<?php echo $file; ?>"><img src="data/image/edit.png" title="<?php echo $lang_page3; ?>" alt="<?php echo $lang_page3; ?>" /></a>
 				</span>
 				<span>
-				<a href="?editmeta=<?php echo $file; ?>"><img src="data/image/siteinformation.png" title="<?php echo $lang_meta1; ?>" alt="<?php echo $lang_meta1; ?>" /></a>		
+					<a href="?editmeta=<?php echo $file; ?>"><img src="data/image/siteinformation.png" title="<?php echo $lang_meta1; ?>" alt="<?php echo $lang_meta1; ?>" /></a>
 				</span>
 				<span>
-				<a href="?pageup=<?php echo $file; ?>"><img src="data/image/up.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" /></a>		
+					<a href="?pageup=<?php echo $file; ?>"><img src="data/image/up.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" /></a>
 				</span>
 				<span>
-				<a href="?pagedown=<?php echo $file; ?>"><img src="data/image/down.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" /></a>		
+					<a href="?pagedown=<?php echo $file; ?>"><img src="data/image/down.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" /></a>
 				</span>
 				<span>
-				<a href="?deletepage=<?php echo $file; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" /></a>		
+					<a href="?deletepage=<?php echo $file; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" /></a>
 				</span>
 			</div>
 			<?php
 		}
    }
 }
-//Function: display a menudiv.
+
+
+//Function: readout the images
+//------------
+function read_images($dir) {
+	global $lang_trash1;
+	$files = read_dir_contents($dir, 'files');
+	if (!$files)
+		echo '<span class="kop4">'.$lang_albums14.'</span>';
+
+	if ($files) {
+		natcasesort($files);
+		foreach ($files as $file) {
+		?>
+			<div class="menudiv">
+				<span>
+					<img src="data/image/image.png" alt="">
+				</span>
+				<span style="width: 350px">
+					<span style="font-size: 17pt;"><?php echo $file; ?></span>
+				</span>
+				<span>
+					<a href="images/<?php echo $file; ?>" target="_blank"><img src="data/image/view.png" alt="" /></a>
+				</span>
+				<span>
+					<a href="?deleteimage=<?php echo $file; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" /></a>
+				</span>
+			</div>
+		<?php
+		}
+	}
+}
+
+//Function: read out the images to let them include in pages
+//------------
+function read_imagesinpages($dir) {
+	global $lang_page7;
+	$files = read_dir_contents($dir, 'files');
+	if ($files) {
+		natcasesort($files);
+		foreach ($files as $file) {
+		?>
+			<div class="menudiv" style="width: 200px;">
+				<span>
+					<img src="data/image/image_small.png" alt="" />
+				</span>
+				<span>
+					<span><a  style="font-size: 16px !important;" href="images/<?php echo $file; ?>" target="_blank"><?php echo $file; ?></a></span>
+					<br />
+					<a style="font-size: 14px;" href="#" onclick="tinyMCE.execCommand('mceInsertContent',false,'&lt;img src=\'images/<?php echo $file; ?>\' alt=\'\' />');return false;"><?php echo $lang_page7; ?></a>
+				</span>
+			</div>
+		<?php
+		}
+   }
+}
+
+//Function: read out the pages to let them be included in pages as link
+//------------
+function read_pagesinpages($dir) {
+	global $lang_page9;
+	$files = read_dir_contents($dir, 'files');
+	if ($files) {
+		natcasesort($files);
+		foreach ($files as $file) {
+			include 'data/settings/pages/'.$file;
+			?>
+				<div class="menudiv" style="width: 200px;">
+					<span>
+						<img src="data/image/page_small.png" alt="" />
+					</span>
+					<span style="font-size: 14px;">
+						<span style="font-size: 16px; color: gray;"><?php echo $title; ?></span>
+						<br />
+						<a href="#" onclick="tinyMCE.execCommand('mceInsertContent',false,'&lt;a href=\'index.php?file=<?php echo $file; ?>\' title=\'<?php echo $title; ?>\'><?php echo $title; ?>&lt;/a>');return false;"><?php echo $lang_page9; ?></a>
+					</span>
+				</div>
+			<?php
+		}
+	}
+}
+
+//Function: display a menudiv.
 //-------------------
-function showmenudiv($title, $text, $image, $url, $blank, $more = null) {
+function showmenudiv($title, $text, $image, $url, $blank = false, $more = null) {
 ?>
 	<div class="menudiv">
 		<span>
-		<a href="<?php echo $url; ?>" <?php if ($blank == 'true') echo ' target="_blank"'; ?>><img src="<?php echo $image; ?>" alt="" /></a>
+			<a href="<?php echo $url; ?>" <?php if ($blank == true) echo ' target="_blank"'; ?>><img src="<?php echo $image; ?>" alt="" /></a>
 		</span>
 		<span>
 			<span>
-				<a href="<?php echo $url; ?>" <?php if ($blank == 'true') echo 'target="_blank"'; ?>><?php echo $title; ?></a>
+				<a href="<?php echo $url; ?>" <?php if ($blank == true) echo 'target="_blank"'; ?>><?php echo $title; ?></a>
 			</span>
-			<?php if($more != null) { ?>
-			<span class="more"><?php echo $more; ?></span>
-			<?php } ?>
+			<?php if($more != null): ?>
+				<span class="more"><?php echo $more; ?></span>
+			<?php endif; ?>
 			<br />
 			<?php if($text != null) echo $text; ?>
 		</span>
 	</div>
 <?php
 }
-function count_trashcan() {
+
+function count_trashcan() {
 	//Pages
 	$count_pages_array = glob('data/trash/pages/*.*');
 	if ((isset($count_pages_array)) && (!empty($count_pages_array)))
 		$count_pages = count($count_pages_array);
-	//Images
+	else
+		$count_pages = null;
+
+	//Images
 	$count_images_array = glob('data/trash/images/*.*');
 	if ((isset($count_images_array)) && (!empty($count_images_array)))
 		$count_images = count($count_images_array);
-	//Combine all numbers...
-	$trashcan_items = $count_pages + $count_images;
-	return $trashcan_items;
+	else
+		$count_images = null;
+
+	//Combine all numbers...;
+	return $count_pages + $count_images;
 }
-/*INSTALL FUNCTIONS*/
-//Function: check if files are writable.
+
+/*INSTALL FUNCTIONS*/
+
+//Function: check if files are writable.
 //-------------------
 function check_writable($file) {
 	//Translation data.
@@ -128,17 +222,20 @@ function check_writable($file) {
 	<?php
 	}
 }
-//Function: write the install file.
+
+//Function: write the install file.
 //-------------------
 function install_done() {
 	$data = 'data/settings/install.dat';
 	$file = fopen($data, 'w');
 	fputs($file, '');
 	fclose($file);
-	chmod($data,0777);
+	chmod($data, 0777);
 }
-/*SAVE FUNCTIONS*/
-//Function: save the login password.
+
+/*SAVE FUNCTIONS*/
+
+//Function: save the login password.
 //-------------------
 function save_password($password) {
 	//MD5-hash password
@@ -150,7 +247,8 @@ function save_password($password) {
 	fclose($file);
 	chmod($data, 0777);
 }
-//Function: save the options.
+
+//Function: save the options.
 //-------------------
 function save_options($title, $email, $xhtml) {
 	$title = stripslashes($title);
@@ -166,7 +264,8 @@ function save_options($title, $email, $xhtml) {
 	fclose($file);
 	chmod($data, 0777);
 }
-//Function: save the prefered language.
+
+//Function: save the prefered language.
 //-------------------
 function save_language($language) {
 	$data = 'data/settings/langpref.php';
@@ -174,7 +273,8 @@ function save_language($language) {
 	fputs($file, '<?php $langpref = "'.$language.'"; ?>');
 	fclose($file);
 }
-//Function: save theme.
+
+//Function: save theme.
 //-------------------
 function save_theme($theme) {
 	$data = 'data/settings/themepref.php';
@@ -182,7 +282,8 @@ function save_theme($theme) {
 	fputs($file, '<?php $themepref = "'.$theme.'"; ?>');
 	fclose($file);
 }
-//Function: save a page.
+
+//Function: save a page.
 //-------------------
 function save_page($name, $title, $content, $hidden = false) {
 	//Check if the file should be hidden.
@@ -190,7 +291,8 @@ function save_page($name, $title, $content, $hidden = false) {
 		$hidden = 'yes';
 	else
 		$hidden = 'no';
-	$data = 'data/settings/pages/'.$name.'.php';
+
+	$data = 'data/settings/pages/'.$name.'.php';
 	$file = fopen($data, 'w');
 	$title = stripslashes($title);
 	$title = str_replace('"', '\"', $title);

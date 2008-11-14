@@ -13,27 +13,24 @@
 */
 
 //Include security-enhancements
-require('data/inc/security.php');
+require_once ('data/inc/security.php');
 //Include functions
-require('data/inc/functions.all.php');
+require_once ('data/inc/functions.all.php');
 //Include variables
-require('data/inc/variables.all.php');
-
-//Include POST/GET data
-require('data/inc/post_get.php');
+require_once ('data/inc/variables.all.php');
 
 //Check if we've installed pluck
 if (!file_exists('data/settings/install.dat')) {
 	$titelkop = $lang_login1;
-	include('data/inc/header2.php');
+	include_once ('data/inc/header2.php');
 	redirect('install.php', '3');
 	echo $lang_login2;
-	include('data/inc/footer.php');
+	include_once('data/inc/footer.php');
 }
 
 //If pluck is installed:
 else {
-	require('data/settings/pass.php');
+	require_once ('data/settings/pass.php');
 
 	//Check if we're already logged in
 	session_start();
@@ -43,23 +40,23 @@ else {
 	}
 
 	//If password has not yet been sent
-	if(!isset($_POST['Submit'])) {
+	if (!isset($_POST['Submit'])) {
 		//Include header-file
 		$titelkop = $lang_login1;
-		include('data/inc/header2.php');
-?>
-		<span class="kop2"><?php echo $lang_login3; ?></span><br />
-		<form action="login.php" method="post" name="passform">
-			<input name="cont1" size="25" type="password" />
-			<input type="text" name="bogusField" style="display: none;" />
-			<input type="submit" name="Submit" value="<?php echo $lang_login4; ?>" />
-		</form>
-<?php
-		include ('data/inc/footer.php');
+		include_once ('data/inc/header2.php');
+		?>
+			<span class="kop2"><?php echo $lang_login3; ?></span><br />
+			<form action="login.php" method="post" name="passform">
+				<input name="cont1" size="25" type="password" />
+				<input type="text" name="bogusField" style="display: none;" />
+				<input type="submit" name="Submit" value="<?php echo $lang_login4; ?>" />
+			</form>
+		<?php
+		include_once ('data/inc/footer.php');
 	}
 
 	//If password has been sent...
-	elseif(isset($_POST['Submit'])) {
+	elseif (isset($_POST['Submit'])) {
 		//...first MD5-encrypt password that has been posted
 		$pass = md5($cont1);
 
@@ -67,22 +64,22 @@ else {
 		if ($pass == $ww) {
 			//Save session
 			$_SESSION['cmssystem_loggedin'] = 'ok';
-			//Display successmessage   
+			//Display successmessage
 			$titelkop = $lang_login1;
-			include('data/inc/header2.php');
+			include_once ('data/inc/header2.php');
 			echo $lang_login5;
-			redirect('admin.php?action=start', '1');
-			include('data/inc/footer.php');
+			redirect('admin.php?action=start', 1);
+			include_once ('data/inc/footer.php');
 		}
 
 		//---------------
 		//...or is NOT correct:
 		else {
 			$titelkop = $lang_login1;
-			include('data/inc/header2.php');
+			include_once ('data/inc/header2.php');
 			echo $lang_login6;
-			redirect('login.php', '3');
-			include('data/inc/footer.php');
+			redirect('login.php', 3);
+			include_once ('data/inc/footer.php');
 		}
 	}
 }

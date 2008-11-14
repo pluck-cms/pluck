@@ -13,11 +13,11 @@
 */
 
 //Make sure the file isn't accessed directly
-if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("install.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("login.php", $_SERVER['SCRIPT_FILENAME']))){
-	//Give out an "access denied" error
-	echo "access denied";
-	//Block all other code
-	exit();
+if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
+    //Give out an "access denied" error
+    echo 'access denied';
+    //Block all other code
+    exit();
 }
 
 //-----------------
@@ -34,15 +34,15 @@ while ($dir = readdir($dir_handle)) {
 	if (file_exists("data/modules/$dir/module_info.php")) {
 		include("data/modules/$dir/module_info.php");
 	}
-	
+
 	//Check if module is compatible, otherwise don't include pages
 	if(module_is_compatible($dir)) {
-	
+
 		if (file_exists("data/modules/$dir/module_pages_admin.php")) {
 			include("data/modules/$dir/module_pages_admin.php");
 
 			//Include startpage of module
-			if (($module == $module_dir) && (!isset($page))) {
+			if (isset($module) && $module == $module_dir && !isset($page)) {
 				$titelkop = $module_name;
 				include("data/inc/header.php");
 				include("data/modules/$module_dir/pages_admin/$startpage");
@@ -54,7 +54,7 @@ while ($dir = readdir($dir_handle)) {
 				foreach ($module_page as $filename => $pagetitle) {
 					//Generate filename with extension
 					$filename_ext = "$filename.php";
-					if (($module == $module_dir) && ($page == $filename)) {
+					if (isset($module) && $module == $module_dir && $page == $filename) {
 						$titelkop = $pagetitle;
 						include("data/inc/header.php");
 						include("data/modules/$module_dir/pages_admin/$filename_ext");

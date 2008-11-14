@@ -1,203 +1,242 @@
 * {
-margin: 0px;
-padding: 0px;
+	margin: 0px;
+	padding: 0px;
 }
+
 body {
-background-color: white;
-font-family: Trebuchet MS;
-font-size: 100%;
+	background-color: white;
+	font-family: Trebuchet MS;
+	font-size: 100%;
 }
+
 #menuheader {
-background-image: url(image/back.jpg);
-border-bottom: 1px solid #CCCCCC;
-height: 100px;
-position: absolute;
-top: 0px;
-left: 0px;
-width: 100%;
+	background-image: url(image/back.jpg);
+	border-bottom: 1px solid #CCCCCC;
+	height: 100px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
 }
+
 #menuheader img {
-position: relative;
-top: 6px;
+	position: relative;
+	top: 6px;
 }
+
 #menu {
-position: absolute;
-height: 100px;
-left: 185px;
-top: 0px;
+	position: absolute;
+	height: 100px;
+	left: 185px;
+	top: 0px;
 }
+
 .menuitem {
-color: #B6B6B6;
-font-size: 14px;
-padding: 70px 9px 0px 9px;
-margin-bottom: 5px;
-text-align: center;
-text-decoration: none;
-height: 30px;
-float: left;
+	color: #B6B6B6;
+	font-size: 14px;
+	padding: 70px 9px 0px 9px;
+	margin-bottom: 5px;
+	text-align: center;
+	text-decoration: none;
+	height: 30px;
+	float: left;
 }
+
 .menuitem span {
-position: relative;
-bottom: 8px;
+	position: relative;
+	bottom: 8px;
 }
+
 .menuitem:hover {
-background-image: url(image/back_hover.jpg);
+	background-image: url(image/back_hover.jpg);
 }
+
 #menu2 {
-bottom: 5px;
-left: 205px;
-position: absolute;
+	bottom: 5px;
+	left: 205px;
+	position: absolute;
 }
+
 .menuitem2 {
-color:#B6B6B6;
-font-size:15pt;
+	color:#B6B6B6;
+	font-size:15pt;
 }
+
 #statusbox {
-border-left: 1px dotted #CCCCCC;
-height: 80%;
-padding-left: 15px;
-position: absolute;
-right: 25px;
-top: 10px;
-width: 150px;
+	border-left: 1px dotted #CCCCCC;
+	height: 80%;
+	padding-left: 15px;
+	position: absolute;
+	right: 25px;
+	top: 10px;
+	width: 150px;
 }
+
 #statusbox div {
-font-family: Verdana;
-font-size: 11px;
-margin-top: 5px;
+	font-family: Verdana;
+	font-size: 11px;
+	margin-top: 5px;
 }
+
 #text {
-left: 75px;
-position: absolute;
-top: 135px;
-width: 90%;
+	left: 75px;
+	position: absolute;
+	top: 135px;
+	width: 90%;
 }
+
 h1 {
-bottom: 5px;
-color: #3766AC;
-font-size: 25pt;
-font-weight: bold;
-left: 75px;
-margin-right: 100px;
-position: absolute;
+	bottom: 5px;
+	color: #3766AC;
+	font-size: 25pt;
+	font-weight: bold;
+	left: 75px;
+	margin-right: 100px;
+	position: absolute;
 }
+
 h2 {
-color: #3766AC;
-font-weight: bold;
-font-size: 20pt;
+	color: #3766AC;
+	font-weight: bold;
+	font-size: 20pt;
 }
+
 h3 {
-font-weight: bold;
+	font-weight: bold;
 }
+
 .kop2 {
-font-size: 14pt;
-color: #3766AC;
-font-weight: bold;
+	font-size: 14pt;
+	color: #3766AC;
+	font-weight: bold;
 }
+
 .kop3, .kop4 {
-color: gray;
+	color: gray;
 }
+
 .kop3 {
-font-size: 17pt;
+	font-size: 17pt;
 }
+
 .kop4 {
-font-size: 12px;
+	font-size: 12px;
 }
+
 .menudiv {
-background-color: #F4F4F4;
-border: 1px dotted gray;
-padding: 2px 0px 2px 0px;
-margin: 10px;
+	background-color: #F4F4F4;
+	border: 1px dotted gray;
+	padding: 5px;
+	margin: 10px;
 }
+
 .menudiv .title-page {
-width: 350px;
-font-size: 17pt;
+	width: 350px;
+	font-size: 17pt;
 }
+
 .menudiv .title-module {
-width: 600px;
-font-size: 17pt;
-color: gray;
+	font-size: 17pt;
+	color: gray;
 }
+
 .menudiv span {
-display: inline-block;
-vertical-align: middle;
-padding-left: 2px;
+	display: inline-block;
+	vertical-align: middle;
+	padding-left: 2px;
 }
-.menudiv span a {
-font-size: 17pt;
+
+.menudiv span span a {
+	font-size: 17pt;
 }
+
 .menudiv span .more {
-font-size: 8pt;
-color: gray;
+	font-size: 8pt;
+	color: gray;
 }
+
 #somp {
-border-top: 1px dashed gray;
-color: gray;
-font-size: 12px;
-margin-top: 30px;
-padding-top: 5px;
+	border-top: 1px dashed gray;
+	color: gray;
+	font-size: 12px;
+	margin-top: 30px;
+	padding-top: 5px;
 }
+
 #somp a {
-color: #3766AC;
-text-decoration: none;
+	color: #3766AC;
+	text-decoration: none;
 }
+
 #somp a:hover {
-color: gray;
-text-decoration: none;
+	color: gray;
+	text-decoration: none;
 }
+
 .logo {
-bottom: 5px;
-left: 0px;
-position: absolute;
+	bottom: 5px;
+	left: 0px;
+	position: absolute;
 }
+
 a {
-color: gray;
-text-decoration: none;
+	color: gray;
+	text-decoration: none;
 }
+
 a:hover {
-color: #3766AC;
-text-decoration: none;
+	color: #3766AC;
+	text-decoration: none;
 }
+
 a img {
-border: 0px;
+	border: 0px;
 }
+
 input {
-background-color: #F4F4F4;
-border: 1px solid gray;
-color: gray;
-padding: 2px;
+	background-color: #F4F4F4;
+	border: 1px solid gray;
+	color: gray;
+	padding: 2px;
 }
+
 textarea {
-background-color: #F4F4F4;
-border: 1px solid gray;
-color: gray;
-margin-top: 2px;
+	background-color: #F4F4F4;
+	border: 1px solid gray;
+	color: gray;
+	margin-top: 2px;
 }
+
 p {
-margin-bottom: 15px;
+	margin-bottom: 15px;
 }
+
 .rightmenu {
-color: #3766AC;
-float: right;
-font-size: 12px;
-height: 600px;
-overflow: auto;
+	color: #3766AC;
+	float: right;
+	font-size: 12px;
+	height: 600px;
+	overflow: auto;
 }
+
 .smallmenu {
-text-align: right;
-margin: 0px;
-margin-bottom: -8px;
-font-size: 13px;
-color: gray;
-height: 25px;
-width: 98%;
+	text-align: right;
+	margin: 0px;
+	margin-bottom: -8px;
+	font-size: 13px;
+	color: gray;
+	height: 25px;
+	width: 98%;
 }
+
 .smallmenu_button {
-margin-left: 10px;
+	margin-left: 10px;
 }
+
 .smallmenu_a {
-padding-left: 22px;
+	padding-left: 22px;
 }
+
 .red {
-color: red;
+	color: red;
 }

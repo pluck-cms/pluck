@@ -27,7 +27,7 @@ if (!file_exists('data/settings/install.dat')) {
 	redirect('install.php', 3);
 	echo $lang_login2;
 	include_once ('data/inc/footer.php');
-} 
+}
 
 else {
 	session_start();
@@ -41,12 +41,9 @@ else {
 		exit;
 	}
 
-	//Include proper POST/GETs
-	require_once ('data/inc/post_get.php');
-
 	//Define pages
 	//------------
-	if ($action) {
+	if (isset($action)) {
 		switch ($action) {
 			//Page:Start
 			case 'start':
@@ -193,66 +190,66 @@ else {
 
 
 	//Editpage pages
-	elseif ($editpage) {
+	elseif (isset($editpage)) {
 		$tinymce = 'yes';
 		$titelkop = $lang_page3;
 		include_once ('data/inc/header.php');
-		include_once ('data/inc/editpage.php'); 
+		include_once ('data/inc/editpage.php');
 	}
 
 	//Editmeta pages
-	elseif ($editmeta) {
+	elseif (isset($editmeta)) {
 		$titelkop = $lang_meta1;
 		include_once ('data/inc/header.php');
-		include_once ('data/inc/page_editmeta.php'); 
+		include_once ('data/inc/page_editmeta.php');
 	}
 
 	//Deletepage pages
-	elseif ($deletepage) {
+	elseif (isset($deletepage)) {
 		$titelkop = $lang_trash1;
 		include_once ('data/inc/header.php');
 		echo $lang_trash2;
-		include_once ('data/inc/deletepage.php'); 
+		include_once ('data/inc/deletepage.php');
 	}
 
 	//Deleteimage pages
-	elseif ($deleteimage) {
+	elseif (isset($deleteimage)) {
 		$titelkop = $lang_trash1;
 		include_once ('data/inc/header.php');
 		echo $lang_trash2;
-		include_once ('data/inc/deleteimage.php'); 
+		include_once ('data/inc/deleteimage.php');
 	}
 
 	//Pageup pages
-	elseif ($pageup) {
+	elseif (isset($pageup)) {
 		$titelkop = $lang_updown1;
 		include_once ('data/inc/header.php');
-		include_once ('data/inc/pageup.php'); 
+		include_once ('data/inc/pageup.php');
 	}
 
 	//Pagedown pages
-	elseif ($pagedown) {
+	elseif (isset($pagedown)) {
 		$titelkop = $lang_updown1;
 		include_once ('data/inc/header.php');
-		include_once ('data/inc/pagedown.php'); 
+		include_once ('data/inc/pagedown.php');
 	}
 
 	//Trash_viewitem pages
-	elseif ($trash_viewitem) {
+	elseif (isset($trash_viewitem)) {
 		$titelkop = $lang_trash7;
 		include_once ('data/inc/header.php');
 		include_once ('data/inc/trashcan_viewitem.php');
 	}
 
 	//Trash_restoreitem pages
-	elseif ($trash_restoreitem) {
+	elseif (isset($trash_restoreitem)) {
 		$titelkop = $lang_trash10;
 		include_once ('data/inc/header.php');
 		include_once ('data/inc/trashcan_restoreitem.php');
 	}
 
 	//Trash_deleteitem pages
-	elseif ($trash_deleteitem) {
+	elseif (isset($trash_deleteitem)) {
 		$titelkop = $lang_trash8;
 		include_once ('data/inc/header.php');
 		include_once ('data/inc/trashcan_deleteitem.php');
@@ -260,9 +257,9 @@ else {
 
 	//Unknown pages
 	else {
-	if ((!$modulestart) && (!$module)) {
-		header('Location: ?action=start');
-		exit;
+		if (!isset($modulestart) && !isset($module)) {
+			header('Location: ?action=start');
+			exit;
 		}
 	}
 

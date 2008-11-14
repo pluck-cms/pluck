@@ -20,9 +20,6 @@ require_once ('data/inc/functions.admin.php');
 //Include Translation data.
 require_once ('data/inc/variables.all.php');
 
-//Include POST/GET data.
-require_once ('data/inc/post_get.php');
-
 //Check if we've installed pluck
 if (file_exists('data/settings/install.dat')) {
 	$titelkop = $lang_install;
@@ -143,8 +140,8 @@ else {
 			//Check sitetitle.
 			if (!$cont) {
 				?>
-				<br />
-				<span class="red"><?php echo $lang_install15; ?></span>
+					<br />
+					<span class="red"><?php echo $lang_install15; ?></span>
 				<?php
 				include_once ('data/inc/footer.php');
 				exit;
@@ -217,11 +214,10 @@ else {
 		$titelkop = $lang_install;
 		include_once ('data/inc/header2.php');
 		?>
-
-		<p><strong><?php echo $lang_install19; ?></strong></p>
-
-		<?php showmenudiv($lang_install20, $lang_install21, 'data/image/website.png', 'index.php', false, null);
-		showmenudiv($lang_install22, $lang_install23, 'data/image/password.png', 'login.php', false, null);
+			<p><strong><?php echo $lang_install19; ?></strong></p>
+		<?php
+		showmenudiv($lang_install20, $lang_install21, 'data/image/website.png', 'index.php');
+		showmenudiv($lang_install22, $lang_install23, 'data/image/password.png', 'login.php',);
 
 		include_once ('data/inc/footer.php');
 	}

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
@@ -33,14 +33,14 @@ if (file_exists('data/settings/themepref.php'))
 	require_once ('data/settings/themepref.php');
 
 //New constants in 4.7.
-define(PLUCK_VERSION, '4.7 alpha');
-define(SITE_TITLE, get_sitetitle());
-define(EMAIL, $email);
-define(LANG, preg_replace('/.php/','',$langpref));
-define(LANG_FILE, $langpref);
-define(THEME, $themepref);
-define(THEME_DIR, 'data/themes/'.$themepref);
-define(HOME_PAGE, '?file=kop1.php');
+define('PLUCK_VERSION', '4.7 alpha');
+define('SITE_TITLE', get_sitetitle());
+define('EMAIL', $email);
+define('LANG', preg_replace('/.php/','',$langpref));
+define('LANG_FILE', $langpref);
+define('THEME', $themepref);
+define('THEME_DIR', 'data/themes/'.$themepref);
+define('HOME_PAGE', '?file=kop1.php');
 
 //General variables (included for compatibiltiy with pluck 4.6)
 $pluck_version = PLUCK_VERSION;
@@ -51,4 +51,88 @@ $site_email = EMAIL;
 $site_theme = THEME;
 $themedirectory = THEME_DIR;
 $homepage = HOME_PAGE;
+
+//GETS
+if (isset($_GET['action']))
+	$action = $_GET['action'];
+if (isset($_GET['editpage']))
+	$editpage = $_GET['editpage'];
+if (isset($_GET['deletepage']))
+	$deletepage = $_GET['deletepage'];
+if (isset($_GET['deleteimage']))
+	$deleteimage = $_GET['deleteimage'];
+if (isset($_GET['editmeta']))
+	$editmeta = $_GET['editmeta'];
+if (isset($_GET['pageup']))
+	$pageup = $_GET['pageup'];
+if (isset($_GET['pagedown']))
+	$pagedown = $_GET['pagedown'];
+if (isset($_GET['trash_viewitem']))
+	$trash_viewitem = $_GET['trash_viewitem'];
+if (isset($_GET['trash_restoreitem']))
+	$trash_restoreitem = $_GET['trash_restoreitem'];
+if (isset($_GET['trash_deleteitem']))
+	$trash_deleteitem = $_GET['trash_deleteitem'];
+if (isset($_GET['modulestart']))
+	$modulestart = $_GET['modulestart'];
+if (isset($_GET['module']))
+	$module = $_GET['module'];
+if (isset($_GET['page']))
+	$page = $_GET['page'];
+if (isset($_GET['cat']))
+	$cat = $_GET['cat'];
+
+//Some GET-variables for general use
+if (isset($_GET['var1']))
+	$var1 = $_GET['var1'];
+if (isset($_GET['var2']))
+	$var1 = $_GET['var2'];
+if (isset($_GET['var3']))
+	$var3 = $_GET['var3'];
+
+//POSTS
+if (isset($_POST ['kop']))
+	$kop = $_POST ['kop'];
+if (isset($_POST ['tekst']))
+	$tekst = $_POST ['tekst'];
+if (isset($_POST ['back']))
+	$back = $_POST ['back'];
+if (isset($_POST ['txt']))
+	$txt = $_POST ['txt'];
+if (isset($_POST ['type']))
+	$type = $_POST ['type'];
+if (isset($_POST ['cont']))
+	$cont = $_POST ['cont'];
+if (isset($_POST ['password']))
+	$password = $_POST ['password'];
+if (isset($_POST ['password2']))
+	$password2 = $_POST ['password2'];
+if (isset($_POST ['chosen_lang']))
+	$chosen_lang = $_POST ['chosen_lang'];
+if (isset($_POST ['email']))
+	$email = $_POST ['email'];
+if (isset($_POST ['email2']))
+	$email2 = $_POST ['email2'];
+if (isset($_POST ['contactform']))
+	$contactform = $_POST ['contactform'];
+if (isset($_POST ['hidepage']))
+	$hidepage = $_POST ['hidepage'];
+if (isset($_POST ['album_name']))
+	$album_name = $_POST ['album_name'];
+if (isset($_POST ['quality']))
+	$quality = $_POST ['quality'];
+if (isset($_POST ['incmodule']))
+	$incmodule = $_POST ['incmodule'];
+
+//Some variables for general use
+if (isset($_POST ['cont1']))
+	$cont1 = $_POST ['cont1'];
+if (isset($_POST ['cont2']))
+	$cont2 = $_POST ['cont2'];
+if (isset($_POST ['cont3']))
+	$cont3 = $_POST ['cont3'];
+if (isset($_POST ['cont4']))
+	$cont4 = $_POST ['cont4'];
+if (isset($_POST ['cont5']))
+	$cont5 = $_POST ['cont5'];
 ?>

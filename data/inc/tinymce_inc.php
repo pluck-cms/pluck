@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
  * http://www.pluck-cms.org
@@ -8,7 +8,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- 
+
  * See docs/COPYING for the complete license.
 */
 
@@ -147,7 +147,7 @@ tinyMCE.init({
 	entity_encoding : "raw",
 <?php
 //Check if we need to set the direction to rtl
-if ($direction == 'rtl') {
+if (isset($direction) && $direction == 'rtl') {
 ?>
 	directionality : "rtl",
 <?php
@@ -183,7 +183,7 @@ else {
 if ($xhtmlruleset == 'true') {
 ?>
 valid_elements : "" +
-"+a[id|style|rel|rev|charset|hreflang|dir|lang|tabindex|accesskey|type|name|href|target|title|class|onfocus|onblur|onclick|" + 
+"+a[id|style|rel|rev|charset|hreflang|dir|lang|tabindex|accesskey|type|name|href|target|title|class|onfocus|onblur|onclick|" +
     "ondblclick|onmousedown|onmouseup|onmouseover|onmousemove|onmouseout|onkeypress|onkeydown|onkeyup],"
 +"abbr[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress"
   +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
@@ -38,7 +38,7 @@ if($dir == '.' || $dir == '..')
 	}
 	//Only show the button if there are admincenter pages for the module, and if the modules is compatible
 	if((file_exists('data/modules/'.$dir.'/module_pages_admin.php')) && (module_is_compatible($dir))) {
-		showmenudiv($module_name,$module_intro,'data/modules/'.$module_dir.'/'.$module_icon,'?module='.$module_dir,false);
+		showmenudiv($module_name, $module_intro, 'data/modules/'.$module_dir.'/'.$module_icon, '?module='.$module_dir);
 	}
 }
 //Close module-dir

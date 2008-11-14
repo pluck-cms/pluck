@@ -28,7 +28,7 @@ function get_pagetitle() {
 	if ((isset($_GET['file'])) && (!empty($_GET['file']))) {
 		if (isset($_GET ['file']))
 			$filetoread = $_GET ['file'];
-		
+
 		//Check if page exists
 		if (file_exists('data/settings/pages/'.$filetoread)) {
 			include ('data/settings/pages/'.$filetoread);
@@ -70,7 +70,7 @@ function get_pagetitle() {
 					}
 				}
 			}
-		}	
+		}
 	}
 }
 
@@ -82,35 +82,35 @@ function get_pagetitle() {
 //---------------------------------
 function theme_meta() {
 	//Include variables
-	global $current_page_filename, $page_title;
+	global $page_title;
 
 	//Get page-info (for meta-information)
 	if (isset($current_page_filename)) {
-		if (file_exists('data/settings/pages/'.$current_page_filename)) {
-			include ('data/settings/pages/'.$current_page_filename);
+		if (file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
+			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
 		}
 	}
 
 	//Check which CSS-file we need to use (LTR or RTL)
 	if ((isset($direction)) && ($direction == 'rtl')) {
-		$cssfile = 'data/themes/'.THEME.'/style-rtl.css';
+		$cssfile = THEME_DIR.'/style-rtl.css';
 	}
 	else {
-		$cssfile = 'data/themes/'.THEME.'/style.css';
+		$cssfile = THEME_DIR.'/style.css';
 	}
 
 	echo '<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />'."\n";
 	echo '<meta name="generator" content="pluck '.PLUCK_VERSION.'" />'."\n";
-	echo '<title>'.$page_title.' - '.SITE_TITLE.'</title>'."\n";
+	echo '<title>'.PAGE_TITLE.' - '.SITE_TITLE.'</title>'."\n";
 	echo '<link href="'.$cssfile.'" rel="stylesheet" type="text/css" media="screen" />'."\n";
 
 	//If we are not looking at a module: include metatag information
-	if ((isset($current_page_filename)) && (file_exists('data/settings/pages/'.$current_page_filename))) {
+	if (isset(CURRENT_PAGE_FILENAME) && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
 		echo '<meta name="title" content="'.$page_title.'" />'."\n";
-		if ((isset($keywords)) && (!empty($keywords))) {
+		if (isset($keywords) && !empty($keywords)) {
 			echo '<meta name="keywords" content="'.$keywords.'" />'."\n";
 		}
-		if ((isset($description)) && (!empty($description))) {
+		if (isset($description) && !empty($description)) {
 			echo '<meta name="description" content="'.$description.'" />'."\n";
 		}
 	}
@@ -127,13 +127,13 @@ function theme_meta() {
 
 	//Loop through dirs
 	while ($dir = readdir($dir_handle)) {
-		if ($dir == '.' || $dir == '..')
-   		continue;
-		//Include the inc_site.php if it exists, and if module is compatible
-		include ('data/modules/'.$dir.'/module_info.php');
-		if (module_is_compatible($dir)) {
-			if (file_exists('data/modules/'.$dir.'/inc_site_head.php')) {
-				include ('data/modules/'.$dir.'/inc_site_head.php');
+			if ($dir != '.' || $dir != '..') {
+			//Include the inc_site.php if it exists, and if module is compatible
+			include ('data/modules/'.$dir.'/module_info.php');
+			if (module_is_compatible($dir)) {
+				if (file_exists('data/modules/'.$dir.'/inc_site_head.php')) {
+					include ('data/modules/'.$dir.'/inc_site_head.php');
+				}
 			}
 		}
 	}
