@@ -127,11 +127,12 @@ function read_dir_contents($directory, $mode) {
 		}
 	}
 	closedir($path);
-	if ($mode == 'files') {
+
+	if ($mode == 'files' && isset($files))
 		return $files;
-	}
-	if ($mode == 'dirs') {
+	elseif ($mode == 'dirs' && isset($dirs))
 		return $dirs;
-	}
+	else
+		return false;
 }
 ?>
