@@ -105,7 +105,7 @@ function theme_meta() {
 	echo '<link href="'.$cssfile.'" rel="stylesheet" type="text/css" media="screen" />'."\n";
 
 	//If we are not looking at a module: include metatag information
-	if (isset(CURRENT_PAGE_FILENAME) && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
+	if (file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
 		echo '<meta name="title" content="'.$page_title.'" />'."\n";
 		if (isset($keywords) && !empty($keywords)) {
 			echo '<meta name="keywords" content="'.$keywords.'" />'."\n";
@@ -127,7 +127,8 @@ function theme_meta() {
 
 	//Loop through dirs
 	while ($dir = readdir($dir_handle)) {
-			if ($dir != '.' || $dir != '..') {
+			if ($dir == '.' || $dir == '..') {
+			continue;
 			//Include the inc_site.php if it exists, and if module is compatible
 			include ('data/modules/'.$dir.'/module_info.php');
 			if (module_is_compatible($dir)) {

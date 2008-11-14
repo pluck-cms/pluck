@@ -43,7 +43,7 @@ function module_is_compatible($module) {
 		}
 	}
 
-	if ($compatible == 'yes') {
+	if (isset($compatible) && $compatible == 'yes') {
 		return true;
 	}
 	else {
