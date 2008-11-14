@@ -105,7 +105,7 @@ function theme_meta() {
 	echo '<link href="'.$cssfile.'" rel="stylesheet" type="text/css" media="screen" />'."\n";
 
 	//If we are not looking at a module: include metatag information
-	if (file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
+	if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
 		echo '<meta name="title" content="'.$page_title.'" />'."\n";
 		if (isset($keywords) && !empty($keywords)) {
 			echo '<meta name="keywords" content="'.$keywords.'" />'."\n";
