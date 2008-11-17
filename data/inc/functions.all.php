@@ -135,4 +135,12 @@ function read_dir_contents($directory, $mode) {
 	else
 		return false;
 }
+
+//Function: sanitize a variable, to make it ready for saving in a file
+//--------------------
+function sanitize($var) {
+	$var = stripslashes($var);
+	$var = str_replace("\"", "\\\"", $var);
+	return $var;
+}
 ?>

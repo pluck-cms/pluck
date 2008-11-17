@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
@@ -16,7 +16,7 @@
 
 //Error reporting
 error_reporting(E_ALL|E_STRICT);
-
+//Set timezone
 date_default_timezone_set('UTC');
 
 //--------------------------------

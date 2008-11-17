@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
@@ -32,7 +32,7 @@ if (file_exists('data/settings/options.php'))
 if (file_exists('data/settings/themepref.php'))
 	require_once ('data/settings/themepref.php');
 
-//New constants in 4.7.
+//Some constants.
 define('PLUCK_VERSION', '4.7 alpha');
 define('SITE_TITLE', get_sitetitle());
 define('EMAIL', $email);
@@ -91,48 +91,48 @@ if (isset($_GET['var3']))
 	$var3 = $_GET['var3'];
 
 //POSTS
-if (isset($_POST ['kop']))
-	$kop = $_POST ['kop'];
-if (isset($_POST ['tekst']))
-	$tekst = $_POST ['tekst'];
-if (isset($_POST ['back']))
-	$back = $_POST ['back'];
-if (isset($_POST ['txt']))
-	$txt = $_POST ['txt'];
-if (isset($_POST ['type']))
-	$type = $_POST ['type'];
-if (isset($_POST ['cont']))
-	$cont = $_POST ['cont'];
-if (isset($_POST ['password']))
-	$password = $_POST ['password'];
-if (isset($_POST ['password2']))
-	$password2 = $_POST ['password2'];
-if (isset($_POST ['chosen_lang']))
-	$chosen_lang = $_POST ['chosen_lang'];
-if (isset($_POST ['email']))
-	$email = $_POST ['email'];
-if (isset($_POST ['email2']))
-	$email2 = $_POST ['email2'];
-if (isset($_POST ['contactform']))
-	$contactform = $_POST ['contactform'];
-if (isset($_POST ['hidepage']))
-	$hidepage = $_POST ['hidepage'];
-if (isset($_POST ['album_name']))
-	$album_name = $_POST ['album_name'];
-if (isset($_POST ['quality']))
-	$quality = $_POST ['quality'];
-if (isset($_POST ['incmodule']))
-	$incmodule = $_POST ['incmodule'];
+if (isset($_POST['kop']))
+	$kop = $_POST['kop'];
+if (isset($_POST['tekst']))
+	$tekst = $_POST['tekst'];
+if (isset($_POST['back']))
+	$back = $_POST['back'];
+if (isset($_POST['txt']))
+	$txt = $_POST['txt'];
+if (isset($_POST['type']))
+	$type = $_POST['type'];
+if (isset($_POST['cont']))
+	$cont = $_POST['cont'];
+if (isset($_POST['password']))
+	$password = $_POST['password'];
+if (isset($_POST['password2']))
+	$password2 = $_POST['password2'];
+if (isset($_POST['chosen_lang']))
+	$chosen_lang = $_POST['chosen_lang'];
+if (isset($_POST['email']))
+	$email = $_POST['email'];
+if (isset($_POST['email2']))
+	$email2 = $_POST['email2'];
+if (isset($_POST['contactform']))
+	$contactform = $_POST['contactform'];
+if (isset($_POST['hidepage']))
+	$hidepage = $_POST['hidepage'];
+if (isset($_POST['album_name']))
+	$album_name = $_POST['album_name'];
+if (isset($_POST['quality']))
+	$quality = $_POST['quality'];
+if (isset($_POST['incmodule']))
+	$incmodule = $_POST['incmodule'];
 
 //Some variables for general use
-if (isset($_POST ['cont1']))
-	$cont1 = $_POST ['cont1'];
-if (isset($_POST ['cont2']))
-	$cont2 = $_POST ['cont2'];
-if (isset($_POST ['cont3']))
-	$cont3 = $_POST ['cont3'];
-if (isset($_POST ['cont4']))
-	$cont4 = $_POST ['cont4'];
-if (isset($_POST ['cont5']))
-	$cont5 = $_POST ['cont5'];
+if (isset($_POST['cont1']))
+	$cont1 = $_POST['cont1'];
+if (isset($_POST['cont2']))
+	$cont2 = $_POST['cont2'];
+if (isset($_POST['cont3']))
+	$cont3 = $_POST['cont3'];
+if (isset($_POST['cont4']))
+	$cont4 = $_POST['cont4'];
+if (isset($_POST['cont5']))
+	$cont5 = $_POST['cont5'];
 ?>

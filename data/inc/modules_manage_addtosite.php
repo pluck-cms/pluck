@@ -2,7 +2,8 @@
 /*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -115,10 +116,10 @@ if (isset($_POST['Submit'])) {
 
 //Get POST-data
 $themedir = $themepref;
-if (isset($_POST ['moduledir']))
-	$moduledir = $_POST ['moduledir'];
-if (isset($_POST ['position']))
-	$position = $_POST ['position'];
+if (isset($_POST['moduledir']))
+	$moduledir = $_POST['moduledir'];
+if (isset($_POST['position']))
+	$position = $_POST['position'];
 
 //First, check if the settings/modules_inc dir exists
 //If not, create the dir
@@ -154,6 +155,6 @@ fclose($file);
 chmod('data/settings/themes/'.$themedir.'/moduleconf.php', 0777);
 
 //And redirect the user
-//redirect('?action=managemodules','0');
+//redirect('?action=module_addtosite','0');
 }
 ?>

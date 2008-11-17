@@ -2,7 +2,8 @@
 /*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -86,10 +87,10 @@ if ((!ereg('index.php', $_SERVER ['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_
 													$counting_modules = 1;
 													while ($counting_modules <= $number_modules) {
 														//Check if this is the current setting
-														//...and select the html-option if needed
-														if (isset($module_pageinc))
-															$currentsetting = $module_pageinc[$module_dir];
-														if (isset($currentsetting) && $currentsetting == $counting_modules) {
+	//...and select the html-option if needed
+	if (isset($module_pageinc))
+		$currentsetting = $module_pageinc[$module_dir];
+	if (isset($currentsetting) && $currentsetting == $counting_modules) {
 														?>
 															<option value="<?php echo $counting_modules; ?>" selected="selected"><?php echo $counting_modules; ?></option>
 														<?php
@@ -163,12 +164,16 @@ if (isset($_POST['Submit'])) {
 
 	$data = $newfile;
 
-	//FIXME: Do we need this file?
-	include_once ('data/inc/page_stripslashes.php');
-
 	//TODO: We should use the save_page function, but it can not save $module_pageinc.
+	
 	//Sanitize data
-	$kop = htmlentities($kop);
+	sanitize($tekst);
+	htmlspecialchars($kop);
+	sanitize($kop);
+	if (isset($keywords))
+		sanitize($keywords);
+	if (isset($description))
+		sanitize($description);
 
 $file = fopen($data, "w");
 fputs($file, "<?php

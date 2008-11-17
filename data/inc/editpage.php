@@ -2,7 +2,8 @@
 /* 
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -147,11 +148,12 @@ if ($hidepage != "no") {
 	$hidepage = "yes";
 }
 
-$data = "data/settings/pages/$editpage";    
-include("data/inc/page_stripslashes.php");
+$data = "data/settings/pages/$editpage";
 
 //Sanitize data
-$kop = htmlentities($kop);
+sanitize($tekst);
+htmlspecialchars($kop);
+sanitize($kop);
 
 $file = fopen($data, "w");
 fputs($file, "<?php
