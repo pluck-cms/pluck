@@ -1,3 +1,8 @@
+pluck 4.6.1
+----------------------------------------
+- [bug] fix charset problems in page names and albums
+- [bug] fix markup problems in functions.admin.php (#298949)
+
 pluck 4.6
 ----------------------------------------
 - rewritten blog module
