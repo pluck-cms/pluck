@@ -1,13 +1,14 @@
 <?php
-/* 
+/*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- 
+
  * See docs/COPYING for the complete license.
 */
 
@@ -46,8 +47,8 @@ $cont2 = stripslashes($cont2);
 $cont1 = str_replace ("\"","\\\"", $cont1);
 $cont2 = str_replace ("\"","\\\"", $cont2);
 $cont2 = str_replace ("\n","<br>", $cont2);
-$cont1 = htmlentities($cont1);
-$cont2 = htmlentities($cont2);
+$cont1 = htmlspecialchars($cont1);
+$cont2 = htmlspecialchars($cont2);
 
 $data = "data/settings/modules/albums/$var2/$var.php";     
 $file = fopen($data, "w");  
