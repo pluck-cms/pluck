@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
  * http://www.pluck-cms.org
@@ -8,7 +8,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- 
+
  * See docs/COPYING for the complete license.
 */
 
@@ -21,10 +21,10 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 }
 
 //Include functions
-include('data/modules/blog/functions.php');
+require_once('data/modules/blog/functions.php');
 
 //Include the postinformation
-if(file_exists('data/settings/modules/blog/posts/'.$var)) {
+if (file_exists('data/settings/modules/blog/posts/'.$var)) {
 	include('data/settings/modules/blog/posts/'.$var);
 }
 else {
@@ -42,29 +42,30 @@ read_imagesinpages('images');
 
 <form method="post" action="">
 	<span class="kop2"><?php echo $lang_install17; ?></span><br>
-	<input name="cont1" type="text" value="<?php echo $post_title; ?>"><br><br>
-
-	<span class="kop2"><?php echo $lang_blog26; ?></span><br>
+	<input name="cont1" type="text" value="<?php echo $post_title; ?>">
+	<br /><br />
+	<span class="kop2"><?php echo $lang_blog26; ?></span>
+	<br />
 	<select name="cont2">
-		<option value="<?php echo $lang_blog27; ?>" /> <?php echo $lang_blog25; ?>
+		<option value="<?php echo $lang_blog27; ?>"> <?php echo $lang_blog25; ?></option>
 <?php
 //If there are categories
 if(file_exists('data/settings/modules/blog/categories.dat')) {
 	//Load them
 	$categories = file_get_contents('data/settings/modules/blog/categories.dat');
-	
+
 	//Then in an array
 	$categories = split(',',$categories);
-	
+
 	//And show them
 	//start table first
 	foreach($categories as $key => $name) {
 		if($post_category == $name) {
-			echo '<option value="'.$name.'" selected />'.$name;
+			echo '<option value="'.$name.'" selected />'.$name.'</option>';
 		}
 		else {
-			echo '<option value="'.$name.'" />'.$name;
-		} 
+			echo '<option value="'.$name.'" />'.$name.'</option>';
+		}
 	}
 }
 ?>
@@ -73,8 +74,8 @@ if(file_exists('data/settings/modules/blog/categories.dat')) {
 	<span class="kop2"><?php echo $lang_install18; ?></span><br />
 	<textarea class="tinymce" name="cont3" cols="70" rows="20"><?php echo $post_content; ?></textarea><br>
 
-	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>">
-	<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?module=blog';">
+	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
+	<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?module=blog';" />
 </form>
 
 <?php
@@ -89,6 +90,84 @@ if(isset($_POST['Submit'])) {
 	$cont3 = stripslashes($cont3);
 	$cont3 = str_replace("\"", "\\\"", $cont3);
 
+	//Check for new title
+	if ($cont1 != $var) {
+		//Create new post file
+		//Generate filename
+		$newfile = strtolower($cont1);
+		$newfile = str_replace('.', '', $newfile);
+		$newfile = str_replace(',', '', $newfile);
+		$newfile = str_replace('?', '', $newfile);
+		$newfile = str_replace(':', '', $newfile);
+		$newfile = str_replace('<', '', $newfile);
+		$newfile = str_replace('>', '', $newfile);
+		$newfile = str_replace('=', '', $newfile);
+		$newfile = str_replace('"', '', $newfile);
+		$newfile = str_replace('\'', '', $newfile);
+		$newfile = str_replace('/', '', $newfile);
+		$newfile = str_replace("\\", '', $newfile);
+		$newfile = str_replace('-', '', $newfile);
+		$newfile = str_replace('  ', '-', $newfile);
+		$newfile = str_replace(' ', '-', $newfile);
+
+		//Make sure chosen filename doesn't exist
+		if (file_exists('data/settings/modules/blog/posts/'.$newfile.'.php')) {
+			$newfile = $newfile.'-new';
+		}
+
+		//Create/update the post_index.dat file
+		if (file_exists('data/settings/modules/blog/post_index.dat')) {
+			$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
+			$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
+			if (!empty($contents))
+				fputs($file,$newfile.'.php'."\n".$contents);
+			else
+				fputs($file,$newfile.'.php');
+		}
+
+		else {
+			$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
+			fputs($file,$newfile.'.php');
+		}
+
+		fclose($file);
+		unset($file);
+		chmod('data/settings/modules/blog/post_index.dat', 0777);
+
+		//Delete old post file
+		if (file_exists('data/settings/modules/blog/post_index.dat')) {
+			//Get post index
+			$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
+
+			//Check if post index contains post we want to delete, and filter out the post
+			if (ereg($var."\n",$contents))
+				$contents = str_replace($var."\n", '', $contents);
+			elseif (ereg("\n".$var,$contents))
+				$contents = str_replace("\n".$var, '', $contents);
+			elseif (ereg($var,$contents))
+				$contents = str_replace($var, '', $contents);
+
+			//Save updated post index
+			$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
+			fputs($file, $contents);
+			fclose($file);
+
+			//Reload contents of post index in variable
+			$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
+			//If variable/file is empty, delete post index
+			if (empty($contents))
+				unlink('data/settings/modules/blog/post_index.dat');
+		}
+
+		//Check if the old post exists, then delete it
+		if (file_exists('data/settings/modules/blog/posts/'.$var)) {
+			//Delete the post
+			unlink('data/settings/modules/blog/posts/'.$var);
+		}
+
+		//Set the new post file to current file
+		$var = $newfile.'.php';
+	}
 	//Save information
 	$file = fopen('data/settings/modules/blog/posts/'.$var, 'w');
 	fputs($file, '<?php'."\n"
@@ -113,11 +192,11 @@ if(isset($_POST['Submit'])) {
 			.'$post_reaction_time['.$reaction_key.'] = "'.$post_reaction_time[$reaction_key].'";'."\n");
 		}
 	}
-	fputs($file, '?>');	
+	fputs($file, '?>');
 	fclose($file);
 	chmod('data/settings/modules/blog/posts/'.$var, 0777);
 
 	//Redirect user
-	redirect('?module=blog','0');
+	redirect('?module=blog', 0);
 }
 ?>
