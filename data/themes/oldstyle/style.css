@@ -105,4 +105,28 @@ textarea {
 	background:#ffffff;
 	border:1px solid #DD0B0B;
 	border-left:5px solid #DD0B0B;
-	padding:7px}
+	padding:7px;
+	margin:15px auto;}
+.menudiv {
+margin: 20px;
+}
+.albuminfo	{
+font-size: 17pt;
+}
+/* Blogs */
+.blogpost {
+margin-top: 20px;
+}
+
+.posttitle {
+font-size: 18px;
+}
+
+.postinfo {
+font-size: 10px;
+}
+
+.blogpost_reaction {
+margin-bottom: 15px;
+margin-top: 5px;
+}

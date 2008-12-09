@@ -26,7 +26,7 @@ $pageback = $_GET['pageback'];
 ?>
 
 <div class="blogpost">
-	<span class="postinfo" style="font-size: 10px;">
+	<span class="postinfo">
 		<?php echo $lang_blog14; ?> <span style="font-weight: bold;"><?php echo $post_category; ?></span> - <?php echo $post_month; ?>-<?php echo $post_day; ?>-<?php echo $post_year; ?>, <?php echo $post_time; ?>
 	</span><br /><br />
 	<?php echo $post_content; ?>
@@ -40,12 +40,12 @@ $pageback = $_GET['pageback'];
 //Check if there are reactions
 if(isset($post_reaction_title)) {
 	foreach($post_reaction_title as $key => $value) { ?>
-<div class="blogpost_reaction" style="margin-bottom: 15px; margin-top: 5px;">
-	<span class="posttitle" style="font-size: 16px;">
+<div class="blogpost_reaction">
+	<span class="posttitle">
 		<?php echo $post_reaction_title[$key]; ?>
 	</span><br />
 
-	<span class="postinfo" style="font-size: 10px;">
+	<span class="postinfo">
 		<?php echo $lang_blog18; ?> <span style="font-weight: bold;"><?php echo $post_reaction_name[$key]; ?></span> -  <?php echo $post_reaction_month[$key]; ?>-<?php echo $post_reaction_day[$key]; ?>-<?php echo $post_reaction_year[$key]; ?>, <?php echo $post_reaction_time[$key]; ?>
 	</span><br />
 	<?php echo $post_reaction_content[$key]; ?>
@@ -162,4 +162,4 @@ if(isset($_POST['Submit'])) {
 }
 ?>
 
-<p><a href="?file=<?php echo $pageback; ?>">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a></p>
+<p><a href="?file=<?php echo $pageback; ?>" title="<?php echo $lang_theme12; ?>">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a></p>

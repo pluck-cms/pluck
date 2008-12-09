@@ -14,7 +14,7 @@ a{
 	font-weight:bold;
 	outline:none;
 	color:#1D1D1D}
-	a:hover{
+a:hover{
 		text-decoration:none}
 h1{
 	font-size:18px;
@@ -34,8 +34,12 @@ blockquote{
 	background:#fff;
 	border:1px solid #95CB42;
 	border-left:5px solid #95CB42;
-	padding:7px}
-	blockquote p{
+	padding:7px;
+	margin:15px auto}
+.albuminfo	{
+font-size: 17pt;
+}
+blockquote p{
 		margin:0}
 #container {
 	width:760px;
@@ -136,3 +140,24 @@ textarea {
 	padding: 1pt;
 	margin: 5px;
 	}
+
+.menudiv {
+margin: 20px;
+}
+/* Blogs */
+.blogpost {
+margin-top: 20px;
+}
+
+.posttitle {
+font-size: 18px;
+}
+
+.postinfo {
+font-size: 10px;
+}
+
+.blogpost_reaction {
+margin-bottom: 15px;
+margin-top: 5px;
+}

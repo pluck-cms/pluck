@@ -59,8 +59,24 @@ a:visited { color: #58564F; text-decoration: underline }
 a:active { color: #58564F; text-decoration: underline }
 a:hover { color: #CCCCCC; text-decoration: underline }
 
-.album{
-	background:#ffffff;
-	border:1px solid #58564F;
-	border-left:5px solid #58564F;
-	padding:7px}
+.menudiv {margin: 20px }
+.album{background:#ffffff;border:1px solid #58564F;border-left:5px solid #58564F;padding:7px;margin:15px auto}
+.albuminfo	{font-size: 17pt;}
+
+/* Blogs */
+.blogpost {
+margin-top: 20px;
+}
+
+.posttitle {
+font-size: 18px;
+}
+
+.postinfo {
+font-size: 10px;
+}
+
+.blogpost_reaction {
+margin-bottom: 15px;
+margin-top: 5px;
+}

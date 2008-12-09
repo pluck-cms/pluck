@@ -1,8 +1,9 @@
-<?php
+ <?php
 /* 
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -19,13 +20,14 @@ while ($dir = readdir($dir_handle)) {
 	if(file_exists('data/settings/modules/albums/'.$dir.'/thumb/image1.jpg')) {
 
 ?>
-<div class="album" style="margin: 15px; padding: 5px;">
+
+<div class="album">
 	<table>
 		<tr>
-			<td><img alt="<?php echo $dir; ?>" src="data/modules/albums/pages_admin/albums_getimage.php?image=<?php echo $dir; ?>/thumb/image1.jpg" /></td>
+			<td><a href="?module=albums&amp;page=viewalbum&amp;album=<?php echo $dir; ?>&amp;pageback=<?php echo $current_page_filename; ?>" title="album <?php echo $dir; ?>"><img alt="<?php echo $dir; ?>" title=""<?php echo $dir; ?>" src="data/modules/albums/pages_admin/albums_getimage.php?image=<?php echo $dir; ?>/thumb/image1.jpg" /></a></td>
 			<td>
-				<span style="font-size: 17pt">
-					<a href="?module=albums&amp;page=viewalbum&amp;album=<?php echo $dir; ?>&amp;pageback=<?php echo $current_page_filename; ?>"><?php echo $dir; ?></a>
+				<span class="albuminfo">
+					<a href="?module=albums&amp;page=viewalbum&amp;album=<?php echo $dir; ?>&amp;pageback=<?php echo $current_page_filename; ?>" title="album <?php echo $dir; ?>"><?php echo $dir; ?></a>
 				</span>
 			</td>
 		</tr>

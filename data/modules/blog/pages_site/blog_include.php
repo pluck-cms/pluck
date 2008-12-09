@@ -2,7 +2,8 @@
 /*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -31,17 +32,17 @@ if (file_exists('data/settings/modules/blog/post_index.dat')) {
 			//Include post information
 			include_once('data/settings/modules/blog/posts/'.$file);
 			?>
-			<div class="blogpost" style="margin-top: 20px">
-				<span class="posttitle" style="font-size: 18px;">
-					<a href="?module=blog&amp;page=viewpost&amp;post=<?php echo $file; ?>&amp;pageback=<?php echo $current_page_filename; ?>"><?php echo $post_title; ?></a>
+			<div class="blogpost">
+				<span class="posttitle">
+					<a href="?module=blog&amp;page=viewpost&amp;post=<?php echo $file; ?>&amp;pageback=<?php echo $current_page_filename; ?>" title="post <?php echo $post_title; ?>"><?php echo $post_title; ?></a>
 				</span><br />
-				<span class="postinfo" style="font-size: 10px;">
+				<span class="postinfo">
 					<?php echo $lang_blog14; ?> <span style="font-weight: bold;"><?php echo $post_category; ?></span> - <?php echo $post_month; ?>-<?php echo $post_day; ?>-<?php echo $post_year; ?>, <?php echo $post_time; ?>
 				</span>
 				<br /><br />
 				<?php echo $post_content; ?>
 				<p>
-					<a href="?module=blog&amp;page=viewpost&amp;post=<?php echo $file; ?>&amp;pageback=<?php echo $current_page_filename; ?>">&raquo; <?php echo $lang_blog23; ?></a>
+					<a href="?module=blog&amp;page=viewpost&amp;post=<?php echo $file; ?>&amp;pageback=<?php echo $current_page_filename; ?>" title="<?php echo $lang_blog23; ?>">&raquo; <?php echo $lang_blog23; ?></a>
 				</p>
 			</div>
 			<?php

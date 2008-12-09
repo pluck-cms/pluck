@@ -2,7 +2,8 @@
 /* 
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -23,8 +24,8 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 $album = $_GET['album'];
 $pageback = $_GET['pageback'];
 
-if (!file_exists("data/settings/modules/albums/$album")) {
-	echo "<p>$lang_albums18</p>";
+if (!file_exists('data/settings/modules/albums/'.$album)) {
+	echo '<p>'.$lang_albums18.'</p>';
 }
 
 //If the album exists
@@ -52,14 +53,14 @@ function read_albumimages($dir) {
    $album = $_GET['album'];
    include ("data/settings/modules/albums/$album/$fdirname.php");
 
-				echo "<div class=\"album\" style=\"margin: 15px;\">
+				echo "<div class=\"album\">
 							<table>
 							<tr>
 								<td>
-									<a href=\"data/modules/albums/pages_admin/albums_getimage.php?image=$album/$fdirname.jpg\" rel=\"lightbox[album]\" title=\"$name - $info\"><img src=\"data/modules/albums/pages_admin/albums_getimage.php?image=$album/thumb/$fdirname.jpg\" alt=\"$name\" style=\"border: 0px;\" /></a>
+									<a href=\"data/modules/albums/pages_admin/albums_getimage.php?image=$album/$fdirname.jpg\" rel=\"lightbox[album]\" title=\"$name - $info\"><img src=\"data/modules/albums/pages_admin/albums_getimage.php?image=$album/thumb/$fdirname.jpg\" alt=\"$name\" title=\"$name\" /></a>
 								</td>
 								<td>
-									<span style=\"font-size: 17pt;\">$name</span><br />
+									<span class=\"albuminfo\">$name</span><br />
 									<i>$info</i>
 								</td>
 								</tr>
@@ -72,8 +73,8 @@ function read_albumimages($dir) {
 }
 
 //Start reading out those images...
-read_albumimages("data/settings/modules/albums/$album");
+read_albumimages('data/settings/modules/albums/'.$album);
 }
 ?>
 
-<p><a href="?file=<?php echo $pageback; ?>">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a></p>
+<p><a href="?file=<?php echo $pageback; ?>" title="return link">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a></p>

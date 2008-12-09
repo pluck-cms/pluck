@@ -40,7 +40,8 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 	<span class="kop2"><?php echo $lang_credits7; ?></span><br />
 	Kristaps Ancāns<br />
 	Callan Barrett<br />
-	Dennis Sewbarath
+	Dennis Sewbarath<br />
+	Bogumił Cieniek
 </p>
 
 <?php
