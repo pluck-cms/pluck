@@ -25,39 +25,39 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 //-----------------
 
 //Open the module-folder
-$dir_handle = @opendir("data/modules") or die("Unable to open data/modules. Check if it's readable.");
+$dir_handle = @opendir('data/modules') or die('Unable to open data/modules. Check if it\'s readable.');
 
 //Loop through dirs
 while ($dir = readdir($dir_handle)) {
-	if($dir == "." || $dir == "..")
+	if($dir == '.' || $dir == '..')
 	continue;
-	if (file_exists("data/modules/$dir/module_info.php")) {
-		include("data/modules/$dir/module_info.php");
+	if (file_exists('data/modules/'.$dir.'/module_info.php')) {
+		include('data/modules/'.$dir.'/module_info.php');
 	}
 
 	//Check if module is compatible, otherwise don't include pages
 	if(module_is_compatible($dir)) {
 
-		if (file_exists("data/modules/$dir/module_pages_admin.php")) {
-			include("data/modules/$dir/module_pages_admin.php");
+		if (file_exists('data/modules/'.$dir.'/module_pages_admin.php')) {
+			include('data/modules/'.$dir.'/module_pages_admin.php');
 
 			//Include startpage of module
 			if (isset($module) && $module == $module_dir && !isset($page)) {
 				$titelkop = $module_name;
-				include("data/inc/header.php");
-				include("data/modules/$module_dir/pages_admin/$startpage");
+				include('data/inc/header.php');
+				include('data/modules/'.$module_dir.'/pages_admin/'.$startpage);
 			}
 
 			//Include other module-pages,
 			//but only include pages if array has been given
-			if (isset($module_page)) {
+			if (isset($module_page) && isset($page)) {
 				foreach ($module_page as $filename => $pagetitle) {
 					//Generate filename with extension
-					$filename_ext = "$filename.php";
+					$filename_ext = $filename.'.php';
 					if (isset($module) && $module == $module_dir && $page == $filename) {
 						$titelkop = $pagetitle;
-						include("data/inc/header.php");
-						include("data/modules/$module_dir/pages_admin/$filename_ext");
+						include('data/inc/header.php');
+						include('data/modules/'.$module_dir.'/pages_admin/'.$filename_ext);
 					}
 				}
 			}
@@ -66,12 +66,12 @@ while ($dir = readdir($dir_handle)) {
 	//If module is not compatible
 	elseif((!module_is_compatible($dir)) && ($module == $dir)) {
 		$titelkop = $module_name;
-		include("data/inc/header.php");
+		include('data/inc/header.php');
 		echo $lang_modules27;
 	}
 	//Also include the module-include file (if it exists)
-	if ((file_exists("data/modules/$dir/inc_admin.php")) && (module_is_compatible($dir))) {
-		include("data/modules/$dir/inc_admin.php");
+	if ((file_exists('data/modules/'.$dir.'/inc_admin.php')) && (module_is_compatible($dir))) {
+		include('data/modules/'.$dir.'/inc_admin.php');
 	}
 }
 //Close module-dir
