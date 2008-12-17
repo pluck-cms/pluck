@@ -132,25 +132,28 @@ function read_imagesinpages($dir) {
 
 //Function: read out the pages to let them be included in pages as link
 //------------
-function read_pagesinpages($dir) {
+function read_pagesinpages($dir, $current_page = null) {
 	global $lang_page9;
 	$files = read_dir_contents($dir, 'files');
 	if ($files) {
 		natcasesort($files);
 		foreach ($files as $file) {
-			include 'data/settings/pages/'.$file;
-			?>
-				<div class="menudiv" style="width: 200px;">
-					<span>
-						<img src="data/image/page_small.png" alt="" />
-					</span>
-					<span style="font-size: 14px;">
-						<span style="font-size: 16px; color: gray;"><?php echo $title; ?></span>
-						<br />
-						<a href="#" onclick="tinyMCE.execCommand('mceInsertContent',false,'&lt;a href=\'index.php?file=<?php echo $file; ?>\' title=\'<?php echo $title; ?>\'><?php echo $title; ?>&lt;/a>');return false;"><?php echo $lang_page9; ?></a>
-					</span>
-				</div>
-			<?php
+			if ($current_page != $file) {
+				require 'data/settings/pages/'.$file;
+				?>
+					<div class="menudiv" style="width: 200px;">
+						<span>
+							<img src="data/image/page_small.png" alt="" />
+						</span>
+						<span style="font-size: 14px;">
+							<span style="font-size: 16px; color: gray;"><?php echo $title; ?></span>
+							<br />
+							<?php $escaped_title = str_replace('&#039;', '\&#039;', $title); ?>
+							<a href="#" onclick="tinyMCE.execCommand('mceInsertContent',false,'&lt;a href=\'index.php?file=<?php echo $file; ?>\' title=\'<?php echo $escaped_title ?>\'><?php echo $escaped_title ?>&lt;/a>');return false;"><?php echo $lang_page9; ?></a>
+						</span>
+					</div>
+				<?php
+			}
 		}
 	}
 }

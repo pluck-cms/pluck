@@ -71,15 +71,15 @@ elseif (defined('CURRENT_PAGE_FILENAME') && empty($_GET['file'])) {
 
 //If a module has been specified...
 if (defined('CURRENT_MODULE_DIR')) {
-	//check if the module exists
+	//Check if the module exists
 	if (file_exists('data/modules/'.CURRENT_MODULE_DIR)) {
-		//and check if we also specified a page (if not, redirect)
+		//And check if we also specified a page (if not, redirect)
 		if (defined('CURRENT_MODULE_DIR') && !defined('CURRENT_MODULE_PAGE')) {
 			header('Location: '.HOME_PAGE);
 			exit;
 		}
 
-		//if a page has been set, check if it exists (if not, redirect)
+		//If a page has been set, check if it exists (if not, redirect)
 		elseif (defined('CURRENT_MODULE_DIR') && defined('CURRENT_MODULE_PAGE')) {
 			if (!file_exists('data/modules/'.CURRENT_MODULE_DIR.'/pages_site/'.CURRENT_MODULE_PAGE.'.php')) {
 				header('Location: '.HOME_PAGE);

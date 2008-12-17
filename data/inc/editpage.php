@@ -30,7 +30,7 @@ require_once ('data/settings/pages/'.$editpage);
 <br />
 <?php
 	read_imagesinpages('images');
-	read_pagesinpages('data/settings/pages');
+	read_pagesinpages('data/settings/pages', $editpage);
 ?>
 </div>
 <?php
