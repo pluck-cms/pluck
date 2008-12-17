@@ -283,26 +283,54 @@ function save_theme($theme) {
 	fclose($file);
 }
 
-//Function: save a page.
-//-------------------
-function save_page($name, $title, $content, $hidden = false) {
-	//Check if the file should be hidden.
-	if ($hidden == true)
-		$hidden = 'yes';
-	else
-		$hidden = 'no';
+/**
+ * Save a page with a lot of options.
+ *
+ * @param string $name The filename of the page (without .php).
+ * @param string $title The title.
+ * @param string $content The content.
+ * @param string $hidden Should it be hidden (yes or no)?
+ * @param string $description The description.
+ * @param string $keywords The keywords.
+ * @param array $modules If there are any modules on the page.
+ */
+function save_page($name, $title, $content, $hidden = 'no', $description = null, $keywords = null, $modules = null) {
+	//Sanitize the inputs.
+	$title = sanitize($title, true);
+	$content = sanitize($content);
+	$description = sanitize($description, true);
+	$keywords = sanitize($keywords, true);
 
+	//Check hidden status.
+	if ($hidden != 'no')
+		$hidden = 'yes';
+
+	//Open the file.
 	$data = 'data/settings/pages/'.$name.'.php';
 	$file = fopen($data, 'w');
-	$title = stripslashes($title);
-	$title = str_replace('"', '\"', $title);
-	$content = stripslashes($content);
-	$content = str_replace('"', '\"', $content);
+
+	//Save the title, content and hidden status.
 	fputs($file, '<?php'."\n"
-	.'$title = "'.$title.'";'."\n"
-	.'$content = "'.$content.'";'."\n"
-	.'$hidden = "'.$hidden.'";'."\n"
-	.'?>');
+	.'$title = \''.$title.'\';'."\n"
+	.'$content = \''.$content.'\';'."\n"
+	.'$hidden = \''.$hidden.'\';');
+
+	//Save the description and keywords, if any.
+	if (!empty($description) && $description != null)
+		fputs($file, "\n".'$description = \''.$description.'\';');
+	if (!empty($keywords) && $keywords != null)
+		fputs($file, "\n".'$keywords = \''.$keywords.'\';');
+
+	//Check if there are modules we want to save.
+	if (is_array($modules)) {
+		foreach ($modules as $modulename => $order) {
+			//Only save it if we want to display the module.
+			if ($order != 0)
+				fputs($file, "\n".'$module_pageinc[\''.$modulename.'\'] = '.$order.';');
+		}
+	}
+
+	fputs($file, "\n".'?>');
 	fclose($file);
 	chmod($data, 0777);
 }

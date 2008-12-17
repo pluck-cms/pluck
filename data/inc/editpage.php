@@ -14,172 +14,144 @@
 
 //Make sure the file isn't accessed directly
 if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("install.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("login.php", $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo "access denied";
-    //Block all other code
-    exit();
+	//Give out an "access denied" error.
+	echo "access denied";
+	//Block all other code.
+	exit();
 }
 
-//Get form-data
-include ("data/settings/options.php");
+//Include page information.
+require_once ('data/settings/pages/'.$editpage);
 
-//Generate the menu on the right
-echo "<div class=\"rightmenu\">";
-echo "$lang_page8 <br>";
-read_imagesinpages("images");
-read_pagesinpages("data/settings/pages");
-echo "</div>";
+//Generate the menu on the right.
+?>
+<div class="rightmenu">
+<?php echo $lang_page8; ?>
+<br />
+<?php
+	read_imagesinpages('images');
+	read_pagesinpages('data/settings/pages');
+?>
+</div>
+<?php
+//Form.
+?>
+<form method="post" action="">
+	<span class="kop2"><?php echo $lang_install17; ?></span>
+	<br />
+	<input name="kop" type="text" value="<?php echo $title; ?>" />
+	<br /><br />
+	<span class="kop2"><?php echo $lang_install18; ?></span>
+	<br />
+	<textarea class="tinymce" name="tekst" cols="70" rows="20"><?php echo htmlentities($content); ?></textarea>
+	<br />
+	<div class="menudiv" style="width: 585px; margin-left: 0px;">
+		<table>
+			<tr>
+				<td>
+					<img src="data/image/modules.png" alt="" />
+				</td>
+				<td>
+					<span class="kop3"><?php echo $lang_modules; ?></span>
+					<br />
+					<strong><?php echo $lang_modules16; ?></strong>
+					<br />
+					<table>
+					<?php
+						//Define path to the module-dir.
+						$path = 'data/modules';
+						//Open the folder.
+						$dir_handle = @opendir($path) or die('Unable to open '.$path.'. Check if it\'s readable.');
+						//First count how many modules we have, and exclude disabled modules.
+						$number_modules = count(glob('data/modules/*'));
+						while ($dir = readdir($dir_handle)) {
+							if ($dir != '.' && $dir != '..') {
+								if (!module_is_compatible($dir)) {
+									$number_modules--;
+								}
+							}
+						}
+						closedir($dir_handle);
 
-//Include Page information
-include("data/settings/pages/$editpage");
+						//Loop through dirs, and display the modules.
+						$dir_handle = @opendir($path) or die('Unable to open '.$path.'. Check if it\'s readable.');
+						while ($dir = readdir($dir_handle)) {
+							if ($dir != "." && $dir != "..") {
+								//Only show if module is compatible.
+								if (module_is_compatible($dir)) {
+									include ('data/modules/'.$dir.'/module_info.php');
+									?>
+									<tr>
+										<td><?php echo $module_name; ?></td>
+										<td>
+											<select name="incmodule[<?php echo $module_dir; ?>]">
+												<option value="0"><?php echo $lang_modules6; ?></option>
+												<?php
+													$counting_modules = 1;
+													while ($counting_modules <= $number_modules) {
+														//Check if this is the current setting.
+														//...and select the html-option if needed
+														if (isset($module_pageinc))
+															$currentsetting = $module_pageinc[$module_dir];
+														if (isset($currentsetting) && $currentsetting == $counting_modules) {
+														?>
+															<option value="<?php echo $counting_modules; ?>" selected="selected"><?php echo $counting_modules; ?></option>
+														<?php
+														}
 
-//Check if we have to check the hidepage checkbox
-if (($hidden == "no") || (!$hidden)) {
-	$hidecheck = "checked";
-}
-else {
-	$hidecheck = "";
-}
+														//...if this is no the current setting, don't select the html-option.
+														else {
+														?>
+															<option value="<?php echo $counting_modules; ?>"><?php echo $counting_modules; ?></option>
+														<?php
+														}
 
-//Form
-echo "<form method=\"post\" action=\"\">
-<span class=\"kop2\">$lang_install17</span><br>
-<input name=\"kop\" type=\"text\" value=\"$title\"><br><br>
-
-<span class=\"kop2\">$lang_install18</span><br>
-<textarea class=\"tinymce\" name=\"tekst\" cols=\"70\" rows=\"20\">$content</textarea><br>";
-
-//Modules div
-echo "<div style=\"background-color: #f4f4f4; width: 600px; padding: 5px; border: 1px dotted gray; margin: 5px;\">
-<table>
-<tr>
-<td>
-<img src=\"data/image/modules.png\" border=\"0\" alt=\"\">
-</td>
-<td>
-<span class=\"kop3\">$lang_modules</span><br>
-<b>$lang_modules16</b><br>
-<table>";
-
-//Define path to the module-dir
-$path = "data/modules";
-//Open the folder
-$dir_handle = @opendir($path) or die("Unable to open $path. Check if it's readable.");
-
-//First count how many modules we have, and exclude disabled modules
-$number_modules = count(glob("data/modules/*"));
-while ($dir = readdir($dir_handle)) {
-	if($dir != "." && $dir != "..") {
-		if (!module_is_compatible($dir)) {
-			$number_modules = $number_modules-1;
-		}
-	}
-}
-closedir($dir_handle);
-
-//Loop through dirs, and display the modules
-$dir_handle = @opendir($path) or die("Unable to open $path. Check if it's readable.");
-while ($dir = readdir($dir_handle)) {
-	if($dir != "." && $dir != "..") {
-		//Only show if module is compatible
-		if (module_is_compatible($dir)) {
-			include("data/modules/$dir/module_info.php");
-
-			echo "<tr><td>$module_name</td>";
-			echo "<td><select name=\"incmodule[$module_dir]\">";
-			echo "<option value=\"0\">$lang_modules6";
-
-			$counting_modules = 1;
-			while ($counting_modules <= $number_modules) {
-
-				//Check if this is the current setting
-				//...and select the html-option if needed
-				$currentsetting = $module_pageinc[$module_dir];
-				if ($currentsetting == $counting_modules) {
-					echo "<option value=\"$counting_modules\" selected>$counting_modules";
-				}
-				//...if this is no the current setting, don't select the html-option
-				else {
-					echo "<option value=\"$counting_modules\">$counting_modules";
-				}
-
-				//Higher counting_modules
-				$counting_modules++;
-			}
-		}
-		echo "</select></td></tr>";
-	}
-}
-closedir($dir_handle);
-
-echo "</table>
-</td>
-</tr>
-</table>
-</div>"; 
-
-//Options div
-echo "<div style=\"background-color: #f4f4f4; width: 600px; padding: 5px; border: 1px dotted gray; margin: 5px;\">
-<table>
-<tr>
-<td>
-<img src=\"data/image/options.png\" border=\"0\" alt=\"\">
-</td>
-<td>
-<span class=\"kop3\">$lang_contact2</span><br>";
-
-//Display checkbox for the hidepage-option
-echo "<input type=\"checkbox\" name=\"hidepage\" value=\"no\" $hidecheck> $lang_pagehide1<br>
-</td>
-</tr>
-</table>
-</div>"; 
-
-//Submit button
-echo "<input type=\"submit\" name=\"Submit\" value=\"$lang_install13\">
-<input type=\"button\" name=\"Cancel\" value=\"$lang_install14\" onclick=\"javascript: window.location='?action=page';\">
-</form>";
-
+														//Higher counting_modules.
+														$counting_modules++;
+													}
+												?>
+											</select>
+										</td>
+									</tr>
+									<?php
+									}
+								}
+							}
+							closedir($dir_handle);
+						?>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="menudiv" style="width: 585px; margin-left: 0px;">
+		<table>
+			<tr>
+				<td>
+					<img src="data/image/options.png" alt="" />
+				</td>
+				<td>
+					<span class="kop3"><?php echo $lang_contact2; ?></span>
+					<br />
+					<input type="checkbox" name="hidepage" <?php if ($hidden == 'no') echo'checked="checked"'; ?> value="no" /><?php echo $lang_pagehide1; ?>
+					<br />
+				</td>
+			</tr>
+		</table>
+	</div>
+	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
+	<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=page';" />
+</form>
+<?php
 //If form is posted...
-if(isset($_POST['Submit'])) {
+if (isset($_POST['Submit'])) {
+	//Remove .php from the filename. We add it again in save_page.
+	$editpage = preg_replace('/.php$/', '', $editpage);
 
-//Check if we want to show the page in the menu
-if ($hidepage != "no") {
-	$hidepage = "yes";
+	//Save the page.
+	save_page($editpage, $kop, $tekst, $hidepage, $description, $keywords, $incmodule);
+
+	//Redirect the user.
+	redirect('?action=page', 0);
 }
-
-$data = "data/settings/pages/$editpage";
-
-//Sanitize data
-sanitize($tekst);
-htmlspecialchars($kop);
-sanitize($kop);
-
-$file = fopen($data, "w");
-fputs($file, "<?php
-\$title = \"$kop\";
-\$content = \"$tekst\";
-\$hidden = \"$hidepage\";\n");
-
-//Only save other variables if they are set
-if(isset($description)) {
-	fputs($file, "\$description = \"$description\";\n");
-}
-if (isset($keywords)) {
-	fputs($file, "\$keywords = \"$keywords\";\n");
-}
-
-//Save the module information
-foreach ($incmodule as $modulename => $order) {
-	fputs($file, "\n\$module_pageinc['$modulename'] = \"$order\";");
-}
-
-//Close the file
-fputs($file, "\n?>");
-fclose($file);
-//Give the file the right permissions
-chmod($data, 0777);
-
-//and redirect user
-echo "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"0; URL=?action=page\">"; }
 ?>

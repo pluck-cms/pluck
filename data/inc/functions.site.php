@@ -192,12 +192,12 @@ function theme_pagetitle() {
 //---------------------------------
 function theme_content() {
 	//Get needed variables
-	global $current_page_filename;
+	global $lang_front2;
 	//Get the contents only if we are looking at a normal page
-	if (isset($current_page_filename)) {
+	if (defined('CURRENT_PAGE_FILENAME')) {
 		//Check if page exists
-		if (file_exists('data/settings/pages/'.$current_page_filename)) {
-			include ('data/settings/pages/'.$current_page_filename);
+		if (file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
+			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
 			echo $content;
 		}
 		//If page doesn't exist, show error message

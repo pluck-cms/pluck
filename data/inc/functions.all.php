@@ -86,8 +86,12 @@ function recursive_remove_directory($directory, $empty = false)	{
 	return true;
 }
 
-//Function: get site title.
-//--------------------
+/**
+ * Get the site title from the options, and return it.
+ *
+ * @global string $sitetitle
+ * @return string The site title.
+ */
 function get_sitetitle() {
 	if (file_exists('data/settings/options.php')) {
 		global $sitetitle;
@@ -95,8 +99,12 @@ function get_sitetitle() {
 	}
 }
 
-//Function: redirect.
-//--------------------
+/**
+ * Redirect the user to a given address after a number of seconds.
+ *
+ * @param string $url The redirect address.
+ * @param integer $time The number of seconds before the redirect.
+ */
 function redirect($url, $time) {
 	//First, urlencode the entire url.
 	$url = urlencode($url);
@@ -112,8 +120,14 @@ function redirect($url, $time) {
 	echo '<meta http-equiv="refresh" content="'.$time.'; url='.$url.'" />';
 }
 
-//Function: read files in a dir, and return the names in an array.
-//--------------------
+/**
+ * Read files or directories in a directory, and return the names in an array.
+ *
+ * @param  string $directory The directory where the files are in.
+ * @param  string $mode Should it read dirs or files?
+ * @return array The directories or files.
+ * @todo   Should mode be a boolean (true for dirs and false for files)?
+ */
 function read_dir_contents($directory, $mode) {
 	$path = opendir($directory);
 	while (false !== ($file = readdir($path))) {
@@ -136,11 +150,18 @@ function read_dir_contents($directory, $mode) {
 		return false;
 }
 
-//Function: sanitize a variable, to make it ready for saving in a file
-//--------------------
-function sanitize($var) {
-	$var = stripslashes($var);
-	$var = str_replace("\"", "\\\"", $var);
+/**
+ * Sanitize a variable, to make it ready for saving in a file.
+ *
+ * @param string $var The variable to sanitize.
+ * @param boolean $html Should it convert HTML too?
+ * @return string The sanitized variable.
+ */
+function sanitize($var, $html = false) {
+	if ($html == true)
+		$var = htmlentities($var, ENT_QUOTES);
+	else
+		$var = str_replace('\'', '\\\'', $var);
 	return $var;
 }
 ?>

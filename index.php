@@ -58,13 +58,13 @@ if ($dir == '.' || $dir == '..')
 closedir($dir_handle);
 
 //Check if a page or module has been specified, if not: redirect to kop1.php
-if ((!defined('CURRENT_PAGE_FILENAME')) && (!defined('CURRENT_MODULE_DIR'))) {
+if (!defined('CURRENT_PAGE_FILENAME') && !defined('CURRENT_MODULE_DIR')) {
 	header('Location: '.HOME_PAGE);
 	exit;
 }
 
 //Or if a page has been specified but it's empty
-elseif ((defined('CURRENT_PAGE_FILENAME')) && (empty($_GET['file']))) {
+elseif (defined('CURRENT_PAGE_FILENAME') && empty($_GET['file'])) {
 	header('Location: '.HOME_PAGE);
 	exit;
 }
@@ -74,15 +74,15 @@ if (defined('CURRENT_MODULE_DIR')) {
 	//check if the module exists
 	if (file_exists('data/modules/'.CURRENT_MODULE_DIR)) {
 		//and check if we also specified a page (if not, redirect)
-		if ((defined('CURRENT_MODULE_DIR')) && (!defined('CURRENT_MODULE_PAGE'))) {
+		if (defined('CURRENT_MODULE_DIR') && !defined('CURRENT_MODULE_PAGE')) {
 			header('Location: '.HOME_PAGE);
 			exit;
 		}
 
 		//if a page has been set, check if it exists (if not, redirect)
-		elseif ((defined('CURRENT_MODULE_DIR')) && (defined('CURRENT_MODULE_PAGE'))) {
+		elseif (defined('CURRENT_MODULE_DIR') && defined('CURRENT_MODULE_PAGE')) {
 			if (!file_exists('data/modules/'.CURRENT_MODULE_DIR.'/pages_site/'.CURRENT_MODULE_PAGE.'.php')) {
-				header('Location: '.HOME_PAGE);
+				header('Location: '.HOME_PAE);
 				exit;
 			}
 		}

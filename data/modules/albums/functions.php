@@ -2,8 +2,10 @@
 //Some functions needed for the album-module are defined here
 
 //Predefined variables
-$var = $_GET['var'];
-$var2 = $_GET['var2'];
+if (isset($_GET['var']))
+	$var = $_GET['var'];
+if (isset($_GET['var2']))
+	$var2 = $_GET['var2'];
 
 //Function: readout albums
 //------------
@@ -14,17 +16,17 @@ function read_albums($dir) {
            if(is_file($dir."/".$file))
                $files[]=$file;
            else
-               $dirs[]=$file;           
+               $dirs[]=$file;
        }
    }
-   if (!$dirs) {
+   if (!isset($dirs)) {
 	//Include Translation data
 	include ("data/settings/langpref.php");
 	include ("data/inc/lang/en.php");
 	include ("data/inc/lang/$langpref");
 	echo "<span class=\"kop4\">$lang_albums14</span>"; }
-	
-   if($dirs) {
+
+   if (isset($dirs)) {
    natcasesort($dirs);
    foreach ($dirs as $dir) {
 		//Include Translation data
@@ -41,10 +43,10 @@ function read_albums($dir) {
 						<span style=\"font-size: 17pt;\">$dir</span>
 					</td>
 					<td>
-					<a href=\"?module=albums&page=editalbum&var=$dir\"><img src=\"data/image/edit.png\" border=\"0\" title=\"$lang_albums6\" alt=\"$lang_albums6\"></a>		
+					<a href=\"?module=albums&page=editalbum&var=$dir\"><img src=\"data/image/edit.png\" border=\"0\" title=\"$lang_albums6\" alt=\"$lang_albums6\"></a>
 					</td>
 					<td>
-					<a href=\"?module=albums&page=deletealbum&var=$dir\"><img src=\"data/image/delete_from_trash.png\" border=\"0\" title=\"$lang_albums5\" alt=\"$lang_albums5\"></a>		
+					<a href=\"?module=albums&page=deletealbum&var=$dir\"><img src=\"data/image/delete_from_trash.png\" border=\"0\" title=\"$lang_albums5\" alt=\"$lang_albums5\"></a>
 					</td>
 				</tr>
 			</table>
@@ -63,7 +65,7 @@ function read_albumimages($dir) {
            if(is_file($dir."/".$file))
                $files[]=$file;
            else
-               $dirs[]=$file;           
+               $dirs[]=$file;
        }
    }
 	if (!$files) {
@@ -76,7 +78,7 @@ function read_albumimages($dir) {
    if($files) {
 	natcasesort($files);
 
-   foreach ($files as $file) { 
+   foreach ($files as $file) {
 	//Include Translation data
 	include ("data/settings/langpref.php");
 	include ("data/inc/lang/en.php");
@@ -97,16 +99,16 @@ function read_albumimages($dir) {
 									<i>$info</i>
 								</td>
 								<td>
-								<a href=\"?module=albums&page=editimage&var=$fdirname&var2=$var\"><img src=\"data/image/edit.png\" border=\"0\" title=\"$lang_albums6\" alt=\"$lang_albums6\"></a>		
+								<a href=\"?module=albums&page=editimage&var=$fdirname&var2=$var\"><img src=\"data/image/edit.png\" border=\"0\" title=\"$lang_albums6\" alt=\"$lang_albums6\"></a>
 								</td>
 								<td>
-								<a href=\"?module=albums&page=imageup&var=$fdirname&var2=$var\"><img src=\"data/image/up.png\" border=\"0\" title=\"$lang_updown5\" alt=\"$lang_updown5\"></a>		
+								<a href=\"?module=albums&page=imageup&var=$fdirname&var2=$var\"><img src=\"data/image/up.png\" border=\"0\" title=\"$lang_updown5\" alt=\"$lang_updown5\"></a>
 								</td>
 								<td>
-								<a href=\"?module=albums&page=imagedown&var=$fdirname&var2=$var\"><img src=\"data/image/down.png\" border=\"0\" title=\"$lang_updown5\" alt=\"$lang_updown5\"></a>		
+								<a href=\"?module=albums&page=imagedown&var=$fdirname&var2=$var\"><img src=\"data/image/down.png\" border=\"0\" title=\"$lang_updown5\" alt=\"$lang_updown5\"></a>
 								</td>
 								<td>
-								<a href=\"?module=albums&page=deleteimage&var=$fdirname&var2=$var\"><img src=\"data/image/delete_from_trash.png\" border=\"0\" title=\"$lang_kop13\" alt=\"$lang_kop13\"></a>		
+								<a href=\"?module=albums&page=deleteimage&var=$fdirname&var2=$var\"><img src=\"data/image/delete_from_trash.png\" border=\"0\" title=\"$lang_kop13\" alt=\"$lang_kop13\"></a>
 								</td>
 								</tr>
 							</table>

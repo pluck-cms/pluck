@@ -2,7 +2,8 @@
 /* 
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -26,9 +27,12 @@ include("data/settings/langpref.php");
 include("data/inc/lang/en.php");
 include("data/inc/lang/$langpref");
 //Define some variables
-$name = $_POST['name'];
-$sender = $_POST['sender'];
-$message = $_POST['message'];
+if (isset($_POST['name']))
+	$name = $_POST['name'];
+if (isset($_POST['sender']))
+	$sender = $_POST['sender'];
+if (isset($_POST['message']))
+	$message = $_POST['message'];
 
 //Then show the contactform
 echo "<form method=\"post\" action=\"\" style=\"margin-top: 15px; margin-bottom: 15px;\"><div>

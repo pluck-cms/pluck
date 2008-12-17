@@ -12,15 +12,15 @@
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
+//Make sure the file isn't accessed directly.
 if ((!ereg('index.php', $_SERVER ['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER ['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER ['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER ['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo 'access denied';
-    //Block all other code
-    exit();
+	//Give out an "access denied" error.
+	echo 'access denied';
+	//Block all other code.
+	exit();
 }
 
-//Generate the menu on the right
+//Generate the menu on the right.
 ?>
 <div class="rightmenu">
 <?php echo $lang_page8; ?>
@@ -31,7 +31,7 @@ if ((!ereg('index.php', $_SERVER ['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_
 ?>
 </div>
 <?php
-//Form
+//Form.
 ?>
 <form method="post" action="">
 	<span class="kop2"><?php echo $lang_install17; ?></span>
@@ -55,26 +55,26 @@ if ((!ereg('index.php', $_SERVER ['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_
 					<br />
 					<table>
 					<?php
-						//Define path to the module-dir
+						//Define path to the module-dir.
 						$path = 'data/modules';
-						//Open the folder
+						//Open the folder.
 						$dir_handle = @opendir($path) or die('Unable to open '.$path.'. Check if it\'s readable.');
-						//First count how many modules we have, and exclude disabled modules
+						//First count how many modules we have, and exclude disabled modules.
 						$number_modules = count(glob('data/modules/*'));
 						while ($dir = readdir($dir_handle)) {
 							if ($dir != '.' && $dir != '..') {
 								if (!module_is_compatible($dir)) {
-									$number_modules = $number_modules - 1;
+									$number_modules--;
 								}
 							}
 						}
 						closedir($dir_handle);
 
-						//Loop through dirs, and display the modules
+						//Loop through dirs, and display the modules.
 						$dir_handle = @opendir($path) or die('Unable to open '.$path.'. Check if it\'s readable.');
 						while ($dir = readdir($dir_handle)) {
 							if ($dir != "." && $dir != "..") {
-								//Only show if module is compatible
+								//Only show if module is compatible.
 								if (module_is_compatible($dir)) {
 									include ('data/modules/'.$dir.'/module_info.php');
 									?>
@@ -86,35 +86,21 @@ if ((!ereg('index.php', $_SERVER ['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_
 												<?php
 													$counting_modules = 1;
 													while ($counting_modules <= $number_modules) {
-														//Check if this is the current setting
-	//...and select the html-option if needed
-	if (isset($module_pageinc))
-		$currentsetting = $module_pageinc[$module_dir];
-	if (isset($currentsetting) && $currentsetting == $counting_modules) {
-														?>
-															<option value="<?php echo $counting_modules; ?>" selected="selected"><?php echo $counting_modules; ?></option>
-														<?php
-														}
-
-														//...if this is no the current setting, don't select the html-option
-														else {
 														?>
 															<option value="<?php echo $counting_modules; ?>"><?php echo $counting_modules; ?></option>
 														<?php
-														}
-
-														//Higher counting_modules
+														//Higher counting_modules.
 														$counting_modules++;
 													}
 												?>
 											</select>
 										</td>
 									</tr>
-								<?php
+									<?php
+									}
 								}
 							}
-						}
-						closedir($dir_handle);
+							closedir($dir_handle);
 						?>
 					</table>
 				</td>
@@ -130,7 +116,7 @@ if ((!ereg('index.php', $_SERVER ['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_
 				<td>
 					<span class="kop3"><?php echo $lang_contact2; ?></span>
 					<br />
-					<input type="checkbox" name="hidepage" value="no" checked="checked" /><?php echo $lang_pagehide1; ?>
+					<input type="checkbox" name="hidepage" checked="checked" value="no" /><?php echo $lang_pagehide1; ?>
 					<br />
 				</td>
 			</tr>
@@ -140,59 +126,26 @@ if ((!ereg('index.php', $_SERVER ['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_
 	<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=page';" />
 </form>
 <?php
-//TODO: Cleanup the rest.
 //If form is posted...
 if (isset($_POST['Submit'])) {
-	//Check if we want to show the page in the menu.
-	if ($hidepage != 'no') {
-		$hidepage = 'yes';
-	}
-
-	//Now we have to check which filenames are already in use.
+	//Check which filenames are already in use.
 	if (file_exists('data/settings/pages/kop1.php')) {
 		$i = 2;
 		$o = 3;
-		while ((file_exists('data/settings/pages/kop'.$i.'.php')) || (file_exists('data/settings/pages/kop'.$o.'.php'))) {
-			$i = $i + 1;
-			$o = $o + 1;
+		while (file_exists('data/settings/pages/kop'.$i.'.php') || file_exists('data/settings/pages/kop'.$o.'.php')) {
+			$i++;
+			$o++;
 		}
-		$newfile = 'data/settings/pages/kop'.$i.'.php';
+		$newfile = 'kop'.$i;
 	}
 	else {
-		$newfile = 'data/settings/pages/kop1.php';
+		$newfile = 'kop1';
 	}
 
-	$data = $newfile;
+	//Save the page.
+	save_page($newfile, $kop, $tekst, $hidepage, null, null, $incmodule);
 
-	//TODO: We should use the save_page function, but it can not save $module_pageinc.
-	
-	//Sanitize data
-	sanitize($tekst);
-	htmlspecialchars($kop);
-	sanitize($kop);
-	if (isset($keywords))
-		sanitize($keywords);
-	if (isset($description))
-		sanitize($description);
-
-$file = fopen($data, "w");
-fputs($file, "<?php
-\$title = \"$kop\";
-\$content = \"$tekst\";
-\$hidden = \"$hidepage\";");
-
-	//Save the module information
-	foreach ($incmodule as $modulename => $order) {
-		fputs($file, "\n\$module_pageinc['$modulename'] = \"$order\";");
-	}
-
-	//Close the file
-	fputs($file, "\n".'?>');
-	fclose($file);
-	//Give the file the right permissions
-	chmod($data, 0777);
-
-	//and redirect user
+	//Redirect the user.
 	redirect('?action=page', 0);
 }
 ?>

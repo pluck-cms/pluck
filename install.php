@@ -200,7 +200,7 @@ else {
 		<?php
 		//Save the homepage.
 		if (isset($_POST['Submit'])) {
-			save_page('kop1', $cont1, $cont2, false);
+			save_page('kop1', $cont1, $cont2, 'no');
 			redirect('?action=install5', 0);
 		}
 		include_once ('data/inc/footer.php');
@@ -214,10 +214,12 @@ else {
 		$titelkop = $lang_install;
 		include_once ('data/inc/header2.php');
 		?>
-			<p><strong><?php echo $lang_install19; ?></strong></p>
+			<p>
+				<strong><?php echo $lang_install19; ?></strong>
+			</p>
 		<?php
 		showmenudiv($lang_install20, $lang_install21, 'data/image/website.png', 'index.php');
-		showmenudiv($lang_install22, $lang_install23, 'data/image/password.png', 'login.php',);
+		showmenudiv($lang_install22, $lang_install23, 'data/image/password.png', 'login.php');
 
 		include_once ('data/inc/footer.php');
 	}

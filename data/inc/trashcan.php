@@ -50,8 +50,8 @@ else
 <span class="kop2"><?php echo $lang_kop2; ?></span><br>
 <?php
 //Read pages in array
-$pages = read_dir_contents('data/trash/pages','files');
-if(!isset($pages)) { ?>
+$pages = read_dir_contents('data/trash/pages', 'files');
+if ($pages == false) { ?>
 	<span class="kop4"><?php echo $lang_albums14; ?></span>
 <?php }
 else {
@@ -89,7 +89,7 @@ else {
 <?php
 //Read images in array
 $images = read_dir_contents('data/trash/images','files');
-if(!isset($images)) {
+if ($images == false) {
 ?>
 	<span class="kop4"><?php echo $lang_albums14; ?></span>
 <?php

@@ -21,54 +21,35 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 }
 
 //Include the actual siteinfo
-require('data/settings/pages/'.$editmeta.'');
+require_once ('data/settings/pages/'.$editmeta.'');
 
 //Introduction text
 ?>
-<p><strong><?php echo $lang_meta2; ?></strong></p>
-
-<form method="post" action="">
-	<span class="kop2"><?php echo $lang_albums11; ?></span><br />
-	<textarea name="cont1" rows="3" cols="50"><?php echo $description; ?></textarea><br /><br />
-	<span class="kop2"><?php echo $lang_siteinfo4; ?></span> (<?php echo $lang_siteinfo5; ?>)<br />
-	<textarea name="cont2" rows="5" cols="50"><?php echo $keywords; ?></textarea><br /><br />
-	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
-	<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=page';" />
-</form>
+	<p>
+		<strong><?php echo $lang_meta2; ?></strong>
+	</p>
+	<form method="post" action="">
+		<span class="kop2"><?php echo $lang_albums11; ?></span>
+		<br />
+		<textarea name="cont1" rows="3" cols="50"><?php if (isset($description)) echo htmlentities($description); ?></textarea>
+		<br /><br />
+		<span class="kop2"><?php echo $lang_siteinfo4; ?></span> (<?php echo $lang_siteinfo5; ?>)
+		<br />
+		<textarea name="cont2" rows="5" cols="50"><?php if (isset($keywords)) echo htmlentities($keywords); ?></textarea>
+		<br /><br />
+		<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
+		<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=page';" />
+	</form>
 <?php
-if(isset($_POST['Submit'])) {
-	$data = 'data/settings/pages/'.$editmeta.'';
-	include('data/inc/page_stripslashes.php');
-	  
-	$file = fopen($data, 'w');
-	fputs($file, '<?php'."\n"
-	.'$title = "'.$title.'";'."\n"
-	.'$content = "'.$content.'";'."\n"
-	.'$hidden = "'.$hidden.'";'."\n");
+if (isset($_POST['Submit'])) {
+	//Remove .php from the filename. We add it again in save_page.
+	$editmeta = preg_replace('/.php$/', '', $editmeta);
 
-	//Only save other variables if they are set
-	if (!empty($cont1)) {
-		fputs($file,'$description = "'.$cont1.'";'."\n");
-	}
-	if (!empty($cont2)) {
-		fputs($file,'$keywords = "'.$cont2.'";'."\n");
-	}
-	
-	//Save the module information
-	if (isset($module_pageinc))
-	{
-		foreach ($module_pageinc as $modulename => $order) {
-			fputs($file,'$module_pageinc[\''.$modulename.'\'] = "'.$order.'";'."\n");
-		}
-	}
-
-	fputs($file,'?>');
-	//Close file and chmod
-	fclose($file); 
-	chmod($data,0777);
+	//Save the page
+	save_page($editmeta, $title, $content, $hidden, $cont1, $cont2, $module_pageinc);
 
 	//Redirect user
 	echo $lang_meta4;
-	redirect('?action=page','0');
-} 
+	redirect('?action=page', 1);
+}
 ?>
