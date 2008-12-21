@@ -20,44 +20,49 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
 }
 
 //First, load the functions
-include("data/modules/albums/functions.php");
+include('data/modules/albums/functions.php');
+?>
 
-//Introduction text
-echo "<p><b>$lang_albums1</b></p>";
+<p><b><?php echo $lang_albums1; ?></b></p>
+<span class="kop2"><?php echo $lang_albums2; ?></span><br />
 
-//Edit albums
-echo "<span class=\"kop2\">$lang_albums2</span><br>";
-read_albums("data/settings/modules/albums");
+<?php
+	read_albums('data/settings/modules/albums');
+?>
 
+<?php
 //Check if the PHP-gd module is installed on server
-if (extension_loaded("gd")) {
+if (extension_loaded('gd')) { ?>
 
-//New album
-echo "<br><br><span class=\"kop2\">$lang_albums3</span><br>";
-echo "<form method=\"post\"><span class=\"kop4\">$lang_albums4</span><br>
-<input name=\"album_name\" type=\"text\" value=\"\"> <input type=\"submit\" name=\"Submit\" value=\"$lang_install13\">
-</form>";
+<br /><br /><span class="kop2"><?php echo $lang_albums3; ?></span><br />
+<form method="post"><span class="kop4"><?php echo $lang_albums4; ?></span><br />
+	<input name="album_name" type="text" value=""> <input type="submit" name="Submit" value="<?php echo $lang_install13; ?>">
+</form>
 
+<?php
 //When form is submitted
 if(isset($_POST['Submit'])) {
-if($album_name) {
-$album_name = stripslashes($album_name);
-$album_name = str_replace ("\"","", $album_name);
-$album_name = str_replace ("'","", $album_name);
-$album_name = str_replace (".","", $album_name);
-$album_name = str_replace ("/","", $album_name);
-mkdir("data/settings/modules/albums/$album_name");
-mkdir("data/settings/modules/albums/$album_name/thumb");
-chmod ("data/settings/modules/albums/$album_name", 0777);
-chmod ("data/settings/modules/albums/$album_name/thumb", 0777);
-redirect("?module=albums","0"); }
+	if($album_name) {
+		//Delete unwanted characters.
+		$album_name = stripslashes($album_name);
+		$album_name = str_replace ('"','', $album_name);
+		$album_name = str_replace (' ','', $album_name);
+		$album_name = str_replace ('\'','', $album_name);
+		$album_name = str_replace ('.','', $album_name);
+		$album_name = str_replace ('/','', $album_name);
+		//Create and chmod directories.
+		mkdir ('data/settings/modules/albums/'.$album_name);
+		mkdir ('data/settings/modules/albums/'.$album_name.'/thumb');
+		chmod ('data/settings/modules/albums/'.$album_name, 0777);
+		chmod ('data/settings/modules/albums/'.$album_name.'/thumb', 0777);
+		redirect('?module=albums',0);
 	}
+}
 }
 
 //If PHP-gd module is not installed
-if (!extension_loaded ('gd')) {
-echo "<p><span style=\"color: red;\">$lang_albums16</span></p>";
-}
+elseif (!extension_loaded('gd')) { ?>
+	<p><span style="color: red;"><?php echo $lang_albums16; ?></span></p>
+<?php } ?>
 
-echo "<p><a href=\"?action=modules\"><<< $lang_theme12</a></p>";
-?>
+<p><a href="?action=modules"><<< <?php echo $lang_theme12; ?></a></p>
