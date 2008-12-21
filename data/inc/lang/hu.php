@@ -1,5 +1,5 @@
 <?php 
-/* 
+/*
 This is a pluck language file. You can find pluck at http://www.pluck-cms.org/.
 If you want to help us, please start a new translation on http://www.pluck-cms.org/dev/translate/
 The translation will be included in the next release of pluck.
@@ -11,8 +11,8 @@ This language file is also licensed under the GPL.
 See docs/COPYING for the full license text.
 
 ------------------------------------------------
-Language					Hungarian
-Translated by			Wix
+Language		Hungarian
+Translated by		Wix
 Translators website	http://pluck.extra.hu
 ------------------------------------------------
 */
@@ -68,7 +68,6 @@ $lang_kop10	=	"jelszó módosítás";
 $lang_kop11	=	"új lap"; 
 $lang_kop13	=	"kép törlése"; 
 $lang_kop14	=	"nyelv beállítás"; 
-$lang_kop15	=	"statisztika"; 
 $lang_start1	=	"Üdvözöl a pluck adminisztrációs központja."; 
 $lang_start3	=	"kell segítség?"; 
 $lang_start4	=	"szeretnénk segíteni neked"; 
@@ -116,9 +115,7 @@ $lang_stats9	=	"összes látogató";
 $lang_stats10	=	"ebben a hónapban"; 
 $lang_kop16	=	"téma választás"; 
 $lang_theme1	=	"Itt választhatsz kinézetet a telepített témákból."; 
-$lang_theme2	=	"új téma keresése"; 
 $lang_theme3	=	"A téma beállítás elmentve."; 
-$lang_theme4	=	"új téma letöltése és telepítése egyetlen kattintással"; 
 $lang_updown1	=	"oldal hozzárendelés cseréje"; 
 $lang_updown2	=	"Ez a legelső oldal így nem került változtatásra."; 
 $lang_updown3	=	"Sorrend változtatás..."; 
@@ -179,22 +176,18 @@ $lang_meta2	=	"Itt megadhatsz néhány információt az oldallal kapcsolatban, h
 $lang_meta4	=	"Oldal információk módosítása..."; 
 $lang_settings5	=	"Általános beállítások módosítása, mint oldalad fejléce vagy email címed."; 
 $lang_blog1	=	"blog használata a hírek és cikkek írására"; 
-$lang_blog2	=	"Ezen az oldalon készíthetsz új kategóriákat amiben üzeneteidet megírhatod. Amelyik oldalon a kategória megjelenjen ott válaszd a kategória megjelenítése opciót."; 
 $lang_blog3	=	"kategóriák"; 
 $lang_blog4	=	"új kategória"; 
 $lang_blog5	=	"elsőnek add meg az új kategória nevét, majd katt a \"mentés\" gombra"; 
 $lang_blog6	=	"kategória törlése"; 
 $lang_blog7	=	"kategória módosítása"; 
-$lang_blog8	=	"Itt tudsz új üzenetet létrehozni a kategóriában. Az üzenetek automatikusan dátum szerint rendeződnek."; 
 $lang_blog9	=	"létező üzenetek"; 
 $lang_blog10	=	"új üzenet írása"; 
 $lang_blog11	=	"üzenet módosítása"; 
 $lang_blog12	=	"üzenet törlése"; 
-$lang_blog13	=	"ez a blog kategória jelenjen meg az oldalon:"; 
 $lang_blog14	=	"téma"; 
 $lang_blog16	=	"válaszok"; 
 $lang_blog17	=	"Cím:"; 
-$lang_blog18	=	"szerző"; 
 $lang_blog19	=	"válasz módosítás"; 
 $lang_blog20	=	"Itt tudod módosítani a válaszokat melyeket üzenetekre írtak."; 
 $lang_blog21	=	"válasz törlése"; 
@@ -234,7 +227,6 @@ $lang_modules8	=	"modul informácó";
 $lang_modules9	=	"Az lehetséges, hogy a modul különálló oldalként jelenjen meg. Készíts egy új oldalt és válaszd ki a modult amit meg szeretnél jeleníteni."; 
 $lang_modules10	=	"modul eltávolítása"; 
 $lang_modules11	=	"Modul telepítés..."; 
-$lang_modules12	=	"Új modulok állnak rendelkezésre..."; 
 $lang_modules13	=	"Modul hozzáadása a weblaphoz..."; 
 $lang_modules14	=	"adj hozzá modulokat a honlaphoz"; 
 $lang_modules15	=	"Beállíthatod azokat a modulokat melyek honlapodon megjelennek. Egyes beállítások téma specifikusak, tehát előfordulhat hogy más témáknál újból be kell állítani ezeket. Ezek a beállítások honlapod minden oldalán egységesek lesznek."; 
@@ -243,8 +235,6 @@ $lang_modules17	=	"weboldal";
 $lang_modules18	=	"szerző"; 
 $lang_modules19	=	"Tényleg eltávolítod ezt a modult? A modul beállításai ezzel nem törlődnek."; 
 $lang_modules20	=	"Itt új modulokat tudsz beszerezni. Először győződj meg róla, hogy amit letöltöttél az modul."; 
-$lang_modules21	=	"az új modulok letöltése és telepítése által, új funkciókkal ruházhatod fel honlapod"; 
-$lang_modules22	=	"kapj új modulokat"; 
 $lang_modules23	=	"modulok telepítése"; 
 $lang_modules24	=	"A modul fájl túlnagy; 2MB a limit."; 
 $lang_modules25	=	"a modul telepítve"; 
@@ -255,4 +245,12 @@ $lang_update4	=	"frissítés ellenörzés nem sikerült";
 $lang_contact12	=	"kapcsolatfelvétel"; 
 $lang_contact13	=	"a kapcsolatfelvétel modullal biztosíthatod látogatóidnak, hogy felvegyék veled a kapcsolatot"; 
 $lang_trash11	=	"Tényleg kiűríted a kukát? Ne feledd minden tétel megsemmisül!"; 
+$lang_modules27	=	"Ez a modul nem kompatibilis a pluck ezzel a verziójával, így tiltásra kerül."; 
+$lang_settings7	=	"A megadott emailcím hibás!"; 
+$lang_blog24	=	"Itt tudsz blogodba új hozzászólást írni, ezek automatikusan időrendben kerülnek megjelenítésre."; 
+$lang_blog25	=	"Kategória választás..."; 
+$lang_blog26	=	"kategória"; 
+$lang_blog27	=	"nincsenek kategóriák"; 
+$lang_credits6	=	"szerzők"; 
+$lang_credits7	=	"közreműködők"; 
 ?>
