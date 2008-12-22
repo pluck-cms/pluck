@@ -57,7 +57,7 @@ function read_pages() {
 					<a href="?editpage=<?php echo $file; ?>"><img src="data/image/edit.png" title="<?php echo $lang_page3; ?>" alt="<?php echo $lang_page3; ?>" /></a>
 				</span>
 				<span>
-					<a href="?editmeta=<?php echo $file; ?>"><img src="data/image/siteinformation.png" title="<?php echo $lang_meta1; ?>" alt="<?php echo $lang_meta1; ?>" /></a>
+					<a href="?action=editmeta&amp;var=<?php echo $file; ?>"><img src="data/image/siteinformation.png" title="<?php echo $lang_meta1; ?>" alt="<?php echo $lang_meta1; ?>" /></a>
 				</span>
 				<span>
 					<a href="?pageup=<?php echo $file; ?>"><img src="data/image/up.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" /></a>
@@ -66,7 +66,7 @@ function read_pages() {
 					<a href="?pagedown=<?php echo $file; ?>"><img src="data/image/down.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" /></a>
 				</span>
 				<span>
-					<a href="?deletepage=<?php echo $file; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" /></a>
+					<a href="?action=deletepage&amp;var=<?php echo $file; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" /></a>
 				</span>
 			</div>
 			<?php

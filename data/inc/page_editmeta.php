@@ -21,7 +21,7 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 }
 
 //Include the actual siteinfo
-require_once ('data/settings/pages/'.$editmeta.'');
+require_once ('data/settings/pages/'.$_GET['var']);
 
 //Introduction text
 ?>
@@ -43,10 +43,10 @@ require_once ('data/settings/pages/'.$editmeta.'');
 <?php
 if (isset($_POST['Submit'])) {
 	//Remove .php from the filename. We add it again in save_page.
-	$editmeta = preg_replace('/.php$/', '', $editmeta);
+	$page = preg_replace('/.php$/', '', $_GET['var']);
 
 	//Save the page
-	save_page($editmeta, $title, $content, $hidden, $cont1, $cont2, $module_pageinc);
+	save_page($page, $title, $content, $hidden, $cont1, $cont2, $module_pageinc);
 
 	//Redirect user
 	echo $lang_meta4;

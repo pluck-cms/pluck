@@ -209,6 +209,21 @@ else {
 				include_once ('data/inc/deleteimage.php');
 				break;
 
+			//Page:Deletepage
+			case 'deletepage':
+				$titelkop = $lang_trash1;
+				include_once ('data/inc/header.php');
+				echo $lang_trash2;
+				include_once ('data/inc/deletepage.php');
+				break;
+
+			//Editmeta pages
+			case 'editmeta':
+				$titelkop = $lang_meta1;
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/page_editmeta.php');
+				break;
+
 			//Unknown page => Redirect
 			default:
 				header('Location: ?action=start');
@@ -224,21 +239,6 @@ else {
 		$titelkop = $lang_page3;
 		include_once ('data/inc/header.php');
 		include_once ('data/inc/editpage.php');
-	}
-
-	//Editmeta pages
-	elseif (isset($editmeta)) {
-		$titelkop = $lang_meta1;
-		include_once ('data/inc/header.php');
-		include_once ('data/inc/page_editmeta.php');
-	}
-
-	//Deletepage pages
-	elseif (isset($deletepage)) {
-		$titelkop = $lang_trash1;
-		include_once ('data/inc/header.php');
-		echo $lang_trash2;
-		include_once ('data/inc/deletepage.php');
 	}
 
 	//Pageup pages

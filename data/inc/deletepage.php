@@ -21,15 +21,15 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 }
 
 //Check if page exists
-if (file_exists('data/settings/pages/'.$deletepage.'')) {
+if (file_exists('data/settings/pages/'.$_GET['var'])) {
 
 	//First check if there isn't an item with the same name in the trashcan
-	if (!file_exists('data/trash/pages/'.$deletepage.'')) {
+	if (!file_exists('data/trash/pages/'.$_GET['var'])) {
 
 		//Move the page to the trashcan
-		copy('data/settings/pages/'.$deletepage.'', 'data/trash/pages/'.$deletepage.'');
-		chmod('data/trash/pages/'.$deletepage.'', 0777);
-		unlink('data/settings/pages/'.$deletepage.'');
+		copy('data/settings/pages/'.$_GET['var'], 'data/trash/pages/'.$_GET['var']);
+		chmod('data/trash/pages/'.$_GET['var'], 0777);
+		unlink('data/settings/pages/'.$_GET['var']);
 	}
 
 	//If there is an item with the same name in the trashcan
@@ -48,12 +48,12 @@ if (file_exists('data/settings/pages/'.$deletepage.'')) {
 			$newfile = 'data/trash/pages/kop1.php';
 		}
 		//Move the file with the new filename
-		copy('data/settings/pages/'.$deletepage.'', $newfile);
+		copy('data/settings/pages/'.$_GET['var'], $newfile);
 		chmod($newfile, 0777);
-		unlink('data/settings/pages/'.$deletepage.'');
+		unlink('data/settings/pages/'.$_GET['var']);
 	}
 }
 
 //Redirect user
-redirect('?action=page','0');
+redirect('?action=page',0);
 ?>

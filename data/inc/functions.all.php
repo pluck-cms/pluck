@@ -158,7 +158,7 @@ function read_dir_contents($directory, $mode) {
  * @return string The sanitized variable.
  */
 function sanitize($var) {
-		$var = str_replace('\'', '\\\'', $var);
+	$var = str_replace('\'', '\\\'', $var);
 	return $var;
 }
 ?>
