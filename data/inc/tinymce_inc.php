@@ -131,8 +131,8 @@ elseif ($langpref == 'th.php')
 	$tinymce_lang = 'en';
 
 //In any other case: English
-else {
-$tinymce_lang = 'en'; }
+else
+	$tinymce_lang = 'en';
 
 
 //--------------------------

@@ -13,11 +13,11 @@
 */
 
 //Make sure the file isn't accessed directly.
-if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('update.php', $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error.
-    echo 'access denied';
-    //Block all other code.
-    exit();
+if ((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('update.php', $_SERVER['SCRIPT_FILENAME']))){
+	//Give out an "access denied" error.
+	echo 'access denied';
+	//Block all other code.
+	exit();
 }
 
 //Function: read the available languages.
@@ -78,7 +78,7 @@ function read_pages() {
 //Function: readout the images
 //------------
 function read_images($dir) {
-	global $lang_trash1;
+	global $lang_albums14, $lang_trash1;
 	$files = read_dir_contents($dir, 'files');
 	if (!$files)
 		echo '<span class="kop4">'.$lang_albums14.'</span>';
