@@ -21,14 +21,14 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 }
 
 //Check if image exists
-if (file_exists('images/'.$deleteimage)) {
+if (file_exists('images/'.$_GET['var'])) {
 
 	//First check if there isn't an item with the same name in the trashcan
-	if (!file_exists('data/trash/images/'.$deleteimage)) {
+	if (!file_exists('data/trash/images/'.$_GET['var'])) {
 		//Move the page to the trashcan
-		copy('images/'.$deleteimage, 'data/trash/images/'.$deleteimage);
-		chmod('data/trash/images/'.$deleteimage, 0777);
-		unlink('images/'.$deleteimage);
+		copy('images/'.$_GET['var'], 'data/trash/images/'.$_GET['var']);
+		chmod('data/trash/images/'.$_GET['var'], 0777);
+		unlink('images/'.$_GET['var']);
 
 		//Redirect user
 		redirect('?action=images', 2);

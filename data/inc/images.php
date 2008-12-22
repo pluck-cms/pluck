@@ -71,6 +71,6 @@ if(isset($_POST ['Submit'])) {
 <br />
 <?php
 //Show the uploaded images
-read_images('images');
+	read_images('images');
 ?>
 <p><a href="?action=page">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a></p>

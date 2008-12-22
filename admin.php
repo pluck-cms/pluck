@@ -180,6 +180,35 @@ else {
 				include_once ('data/inc/modules_manage_delete.php');
 				break;
 
+			//Page:Trash_deleteitem
+			case 'trash_deleteitem':
+				$titelkop = $lang_trash8;
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/trashcan_deleteitem.php');
+				break;
+				
+			//Page:Trash_restoreitem
+			case 'trash_restoreitem':
+				$titelkop = $lang_trash10;
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/trashcan_restoreitem.php');
+				break;
+
+			//Page:Trash_viewitem
+			case 'trash_viewitem':
+				$titelkop = $lang_trash7;
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/trashcan_viewitem.php');
+				break;
+
+			//Page:Deleteimage
+			case 'deleteimage':
+				$titelkop = $lang_trash1;
+				include_once ('data/inc/header.php');
+				echo $lang_trash2;
+				include_once ('data/inc/deleteimage.php');
+				break;
+
 			//Unknown page => Redirect
 			default:
 				header('Location: ?action=start');
@@ -212,14 +241,6 @@ else {
 		include_once ('data/inc/deletepage.php');
 	}
 
-	//Deleteimage pages
-	elseif (isset($deleteimage)) {
-		$titelkop = $lang_trash1;
-		include_once ('data/inc/header.php');
-		echo $lang_trash2;
-		include_once ('data/inc/deleteimage.php');
-	}
-
 	//Pageup pages
 	elseif (isset($pageup)) {
 		$titelkop = $lang_updown1;
@@ -232,27 +253,6 @@ else {
 		$titelkop = $lang_updown1;
 		include_once ('data/inc/header.php');
 		include_once ('data/inc/pagedown.php');
-	}
-
-	//Trash_viewitem pages
-	elseif (isset($trash_viewitem)) {
-		$titelkop = $lang_trash7;
-		include_once ('data/inc/header.php');
-		include_once ('data/inc/trashcan_viewitem.php');
-	}
-
-	//Trash_restoreitem pages
-	elseif (isset($trash_restoreitem)) {
-		$titelkop = $lang_trash10;
-		include_once ('data/inc/header.php');
-		include_once ('data/inc/trashcan_restoreitem.php');
-	}
-
-	//Trash_deleteitem pages
-	elseif (isset($trash_deleteitem)) {
-		$titelkop = $lang_trash8;
-		include_once ('data/inc/header.php');
-		include_once ('data/inc/trashcan_deleteitem.php');
 	}
 
 	//Unknown pages

@@ -21,13 +21,13 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 }
 
 //Page
-if (($cat == 'page') && (file_exists('data/trash/pages/'.$trash_deleteitem))) {
-	unlink('data/trash/pages/'.$trash_deleteitem);
+if (($_GET['cat'] == 'page') && (file_exists('data/trash/pages/'.$_GET['var']))) {
+	unlink('data/trash/pages/'.$_GET['var']);
 }
 
 //Image
-if (($cat == 'image') && (file_exists('data/trash/images/'.$trash_deleteitem))) {
-	unlink('data/trash/images/'.$trash_deleteitem);
+if (($_GET['cat'] == 'image') && (file_exists('data/trash/images/'.$_GET['var']))) {
+	unlink('data/trash/images/'.$_GET['var']);
 }
 
 //Redirect

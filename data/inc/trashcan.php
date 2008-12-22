@@ -68,13 +68,13 @@ else {
 						<span style="font-size: 17pt;"><?php echo $title; ?></span>
 					</td>
 					<td>
-						<a href="?trash_viewitem=<?php echo $page; ?>&amp;cat=page"><img src="data/image/view.png" alt="<?php echo $lang_trash7; ?>" title="<?php echo $lang_trash7; ?>"></a>		
+						<a href="?action=trash_viewitem&amp;var=<?php echo $page; ?>&amp;cat=page"><img src="data/image/view.png" alt="<?php echo $lang_trash7; ?>" title="<?php echo $lang_trash7; ?>"></a>		
 					</td>
 					<td>
-						<a href="?trash_restoreitem=<?php echo $page; ?>&amp;cat=page"><img src="data/image/restore.png" title="<?php echo $lang_trash10; ?>" alt="<?php echo $lang_trash10; ?>"></a>		
+						<a href="?action=trash_restoreitem&amp;var=<?php echo $page; ?>&amp;cat=page"><img src="data/image/restore.png" title="<?php echo $lang_trash10; ?>" alt="<?php echo $lang_trash10; ?>"></a>		
 					</td>
 					<td>
-						<a href="?trash_deleteitem=<?php echo $page; ?>&amp;cat=page"><img src="data/image/delete_from_trash.png" title="<?php echo $lang_trash8; ?>" alt="<?php echo $lang_trash8; ?>"></a>
+						<a href="?action=trash_deleteitem&amp;var=<?php echo $page; ?>&amp;cat=page"><img src="data/image/delete_from_trash.png" title="<?php echo $lang_trash8; ?>" alt="<?php echo $lang_trash8; ?>"></a>
 					</td>
 				</tr>
 			</table>
@@ -107,13 +107,13 @@ else {
 					<span style="font-size: 17pt;"><?php echo $image; ?></span>
 				</td>
 				<td>
-					<a href="?trash_viewitem=<?php echo $image; ?>&amp;cat=image"><img src="data/image/view.png" alt="<?php echo $lang_trash7; ?>" title="<?php echo $lang_trash7; ?>" /></a>		
+					<a href="?action=trash_viewitem&amp;var=<?php echo $image; ?>&amp;cat=image"><img src="data/image/view.png" alt="<?php echo $lang_trash7; ?>" title="<?php echo $lang_trash7; ?>" /></a>		
 				</td>
 				<td>
-					<a href="?trash_restoreitem=<?php echo $image; ?>&amp;cat=image"><img src="data/image/restore.png" title="<?php echo $lang_trash10; ?>" alt="<?php echo $lang_trash10; ?>" /></a>		
+					<a href="?action=trash_restoreitem&amp;var=<?php echo $image; ?>&amp;cat=image"><img src="data/image/restore.png" title="<?php echo $lang_trash10; ?>" alt="<?php echo $lang_trash10; ?>" /></a>		
 				</td>
 				<td>
-					<a href="?trash_deleteitem=<?php echo $image; ?>&amp;cat=image"><img src="data/image/delete_from_trash.png" title="<?php echo $lang_trash8; ?>" alt="<?php echo $lang_trash8; ?>" /></a>
+					<a href="?action=trash_deleteitem&amp;var=<?php echo $image; ?>&amp;cat=image"><img src="data/image/delete_from_trash.png" title="<?php echo $lang_trash8; ?>" alt="<?php echo $lang_trash8; ?>" /></a>
 				</td>
 			</tr>
 		</table>

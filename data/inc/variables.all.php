@@ -59,22 +59,14 @@ if (isset($_GET['editpage']))
 	$editpage = $_GET['editpage'];
 if (isset($_GET['deletepage']))
 	$deletepage = $_GET['deletepage'];
-if (isset($_GET['deleteimage']))
-	$deleteimage = $_GET['deleteimage'];
 if (isset($_GET['editmeta']))
 	$editmeta = $_GET['editmeta'];
 if (isset($_GET['pageup']))
 	$pageup = $_GET['pageup'];
 if (isset($_GET['pagedown']))
 	$pagedown = $_GET['pagedown'];
-if (isset($_GET['trash_viewitem']))
-	$trash_viewitem = $_GET['trash_viewitem'];
-if (isset($_GET['trash_restoreitem']))
-	$trash_restoreitem = $_GET['trash_restoreitem'];
-if (isset($_GET['trash_deleteitem']))
-	$trash_deleteitem = $_GET['trash_deleteitem'];
-if (isset($_GET['modulestart']))
-	$modulestart = $_GET['modulestart'];
+//if (isset($_GET['modulestart'])) //CAN THIS ONE BE DELETED?
+//	$modulestart = $_GET['modulestart'];
 if (isset($_GET['module']))
 	$module = $_GET['module'];
 if (isset($_GET['page']))
@@ -124,7 +116,7 @@ if (isset($_POST['quality']))
 if (isset($_POST['incmodule']))
 	$incmodule = $_POST['incmodule'];
 
-//Some variables for general use
+//Some POST-variables for general use
 if (isset($_POST['cont1']))
 	$cont1 = $_POST['cont1'];
 if (isset($_POST['cont2']))

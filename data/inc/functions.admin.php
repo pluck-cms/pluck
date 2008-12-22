@@ -98,7 +98,7 @@ function read_images($dir) {
 					<a href="images/<?php echo $file; ?>" target="_blank"><img src="data/image/view.png" alt="" /></a>
 				</span>
 				<span>
-					<a href="?deleteimage=<?php echo $file; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" /></a>
+					<a href="?action=deleteimage&amp;var=<?php echo $file; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" /></a>
 				</span>
 			</div>
 		<?php

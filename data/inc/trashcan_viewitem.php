@@ -20,16 +20,16 @@ if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SE
     exit();
 }
 
-if (($cat == 'page') && (file_exists('data/trash/pages/'.$trash_viewitem))) {
-	include('data/trash/pages/'.$trash_viewitem); ?>
+if (($_GET['cat'] == 'page') && (file_exists('data/trash/pages/'.$_GET['var']))) {
+	include('data/trash/pages/'.$_GET['var']); ?>
 	<div class="menudiv" style="padding:15px; margin: 25px;">
 		<span class="kop2"><?php echo $title; ?></span><br>
 		<?php echo $content; ?>
 	</div>
 <?php }
 
-if (($cat == 'image') && (file_exists('data/trash/images/'.$trash_viewitem))) { ?>
-		<img src="data/trash/images/<?php echo $trash_viewitem; ?>" alt="" />
+if (($_GET['cat'] == 'image') && (file_exists('data/trash/images/'.$_GET['var']))) { ?>
+		<img src="data/trash/images/<?php echo $_GET['var']; ?>" alt="" />
 <?php } ?>
 
 <p><a href="?action=trashcan"><<< <?php echo $lang_theme12; ?></a></p>
