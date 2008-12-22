@@ -26,7 +26,7 @@ body {
 }
 
 #menu {
-	position: absolute;
+	position: relative;
 	height: 100px;
 	right: 185px;
 	top: 0px;
