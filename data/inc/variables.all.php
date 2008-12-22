@@ -65,8 +65,6 @@ if (isset($_GET['pageup']))
 	$pageup = $_GET['pageup'];
 if (isset($_GET['pagedown']))
 	$pagedown = $_GET['pagedown'];
-//if (isset($_GET['modulestart'])) //CAN THIS ONE BE DELETED?
-//	$modulestart = $_GET['modulestart'];
 if (isset($_GET['module']))
 	$module = $_GET['module'];
 if (isset($_GET['page']))

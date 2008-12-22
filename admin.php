@@ -257,7 +257,7 @@ else {
 
 	//Unknown pages
 	else {
-		if (!isset($modulestart) && !isset($module)) {
+		if (!isset($module)) {
 			header('Location: ?action=start');
 			exit;
 		}
