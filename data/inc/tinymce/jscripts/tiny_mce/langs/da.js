@@ -74,7 +74,8 @@ advimage:{
 image_desc:"Inds\u00E6t/rediger billede"
 },
 advlink:{
-link_desc:"Inds\u00E6t/rediger link"
+link_desc:"Inds\u00E6t/rediger link",
+delta_width:"40"
 },
 xhtmlxtras:{
 cite_desc:"Citat",

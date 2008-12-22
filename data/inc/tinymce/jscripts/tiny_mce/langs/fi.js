@@ -117,7 +117,8 @@ copy_row_desc:"Kopioi taulukon rivi",
 del:"Poista taulukko",
 row:"Rivi",
 col:"Sarake",
-cell:"Solu"
+cell:"Solu",
+cellprops_delta_width:"80"
 },
 autosave:{
 unload_msg:"Tekem\u00E4si muutokset menetet\u00E4\u00E4n jos poistut t\u00E4lt\u00E4 sivulta."

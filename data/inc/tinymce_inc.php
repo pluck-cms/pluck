@@ -118,13 +118,13 @@ elseif ($langpref == 'hr.php')
 elseif ($langpref == 'fa.php')
 	$tinymce_lang = 'fa';
 
-//Turkish (set to English for now)
+//Turkish
 elseif ($langpref == 'tr.php')
-	$tinymce_lang = 'en';
+	$tinymce_lang = 'tr';
 
-//Greek (set to English for now)
+//Greek
 elseif ($langpref == 'el.php')
-	$tinymce_lang = 'en';
+	$tinymce_lang = 'el';
 
 //Thai (not (yet) supported!)
 elseif ($langpref == 'th.php')
