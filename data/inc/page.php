@@ -14,20 +14,22 @@
 
 //Make sure the file isn't accessed directly
 if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo 'access denied';
-    //Block all other code
-    exit();
+	//Give out an "access denied" error
+	echo 'access denied';
+	//Block all other code
+	exit();
 }
 
 //Introduction text
 ?>
-<p><strong><?php echo $lang_page1; ?></strong></p>
+<p>
+	<strong><?php echo $lang_page1; ?></strong>
+</p>
 <?php
 //New page button
-showmenudiv($lang_page2, null, 'data/image/newpage.png', '?action=newpage', false);
+showmenudiv($lang_page2, null, 'data/image/newpage.png', '?action=newpage');
 //Manage images button
-showmenudiv($lang_kop17, null, 'data/image/image.png', '?action=images', false);
+showmenudiv($lang_kop17, null, 'data/image/image.png', '?action=images');
 //Show pages
 read_pages();
 ?>

@@ -39,7 +39,7 @@ require_once ('data/settings/pages/'.$editpage);
 <form method="post" action="">
 	<span class="kop2"><?php echo $lang_install17; ?></span>
 	<br />
-	<input name="kop" type="text" value="<?php echo $title; ?>" />
+	<input name="kop" type="text" value="<?php echo htmlentities($title); ?>" />
 	<br /><br />
 	<span class="kop2"><?php echo $lang_install18; ?></span>
 	<br />

@@ -14,10 +14,10 @@
 
 //Make sure the file isn't accessed directly
 if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo 'access denied';
-    //Block all other code
-    exit();
+	//Give out an "access denied" error
+	echo 'access denied';
+	//Block all other code
+	exit();
 }
 
 //Function: get page title
@@ -32,7 +32,7 @@ function get_pagetitle() {
 		//Check if page exists
 		if (file_exists('data/settings/pages/'.$filetoread)) {
 			include ('data/settings/pages/'.$filetoread);
-			return $title;
+			return htmlentities($title);
 		}
 
 		//If page doesn't exist
@@ -53,7 +53,7 @@ function get_pagetitle() {
 		//Include module files (but only if they exist)
  		if (file_exists('data/modules/'.$module.'/module_info.php')) {
  			include ('data/modules/'.$module.'/module_info.php');
- 			if(module_is_compatible($module)) {
+ 			if (module_is_compatible($module)) {
 				if (file_exists('data/modules/'.$module.'/module_pages_site.php')) {
  					include ('data/modules/'.$module.'/module_pages_site.php');
 
@@ -106,12 +106,12 @@ function theme_meta() {
 
 	//If we are not looking at a module: include metatag information
 	if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
-		echo '<meta name="title" content="'.$page_title.'" />'."\n";
+		echo '<meta name="title" content="'.PAGE_TITLE.'" />'."\n";
 		if (isset($keywords) && !empty($keywords)) {
-			echo '<meta name="keywords" content="'.$keywords.'" />'."\n";
+			echo '<meta name="keywords" content="'.htmlentities($keywords).'" />'."\n";
 		}
 		if (isset($description) && !empty($description)) {
-			echo '<meta name="description" content="'.$description.'" />'."\n";
+			echo '<meta name="description" content="'.htmlentities($description).'" />'."\n";
 		}
 	}
 
@@ -145,8 +145,7 @@ function theme_meta() {
 //[THEME] FUNCTION TO SHOW SITE TITLE
 //---------------------------------
 function theme_sitetitle() {
-	$site_title = get_sitetitle();
-	echo $site_title;
+	echo SITE_TITLE;
 }
 
 //[THEME] FUNCTION TO SHOW THE MENU
@@ -167,13 +166,13 @@ function theme_menu($html,$htmlactive = NULL) {
 			if ((isset($hidden)) && ($hidden == 'no')) {
 				//Check if we need to show an active link
 				if ((isset($currentpage)) && ($currentpage == $file) && ($htmlactive)) {
-					$html_new = str_replace("#title", $title, $htmlactive);
-					$html_new = str_replace("#file", "?file=$file", $html_new);
+					$html_new = str_replace('#title', htmlentities($title), $htmlactive);
+					$html_new = str_replace('#file', '?file='.$file, $html_new);
 					echo $html_new;
 				}
 				else {
-					$html_new = str_replace("#title", $title, $html);
-					$html_new = str_replace("#file", "?file=$file", $html_new);
+					$html_new = str_replace('#title', htmlentities($title), $html);
+					$html_new = str_replace('#file', '?file='.$file, $html_new);
 	    			echo $html_new;
 	    		}
 	    	}
@@ -184,8 +183,7 @@ function theme_menu($html,$htmlactive = NULL) {
 //[THEME] FUNCTION TO SHOW PAGE TITLE
 //---------------------------------
 function theme_pagetitle() {
-	$page_title = get_pagetitle();
-	echo $page_title;
+	echo PAGE_TITLE;
 }
 
 //[THEME] FUNCTION TO SHOW PAGE CONTENTS

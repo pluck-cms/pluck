@@ -52,7 +52,7 @@ function read_pages() {
 				<span>
 					<img src="data/image/page.png" alt="" />
 				</span>
-				<span class="title-page"><?php echo $title; ?></span>
+				<span class="title-page"><?php echo htmlentities($title); ?></span>
 				<span>
 					<a href="?editpage=<?php echo $file; ?>"><img src="data/image/edit.png" title="<?php echo $lang_page3; ?>" alt="<?php echo $lang_page3; ?>" /></a>
 				</span>
@@ -299,10 +299,10 @@ function save_theme($theme) {
  */
 function save_page($name, $title, $content, $hidden = 'no', $description = null, $keywords = null, $modules = null) {
 	//Sanitize the inputs.
-	$title = sanitize($title, true);
+	$title = sanitize($title);
 	$content = sanitize($content);
-	$description = sanitize($description, true);
-	$keywords = sanitize($keywords, true);
+	$description = sanitize($description);
+	$keywords = sanitize($keywords);
 
 	//Check hidden status.
 	if ($hidden != 'no')
