@@ -87,7 +87,7 @@ if ($langpref == 'it.php')
 if ($langpref == 'hr.php')
 	$translator = 'atghoust';
 if ($langpref == 'pl.php')
-	$translator = 'Leszek Soltys';
+	$translator = 'Leszek Soltys<br />Bogumił Cieniek';
 if ($langpref == 'fa.php')
 	$translator = 'heam';
 if ($langpref == 'fi.php')
