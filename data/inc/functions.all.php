@@ -161,7 +161,7 @@ function sanitize($var, $html = false) {
 	$var = str_replace('\'', '\\\'', $var);
 
 	if ($html == true)
-		$var = htmlspecialchars($var,ENT_COMPAT,'UTF-8',false);
+		$var = htmlspecialchars($var, ENT_COMPAT, 'UTF-8', false);
 
 	return $var;
 }
