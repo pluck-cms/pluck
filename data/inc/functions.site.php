@@ -80,11 +80,8 @@ function get_pagetitle() {
 //[THEME] FUNCTION TO INCLUDE META-DATA IN THE PAGE
 //---------------------------------
 function theme_meta() {
-	//Include variables
-	global $page_title;
-
 	//Get page-info (for meta-information)
-	if (isset($current_page_filename)) {
+	if (defined('CURRENT_PAGE_FILENAME')) {
 		if (file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
 			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
 		}
@@ -162,9 +159,9 @@ function theme_menu($html,$htmlactive = NULL) {
 			include ('data/settings/pages/'.$file);
 
 			//Only display in menu if page isn't hidden by user
-			if ((isset($hidden)) && ($hidden == 'no')) {
+			if (isset($hidden) && $hidden == 'no') {
 				//Check if we need to show an active link
-				if ((isset($currentpage)) && ($currentpage == $file) && ($htmlactive)) {
+				if (isset($currentpage) && $currentpage == $file && $htmlactive) {
 					$html_new = str_replace('#title', $title, $htmlactive);
 					$html_new = str_replace('#file', '?file='.$file, $html_new);
 					echo $html_new;
@@ -209,15 +206,15 @@ function theme_content() {
 function theme_module($place) {
 
 //Include needed variables
-global $current_module_dir, $current_module_page, $current_page_filename, $lang_modules27;
+global $lang_modules27;
 
 //If mainspace: include the page-specific modules
 if ($place == 'main') {
 
 	//If we are looking at a normal page: include the inclusion file of the module (but only if specified page exists)
-	if ((!isset($current_module_dir)) && (isset($current_page_filename)) && (file_exists('data/settings/pages/'.$current_page_filename))) {
+	if (!defined('CURRENT_MODULE_DIR') && defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
 		//Include page-information
-		include ('data/settings/pages/'.$current_page_filename);
+		include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
 		//First, check if we want to include any modules
 		if (isset($module_pageinc)) {
 			//Let's make sure that the modules are dislayed in the right order
@@ -242,20 +239,20 @@ if ($place == 'main') {
  		}
  	}
  	//If we are looking at a module-page: include that page
- 	elseif (isset($current_module_dir)) {
+ 	elseif (defined('CURRENT_MODULE_DIR')) {
  		//Include module files (but only if they exist)
- 		if (file_exists('data/modules/'.$current_module_dir.'/module_info.php')) {
- 			include ('data/modules/'.$current_module_dir.'/module_info.php');
- 			if (module_is_compatible($current_module_dir)) {
-				if (file_exists('data/modules/'.$current_module_dir.'/module_pages_site.php')) {
- 					include ('data/modules/'.$current_module_dir.'/module_pages_site.php');
+ 		if (file_exists('data/modules/'.CURRENT_MODULE_DIR.'/module_info.php')) {
+ 			include ('data/modules/'.CURRENT_MODULE_DIR.'/module_info.php');
+ 			if (module_is_compatible(CURRENT_MODULE_DIR)) {
+				if (file_exists('data/modules/'.CURRENT_MODULE_DIR.'/module_pages_site.php')) {
+ 					include ('data/modules/'.CURRENT_MODULE_DIR.'/module_pages_site.php');
 
 					//Only include pages if array has been given
 					if (isset($module_page)) {
 						//Loop through module-pages
  						foreach ($module_page as $filename => $pagetitle) {
 							//And include them
-							if (($current_module_dir == $module_dir) && ($current_module_page == $filename)) {
+							if (CURRENT_MODULE_DIR == $module_dir && $current_module_page == $filename) {
 								include ('data/modules/'.$module_dir.'/pages_site/'.$filename.'.php');
 							}
 						}
@@ -300,5 +297,4 @@ if ($place == 'main') {
 		}
 	}
 }
-
 ?>

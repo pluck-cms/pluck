@@ -157,7 +157,7 @@ function read_dir_contents($directory, $mode) {
  * @param boolean $html Should it convert HTML too?
  * @return string The sanitized variable.
  */
-function sanitize($var, $html = false) {
+function sanitize($var, $html = true) {
 	$var = str_replace('\'', '\\\'', $var);
 
 	if ($html == true)
