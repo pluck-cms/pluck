@@ -31,11 +31,11 @@ require_once ('data/settings/pages/'.$_GET['var']);
 	<form method="post" action="">
 		<span class="kop2"><?php echo $lang_albums11; ?></span>
 		<br />
-		<textarea name="cont1" rows="3" cols="50"><?php if (isset($description)) echo htmlentities($description); ?></textarea>
+		<textarea name="cont1" rows="3" cols="50"><?php if (isset($description)) echo $description; ?></textarea>
 		<br /><br />
 		<span class="kop2"><?php echo $lang_siteinfo4; ?></span> (<?php echo $lang_siteinfo5; ?>)
 		<br />
-		<textarea name="cont2" rows="5" cols="50"><?php if (isset($keywords)) echo htmlentities($keywords); ?></textarea>
+		<textarea name="cont2" rows="5" cols="50"><?php if (isset($keywords)) echo $keywords; ?></textarea>
 		<br /><br />
 		<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
 		<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=page';" />
@@ -46,10 +46,13 @@ if (isset($_POST['Submit'])) {
 	$page = preg_replace('/.php$/', '', $_GET['var']);
 
 	//Save the page
-	save_page($page, $title, $content, $hidden, $cont1, $cont2, $module_pageinc);
+	if (isset($module_pageinc))
+		save_page($page, $title, $content, $hidden, $cont1, $cont2, $module_pageinc);
+	else
+		save_page($page, $title, $content, $hidden, $cont1, $cont2);
 
 	//Redirect user
 	echo $lang_meta4;
-	redirect('?action=page', 1);
+	redirect('?action=page', 0);
 }
 ?>

@@ -42,7 +42,7 @@ if ($files) {
 			<span>
 				<img src="data/image/page.png" alt="" />
 			</span>
-			<span class="title-page"><?php echo htmlentities($title); ?></span>
+			<span class="title-page"><?php echo $title; ?></span>
 			<span>
 				<a href="?editpage=<?php echo $file; ?>"><img src="data/image/edit.png" title="<?php echo $lang_page3; ?>" alt="<?php echo $lang_page3; ?>" /></a>
 			</span>

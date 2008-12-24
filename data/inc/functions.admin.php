@@ -230,10 +230,10 @@ function save_theme($theme) {
  */
 function save_page($name, $title, $content, $hidden = 'no', $description = null, $keywords = null, $modules = null) {
 	//Sanitize the inputs.
-	$title = sanitize($title);
+	$title = sanitize($title, true);
 	$content = sanitize($content);
-	$description = sanitize($description);
-	$keywords = sanitize($keywords);
+	$description = sanitize($description, true);
+	$keywords = sanitize($keywords, true);
 
 	//Check hidden status.
 	if ($hidden != 'no')

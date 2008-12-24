@@ -32,12 +32,11 @@ function get_pagetitle() {
 		//Check if page exists
 		if (file_exists('data/settings/pages/'.$filetoread)) {
 			include ('data/settings/pages/'.$filetoread);
-			return htmlentities($title);
+			return $title;
 		}
 
-		//If page doesn't exist
+		//If page doesn't exist; display error
 		else {
-			//Include Translation data
 			return $lang_front1;
 		}
 	}
@@ -108,10 +107,10 @@ function theme_meta() {
 	if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
 		echo '<meta name="title" content="'.PAGE_TITLE.'" />'."\n";
 		if (isset($keywords) && !empty($keywords)) {
-			echo '<meta name="keywords" content="'.htmlentities($keywords).'" />'."\n";
+			echo '<meta name="keywords" content="'.$keywords.'" />'."\n";
 		}
 		if (isset($description) && !empty($description)) {
-			echo '<meta name="description" content="'.htmlentities($description).'" />'."\n";
+			echo '<meta name="description" content="'.$description.'" />'."\n";
 		}
 	}
 
@@ -166,12 +165,12 @@ function theme_menu($html,$htmlactive = NULL) {
 			if ((isset($hidden)) && ($hidden == 'no')) {
 				//Check if we need to show an active link
 				if ((isset($currentpage)) && ($currentpage == $file) && ($htmlactive)) {
-					$html_new = str_replace('#title', htmlentities($title), $htmlactive);
+					$html_new = str_replace('#title', $title, $htmlactive);
 					$html_new = str_replace('#file', '?file='.$file, $html_new);
 					echo $html_new;
 				}
 				else {
-					$html_new = str_replace('#title', htmlentities($title), $html);
+					$html_new = str_replace('#title', $title, $html);
 					$html_new = str_replace('#file', '?file='.$file, $html_new);
 	    			echo $html_new;
 	    		}
