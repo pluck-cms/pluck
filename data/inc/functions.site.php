@@ -99,6 +99,7 @@ function theme_meta() {
 	echo '<meta name="generator" content="pluck '.PLUCK_VERSION.'" />'."\n";
 	echo '<title>'.PAGE_TITLE.' - '.SITE_TITLE.'</title>'."\n";
 	echo '<link href="'.$cssfile.'" rel="stylesheet" type="text/css" media="screen" />'."\n";
+	echo '<meta name="language" content="'.LANG.'" />'."\n";
 
 	//If we are not looking at a module: include metatag information
 	if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
