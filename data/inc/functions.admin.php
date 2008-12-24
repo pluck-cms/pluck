@@ -26,82 +26,13 @@ function read_lang_files($not_this_file) {
 	$files = read_dir_contents('data/inc/lang', 'files');
 	if ($files) {
 		natcasesort($files);
-			foreach ($files as $file) {
+		foreach ($files as $file) {
 			if ($file != $not_this_file) {
 				include ('data/inc/lang/'.$file);
 				?>
 				<option value='<?php echo $file; ?>'><?php echo $lang; ?></option>
 				<?php
 			}
-		}
-	}
-}
-
-//Function: read out the pages.
-//------------
-function read_pages() {
-	//Translation data.
-	global $lang_page3, $lang_meta1, $lang_updown1, $lang_trash1;
-	$files = read_dir_contents('data/settings/pages','files');
-	if ($files) {
-		natcasesort($files);
-		foreach ($files as $file) {
-			include ('data/settings/pages/'.$file);
-			?>
-			<div class="menudiv">
-				<span>
-					<img src="data/image/page.png" alt="" />
-				</span>
-				<span class="title-page"><?php echo htmlentities($title); ?></span>
-				<span>
-					<a href="?editpage=<?php echo $file; ?>"><img src="data/image/edit.png" title="<?php echo $lang_page3; ?>" alt="<?php echo $lang_page3; ?>" /></a>
-				</span>
-				<span>
-					<a href="?action=editmeta&amp;var=<?php echo $file; ?>"><img src="data/image/siteinformation.png" title="<?php echo $lang_meta1; ?>" alt="<?php echo $lang_meta1; ?>" /></a>
-				</span>
-				<span>
-					<a href="?pageup=<?php echo $file; ?>"><img src="data/image/up.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" /></a>
-				</span>
-				<span>
-					<a href="?pagedown=<?php echo $file; ?>"><img src="data/image/down.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" /></a>
-				</span>
-				<span>
-					<a href="?action=deletepage&amp;var=<?php echo $file; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" /></a>
-				</span>
-			</div>
-			<?php
-		}
-   }
-}
-
-
-//Function: readout the images
-//------------
-function read_images($dir) {
-	global $lang_albums14, $lang_trash1;
-	$files = read_dir_contents($dir, 'files');
-	if (!$files)
-		echo '<span class="kop4">'.$lang_albums14.'</span>';
-
-	if ($files) {
-		natcasesort($files);
-		foreach ($files as $file) {
-		?>
-			<div class="menudiv">
-				<span>
-					<img src="data/image/image.png" alt="">
-				</span>
-				<span style="width: 350px">
-					<span style="font-size: 17pt;"><?php echo $file; ?></span>
-				</span>
-				<span>
-					<a href="images/<?php echo $file; ?>" target="_blank"><img src="data/image/view.png" alt="" /></a>
-				</span>
-				<span>
-					<a href="?action=deleteimage&amp;var=<?php echo $file; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" /></a>
-				</span>
-			</div>
-		<?php
 		}
 	}
 }

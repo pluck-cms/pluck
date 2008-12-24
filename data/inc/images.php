@@ -45,9 +45,10 @@ if(isset($_POST ['Submit'])) {
 	//Check if the file is JPG, PNG or GIF
 	if (($_FILES ['imagefile'] ['type'] == 'image/pjpeg') || ($_FILES ['imagefile'] ['type'] == 'image/jpeg') || ($_FILES ['imagefile'] ['type'] == 'image/png') || ($_FILES ['imagefile'] ['type'] == 'image/gif')) {
 
-	//Strip all the spaces from the filename
+	//Strip spaces and % from the filename
 	$filename = $_FILES ['imagefile'] ['name'];
 	$filename = str_replace (' ','', $filename);
+	$filename = str_replace ('%','', $filename);
 
 	copy ($_FILES ['imagefile'] ['tmp_name'], 'images/'.$filename) or die ('<br />'.$lang_image2);
 	chmod('images/'.$filename, 0666);
@@ -69,8 +70,34 @@ if(isset($_POST ['Submit'])) {
 ?>
 <span class="kop2"><?php echo $lang_image7; ?></span>
 <br />
+
 <?php
 //Show the uploaded images
-	read_images('images');
-?>
+$images = read_dir_contents('images', 'files');
+	if ($images) {
+		natcasesort($images);
+		foreach ($images as $image) { ?>
+
+<div class="menudiv">
+	<span>
+		<img src="data/image/image.png" alt="">
+	</span>
+	<span style="width: 350px">
+		<span style="font-size: 17pt;"><?php echo $image; ?></span>
+	</span>
+	<span>
+		<a href="images/<?php echo $image; ?>" target="_blank"><img src="data/image/view.png" alt="" /></a>
+	</span>
+	<span>
+		<a href="?action=deleteimage&amp;var=<?php echo $image; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" /></a>
+	</span>
+</div>
+
+<?php
+		}
+	}
+	elseif (!$images) { ?>
+		<span class="kop4"><?php echo $lang_albums14; ?></span>
+<?php	} ?>
+
 <p><a href="?action=page">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a></p>

@@ -116,7 +116,7 @@ function redirect($url, $time) {
 	//And undo that for & chars.
 	$url = str_replace('%26', '&', $url);
 
-	//finally generate the metatag for redirecting
+	//Finally generate the metatag for redirecting
 	echo '<meta http-equiv="refresh" content="'.$time.'; url='.$url.'" />';
 }
 

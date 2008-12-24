@@ -31,7 +31,7 @@ if (file_exists('images/'.$_GET['var'])) {
 		unlink('images/'.$_GET['var']);
 
 		//Redirect user
-		redirect('?action=images', 2);
+		redirect('?action=images', 0);
 	}
 
 	//If there is an item with the same name in the trashcan: display error
