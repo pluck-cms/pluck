@@ -193,7 +193,7 @@ function theme_content() {
 		//Check if page exists
 		if (file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
 			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
-			echo htmlspecialchars_decode($content);
+			echo $content;
 		}
 		//If page doesn't exist, show error message
 		else {

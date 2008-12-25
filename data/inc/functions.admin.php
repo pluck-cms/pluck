@@ -231,7 +231,7 @@ function save_theme($theme) {
 function save_page($name, $title, $content, $hidden = 'no', $description = null, $keywords = null, $modules = null) {
 	//Sanitize the inputs.
 	$title = sanitize($title);
-	$content = sanitize($content);
+	$content = sanitize($content, false);
 	$description = sanitize($description);
 	$keywords = sanitize($keywords);
 
