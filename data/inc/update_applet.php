@@ -38,7 +38,7 @@ if (((!file_exists('data/settings/update_lastcheck.php'))) || ((file_exists('dat
 if (extension_loaded('curl')) {
 	$geturl = curl_init();
 	$timeout = 10;
-	curl_setopt ($geturl, CURLOPT_URL, 'http://www.pluck-cms.org/update.php?version='.$pluck_version);
+	curl_setopt ($geturl, CURLOPT_URL, 'http://www.pluck-cms.org/update.php?version='.PLUCK_VERSION);
 	curl_setopt ($geturl, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt ($geturl, CURLOPT_CONNECTTIMEOUT, $timeout);
 	$update_available = curl_exec($geturl);

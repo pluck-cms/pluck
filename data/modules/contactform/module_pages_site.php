@@ -7,5 +7,5 @@
 //LICENSE: GPLv3
 //This module is included with pluck
 
-$includepage = "contactform.php";
+$includepage = 'contactform.php';
 ?>

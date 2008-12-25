@@ -13,9 +13,9 @@
 */
 
 //Make sure the file isn't accessed directly.
-if ((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
-	//Give out an "access denied" error.
-	echo 'access denied';
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
 	//Block all other code.
 	exit();
 }
@@ -140,7 +140,7 @@ if (isset($_POST['Submit'])) {
 	//If not, create the appropriate dirs.
 	if (!file_exists('data/settings/themes/'.THEME)) {
 		mkdir('data/settings/themes/'.THEME, 0777);
-		chmod('data/settings/themes', 0777);
+		chmod('data/settings/themes/'.THEME, 0777);
 	}
 
 	//Then fopen it.
@@ -161,6 +161,10 @@ if (isset($_POST['Submit'])) {
 	fputs($file, "\n".'?>');
 	fclose($file);
 	chmod('data/settings/themes/'.THEME.'/moduleconf.php', 0777);
+
+	//If there are no modules, just delete the file.
+	if (!isset($areaname))
+		unlink('data/settings/themes/'.THEME.'/moduleconf.php');
 
 	//And redirect the user.
 	redirect('?action=module_addtosite', 0);

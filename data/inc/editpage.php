@@ -13,9 +13,9 @@
 */
 
 //Make sure the file isn't accessed directly
-if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("install.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("login.php", $_SERVER['SCRIPT_FILENAME']))){
-	//Give out an "access denied" error.
-	echo "access denied";
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
 	//Block all other code.
 	exit();
 }
@@ -43,7 +43,7 @@ require_once ('data/settings/pages/'.$editpage);
 	<br /><br />
 	<span class="kop2"><?php echo $lang_install18; ?></span>
 	<br />
-	<textarea class="tinymce" name="tekst" cols="70" rows="20"><?php echo $content ?></textarea>
+	<textarea class="tinymce" name="tekst" cols="70" rows="20"><?php echo htmlspecialchars($content) ?></textarea>
 	<br />
 	<div class="menudiv" style="width: 585px; margin-left: 0px;">
 		<table>

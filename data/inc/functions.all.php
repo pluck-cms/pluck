@@ -13,11 +13,11 @@
 */
 
 //Make sure the file isn't accessed directly.
-if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('update.php', $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error.
-    echo 'access denied';
-    //Block all other code.
-    exit();
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'update.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit();
 }
 
 //Function: check if module is compatible.
@@ -29,12 +29,11 @@ function module_is_compatible($module) {
 	}
 
 	if (isset($module_compatibility)) {
-		if (preg_match('/,/', $module_compatibility)) {
+		if (preg_match('/,/', $module_compatibility))
 			$version_compat = explode(',', $module_compatibility);
-		}
-		else {
+		else
 			$version_compat [0] = $module_compatibility;
-		}
+
 		//Now check if we have a compatible version. NOTE: If pluck is an alpha or beta version, it will always be compatible.
 		foreach ($version_compat as $number => $version) {
 			if ($version == PLUCK_VERSION || preg_match('/(alpha|beta)/', PLUCK_VERSION)) {
@@ -43,44 +42,39 @@ function module_is_compatible($module) {
 		}
 	}
 
-	if (isset($compatible) && $compatible == 'yes') {
+	if (isset($compatible) && $compatible == 'yes')
 		return true;
-	}
-	else {
+	else
 		return false;
-	}
+
 	unset($compatible);
 }
 
 //Function: recursively delete an entire directory.
 //--------------------
 function recursive_remove_directory($directory, $empty = false)	{
-	if (substr($directory, -1) == '/') {
+	if (substr($directory, -1) == '/')
 		$directory = substr($directory, 0, -1);
-	}
 
-	if (!file_exists($directory) || !is_dir($directory)) {
+	if (!file_exists($directory) || !is_dir($directory))
 		return false;
-	}
+
 	elseif (is_readable($directory)) {
 		$handle = opendir($directory);
 
 		while (false !== ($item = readdir($handle))) {
 			if ($item != '.' && $item != '..') {
 				$path = $directory.'/'.$item;
-				if (is_dir($path)) {
+				if (is_dir($path))
 					recursive_remove_directory($path);
-				}
-				else {
+				else
 					unlink($path);
-				}
 			}
 		}
 		closedir($handle);
 		if ($empty == false) {
-			if (!rmdir($directory)) {
+			if (!rmdir($directory))
 				return false;
-			}
 		}
 	}
 	return true;

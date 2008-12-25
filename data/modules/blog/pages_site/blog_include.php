@@ -34,7 +34,7 @@ if (file_exists('data/settings/modules/blog/post_index.dat')) {
 			?>
 			<div class="blogpost">
 				<span class="posttitle">
-					<a href="?module=blog&amp;page=viewpost&amp;post=<?php echo $file; ?>&amp;pageback=<?php echo $current_page_filename; ?>" title="post <?php echo $post_title; ?>"><?php echo $post_title; ?></a>
+					<a href="?module=blog&amp;page=viewpost&amp;post=<?php echo $file; ?>&amp;pageback=<?php echo CURRENT_PAGE_FILENAME; ?>" title="post <?php echo $post_title; ?>"><?php echo $post_title; ?></a>
 				</span><br />
 				<span class="postinfo">
 					<?php echo $lang_blog14; ?> <span style="font-weight: bold;"><?php echo $post_category; ?></span> - <?php echo $post_month; ?>-<?php echo $post_day; ?>-<?php echo $post_year; ?>, <?php echo $post_time; ?>
@@ -42,7 +42,7 @@ if (file_exists('data/settings/modules/blog/post_index.dat')) {
 				<br /><br />
 				<?php echo $post_content; ?>
 				<p>
-					<a href="?module=blog&amp;page=viewpost&amp;post=<?php echo $file; ?>&amp;pageback=<?php echo $current_page_filename; ?>" title="<?php echo $lang_blog23; ?>">&raquo; <?php echo $lang_blog23; ?></a>
+					<a href="?module=blog&amp;page=viewpost&amp;post=<?php echo $file; ?>&amp;pageback=<?php echo CURRENT_PAGE_FILENAME; ?>" title="<?php echo $lang_blog23; ?>">&raquo; <?php echo $lang_blog23; ?></a>
 				</p>
 			</div>
 			<?php

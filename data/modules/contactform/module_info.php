@@ -7,10 +7,7 @@
 //LICENSE: GPLv3
 //This module is included with pluck
 
-//Include language-items
-include ("data/settings/langpref.php");
-include ("data/inc/lang/en.php");
-include ("data/inc/lang/$langpref");
+global $lang_contact12, $lang_contact13;
 
 //Module name
 $module_name = $lang_contact12;
@@ -19,21 +16,20 @@ $module_name = $lang_contact12;
 $module_intro = $lang_contact13;
 
 //Module dir
-$module_dir = "contactform";
+$module_dir = 'contactform';
 
 //Filename of the module-icon
-$module_icon = "images/contactform.png";
+$module_icon = 'images/contactform.png';
 
 //Version of the module
-$module_version = "0.1";
+$module_version = '0.2';
 
 //Author of the module
-$module_author = "pluck development team";
+$module_author = 'pluck development team';
 
 //Website of the module
-$module_website = "http://www.pluck-cms.org";
+$module_website = 'http://www.pluck-cms.org';
 
 //Compatibility
-$module_compatibility = "4.6";
-
+$module_compatibility = '4.6';
 ?>

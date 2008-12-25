@@ -56,7 +56,7 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 				if (file_exists('data/themes/'.$dir.'/info.php')) {
 					include ('data/themes/'.$dir.'/info.php');
 					//If theme is current theme, select it
-					if ($themedir == $site_theme) {
+					if ($themedir == THEME) {
 					?>
 						<option value="<?php echo $themedir; ?>" selected="selected"><?php echo $themename; ?></option>
 					<?php

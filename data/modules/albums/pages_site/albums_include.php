@@ -24,10 +24,10 @@ while ($dir = readdir($dir_handle)) {
 <div class="album">
 	<table>
 		<tr>
-			<td><a href="?module=albums&amp;page=viewalbum&amp;album=<?php echo $dir; ?>&amp;pageback=<?php echo $current_page_filename; ?>" title="album <?php echo $dir; ?>"><img alt="<?php echo $dir; ?>" title=""<?php echo $dir; ?>" src="data/modules/albums/pages_admin/albums_getimage.php?image=<?php echo $dir; ?>/thumb/image1.jpg" /></a></td>
+			<td><a href="?module=albums&amp;page=viewalbum&amp;album=<?php echo $dir; ?>&amp;pageback=<?php echo CURRENT_PAGE_FILENAME; ?>" title="album <?php echo $dir; ?>"><img alt="<?php echo $dir; ?>" title=""<?php echo $dir; ?>" src="data/modules/albums/pages_admin/albums_getimage.php?image=<?php echo $dir; ?>/thumb/image1.jpg" /></a></td>
 			<td>
 				<span class="albuminfo">
-					<a href="?module=albums&amp;page=viewalbum&amp;album=<?php echo $dir; ?>&amp;pageback=<?php echo $current_page_filename; ?>" title="album <?php echo $dir; ?>"><?php echo $dir; ?></a>
+					<a href="?module=albums&amp;page=viewalbum&amp;album=<?php echo $dir; ?>&amp;pageback=<?php echo CURRENT_PAGE_FILENAME; ?>" title="album <?php echo $dir; ?>"><?php echo $dir; ?></a>
 				</span>
 			</td>
 		</tr>
