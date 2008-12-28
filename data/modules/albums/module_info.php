@@ -22,7 +22,7 @@ $module_dir = 'albums';
 $module_icon = 'images/albums.png';
 
 //Version of the module
-$module_version = '0.1';
+$module_version = '0.2';
 
 //Author of the module
 $module_author = 'pluck development team';

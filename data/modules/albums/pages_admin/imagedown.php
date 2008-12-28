@@ -19,47 +19,42 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	//Block all other code.
 	exit();
 }
+//First, load the functions.
+require_once ('data/modules/albums/functions.php');
 
-//First, load the functions
-include("data/modules/albums/functions.php");
+//Check if images exist.
+if (file_exists('data/settings/modules/albums/'.$var2.'/'.$var1.'.jpg') && file_exists('data/settings/modules/albums/'.$var2.'/'.$var1.'.php') && file_exists('data/settings/modules/albums/'.$var2.'/thumb/'.$var1.'.jpg')) {
+	//Determine the imagenumber
+	list($filename, $pagenumber) = explode('e', $var1);
+	$lowerpagenumber = $pagenumber + 1;
 
-//Check if images exist
-if ((file_exists("data/settings/modules/albums/$var2/$var.jpg")) && (file_exists("data/settings/modules/albums/$var2/$var.php")) && (file_exists("data/settings/modules/albums/$var2/thumb/$var.jpg"))) {
+	//We can't lower the last image, so we have to check:
+	if (!file_exists('data/settings/modules/albums/'.$var2.'/'.NAME.$lowerpagenumber.'.jpg')) {
+		echo $lang_updown7;
+		redirect('?module=albums&page=editalbum&var1='.$var2, 2);
+		include_once ('data/inc/footer.php');
+		exit;
+	}
 
-//Determine the imagenumber
-list($filename, $pagenumber) = explode("e", $var);
+	//First make temporary files.
+	rename('data/settings/modules/albums/'.$var2.'/'.$var1.'.jpg', 'data/settings/modules/albums/'.$var2.'/'.$var1.TEMP.'.jpg');
+	rename('data/settings/modules/albums/'.$var2.'/'.$var1.'.php', 'data/settings/modules/albums/'.$var2.'/'.$var1.TEMP.'.php');
+	rename('data/settings/modules/albums/'.$var2.'/thumb/'.$var1.'.jpg', 'data/settings/modules/albums/'.$var2.'/thumb/'.$var1.TEMP.'.jpg');
 
-//Define prefixes
-$temp = "_temp";
-$kop = "image";
-$lowerpagenumber = ($pagenumber+1);
+	//Then make the higher images one higher.
+	rename('data/settings/modules/albums/'.$var2.'/'.NAME.$lowerpagenumber.'.jpg', 'data/settings/modules/albums/'.$var2.'/'.$var1.'.jpg');
+	rename('data/settings/modules/albums/'.$var2.'/'.NAME.$lowerpagenumber.'.php', 'data/settings/modules/albums/'.$var2.'/'.$var1.'.php');
+	rename('data/settings/modules/albums/'.$var2.'/thumb/'.NAME.$lowerpagenumber.'.jpg', 'data/settings/modules/albums/'.$var2.'/thumb/'.$var1.'.jpg');
 
-//We can't higher kop1.php, so we have to check:
-if (!file_exists("data/settings/modules/albums/$var2/$kop$lowerpagenumber.jpg")) {
-echo $lang_updown7;
-redirect("?module=albums&page=editalbum&var=$var2","2");
-include ("data/inc/footer.php");
-exit; }
+	//Finally, give the temp-files its final name.
+	rename ('data/settings/modules/albums/'.$var2.'/'.$var1.TEMP.'.jpg', 'data/settings/modules/albums/'.$var2.'/'.NAME.$lowerpagenumber.'.jpg');
+	rename ('data/settings/modules/albums/'.$var2.'/'.$var1.TEMP.'.php', 'data/settings/modules/albums/'.$var2.'/'.NAME.$lowerpagenumber.'.php');
+	rename ('data/settings/modules/albums/'.$var2.'/thumb/'.$var1.TEMP.'.jpg', 'data/settings/modules/albums/'.$var2.'/thumb/'.NAME.$lowerpagenumber.'.jpg');
 
-//First make temporary files
-rename("data/settings/modules/albums/$var2/$var.jpg", "data/settings/modules/albums/$var2/$var$temp.jpg");
-rename("data/settings/modules/albums/$var2/$var.php", "data/settings/modules/albums/$var2/$var$temp.php");
-rename("data/settings/modules/albums/$var2/thumb/$var.jpg", "data/settings/modules/albums/$var2/thumb/$var$temp.jpg");
-
-//Then make the higher images one lower
-rename("data/settings/modules/albums/$var2/$kop$lowerpagenumber.jpg", "data/settings/modules/albums/$var2/$var.jpg");
-rename("data/settings/modules/albums/$var2/$kop$lowerpagenumber.php", "data/settings/modules/albums/$var2/$var.php");
-rename("data/settings/modules/albums/$var2/thumb/$kop$lowerpagenumber.jpg", "data/settings/modules/albums/$var2/thumb/$var.jpg");
-
-//Finally, give the temp-files its final name
-rename("data/settings/modules/albums/$var2/$var$temp.jpg", "data/settings/modules/albums/$var2/$kop$lowerpagenumber.jpg");
-rename("data/settings/modules/albums/$var2/$var$temp.php", "data/settings/modules/albums/$var2/$kop$lowerpagenumber.php");
-rename("data/settings/modules/albums/$var2/thumb/$var$temp.jpg", "data/settings/modules/albums/$var2/thumb/$kop$lowerpagenumber.jpg");
-
-//Show message
-echo $lang_updown3;
+	//Show message.
+	echo $lang_updown3;
 }
 
-//Redirect
-redirect("?module=albums&page=editalbum&var=$var2","0");
+//Redirect.
+redirect('?module=albums&page=editalbum&var1='.$var2, 0);
 ?>

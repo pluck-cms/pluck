@@ -20,7 +20,9 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit();
 }
 
-//Some functions needed for the album-module are defined here.
+//Two constants we use in imageup.php and imagedown.php.
+define('TEMP', '_temp');
+define('NAME', 'image');
 
 //Function: readout albums
 //------------

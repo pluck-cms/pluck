@@ -20,7 +20,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit();
 }
 
-//First, load the functions
+//First, load the functions.
 require_once ('data/modules/albums/functions.php');
 ?>
 	<p>
@@ -30,7 +30,7 @@ require_once ('data/modules/albums/functions.php');
 	<br />
 <?php
 	read_albums('data/settings/modules/albums');
-	//Check if the PHP-gd module is installed on server
+	//Check if the PHP-gd module is installed on server.
 	if (extension_loaded('gd')) {
 	?>
 		<br /><br />
@@ -43,7 +43,7 @@ require_once ('data/modules/albums/functions.php');
 			<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
 		</form>
 	<?php
-	//When form is submitted
+	//When form is submitted.
 	if (isset($_POST['Submit'])) {
 		if ($album_name) {
 			//Delete unwanted characters.
@@ -63,7 +63,7 @@ require_once ('data/modules/albums/functions.php');
 	}
 }
 
-//If PHP-gd module is not installed
+//If PHP-gd module is not installed.
 elseif (!extension_loaded('gd')) {
 ?>
 	<p class="red"><?php echo $lang_albums16; ?></p>
