@@ -85,9 +85,11 @@ if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php'))
 															while ($counting_modules <= $number_modules) {
 																//Check if this is the current setting.
 																//...and select the html-option if needed.
-																$currentsetting = $space [$position] [$module_dir];
-																if ($currentsetting == $counting_modules)
-																	echo '<option value="'.$counting_modules.'" selected="selected">'.$counting_modules.'</option>';
+																if (isset($space)) {
+																	$currentsetting = $space [$position] [$module_dir];
+																	if ($currentsetting == $counting_modules)
+																		echo '<option value="'.$counting_modules.'" selected="selected">'.$counting_modules.'</option>';
+																}
 
 																//...if this is not the current setting, don't select the html-option.
 																else
