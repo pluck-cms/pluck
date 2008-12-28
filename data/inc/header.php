@@ -14,7 +14,6 @@
 
 //Make sure the file isn't accessed directly.
 //TODO: This is a faster version with strpos, and should replace the old one in all the other files.
-//NOTE: Not all files should be accessed by install.php.
 if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
 	//Give out an "Access denied!" error.
 	echo 'Access denied!';

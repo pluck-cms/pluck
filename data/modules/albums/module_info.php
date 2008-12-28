@@ -7,10 +7,7 @@
 //LICENSE: GPLv3
 //This module is included with pluck
 
-//Include language-items
-include ("data/settings/langpref.php");
-include ("data/inc/lang/en.php");
-include ("data/inc/lang/$langpref");
+global $lang_albums, $lang_albums7;
 
 //Module name
 $module_name = $lang_albums;
@@ -19,21 +16,20 @@ $module_name = $lang_albums;
 $module_intro = $lang_albums7;
 
 //Module dir
-$module_dir = "albums";
+$module_dir = 'albums';
 
 //Filename of the module-icon
-$module_icon = "images/albums.png";
+$module_icon = 'images/albums.png';
 
 //Version of the module
-$module_version = "0.1";
+$module_version = '0.1';
 
 //Author of the module
-$module_author = "pluck development team";
+$module_author = 'pluck development team';
 
 //Website of the module
-$module_website = "http://www.pluck-cms.org";
+$module_website = 'http://www.pluck-cms.org';
 
 //Compatibility
-$module_compatibility = "4.6";
-
+$module_compatibility = '4.6';
 ?>

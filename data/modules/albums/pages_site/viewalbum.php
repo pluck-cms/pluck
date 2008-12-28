@@ -12,69 +12,58 @@
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
-if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("install.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("login.php", $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo "access denied";
-    //Block all other code
-    exit();
+//Make sure the file isn't accessed directly.
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit();
 }
+
+global $lang_theme12;
 
 //Predefined variable
 $album = $_GET['album'];
 $pageback = $_GET['pageback'];
 
-if (!file_exists('data/settings/modules/albums/'.$album)) {
+if (!file_exists('data/settings/modules/albums/'.$album))
 	echo '<p>'.$lang_albums18.'</p>';
-}
 
 //If the album exists
 else {
+	//Start reading out those images...
+	$files = read_dir_contents('data/settings/modules/albums/'.$album, 'files');
 
-//Define how to readout the images
-function read_albumimages($dir) {
-   $path = opendir($dir);
-   while (false !== ($file = readdir($path))) {
-       if(($file !== ".") and ($file !== "..")) {
-           if(is_file($dir."/".$file))
-               $files[]=$file;
-           else
-               $dirs[]=$file;           
-       }
-   }
+	if ($files) {
+		natcasesort($files);
 
-   if($files) {
-	natcasesort($files);
-
-   foreach ($files as $file) {
-   //Check if the files are JPG
-   list($fdirname, $ext) = explode(".", $file);
-	if (($ext == "jpg") || ($ext == "JPG")) {
-   $album = $_GET['album'];
-   include ("data/settings/modules/albums/$album/$fdirname.php");
-
-				echo "<div class=\"album\">
-							<table>
-							<tr>
-								<td>
-									<a href=\"data/modules/albums/pages_admin/albums_getimage.php?image=$album/$fdirname.jpg\" rel=\"lightbox[album]\" title=\"$name - $info\"><img src=\"data/modules/albums/pages_admin/albums_getimage.php?image=$album/thumb/$fdirname.jpg\" alt=\"$name\" title=\"$name\" /></a>
-								</td>
-								<td>
-									<span class=\"albuminfo\">$name</span><br />
-									<i>$info</i>
-								</td>
-								</tr>
-							</table>
-						</div>";
-           }
-        }
-   }
-   closedir($path);
-}
-
-//Start reading out those images...
-read_albumimages('data/settings/modules/albums/'.$album);
+	foreach ($files as $file) {
+		//Check if the files are JPG
+		list($fdirname, $ext) = explode(".", $file);
+		if ($ext == 'jpg') {
+			$album = $_GET['album'];
+			include_once ('data/settings/modules/albums/'.$album.'/'.$fdirname.'.php');
+			?>
+				<div class="album">
+					<table>
+						<tr>
+							<td>
+								<a href="data/modules/albums/pages_admin/albums_getimage.php?image=<?php echo $album; ?>/<?php echo $fdirname; ?>.jpg" rel="lightbox[album]" title="<?php echo $name; ?>">
+									<img src="data/modules/albums/pages_admin/albums_getimage.php?image=<?php echo $album; ?>/thumb/<?php echo $fdirname; ?>.jpg" alt="<?php echo $name; ?>" title="<?php echo $name; ?>" />
+								</a>
+							</td>
+							<td>
+								<span class="albuminfo"><?php echo $name; ?></span>
+								<br />
+								<i><?php echo $info; ?></i>
+							</td>
+						</tr>
+					</table>
+				</div>
+			<?php
+			}
+		}
+	}
 }
 ?>
-
 <p><a href="?file=<?php echo $pageback; ?>" title="return link">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a></p>

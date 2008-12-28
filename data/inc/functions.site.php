@@ -124,15 +124,13 @@ function theme_meta() {
 
 	//Loop through dirs
 	while ($dir = readdir($dir_handle)) {
-			if ($dir == '.' || $dir == '..') {
+		if ($dir == '.' || $dir == '..')
 			continue;
-			//Include the inc_site.php if it exists, and if module is compatible
-			include ('data/modules/'.$dir.'/module_info.php');
-			if (module_is_compatible($dir)) {
-				if (file_exists('data/modules/'.$dir.'/inc_site_head.php')) {
-					include ('data/modules/'.$dir.'/inc_site_head.php');
-				}
-			}
+		//Include the inc_site.php if it exists, and if module is compatible
+		include ('data/modules/'.$dir.'/module_info.php');
+		if (module_is_compatible($dir)) {
+			if (file_exists('data/modules/'.$dir.'/inc_site_head.php'))
+				include ('data/modules/'.$dir.'/inc_site_head.php');
 		}
 	}
 	//Close module-dir
@@ -154,9 +152,9 @@ function theme_menu($html,$htmlactive = NULL) {
 		natcasesort($files);
 
 		foreach ($files as $file) {
-			if (isset($_GET['file'])) {
+			if (isset($_GET['file']))
 				$currentpage = $_GET['file'];
-			}
+
 			include ('data/settings/pages/'.$file);
 
 			//Only display in menu if page isn't hidden by user

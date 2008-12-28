@@ -8,9 +8,8 @@
 //This module is included with pluck
 
 //Get albumname
-if (isset($_GET['album'])) {
+if (isset($_GET['album']))
 	$module_page['viewalbum'] = $_GET['album'];
-}
 
 $includepage = 'albums_include.php';
 ?>

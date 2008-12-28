@@ -5,12 +5,12 @@
 
 body {
 	background-color: white;
-	font-family: Trebuchet MS;
+	font-family: 'Trebuchet MS';
 	font-size: 100%;
 }
 
 #menuheader {
-	background-image: url(image/back.jpg);
+	background-image: url('image/back.jpg');
 	border-bottom: 1px solid #CCCCCC;
 	height: 100px;
 	position: absolute;

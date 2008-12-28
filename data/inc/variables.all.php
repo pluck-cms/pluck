@@ -36,7 +36,7 @@ if (file_exists('data/settings/themepref.php'))
 define('PLUCK_VERSION', '4.7 alpha');
 define('SITE_TITLE', get_sitetitle());
 define('EMAIL', $email);
-define('LANG', preg_replace('/.php/','',$langpref));
+define('LANG', str_replace('.php', '', $langpref));
 define('LANG_FILE', $langpref);
 define('THEME', $themepref);
 define('THEME_DIR', 'data/themes/'.$themepref);
@@ -76,7 +76,7 @@ if (isset($_GET['cat']))
 if (isset($_GET['var1']))
 	$var1 = $_GET['var1'];
 if (isset($_GET['var2']))
-	$var1 = $_GET['var2'];
+	$var2 = $_GET['var2'];
 if (isset($_GET['var3']))
 	$var3 = $_GET['var3'];
 

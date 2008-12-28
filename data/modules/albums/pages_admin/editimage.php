@@ -12,52 +12,54 @@
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
-if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("install.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("login.php", $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo "access denied";
-    //Block all other code
-    exit();
+//Make sure the file isn't accessed directly.
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit();
 }
 
-//First, load the functions
-include("data/modules/albums/functions.php");
-
 //Check if an image was defined, and if the image exists
-if((isset($var)) && (file_exists("data/settings/modules/albums/$var2/$var.php"))) {
-//Include the image-information
-include("data/settings/modules/albums/$var2/$var.php");
-//Replace html-breaks by real ones
-$info = str_replace ("<br>","\n", $info);
+if (isset($var1) && file_exists('data/settings/modules/albums/'.$var2.'/'.$var1.'.php')) {
+	//Include the image-information
+	include_once ('data/settings/modules/albums/'.$var2.'/'.$var1.'.php');
 
-echo "<form name=\"form1\" method=\"post\" action=\"\">
+	//Replace html-breaks by real ones
+	$info = str_replace('<br />', "\n", $info);
+	?>
+	<br />
+	<form name="form1" method="post" action="">
+		<label class="kop2" for="cont1"><?php echo $lang_install17; ?></label>
+		<br />
+		<input name="cont1" id="cont1" type="text" value="<?php echo $name; ?>" />
+		<br /><br />
+		<label class="kop2" for="cont2"><?php echo $lang_albums11; ?></label>
+		<br />
+		<textarea cols="50" rows="5" name="cont2" id="cont2"><?php echo $info; ?></textarea>
+		<br /><br />
+		<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
+		<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?module=albums&amp;page=editalbum&amp;var1=<?php echo $var2; ?>';" />
+	</form>
+	<?php
+	//When the information is posted:
+	if (isset($_POST['Submit'])) {
+		//Sanitize data.
+		$cont1 = sanitize($cont1);
+		$cont2 = sanitize($cont2);
+		$cont2 = str_replace ("\n",'<br />', $cont2);
 
-<b>$lang_install17</b><br>
-<input name=\"cont1\" type=\"text\" value=\"$name\"><br>
-<b>$lang_albums11</b><br>
-<textarea cols=\"50\" rows=\"5\" name=\"cont2\">$info</textarea><br>
-<input type=\"submit\" name=\"Submit\" value=\"$lang_install13\">
-<input type=\"button\" name=\"Cancel\" value=\"$lang_install14\" onclick=\"javascript: window.location='?module=albums&page=editalbum&var=$var2';\"></form>";
+		//Then save the imageinformation
+		$data = 'data/settings/modules/albums/'.$var2.'/'.$var1.'.php';
+		$file = fopen($data, 'w');
+		fputs($file, '<?php'."\n"
+		.'$name = \''.$cont1.'\';'."\n"
+		.'$info = \''.$cont2.'\';'."\n"
+		.'?>');
+		fclose($file);
+		chmod($data, 0777);
 
-//When the information is posted:
-if(isset($_POST['Submit'])) {
-//Strip slashes and sanitize data
-$cont1 = stripslashes($cont1);
-$cont2 = stripslashes($cont2);
-$cont1 = str_replace ("\"","\\\"", $cont1);
-$cont2 = str_replace ("\"","\\\"", $cont2);
-$cont2 = str_replace ("\n","<br>", $cont2);
-$cont1 = htmlspecialchars($cont1);
-$cont2 = htmlspecialchars($cont2);
-
-$data = "data/settings/modules/albums/$var2/$var.php";     
-$file = fopen($data, "w");  
-fputs($file, "<?php 
-\$name = \"$cont1\";;
-\$info = \"$cont2\";
-?>");  
-fclose($file);
-
-redirect("?module=albums&page=editalbum&var=$var2","0"); }
+		redirect('?module=albums&page=editalbum&var1='.$var2, 0);
+	}
 }
 ?>
