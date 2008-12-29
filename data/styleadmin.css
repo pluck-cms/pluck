@@ -13,10 +13,6 @@ body {
 	background-image: url('image/back.jpg');
 	border-bottom: 1px solid #CCCCCC;
 	height: 100px;
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	width: 100%;
 }
 
 #menuheader img {
@@ -25,10 +21,7 @@ body {
 }
 
 #menu {
-	position: relative;
 	height: 100px;
-	left: 185px;
-	top: 0px;
 }
 
 .menuitem {
@@ -52,24 +45,22 @@ body {
 }
 
 #menu2 {
-	bottom: 5px;
-	left: 205px;
-	position: absolute;
+	margin-top: 70px;
+	float: left;
 }
 
 .menuitem2 {
-	color:#B6B6B6;
-	font-size:15pt;
+	color: #B6B6B6;
+	font-size: 15pt;
 }
 
 #statusbox {
 	border-left: 1px dotted #CCCCCC;
 	height: 80%;
 	padding-left: 15px;
-	position: absolute;
-	right: 25px;
-	top: 10px;
 	width: 150px;
+	float: right;
+	margin: 10px 0 10px 0;
 }
 
 #statusbox div {
@@ -79,20 +70,16 @@ body {
 }
 
 #text {
-	left: 75px;
-	position: absolute;
-	top: 135px;
 	width: 90%;
+	margin: 30px 0 0 75px;
 }
 
 h1 {
-	bottom: 5px;
 	color: #3766AC;
 	font-size: 25pt;
 	font-weight: bold;
-	left: 75px;
-	margin-right: 100px;
-	position: absolute;
+	float: left;
+	margin: 55px 25px 0px 75px;
 }
 
 h2 {
@@ -171,12 +158,6 @@ h3 {
 #somp a:hover {
 	color: gray;
 	text-decoration: none;
-}
-
-.logo {
-	bottom: 5px;
-	left: 0px;
-	position: absolute;
 }
 
 a {

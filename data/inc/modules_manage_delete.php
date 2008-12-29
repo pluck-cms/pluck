@@ -13,15 +13,15 @@
 */
 
 //Make sure the file isn't accessed directly.
-if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo 'access denied';
-    //Block all other code
-    exit();
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit();
 }
 
 //Check if we defined a module to uninstall
-if(isset($var1)) {
+if (isset($var1)) {
 	recursive_remove_directory('data/modules/'.$var1);
 }
  

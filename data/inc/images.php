@@ -13,17 +13,18 @@
 */
 
 //Make sure the file isn't accessed directly.
-if((!ereg('index.php', $_SERVER ['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER ['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER ['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER ['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error.
-    echo 'access denied';
-    //Block all other code.
-    exit();
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit();
 }
 
 //Introduction text
 ?>
-<p><strong><?php echo $lang_image1; ?></strong></p>
-
+<p>
+	<strong><?php echo $lang_image1; ?></strong>
+</p>
 <div class="menudiv">
 	<table>
 		<tr>
@@ -31,7 +32,8 @@ if((!ereg('index.php', $_SERVER ['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_S
 				<img src="data/image/image.png" alt="" />
 			</td>
 			<td>
-				<span class="kop2"><?php echo $lang_image8; ?></span><br />
+				<span class="kop2"><?php echo $lang_image8; ?></span>
+				<br />
 				<form name="form1" method="post" action="" enctype="multipart/form-data">
 					<input type="file" name="imagefile" />
 					<input type="submit" name="Submit" value="<?php echo $lang_image9; ?>" />
@@ -41,14 +43,14 @@ if((!ereg('index.php', $_SERVER ['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_S
 	</table>
 </div>
 <?php
-if(isset($_POST ['Submit'])) {
+if (isset($_POST ['Submit'])) {
 	//Check if the file is JPG, PNG or GIF
-	if (($_FILES ['imagefile'] ['type'] == 'image/pjpeg') || ($_FILES ['imagefile'] ['type'] == 'image/jpeg') || ($_FILES ['imagefile'] ['type'] == 'image/png') || ($_FILES ['imagefile'] ['type'] == 'image/gif')) {
+	if ($_FILES ['imagefile'] ['type'] == 'image/pjpeg' || $_FILES ['imagefile'] ['type'] == 'image/jpeg' || $_FILES ['imagefile'] ['type'] == 'image/png' || $_FILES ['imagefile'] ['type'] == 'image/gif') {
 
 	//Strip spaces and % from the filename
 	$filename = $_FILES ['imagefile'] ['name'];
-	$filename = str_replace (' ','', $filename);
-	$filename = str_replace ('%','', $filename);
+	$filename = str_replace (' ', '', $filename);
+	$filename = str_replace ('%', '', $filename);
 
 	copy ($_FILES ['imagefile'] ['tmp_name'], 'images/'.$filename) or die ('<br />'.$lang_image2);
 	chmod('images/'.$filename, 0666);
@@ -70,34 +72,36 @@ if(isset($_POST ['Submit'])) {
 ?>
 <span class="kop2"><?php echo $lang_image7; ?></span>
 <br />
-
 <?php
 //Show the uploaded images
 $images = read_dir_contents('images', 'files');
 	if ($images) {
 		natcasesort($images);
-		foreach ($images as $image) { ?>
-
-<div class="menudiv">
-	<span>
-		<img src="data/image/image.png" alt="">
-	</span>
-	<span style="width: 350px">
-		<span style="font-size: 17pt;"><?php echo $image; ?></span>
-	</span>
-	<span>
-		<a href="images/<?php echo $image; ?>" target="_blank"><img src="data/image/view.png" alt="" /></a>
-	</span>
-	<span>
-		<a href="?action=deleteimage&amp;var=<?php echo $image; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" /></a>
-	</span>
-</div>
-
-<?php
+		foreach ($images as $image) {
+		?>
+			<div class="menudiv">
+				<span>
+					<img src="data/image/image.png" alt="">
+				</span>
+				<span style="width: 350px">
+					<span style="font-size: 17pt;"><?php echo $image; ?></span>
+				</span>
+				<span>
+					<a href="images/<?php echo $image; ?>" target="_blank"><img src="data/image/view.png" alt="" /></a>
+				</span>
+				<span>
+					<a href="?action=deleteimage&amp;var=<?php echo $image; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" /></a>
+				</span>
+			</div>
+			<?php
 		}
 	}
-	elseif (!$images) { ?>
+	elseif (!$images) {
+	?>
 		<span class="kop4"><?php echo $lang_albums14; ?></span>
-<?php	} ?>
-
-<p><a href="?action=page">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a></p>
+	<?php
+	}
+?>
+<p>
+	<a href="?action=page">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a>
+</p>

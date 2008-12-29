@@ -21,7 +21,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 
 //Include page information.
-require_once ('data/settings/pages/'.$editpage);
+	require_once ('data/settings/pages/'.$editpage);
 
 //Generate the menu on the right.
 ?>
@@ -91,7 +91,7 @@ require_once ('data/settings/pages/'.$editpage);
 													while ($counting_modules <= $number_modules) {
 														//Check if this is the current setting.
 														//...and select the html-option if needed
-														if (isset($module_pageinc))
+														if (isset($module_pageinc[$module_dir]))
 															$currentsetting = $module_pageinc[$module_dir];
 														if (isset($currentsetting) && $currentsetting == $counting_modules) {
 														?>

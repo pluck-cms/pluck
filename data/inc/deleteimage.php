@@ -12,29 +12,30 @@
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
-if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo 'access denied';
-    //Block all other code
-    exit();
+//Make sure the file isn't accessed directly.
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit();
 }
 
-//Check if image exists
+//Check if image exists.
+//FIXME: Would it not be better to use $var1?
 if (file_exists('images/'.$_GET['var'])) {
 
-	//First check if there isn't an item with the same name in the trashcan
+	//First check if there isn't an item with the same name in the trashcan.
 	if (!file_exists('data/trash/images/'.$_GET['var'])) {
-		//Move the page to the trashcan
+		//Move the page to the trashcan.
 		copy('images/'.$_GET['var'], 'data/trash/images/'.$_GET['var']);
 		chmod('data/trash/images/'.$_GET['var'], 0777);
 		unlink('images/'.$_GET['var']);
 
-		//Redirect user
+		//Redirect user.
 		redirect('?action=images', 0);
 	}
 
-	//If there is an item with the same name in the trashcan: display error
+	//If there is an item with the same name in the trashcan: display error.
 	else {
 		echo $lang_trash4;
 		redirect('?action=images', 3);

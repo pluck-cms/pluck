@@ -12,16 +12,17 @@
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
-if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo 'access denied';
-    //Block all other code
-    exit();
+//Make sure the file isn't accessed directly.
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit();
 }
 ?>
-<p><strong><?php echo $lang_cpass1; ?></strong></p>
-
+<p>
+	<strong><?php echo $lang_cpass1; ?></strong>
+</p>
 <form method="post" action="">
 	<span class="kop2"><?php echo $lang_cpass2; ?></span>
 	<br />
@@ -35,9 +36,9 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 	<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=options';" />
 </form>
 <?php
-if(isset($_POST['Submit'])) {
+if (isset($_POST['Submit'])) {
 	//Include old password
-	require('data/settings/pass.php');
+	require_once ('data/settings/pass.php');
 
 	//MD5-encrypt posted passwords
 	if (!empty($cont1))

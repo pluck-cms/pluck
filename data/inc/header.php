@@ -13,7 +13,7 @@
 */
 
 //Make sure the file isn't accessed directly.
-//TODO: This is a faster version with strpos, and should replace the old one in all the other files.
+//TODO: This is a faster version with strpos, and should replace the old one with ereg in all the other files.
 if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
 	//Give out an "Access denied!" error.
 	echo 'Access denied!';
@@ -73,6 +73,11 @@ function confirmation(message) {
 </head>
 <body>
 <div id="menuheader">
+	<div id="statusbox">
+		<?php include('data/inc/trashcan_applet.php'); ?>
+		<?php include('data/inc/update_applet.php'); ?>
+	</div>
+	<h1>pluck</h1>
 	<div id="menu">
 		<div class="menuitem">
 			<span>
@@ -104,11 +109,6 @@ function confirmation(message) {
 				<a href="?action=logout" title="<?php echo $lang_kop5; ?>"><?php echo $lang_kop5; ?></a>
 			</span>
 		</div>
-	</div>
-	<h1>pluck</h1>
-	<div id="statusbox">
-		<?php include('data/inc/trashcan_applet.php'); ?>
-		<?php include('data/inc/update_applet.php'); ?>
 	</div>
 </div>
 <div id="text">

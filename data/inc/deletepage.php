@@ -12,29 +12,30 @@
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
-if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo 'access denied';
-    //Block all other code
-    exit();
+//Make sure the file isn't accessed directly.
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit();
 }
 
-//Check if page exists
+//Check if page exists.
+//FIXME: Would it not be better to use $var1?
 if (file_exists('data/settings/pages/'.$_GET['var'])) {
 
-	//First check if there isn't an item with the same name in the trashcan
+	//First check if there isn't an item with the same name in the trashcan.
 	if (!file_exists('data/trash/pages/'.$_GET['var'])) {
 
-		//Move the page to the trashcan
+		//Move the page to the trashcan.
 		copy('data/settings/pages/'.$_GET['var'], 'data/trash/pages/'.$_GET['var']);
 		chmod('data/trash/pages/'.$_GET['var'], 0777);
 		unlink('data/settings/pages/'.$_GET['var']);
 	}
 
-	//If there is an item with the same name in the trashcan
+	//If there is an item with the same name in the trashcan.
 	else {
-		//Now we have to check which filenames we can then use
+		//Now we have to check which filenames we can then use.
 		if (file_exists('data/trash/pages/kop1.php')) {
 			$i = 2;
 			$o = 3;
@@ -47,13 +48,13 @@ if (file_exists('data/settings/pages/'.$_GET['var'])) {
 		else {
 			$newfile = 'data/trash/pages/kop1.php';
 		}
-		//Move the file with the new filename
+		//Move the file with the new filename.
 		copy('data/settings/pages/'.$_GET['var'], $newfile);
 		chmod($newfile, 0777);
 		unlink('data/settings/pages/'.$_GET['var']);
 	}
 }
 
-//Redirect user
+//Redirect user.
 redirect('?action=page',0);
 ?>

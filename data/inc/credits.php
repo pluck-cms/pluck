@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
  * http://www.pluck-cms.org
@@ -8,16 +8,16 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- 
+
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
-if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo 'access denied';
-    //Block all other code
-    exit();
+//Make sure the file isn't accessed directly.
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit();
 }
 ?>
 
@@ -26,21 +26,28 @@ if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SE
 </p>
 
 <p>
-	<span class="kop2"><?php echo $lang_credits3; ?></span><br />
+	<span class="kop2"><?php echo $lang_credits3; ?></span>
+	<br />
 	Sander Thijsen
 </p>
 
 <p>
-	<span class="kop2"><?php echo $lang_credits6; ?></span><br />
-	Sander Thijsen<br />
+	<span class="kop2"><?php echo $lang_credits6; ?></span>
+	<br />
+	Sander Thijsen
+	<br />
 	Anders Jørgensen
 </p>
 
 <p>
-	<span class="kop2"><?php echo $lang_credits7; ?></span><br />
-	Kristaps Ancāns<br />
-	Callan Barrett<br />
-	Dennis Sewbarath<br />
+	<span class="kop2"><?php echo $lang_credits7; ?></span>
+	<br />
+	Kristaps Ancāns
+	<br />
+	Callan Barrett
+	<br />
+	Dennis Sewbarath
+	<br />
 	Bogumił Cieniek
 </p>
 
@@ -109,11 +116,17 @@ if ($langpref != 'en.php') {
 ?>
 
 <p>
-	<span class="kop2"><?php echo $lang_credits5; ?></span><br />
-	<a href="http://tinymce.moxiecode.com" target="_blank">MoxieCode</a>, for making the excellent TinyMCE-editor used in pluck<br />
-	<a href="http://www.phpconcept.net" target="_blank">PhpConcept</a>, for making PclTar, used in the automatic theme-installer<br />
-	<a href="http://www.huddletogether.com/projects/lightbox2" target="_blank">Lokesh</a>, for developing LightBox2, used in pluck to serve the images in your albums with flair<br />
-	<a href="http://www.justinbarkhuff.com/lab/lightbox_slideshow/" target="_blank">Justin Barkhuff</a>, for providing the slideshow feature for LightBox2<br />
-	<a href="http://tango.freedesktop.org" target="_blank">The Tango Desktop Project</a>, for designing the wonderful icons used in the pluck administration center<br />
-	<a href="http://www.famfamfam.com/lab/icons/silk/" target="_blank">Mark James</a>, for designing the "Silk" icons, also used in pluck 
+	<span class="kop2"><?php echo $lang_credits5; ?></span>
+	<br />
+	<a href="http://tinymce.moxiecode.com" target="_blank">MoxieCode</a>, for making the excellent TinyMCE-editor used in pluck
+	<br />
+	<a href="http://www.phpconcept.net" target="_blank">PhpConcept</a>, for making PclTar, used in the automatic theme-installer
+	<br />
+	<a href="http://www.huddletogether.com/projects/lightbox2" target="_blank">Lokesh</a>, for developing LightBox2, used in pluck to serve the images in your albums with flair
+	<br />
+	<a href="http://www.justinbarkhuff.com/lab/lightbox_slideshow/" target="_blank">Justin Barkhuff</a>, for providing the slideshow feature for LightBox2
+	<br />
+	<a href="http://tango.freedesktop.org" target="_blank">The Tango Desktop Project</a>, for designing the wonderful icons used in the pluck administration center
+	<br />
+	<a href="http://www.famfamfam.com/lab/icons/silk/" target="_blank">Mark James</a>, for designing the "Silk" icons, also used in pluck
 </p>
