@@ -13,11 +13,11 @@
 */
 
 //Make sure the file isn't accessed directly
-if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("install.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("login.php", $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo "access denied";
-    //Block all other code
-    exit();
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit();
 }
 
 //Include functions
@@ -50,9 +50,8 @@ if(file_exists('data/settings/modules/blog/categories.dat')) {
 	
 	//And show them
 	//start table first
-	foreach($categories as $key => $name) {
-		echo '<option value="'.$name.'" />'.$name; 
-	}
+	foreach($categories as $key => $name)
+		echo '<option value="'.$name.'" />'.$name;
 }
 ?>
 	</select><br /><br />
@@ -68,13 +67,10 @@ if(file_exists('data/settings/modules/blog/categories.dat')) {
 //If form is posted...
 if(isset($_POST['Submit'])) {
 
-	//Strip slashes
-	$cont1 = stripslashes($cont1);
-	$cont1 = str_replace("\"", "\\\"", $cont1);
-	$cont2 = stripslashes($cont2);
-	$cont2 = str_replace("\"", "\\\"", $cont2);
-	$cont3 = stripslashes($cont3);
-	$cont3 = str_replace("\"", "\\\"", $cont3);
+	//Sanitize variables
+	$cont1 = sanitize($cont1);
+	$cont2 = sanitize($cont2);
+	$cont3 = sanitize($cont3, false);
 
 	//Determine the date
 	$day = date("d");
@@ -131,13 +127,13 @@ if(isset($_POST['Submit'])) {
 	//Save information
 	$file = fopen('data/settings/modules/blog/posts/'.$newfile.'.php', 'w');
 	fputs($file, '<?php'."\n"
-	.'$post_title = "'.$cont1.'";'."\n"
-	.'$post_category = "'.$cont2.'";'."\n"
-	.'$post_content = "'.$cont3.'";'."\n"
-	.'$post_day = "'.$day.'";'."\n"
-	.'$post_month = "'.$month.'";'."\n"
-	.'$post_year = "'.$year.'";'."\n"
-	.'$post_time = "'.$time.'";'."\n"
+	.'$post_title = \''.$cont1.'\';'."\n"
+	.'$post_category = \''.$cont2.'\';'."\n"
+	.'$post_content = \''.$cont3.'\';'."\n"
+	.'$post_day = \''.$day.'\';'."\n"
+	.'$post_month = \''.$month.'\';'."\n"
+	.'$post_year = \''.$year.'\';'."\n"
+	.'$post_time = \''.$time.'\';'."\n"
 	.'?>');
 	fclose($file);
 	chmod('data/settings/modules/blog/posts/'.$newfile.'.php',0777);

@@ -13,23 +13,21 @@
 */
 
 //Make sure the file isn't accessed directly
-if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("install.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("login.php", $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo "access denied";
-    //Block all other code
-    exit();
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit();
 }
 
 //Include functions
 require_once('data/modules/blog/functions.php');
 
 //Include the postinformation
-if (file_exists('data/settings/modules/blog/posts/'.$var)) {
+if (file_exists('data/settings/modules/blog/posts/'.$var))
 	include('data/settings/modules/blog/posts/'.$var);
-}
-else {
+else
 	exit;
-}
 ?>
 
 <div class="rightmenu">
@@ -58,14 +56,11 @@ if(file_exists('data/settings/modules/blog/categories.dat')) {
 	$categories = split(',',$categories);
 
 	//And show them
-	//start table first
 	foreach($categories as $key => $name) {
-		if($post_category == $name) {
+		if($post_category == $name)
 			echo '<option value="'.$name.'" selected />'.$name.'</option>';
-		}
-		else {
+		else
 			echo '<option value="'.$name.'" />'.$name.'</option>';
-		}
 	}
 }
 ?>
@@ -82,81 +77,47 @@ if(file_exists('data/settings/modules/blog/categories.dat')) {
 //If form is posted...
 if(isset($_POST['Submit'])) {
 
-	//Strip slashes
-	$cont1 = stripslashes($cont1);
-	$cont1 = str_replace("\"", "\\\"", $cont1);
-	$cont2 = stripslashes($cont2);
-	$cont2 = str_replace("\"", "\\\"", $cont2);
-	$cont3 = stripslashes($cont3);
-	$cont3 = str_replace("\"", "\\\"", $cont3);
+	//Sanitize variables
+	$cont1 = sanitize($cont1);
+	$cont2 = sanitize($cont2);
+	$cont3 = sanitize($cont3, false);
 
-	//Check for new title
-	if ($cont1 != $var) {
-		//Create new post file
-		//Generate filename
-		$newfile = strtolower($cont1);
-		$newfile = str_replace('.', '', $newfile);
-		$newfile = str_replace(',', '', $newfile);
-		$newfile = str_replace('?', '', $newfile);
-		$newfile = str_replace(':', '', $newfile);
-		$newfile = str_replace('<', '', $newfile);
-		$newfile = str_replace('>', '', $newfile);
-		$newfile = str_replace('=', '', $newfile);
-		$newfile = str_replace('"', '', $newfile);
-		$newfile = str_replace('\'', '', $newfile);
-		$newfile = str_replace('/', '', $newfile);
-		$newfile = str_replace("\\", '', $newfile);
-		$newfile = str_replace('-', '', $newfile);
-		$newfile = str_replace('  ', '-', $newfile);
-		$newfile = str_replace(' ', '-', $newfile);
+	//Generate filename
+	$newfile = strtolower($cont1);
+	$newfile = str_replace('.', '', $newfile);
+	$newfile = str_replace(',', '', $newfile);
+	$newfile = str_replace('?', '', $newfile);
+	$newfile = str_replace(':', '', $newfile);
+	$newfile = str_replace('<', '', $newfile);
+	$newfile = str_replace('>', '', $newfile);
+	$newfile = str_replace('=', '', $newfile);
+	$newfile = str_replace('"', '', $newfile);
+	$newfile = str_replace('\'', '', $newfile);
+	$newfile = str_replace('/', '', $newfile);
+	$newfile = str_replace("\\", '', $newfile);
+	$newfile = str_replace('-', '', $newfile);
+	$newfile = str_replace('  ', '-', $newfile);
+	$newfile = str_replace(' ', '-', $newfile);
 
-		//Make sure chosen filename doesn't exist
-		if (file_exists('data/settings/modules/blog/posts/'.$newfile.'.php')) {
-			$newfile = $newfile.'-new';
-		}
-
-		//Create/update the post_index.dat file
-		if (file_exists('data/settings/modules/blog/post_index.dat')) {
-			$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
-			$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
-			if (!empty($contents))
-				fputs($file,$newfile.'.php'."\n".$contents);
-			else
-				fputs($file,$newfile.'.php');
-		}
-
-		else {
-			$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
-			fputs($file,$newfile.'.php');
-		}
-
-		fclose($file);
-		unset($file);
-		chmod('data/settings/modules/blog/post_index.dat', 0777);
-
-		//Delete old post file
+	//Udate the post index file, if necessary
+	if ($var != $newfile.'.php') {
+		//Change old filename into new filename in post index
 		if (file_exists('data/settings/modules/blog/post_index.dat')) {
 			//Get post index
 			$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
-
-			//Check if post index contains post we want to delete, and filter out the post
+				//Check if post index contains old filename, and change it into new filename
 			if (ereg($var."\n",$contents))
-				$contents = str_replace($var."\n", '', $contents);
+				$contents = str_replace($var."\n", $newfile.'.php'."\n", $contents);
 			elseif (ereg("\n".$var,$contents))
-				$contents = str_replace("\n".$var, '', $contents);
+				$contents = str_replace("\n".$var, "\n".$newfile.'.php', $contents);
 			elseif (ereg($var,$contents))
-				$contents = str_replace($var, '', $contents);
+				$contents = str_replace($var, $newfile.'.php', $contents);
 
 			//Save updated post index
 			$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
 			fputs($file, $contents);
 			fclose($file);
-
-			//Reload contents of post index in variable
-			$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
-			//If variable/file is empty, delete post index
-			if (empty($contents))
-				unlink('data/settings/modules/blog/post_index.dat');
+			chmod('data/settings/modules/blog/post_index.dat', 0777);
 		}
 
 		//Check if the old post exists, then delete it
@@ -165,31 +126,38 @@ if(isset($_POST['Submit'])) {
 			unlink('data/settings/modules/blog/posts/'.$var);
 		}
 
-		//Set the new post file to current file
-		$var = $newfile.'.php';
+	//Set the new post file to current file
+	$var = $newfile.'.php';
 	}
+
 	//Save information
 	$file = fopen('data/settings/modules/blog/posts/'.$var, 'w');
 	fputs($file, '<?php'."\n"
-	.'$post_title = "'.$cont1.'";'."\n"
-	.'$post_category = "'.$cont2.'";'."\n"
-	.'$post_content = "'.$cont3.'";'."\n"
-	.'$post_day = "'.$post_day.'";'."\n"
-	.'$post_month = "'.$post_month.'";'."\n"
-	.'$post_year = "'.$post_year.'";'."\n"
-	.'$post_time = "'.$post_time.'";'."\n");
+	.'$post_title = \''.$cont1.'\';'."\n"
+	.'$post_category = \''.$cont2.'\';'."\n"
+	.'$post_content = \''.$cont3.'\';'."\n"
+	.'$post_day = \''.$post_day.'\';'."\n"
+	.'$post_month = \''.$post_month.'\';'."\n"
+	.'$post_year = \''.$post_year.'\';'."\n"
+	.'$post_time = \''.$post_time.'\';'."\n");
 
 	//Check if there are reactions
 	if(isset($post_reaction_title)) {
 		foreach($post_reaction_title as $reaction_key => $value) {
+
+			//Sanitize reaction variables
+			$post_reaction_title[$reaction_key] = sanitize($post_reaction_title[$reaction_key]);
+			$post_reaction_name[$reaction_key] = sanitize($post_reaction_name[$reaction_key]);
+			$post_reaction_content[$reaction_key] = sanitize($post_reaction_content[$reaction_key]);
+
 			//And save the existing reaction
-			fputs($file, '$post_reaction_title['.$reaction_key.'] = "'.$post_reaction_title[$reaction_key].'";'."\n"
-			.'$post_reaction_name['.$reaction_key.'] = "'.$post_reaction_name[$reaction_key].'";'."\n"
-			.'$post_reaction_content['.$reaction_key.'] = "'.$post_reaction_content[$reaction_key].'";'."\n"
-			.'$post_reaction_day['.$reaction_key.'] = "'.$post_reaction_day[$reaction_key].'";'."\n"
-			.'$post_reaction_month['.$reaction_key.'] = "'.$post_reaction_month[$reaction_key].'";'."\n"
-			.'$post_reaction_year['.$reaction_key.'] = "'.$post_reaction_year[$reaction_key].'";'."\n"
-			.'$post_reaction_time['.$reaction_key.'] = "'.$post_reaction_time[$reaction_key].'";'."\n");
+			fputs($file, '$post_reaction_title['.$reaction_key.'] = \''.$post_reaction_title[$reaction_key].'\';'."\n"
+			.'$post_reaction_name['.$reaction_key.'] = \''.$post_reaction_name[$reaction_key].'\';'."\n"
+			.'$post_reaction_content['.$reaction_key.'] = \''.$post_reaction_content[$reaction_key].'\';'."\n"
+			.'$post_reaction_day['.$reaction_key.'] = \''.$post_reaction_day[$reaction_key].'\';'."\n"
+			.'$post_reaction_month['.$reaction_key.'] = \''.$post_reaction_month[$reaction_key].'\';'."\n"
+			.'$post_reaction_year['.$reaction_key.'] = \''.$post_reaction_year[$reaction_key].'\';'."\n"
+			.'$post_reaction_time['.$reaction_key.'] = \''.$post_reaction_time[$reaction_key].'\';'."\n");
 		}
 	}
 	fputs($file, '?>');

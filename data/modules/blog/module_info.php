@@ -7,10 +7,7 @@
 //LICENSE: GPLv3
 //This module is included with pluck
 
-//Include language-items
-include ("data/settings/langpref.php");
-include ("data/inc/lang/en.php");
-include ("data/inc/lang/$langpref");
+global $lang_blog, $lang_blog1;
 
 //Module name
 $module_name = $lang_blog;
@@ -19,24 +16,24 @@ $module_name = $lang_blog;
 $module_intro = $lang_blog1;
 
 //Module dir
-$module_dir = "blog";
+$module_dir = 'blog';
 
 //Filename of the module-icon
-$module_icon = "images/blog.png";
+$module_icon = 'images/blog.png';
 
 //Version of the module
-$module_version = "0.1";
+$module_version = '0.1';
 
 //Author of the module
-$module_author = "pluck development team";
+$module_author = 'pluck development team';
 
 //Website of the module
-$module_website = "http://www.pluck-cms.org";
+$module_website = 'http://www.pluck-cms.org';
 
 //We need TinyMCE!
-$tinymce = "yes";
+$tinymce = 'yes';
 
 //Compatibility
-$module_compatibility = "4.6";
+$module_compatibility = '4.6';
 
 ?>
