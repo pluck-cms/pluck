@@ -29,7 +29,7 @@ $lang_front2 = "Deze pagina kan niet worden gevonden, en is waarschijnlijk verpl
 
 //General data
 $lang_pluck = "pluck";
-$lang_footer = "pluck &copy; 2005-2008 <a href=\"http://www.somp.nl\" target=\"_blank\">somp</a>. pluck is beschikbaar onder de GNU General Public License.";
+$lang_footer = "pluck &copy; 2005-2009 <a href=\"http://www.somp.nl\" target=\"_blank\">somp</a>. pluck is beschikbaar onder de GNU General Public License.";
 $lang_error1 = "niet ge&iuml;nstalleerd";
 $lang_error3 = "niet ingelogd";
 $lang_error4 = "U bent niet ingelogd! Een moment alstublieft... ";

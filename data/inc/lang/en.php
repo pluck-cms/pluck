@@ -27,7 +27,7 @@ $lang_front2 = "This page could not be found.";
 
 //General data
 $lang_pluck = "pluck";
-$lang_footer = "pluck &copy; 2005-2008 <a href=\"http://www.somp.nl\" target=\"_blank\">somp</a>. pluck is available under the terms of the GNU General Public License.";
+$lang_footer = "pluck &copy; 2005-2009 <a href=\"http://www.somp.nl\" target=\"_blank\">somp</a>. pluck is available under the terms of the GNU General Public License.";
 $lang_error1 = "not installed";
 $lang_error3 = "not logged in";
 $lang_error4 = "You are not logged in! A moment, please...";
