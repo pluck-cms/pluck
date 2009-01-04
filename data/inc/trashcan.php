@@ -12,11 +12,11 @@
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
-if ((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
-	//Give out an "access denied" error
-	echo 'access denied';
-	//Block all other code
+//Make sure the file isn't accessed directly.
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
 	exit();
 }
 ?>
@@ -43,7 +43,6 @@ else
 		<a href="?action=trashcan_empty" onclick="return confirm('<?php echo $lang_trash11; ?>');"><?php echo $lang_trash6; ?></a>
 	</span>
 </div>
-
 <span class="kop2"><?php echo $lang_kop2; ?></span>
 <br />
 <?php
@@ -55,7 +54,7 @@ if ($pages == false) {
 <?php
 }
 else {
-	foreach ($pages as $page) { 
+	foreach ($pages as $page) {
 		include_once ('data/trash/pages/'.$page);
 		?>
 		<div class="menudiv">

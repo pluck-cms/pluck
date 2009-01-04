@@ -13,26 +13,27 @@
 */
 
 //Make sure the file isn't accessed directly.
-if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error.
-    echo 'access denied';
-    //Block all other code.
-    exit();
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit();
 }
 
 //Introduction text.
 ?>
-<p><strong><?php echo $lang_lang1; ?></strong></p>
-
-<form action="" method="post">
-	<select name="cont">
-		<option selected="selected" value="0"><?php echo $lang_lang2; ?></option>
-		<?php read_lang_files(LANG_FILE); ?>
-	</select>
-	<br /><br />
-	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
-	<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=options';" />
-</form>
+	<p>
+		<strong><?php echo $lang_lang1; ?></strong>
+	</p>
+	<form action="" method="post">
+		<select name="cont">
+			<option selected="selected" value="0"><?php echo $lang_lang2; ?></option>
+			<?php read_lang_files(LANG_FILE); ?>
+		</select>
+		<br /><br />
+		<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
+		<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=options';" />
+	</form>
 <?php
 //Check if chosen language is valid, and then save data.
 if (isset($_POST['Submit']) && isset($cont) && $cont != '0' && file_exists('data/inc/lang/'.$cont)) {

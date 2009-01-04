@@ -12,24 +12,22 @@
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
-if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo 'access denied';
-    //Block all other code
-    exit();
+//Make sure the file isn't accessed directly.
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit();
 }
 
 //Page
-if (($_GET['cat'] == 'page') && (file_exists('data/trash/pages/'.$_GET['var']))) {
+if ($_GET['cat'] == 'page' && file_exists('data/trash/pages/'.$_GET['var']))
 	unlink('data/trash/pages/'.$_GET['var']);
-}
 
 //Image
-if (($_GET['cat'] == 'image') && (file_exists('data/trash/images/'.$_GET['var']))) {
+if ($_GET['cat'] == 'image' && file_exists('data/trash/images/'.$_GET['var']))
 	unlink('data/trash/images/'.$_GET['var']);
-}
 
 //Redirect
-redirect('?action=trashcan',0);
+redirect('?action=trashcan', 0);
 ?>

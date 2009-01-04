@@ -12,23 +12,24 @@
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
-if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("install.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("login.php", $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo "access denied";
-    //Block all other code
-    exit();
+//Make sure the file isn't accessed directly.
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit();
 }
 
 //Images
 recursive_remove_directory('data/trash/images');
-mkdir('data/trash/images',0777);
-chmod('data/trash/images',0777);
+mkdir('data/trash/images', 0777);
+chmod('data/trash/images', 0777);
+
 //Pages
 recursive_remove_directory('data/trash/pages');
-mkdir('data/trash/pages',0777);
-chmod('data/trash/pages',0777);
+mkdir('data/trash/pages', 0777);
+chmod('data/trash/pages', 0777);
 
 //Redirect
-redirect('?action=trashcan',0);
+redirect('?action=trashcan', 0);
 ?>

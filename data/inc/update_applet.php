@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
  * http://www.pluck-cms.org
@@ -8,62 +8,58 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- 
+
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
-if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo 'access denied';
-    //Block all other code
-    exit();
+//Make sure the file isn't accessed directly.
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit();
 }
 
 //First get the day of the year
 $dayofyear = date('z');
 
-//If the updatecheckfile existst, include it
-if (file_exists('data/settings/update_lastcheck.php')) {
-	include('data/settings/update_lastcheck.php');
-}
+//If the updatecheckfile existst, include it.
+if (file_exists('data/settings/update_lastcheck.php'))
+	include_once ('data/settings/update_lastcheck.php');
 
 //We want to check for updates if:
 //1 Updatecheckfile doesn't exist
 //2 Updatecheckfile exists, but last check was not today
-if (((!file_exists('data/settings/update_lastcheck.php'))) || ((file_exists('data/settings/update_lastcheck.php')) && ($lastcheck != $dayofyear))) {
+if (!file_exists('data/settings/update_lastcheck.php') || ((file_exists('data/settings/update_lastcheck.php') && $lastcheck != $dayofyear))) {
+	//Iniate CURL to fetch update-info,
+	//but only if CURL-extension is loaded
+	if (extension_loaded('curl')) {
+		$geturl = curl_init();
+		$timeout = 10;
+		curl_setopt ($geturl, CURLOPT_URL, 'http://www.pluck-cms.org/update.php?version='.PLUCK_VERSION);
+		curl_setopt ($geturl, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt ($geturl, CURLOPT_CONNECTTIMEOUT, $timeout);
+		$update_available = curl_exec($geturl);
+		curl_close($geturl);
+	}
 
-//Iniate CURL to fetch update-info,
-//but only if CURL-extension is loaded
-if (extension_loaded('curl')) {
-	$geturl = curl_init();
-	$timeout = 10;
-	curl_setopt ($geturl, CURLOPT_URL, 'http://www.pluck-cms.org/update.php?version='.PLUCK_VERSION);
-	curl_setopt ($geturl, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt ($geturl, CURLOPT_CONNECTTIMEOUT, $timeout);
-	$update_available = curl_exec($geturl);
-	curl_close($geturl);
-}
+	//If CURL isn't loaded, save an error-status
+	else
+		$update_available = 'error';
 
-//If CURL isn't loaded, save an error-status
-else {
-	$update_available = 'error';
-}
-
-$data = 'data/settings/update_lastcheck.php';
-$file = fopen($data, 'w');
-fputs($file, '<?php'."\n"
-.'$lastcheck = "'.$dayofyear.'";'."\n"
-.'$lastupdatestatus = "'.$update_available.'";'."\n"
-.'?>');
-fclose($file);
-chmod($data,0777);
+	$data = 'data/settings/update_lastcheck.php';
+	$file = fopen($data, 'w');
+	fputs($file, '<?php'."\n"
+	.'$lastcheck = "'.$dayofyear.'";'."\n"
+	.'$lastupdatestatus = "'.$update_available.'";'."\n"
+	.'?>');
+	fclose($file);
+	chmod($data,0777);
 }
 
 //If update-file exists and we already checked for updates today, use old updatecheck result
-elseif ((file_exists('data/settings/update_lastcheck.php')) && ($lastcheck == $dayofyear)) {
+elseif (file_exists('data/settings/update_lastcheck.php') && $lastcheck == $dayofyear)
 	$update_available = $lastupdatestatus;
-}
 
 //Then determine which icon we need to show... and show it
 if ($update_available == 'yes') {

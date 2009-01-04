@@ -12,19 +12,17 @@
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
-if((!ereg('index.php', $_SERVER ['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER ['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER ['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER ['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo 'access denied';
-    //Block all other code
-    exit();
+//Make sure the file isn't accessed directly.
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit();
 }
 ?>
-
-<p>
-	<strong><?php echo $lang_theme6; ?></strong>
-</p>
-
+	<p>
+		<strong><?php echo $lang_theme6; ?></strong>
+	</p>
 <?php
 	if (!isset($_POST ['Submit'])) {
 	?>
@@ -53,41 +51,41 @@ if((!ereg('index.php', $_SERVER ['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_S
 }
 
 if (isset($_POST['Submit'])) {
-	//If no file has been sent
+	//If no file has been sent.
 	if (!$_FILES['sendfile'])
 		echo $lang_image2;
 
 	else {
-		//Some data
-		$dir = 'data/themes'; //where we will save and extract the file
-		$maxfilesize = 1000000; //max size of file
-		$filename = $_FILES ['sendfile'] ['name']; //determine filename
+		//Some data.
+		$dir = 'data/themes'; //Where we will save and extract the file.
+		$maxfilesize = 1000000; //Max size of file.
+		$filename = $_FILES ['sendfile'] ['name']; //Determine filename.
 
-		//Check if we're dealing with a file with tar.gz in filename
-		if (!ereg('.tar.gz', $filename))
+		//Check if we're dealing with a file with tar.gz in filename.
+		if (!strpos($filename, '.tar.gz'))
 			echo $lang_theme15;
 
 		else {
-			//Check if file isn't too big
+			//Check if file isn't too big.
 			if ($_FILES ['sendfile'] ['size'] > $maxfilesize)
 				echo $lang_theme8;
 
 			else {
-				//Save theme-file
+				//Save theme-file.
 				copy($_FILES ['sendfile'] ['tmp_name'], $dir.'/'.$filename) or die ($lang_image2);
 
-				//Then load the library for extracting the tar.gz-file
+				//Then load the library for extracting the tar.gz-file.
 				require_once ('data/inc/lib/tarlib.class.php');
 
-				//Load the tarfile
+				//Load the tarfile.
 				$tar = new TarLib($dir.'/'.$filename);
 
-				//And extract it
+				//And extract it.
 				$tar->Extract(FULL_ARCHIVE, $dir);
-				//After extraction: delete the tar.gz-file
+				//After extraction: delete the tar.gz-file.
 				unlink($dir.'/'.$filename);
 
-				//Display successmessage
+				//Display successmessage.
 				?>
 					<div class="menudiv">
 						<span>

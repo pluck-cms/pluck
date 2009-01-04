@@ -35,6 +35,7 @@ if(isset($_REQUEST)) {
 //Cross Site Scripting, Remote File Inclusion, etc.
 //Check for strange characters in $_GET keys
 //All keys with or "/" or ".." or ":" or "<" or ">" or "=" or ";" or ")" are blocked, so that it's virtually impossible to inject any HTML-code, or external websites
+//FIXME: ereg is slow, use preg_match or strpos.
 foreach ($_GET as $get_key => $get_value) {
 	if ((ereg("[\]+", $get_value)) || (ereg("\.\.", $get_value)) || (ereg("/", $get_value)) || (ereg(":", $get_value)) || (ereg("<", $get_value)) || (ereg(">", $get_value)) || (ereg("=", $get_value)) || (ereg(";", $get_value)) || (ereg(")", $get_value))) {
 		die ("A hacking attempt has been detected. For security reasons, we're blocking any code execution.");

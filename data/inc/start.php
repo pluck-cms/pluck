@@ -12,23 +12,23 @@
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
-if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("install.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("login.php", $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo "access denied";
-    //Block all other code
-    exit();
+//Make sure the file isn't accessed directly.
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit();
 }
 
 //Introduction text
 ?>
-<p>
-	<strong><?php echo $lang_start1; ?></strong>
-	<br />
-	<?php echo $lang_start9; ?>
-</p>
+	<p>
+		<strong><?php echo $lang_start1; ?></strong>
+		<br />
+		<?php echo $lang_start9; ?>
+	</p>
 
-<span class="kop2"><?php echo $lang_start10; ?></span>
+	<span class="kop2"><?php echo $lang_start10; ?></span>
 <?php
 //Show the divs
 showmenudiv($lang_install20, $lang_install21, 'data/image/website.png', 'index.php', true);

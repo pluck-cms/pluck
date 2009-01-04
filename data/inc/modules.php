@@ -12,35 +12,38 @@
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
-if((!ereg("index.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("admin.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("install.php", $_SERVER['SCRIPT_FILENAME'])) && (!ereg("login.php", $_SERVER['SCRIPT_FILENAME']))){
-    //Give out an "access denied" error
-    echo "access denied";
-    //Block all other code
-    exit();
+//Make sure the file isn't accessed directly.
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit();
 }
 
-//Introduction text
+//Introduction text.
 ?>
-<p><strong><?php echo $lang_modules1; ?></strong></p>
+	<p>
+		<strong><?php echo $lang_modules1; ?></strong>
+	</p>
 <?php
-//Define path to the module-dir
+//Define path to the module-dir.
 $path = 'data/modules';
-//Open the folder
-$dir_handle = @opendir($path) or die("Unable to open $path. Check if it's readable.");
+//Open the folder.
+$dir_handle = @opendir($path) or die('Unable to open '.$path.'. Check if it\'s readable.');
 
-//Loop through dirs, and display the modules
+//Loop through dirs, and display the modules.
 while ($dir = readdir($dir_handle)) {
-if($dir == '.' || $dir == '..')
+if ($dir == '.' || $dir == '..')
    continue;
-   if(file_exists('data/modules/'.$dir.'/module_info.php')) {
+   if (file_exists('data/modules/'.$dir.'/module_info.php'))
 		include('data/modules/'.$dir.'/module_info.php');
-	}
-	//Only show the button if there are admincenter pages for the module, and if the modules is compatible
-	if((file_exists('data/modules/'.$dir.'/module_pages_admin.php')) && (module_is_compatible($dir))) {
+
+	//Only show the button if there are admincenter pages for the module, and if the modules is compatible.
+	if (file_exists('data/modules/'.$dir.'/module_pages_admin.php') && module_is_compatible($dir))
 		showmenudiv($module_name, $module_intro, 'data/modules/'.$module_dir.'/'.$module_icon, '?module='.$module_dir);
-	}
+
 }
-//Close module-dir
+
+//Close module-dir.
 closedir($dir_handle);
 ?>
