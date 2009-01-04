@@ -5,7 +5,7 @@
 
 body {
 	background-color: white;
-	font-family: 'Trebuchet MS';
+	font-family: Arial, Helvetica, sans-serif;
 	font-size: 100%;
 }
 
@@ -76,10 +76,10 @@ body {
 
 h1 {
 	color: #3766AC;
-	font-size: 25pt;
+	font-size: 27pt;
 	font-weight: bold;
 	float: left;
-	margin: 55px 25px 0px 75px;
+	margin: 50px 25px 0px 75px;
 }
 
 h2 {

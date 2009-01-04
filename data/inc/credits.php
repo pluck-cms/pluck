@@ -24,21 +24,18 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 <p>
 	<strong><?php echo $lang_credits2; ?></strong>
 </p>
-
 <p>
 	<span class="kop2"><?php echo $lang_credits3; ?></span>
 	<br />
-	Sander Thijsen
+	<a href="http://www.somp.nl" target="_blank">Sander Thijsen</a>
 </p>
-
 <p>
 	<span class="kop2"><?php echo $lang_credits6; ?></span>
 	<br />
-	Sander Thijsen
+	<a href="http://www.somp.nl" target="_blank">Sander Thijsen</a>
 	<br />
-	Anders Jørgensen
+	<a href="http://spirit55555.dk" target="_blank">Anders Jørgensen</a>
 </p>
-
 <p>
 	<span class="kop2"><?php echo $lang_credits7; ?></span>
 	<br />
@@ -50,7 +47,6 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	<br />
 	Bogumił Cieniek
 </p>
-
 <?php
 //Translation
 //-----------
@@ -107,14 +103,14 @@ if ($langpref == 'sk.php')
 //Then display, if language is not English
 if ($langpref != 'en.php') {
 ?>
-<p>
-	<span class="kop2"><?php echo $lang_credits4.' ('.$lang.')'; ?></span><br />
-	<?php echo $translator; ?>
-</p>
+	<p>
+		<span class="kop2"><?php echo $lang_credits4.' ('.$lang.')'; ?></span>
+		<br />
+		<?php echo $translator; ?>
+	</p>
 <?php
 }
 ?>
-
 <p>
 	<span class="kop2"><?php echo $lang_credits5; ?></span>
 	<br />

@@ -12,53 +12,63 @@
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
-if((!ereg('index.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('admin.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('install.php', $_SERVER['SCRIPT_FILENAME'])) && (!ereg('login.php', $_SERVER['SCRIPT_FILENAME']))){
-	//Give out an "access denied" error
-	echo 'access denied';
-	//Block all other code
+//Make sure the file isn't accessed directly.
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
 	exit();
 }
 
-//Introduction text
+//Introduction text.
 ?>
 <p>
 	<strong><?php echo $lang_page1; ?></strong>
 </p>
 <?php
-//New page button
+//New page button.
 showmenudiv($lang_page2, null, 'data/image/newpage.png', '?action=newpage');
-//Manage images button
+//Manage images button.
 showmenudiv($lang_kop17, null, 'data/image/image.png', '?action=images');
 
-//Show pages
-$files = read_dir_contents('data/settings/pages','files');
+//Show pages.
+$files = read_dir_contents('data/settings/pages', 'files');
 if ($files) {
 	natcasesort($files);
 	foreach ($files as $file) {
 		include ('data/settings/pages/'.$file);
 		?>
-		<div class="menudiv">
-			<span>
-				<img src="data/image/page.png" alt="" />
-			</span>
-			<span class="title-page"><?php echo $title; ?></span>
-			<span>
-				<a href="?editpage=<?php echo $file; ?>"><img src="data/image/edit.png" title="<?php echo $lang_page3; ?>" alt="<?php echo $lang_page3; ?>" /></a>
-			</span>
-			<span>
-				<a href="?action=editmeta&amp;var=<?php echo $file; ?>"><img src="data/image/siteinformation.png" title="<?php echo $lang_meta1; ?>" alt="<?php echo $lang_meta1; ?>" /></a>
-			</span>
-			<span>
-				<a href="?pageup=<?php echo $file; ?>"><img src="data/image/up.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" /></a>
-			</span>
-			<span>
-				<a href="?pagedown=<?php echo $file; ?>"><img src="data/image/down.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" /></a>
-			</span>
-			<span>
-				<a href="?action=deletepage&amp;var=<?php echo $file; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" /></a>
-			</span>
-		</div>
+			<div class="menudiv">
+				<span>
+					<img src="data/image/page.png" alt="" />
+				</span>
+				<span class="title-page"><?php echo $title; ?></span>
+				<span>
+					<a href="?editpage=<?php echo $file; ?>">
+					<img src="data/image/edit.png" title="<?php echo $lang_page3; ?>" alt="<?php echo $lang_page3; ?>" />
+					</a>
+				</span>
+				<span>
+					<a href="?action=editmeta&amp;var=<?php echo $file; ?>">
+						<img src="data/image/siteinformation.png" title="<?php echo $lang_meta1; ?>" alt="<?php echo $lang_meta1; ?>" />
+					</a>
+				</span>
+				<span>
+					<a href="?pageup=<?php echo $file; ?>">
+						<img src="data/image/up.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" />
+					</a>
+				</span>
+				<span>
+					<a href="?pagedown=<?php echo $file; ?>">
+						<img src="data/image/down.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" />
+					</a>
+				</span>
+				<span>
+					<a href="?action=deletepage&amp;var=<?php echo $file; ?>">
+						<img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" />
+					</a>
+				</span>
+			</div>
 		<?php
 	}
 }

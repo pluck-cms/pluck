@@ -35,7 +35,8 @@ if (file_exists('data/settings/themepref.php'))
 //Some constants.
 define('PLUCK_VERSION', '4.7 alpha');
 define('SITE_TITLE', get_sitetitle());
-define('EMAIL', $email);
+if (file_exists('data/settings/options.php'))
+	define('EMAIL', $email);
 define('LANG', str_replace('.php', '', $langpref));
 define('LANG_FILE', $langpref);
 define('THEME', $themepref);
@@ -47,7 +48,8 @@ $pluck_version = PLUCK_VERSION;
 $site_title = SITE_TITLE;
 $site_langfile = LANG_FILE;
 $site_lang = LANG;
-$site_email = EMAIL;
+if (file_exists('data/settings/options.php'))
+	$site_email = EMAIL;
 $site_theme = THEME;
 $themedirectory = THEME_DIR;
 $homepage = HOME_PAGE;

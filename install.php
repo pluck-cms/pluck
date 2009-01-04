@@ -50,7 +50,7 @@ else {
 	}
 
 	//Installation Step 1: CHMOD.
-	if ($action == 'install') {
+	if (isset($action) && $action == 'install') {
 		$titelkop = $lang_install;
 		include_once ('data/inc/header2.php');
 		?>
@@ -82,7 +82,7 @@ else {
 	}
 
 	//Installation Step 2: General Info.
-	if ($action == 'install2') {
+	if (isset($action) && $action == 'install2') {
 		$titelkop = $lang_install;
 		include_once ('data/inc/header2.php');
 		?>
@@ -93,17 +93,17 @@ else {
 		</p>
 		<form method="post" action="">
 			<p>
-				<label class="kop2" for="cont"><?php echo $lang_install17 ?></label>
+				<label class="kop2" for="cont1"><?php echo $lang_install17 ?></label>
 				<br />
 				<span class="kop4"><?php echo $lang_settings2 ?></span>
 				<br />
-				<input name="cont" id="cont" type="text" value="<?php echo htmlentities($_POST['cont']) ?>"/>
+				<input name="cont1" id="cont1" type="text" value="<?php if (isset($cont1)) echo htmlentities($cont1); ?>"/>
 				<br />
-				<label class="kop2" for="email"><?php echo $lang_install24 ?></label>
+				<label class="kop2" for="cont2"><?php echo $lang_install24 ?></label>
 				<br />
 				<span class="kop4"><?php echo $lang_install25 ?></span>
 				<br />
-				<input name="email" id="email"type="text" value="<?php echo htmlentities($_POST['email']) ?>" />
+				<input name="cont2" id="cont2"type="text" value="<?php if (isset($cont2)) echo htmlentities($cont2); ?>" />
 			</p>
 			<p>
 				<label class="kop2" for="chosen_lang"><?php echo $lang_kop14 ?></label>
@@ -138,7 +138,7 @@ else {
 			}
 
 			//Check sitetitle.
-			if (!$cont) {
+			if (!$cont1) {
 				?>
 					<br />
 					<span class="red"><?php echo $lang_install15; ?></span>
@@ -151,7 +151,7 @@ else {
 			save_language($chosen_lang);
 
 			//Save options.
-			save_options($cont, $email, false);
+			save_options($cont1, $cont2, false);
 
 			//Save password.
 			save_password($password);
@@ -176,7 +176,7 @@ else {
 	}
 
 	//Installation Step 4: Homepage.
-	if ($action == 'install4') {
+	if (isset($action) && $action == 'install4') {
 		$titelkop = $lang_install;
 		include_once ('data/inc/header2.php');
 		?>
@@ -207,7 +207,7 @@ else {
 	}
 
 	//Installation Step 5: Save Installation data.
-	if ($action == "install5") {
+	if (isset($action) && $action == "install5") {
 		install_done();
 
 		//Set pagetitle
