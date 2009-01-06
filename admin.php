@@ -186,7 +186,7 @@ else {
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/trashcan_deleteitem.php');
 				break;
-				
+
 			//Page:Trash_restoreitem
 			case 'trash_restoreitem':
 				$titelkop = $lang_trash10;
@@ -217,11 +217,33 @@ else {
 				include_once ('data/inc/deletepage.php');
 				break;
 
-			//Editmeta pages
+			//Page:Editmeta
 			case 'editmeta':
 				$titelkop = $lang_meta1;
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/page_editmeta.php');
+				break;
+
+			//Page:Editpage
+			case 'editpage':
+				$tinymce = 'yes';
+				$titelkop = $lang_page3;
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/editpage.php');
+				break;
+
+			//Page:Pageup
+			case 'pageup':
+				$titelkop = $lang_updown1;
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/pageup.php');
+				break;
+
+			//Page:Pagdown
+			case 'pagedown':
+				$titelkop = $lang_updown1;
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/pagedown.php');
 				break;
 
 			//Unknown page => Redirect
@@ -230,29 +252,6 @@ else {
 				exit;
 				break;
 		}
-	}
-
-
-	//Editpage pages
-	elseif (isset($editpage)) {
-		$tinymce = 'yes';
-		$titelkop = $lang_page3;
-		include_once ('data/inc/header.php');
-		include_once ('data/inc/editpage.php');
-	}
-
-	//Pageup pages
-	elseif (isset($pageup)) {
-		$titelkop = $lang_updown1;
-		include_once ('data/inc/header.php');
-		include_once ('data/inc/pageup.php');
-	}
-
-	//Pagedown pages
-	elseif (isset($pagedown)) {
-		$titelkop = $lang_updown1;
-		include_once ('data/inc/header.php');
-		include_once ('data/inc/pagedown.php');
 	}
 
 	//Unknown pages

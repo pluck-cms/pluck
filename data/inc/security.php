@@ -16,6 +16,7 @@
 
 //Error reporting
 error_reporting(E_ALL|E_STRICT);
+
 //Set timezone
 date_default_timezone_set('UTC');
 
@@ -24,9 +25,8 @@ date_default_timezone_set('UTC');
 //If Register Globals are ON, unset injected variables
 if(isset($_REQUEST)) {
 	foreach ($_REQUEST as $key => $value) {
-		if (isset($GLOBALS[$key])) {
+		if (isset($GLOBALS[$key]))
 			unset($GLOBALS[$key]);
-		}
 	}
 }
 //--------------------------------

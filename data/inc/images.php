@@ -90,7 +90,7 @@ $images = read_dir_contents('images', 'files');
 					<a href="images/<?php echo $image; ?>" target="_blank"><img src="data/image/view.png" alt="" /></a>
 				</span>
 				<span>
-					<a href="?action=deleteimage&amp;var=<?php echo $image; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" /></a>
+					<a href="?action=deleteimage&amp;var1=<?php echo $image; ?>"><img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" /></a>
 				</span>
 			</div>
 			<?php

@@ -44,27 +44,27 @@ if ($files) {
 				</span>
 				<span class="title-page"><?php echo $title; ?></span>
 				<span>
-					<a href="?editpage=<?php echo $file; ?>">
+					<a href="?action=editpage&amp;var1=<?php echo $file; ?>">
 					<img src="data/image/edit.png" title="<?php echo $lang_page3; ?>" alt="<?php echo $lang_page3; ?>" />
 					</a>
 				</span>
 				<span>
-					<a href="?action=editmeta&amp;var=<?php echo $file; ?>">
+					<a href="?action=editmeta&amp;var1=<?php echo $file; ?>">
 						<img src="data/image/siteinformation.png" title="<?php echo $lang_meta1; ?>" alt="<?php echo $lang_meta1; ?>" />
 					</a>
 				</span>
 				<span>
-					<a href="?pageup=<?php echo $file; ?>">
+					<a href="?action=pageup&amp;var1=<?php echo $file; ?>">
 						<img src="data/image/up.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" />
 					</a>
 				</span>
 				<span>
-					<a href="?pagedown=<?php echo $file; ?>">
+					<a href="?action=pagedown&amp;var1=<?php echo $file; ?>">
 						<img src="data/image/down.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" />
 					</a>
 				</span>
 				<span>
-					<a href="?action=deletepage&amp;var=<?php echo $file; ?>">
+					<a href="?action=deletepage&amp;var1=<?php echo $file; ?>">
 						<img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" />
 					</a>
 				</span>

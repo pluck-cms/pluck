@@ -21,10 +21,10 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 
 //Check if file exists
-if (file_exists('data/settings/pages/'.$pagedown.'')) {
+if (file_exists('data/settings/pages/'.$var1.'')) {
 
 	//Determine the page number
-	list($pagenumber1, $extension) = explode('.', $pagedown);
+	list($pagenumber1, $extension) = explode('.', $var1);
 	list($filename, $pagenumber) =  explode('p', $pagenumber1);
 	//Define prefixes
 	$temp = '_temp';
@@ -41,13 +41,13 @@ if (file_exists('data/settings/pages/'.$pagedown.'')) {
 	}
 
 	//First make temporary file
-	rename('data/settings/pages/'.$pagedown.'', 'data/settings/pages/'.$pagedown.$temp.'');
+	rename('data/settings/pages/'.$var1.'', 'data/settings/pages/'.$var1.$temp.'');
 
 	//Then make the lower page one higher
-	rename('data/settings/pages/'.$kop.$lowerpagenumber.'.'.$ext.'', 'data/settings/pages/'.$pagedown.'');
+	rename('data/settings/pages/'.$kop.$lowerpagenumber.'.'.$ext.'', 'data/settings/pages/'.$var1.'');
 
 	//Finally, give the temp-file its final name
-	rename('data/settings/pages/'.$pagedown.$temp.'', 'data/settings/pages/'.$kop.$lowerpagenumber.'.'.$ext.'');
+	rename('data/settings/pages/'.$var1.$temp.'', 'data/settings/pages/'.$kop.$lowerpagenumber.'.'.$ext.'');
 
 	//Display message
 	echo $lang_updown3;

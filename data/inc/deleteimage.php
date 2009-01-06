@@ -21,15 +21,14 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 
 //Check if image exists.
-//FIXME: Would it not be better to use $var1?
-if (file_exists('images/'.$_GET['var'])) {
+if (file_exists('images/'.$var1)) {
 
 	//First check if there isn't an item with the same name in the trashcan.
-	if (!file_exists('data/trash/images/'.$_GET['var'])) {
+	if (!file_exists('data/trash/images/'.$var1)) {
 		//Move the page to the trashcan.
-		copy('images/'.$_GET['var'], 'data/trash/images/'.$_GET['var']);
-		chmod('data/trash/images/'.$_GET['var'], 0777);
-		unlink('images/'.$_GET['var']);
+		copy('images/'.$var1, 'data/trash/images/'.$var1);
+		chmod('data/trash/images/'.$var1, 0777);
+		unlink('images/'.$var1);
 
 		//Redirect user.
 		redirect('?action=images', 0);

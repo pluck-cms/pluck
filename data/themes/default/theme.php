@@ -22,6 +22,6 @@
 <div id="ft">
 <?php theme_module("footer"); ?>
 <a href="login.php">admin</a> | powered by <a href="http://www.pluck-cms.org">pluck</a>
-</div></div>		
+</div></div>
 </body>
 </html>

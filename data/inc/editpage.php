@@ -21,7 +21,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 
 //Include page information.
-	require_once ('data/settings/pages/'.$editpage);
+	require_once ('data/settings/pages/'.$var1);
 
 //Generate the menu on the right.
 ?>
@@ -30,7 +30,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 <br />
 <?php
 	read_imagesinpages('images');
-	read_pagesinpages('data/settings/pages', $editpage);
+	read_pagesinpages('data/settings/pages', $var1);
 ?>
 </div>
 <?php
@@ -146,10 +146,10 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 //If form is posted...
 if (isset($_POST['Submit'])) {
 	//Remove .php from the filename. We add it again in save_page.
-	$editpage = preg_replace('/.php$/', '', $editpage);
+	$var1 = preg_replace('/.php$/', '', $var1);
 
 	//Save the page.
-	save_page($editpage, $kop, $tekst, $hidepage, $description, $keywords, $incmodule);
+	save_page($var1, $kop, $tekst, $hidepage, $description, $keywords, $incmodule);
 
 	//Redirect the user.
 	redirect('?action=page', 0);

@@ -21,7 +21,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 
 //Include the actual siteinfo
-require_once ('data/settings/pages/'.$_GET['var']);
+require_once ('data/settings/pages/'.$var1);
 
 //Introduction text
 ?>
@@ -43,7 +43,7 @@ require_once ('data/settings/pages/'.$_GET['var']);
 <?php
 if (isset($_POST['Submit'])) {
 	//Remove .php from the filename. We add it again in save_page.
-	$page = preg_replace('/.php$/', '', $_GET['var']);
+	$page = preg_replace('/.php$/', '', $var1);
 
 	//Save the page
 	if (isset($module_pageinc))
