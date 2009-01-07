@@ -106,21 +106,21 @@ else {
 				<input name="cont2" id="cont2"type="text" value="<?php if (isset($cont2)) echo htmlentities($cont2); ?>" />
 			</p>
 			<p>
-				<label class="kop2" for="chosen_lang"><?php echo $lang_kop14 ?></label>
+				<label class="kop2" for="cont3"><?php echo $lang_kop14 ?></label>
 				<br />
-				<select name="chosen_lang" id="chosen_lang">
+				<select name="cont3" id="cont3">
 					<option selected="selected" value="en.php">English</option>
 					<?php read_lang_files('en.php'); ?>
 				</select>
 			</p>
 			<p>
-				<label class="kop2" for="password"><?php echo $lang_login3 ?></label>
+				<label class="kop2" for="cont4"><?php echo $lang_login3 ?></label>
 				<br />
-				<input name="password" id="password" type="password" />
+				<input name="cont4" id="cont4" type="password" />
 				<br /><br />
-				<label class="kop2" for="password2"><?php echo $lang_install26 ?></label>
+				<label class="kop2" for="cont5"><?php echo $lang_install26 ?></label>
 				<br />
-				<input name="password2" id="password2" type="password" />
+				<input name="cont5" id="cont5" type="password" />
 			</p>
 			<input type="submit" name="Submit" value="<?php echo $lang_install13 ?>" />
 			<input type="button" name="Cancel" value="<?php echo $lang_install14 ?>" onclick="javascript: window.location='?action=install';" />
@@ -128,10 +128,10 @@ else {
 		<?php
 		if (isset($_POST['Submit'])) {
 			//Check the passwords.
-			if (($password != $password2) || ($password == '')) {
+			if ($cont4 != $cont5 || $cont4 == '') {
 				?>
-				<br />
-				<span class="red"><?php echo $lang_install28; ?></span>
+					<br />
+					<span class="red"><?php echo $lang_install28; ?></span>
 				<?php
 				include_once ('data/inc/footer.php');
 				exit;
@@ -148,13 +148,13 @@ else {
 			}
 
 			//Save prefered language.
-			save_language($chosen_lang);
+			save_language($cont3);
 
 			//Save options.
 			save_options($cont1, $cont2, false);
 
 			//Save password.
-			save_password($password);
+			save_password($cont4);
 
 			//Make some dirs for the trashcan and modulesettings.
 			mkdir('data/trash/pages', 0777);

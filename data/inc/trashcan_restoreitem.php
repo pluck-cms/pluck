@@ -22,13 +22,13 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 
 //If we want to restore a page.
 //----------------------------
-if ($_GET['cat'] == 'page' && file_exists('data/trash/pages/'.$_GET['var'])) {
+if ($var2 == 'page' && file_exists('data/trash/pages/'.$var1)) {
 	//First check if there isn't a page with the same name.
-	if (!file_exists('data/settings/pages/'.$_GET['var'])) {
+	if (!file_exists('data/settings/pages/'.$var1)) {
 		//Move the page to the trashcan.
-		copy('data/trash/pages/'.$_GET['var'], 'data/settings/pages/'.$_GET['var']);
-		chmod('data/settings/pages/'.$_GET['var'], 0777);
-		unlink('data/trash/pages/'.$_GET['var']);
+		copy('data/trash/pages/'.$var1, 'data/settings/pages/'.$var1);
+		chmod('data/settings/pages/'.$var1, 0777);
+		unlink('data/trash/pages/'.$var1);
 	}
 
 	//If there is a page with the same name.
@@ -48,29 +48,29 @@ if ($_GET['cat'] == 'page' && file_exists('data/trash/pages/'.$_GET['var'])) {
 			$newfile = "data/settings/pages/kop1.php";
 		}
 		//Move the file with the new filename.
-		copy('data/trash/pages/'.$_GET['var'], $newfile);
+		copy('data/trash/pages/'.$var1, $newfile);
 		chmod($newfile, 0777);
-		unlink('data/trash/pages/'.$_GET['var']);
+		unlink('data/trash/pages/'.$var1);
 	}
 }
 
 //If we want to restore an image.
 //----------------------------
-if ($_GET['cat'] == 'image' && file_exists('data/trash/images/'.$_GET['var'])) {
+if ($var2 == 'image' && file_exists('data/trash/images/'.$var1)) {
 	//First check if there isn't an image with the same name.
-	if (!file_exists('images/'.$_GET['var'])) {
-		copy('data/trash/images/'.$_GET['var'], 'images/'.$_GET['var']);
-		chmod('images/'.$_GET['var'], 0777);
-		unlink('data/trash/images/'.$_GET['var']);
+	if (!file_exists('images/'.$var1)) {
+		copy('data/trash/images/'.$var1, 'images/'.$var1);
+		chmod('images/'.$var1, 0777);
+		unlink('data/trash/images/'.$var1);
 	}
 
 	//If there already is an image with the same name.
 	else {
-		list($filename, $extension) = explode('.', $_GET['var']);
+		list($filename, $extension) = explode('.', $var1);
 		$filename = $filename.'_copy';
-		copy('data/trash/images/'.$_GET['var'], 'images/'.$filename.'.'.$extension);
+		copy('data/trash/images/'.$var1, 'images/'.$filename.'.'.$extension);
 		chmod('images/'.$filename.'.'.$extension, 0777);
-		unlink('data/trash/images/'.$_GET['var']);
+		unlink('data/trash/images/'.$var1);
 	}
 }
 

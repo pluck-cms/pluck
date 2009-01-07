@@ -34,30 +34,30 @@ require_once ('data/modules/albums/functions.php');
 	if (extension_loaded('gd')) {
 	?>
 		<br /><br />
-		<span class="kop2"><?php echo $lang_albums3; ?></span>
+		<label class="kop2" for="cont1"><?php echo $lang_albums3; ?></label>
 		<br />
 		<form method="post" action="">
 			<span class="kop4"><?php echo $lang_albums4; ?></span>
 			<br />
-			<input name="album_name" type="text" />
+			<input name="cont1" type="text" />
 			<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
 		</form>
 	<?php
 	//When form is submitted.
 	if (isset($_POST['Submit'])) {
-		if ($album_name) {
+		if ($cont1) {
 			//Delete unwanted characters.
-			$album_name = str_replace ('"','', $album_name);
-			$album_name = str_replace (' ','', $album_name);
-			$album_name = str_replace ('\'','', $album_name);
-			$album_name = str_replace ('.','', $album_name);
-			$album_name = str_replace ('/','', $album_name);
+			$cont1 = str_replace ('"','', $cont1);
+			$cont1 = str_replace (' ','', $cont1);
+			$cont1 = str_replace ('\'','', $cont1);
+			$cont1 = str_replace ('.','', $cont1);
+			$cont1 = str_replace ('/','', $cont1);
 
 			//Create and chmod directories.
-			mkdir ('data/settings/modules/albums/'.$album_name);
-			mkdir ('data/settings/modules/albums/'.$album_name.'/thumb');
-			chmod ('data/settings/modules/albums/'.$album_name, 0777);
-			chmod ('data/settings/modules/albums/'.$album_name.'/thumb', 0777);
+			mkdir ('data/settings/modules/albums/'.$cont1);
+			mkdir ('data/settings/modules/albums/'.$cont1.'/thumb');
+			chmod ('data/settings/modules/albums/'.$cont1, 0777);
+			chmod ('data/settings/modules/albums/'.$cont1.'/thumb', 0777);
 			redirect('?module=albums', 0);
 		}
 	}

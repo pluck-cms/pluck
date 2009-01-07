@@ -20,22 +20,23 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit();
 }
 
-if ($_GET['cat'] == 'page' && file_exists('data/trash/pages/'.$_GET['var'])) {
-	include('data/trash/pages/'.$_GET['var']);
+if ($var2 == 'page' && file_exists('data/trash/pages/'.$var1)) {
+	include ('data/trash/pages/'.$var1);
 	?>
-		<div class="menudiv" style="padding:15px; margin: 25px;">
-			<span class="kop2"><?php echo $title; ?></span><br>
+		<div class="menudiv" style="padding: 15px; margin: 25px;">
+			<span class="kop2"><?php echo $title; ?></span>
+			<br />
 			<?php echo $content; ?>
 		</div>
 	<?php
 }
 
-if ($_GET['cat'] == 'image' && file_exists('data/trash/images/'.$_GET['var'])) {
+if ($var2 == 'image' && file_exists('data/trash/images/'.$var1)) {
 ?>
-	<img src="data/trash/images/<?php echo $_GET['var']; ?>" alt="" />
+	<img src="data/trash/images/<?php echo $var1; ?>" alt="" />
 <?php
 }
 ?>
 <p>
-	<a href="?action=trashcan"><<< <?php echo $lang_theme12; ?></a>
+	<a href="?action=trashcan">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a>
 </p>

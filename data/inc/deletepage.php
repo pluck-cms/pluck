@@ -21,7 +21,6 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 
 //Check if page exists.
-//FIXME: Would it not be better to use $var1?
 if (file_exists('data/settings/pages/'.$var1)) {
 
 	//First check if there isn't an item with the same name in the trashcan.
@@ -56,5 +55,5 @@ if (file_exists('data/settings/pages/'.$var1)) {
 }
 
 //Redirect user.
-redirect('?action=page',0);
+redirect('?action=page', 0);
 ?>

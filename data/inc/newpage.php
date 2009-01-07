@@ -34,13 +34,13 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 //Form.
 ?>
 <form method="post" action="">
-	<span class="kop2"><?php echo $lang_install17; ?></span>
+	<label class="kop2" for="cont1"><?php echo $lang_install17; ?></label>
 	<br />
-	<input name="kop" type="text" value="" />
+	<input name="cont1" id="cont1" type="text" />
 	<br /><br />
 	<span class="kop2"><?php echo $lang_install18; ?></span>
 	<br />
-	<textarea class="tinymce" name="tekst" cols="70" rows="20"></textarea>
+	<textarea class="tinymce" name="cont2" cols="70" rows="20"></textarea>
 	<br />
 	<div class="menudiv" style="width: 585px; margin-left: 0px;">
 		<table>
@@ -63,9 +63,8 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 						$number_modules = count(glob('data/modules/*'));
 						while ($dir = readdir($dir_handle)) {
 							if ($dir != '.' && $dir != '..') {
-								if (!module_is_compatible($dir)) {
+								if (!module_is_compatible($dir))
 									$number_modules--;
-								}
 							}
 						}
 						closedir($dir_handle);
@@ -78,24 +77,24 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 								if (module_is_compatible($dir)) {
 									include ('data/modules/'.$dir.'/module_info.php');
 									?>
-									<tr>
-										<td><?php echo $module_name; ?></td>
-										<td>
-											<select name="incmodule[<?php echo $module_dir; ?>]">
-												<option value="0"><?php echo $lang_modules6; ?></option>
-												<?php
-													$counting_modules = 1;
-													while ($counting_modules <= $number_modules) {
-														?>
-															<option value="<?php echo $counting_modules; ?>"><?php echo $counting_modules; ?></option>
-														<?php
-														//Higher counting_modules.
-														$counting_modules++;
-													}
-												?>
-											</select>
-										</td>
-									</tr>
+										<tr>
+											<td><?php echo $module_name; ?></td>
+											<td>
+												<select name="cont3[<?php echo $module_dir; ?>]">
+													<option value="0"><?php echo $lang_modules6; ?></option>
+													<?php
+														$counting_modules = 1;
+														while ($counting_modules <= $number_modules) {
+															?>
+																<option value="<?php echo $counting_modules; ?>"><?php echo $counting_modules; ?></option>
+															<?php
+															//Higher counting_modules.
+															$counting_modules++;
+														}
+													?>
+												</select>
+											</td>
+										</tr>
 									<?php
 									}
 								}
@@ -116,7 +115,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 				<td>
 					<span class="kop3"><?php echo $lang_contact2; ?></span>
 					<br />
-					<input type="checkbox" name="hidepage" checked="checked" value="no" /><?php echo $lang_pagehide1; ?>
+					<input type="checkbox" name="cont4" id="cont4" checked="checked" value="no" /><label for="cont4"><?php echo $lang_pagehide1; ?></label>
 					<br />
 				</td>
 			</tr>
@@ -143,7 +142,7 @@ if (isset($_POST['Submit'])) {
 	}
 
 	//Save the page.
-	save_page($newfile, $kop, $tekst, $hidepage, null, null, $incmodule);
+	save_page($newfile, $cont1, $cont2, $cont4, null, null, $cont3);
 
 	//Redirect the user.
 	redirect('?action=page', 0);

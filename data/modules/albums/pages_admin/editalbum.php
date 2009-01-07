@@ -56,8 +56,8 @@ if (file_exists('data/settings/modules/albums/'.$var1)) {
 			<br /><br />
 			<input type="file" name="imagefile" id="imagefile" />
 			<br />
-			<label class="kop4" for="quality"><?php echo $lang_albums12; ?></label>
-			<input name="quality" id="quality" type="text" size="3" value="85" />
+			<label class="kop4" for="cont3"><?php echo $lang_albums12; ?></label>
+			<input name="cont3" id="cont3" type="text" size="3" value="85" />
 			<br /><br />
 			<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
 		</form>
@@ -133,7 +133,7 @@ if (file_exists('data/settings/modules/albums/'.$var1)) {
 		$new_img = imagecreatefromjpeg($fullimage);
 
 		imagecopyresampled($resized_img, $new_img, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-		ImageJpeg($resized_img, $tempimage, $quality);
+		ImageJpeg($resized_img, $tempimage, $cont3);
 		ImageDestroy($resized_img);
 		ImageDestroy($new_img);
 		unlink($fullimage);

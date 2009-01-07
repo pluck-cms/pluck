@@ -24,13 +24,13 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	<strong><?php echo $lang_cpass1; ?></strong>
 </p>
 <form method="post" action="">
-	<span class="kop2"><?php echo $lang_cpass2; ?></span>
+	<label class="kop2" for="cont1"><?php echo $lang_cpass2; ?></label>
 	<br />
-	<input name="cont1" type="password"/>
+	<input name="cont1" id="cont1" type="password"/>
 	<br /><br />
-	<span class="kop2"><?php echo $lang_cpass3; ?></span>
+	<label class="kop2" for="cont2"><?php echo $lang_cpass3; ?></label>
 	<br />
-	<input name="cont2" type="password" />
+	<input name="cont2" id="cont2" type="password" />
 	<br /><br />
 	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
 	<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=options';" />

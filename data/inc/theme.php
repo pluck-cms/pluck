@@ -44,7 +44,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 		<strong><?php echo $lang_theme1; ?></strong>
 	</p>
 	<form action="" method="post">
-		<select name="cont">
+		<select name="cont1">
 			<option value="0"><?php echo $lang_lang2; ?></option>
 			<?php
 			$dirs = read_dir_contents('data/themes','dirs');
@@ -76,8 +76,8 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	</form>
 <?php
 //Save the theme-data
-if (isset($_POST['Submit']) && $cont != '0' && file_exists('data/themes/'.$cont)) {
-	save_theme($cont);
+if (isset($_POST['Submit']) && isset($cont1) && $cont1 != '0' && file_exists('data/themes/'.$cont1)) {
+	save_theme($cont1);
 
 	//Redirect user
 	echo $lang_theme3;

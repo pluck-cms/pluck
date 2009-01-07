@@ -65,17 +65,17 @@ else {
 				<span style="font-size: 17pt;"><?php echo $title; ?></span>
 			</span>
 			<span>
-				<a href="?action=trash_viewitem&amp;var=<?php echo $page; ?>&amp;cat=page">
+				<a href="?action=trash_viewitem&amp;var1=<?php echo $page; ?>&amp;var2=page">
 					<img src="data/image/view.png" alt="<?php echo $lang_trash7; ?>" title="<?php echo $lang_trash7; ?>" />
 				</a>
 			</span>
 			<span>
-				<a href="?action=trash_restoreitem&amp;var=<?php echo $page; ?>&amp;cat=page">
+				<a href="?action=trash_restoreitem&amp;var1=<?php echo $page; ?>&amp;var2=page">
 					<img src="data/image/restore.png" title="<?php echo $lang_trash10; ?>" alt="<?php echo $lang_trash10; ?>" />
 				</a>
 			</span>
 			<span>
-				<a href="?action=trash_deleteitem&amp;var=<?php echo $page; ?>&amp;cat=page">
+				<a href="?action=trash_deleteitem&amp;var1=<?php echo $page; ?>&amp;var2=page">
 					<img src="data/image/delete_from_trash.png" title="<?php echo $lang_trash8; ?>" alt="<?php echo $lang_trash8; ?>" />
 				</a>
 			</span>
@@ -106,17 +106,17 @@ else {
 			<span style="font-size: 17pt;"><?php echo $image; ?></span>
 		</span>
 		<span>
-			<a href="?action=trash_viewitem&amp;var=<?php echo $image; ?>&amp;cat=image">
+			<a href="?action=trash_viewitem&amp;var1=<?php echo $image; ?>&amp;var2=image">
 				<img src="data/image/view.png" alt="<?php echo $lang_trash7; ?>" title="<?php echo $lang_trash7; ?>" />
 			</a>
 		</span>
 		<span>
-			<a href="?action=trash_restoreitem&amp;var=<?php echo $image; ?>&amp;cat=image">
+			<a href="?action=trash_restoreitem&amp;var1=<?php echo $image; ?>&amp;var2=image">
 				<img src="data/image/restore.png" title="<?php echo $lang_trash10; ?>" alt="<?php echo $lang_trash10; ?>" />
 			</a>
 		</span>
 		<span>
-			<a href="?action=trash_deleteitem&amp;var=<?php echo $image; ?>&amp;cat=image">
+			<a href="?action=trash_deleteitem&amp;var1=<?php echo $image; ?>&amp;var2=image">
 				<img src="data/image/delete_from_trash.png" title="<?php echo $lang_trash8; ?>" alt="<?php echo $lang_trash8; ?>" />
 			</a>
 		</span>

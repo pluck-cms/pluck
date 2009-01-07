@@ -43,7 +43,7 @@ define('THEME', $themepref);
 define('THEME_DIR', 'data/themes/'.$themepref);
 define('HOME_PAGE', '?file=kop1.php');
 
-//General variables (included for compatibiltiy with pluck 4.6)
+//General variables (included for compatibiltiy with pluck 4.6).
 $pluck_version = PLUCK_VERSION;
 $site_title = SITE_TITLE;
 $site_langfile = LANG_FILE;
@@ -61,10 +61,8 @@ if (isset($_GET['module']))
 	$module = $_GET['module'];
 if (isset($_GET['page']))
 	$page = $_GET['page'];
-if (isset($_GET['cat']))
-	$cat = $_GET['cat'];
 
-//Some GET-variables for general use
+//Some GET-variables for general use.
 if (isset($_GET['var1']))
 	$var1 = $_GET['var1'];
 if (isset($_GET['var2']))
@@ -72,41 +70,7 @@ if (isset($_GET['var2']))
 if (isset($_GET['var3']))
 	$var3 = $_GET['var3'];
 
-//POSTS
-if (isset($_POST['kop']))
-	$kop = $_POST['kop'];
-if (isset($_POST['tekst']))
-	$tekst = $_POST['tekst'];
-if (isset($_POST['back']))
-	$back = $_POST['back'];
-if (isset($_POST['txt']))
-	$txt = $_POST['txt'];
-if (isset($_POST['type']))
-	$type = $_POST['type'];
-if (isset($_POST['cont']))
-	$cont = $_POST['cont'];
-if (isset($_POST['password']))
-	$password = $_POST['password'];
-if (isset($_POST['password2']))
-	$password2 = $_POST['password2'];
-if (isset($_POST['chosen_lang']))
-	$chosen_lang = $_POST['chosen_lang'];
-if (isset($_POST['email']))
-	$email = $_POST['email'];
-if (isset($_POST['email2']))
-	$email2 = $_POST['email2'];
-if (isset($_POST['contactform']))
-	$contactform = $_POST['contactform'];
-if (isset($_POST['hidepage']))
-	$hidepage = $_POST['hidepage'];
-if (isset($_POST['album_name']))
-	$album_name = $_POST['album_name'];
-if (isset($_POST['quality']))
-	$quality = $_POST['quality'];
-if (isset($_POST['incmodule']))
-	$incmodule = $_POST['incmodule'];
-
-//Some POST-variables for general use
+//Some POST-variables for general use.
 if (isset($_POST['cont1']))
 	$cont1 = $_POST['cont1'];
 if (isset($_POST['cont2']))

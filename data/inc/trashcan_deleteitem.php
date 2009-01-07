@@ -21,12 +21,12 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 
 //Page
-if ($_GET['cat'] == 'page' && file_exists('data/trash/pages/'.$_GET['var']))
-	unlink('data/trash/pages/'.$_GET['var']);
+if ($var2 == 'page' && file_exists('data/trash/pages/'.$var1))
+	unlink('data/trash/pages/'.$var1);
 
 //Image
-if ($_GET['cat'] == 'image' && file_exists('data/trash/images/'.$_GET['var']))
-	unlink('data/trash/images/'.$_GET['var']);
+if ($var2 == 'image' && file_exists('data/trash/images/'.$var1))
+	unlink('data/trash/images/'.$var1);
 
 //Redirect
 redirect('?action=trashcan', 0);

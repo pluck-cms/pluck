@@ -28,24 +28,24 @@ require_once ('data/settings/options.php');
 	</p>
 	<form method="post" action="">
 		<p>
-			<label class="kop2" for="title"><?php echo $lang_kop6; ?></label>
+			<label class="kop2" for="cont1"><?php echo $lang_kop6; ?></label>
 			<br />
 			<span class="kop4"><?php echo $lang_settings2; ?></span>
 			<br />
-			<input name="title" id="title" type="text" value="<?php echo $sitetitle; ?>" />
+			<input name="cont1" id="cont1" type="text" value="<?php echo $sitetitle; ?>" />
 		</p>
 		<p>
-			<label class="kop2" for="email"><?php echo $lang_install24; ?></label>
+			<label class="kop2" for="cont2"><?php echo $lang_install24; ?></label>
 			<br />
 			<span class="kop4"><?php echo $lang_install25; ?></span>
 			<br />
-			<input name="email" id="email" type="text" value="<?php echo $email; ?>" />
+			<input name="cont2" id="cont2" type="text" value="<?php echo $email; ?>" />
 		</p>
 		<p>
 			<span class="kop2"><?php echo $lang_contact2; ?></span>
 			<br />
-			<input type="checkbox" name="xhtml" id="xhtml" value="true" <?php if ($xhtmlruleset == 'true') echo 'checked="checked"'; ?> />
-			<label for="xhtml">&nbsp;<?php echo $lang_settings6; ?></label>
+			<input type="checkbox" name="cont3" id="cont3" value="true" <?php if ($xhtmlruleset == 'true') echo 'checked="checked"'; ?> />
+			<label for="cont3">&nbsp;<?php echo $lang_settings6; ?></label>
 		</p>
 		<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
 		<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=options';" />
@@ -55,14 +55,14 @@ require_once ('data/settings/options.php');
 if (isset($_POST['Submit'])) {
 
 	//Check if a sitetitle has been given in.
-	if (!isset($_POST['title'])) {
+	if (!isset($cont1)) {
 	?>
 		<strong><?php echo $lang_stitle2; ?></strong>
 	<?php
 	}
 
 	//Check if emailaddress is valid.
-	elseif (!filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL)) {
+	elseif (!filter_input(INPUT_POST, 'cont2', FILTER_VALIDATE_EMAIL)) {
 	?>
 		<strong><?php echo $lang_settings7; ?></strong>
 	<?php
@@ -70,13 +70,11 @@ if (isset($_POST['Submit'])) {
 
 	else {
 		//If XHTML-ruleset is not on, turn it off.
-		if ($_POST['xhtml'] != 'true')
-			$xhtml = 'false';
-		else
-			$xhtml = 'true';
+		if (isset($cont3) && $cont3 != 'true')
+			$cont3 = 'false';
 
 		//Then, save the settings.
-		save_options($_POST['title'], $_POST['email'], $xhtml);
+		save_options($cont1, $cont2, $cont3);
 
 		redirect('?action=options', 0);
 		echo $lang_settings4;
