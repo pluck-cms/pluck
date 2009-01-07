@@ -10,7 +10,7 @@
 	<div id="mainblok">
 		<div id="blok1">
 			<div class="binnen">          
-				<h3 class="headtext"><?php theme_sitetitle(); ?></h3>
+				<h3 class="headtext" title="<?php theme_sitetitle(); ?>"><?php theme_sitetitle(); ?></h3>
 				<ul class="menu1">
 					<?php theme_menu('<li class="menu1"><a href="#file">#title</a></li>'); ?>
 				</ul>
@@ -19,7 +19,7 @@
 
 		<div id="blok2">
 			<div class="binnen">
-				<h1><?php theme_pagetitle(); ?></h1>
+				<h1 title="<?php theme_pagetitle(); ?>"><?php theme_pagetitle(); ?></h1>
 			</div>
 
 			<div class="txt">
