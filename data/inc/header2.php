@@ -27,7 +27,7 @@ $tinymce = 'yes';
 header('Content-Type:text/html;charset=utf-8');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php $site_lang; ?>" lang="<?php $site_lang; ?>">
 <head>
 <title>pluck <?php echo PLUCK_VERSION; ?> - <?php echo $titelkop; ?></title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />

@@ -81,7 +81,7 @@ $images = read_dir_contents('images', 'files');
 		?>
 			<div class="menudiv">
 				<span>
-					<img src="data/image/image.png" alt="">
+					<img src="data/image/image.png" alt="" />
 				</span>
 				<span style="width: 350px">
 					<span style="font-size: 17pt;"><?php echo $image; ?></span>

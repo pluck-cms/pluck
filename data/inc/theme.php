@@ -23,13 +23,13 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	<div class="rightmenu">
 		<div class="menudiv" style="padding-right: 120px;">
 			<span>
-				<img src="data/image/install.png" alt="" />
+				<img src="data/image/install.png" alt="<?php echo $lang_theme5; ?>" title="<?php echo $lang_theme5; ?>" />
 			</span>
 			<span>
 			<?php
 				//If zlib is installed.
 				if (get_extension_funcs('zlib')) {
-					echo '<span class="kop3"><a href="?action=themeinstall">'.$lang_theme5.'</a></span>';
+					echo '<span class="kop3"><a href="?action=themeinstall" title="'.$lang_theme5.'">'.$lang_theme5.'</a></span>';
 				}
 				//If zlib is not installed.
 				elseif (!get_extension_funcs('zlib')) {
