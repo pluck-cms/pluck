@@ -54,34 +54,19 @@ input{padding:5px;border:1px solid #3C3827;color:#A0AC01}
 textarea{width:200px;padding:5px;border:1px solid #58564F;height:100px;display:block;color:#A0AC01}
 input.button{margin:5px;border:1px solid #3C3827;color:#A0AC01}
 
-a:link { color: #58564F; text-decoration: underline }
-a:visited { color: #58564F; text-decoration: underline }
-a:active { color: #58564F; text-decoration: underline }
-a:hover { color: #CCCCCC; text-decoration: underline }
+a:link {color: #58564F; text-decoration: underline }
+a:visited {color: #58564F; text-decoration: underline }
+a:active {color: #58564F; text-decoration: underline }
+a:hover {color: #CCCCCC; text-decoration: underline }
 
 .menudiv {margin: 20px }
 .album{background:#ffffff;border:1px solid #58564F;border-left:5px solid #58564F;padding:7px;margin:15px auto}
 .albuminfo	{font-size: 17pt;}
 
 /* Blogs */
-.blogpost {
-margin-top: 20px;
-}
+.blogpost {margin-top: 20px;}
+.posttitle {font-size: 18px;}
+.postinfo {font-size: 10px;}
+.blogpost_reaction {margin: 5px 0 15px 0;}
 
-.posttitle {
-font-size: 18px;
-}
-
-.postinfo {
-font-size: 10px;
-}
-
-.blogpost_reaction {
-margin-bottom: 15px;
-margin-top: 5px;
-}
-
-#contactform {
-margin-top: 15px;
-margin-bottom: 15px;
-}
+#contactform {margin: 15px 0 15px 0;}

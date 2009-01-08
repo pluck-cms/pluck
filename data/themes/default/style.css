@@ -36,9 +36,8 @@ blockquote{
 	border-left:5px solid #95CB42;
 	padding:7px;
 	margin:15px auto}
-.albuminfo	{
-font-size: 17pt;
-}
+.albuminfo{
+font-size: 17pt;}
 blockquote p{
 		margin:0}
 #container {
@@ -118,7 +117,6 @@ blockquote p{
 	font-size:11px;
 	color:#666;
 	border-top:1px solid #95CB42}
-
 input {
 	font-family:Arial, Helvetica, sans-serif;
 	font-size: 10pt;
@@ -129,7 +127,6 @@ input {
 	padding: 1pt;
 	margin: 5px;
    }
-        
 textarea {
 	font-family:Arial, Helvetica, sans-serif;
 	font-size: 10pt;
@@ -140,29 +137,16 @@ textarea {
 	padding: 1pt;
 	margin: 5px;
 	}
-
 .menudiv {
-margin: 20px;
-}
+	margin: 20px;}
 /* Blogs */
 .blogpost {
-margin-top: 20px;
-}
-
+	margin-top: 20px;}
 .posttitle {
-font-size: 18px;
-}
-
+	font-size: 18px;}
 .postinfo {
-font-size: 10px;
-}
-
+	font-size: 10px;}
 .blogpost_reaction {
-margin-bottom: 15px;
-margin-top: 5px;
-}
-
+	margin: 5px 0 15px 0;}
 #contactform {
-margin-top: 15px;
-margin-bottom: 15px;
-}
+	margin: 15px 0 15px 0;}
