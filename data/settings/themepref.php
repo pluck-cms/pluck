@@ -1,1 +1,0 @@
-<?php $themepref = "default"; ?>

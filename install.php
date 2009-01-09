@@ -20,7 +20,7 @@ require_once ('data/inc/functions.admin.php');
 //Include Translation data.
 require_once ('data/inc/variables.all.php');
 
-//Check if we've installed pluck
+//Check if we've installed pluck.
 if (file_exists('data/settings/install.dat')) {
 	$titelkop = $lang_install;
 	include_once ('data/inc/header2.php');
@@ -155,6 +155,9 @@ else {
 
 			//Save password.
 			save_password($cont4);
+
+			//Save theme.
+			save_theme('default');
 
 			//Make some dirs for the trashcan and modulesettings.
 			mkdir('data/trash/pages', 0777);
