@@ -7,13 +7,13 @@
 <body>
 
 <div id="container"><div id="hd">
-<h2><?php theme_sitetitle(); ?></h2>
+<h2 title="<?php theme_sitetitle(); ?>"><?php theme_sitetitle(); ?></h2>
 <ul>
 <?php theme_menu('<li><a href="#file">#title</a></li>','<li><a href="#file" class="act">#title</a></li>'); ?>
 </ul>
 </div>
 
-<div id="ct"><h1><?php theme_pagetitle(); ?></h1>
+<div id="ct"><h1 title="<?php theme_pagetitle(); ?>"><?php theme_pagetitle(); ?></h1>
 
 <?php theme_content(); ?>
 <?php theme_module("main"); ?>
