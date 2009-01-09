@@ -131,6 +131,7 @@ $lang_lang2 = "Choose...";
 $lang_lang3 = "The languagesettings have been saved.";
 
 //Admincenter:: Stats
+//FIXME: Do we need these anymore?
 $lang_stats1 = "Here you can view some information about the visitors of your website. At the bottom of this page you can choose from which month you want to see the stats.";
 $lang_stats2 = "stats from";
 $lang_stats3 = "operating systems";
@@ -302,4 +303,5 @@ $lang_blog26 = "category";
 $lang_blog27 = "no category";
 $lang_credits6 = "main developers";
 $lang_credits7 = "contributions";
+$lang_album19 = 'There is already an album with that name.'
 ?>

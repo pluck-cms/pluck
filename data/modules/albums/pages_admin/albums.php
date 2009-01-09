@@ -45,7 +45,10 @@ require_once ('data/modules/albums/functions.php');
 	<?php
 	//When form is submitted.
 	if (isset($_POST['Submit'])) {
-		if ($cont1) {
+		if (isset($cont1) && file_exists('data/settings/modules/albums/'.$cont1))
+			echo '<span class="red">'.$lang_album19.'</span>';
+
+		elseif (isset($cont1)) {
 			//Delete unwanted characters.
 			$cont1 = str_replace ('"','', $cont1);
 			$cont1 = str_replace (' ','', $cont1);

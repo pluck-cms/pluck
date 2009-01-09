@@ -14,34 +14,31 @@
  * This is a file that checks for hacking attempts and blocks them.
 */
 
-//Error reporting
+//Error reporting.
 error_reporting(E_ALL|E_STRICT);
 
-//Set timezone
+//Set timezone.
 date_default_timezone_set('UTC');
 
-//--------------------------------
-//Register Globals
-//If Register Globals are ON, unset injected variables
+//Register Globals.
+//If Register Globals are ON, unset injected variables.
 if(isset($_REQUEST)) {
 	foreach ($_REQUEST as $key => $value) {
 		if (isset($GLOBALS[$key]))
 			unset($GLOBALS[$key]);
 	}
 }
-//--------------------------------
 
-//--------------------------------
+
 //Cross Site Scripting, Remote File Inclusion, etc.
-//Check for strange characters in $_GET keys
-//All keys with or "/" or ".." or ":" or "<" or ">" or "=" or ";" or ")" are blocked, so that it's virtually impossible to inject any HTML-code, or external websites
-//FIXME: ereg is slow, use preg_match or strpos.
+//Check for strange characters in $_GET keys.
+//All keys with or "/" or ".." or ":" or "<" or ">" or "=" or ";" or ")" are blocked, so that it's virtually impossible to inject any HTML-code, or external websites.
+//FIXME: Use preg_match on the first one.
 foreach ($_GET as $get_key => $get_value) {
-	if ((ereg("[\]+", $get_value)) || (ereg("\.\.", $get_value)) || (ereg("/", $get_value)) || (ereg(":", $get_value)) || (ereg("<", $get_value)) || (ereg(">", $get_value)) || (ereg("=", $get_value)) || (ereg(";", $get_value)) || (ereg(")", $get_value))) {
-		die ("A hacking attempt has been detected. For security reasons, we're blocking any code execution.");
+	if (ereg("[\]+", $get_value) || strpos($get_value, '\.\.') || strpos($get_value, '/') || strpos($get_value, ':') || strpos($get_value, '<') || strpos($get_value, '>') || strpos($get_value, '=') || strpos($get_value, ';') || strpos($get_value, ')')) {
+		die ('A hacking attempt has been detected. For security reasons, we\'re blocking any code execution.');
 	}
 }
-//--------------------------------
 
 //Undo magic quotes. Mostly taken from a php.net comment.
 ini_set('magic_quotes_sybase', 0);
