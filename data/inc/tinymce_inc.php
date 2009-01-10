@@ -147,23 +147,19 @@ tinyMCE.init({
 	entity_encoding : "raw",
 <?php
 //Check if we need to set the direction to rtl
-if (isset($direction) && $direction == 'rtl') {
-?>
-	directionality : "rtl",
-<?php
-}
+if (isset($direction) && $direction == 'rtl')
+	echo 'directionality : "rtl",';
+
 //Include the right language
 $tinymce_lang_line = 'language : "'.$tinymce_lang.'", '."\n".'';
 echo $tinymce_lang_line;
 
 //MS IE7 fix
 //Don't display a comma when XHTML Compatibilty Mode is turned off
-if ($xhtmlruleset == "true") {
+if ($xhtmlruleset == "true")
 	$comma = ',';
-}
-else {
+else
 	$comma = '';
-}
 ?>
 	theme : "advanced",
 	forced_root_block : '',

@@ -20,182 +20,179 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit();
 }
 
-//Include functions
-include('data/modules/blog/functions.php');
+//Include functions.
+require_once ('data/modules/blog/functions.php');
 ?>
-
-<p><b><?php echo $lang_blog24; ?></b></p>
-
+	<p>
+		<strong><?php echo $lang_blog24; ?></strong>
+	</p>
 <?php
-showmenudiv($lang_blog10,false,'data/image/newpage.png','?module=blog&amp;page=newpost',false);
+showmenudiv($lang_blog10, false, 'data/image/newpage.png', '?module=blog&amp;page=newpost', false);
 ?>
-
-<span class="kop2"><?php echo $lang_blog9; ?></span><br />
-
+	<span class="kop2"><?php echo $lang_blog9; ?></span><br />
 <?php
-//Display existing posts, but only if post-index file exists
-if(file_exists('data/settings/modules/blog/post_index.dat')) {
+//Display existing posts, but only if post-index file exists.
+if (file_exists('data/settings/modules/blog/post_index.dat')) {
 	$handle = fopen('data/settings/modules/blog/post_index.dat', 'r');
-	while(!feof($handle)) {
+	while (!feof($handle)) {
 		$file = fgets($handle, 4096);
-		//Filter out line breaks
-		$file = str_replace ("\n",'', $file);		
-		//Check if post exists
-		if((file_exists('data/settings/modules/blog/posts/'.$file)) && (is_file('data/settings/modules/blog/posts/'.$file))) {
-			//Include post information
-			include('data/settings/modules/blog/posts/'.$file);
-?>
-
-<div class="menudiv" style="margin: 10px;">
-	<table>
-		<tr>
-			<td>
-				<img src="data/modules/blog/images/blog.png" alt="" border="0">
-			</td>
-			<td style="width: 500px;">
-				<span style="font-size: 17pt;"><?php echo $post_title; ?></span>
-			</td>
-			<td>
-				<a href="?module=blog&page=editpost&var=<?php echo $file; ?>"><img src="data/image/edit.png" border="0" title="<?php echo $lang_blog11; ?>" alt="<?php echo $lang_blog11; ?>"></a>		
-			</td>
-			<td>
-				<a href="?module=blog&page=editreactions&var=<?php echo $file; ?>"><img src="data/modules/blog/images/reactions.png" border="0" title="<?php echo $lang_blog19; ?>" alt="<?php echo $lang_blog19; ?>"></a>		
-			</td>
-			<td>
-				<a href="?module=blog&page=deletepost&var=<?php echo $file; ?>"><img src="data/image/delete_from_trash.png" border="0" title="<?php echo $lang_blog12; ?>" alt="<?php echo $lang_blog12; ?>"></a>		
-			</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td>
-				<span style="font-size: 12px; font-style: italic">
-					<?php
-					//Show post date and category
-					echo $post_month.'-'.$post_day.'-'.$post_year;
-					if(isset($post_category)) {
-						echo ', '.$lang_blog14.' '.$post_category; 
-					}
-					?>
-				</span>
-			</td>				
-		</tr>
-	</table>
-</div>
-
-<?php
+		//Filter out line breaks.
+		$file = str_replace ("\n", '', $file);
+		//Check if post exists.
+		if (file_exists('data/settings/modules/blog/posts/'.$file) && is_file('data/settings/modules/blog/posts/'.$file)) {
+			//Include post information.
+			include ('data/settings/modules/blog/posts/'.$file);
+			?>
+				<div class="menudiv" style="margin: 10px;">
+					<span>
+						<img src="data/modules/blog/images/blog.png" alt="" />
+					</span>
+					<span style="width: 500px;">
+						<span style="font-size: 17pt;"><?php echo $post_title; ?></span>
+					</span>
+					<span>
+						<a href="?module=blog&amp;page=editpost&amp;var1=<?php echo $file; ?>">
+							<img src="data/image/edit.png" title="<?php echo $lang_blog11; ?>" alt="<?php echo $lang_blog11; ?>" />
+						</a>
+					</span>
+					<span>
+						<a href="?module=blog&amp;page=editreactions&amp;var1=<?php echo $file; ?>">
+							<img src="data/modules/blog/images/reactions.png" title="<?php echo $lang_blog19; ?>" alt="<?php echo $lang_blog19; ?>" />
+						</a>
+					</span>
+					<span>
+						<a href="?module=blog&amp;page=deletepost&amp;var1=<?php echo $file; ?>">
+							<img src="data/image/delete_from_trash.png" title="<?php echo $lang_blog12; ?>" alt="<?php echo $lang_blog12; ?>" />
+						</a>
+					</span>
+					<br />
+					<span style="margin-top: 10px">
+						<span style="font-size: 12px; font-style: italic">
+							<?php
+							//Show post date and category.
+							echo $post_month.'-'.$post_day.'-'.$post_year;
+							if (isset($post_category))
+								echo ', '.$lang_blog14.' '.$post_category;
+							?>
+						</span>
+					</span>
+				</div>
+			<?php
 		}
 	}
-	//Close module-dir
-	fclose($handle); 
+	//Close module-dir.
+	fclose($handle);
 }
-//If no posts exist, display message
-else {
+
+//If no posts exist, display message.
+else
 	echo '<span class="kop4">'.$lang_albums14.'</span><br />';
-}
 ?>
-<br />
-
-<span class="kop2"><?php echo $lang_blog3; ?></span><br />
-
+	<br />
+	<span class="kop2"><?php echo $lang_blog3; ?></span>
+	<br />
 <?php
-//If there already are categories
-if(file_exists('data/settings/modules/blog/categories.dat')) {
+//If there already are categories.
+if (file_exists('data/settings/modules/blog/categories.dat')) {
 	//Load them
 	$categories = file_get_contents('data/settings/modules/blog/categories.dat');
-	
-	//Then in an array
+
+	//Then in an array.
 	$categories = split(',',$categories);
-	
-	//And show them
-	//start table first
-	echo "<table>";
-	foreach($categories as $key => $name) {
-		echo "<tr><td>$name &nbsp;"; 
-		echo "<td><a href=\"?module=blog&page=deletecategory&var=$name\"><img src=\"data/image/delete_from_trash_small.png\" width=\"16\" height=\"16\" alt=\"$lang_blog6\" title=\"$lang_blog6\" style=\"border:0px;\"></a></td></tr>";
+
+	//And show them.
+	echo '<div>';
+	foreach ($categories as $key => $name) {
+	?>
+		<span><?php echo $name; ?> &nbsp;</span>
+		<span>
+			<a href="?module=blog&amp;page=deletecategory&amp;var1=<?php echo $name; ?>">
+				<img src="data/image/delete_from_trash_small.png" width="16" height="16" alt="<?php echo $lang_blog6; ?>" title="<?php echo $lang_blog6; ?>" />
+			</a>
+		</span>
+	<?php
 	}
-	echo "</table>";
+	echo '</div>';
 }
 
-//If no categories exist, show a message
-else {
+//If no categories exist, show a message.
+else
 	echo '<span class="kop4">'.$lang_albums14.'</span><br />';
-}
 
-//New category
+//New category.
 ?>
-<br /><span class="kop2"><?php echo $lang_blog4; ?></span><br />
-
-<form method="post">
-	<span class="kop4"><?php echo $lang_blog5; ?></span><br />
-	<input name="cont1" type="text" value="">
-	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>">
+<br />
+<label class="kop2" for="cont1"><?php echo $lang_blog4; ?></label>
+<br />
+<form method="post" action="">
+	<span class="kop4"><?php echo $lang_blog5; ?></span>
+	<br />
+	<input name="cont1" id="cont1" type="text" />
+	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
 </form>
 
 <?php
-//When form is submitted
-if(isset($_POST['Submit'])) {
-	if($cont1) {
-		//Filter category name from inappropriate characters
-		$cont1 = stripslashes($cont1);
+//When form is submitted.
+if (isset($_POST['Submit'])) {
+	if ($cont1) {
+		//Filter category name from inappropriate characters.
 		$cont1 = str_replace ("\"","", $cont1);
 		$cont1 = str_replace ("'","", $cont1);
 		$cont1 = str_replace (",","", $cont1);
 		$cont1 = str_replace (".","", $cont1);
 		$cont1 = str_replace ("/","", $cont1);
 		$cont1 = str_replace ("\\","", $cont1);
-		
-		//Read out existing categories, if they exist
-		if(file_exists('data/settings/modules/blog/categories.dat')) {
+
+		//Read out existing categories, if they exist.
+		if (file_exists('data/settings/modules/blog/categories.dat'))
 			$categories = file_get_contents('data/settings/modules/blog/categories.dat');
-		}
-		
-		//Make sure category doesn't already exist
-		if((!ereg($cont1.',',$categories)) || (!ereg(','.$cont1,$categories)) || (!isset($categories))) {
-			
+
+		//Make sure category doesn't already exist.
+		//FIXME: Replace ereg with strpos.
+		if (!ereg($cont1.',',$categories) || !ereg(','.$cont1,$categories) || !isset($categories)) {
+
 			//If there are already existing categories...
-			if(file_exists('data/settings/modules/blog/categories.dat')) {
+			if (file_exists('data/settings/modules/blog/categories.dat')) {
 				//Load existing categories in array
 				$categories = split(',',$categories);
 
-				//Determine the array number for our new category
-				$num = 0; 
-				while(isset($categories[$num])) {
-					$num++;					
-				}
-				//Add new category to array
+				//Determine the array number for our new category.
+				$num = 0;
+				while (isset($categories[$num]))
+					$num++;
+
+				//Add new category to array.
 				$categories[$num] = $cont1;
 			}
 
-			//If there are no categories yet, just set new category in array
-			else {
+			//If there are no categories yet, just set new category in array.
+			else
 				$categories[0] = $cont1;
-			}
-				
-			//Now, sort the array
-			natsort($categories);
-			//Reset keys of array
-			$categories = array_merge(array(),$categories); 
 
-			//Open config file to save categories
+			//Now, sort the array.
+			natsort($categories);
+			//Reset keys of array.
+			$categories = array_merge(array(), $categories);
+
+			//Open config file to save categories.
 			$file = fopen('data/settings/modules/blog/categories.dat', 'w');
-			
-			foreach($categories as $number => $name) {			
+
+			foreach($categories as $number => $name) {
 				$number_next = $number + 1;
-				if(isset($categories[$number_next])) {
+				if (isset($categories[$number_next]))
 					fputs($file,$name.',');
-				}
-				else {
+				else
 					fputs($file,$name);
-				}
 			}
-			//Close file, and chmod it
+			//Close file, and chmod it.
 			fclose($file);
 			chmod('data/settings/modules/blog/categories.dat', 0777);
 		}
-		//Redirect user
-		redirect('?module=blog','0');
+		//Redirect user.
+		redirect('?module=blog', 0);
 	}
 }
 ?>
-
-<p><a href="?action=modules"><<< <?php echo $lang_theme12; ?></a></p>
+<p>
+	<a href="?action=modules">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a>
+</p>

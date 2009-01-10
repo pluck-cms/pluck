@@ -26,7 +26,11 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 //Generate the menu on the right.
 ?>
 <div class="rightmenu">
-<?php echo $lang_page8; ?>
+<?php
+	//We don't want to show the message, if there aren't any pages or images.
+	if (read_imagesinpages('images') != false && read_pagesinpages('data/settings/pages', $var1) != false)
+		echo $lang_page8;
+?>
 <br />
 <?php
 	read_imagesinpages('images');

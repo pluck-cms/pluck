@@ -20,35 +20,38 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit();
 }
 
-//Display existing posts, but only if post-index file exists
+global $lang_blog14, $lang_blog23;
+
+//Display existing posts, but only if post-index file exists.
 if (file_exists('data/settings/modules/blog/post_index.dat')) {
 	$handle = fopen('data/settings/modules/blog/post_index.dat', 'r');
 	while (!feof($handle)) {
 		$file = fgets($handle, 4096);
-		//Filter out line breaks
+		//Filter out line breaks.
 		$file = str_replace ("\n",'', $file);
-		//Check if post exists
-		if ((file_exists('data/settings/modules/blog/posts/'.$file)) && (is_file('data/settings/modules/blog/posts/'.$file))) {
-			//Include post information
-			include_once('data/settings/modules/blog/posts/'.$file);
+		//Check if post exists.
+		if (file_exists('data/settings/modules/blog/posts/'.$file) && is_file('data/settings/modules/blog/posts/'.$file)) {
+			//Include post information.
+			include_once ('data/settings/modules/blog/posts/'.$file);
 			?>
-			<div class="blogpost">
-				<span class="posttitle">
-					<a href="?module=blog&amp;page=viewpost&amp;post=<?php echo $file; ?>&amp;pageback=<?php echo CURRENT_PAGE_FILENAME; ?>" title="post <?php echo $post_title; ?>"><?php echo $post_title; ?></a>
-				</span><br />
-				<span class="postinfo">
-					<?php echo $lang_blog14; ?> <span style="font-weight: bold;"><?php echo $post_category; ?></span> - <?php echo $post_month; ?>-<?php echo $post_day; ?>-<?php echo $post_year; ?>, <?php echo $post_time; ?>
-				</span>
-				<br /><br />
-				<?php echo $post_content; ?>
-				<p>
-					<a href="?module=blog&amp;page=viewpost&amp;post=<?php echo $file; ?>&amp;pageback=<?php echo CURRENT_PAGE_FILENAME; ?>" title="<?php echo $lang_blog23; ?>">&raquo; <?php echo $lang_blog23; ?></a>
-				</p>
-			</div>
+				<div class="blogpost">
+					<span class="posttitle">
+						<a href="?module=blog&amp;page=viewpost&amp;post=<?php echo $file; ?>&amp;pageback=<?php echo CURRENT_PAGE_FILENAME; ?>" title="post <?php echo $post_title; ?>"><?php echo $post_title; ?></a>
+					</span>
+					<br />
+					<span class="postinfo">
+						<?php echo $lang_blog14; ?> <span style="font-weight: bold;"><?php echo $post_category; ?></span> - <?php echo $post_month; ?>-<?php echo $post_day; ?>-<?php echo $post_year; ?>, <?php echo $post_time; ?>
+					</span>
+					<br /><br />
+					<?php echo $post_content; ?>
+					<p>
+						<a href="?module=blog&amp;page=viewpost&amp;post=<?php echo $file; ?>&amp;pageback=<?php echo CURRENT_PAGE_FILENAME; ?>" title="<?php echo $lang_blog23; ?>">&raquo; <?php echo $lang_blog23; ?></a>
+					</p>
+				</div>
 			<?php
 		}
 	}
-	//Close module-dir
+	//Close module-dir.
 	fclose($handle);
 }
 ?>
