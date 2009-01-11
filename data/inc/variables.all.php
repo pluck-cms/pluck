@@ -39,8 +39,10 @@ if (file_exists('data/settings/options.php'))
 	define('EMAIL', $email);
 define('LANG', str_replace('.php', '', $langpref));
 define('LANG_FILE', $langpref);
-define('THEME', $themepref);
-define('THEME_DIR', 'data/themes/'.$themepref);
+if (file_exists('data/settings/themepref.php')) {
+	define('THEME', $themepref);
+	define('THEME_DIR', 'data/themes/'.$themepref);
+}
 define('HOME_PAGE', '?file=kop1.php');
 
 //General variables (included for compatibiltiy with pluck 4.6).
@@ -50,8 +52,10 @@ $site_langfile = LANG_FILE;
 $site_lang = LANG;
 if (file_exists('data/settings/options.php'))
 	$site_email = EMAIL;
-$site_theme = THEME;
-$themedirectory = THEME_DIR;
+if (file_exists('data/settings/themepref.php')) {
+	$site_theme = THEME;
+	$themedirectory = THEME_DIR;
+}
 $homepage = HOME_PAGE;
 
 //GETS

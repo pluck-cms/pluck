@@ -70,7 +70,6 @@ else {
 			check_writable('data/themes/green');
 			check_writable('data/themes/oldstyle');
 			check_writable('data/settings/langpref.php');
-			check_writable('data/settings/themepref.php');
 		?>
 		<a href="javascript:refresh()"><?php echo $lang_install10; ?></a>
 		<br /><br />
