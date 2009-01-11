@@ -45,7 +45,8 @@ ini_set('magic_quotes_sybase', 0);
 ini_set('magic_quotes_runtime', 0);
 if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc() == 1) {
 	foreach($_GET as $k => $v) $_GET[$k] = stripslashes($v);
-	foreach($_POST as $k => $v) $_POST[$k] = stripslashes($v);
+	//FIXME: When a POST variable is an array, fx. $con3['blog'], it gives an error on the next line, if @ is not used on stripslashes.
+	foreach($_POST as $k => $v) $_POST[$k] = @stripslashes($v);
 	foreach($_COOKIE as $k => $v) $_COOKIE[$k] = stripslashes($v);
 }
 ?>
