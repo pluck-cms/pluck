@@ -70,6 +70,7 @@ function confirmation(message) {
 }
 //-->
 </script>
+<?php run_hook('admin_header_main'); ?>
 </head>
 <body>
 <div id="menuheader">
