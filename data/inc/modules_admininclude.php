@@ -44,7 +44,7 @@ while ($dir = readdir($dir_handle)) {
 			include ('data/modules/'.$dir.'/module_pages_admin.php');
 
 			//Include startpage of module.
-			if (isset($module) && $module == $module_dir && !isset($page)) {
+			if ($module == $module_dir && !isset($page)) {
 				$titelkop = $module_name;
 				include_once ('data/inc/header.php');
 				include ('data/modules/'.$module_dir.'/pages_admin/'.$startpage);
@@ -56,7 +56,7 @@ while ($dir = readdir($dir_handle)) {
 				foreach ($module_page as $filename => $pagetitle) {
 					//Generate filename with extension
 					$filename_ext = $filename.'.php';
-					if (isset($module) && $module == $module_dir && $page == $filename) {
+					if ($module == $module_dir && $page == $filename) {
 						$titelkop = $pagetitle;
 						include_once ('data/inc/header.php');
 						include ('data/modules/'.$module_dir.'/pages_admin/'.$filename_ext);

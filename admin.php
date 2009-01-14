@@ -254,16 +254,15 @@ else {
 		}
 	}
 
+	//Module pages.
+	elseif (isset($module))
+		include_once ('data/inc/modules_admininclude.php');
+
 	//Unknown pages
 	else {
-		if (!isset($module)) {
-			header('Location: ?action=start');
-			exit;
-		}
+		header('Location: ?action=start');
+		exit;
 	}
-
-	//Include module pages
-	include_once ('data/inc/modules_admininclude.php');
 
 	//Include footer
 	include_once ('data/inc/footer.php');
