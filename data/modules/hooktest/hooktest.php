@@ -1,19 +1,17 @@
 <?php
-//TODO: This is only how it could be done.
-function testhook_info() {
-	$module = array (
-		'name'    => 'Hook test',
-		'intro'   => 'Created to show the new hooks.',
-		'version' => '0.1',
-		'author'  => 'Spirit55555',
-		'website' => 'http://spirit55555.dk',
-		'icon'    => null
-	);
-}
+/*
+ * Name: Hooktest
+ * Intro: Created to show the new hooks.
+ * Version: 0.1
+ * Author: Anders Jørgensen
+ * Website: http://spirit55555.dk
+ * Icon: null
+ * Compatibility: 4.7
+ */
 
-function testhook_css() {
+function hooktest_css() {
 	echo '<style type="text/css">h1:before, h1:after {content: \'"\';}</style>';
 }
 
-add_hook('admin_header_main', 'testhook_css');
+add_hook('admin_header_main', 'hooktest_css');
 ?>

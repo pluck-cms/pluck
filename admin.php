@@ -22,8 +22,6 @@ require_once ('data/inc/variables.all.php');
 
 //Load all the modules, so we can use hooks.
 load_modules();
-//global $hooks;
-//print_r($hooks);
 
 //First check if we've installed pluck
 if (!file_exists('data/settings/install.dat')) {
