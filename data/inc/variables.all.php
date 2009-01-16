@@ -57,7 +57,6 @@ if (file_exists('data/settings/themepref.php')) {
 	$themedirectory = THEME_DIR;
 }
 $homepage = HOME_PAGE;
-$hooks = array();
 
 //GETS
 if (isset($_GET['action']))

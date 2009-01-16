@@ -117,24 +117,7 @@ function theme_meta() {
 		echo '<style type="text/css">body {direction:rtl;}</style>'."\n";
 	}
 
-	//Also include module head-inclusion files (inc_site_head.php)
-	//--------------
-	//Open the folder
-	$dir_handle = @opendir('data/modules') or die('Unable to open module directory. Check if it\'s readable.');
-
-	//Loop through dirs
-	while ($dir = readdir($dir_handle)) {
-		if ($dir == '.' || $dir == '..')
-			continue;
-		//Include the inc_site.php if it exists, and if module is compatible
-		include ('data/modules/'.$dir.'/module_info.php');
-		if (module_is_compatible($dir)) {
-			if (file_exists('data/modules/'.$dir.'/inc_site_head.php'))
-				include ('data/modules/'.$dir.'/inc_site_head.php');
-		}
-	}
-	//Close module-dir
-	closedir($dir_handle);
+	run_hook('theme_meta');
 }
 
 //[THEME] FUNCTION TO SHOW SITE TITLE
@@ -191,7 +174,9 @@ function theme_content() {
 		//Check if page exists
 		if (file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
 			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
+			run_hook('theme_content_before');
 			echo $content;
+			run_hook('theme_content_after');
 		}
 		//If page doesn't exist, show error message
 		else {

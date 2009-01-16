@@ -15,7 +15,6 @@
 	<div id="content">
 		<h2 title="<?php theme_pagetitle(); ?>"><?php theme_pagetitle(); ?></h2>
 		<?php theme_content(); ?>
-		<?php theme_module('main'); ?>
 	</div>
 	<div id="footer">
 		<?php theme_module('footer'); ?>

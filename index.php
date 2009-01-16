@@ -39,27 +39,6 @@ if ((isset($direction)) && ($direction == 'rtl') && (!file_exists(THEME_DIR.'/st
 	include_once ('data/inc/themes_convert-rtl.php');
 }
 
-//Include module-inclusion files (inc_site.php)
-//---------------
-//Open the folder
-$dir_handle = @opendir('data/modules') or die('Unable to open module directory. Check if it\'s readable.');
-
-//Loop through dirs
-while ($dir = readdir($dir_handle)) {
-if ($dir == '.' || $dir == '..')
-   continue;
-	//Include the inc_site.php if it exists, and if module is compatible
-	include_once ('data/modules/'.$dir.'/module_info.php');
-	if (module_is_compatible($dir)) {
-		if (file_exists('data/modules/'.$dir.'/inc_site.php')) {
-			include_once ('data/modules/'.$dir.'/inc_site.php');
-		}
-	}
-}
-
-//Close module-dir
-closedir($dir_handle);
-
 //Check if a page or module has been specified, if not: redirect to kop1.php
 if (!defined('CURRENT_PAGE_FILENAME') && !defined('CURRENT_MODULE_DIR')) {
 	header('Location: '.HOME_PAGE);

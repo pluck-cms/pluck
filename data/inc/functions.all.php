@@ -27,7 +27,7 @@ function module_is_compatible($module) {
 	if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
 		$module_info = module_find_info($module);
 		if (isset($module_info['compatibility'])) {
-			if (preg_match('/,/', $module_info['compatibility']))
+			if (strpos($module_info['compatibility'], ','))
 				$version_compat = explode(',', $module_info['compatibility']);
 			else
 				$version_compat[0] = $module_info['compatibility'];
@@ -35,18 +35,14 @@ function module_is_compatible($module) {
 			//Now check if we have a compatible version. NOTE: If pluck is an alpha or beta version, it will always be compatible.
 			foreach ($version_compat as $number => $version) {
 				if ($version == PLUCK_VERSION || preg_match('/(alpha|beta)/', PLUCK_VERSION)) {
-					$compatible = 'yes';
+					return true;
 				}
 			}
 		}
 	}
 
-	if (isset($compatible) && $compatible == 'yes')
-		return true;
 	else
 		return false;
-
-	unset($compatible);
 }
 
 //Function: recursively delete an entire directory.
@@ -164,8 +160,7 @@ function add_hook($hookname, $funcname) {
 	global $hooks;
 	if (!isset($hookname) || !isset($funcname))
 		return;
-	$hook = array('hookname' => $hookname, 'funcname' => $funcname);
-	$hooks[] = $hook;
+	$hooks[] = array('hookname' => $hookname, 'funcname' => $funcname);
 }
 
 function run_hook($name) {
@@ -182,15 +177,13 @@ function load_modules() {
 	$dir = 'data/modules';
 	$modules = read_dir_contents($dir, 'dirs');
 	foreach ($modules as $module) {
-		//FIXME: module_is_compatible() need to be updated.
 		if (module_is_compatible($module) && file_exists($dir.'/'.$module.'/'.$module.'.php'))
 			require_once ($dir.'/'.$module.'/'.$module.'.php');
 	}
 }
 
 function module_find_info($module) {
-		$module_info_final = array();
-
+	if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
 		$module_info = file_get_contents('data/modules/'.$module.'/'.$module.'.php');
 		$module_info = preg_match('|\/\*(.+)\*\/|Us', $module_info, $regs);
 		$module_info = str_replace(' * ', '', $regs[1]);
@@ -203,5 +196,9 @@ function module_find_info($module) {
 		}
 
 		return $module_info_final;
+	}
+
+	else
+		return false;
 }
 ?>
