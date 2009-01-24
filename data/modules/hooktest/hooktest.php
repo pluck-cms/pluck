@@ -1,13 +1,16 @@
 <?php
-/*
- * Name: hooktest
- * Intro: Created to show the new hooks.
- * Version: 0.1
- * Author: Anders Jørgensen
- * Website: http://spirit55555.dk
- * Icon: ../../image/stats.png
- * Compatibility: 4.7
- */
+function hooktest_info() {
+	$module_info = array(
+		'name'          => 'hooktest',
+		'intro'         => 'Created to show the new hooks.',
+		'version'       => '0.1',
+		'author'        => 'Anders Jørgensen',
+		'website'       => 'http://spirit55555.dk',
+		'icon'          => '../../image/stats.png',
+		'compatibility' => '4.7'
+	);
+	return $module_info;
+}
 
 function hooktest_theme_main() {
 	echo '<a href="?module=hooktest&amp;page=hook">Module page link</a>';

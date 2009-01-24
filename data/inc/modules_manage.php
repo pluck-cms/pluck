@@ -36,7 +36,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 $dirs = read_dir_contents('data/modules', 'dirs');
 //Display modules
 foreach($dirs as $dir) {
-	$module_info = module_find_info($dir);
+	$module_info = call_user_func($dir.'_info');
 	?>
 	<div class="menudiv">
 		<div>

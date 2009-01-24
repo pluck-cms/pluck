@@ -66,7 +66,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 						foreach ($module_list as $module) {
 							//Only show if module is compatible.
 							if (module_is_compatible($module) && function_exists($module.'_theme_main')) {
-								$module_info = module_find_info($module);
+								$module_info = call_user_func($module.'_info');
 								?>
 									<tr>
 										<td><?php echo $module_info['name']; ?></td>

@@ -25,7 +25,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 function module_is_compatible($module) {
 	//Include module information.
 	if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
-		$module_info = module_find_info($module);
+		$module_info = call_user_func($module.'_info');
 		if (isset($module_info['compatibility'])) {
 			if (strpos($module_info['compatibility'], ','))
 				$version_compat = explode(',', $module_info['compatibility']);
@@ -168,31 +168,5 @@ function run_hook($name) {
 		if (is_callable($module.'_'.$name) && module_is_compatible($module))
 			call_user_func($module.'_'.$name);
 	}
-}
-
-/**
- * Find indformation about a module
- *
- * @param string $module Module name.
- * @return array The module infomation.
- */
-function module_find_info($module) {
-	if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
-		$module_info = file_get_contents('data/modules/'.$module.'/'.$module.'.php');
-		$module_info = preg_match('|\/\*(.+)\*\/|Us', $module_info, $regs);
-		$module_info = str_replace(' * ', '', $regs[1]);
-		$module_info = trim($module_info);
-		$module_info = explode("\n", $module_info);
-
-		foreach ($module_info as $info) {
-			$info = explode(': ', $info);
-			$module_info_final[strtolower($info[0])] = $info[1];
-		}
-
-		return $module_info_final;
-	}
-
-	else
-		return false;
 }
 ?>

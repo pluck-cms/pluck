@@ -28,7 +28,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 foreach ($module_list as $dir) {
 	//Check if module is compatible, otherwise don't include pages.
 	if (module_is_compatible($dir) && function_exists($dir.'_page_admin_list')) {
-		$module_info = module_find_info($dir);
+		$module_info = call_user_func($module.'_info');
 		$module_pages = call_user_func($dir.'_page_admin_list');
 
 		//Include startpage of module.

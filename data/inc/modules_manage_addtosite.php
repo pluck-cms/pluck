@@ -73,7 +73,7 @@ if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php'))
 								if ($dir != '.' && $dir != '..') {
 									//Only show if module is compatible.
 									if (module_is_compatible($dir) && function_exists($dir.'_theme_main')) {
-										$module_info = module_find_info($dir);
+										$module_info = call_user_func($dir.'_info');
 										?>
 											<tr>
 												<td><?php echo $module_info['name']; ?></td>
