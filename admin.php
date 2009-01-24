@@ -12,6 +12,23 @@
  * See docs/COPYING for the complete license.
 */
 
+//Load all the modules, so we can use hooks.
+//This has to be done before anything else.
+$path = opendir('data/modules');
+while (false !== ($dir = readdir($path))) {
+	if ($dir != '.' && $dir != '..') {
+		if (is_dir('data/modules/'.$dir))
+			$modules[] = $dir;
+	}
+}
+closedir($path);
+
+foreach ($modules as $module) {
+	if (file_exists('data/modules/'.$module.'/'.$module.'.php'))
+		require_once ('data/modules/'.$module.'/'.$module.'.php');
+		$module_list[] = $module;
+}
+
 //Include security-enhancements
 require_once ('data/inc/security.php');
 //Include functions
@@ -19,9 +36,6 @@ require_once ('data/inc/functions.all.php');
 require_once ('data/inc/functions.admin.php');
 //Include variables
 require_once ('data/inc/variables.all.php');
-
-//Load all the modules, so we can use hooks.
-load_modules();
 
 //First check if we've installed pluck
 if (!file_exists('data/settings/install.dat')) {

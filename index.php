@@ -21,6 +21,23 @@ if (!file_exists('data/settings/install.dat')) {
 	exit;
 }
 
+//Load all the modules, so we can use hooks.
+//This has to be done before anything else.
+$path = opendir('data/modules');
+while (false !== ($dir = readdir($path))) {
+	if ($dir != '.' && $dir != '..') {
+		if (is_dir('data/modules/'.$dir))
+			$modules[] = $dir;
+	}
+}
+closedir($path);
+
+foreach ($modules as $module) {
+	if (file_exists('data/modules/'.$module.'/'.$module.'.php'))
+		include ('data/modules/'.$module.'/'.$module.'.php');
+		$module_list[] = $module;
+}
+
 //Include security-enhancements.
 require_once ('data/inc/security.php');
 //Include functions.
@@ -30,11 +47,8 @@ require_once ('data/inc/functions.site.php');
 require_once ('data/inc/variables.all.php');
 require_once ('data/inc/variables.site.php');
 
-//Load all the modules, so we can use hooks.
-load_modules();
-
 //Then, if we have a RTL-language and theme hasn't been converted
-if ((isset($direction)) && ($direction == 'rtl') && (!file_exists(THEME_DIR.'/style-rtl.css'))) {
+if (isset($direction) && $direction == 'rtl' && !file_exists(THEME_DIR.'/style-rtl.css')) {
 	//Convert theme and save CSS
 	include_once ('data/inc/themes_convert-rtl.php');
 }

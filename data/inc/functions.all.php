@@ -120,7 +120,7 @@ function redirect($url, $time) {
 function read_dir_contents($directory, $mode) {
 	$path = opendir($directory);
 	while (false !== ($file = readdir($path))) {
-		if (($file != '.') && ($file != '..')) {
+		if ($file != '.' && $file != '..') {
 			if (is_file($directory.'/'.$file)) {
 				$files[] = $file;
 			}
@@ -155,32 +155,13 @@ function sanitize($var, $html = true) {
 	return $var;
 }
 
-
-/*function add_hook($hookname, $funcname) {
-	global $hooks;
-	if (!isset($hookname) || !isset($funcname))
-		return;
-	$hooks[] = array('hookname' => $hookname, 'funcname' => $funcname);
-}*/
-
 function run_hook($name) {
 	global $module_list;
 	if (!isset($name))
 		return;
 	foreach ($module_list as $module) {
-		if (is_callable($module.'_'.$name))
+		if (is_callable($module.'_'.$name) && module_is_compatible($module))
 			call_user_func($module.'_'.$name);
-	}
-}
-
-function load_modules() {
-	global $module_list;
-	$dir = 'data/modules';
-	$modules = read_dir_contents($dir, 'dirs');
-	foreach ($modules as $module) {
-		if (module_is_compatible($module) && file_exists($dir.'/'.$module.'/'.$module.'.php'))
-			require_once ($dir.'/'.$module.'/'.$module.'.php');
-			$module_list[] = $module;
 	}
 }
 

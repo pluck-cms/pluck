@@ -23,9 +23,9 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 //Function: get page title
 //---------------------------------
 function get_pagetitle() {
-	global $lang_front1;
+	global $lang_front1, $module;
 	//Get the title if we are looking at a normal page
-	if ((isset($_GET['file'])) && (!empty($_GET['file']))) {
+	if (isset($_GET['file']) && !empty($_GET['file'])) {
 		if (isset($_GET ['file']))
 			$filetoread = $_GET ['file'];
 
@@ -36,39 +36,16 @@ function get_pagetitle() {
 		}
 
 		//If page doesn't exist; display error
-		else {
+		else
 			return $lang_front1;
-		}
 	}
 
 	//Get the title if we are looking at a module page
-	if (isset($_GET ['module']))
-		$module = $_GET ['module'];
-
-	if (isset($_GET ['page']))
-		$page = $_GET ['page'];
-
-	if (isset($module)) {
-		//Include module files (but only if they exist)
- 		if (file_exists('data/modules/'.$module.'/module_info.php')) {
- 			include ('data/modules/'.$module.'/module_info.php');
- 			if (module_is_compatible($module)) {
-				if (file_exists('data/modules/'.$module.'/module_pages_site.php')) {
- 					include ('data/modules/'.$module.'/module_pages_site.php');
-
-	 				//Include all module-pages, but
-					//only include pages if array has been given
-					if (isset($module_page)) {
-	 					foreach ($module_page as $filename => $pagetitle) {
- 							//Generate filename with extension
-							$filename_ext = $filename.'.php';
-							if (($module == $module_dir) && ($page == $filename)) {
-								return $pagetitle;
-							}
-						}
-					}
-				}
-			}
+	elseif (isset($module) && module_is_compatible($module)) {
+		$module_page_site = call_user_func($module.'_page_site_list');
+		foreach ($module_page_site as $module_page) {
+			if ($module_page['func'] == CURRENT_MODULE_PAGE)
+				return $module_page['title'];
 		}
 	}
 }
@@ -82,18 +59,15 @@ function get_pagetitle() {
 function theme_meta() {
 	//Get page-info (for meta-information)
 	if (defined('CURRENT_PAGE_FILENAME')) {
-		if (file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
+		if (file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME))
 			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
-		}
 	}
 
 	//Check which CSS-file we need to use (LTR or RTL)
-	if ((isset($direction)) && ($direction == 'rtl')) {
+	if (isset($direction) && $direction == 'rtl')
 		$cssfile = THEME_DIR.'/style-rtl.css';
-	}
-	else {
+	else
 		$cssfile = THEME_DIR.'/style.css';
-	}
 
 	echo '<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />'."\n";
 	echo '<meta name="generator" content="pluck '.PLUCK_VERSION.'" />'."\n";
@@ -104,18 +78,15 @@ function theme_meta() {
 	//If we are not looking at a module: include metatag information
 	if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
 		echo '<meta name="title" content="'.PAGE_TITLE.'" />'."\n";
-		if (isset($keywords) && !empty($keywords)) {
+		if (isset($keywords) && !empty($keywords))
 			echo '<meta name="keywords" content="'.$keywords.'" />'."\n";
-		}
-		if (isset($description) && !empty($description)) {
+		if (isset($description) && !empty($description))
 			echo '<meta name="description" content="'.$description.'" />'."\n";
-		}
 	}
 
 	//If RTL, set direction to RTL in CSS
-	if ((isset($direction)) && ($direction == 'rtl')) {
+	if (isset($direction) && $direction == 'rtl')
 		echo '<style type="text/css">body {direction:rtl;}</style>'."\n";
-	}
 
 	run_hook('theme_meta');
 }
@@ -131,7 +102,7 @@ function theme_sitetitle() {
 function theme_menu($html,$htmlactive = NULL) {
 	$files = read_dir_contents('data/settings/pages', 'files');
 	if ($files) {
-		//Sort the array
+		//Sort the array.
 		natcasesort($files);
 
 		foreach ($files as $file) {
@@ -140,9 +111,9 @@ function theme_menu($html,$htmlactive = NULL) {
 
 			include ('data/settings/pages/'.$file);
 
-			//Only display in menu if page isn't hidden by user
+			//Only display in menu if page isn't hidden by user.
 			if (isset($hidden) && $hidden == 'no') {
-				//Check if we need to show an active link
+				//Check if we need to show an active link.
 				if (isset($currentpage) && $currentpage == $file && $htmlactive) {
 					$html_new = str_replace('#title', $title, $htmlactive);
 					$html_new = str_replace('#file', '?file='.$file, $html_new);
@@ -190,10 +161,10 @@ function theme_content() {
 function theme_area($place) {
 	//Include needed variables.
 	global $lang_modules27;
-	//If mainspace: include the page-specific modules.
-	if ($place == 'main') {
-		//If we are looking at a normal page: include the inclusion file of the module (but only if specified page exists).
-		if (!defined('CURRENT_MODULE_DIR') && defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
+	//If we are looking at a normal page: include the inclusion file of the module (but only if specified page exists).
+	if (!defined('CURRENT_MODULE_DIR') && defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
+		//If mainspace: include the page-specific modules.
+		if ($place == 'main') {
 			//Include page-information
 			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
 			//First, check if we want to include any modules.
@@ -207,26 +178,34 @@ function theme_area($place) {
 				}
 			}
 		}
-	}
 
-	//Include info of theme (to see which modules we should include etc), but only if file exists.
-	elseif (file_exists('data/settings/themes/'.THEME.'/moduleconf.php')) {
-		include ('data/settings/themes/'.THEME.'/moduleconf.php');
+		//Include info of theme (to see which modules we should include etc), but only if file exists.
+		elseif (file_exists('data/settings/themes/'.THEME.'/moduleconf.php')) {
+			include ('data/settings/themes/'.THEME.'/moduleconf.php');
 
-		//Get the array and sort it.
-		foreach ($space as $area => $number) {
-
-			//Sort the array, so that the modules will be displayed in correct order.
-			natcasesort($number);
-			foreach ($number as $module => $order) {
-				//If the area where the module should be displayed is the same as the area we're currently...
-				//...processing: include the module.
-				if ($area == $place) {
-					//Check if module is compatible, and the function exists.
-					if (module_is_compatible($module) && function_exists($module.'_theme_main'))
-							call_user_func($module.'_theme_main');
+			//Get the array and sort it.
+			foreach ($space as $area => $number) {
+				//Sort the array, so that the modules will be displayed in correct order.
+				natcasesort($number);
+				foreach ($number as $module => $order) {
+					//If the area where the module should be displayed is the same as the area we're currently...
+					//...processing: include the module.
+					if ($area == $place) {
+						//Check if module is compatible, and the function exists.
+						if (module_is_compatible($module) && function_exists($module.'_theme_main'))
+								call_user_func($module.'_theme_main');
+					}
 				}
 			}
+		}
+	}
+
+	//If we are looking at a module page.
+	elseif (defined('CURRENT_MODULE_DIR')) {
+		$module_page_site = call_user_func(CURRENT_MODULE_DIR.'_page_site_list');
+		foreach ($module_page_site as $module_page) {
+			if ($module_page['func'] == CURRENT_MODULE_PAGE)
+				call_user_func(CURRENT_MODULE_DIR.'_page_site_'.$module_page['func']);
 		}
 	}
 }

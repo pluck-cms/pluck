@@ -21,13 +21,37 @@ function hooktest_theme_main() {
 	echo '<a href="?module=hooktest&amp;page=hook">Module page link</a>';
 }
 
+//Site pages.
+function hooktest_page_site_list() {
+	$module_page_site[] = array(
+		'func' => 'hook',
+		'title' => 'Hooks are great!'
+	);
+	$module_page_site[] = array(
+		'func' => 'filter',
+		'title' => 'I want filters!'
+	);
+	return $module_page_site;
+}
+
 function hooktest_page_site_hook() {
 	echo 'Hooks are great when they can have their own pages.';
 }
 
+function hooktest_page_site_filter() {
+	echo 'FILTER!';
+}
 
-$module_page_site['hooktest']['hook'] = 'Hooks are great!';
-
-$module_page_admin['foo'] = 'foobar';
-$module_page_admin['bar'] = 'barfoo';
+//Admin pages. $module_page_admin[0] is the start page.
+function hooktest_page_admin_list() {
+	$module_page_admin[] = array(
+		'func' => 'foo',
+		'title' => 'Foobar'
+	);
+	$module_page_admin[] = array(
+		'func' => 'bar',
+		'title' => 'Barfoo'
+	);
+	return $module_page_admin;
+}
 ?>
