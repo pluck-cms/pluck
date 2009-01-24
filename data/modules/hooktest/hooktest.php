@@ -9,18 +9,24 @@
  * Compatibility: 4.7
  */
 
-function hooktest_admin_header_main() {
-	echo '<style type="text/css">h1:before, h1:after {content: \'"\';}</style>';
-}
-
-function hooktest_theme_content_after() {
-	echo '<p>Works in themes too!</p>';
-}
-
 function hooktest_theme_main() {
 	echo '<a href="?module=hooktest&amp;page=hook">Module page link</a>';
 }
 
+function hooktest_admin_header_main() {
+	echo '<style type="text/css">h1:before, h1:after {content: \'"\';}</style>';
+}
+
+function hooktest_admin_menu_inside_before() {
+?>
+	<div class="menuitem">
+		<span>
+			<img src="data/image/website.png" alt="" height="22px" />
+			<a href="index.php?file=kop1.php" title="view site" target="_blank">view site</a>
+		</span>
+	</div>
+<?php
+}
 //Site pages.
 function hooktest_page_site_list() {
 	$module_page_site[] = array(
@@ -53,5 +59,13 @@ function hooktest_page_admin_list() {
 		'title' => 'Barfoo'
 	);
 	return $module_page_admin;
+}
+
+function hooktest_page_admin_foo() {
+	echo 'Admin pages are working<br /><a href="?module=hooktest&amp;page=bar">Barfoo page</a>';
+}
+
+function hooktest_page_admin_bar() {
+	echo 'Also working';
 }
 ?>

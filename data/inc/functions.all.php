@@ -155,6 +155,11 @@ function sanitize($var, $html = true) {
 	return $var;
 }
 
+/**
+ * Run a module hook.
+ *
+ * @param string $name Name of the hook.
+ */
 function run_hook($name) {
 	global $module_list;
 	if (!isset($name))
@@ -165,6 +170,12 @@ function run_hook($name) {
 	}
 }
 
+/**
+ * Find indformation about a module
+ *
+ * @param string $module Module name.
+ * @return array The module infomation.
+ */
 function module_find_info($module) {
 	if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
 		$module_info = file_get_contents('data/modules/'.$module.'/'.$module.'.php');

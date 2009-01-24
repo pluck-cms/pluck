@@ -34,12 +34,10 @@ require_once ("data/settings/options.php");
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <?php
 //Check if we need rtl-direction
-if (isset($direction) && $direction == "rtl") {
+if (isset($direction) && $direction == "rtl")
 	echo '<link href="data/styleadmin-rtl.css" rel="stylesheet" type="text/css" media="screen" />';
-}
-else {
+else
 	echo '<link href="data/styleadmin.css" rel="stylesheet" type="text/css" media="screen" />';
-}
 
 //Include TinyMCE, if needed
 if (isset($tinymce) && $tinymce == 'yes') {
@@ -79,7 +77,9 @@ function confirmation(message) {
 		<?php include('data/inc/update_applet.php'); ?>
 	</div>
 	<h1>pluck</h1>
+	<?php run_hook('admin_menu_outside_before'); ?>
 	<div id="menu">
+		<?php run_hook('admin_menu_inside_before'); ?>
 		<div class="menuitem">
 			<span>
 				<img src="data/image/menu/start.png" alt="" />
@@ -110,7 +110,9 @@ function confirmation(message) {
 				<a href="?action=logout" title="<?php echo $lang_kop5; ?>"><?php echo $lang_kop5; ?></a>
 			</span>
 		</div>
+		<?php run_hook('admin_menu_inside_after'); ?>
 	</div>
+	<?php run_hook('admin_menu_outside_after'); ?>
 </div>
 <div id="text">
 <h2><?php echo $titelkop; ?></h2>
