@@ -161,11 +161,10 @@ function theme_content() {
 function theme_area($place) {
 	//Include needed variables.
 	global $lang_modules27;
-	//If we are looking at a normal page: include the inclusion file of the module (but only if specified page exists).
-	if (!defined('CURRENT_MODULE_DIR') && defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
-		//If mainspace: include the page-specific modules.
-		if ($place == 'main') {
-			//Include page-information
+	//If mainspace: include the page-specific modules.
+	if ($place == 'main') {
+		if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
+			//Include page-information.
 			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
 			//First, check if we want to include any modules.
 			if (isset($module_pageinc)) {
@@ -179,33 +178,33 @@ function theme_area($place) {
 			}
 		}
 
-		//Include info of theme (to see which modules we should include etc), but only if file exists.
-		elseif (file_exists('data/settings/themes/'.THEME.'/moduleconf.php')) {
-			include ('data/settings/themes/'.THEME.'/moduleconf.php');
-
-			//Get the array and sort it.
-			foreach ($space as $area => $number) {
-				//Sort the array, so that the modules will be displayed in correct order.
-				natcasesort($number);
-				foreach ($number as $module => $order) {
-					//If the area where the module should be displayed is the same as the area we're currently...
-					//...processing: include the module.
-					if ($area == $place) {
-						//Check if module is compatible, and the function exists.
-						if (module_is_compatible($module) && function_exists($module.'_theme_main'))
-								call_user_func($module.'_theme_main');
-					}
-				}
+		//If we are looking at a module page.
+		elseif (defined('CURRENT_MODULE_DIR')) {
+			$module_page_site = call_user_func(CURRENT_MODULE_DIR.'_page_site_list');
+			foreach ($module_page_site as $module_page) {
+				if ($module_page['func'] == CURRENT_MODULE_PAGE)
+					call_user_func(CURRENT_MODULE_DIR.'_page_site_'.$module_page['func']);
 			}
 		}
 	}
 
-	//If we are looking at a module page.
-	elseif (defined('CURRENT_MODULE_DIR')) {
-		$module_page_site = call_user_func(CURRENT_MODULE_DIR.'_page_site_list');
-		foreach ($module_page_site as $module_page) {
-			if ($module_page['func'] == CURRENT_MODULE_PAGE)
-				call_user_func(CURRENT_MODULE_DIR.'_page_site_'.$module_page['func']);
+	//Include info of theme (to see which modules we should include etc), but only if file exists.
+	elseif (file_exists('data/settings/themes/'.THEME.'/moduleconf.php')) {
+		include ('data/settings/themes/'.THEME.'/moduleconf.php');
+
+		//Get the array and sort it.
+		foreach ($space as $area => $number) {
+			//Sort the array, so that the modules will be displayed in correct order.
+			natcasesort($number);
+			foreach ($number as $module => $order) {
+				//If the area where the module should be displayed is the same as the area we're currently...
+				//...processing: include the module.
+				if ($area == $place) {
+					//Check if module is compatible, and the function exists.
+					if (module_is_compatible($module) && function_exists($module.'_theme_main'))
+							call_user_func($module.'_theme_main');
+				}
+			}
 		}
 	}
 }
