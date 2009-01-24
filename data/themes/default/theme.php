@@ -15,9 +15,10 @@
 	<div id="content">
 		<h2 title="<?php theme_pagetitle(); ?>"><?php theme_pagetitle(); ?></h2>
 		<?php theme_content(); ?>
+		<?php theme_area('main'); ?>
 	</div>
 	<div id="footer">
-		<?php theme_module('footer'); ?>
+		<?php theme_area('footer'); ?>
 		<a href="login.php">admin</a> | powered by <a href="http://www.pluck-cms.org">pluck</a>
 	</div>
 </div>

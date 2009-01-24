@@ -63,7 +63,7 @@ if (defined('CURRENT_MODULE_DIR')) {
 
 		//If a page has been set, check if it exists (if not, redirect)
 		elseif (defined('CURRENT_MODULE_DIR') && defined('CURRENT_MODULE_PAGE')) {
-			if (!file_exists('data/modules/'.CURRENT_MODULE_DIR.'/pages_site/'.CURRENT_MODULE_PAGE.'.php')) {
+			if (!function_exists(CURRENT_MODULE_DIR.'_page_site_'.CURRENT_MODULE_PAGE)) {
 				header('Location: '.HOME_PAGE);
 				exit;
 			}

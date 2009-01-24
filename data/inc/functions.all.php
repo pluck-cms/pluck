@@ -156,29 +156,31 @@ function sanitize($var, $html = true) {
 }
 
 
-function add_hook($hookname, $funcname) {
+/*function add_hook($hookname, $funcname) {
 	global $hooks;
 	if (!isset($hookname) || !isset($funcname))
 		return;
 	$hooks[] = array('hookname' => $hookname, 'funcname' => $funcname);
-}
+}*/
 
 function run_hook($name) {
-	global $hooks;
+	global $module_list;
 	if (!isset($name))
 		return;
-	foreach ($hooks as $hook) {
-		if (is_callable($hook['funcname']) && $hook['hookname'] == $name )
-			call_user_func($hook['funcname']);
+	foreach ($module_list as $module) {
+		if (is_callable($module.'_'.$name))
+			call_user_func($module.'_'.$name);
 	}
 }
 
 function load_modules() {
+	global $module_list;
 	$dir = 'data/modules';
 	$modules = read_dir_contents($dir, 'dirs');
 	foreach ($modules as $module) {
 		if (module_is_compatible($module) && file_exists($dir.'/'.$module.'/'.$module.'.php'))
 			require_once ($dir.'/'.$module.'/'.$module.'.php');
+			$module_list[] = $module;
 	}
 }
 

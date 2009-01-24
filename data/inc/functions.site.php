@@ -187,93 +187,44 @@ function theme_content() {
 
 //[THEME] FUNCTION TO INCLUDE MODULES
 //---------------------------------
-function theme_module($place) {
-	//Include needed variables
+function theme_area($place) {
+	//Include needed variables.
 	global $lang_modules27;
-
-	//If mainspace: include the page-specific modules
+	//If mainspace: include the page-specific modules.
 	if ($place == 'main') {
-		//If we are looking at a normal page: include the inclusion file of the module (but only if specified page exists)
+		//If we are looking at a normal page: include the inclusion file of the module (but only if specified page exists).
 		if (!defined('CURRENT_MODULE_DIR') && defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
 			//Include page-information
 			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
-			//First, check if we want to include any modules
+			//First, check if we want to include any modules.
 			if (isset($module_pageinc)) {
-				//Let's make sure that the modules are dislayed in the right order
+				//Let's make sure that the modules are dislayed in the right order.
 				natcasesort($module_pageinc);
-
 				foreach ($module_pageinc as $module_to_include => $order) {
-					//Check if module is set to be displayed, and make sure module exists
-					if ($order != 0 && file_exists('data/modules/'.$module_to_include.'/module_info.php')) {
-						//Include module information
-						include ('data/modules/'.$module_to_include.'/module_info.php');
-						//Check if module is compatible
-						if (module_is_compatible($module_to_include)) {
-							//Check if module wants to insert pages
-							if (file_exists('data/modules/'.$module_to_include.'/module_pages_site.php')) {
-								include ('data/modules/'.$module_to_include.'/module_pages_site.php');
-								//Include the file for the "main" module area
-								include ('data/modules/'.$module_to_include.'/pages_site/'.$includepage);
-							}
-						}
-					}
-				}
-			}
-		}
-		//If we are looking at a module-page: include that page
-		elseif (defined('CURRENT_MODULE_DIR')) {
-			//Include module files (but only if they exist)
-			if (file_exists('data/modules/'.CURRENT_MODULE_DIR.'/module_info.php')) {
-				include ('data/modules/'.CURRENT_MODULE_DIR.'/module_info.php');
-				if (module_is_compatible(CURRENT_MODULE_DIR)) {
-					if (file_exists('data/modules/'.CURRENT_MODULE_DIR.'/module_pages_site.php')) {
-						include ('data/modules/'.CURRENT_MODULE_DIR.'/module_pages_site.php');
-
-						//Only include pages if array has been given
-						if (isset($module_page)) {
-							//Loop through module-pages
-							foreach ($module_page as $filename => $pagetitle) {
-								//And include them
-								if (CURRENT_MODULE_DIR == $module_dir && CURRENT_MODULE_PAGE == $filename) {
-									include ('data/modules/'.$module_dir.'/pages_site/'.$filename.'.php');
-								}
-							}
-						}
-					}
-				}
-				//If module is not compatible
-				else {
-					echo $lang_modules27;
+					//Check if module is compatible, and the function exists.
+					if (module_is_compatible($module_to_include) && function_exists($module_to_include.'_theme_main'))
+							call_user_func($module_to_include.'_theme_main');
 				}
 			}
 		}
 	}
 
-	//Include the other modules
-	//Include info of theme (to see which modules we should include etc), but only if file exists
-	if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php')) {
+	//Include info of theme (to see which modules we should include etc), but only if file exists.
+	elseif (file_exists('data/settings/themes/'.THEME.'/moduleconf.php')) {
 		include ('data/settings/themes/'.THEME.'/moduleconf.php');
 
-		//Get the array and sort it
+		//Get the array and sort it.
 		foreach ($space as $area => $number) {
 
-			//Sort the array, so that the modules will be displayed in correct order
+			//Sort the array, so that the modules will be displayed in correct order.
 			natcasesort($number);
-
-			//Get final variables
 			foreach ($number as $module => $order) {
 				//If the area where the module should be displayed is the same as the area we're currently...
-				//...processing: include the module
-				if (($area == $place) && ($order != 0)) {
-					//Check if module wants to insert pages
-					if (file_exists('data/modules/'.$module.'/module_pages_site.php')) {
-						if (module_is_compatible($module)) {
-							include ('data/modules/'.$module.'/module_pages_site.php');
-
-							//...and include the module
-							include ('data/modules/'.$module.'/pages_site/'.$includepage);
-						}
-					}
+				//...processing: include the module.
+				if ($area == $place) {
+					//Check if module is compatible, and the function exists.
+					if (module_is_compatible($module) && function_exists($module.'_theme_main'))
+							call_user_func($module.'_theme_main');
 				}
 			}
 		}

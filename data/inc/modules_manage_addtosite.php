@@ -61,7 +61,7 @@ if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php'))
 							$number_modules = count(glob('data/modules/*'));
 							while ($dir = readdir($dir_handle)) {
 								if($dir != '.' && $dir != '..') {
-									if (!module_is_compatible($dir))
+									if (!module_is_compatible($dir) || !function_exists($dir.'_theme_main'))
 										$number_modules--;
 								}
 							}
@@ -72,13 +72,13 @@ if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php'))
 							while ($dir = readdir($dir_handle)) {
 								if ($dir != '.' && $dir != '..') {
 									//Only show if module is compatible.
-									if (module_is_compatible($dir)) {
-										include('data/modules/'.$dir.'/module_info.php');
+									if (module_is_compatible($dir) && function_exists($dir.'_theme_main')) {
+										$module_info = module_find_info($dir);
 										?>
 											<tr>
-												<td><?php echo $module_name; ?></td>
+												<td><?php echo $module_info['name']; ?></td>
 												<td>
-													<select name="<?php echo $position.'|'.$module_dir; ?>">
+													<select name="<?php echo $position.'|'.$dir; ?>">
 														<option value="0"><?php echo $lang_modules6; ?></option>
 														<?php
 															$counting_modules = 1;
@@ -86,7 +86,7 @@ if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php'))
 																//Check if this is the current setting.
 																//...and select the html-option if needed.
 																if (isset($space)) {
-																	$currentsetting = $space [$position] [$module_dir];
+																	$currentsetting = $space [$position] [$dir];
 																	if ($currentsetting == $counting_modules)
 																		echo '<option value="'.$counting_modules.'" selected="selected">'.$counting_modules.'</option>';
 																}

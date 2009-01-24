@@ -63,7 +63,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 						$number_modules = count(glob('data/modules/*'));
 						while ($dir = readdir($dir_handle)) {
 							if ($dir != '.' && $dir != '..') {
-								if (!module_is_compatible($dir))
+								if (!module_is_compatible($dir) || !function_exists($dir.'_theme_main'))
 									$number_modules--;
 							}
 						}
@@ -74,13 +74,13 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 						while ($dir = readdir($dir_handle)) {
 							if ($dir != "." && $dir != "..") {
 								//Only show if module is compatible.
-								if (module_is_compatible($dir)) {
-									include ('data/modules/'.$dir.'/module_info.php');
+								if (module_is_compatible($dir) && function_exists($dir.'_theme_main')) {
+									$module_info = module_find_info($dir);
 									?>
 										<tr>
-											<td><?php echo $module_name; ?></td>
+											<td><?php echo $module_info['name']; ?></td>
 											<td>
-												<select name="cont3[<?php echo $module_dir; ?>]">
+												<select name="cont3[<?php echo $dir; ?>]">
 													<option value="0"><?php echo $lang_modules6; ?></option>
 													<?php
 														$counting_modules = 1;
