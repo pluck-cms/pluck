@@ -16,7 +16,7 @@ function contactform_info() {
 function contactform_theme_main() {
 	global $lang_contact3, $lang_contact4, $lang_contact5, $lang_contact6, $lang_contact7, $lang_contact8, $lang_contact9, $lang_contact10;
 
-	//Define some variables
+	//Define some variables.
 	if (isset($_POST['name']))
 		$name = $_POST['name'];
 	if (isset($_POST['sender']))
@@ -24,7 +24,7 @@ function contactform_theme_main() {
 	if (isset($_POST['message']))
 		$message = $_POST['message'];
 
-	//Then show the contactform
+	//Then show the contactform.
 	?>
 		<form method="post" action="" id="contactform">
 			<div>
@@ -44,9 +44,9 @@ function contactform_theme_main() {
 			</div>
 		</form>
 	<?php
-	//If the the contactform was submitted
+	//If the the contactform was submitted.
 	if (isset($_POST['Submit'])) {
-		//Check if all fields were filled
+		//Check if all fields were filled.
 		if ($name && $sender && $message) {
 			//TODO: We need a better way to check for spam.
 
@@ -55,17 +55,17 @@ function contactform_theme_main() {
 			$sender = sanitize($sender);
 			$message = sanitize($message);
 
-			//Change enters in their html-equivalents
+			//Change enters in their html-equivalents.
 			$message = str_replace ("\n",'<br>', $message);
 
-			//Now we're going to send our email
+			//Now we're going to send our email.
 			if (mail(EMAIL, $lang_contact7.$name, '<html><body>'.$message.'</body></html>', 'From: '.$sender."\n".'Content-type: text/html; charset=utf-8'))
 				echo $lang_contact8;
-			//If email couldn't be send
+			//If email couldn't be send.
 			else
 				echo $lang_contact9;
 		}
-		//If not all fields were filled
+		//If not all fields were filled.
 		else
 			echo '<span class="red">'.$lang_contact6.'</span>';
 	}

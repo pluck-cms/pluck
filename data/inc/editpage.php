@@ -26,11 +26,7 @@ require_once ('data/settings/pages/'.$var1);
 //Generate the menu on the right.
 ?>
 <div class="rightmenu">
-<?php
-	//We don't want to show the message, if there aren't any pages or images.
-	if (read_imagesinpages('images') != false && read_pagesinpages('data/settings/pages', $var1) != false)
-		echo $lang_page8;
-?>
+<?php echo $lang_page8; ?>
 <br />
 <?php
 	read_imagesinpages('images');
@@ -85,7 +81,7 @@ require_once ('data/settings/pages/'.$var1);
 													while ($counting_modules <= $number_modules) {
 														//Check if this is the current setting.
 														//...and select the html-option if needed
-														if (isset($module_pageinc[$dir]) && $module_pageinc[$dir] == $counting_modules) {
+														if (isset($module_pageinc[$module]) && $module_pageinc[$module] == $counting_modules) {
 														?>
 															<option value="<?php echo $counting_modules; ?>" selected="selected"><?php echo $counting_modules; ?></option>
 														<?php

@@ -24,7 +24,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 define('TEMP', '_temp');
 define('NAME', 'image');
 
-//Function: readout albums
+//Function: Readout albums.
 //------------
 function read_albums($dir) {
 	global $lang_albums5, $lang_albums6, $lang_albums14;
@@ -59,7 +59,7 @@ function read_albums($dir) {
 }
 
 
-//Function: readout album-images
+//Function: Readout album-images.
 //------------
 function read_albumimages($dir) {
 	global $lang_albums6, $lang_albums14, $lang_kop13, $lang_updown5, $var1;
@@ -74,38 +74,38 @@ function read_albumimages($dir) {
 			if ($ext == 'jpg') {
 				include ('data/settings/modules/albums/'.$var1.'/'.$fdirname.'.php');
 				?>
-				<div class="menudiv">
-					<span>
-						<a href="data/modules/albums/pages_admin/albums_getimage.php?image=<?php echo $var1.'/'.$fdirname; ?>.jpg" target="_blank">
-							<img src="data/modules/albums/pages_admin/albums_getimage.php?image=<?php echo $var1; ?>/thumb/<?php echo $fdirname; ?>.jpg" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" />
-						</a>
-					</span>
-					<span style="width: 500px;">
-						<span class="kop3"><?php echo $name; ?></span>
-						<br />
-						<i><?php echo $info; ?></i>
-					</span>
-					<span>
-						<a href="?module=albums&amp;page=editimage&amp;var1=<?php echo $fdirname; ?>&amp;var2=<?php echo $var1; ?>">
-							<img src="data/image/edit.png" title="<?php echo $lang_albums6; ?>" alt="<?php echo $lang_albums6; ?>" />
-						</a>
-					</span>
-					<span>
-						<a href="?module=albums&amp;page=imageup&amp;var1=<?php echo $fdirname; ?>&amp;var2=<?php echo $var1; ?>">
-							<img src="data/image/up.png" title="<?php echo $lang_updown5; ?>" alt="<?php echo $lang_updown5; ?>" />
-						</a>
-					</span>
-					<span>
-						<a href="?module=albums&amp;page=imagedown&amp;var1=<?php echo $fdirname; ?>&amp;var2=<?php echo $var1; ?>">
-							<img src="data/image/down.png" title="<?php echo $lang_updown5; ?>" alt="<?php echo $lang_updown5; ?>" />
-						</a>
-					</span>
-					<span>
-						<a href="?module=albums&amp;page=deleteimage&amp;var1=<?php echo $fdirname; ?>&amp;var2=<?php echo $var1; ?>">
-							<img src="data/image/delete_from_trash.png" title="<?php echo $lang_kop13; ?>" alt="<?php echo $lang_kop13; ?>" />
-						</a>
-					</span>
-				</div>
+					<div class="menudiv">
+						<span>
+							<a href="data/modules/albums/pages_admin/albums_getimage.php?image=<?php echo $var1.'/'.$fdirname; ?>.jpg" target="_blank">
+								<img src="data/modules/albums/pages_admin/albums_getimage.php?image=<?php echo $var1; ?>/thumb/<?php echo $fdirname; ?>.jpg" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" />
+							</a>
+						</span>
+						<span style="width: 500px;">
+							<span class="kop3"><?php echo $name; ?></span>
+							<br />
+							<i><?php echo $info; ?></i>
+						</span>
+						<span>
+							<a href="?module=albums&amp;page=editimage&amp;var1=<?php echo $fdirname; ?>&amp;var2=<?php echo $var1; ?>">
+								<img src="data/image/edit.png" title="<?php echo $lang_albums6; ?>" alt="<?php echo $lang_albums6; ?>" />
+							</a>
+						</span>
+						<span>
+							<a href="?module=albums&amp;page=imageup&amp;var1=<?php echo $fdirname; ?>&amp;var2=<?php echo $var1; ?>">
+								<img src="data/image/up.png" title="<?php echo $lang_updown5; ?>" alt="<?php echo $lang_updown5; ?>" />
+							</a>
+						</span>
+						<span>
+							<a href="?module=albums&amp;page=imagedown&amp;var1=<?php echo $fdirname; ?>&amp;var2=<?php echo $var1; ?>">
+								<img src="data/image/down.png" title="<?php echo $lang_updown5; ?>" alt="<?php echo $lang_updown5; ?>" />
+							</a>
+						</span>
+						<span>
+							<a href="?module=albums&amp;page=deleteimage&amp;var1=<?php echo $fdirname; ?>&amp;var2=<?php echo $var1; ?>">
+								<img src="data/image/delete_from_trash.png" title="<?php echo $lang_kop13; ?>" alt="<?php echo $lang_kop13; ?>" />
+							</a>
+						</span>
+					</div>
 				<?php
 			}
 		}

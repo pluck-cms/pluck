@@ -24,12 +24,13 @@ function hooktest_admin_menu_inside_before() {
 ?>
 	<div class="menuitem">
 		<span>
-			<img src="data/image/website.png" alt="" height="22px" />
+			<img src="data/image/website.png" alt="" height="22" />
 			<a href="index.php?file=kop1.php" title="view site" target="_blank">view site</a>
 		</span>
 	</div>
 <?php
 }
+
 //Site pages.
 function hooktest_page_site_list() {
 	$module_page_site[] = array(

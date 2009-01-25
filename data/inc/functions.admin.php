@@ -59,8 +59,6 @@ function read_imagesinpages($dir) {
 		<?php
 		}
 	}
-	else
-		return false;
 }
 
 //Function: read out the pages to let them be included in pages as link
@@ -89,8 +87,6 @@ function read_pagesinpages($dir, $current_page = null) {
 			}
 		}
 	}
-	else
-		return false;
 }
 
 //Function: display a menudiv.
