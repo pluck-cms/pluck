@@ -209,6 +209,7 @@ function save_language($language) {
 	$data = 'data/settings/langpref.php';
 	$file = fopen($data, 'w');
 	fputs($file, '<?php $langpref = "'.$language.'"; ?>');
+	chmod($data, 0777);
 	fclose($file);
 }
 
@@ -218,6 +219,7 @@ function save_theme($theme) {
 	$data = 'data/settings/themepref.php';
 	$file = fopen($data, 'w');
 	fputs($file, '<?php $themepref = "'.$theme.'"; ?>');
+	chmod($data, 0777);
 	fclose($file);
 }
 

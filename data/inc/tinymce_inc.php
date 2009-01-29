@@ -162,8 +162,6 @@ else
 	$comma = '';
 ?>
 	theme : "advanced",
-	forced_root_block : '',
-	force_br_newlines : true,
 	width : "600px",
 	plugins : "table,media,safari",
 	theme_advanced_buttons1 : "bold,italic,underline,strikethrough,separator,justifyleft,justifycenter,justifyright,separator,formatselect,fontsizeselect",
