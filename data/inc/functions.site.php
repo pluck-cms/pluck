@@ -41,7 +41,7 @@ function get_pagetitle() {
 	}
 
 	//Get the title if we are looking at a module page
-	elseif (isset($module) && module_is_compatible($module)) {
+	elseif (isset($module) && module_is_compatible($module) && function_exists($module.'_page_site_list')) {
 		$module_page_site = call_user_func($module.'_page_site_list');
 		foreach ($module_page_site as $module_page) {
 			if ($module_page['func'] == CURRENT_MODULE_PAGE)

@@ -76,8 +76,8 @@ function read_albumimages($dir) {
 				?>
 					<div class="menudiv">
 						<span>
-							<a href="data/modules/albums/pages_admin/albums_getimage.php?image=<?php echo $var1.'/'.$fdirname; ?>.jpg" target="_blank">
-								<img src="data/modules/albums/pages_admin/albums_getimage.php?image=<?php echo $var1; ?>/thumb/<?php echo $fdirname; ?>.jpg" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" />
+							<a href="data/modules/albums/albums_getimage.php?image=<?php echo $var1.'/'.$fdirname; ?>.jpg" target="_blank">
+								<img src="data/modules/albums/albums_getimage.php?image=<?php echo $var1; ?>/thumb/<?php echo $fdirname; ?>.jpg" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" />
 							</a>
 						</span>
 						<span style="width: 500px;">
