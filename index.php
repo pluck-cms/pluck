@@ -33,9 +33,14 @@ while (false !== ($dir = readdir($path))) {
 closedir($path);
 
 foreach ($modules as $module) {
-	if (file_exists('data/modules/'.$module.'/'.$module.'.php'))
-		include ('data/modules/'.$module.'/'.$module.'.php');
+	if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
+		require_once ('data/modules/'.$module.'/'.$module.'.php');
+
+		if (file_exists('data/modules/'.$module.'/'.$module.'.site.php'))
+			require_once ('data/modules/'.$module.'/'.$module.'.site.php');
+
 		$module_list[] = $module;
+	}
 }
 
 //Include security-enhancements.

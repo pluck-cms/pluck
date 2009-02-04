@@ -28,6 +28,10 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 <?php
 
 foreach ($module_list as $module) {
+	//Load module admin pages.
+	if (file_exists('data/modules/'.$module.'/'.$module.'.admin.php'))
+		require_once ('data/modules/'.$module.'/'.$module.'.admin.php');
+
 	//Only show the button if there are admincenter pages for the module, and if the modules is compatible.
 	if (module_is_compatible($module) && function_exists($module.'_page_admin_list')) {
 		$module_info = call_user_func($module.'_info');

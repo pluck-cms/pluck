@@ -1,4 +1,6 @@
 <?php
+require_once ('data/modules/albums/functions.php');
+
 function albums_page_admin_list() {
 	global $lang_albums, $lang_albums5, $lang_albums6, $lang_albums15, $lang_kop13, $lang_updown5;
 	$module_page_admin[] = array(

@@ -26,6 +26,10 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 
 //Loop through dirs.
 foreach ($module_list as $dir) {
+	//Load module admin pages.
+	if (file_exists('data/modules/'.$module.'/'.$module.'.admin.php'))
+		require_once ('data/modules/'.$module.'/'.$module.'.admin.php');
+
 	//Check if module is compatible, otherwise don't include pages.
 	if (module_is_compatible($dir) && function_exists($dir.'_page_admin_list')) {
 		$module_info = call_user_func($module.'_info');

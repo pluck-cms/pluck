@@ -24,9 +24,10 @@ while (false !== ($dir = readdir($path))) {
 closedir($path);
 
 foreach ($modules as $module) {
-	if (file_exists('data/modules/'.$module.'/'.$module.'.php'))
+	if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
 		require_once ('data/modules/'.$module.'/'.$module.'.php');
 		$module_list[] = $module;
+	}
 }
 
 //Include security-enhancements
@@ -273,7 +274,7 @@ else {
 
 	//Module pages.
 	elseif (isset($module))
-		include_once ('data/inc/modules_admininclude.php');
+		require_once ('data/inc/modules_admininclude.php');
 
 	//Unknown pages
 	else {
