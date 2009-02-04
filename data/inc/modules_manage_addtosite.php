@@ -20,6 +20,12 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit();
 }
 
+//Load module functions.
+foreach ($module_list as $module) {
+	if (file_exists('data/modules/'.$module.'/'.$module.'.site.php'))
+		require_once ('data/modules/'.$module.'/'.$module.'.site.php');
+}
+
 //Introduction text
 ?>
 	<p>
