@@ -32,6 +32,7 @@ foreach ($module_list as $module) {
 	if ($langpref != 'en.php' && file_exists('data/modules/'.$module.'/lang/'.$langpref))
 		require_once ('data/modules/'.$module.'/lang/'.$langpref);
 }
+unset($module);
 
 //Variables for module programmers.
 if (file_exists('data/settings/options.php'))
