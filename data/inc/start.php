@@ -23,11 +23,11 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 //Introduction text
 ?>
 	<p>
+		<?php run_hook('admin_start_welcome', array(&$lang_start1, &$lang_start9, &$lang_start10)); ?>
 		<strong><?php echo $lang_start1; ?></strong>
 		<br />
 		<?php echo $lang_start9; ?>
 	</p>
-
 	<span class="kop2"><?php echo $lang_start10; ?></span>
 <?php
 //Show the divs

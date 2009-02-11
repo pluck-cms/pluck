@@ -160,13 +160,17 @@ function sanitize($var, $html = true) {
  *
  * @param string $name Name of the hook.
  */
-function run_hook($name) {
+function run_hook($name, $par = null) {
 	global $module_list;
 	if (!isset($name))
 		return;
 	foreach ($module_list as $module) {
-		if (is_callable($module.'_'.$name) && module_is_compatible($module))
-			call_user_func($module.'_'.$name);
+		if (is_callable($module.'_'.$name) && module_is_compatible($module)) {
+			if ($par == null)
+				call_user_func($module.'_'.$name);
+			else
+				call_user_func_array($module.'_'.$name, $par);
+		}
 	}
 }
 ?>

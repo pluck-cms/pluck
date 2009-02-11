@@ -140,19 +140,21 @@ function theme_pagetitle() {
 function theme_content() {
 	//Get needed variables
 	global $lang_front2;
+
 	//Get the contents only if we are looking at a normal page
 	if (defined('CURRENT_PAGE_FILENAME')) {
 		//Check if page exists
 		if (file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
 			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
 			run_hook('theme_content_before');
+			run_hook('theme_content', array(&$content));
 			echo $content;
 			run_hook('theme_content_after');
 		}
+
 		//If page doesn't exist, show error message
-		else {
+		else
 			echo $lang_front2;
-		}
 	}
 }
 

@@ -26,4 +26,8 @@ function hooktest_admin_menu_inside_before() {
 	</div>
 <?php
 }
+
+function hooktest_admin_start_welcome($lang_start1) {
+	$lang_start1 = str_replace('pluck', 'pluck-cms', $lang_start1);
+}
 ?>

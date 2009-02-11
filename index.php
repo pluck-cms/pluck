@@ -58,6 +58,8 @@ if (isset($direction) && $direction == 'rtl' && !file_exists(THEME_DIR.'/style-r
 	include_once ('data/inc/themes_convert-rtl.php');
 }
 
+run_hook('site_before_redirects');
+
 //Check if a page or module has been specified, if not: redirect to kop1.php
 if (!defined('CURRENT_PAGE_FILENAME') && !defined('CURRENT_MODULE_DIR')) {
 	header('Location: '.HOME_PAGE);
