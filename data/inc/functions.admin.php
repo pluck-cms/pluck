@@ -81,7 +81,7 @@ function read_pagesinpages($dir, $current_page = null) {
 						<span style="font-size: 14px;">
 							<span style="font-size: 16px; color: gray;"><?php echo $title; ?></span>
 							<br />
-							<?php $escaped_title = str_replace('&#039;', '\&#039;', $title); ?>
+							<?php $escaped_title = str_replace('\'', '\\\'', $title); ?>
 							<a href="#" onclick="tinyMCE.execCommand('mceInsertContent',false,'&lt;a href=\'index.php?file=<?php echo $file; ?>\' title=\'<?php echo $escaped_title ?>\'><?php echo $escaped_title ?>&lt;/a>');return false;"><?php echo $lang_page9; ?></a>
 						</span>
 					</div>

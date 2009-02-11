@@ -54,7 +54,7 @@ if (!file_exists('data/settings/update_lastcheck.php') || ((file_exists('data/se
 	.'$lastupdatestatus = "'.$update_available.'";'."\n"
 	.'?>');
 	fclose($file);
-	chmod($data,0777);
+	chmod($data, 0777);
 }
 
 //If update-file exists and we already checked for updates today, use old updatecheck result
