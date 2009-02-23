@@ -181,7 +181,7 @@ function save_password($password) {
 	//Save password
 	$data = 'data/settings/pass.php';
 	$file = fopen($data, 'w');
-	fputs($file, '<?php $ww = "'.$password.'"; ?>');
+	fputs($file, '<?php $ww = \''.$password.'\'; ?>');
 	fclose($file);
 	chmod($data, 0777);
 }
@@ -189,15 +189,14 @@ function save_password($password) {
 //Function: save the options.
 //-------------------
 function save_options($title, $email, $xhtml) {
-	$title = stripslashes($title);
-	$title = htmlspecialchars($title);
-	$email = htmlspecialchars($email);
+	$title = sanitize($title);
+	$email = sanitize($email);
 	$data = 'data/settings/options.php';
 	$file = fopen($data, 'w');
 	fputs($file, '<?php'."\n"
-	.'$sitetitle = "'.$title.'";'."\n"
-	.'$email = "'.$email.'";'."\n"
-	.'$xhtmlruleset = "'.$xhtml.'";'."\n"
+	.'$sitetitle = \''.$title.'\';'."\n"
+	.'$email = \''.$email.'\';'."\n"
+	.'$xhtmlruleset = \''.$xhtml.'\';'."\n"
 	.'?>');
 	fclose($file);
 	chmod($data, 0777);
@@ -208,7 +207,7 @@ function save_options($title, $email, $xhtml) {
 function save_language($language) {
 	$data = 'data/settings/langpref.php';
 	$file = fopen($data, 'w');
-	fputs($file, '<?php $langpref = "'.$language.'"; ?>');
+	fputs($file, '<?php $langpref = \''.$language.'\'; ?>');
 	chmod($data, 0777);
 	fclose($file);
 }
@@ -218,7 +217,7 @@ function save_language($language) {
 function save_theme($theme) {
 	$data = 'data/settings/themepref.php';
 	$file = fopen($data, 'w');
-	fputs($file, '<?php $themepref = "'.$theme.'"; ?>');
+	fputs($file, '<?php $themepref = \''.$theme.'\'; ?>');
 	chmod($data, 0777);
 	fclose($file);
 }

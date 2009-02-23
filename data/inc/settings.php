@@ -70,7 +70,7 @@ if (isset($_POST['Submit'])) {
 
 	else {
 		//If XHTML-ruleset is not on, turn it off.
-		if (isset($cont3) && $cont3 != 'true')
+		if (!isset($cont3))
 			$cont3 = 'false';
 
 		//Then, save the settings.

@@ -1,1 +1,1 @@
-<?php $langpref = "en.php"; ?>
+<?php $langpref = 'en.php'; ?>
