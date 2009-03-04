@@ -17,11 +17,8 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	//Give out an "Access denied!" error.
 	echo 'Access denied!';
 	//Block all other code.
-	exit();
+	exit;
 }
-
-//We need tinyMCE...
-$tinymce = 'yes';
 
 //Then set character encoding.
 header('Content-Type:text/html;charset=utf-8');
@@ -39,8 +36,9 @@ else {
 	echo '<link href="data/styleadmin.css" rel="stylesheet" type="text/css" media="screen" />';
 }
 
-//Include TinyMCE.
-include_once ('data/inc/tinymce_inc.php');
+//Include TinyMCE, but not on the login page.
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'login.php'))
+	require_once ('data/inc/tinymce_inc.php');
 ?>
 <meta name="robots" content="noindex" />
 <script language="javascript" type="text/javascript">

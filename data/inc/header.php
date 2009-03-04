@@ -18,7 +18,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	//Give out an "Access denied!" error.
 	echo 'Access denied!';
 	//Block all other code.
-	exit();
+	exit;
 }
 
 //First set character encoding
@@ -39,10 +39,8 @@ if (isset($direction) && $direction == "rtl")
 else
 	echo '<link href="data/styleadmin.css" rel="stylesheet" type="text/css" media="screen" />';
 
-//Include TinyMCE, if needed
-if (isset($tinymce) && $tinymce == 'yes') {
-	include_once ('data/inc/tinymce_inc.php');
-}
+//Include TinyMCE.
+require_once ('data/inc/tinymce_inc.php');
 ?>
 <meta name="robots" content="noindex" />
 <script type="text/javascript">

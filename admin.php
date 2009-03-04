@@ -45,6 +45,7 @@ if (!file_exists('data/settings/install.dat')) {
 	redirect('install.php', 3);
 	echo $lang_login2;
 	include_once ('data/inc/footer.php');
+	exit;
 }
 
 else {
@@ -86,7 +87,6 @@ else {
 
 			//Page:New Page
 			case 'newpage':
-				$tinymce = 'yes';
 				$titelkop = $lang_kop11;
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/newpage.php');
@@ -244,7 +244,6 @@ else {
 
 			//Page:Editpage
 			case 'editpage':
-				$tinymce = 'yes';
 				$titelkop = $lang_page3;
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/editpage.php');
