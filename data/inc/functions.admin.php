@@ -51,7 +51,9 @@ function read_imagesinpages($dir) {
 					<img src="data/image/image_small.png" alt="" />
 				</span>
 				<span>
-					<span><a  style="font-size: 16px !important;" href="images/<?php echo $file; ?>" target="_blank"><?php echo $file; ?></a></span>
+					<span>
+						<a  style="font-size: 16px !important;" href="images/<?php echo $file; ?>" target="_blank"><?php echo $file; ?></a>
+					</span>
 					<br />
 					<a style="font-size: 14px;" href="#" onclick="tinyMCE.execCommand('mceInsertContent',false,'&lt;img src=\'images/<?php echo $file; ?>\' alt=\'\' />');return false;"><?php echo $lang_page7; ?></a>
 				</span>
