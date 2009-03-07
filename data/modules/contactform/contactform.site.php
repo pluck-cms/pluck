@@ -1,6 +1,6 @@
 <?php
 function contactform_theme_main() {
-	global $lang_contact3, $lang_contact4, $lang_contact5, $lang_contact6, $lang_contact7, $lang_contact8, $lang_contact9, $lang_contact10;
+	global $lang;
 
 	//Define some variables.
 	if (isset($_POST['name']))
@@ -14,19 +14,19 @@ function contactform_theme_main() {
 	?>
 		<form method="post" action="" id="contactform">
 			<div>
-				<label for="name"><?php echo $lang_contact3; ?></label>
+				<label for="name"><?php echo $lang['contactform']['name']; ?></label>
 				<br />
 				<input name="name" id="name" type="text" />
 				<br />
-				<label for="sender"><?php echo $lang_contact4; ?></label>
+				<label for="sender"><?php echo $lang['contactform']['email']; ?></label>
 				<br />
 				<input name="sender" id="sender" type="text" />
 				<br />
-				<label for="message"><?php echo $lang_contact5; ?></label>
+				<label for="message"><?php echo $lang['contactform']['message']; ?></label>
 				<br />
 				<textarea name="message" id="message" rows="7" cols="45"></textarea>
 				<br />
-				<input type="submit" name="Submit" value="<?php echo $lang_contact10; ?>" />
+				<input type="submit" name="Submit" value="<?php echo $lang['contactform']['send']; ?>" />
 			</div>
 		</form>
 	<?php
@@ -45,15 +45,15 @@ function contactform_theme_main() {
 			$message = str_replace ("\n",'<br>', $message);
 
 			//Now we're going to send our email.
-			if (mail(EMAIL, $lang_contact7.$name, '<html><body>'.$message.'</body></html>', 'From: '.$sender."\n".'Content-type: text/html; charset=utf-8'))
-				echo $lang_contact8;
+			if (mail(EMAIL, $lang['contactform']['email_title'].$name, '<html><body>'.$message.'</body></html>', 'From: '.$sender."\n".'Content-type: text/html; charset=utf-8'))
+				echo $lang['contactform']['been_send'];
 			//If email couldn't be send.
 			else
-				echo $lang_contact9;
+				echo $lang['contactform']['not_send'];
 		}
 		//If not all fields were filled.
 		else
-			echo '<span class="red">'.$lang_contact6.'</span>';
+			echo '<span class="red">'.$lang['contactform']['fields'].'</span>';
 	}
 }
 ?>
