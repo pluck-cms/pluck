@@ -36,13 +36,13 @@ elseif (strpos($image, 'thumb')) {
 
 //...if no hacking attempts found:
 //Check if file exists.
-if (file_exists('../../../../data/settings/modules/albums/'.$image)) {
+if (file_exists('../../settings/modules/albums/'.$image)) {
 	//Generate the image, make sure it doesn't end up in the visitors buffer.
 	header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 	header('Expires: Thu, 19 Nov 1981 08:52:00 GMT');
 	header('Pragma: no-cache');
 	header('Content-Type: image/jpeg');
-	echo readfile('../../../../data/settings/modules/albums/'.$image);
+	echo readfile('../../settings/modules/albums/'.$image);
 }
 
 //If image doesn't exist, send 404 header.

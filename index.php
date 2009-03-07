@@ -21,6 +21,28 @@ if (!file_exists('data/settings/install.dat')) {
 	exit;
 }
 
+//Load all the modules, so we can use hooks.
+//This has to be done before anything else.
+$path = opendir('data/modules');
+while (false !== ($dir = readdir($path))) {
+	if ($dir != '.' && $dir != '..') {
+		if (is_dir('data/modules/'.$dir))
+			$modules[] = $dir;
+	}
+}
+closedir($path);
+
+foreach ($modules as $module) {
+	if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
+		require_once ('data/modules/'.$module.'/'.$module.'.php');
+
+		if (file_exists('data/modules/'.$module.'/'.$module.'.site.php'))
+			require_once ('data/modules/'.$module.'/'.$module.'.site.php');
+
+		$module_list[] = $module;
+	}
+}
+
 //Include security-enhancements.
 require_once ('data/inc/security.php');
 //Include functions.
@@ -31,31 +53,12 @@ require_once ('data/inc/variables.all.php');
 require_once ('data/inc/variables.site.php');
 
 //Then, if we have a RTL-language and theme hasn't been converted
-if ((isset($direction)) && ($direction == 'rtl') && (!file_exists(THEME_DIR.'/style-rtl.css'))) {
+if (isset($direction) && $direction == 'rtl' && !file_exists(THEME_DIR.'/style-rtl.css')) {
 	//Convert theme and save CSS
 	include_once ('data/inc/themes_convert-rtl.php');
 }
 
-//Include module-inclusion files (inc_site.php)
-//---------------
-//Open the folder
-$dir_handle = @opendir('data/modules') or die('Unable to open module directory. Check if it\'s readable.');
-
-//Loop through dirs
-while ($dir = readdir($dir_handle)) {
-if ($dir == '.' || $dir == '..')
-   continue;
-	//Include the inc_site.php if it exists, and if module is compatible
-	include_once ('data/modules/'.$dir.'/module_info.php');
-	if (module_is_compatible($dir)) {
-		if (file_exists('data/modules/'.$dir.'/inc_site.php')) {
-			include_once ('data/modules/'.$dir.'/inc_site.php');
-		}
-	}
-}
-
-//Close module-dir
-closedir($dir_handle);
+run_hook('site_before_redirects');
 
 //Check if a page or module has been specified, if not: redirect to kop1.php
 if (!defined('CURRENT_PAGE_FILENAME') && !defined('CURRENT_MODULE_DIR')) {
@@ -81,7 +84,7 @@ if (defined('CURRENT_MODULE_DIR')) {
 
 		//If a page has been set, check if it exists (if not, redirect)
 		elseif (defined('CURRENT_MODULE_DIR') && defined('CURRENT_MODULE_PAGE')) {
-			if (!file_exists('data/modules/'.CURRENT_MODULE_DIR.'/pages_site/'.CURRENT_MODULE_PAGE.'.php')) {
+			if (!function_exists(CURRENT_MODULE_DIR.'_page_site_'.CURRENT_MODULE_PAGE)) {
 				header('Location: '.HOME_PAGE);
 				exit;
 			}

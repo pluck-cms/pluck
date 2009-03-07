@@ -17,37 +17,32 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	//Give out an "Access denied!" error.
 	echo 'Access denied!';
 	//Block all other code.
-	exit();
+	exit;
 }
 
 //Function: check if module is compatible.
 //--------------------
 function module_is_compatible($module) {
 	//Include module information.
-	if (file_exists('data/modules/'.$module.'/module_info.php')) {
-		include ('data/modules/'.$module.'/module_info.php');
-	}
+	if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
+		$module_info = call_user_func($module.'_info');
+		if (isset($module_info['compatibility'])) {
+			if (strpos($module_info['compatibility'], ','))
+				$version_compat = explode(',', $module_info['compatibility']);
+			else
+				$version_compat[0] = $module_info['compatibility'];
 
-	if (isset($module_compatibility)) {
-		if (preg_match('/,/', $module_compatibility))
-			$version_compat = explode(',', $module_compatibility);
-		else
-			$version_compat [0] = $module_compatibility;
-
-		//Now check if we have a compatible version. NOTE: If pluck is an alpha or beta version, it will always be compatible.
-		foreach ($version_compat as $number => $version) {
-			if ($version == PLUCK_VERSION || preg_match('/(alpha|beta)/', PLUCK_VERSION)) {
-				$compatible = 'yes';
+			//Now check if we have a compatible version. NOTE: If pluck is an alpha or beta version, it will always be compatible.
+			foreach ($version_compat as $number => $version) {
+				if ($version == PLUCK_VERSION || preg_match('/(alpha|beta)/', PLUCK_VERSION)) {
+					return true;
+				}
 			}
 		}
 	}
 
-	if (isset($compatible) && $compatible == 'yes')
-		return true;
 	else
 		return false;
-
-	unset($compatible);
 }
 
 //Function: recursively delete an entire directory.
@@ -125,7 +120,7 @@ function redirect($url, $time) {
 function read_dir_contents($directory, $mode) {
 	$path = opendir($directory);
 	while (false !== ($file = readdir($path))) {
-		if (($file != '.') && ($file != '..')) {
+		if ($file != '.' && $file != '..') {
 			if (is_file($directory.'/'.$file)) {
 				$files[] = $file;
 			}
@@ -158,5 +153,24 @@ function sanitize($var, $html = true) {
 		$var = htmlspecialchars($var, ENT_COMPAT, 'UTF-8', false);
 
 	return $var;
+}
+
+/**
+ * Run a module hook.
+ *
+ * @param string $name Name of the hook.
+ */
+function run_hook($name, $par = null) {
+	global $module_list;
+	if (!isset($name))
+		return;
+	foreach ($module_list as $module) {
+		if (is_callable($module.'_'.$name) && module_is_compatible($module)) {
+			if ($par == null)
+				call_user_func($module.'_'.$name);
+			else
+				call_user_func_array($module.'_'.$name, $par);
+		}
+	}
 }
 ?>

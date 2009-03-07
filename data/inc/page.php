@@ -17,7 +17,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	//Give out an "Access denied!" error.
 	echo 'Access denied!';
 	//Block all other code.
-	exit();
+	exit;
 }
 
 //Introduction text.
@@ -43,6 +43,7 @@ if ($files) {
 					<img src="data/image/page.png" alt="" />
 				</span>
 				<span class="title-page"><?php echo $title; ?></span>
+				<?php run_hook('admin_page_list_before'); ?>
 				<span>
 					<a href="?action=editpage&amp;var1=<?php echo $file; ?>">
 					<img src="data/image/edit.png" title="<?php echo $lang_page3; ?>" alt="<?php echo $lang_page3; ?>" />
@@ -68,6 +69,7 @@ if ($files) {
 						<img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" />
 					</a>
 				</span>
+				<?php run_hook('admin_page_list_after'); ?>
 			</div>
 		<?php
 	}

@@ -17,7 +17,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	//Give out an "Access denied!" error.
 	echo 'Access denied!';
 	//Block all other code.
-	exit();
+	exit;
 }
 
 //Function: read the available languages.
@@ -30,7 +30,7 @@ function read_lang_files($not_this_file) {
 			if ($file != $not_this_file) {
 				include ('data/inc/lang/'.$file);
 				?>
-				<option value='<?php echo $file; ?>'><?php echo $lang; ?></option>
+					<option value='<?php echo $file; ?>'><?php echo $lang; ?></option>
 				<?php
 			}
 		}
@@ -51,7 +51,9 @@ function read_imagesinpages($dir) {
 					<img src="data/image/image_small.png" alt="" />
 				</span>
 				<span>
-					<span><a  style="font-size: 16px !important;" href="images/<?php echo $file; ?>" target="_blank"><?php echo $file; ?></a></span>
+					<span>
+						<a  style="font-size: 16px !important;" href="images/<?php echo $file; ?>" target="_blank"><?php echo $file; ?></a>
+					</span>
 					<br />
 					<a style="font-size: 14px;" href="#" onclick="tinyMCE.execCommand('mceInsertContent',false,'&lt;img src=\'images/<?php echo $file; ?>\' alt=\'\' />');return false;"><?php echo $lang_page7; ?></a>
 				</span>
@@ -59,8 +61,6 @@ function read_imagesinpages($dir) {
 		<?php
 		}
 	}
-	else
-		return false;
 }
 
 //Function: read out the pages to let them be included in pages as link
@@ -89,8 +89,6 @@ function read_pagesinpages($dir, $current_page = null) {
 			}
 		}
 	}
-	else
-		return false;
 }
 
 //Function: display a menudiv.
@@ -118,14 +116,14 @@ function showmenudiv($title, $text, $image, $url, $blank = false, $more = null) 
 function count_trashcan() {
 	//Pages
 	$count_pages_array = glob('data/trash/pages/*.*');
-	if ((isset($count_pages_array)) && (!empty($count_pages_array)))
+	if (isset($count_pages_array) && !empty($count_pages_array))
 		$count_pages = count($count_pages_array);
 	else
 		$count_pages = null;
 
 	//Images
 	$count_images_array = glob('data/trash/images/*.*');
-	if ((isset($count_images_array)) && (!empty($count_images_array)))
+	if (isset($count_images_array) && !empty($count_images_array))
 		$count_images = count($count_images_array);
 	else
 		$count_images = null;
@@ -234,6 +232,10 @@ function save_theme($theme) {
  * @param array $modules If there are any modules on the page.
  */
 function save_page($name, $title, $content, $hidden = 'no', $description = null, $keywords = null, $modules = null) {
+	//Run a few hooks.
+	run_hook('admin_save_page', array(&$name, &$title, &$content));
+	run_hook('admin_save_page_meta', array(&$description, &$keywords));
+
 	//Sanitize the inputs.
 	$title = sanitize($title);
 	$content = sanitize($content, false);

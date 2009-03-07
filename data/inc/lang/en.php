@@ -303,5 +303,5 @@ $lang_blog26 = "category";
 $lang_blog27 = "no category";
 $lang_credits6 = "main developers";
 $lang_credits7 = "contributions";
-$lang_album19 = 'There is already an album with that name.'
+$lang_albums19 = 'There is already an album with that name.'
 ?>

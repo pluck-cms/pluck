@@ -17,7 +17,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	//Give out an "Access denied!" error.
 	echo 'Access denied!';
 	//Block all other code.
-	exit();
+	exit;
 }
 
 if ($var2 == 'page' && file_exists('data/trash/pages/'.$var1)) {

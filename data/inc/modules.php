@@ -17,7 +17,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	//Give out an "Access denied!" error.
 	echo 'Access denied!';
 	//Block all other code.
-	exit();
+	exit;
 }
 
 //Introduction text.
@@ -26,24 +26,16 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 		<strong><?php echo $lang_modules1; ?></strong>
 	</p>
 <?php
-//Define path to the module-dir.
-$path = 'data/modules';
-//Open the folder.
-$dir_handle = @opendir($path) or die('Unable to open '.$path.'. Check if it\'s readable.');
 
-//Loop through dirs, and display the modules.
-while ($dir = readdir($dir_handle)) {
-if ($dir == '.' || $dir == '..')
-   continue;
-   if (file_exists('data/modules/'.$dir.'/module_info.php'))
-		include('data/modules/'.$dir.'/module_info.php');
+foreach ($module_list as $module) {
+	//Load module admin pages.
+	if (file_exists('data/modules/'.$module.'/'.$module.'.admin.php'))
+		require_once ('data/modules/'.$module.'/'.$module.'.admin.php');
 
 	//Only show the button if there are admincenter pages for the module, and if the modules is compatible.
-	if (file_exists('data/modules/'.$dir.'/module_pages_admin.php') && module_is_compatible($dir))
-		showmenudiv($module_name, $module_intro, 'data/modules/'.$module_dir.'/'.$module_icon, '?module='.$module_dir);
-
+	if (module_is_compatible($module) && function_exists($module.'_page_admin_list')) {
+		$module_info = call_user_func($module.'_info');
+		showmenudiv($module_info['name'], $module_info['intro'], 'data/modules/'.$module.'/'.$module_info['icon'], '?module='.$module);
+	}
 }
-
-//Close module-dir.
-closedir($dir_handle);
 ?>

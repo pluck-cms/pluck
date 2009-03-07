@@ -17,7 +17,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	//Give out an "Access denied!" error.
 	echo 'Access denied!';
 	//Block all other code.
-	exit();
+	exit;
 }
 
 //Include Translation data.
@@ -25,6 +25,14 @@ require_once ('data/settings/langpref.php');
 require_once ('data/inc/lang/en.php');
 if ($langpref != 'en.php')
 	require_once ('data/inc/lang/'.$langpref);
+
+foreach ($module_list as $module) {
+	if (file_exists('data/modules/'.$module.'/lang/en.php'))
+		require_once ('data/modules/'.$module.'/lang/en.php');
+	if ($langpref != 'en.php' && file_exists('data/modules/'.$module.'/lang/'.$langpref))
+		require_once ('data/modules/'.$module.'/lang/'.$langpref);
+}
+unset($module);
 
 //Variables for module programmers.
 if (file_exists('data/settings/options.php'))

@@ -24,7 +24,7 @@
 
 			<div class="txt">
 				<?php theme_content(); ?>
-				<?php theme_module("main"); ?>
+				<?php theme_area("main"); ?>
 			</div>
 		</div> 
 	</div>

@@ -17,9 +17,9 @@
 		<div class="kop"><?php theme_pagetitle(); ?></div><br />
 		<div class="txt">
 			<?php theme_content(); ?>
-			<?php theme_module("main"); ?>
+			<?php theme_area("main"); ?>
 			<div class="footer">
-				<?php theme_module("footer"); ?>
+				<?php theme_area("footer"); ?>
 				>> <a href="login.php">admin</a>
 				<br />powered by <a href="http://www.pluck-cms.org">pluck</a>
 			</div>

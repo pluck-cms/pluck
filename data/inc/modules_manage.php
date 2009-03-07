@@ -17,7 +17,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	//Give out an "Access denied!" error.
 	echo 'Access denied!';
 	//Block all other code.
-	exit();
+	exit;
 }
 ?>
 <p>
@@ -25,26 +25,26 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 </p>
 <div class="smallmenu">
 	<span class="smallmenu_button">
-		<a class="smallmenu_a" href="?action=module_addtosite" style="background:url(data/image/add_small.png) no-repeat;"><?php echo $lang_modules13; ?></a>
+		<a class="smallmenu_a" href="?action=module_addtosite" style="background: url('data/image/add_small.png') no-repeat;"><?php echo $lang_modules13; ?></a>
 	</span>
 	<span class="smallmenu_button">
-		<a class="smallmenu_a" href="?action=installmodule" style="background:url(data/image/install_small.png) no-repeat;"><?php echo $lang_modules11; ?></a>
+		<a class="smallmenu_a" href="?action=installmodule" style="background: url('data/image/install_small.png') no-repeat;"><?php echo $lang_modules11; ?></a>
 	</span>
 </div>
 <?php
 //Readout dir and put dirs in array
-$dirs = read_dir_contents('data/modules','dirs');
+$dirs = read_dir_contents('data/modules', 'dirs');
 //Display modules
 foreach($dirs as $dir) {
-	include_once ('data/modules/'.$dir.'/module_info.php');
+	$module_info = call_user_func($dir.'_info');
 	?>
 	<div class="menudiv">
 		<div>
 			<span>
-				<img src="data/modules/<?php echo $module_dir; ?>/<?php echo $module_icon; ?>" alt="" />
+				<img src="data/modules/<?php echo $dir; ?>/<?php echo $module_info['icon']; ?>" alt="" />
 			</span>
 			<span>
-				<span class="title-module"><?php echo $module_name; ?></span>
+				<span class="title-module"><?php echo $module_info['name']; ?></span>
 				<br />
 				<?php
 					//If module has been disabled, show warning
@@ -68,13 +68,13 @@ foreach($dirs as $dir) {
 		</div>
 		<div>
 			<p id="<?php echo $dir; ?>" style="display: none; padding-left: 43px;">
-				<?php echo $module_intro; ?>
+				<?php echo $module_info['intro']; ?>
 				<br />
-				<strong><?php echo $lang_modules2; ?></strong>: <?php echo $module_version; ?>
+				<strong><?php echo $lang_modules2; ?></strong>: <?php echo $module_info['version']; ?>
 				<br />
-				<strong><?php echo $lang_modules18; ?></strong>: <?php echo $module_author; ?>
+				<strong><?php echo $lang_modules18; ?></strong>: <?php echo $module_info['author']; ?>
 				<br />
-				<strong><?php echo $lang_modules17; ?></strong>: <a href="<?php echo $module_website; ?>" target="_blank"><?php echo $module_website; ?></a>
+				<strong><?php echo $lang_modules17; ?></strong>: <a href="<?php echo $module_info['website']; ?>" target="_blank"><?php echo $module_info['website'] ?></a>
 				<br />
 			</p>
 		</div>

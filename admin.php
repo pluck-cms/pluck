@@ -12,6 +12,24 @@
  * See docs/COPYING for the complete license.
 */
 
+//Load all the modules, so we can use hooks.
+//This has to be done before anything else.
+$path = opendir('data/modules');
+while (false !== ($dir = readdir($path))) {
+	if ($dir != '.' && $dir != '..') {
+		if (is_dir('data/modules/'.$dir))
+			$modules[] = $dir;
+	}
+}
+closedir($path);
+
+foreach ($modules as $module) {
+	if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
+		require_once ('data/modules/'.$module.'/'.$module.'.php');
+		$module_list[] = $module;
+	}
+}
+
 //Include security-enhancements
 require_once ('data/inc/security.php');
 //Include functions
@@ -27,6 +45,7 @@ if (!file_exists('data/settings/install.dat')) {
 	redirect('install.php', 3);
 	echo $lang_login2;
 	include_once ('data/inc/footer.php');
+	exit;
 }
 
 else {
@@ -68,7 +87,6 @@ else {
 
 			//Page:New Page
 			case 'newpage':
-				$tinymce = 'yes';
 				$titelkop = $lang_kop11;
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/newpage.php');
@@ -226,7 +244,6 @@ else {
 
 			//Page:Editpage
 			case 'editpage':
-				$tinymce = 'yes';
 				$titelkop = $lang_page3;
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/editpage.php');
@@ -256,7 +273,7 @@ else {
 
 	//Module pages.
 	elseif (isset($module))
-		include_once ('data/inc/modules_admininclude.php');
+		require_once ('data/inc/modules_admininclude.php');
 
 	//Unknown pages
 	else {

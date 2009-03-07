@@ -12,14 +12,32 @@
  * See docs/COPYING for the complete license.
 */
 
-//Include security-enhancements
+//Load all the modules, so we can use hooks.
+//This has to be done before anything else.
+$path = opendir('data/modules');
+while (false !== ($dir = readdir($path))) {
+	if ($dir != '.' && $dir != '..') {
+		if (is_dir('data/modules/'.$dir))
+			$modules[] = $dir;
+	}
+}
+closedir($path);
+
+foreach ($modules as $module) {
+	if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
+		require_once ('data/modules/'.$module.'/'.$module.'.php');
+		$module_list[] = $module;
+	}
+}
+
+//Include security-enhancements.
 require_once ('data/inc/security.php');
-//Include functions
+//Include functions.
 require_once ('data/inc/functions.all.php');
-//Include variables
+//Include variables.
 require_once ('data/inc/variables.all.php');
 
-//Check if we've installed pluck
+//Check if we've installed pluck.
 if (!file_exists('data/settings/install.dat')) {
 	$titelkop = $lang_login1;
 	include_once ('data/inc/header2.php');
@@ -32,22 +50,23 @@ if (!file_exists('data/settings/install.dat')) {
 else {
 	require_once ('data/settings/pass.php');
 
-	//Check if we're already logged in
+	//Check if we're already logged in.
 	session_start();
 	if (isset($_SESSION['cmssystem_loggedin']) && ($_SESSION['cmssystem_loggedin'] == 'ok')) {
 		header('Location: admin.php');
 		exit;
 	}
 
-	//If password has not yet been sent
+	//If password has not yet been sent.
 	if (!isset($_POST['Submit'])) {
-		//Include header-file
+		//Include header-file.
 		$titelkop = $lang_login1;
 		include_once ('data/inc/header2.php');
 		?>
 			<span class="kop2"><?php echo $lang_login3; ?></span><br />
 			<form action="login.php" method="post" name="passform">
 				<input name="cont1" size="25" type="password" />
+				<?php //FIXME: Do we use the bogusField for anything? ?>
 				<input type="text" name="bogusField" style="display: none;" />
 				<input type="submit" name="Submit" value="<?php echo $lang_login4; ?>" />
 			</form>
@@ -57,14 +76,14 @@ else {
 
 	//If password has been sent...
 	elseif (isset($_POST['Submit'])) {
-		//...first MD5-encrypt password that has been posted
+		//...first MD5-encrypt password that has been posted.
 		$pass = md5($cont1);
 
 		//...and is correct:
 		if ($pass == $ww) {
-			//Save session
+			//Save session.
 			$_SESSION['cmssystem_loggedin'] = 'ok';
-			//Display successmessage
+			//Display successmessage.
 			$titelkop = $lang_login1;
 			include_once ('data/inc/header2.php');
 			echo $lang_login5;

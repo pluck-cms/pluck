@@ -17,7 +17,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	//Give out an "Access denied!" error.
 	echo 'Access denied!';
 	//Block all other code.
-	exit();
+	exit;
 }
 
 //Introduction text
@@ -27,7 +27,6 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 		<br />
 		<?php echo $lang_start9; ?>
 	</p>
-
 	<span class="kop2"><?php echo $lang_start10; ?></span>
 <?php
 //Show the divs

@@ -17,7 +17,13 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	//Give out an "Access denied!" error.
 	echo 'Access denied!';
 	//Block all other code.
-	exit();
+	exit;
+}
+
+//Load module functions.
+foreach ($module_list as $module) {
+	if (file_exists('data/modules/'.$module.'/'.$module.'.site.php'))
+		require_once ('data/modules/'.$module.'/'.$module.'.site.php');
 }
 
 //Generate the menu on the right.
@@ -55,51 +61,40 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 					<br />
 					<table>
 					<?php
-						//Define path to the module-dir.
-						$path = 'data/modules';
-						//Open the folder.
-						$dir_handle = @opendir($path) or die('Unable to open '.$path.'. Check if it\'s readable.');
 						//First count how many modules we have, and exclude disabled modules.
-						$number_modules = count(glob('data/modules/*'));
-						while ($dir = readdir($dir_handle)) {
-							if ($dir != '.' && $dir != '..') {
-								if (!module_is_compatible($dir))
-									$number_modules--;
-							}
+						$number_modules = count($module_list);
+						foreach ($module_list as $module) {
+							if (!module_is_compatible($module) || !function_exists($module.'_theme_main'))
+								$number_modules--;
 						}
-						closedir($dir_handle);
 
-						//Loop through dirs, and display the modules.
-						$dir_handle = @opendir($path) or die('Unable to open '.$path.'. Check if it\'s readable.');
-						while ($dir = readdir($dir_handle)) {
-							if ($dir != "." && $dir != "..") {
-								//Only show if module is compatible.
-								if (module_is_compatible($dir)) {
-									include ('data/modules/'.$dir.'/module_info.php');
-									?>
-										<tr>
-											<td><?php echo $module_name; ?></td>
-											<td>
-												<select name="cont3[<?php echo $module_dir; ?>]">
-													<option value="0"><?php echo $lang_modules6; ?></option>
-													<?php
-														$counting_modules = 1;
-														while ($counting_modules <= $number_modules) {
-															?>
-																<option value="<?php echo $counting_modules; ?>"><?php echo $counting_modules; ?></option>
-															<?php
-															//Higher counting_modules.
-															$counting_modules++;
-														}
-													?>
-												</select>
-											</td>
-										</tr>
-									<?php
-									}
+						//Loop through modules, and display them.
+						foreach ($module_list as $module) {
+							//Only show if module is compatible.
+							if (module_is_compatible($module) && function_exists($module.'_theme_main')) {
+								$module_info = call_user_func($module.'_info');
+								?>
+									<tr>
+										<td><?php echo $module_info['name']; ?></td>
+										<td>
+											<select name="cont3[<?php echo $module; ?>]">
+												<option value="0"><?php echo $lang_modules6; ?></option>
+												<?php
+													$counting_modules = 1;
+													while ($counting_modules <= $number_modules) {
+														?>
+															<option value="<?php echo $counting_modules; ?>"><?php echo $counting_modules; ?></option>
+														<?php
+														//Higher counting_modules.
+														$counting_modules++;
+													}
+												?>
+											</select>
+										</td>
+									</tr>
+								<?php
 								}
 							}
-							closedir($dir_handle);
 						?>
 					</table>
 				</td>
