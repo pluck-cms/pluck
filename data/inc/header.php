@@ -13,7 +13,6 @@
 */
 
 //Make sure the file isn't accessed directly.
-//TODO: This is a faster version with strpos, and should replace the old one with ereg in all the other files.
 if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
 	//Give out an "Access denied!" error.
 	echo 'Access denied!';
@@ -25,7 +24,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 header("Content-Type:text/html;charset=utf-8");
 
 //And include the user-specified settings
-require_once ("data/settings/options.php");
+require_once ('data/settings/options.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo LANG; ?>" lang="<?php echo LANG; ?>">

@@ -336,7 +336,7 @@ function albums_page_admin_deleteimage() {
 }
 
 function albums_page_admin_imageup() {
-	global $lang_footer, $lang_updown3, $lang_updown6, $var1, $var2;
+	global $lang_updown3, $lang_updown6, $var1, $var2;
 
 	//Check if images exist.
 	if (file_exists('data/settings/modules/albums/'.$var2.'/'.$var1.'.jpg') && file_exists('data/settings/modules/albums/'.$var2.'/'.$var1.'.php') && file_exists('data/settings/modules/albums/'.$var2.'/thumb/'.$var1.'.jpg')) {
@@ -376,7 +376,7 @@ function albums_page_admin_imageup() {
 }
 
 function albums_page_admin_imagedown() {
-	global $lang_footer, $lang_updown3, $lang_updown7, $var1, $var2;
+	global $lang_updown3, $lang_updown7, $var1, $var2;
 
 	//Check if images exist.
 	if (file_exists('data/settings/modules/albums/'.$var2.'/'.$var1.'.jpg') && file_exists('data/settings/modules/albums/'.$var2.'/'.$var1.'.php') && file_exists('data/settings/modules/albums/'.$var2.'/thumb/'.$var1.'.jpg')) {

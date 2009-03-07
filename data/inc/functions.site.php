@@ -23,7 +23,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 //Function: get page title
 //---------------------------------
 function get_pagetitle() {
-	global $lang_front1, $module;
+	global $lang, $module;
 	//Get the title if we are looking at a normal page
 	if (isset($_GET['file']) && !empty($_GET['file'])) {
 		if (isset($_GET ['file']))
@@ -37,7 +37,7 @@ function get_pagetitle() {
 
 		//If page doesn't exist; display error
 		else
-			return $lang_front1;
+			return $lang['404'];
 	}
 
 	//Get the title if we are looking at a module page
@@ -139,7 +139,7 @@ function theme_pagetitle() {
 //---------------------------------
 function theme_content() {
 	//Get needed variables
-	global $lang_front2;
+	global $lang;
 
 	//Get the contents only if we are looking at a normal page
 	if (defined('CURRENT_PAGE_FILENAME')) {
@@ -154,7 +154,7 @@ function theme_content() {
 
 		//If page doesn't exist, show error message
 		else
-			echo $lang_front2;
+			echo $lang['not_found'];
 	}
 }
 

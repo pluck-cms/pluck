@@ -16,18 +16,17 @@ Language		English
 */
 
 //Name of the language
-$lang = "English";
+$language = "English";
 
 //----------------
 //Translation data
 
 //Frontend
-$lang_front1 = "404: not found";
-$lang_front2 = "This page could not be found.";
+$lang['404'] = "404: not found";
+$lang['not_found'] = "This page could not be found.";
 
 //General data
-$lang_pluck = "pluck";
-$lang_footer = "pluck &copy; 2005-2009 <a href=\"http://www.somp.nl\" target=\"_blank\">somp</a>. pluck is available under the terms of the GNU General Public License.";
+$lang['copyright'] = "pluck &copy; 2005-2009 <a href=\"http://www.somp.nl\" target=\"_blank\">somp</a>. pluck is available under the terms of the GNU General Public License.";
 $lang_error1 = "not installed";
 $lang_error3 = "not logged in";
 $lang_error4 = "You are not logged in! A moment, please...";
@@ -130,19 +129,6 @@ $lang_lang1 = "Choose the language that will be used by pluck.";
 $lang_lang2 = "Choose...";
 $lang_lang3 = "The languagesettings have been saved.";
 
-//Admincenter:: Stats
-//FIXME: Do we need these anymore?
-$lang_stats1 = "Here you can view some information about the visitors of your website. At the bottom of this page you can choose from which month you want to see the stats.";
-$lang_stats2 = "stats from";
-$lang_stats3 = "operating systems";
-$lang_stats4 = "browsers";
-$lang_stats5 = "archives";
-$lang_stats6 = "Choose one of the following items:";
-$lang_stats7 = "total";
-$lang_stats8 = "hits";
-$lang_stats9 = "total hits";
-$lang_stats10 = "hits this month";
-
 //VERSION 4.2 NEW
 //---------------
 $lang_kop16 = "choose theme";
@@ -172,34 +158,7 @@ $lang_settings	= "general settings";
 $lang_settings2 = "choose the title for your website here";
 $lang_settings3 = "change general settings like the title of your website and your email address";
 $lang_settings4 = "Changing the general settings...";
-$lang_contact2 = "other options";
-$lang_contact3 = "Name:";
-$lang_contact4 = "Email:";
-$lang_contact5 = "Message:";
-$lang_contact6 = "You didn't fill in all fields correctly.";
-$lang_contact7 = "Message from your website from";
-$lang_contact8 = "Your message has been sent succesfully.";
-$lang_contact9 = "Your message could not be send, an error occurred.";
-$lang_contact10 = "Send";
 $lang_kop17 = "manage images";
-$lang_albums = "albums";
-$lang_albums1 = "Here you can manage your albums. Use albums to show your visitors your favourite photos and images. Insert the albums in your page(s) by choosing \"insert album\" when editing a page.";
-$lang_albums2 = "edit albums";
-$lang_albums3 = "new album";
-$lang_albums4 = "choose a name for your new album first, then click \"save\"";
-$lang_albums5 = "delete album";
-$lang_albums6 = "edit album";
-$lang_albums7 = "use albums to show your visitors your favourite photos and images";
-$lang_albums8 = "Use this page to add, delete and edit images in your album. Only <b>JPG</b>-images are supported.";
-$lang_albums9 = "edit images";
-$lang_albums10 = "new image";
-$lang_albums11 = "description";
-$lang_albums12 = "quality (1-100)";
-$lang_albums13 = "upload a new image here. choose a title and a description, and choose the quality at which the images should be processed. the higher the quality, the higher the filesize.";
-$lang_albums14 = "nothing yet...";
-$lang_albums15 = "edit image";
-$lang_albums16	= "Albums are not supported on this server: it probably doesn't have installed the php-gd module. You can contact your systemadministrator and ask to install this module.";
-$lang_albums17	= "include album in this page:";
 
 //VERSION 4.4 NEW
 //---------------
@@ -215,28 +174,9 @@ $lang_meta1 = "edit page information";
 $lang_meta2 = "Here you can fill in some information about this page, to get better results in search engines.";
 $lang_meta4 = "Changing page information...";
 $lang_settings5 = "Change general settings like the title of your website and your email address here.";
-$lang_blog = "blog";
-$lang_blog1 = "use a blog to post news or write articles for your visitors";
-$lang_blog3 = "categories";
-$lang_blog4 = "new category";
-$lang_blog5 = "choose a name for your new category first, then click \"save\"";
-$lang_blog6 = "delete category";
-$lang_blog7 = "edit category";
-$lang_blog9 = "existing posts";
-$lang_blog10 = "write new post";
-$lang_blog11 = "edit post";
-$lang_blog12 = "delete post";
-$lang_blog14 = "posted in";
-$lang_blog16 = "reactions";
-$lang_blog17 = "Title:";
-$lang_blog19 = "edit reactions";
-$lang_blog20 = "Here, you can edit the reactions of your visitors on the post.";
 
 //VERSION 4.5 NEW
 //---------------
-$lang_blog21 = "delete reaction";
-$lang_albums18 = "The specified album doesn't exist.";
-$lang_blog22 = "HTML-code is not allowed.";
 $lang_trash = "trashcan";
 $lang_trash1 = "move item to trashcan";
 $lang_trash2 = "Moving item to trashcan...";
@@ -248,7 +188,6 @@ $lang_trash7 = "view item";
 $lang_trash8 = "delete item from trashcan";
 $lang_trash9 = "images";
 $lang_trash10 = "restore item";
-$lang_blog23 = "view or post reactions";
 $lang_credits = "credits";
 $lang_credits1 = "all the people who helped developing pluck";
 $lang_credits2 = "Our thanks goes to all the following people, for helping in the development of pluck.";
@@ -289,19 +228,12 @@ $lang_modules26 =	"return to the <a href=\"?action=managemodules\">module page</
 $lang_theme14 = "theme and module installation is not supported on this server, you will have to do it <a href=\"http://www.pluck-cms.org/docs/doku.php/docs:install_nozlib\" target=\"_blank\">manually</a>";
 $lang_theme15 = "Install failed: the file you specified is no valid file.";
 $lang_update4 = "update check failed";
-$lang_contact12 = "contact form";
-$lang_contact13 = "with a contact form, you can allow your visitors to send you a message";
 $lang_trash11 = "Are you sure you want to empty the trashcan? Please note that all items will be lost.";
 
 //VERSION 4.7 NEW
 //---------------
 $lang_modules27 = "This module is not compatible with your version of pluck, and has been disabled.";
 $lang_settings7 = "The emailaddress you entered is invalid!";
-$lang_blog24 = "Here, you can make new posts to add to your blog. Posts will be automatically sorted on date.";
-$lang_blog25 = "Choose category...";
-$lang_blog26 = "category";
-$lang_blog27 = "no category";
 $lang_credits6 = "main developers";
 $lang_credits7 = "contributions";
-$lang_albums19 = 'There is already an album with that name.'
 ?>
