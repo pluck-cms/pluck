@@ -26,13 +26,15 @@ require_once ('data/inc/lang/en.php');
 if ($langpref != 'en.php')
 	require_once ('data/inc/lang/'.$langpref);
 
-foreach ($module_list as $module) {
-	if (file_exists('data/modules/'.$module.'/lang/en.php'))
-		require_once ('data/modules/'.$module.'/lang/en.php');
-	if ($langpref != 'en.php' && file_exists('data/modules/'.$module.'/lang/'.$langpref))
-		require_once ('data/modules/'.$module.'/lang/'.$langpref);
+if (isset($module_list)) {
+	foreach ($module_list as $module) {
+		if (file_exists('data/modules/'.$module.'/lang/en.php'))
+			require_once ('data/modules/'.$module.'/lang/en.php');
+		if ($langpref != 'en.php' && file_exists('data/modules/'.$module.'/lang/'.$langpref))
+			require_once ('data/modules/'.$module.'/lang/'.$langpref);
+	}
+	unset($module);
 }
-unset($module);
 
 //Variables for module programmers.
 if (file_exists('data/settings/options.php'))

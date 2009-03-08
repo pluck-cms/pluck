@@ -70,8 +70,8 @@ function confirmation(message) {
 <body>
 <div id="menuheader">
 	<div id="statusbox">
-		<?php include('data/inc/trashcan_applet.php'); ?>
-		<?php include('data/inc/update_applet.php'); ?>
+		<?php include_once ('data/inc/trashcan_applet.php'); ?>
+		<?php include_once ('data/inc/update_applet.php'); ?>
 	</div>
 	<h1>pluck</h1>
 	<?php run_hook('admin_menu_outside_before'); ?>
@@ -80,7 +80,7 @@ function confirmation(message) {
 		<div class="menuitem">
 			<span>
 				<img src="data/image/menu/start.png" alt="" />
-				<a href="?action=start" title="<?php echo $lang_kop1; ?>"><?php echo $lang_kop1; ?></a>
+				<a href="?action=start" title="<?php echo $lang['start']['title']; ?>"><?php echo $lang['start']['title']; ?></a>
 			</span>
 		</div>
 		<div class="menuitem">
@@ -104,7 +104,7 @@ function confirmation(message) {
 		<div class="menuitem">
 			<span>
 				<img src="data/image/menu/logout.png" alt="" />
-				<a href="?action=logout" title="<?php echo $lang_kop5; ?>"><?php echo $lang_kop5; ?></a>
+				<a href="?action=logout" title="<?php echo $lang['login']['log_out']; ?>"><?php echo $lang['login']['log_out']; ?></a>
 			</span>
 		</div>
 		<?php run_hook('admin_menu_inside_after'); ?>

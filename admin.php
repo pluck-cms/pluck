@@ -66,7 +66,7 @@ else {
 		switch ($action) {
 			//Page:Start
 			case 'start':
-				$titelkop = $lang_kop1;
+				$titelkop = $lang['start']['title'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/start.php');
 				break;
@@ -185,7 +185,7 @@ else {
 
 			//Page:Logout
 			case 'logout':
-				$titelkop = $lang_kop5;
+				$titelkop = $lang['login']['log_out'];
 				session_destroy();
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/logout.php');

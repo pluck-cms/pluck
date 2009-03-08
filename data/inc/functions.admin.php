@@ -138,11 +138,11 @@ function count_trashcan() {
 //-------------------
 function check_writable($file) {
 	//Translation data.
-	global $lang_install8, $lang_install9;
+	global $lang;
 	if (is_writable($file)) {
 	?>
 		<span>
-			<img src="data/image/update-no.png" width="15" height="15" alt="<?php echo $lang_install8; ?>" />
+			<img src="data/image/update-no.png" width="15" height="15" alt="<?php echo $lang['install']['good']; ?>" />
 		</span>
 		<span>&nbsp;/<?php echo $file; ?></span>
 		<br />
@@ -151,7 +151,7 @@ function check_writable($file) {
 	else {
 	?>
 		<span>
-			<img src="data/image/error.png" width="15" height="15" alt="<?php echo $lang_install9; ?>" />
+			<img src="data/image/error.png" width="15" height="15" alt="<?php echo $lang['install']['false']; ?>" />
 		</span>
 		<span>&nbsp;/<?php echo $file; ?></span>
 		<br />

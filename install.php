@@ -22,7 +22,7 @@ require_once ('data/inc/variables.all.php');
 
 //Check if we've installed pluck.
 if (file_exists('data/settings/install.dat')) {
-	$titelkop = $lang['install']['page_title'];
+	$titelkop = $lang['install']['title'];
 	include_once ('data/inc/header2.php');
 	redirect('login.php', 3);
 	echo $lang['install']['already'];
@@ -32,11 +32,11 @@ if (file_exists('data/settings/install.dat')) {
 //If we didn't:
 else {
 	if (!isset($action)) {
-		$titelkop = $lang['install']['page_title'];
+		$titelkop = $lang['install']['title'];
 		include_once ('data/inc/header2.php');
 		//Introduction text.
 		?>
-		<span class="kop2"><?php echo $lang['install']['page_title']; ?></span>
+		<span class="kop2"><?php echo $lang['install']['title']; ?></span>
 		<br />
 		<p>
 			<strong><?php echo $lang['install']['welcome']; ?></strong>
@@ -51,10 +51,10 @@ else {
 
 	//Installation Step 1: CHMOD.
 	if (isset($action) && $action == 'install') {
-		$titelkop = $lang['install']['page_title'];
+		$titelkop = $lang['install']['title'];
 		include_once ('data/inc/header2.php');
 		?>
-		<span class="kop2"><?php echo $lang['install']['page_title']; ?> :: <?php echo $lang['install']['step_1']; ?></span>
+		<span class="kop2"><?php echo $lang['install']['title']; ?> :: <?php echo $lang['install']['step_1']; ?></span>
 		<br />
 		<p>
 			<strong><?php echo $lang['install']['writable']; ?></strong>
@@ -71,10 +71,10 @@ else {
 			check_writable('data/themes/oldstyle');
 			check_writable('data/settings/langpref.php');
 		?>
-		<a href="javascript:refresh()"><?php echo $lang_install10; ?></a>
+		<a href="javascript:refresh()"><?php echo $lang['install']['refresh']; ?></a>
 		<br /><br />
 		<a href="?action=install2">
-			<strong><?php echo $lang_install11; ?></strong>
+			<strong><?php echo $lang['install']['proceed']; ?></strong>
 		</a>
 		<?php
 		include_once ('data/inc/footer.php');
@@ -82,10 +82,10 @@ else {
 
 	//Installation Step 2: General Info.
 	if (isset($action) && $action == 'install2') {
-		$titelkop = $lang['install']['page_title'];
+		$titelkop = $lang['install']['title'];
 		include_once ('data/inc/header2.php');
 		?>
-		<span class="kop2"><?php echo $lang['install']['page_title']; ?> :: <?php echo $lang['install']['step_2']; ?></span>
+		<span class="kop2"><?php echo $lang['install']['title']; ?> :: <?php echo $lang['install']['step_2']; ?></span>
 		<br />
 		<p>
 			<strong><?php echo $lang_install27 ?></strong>
@@ -179,10 +179,10 @@ else {
 
 	//Installation Step 3: Homepage.
 	if (isset($action) && $action == 'install4') {
-		$titelkop = $lang['install']['page_title'];
+		$titelkop = $lang['install']['title'];
 		include_once ('data/inc/header2.php');
 		?>
-		<span class="kop2"><?php echo $lang['install']['page_title']; ?> :: <?php echo $lang['install']['step_3']; ?></span>
+		<span class="kop2"><?php echo $lang['install']['title']; ?> :: <?php echo $lang['install']['step_3']; ?></span>
 		<br />
 		<p>
 			<strong><?php echo $lang_install16; ?></strong>
@@ -213,7 +213,7 @@ else {
 		install_done();
 
 		//Set pagetitle
-		$titelkop = $lang['install']['page_title'];
+		$titelkop = $lang['install']['title'];
 		include_once ('data/inc/header2.php');
 		?>
 			<p>
