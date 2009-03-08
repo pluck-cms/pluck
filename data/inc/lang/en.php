@@ -21,44 +21,42 @@ $language = "English";
 //----------------
 //Translation data
 
-//Frontend
-$lang['404'] = "404: not found";
-$lang['not_found'] = "This page could not be found.";
+//General
+$lang['404']           = '404: not found';
+$lang['not_found']     = 'This page could not be found.';
+$lang['copyright']     = 'pluck &copy; 2005-2009 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck is available under the terms of the GNU General Public License.';
+$lang['save']          = 'Save';
+$lang['cancel']        = 'Cancel';
+$lang['other_options'] = 'other options';
+$lang['title']         = 'title';
+$lang['contents']      = 'contents';
 
-//General data
-$lang['copyright'] = "pluck &copy; 2005-2009 <a href=\"http://www.somp.nl\" target=\"_blank\">somp</a>. pluck is available under the terms of the GNU General Public License.";
-$lang_error1 = "not installed";
-$lang_error3 = "not logged in";
-$lang_error4 = "You are not logged in! A moment, please...";
+//Login
+$lang['login']['not']         = 'not logged in';
+$lang['login']['not_message'] = 'You are not logged in! A moment, please...';
+$lang['login']['title']       = 'log in';
+$lang['login']['password']    = 'password';
+$lang['login']['correct']     = 'Password correct. Logging you in...';
+$lang['login']['incorrect']   = 'Password incorrect. A moment, please...';
 
-//Login page
-$lang_login1 = "log in";
-$lang_login2 = "pluck hasn't been installed yet. A moment, please...";
-$lang_login3 = "password";
-$lang_login4 = "log in";
-$lang_login5 = "Password correct. Logging you in...";
-$lang_login6 = "Password incorrect. A moment, please...";
-
-//Install page
-$lang_install = "installation";
-$lang_install1 = "pluck has already been installed. A moment, please...";
-$lang_install2 = "Welcome! Before you can setup your new website, you have to install pluck.";
-$lang_install3 = "Start the installation...";
-$lang_install4 = "step 1";
-$lang_install5 = "step 2";
-$lang_install6 = "step 3";
-$lang_install7 = "Check if the displayed files and directories are writable, by clicking on the button 'Refresh'. If you're sure the files are writable, you can proceed to the next step.";
+//Install
+$lang['install']['not'] = 'not installed';
+$lang['install']['not_message'] = 'pluck hasn\'t been installed yet. A moment, please...';
+$lang['install']['already'] = 'pluck has already been installed. A moment, please...';
+$lang['install']['page_title'] = 'installation';
+$lang['install']['welcome'] = 'Welcome! Before you can setup your new website, you have to install pluck.';
+$lang['install']['start'] = 'Start the installation...';
+$lang['install']['step_1'] = 'step 1';
+$lang['install']['step_2'] = 'step 2';
+$lang['install']['step_3'] = 'step 3';
+$lang['install']['writable'] = "Check if the displayed files and directories are writable, by clicking on the button 'Refresh'. If you're sure the files are writable, you can proceed to the next step.";
 $lang_install8 = "Good";
 $lang_install9 = "False";
-$lang_install10 = "Refresh";
+$lang_install10 = "Refres";
 $lang_install11 = "Proceed...";
 $lang_install12 = "Choose the title for your new website here.";
-$lang_install13 = "Save";
-$lang_install14 = "Cancel";
 $lang_install15 = "You have to give in a title!";
 $lang_install16 = "Here you can edit the homepage of your website. Choose a title and edit the contents.";
-$lang_install17 = "title";
-$lang_install18 = "contents";
 $lang_install19 = "pluck has been successfully installed!";
 $lang_install20 = "take a look at your website";
 $lang_install21 = "take a look at the result";
@@ -153,7 +151,6 @@ $lang_install25 = "your email address will be used to allow your visitors to con
 $lang_install26 = "repeat password";
 $lang_install27 = "Please give some general information about you and your website.";
 $lang_install28 = "You entered two different passwords!";
-$lang_install29 = "step 4";
 $lang_settings	= "general settings";
 $lang_settings2 = "choose the title for your website here";
 $lang_settings3 = "change general settings like the title of your website and your email address";

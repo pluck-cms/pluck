@@ -40,10 +40,10 @@ require_once ('data/inc/variables.all.php');
 
 //First check if we've installed pluck
 if (!file_exists('data/settings/install.dat')) {
-	$titelkop = $lang_error1;
+	$titelkop = $lang['install']['not'];
 	include_once ('data/inc/header2.php');
 	redirect('install.php', 3);
-	echo $lang_login2;
+	echo $lang['install']['not_message'];
 	include_once ('data/inc/footer.php');
 	exit;
 }
@@ -52,10 +52,10 @@ else {
 	session_start();
 	//Then check if we are properly logged in
 	if ($_SESSION ['cmssystem_loggedin'] != 'ok') {
-		$titelkop = $lang_error3;
+		$titelkop = $lang['login']['not'];
 		include_once ('data/inc/header2.php');
 		redirect('login.php', 3);
-		echo $lang_error4;
+		echo $lang['login']['not_message'];
 		include_once ('data/inc/footer.php');
 		exit;
 	}

@@ -111,8 +111,8 @@ if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php'))
 
 	//Show submit button etc.
 	?>
-	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
-	<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=managemodules';" />
+	<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
+	<input type="button" name="Cancel" value="<?php echo $lang['cancel']; ?>" onclick="javascript: window.location='?action=managemodules';" />
 </form>
 <?php
 //If the form has been posted, save the data.

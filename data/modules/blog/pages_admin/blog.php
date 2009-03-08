@@ -128,7 +128,7 @@ else
 	<span class="kop4"><?php echo $lang_blog5; ?></span>
 	<br />
 	<input name="cont1" id="cont1" type="text" />
-	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
+	<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
 </form>
 
 <?php

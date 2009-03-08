@@ -42,13 +42,13 @@ require_once ('data/settings/options.php');
 			<input name="cont2" id="cont2" type="text" value="<?php echo $email; ?>" />
 		</p>
 		<p>
-			<span class="kop2"><?php echo $lang_contact2; ?></span>
+			<span class="kop2"><?php echo $lang['other_options']; ?></span>
 			<br />
 			<input type="checkbox" name="cont3" id="cont3" value="true" <?php if ($xhtmlruleset == 'true') echo 'checked="checked"'; ?> />
 			<label for="cont3">&nbsp;<?php echo $lang_settings6; ?></label>
 		</p>
-		<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
-		<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=options';" />
+		<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
+		<input type="button" name="Cancel" value="<?php echo $lang['cancel']; ?>" onclick="javascript: window.location='?action=options';" />
 	</form>
 <?php
 //If form has been submitted.

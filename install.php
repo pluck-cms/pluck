@@ -22,42 +22,42 @@ require_once ('data/inc/variables.all.php');
 
 //Check if we've installed pluck.
 if (file_exists('data/settings/install.dat')) {
-	$titelkop = $lang_install;
+	$titelkop = $lang['install']['page_title'];
 	include_once ('data/inc/header2.php');
 	redirect('login.php', 3);
-	echo $lang_install1;
+	echo $lang['install']['already'];
 	include_once ('data/inc/footer.php');
 }
 
 //If we didn't:
 else {
 	if (!isset($action)) {
-		$titelkop = $lang_install;
+		$titelkop = $lang['install']['page_title'];
 		include_once ('data/inc/header2.php');
 		//Introduction text.
 		?>
-		<span class="kop2"><?php echo $lang_install; ?></span>
+		<span class="kop2"><?php echo $lang['install']['page_title']; ?></span>
 		<br />
 		<p>
-			<strong><?php echo $lang_install2; ?></strong>
+			<strong><?php echo $lang['install']['welcome']; ?></strong>
 		</p>
 		<?php
 		//Show installation button.
 		?>
-		<a href="?action=install"><?php echo $lang_install3; ?></a>
+		<a href="?action=install"><?php echo $lang['install']['start']; ?></a>
 		<?php
 		include_once ('data/inc/footer.php');
 	}
 
 	//Installation Step 1: CHMOD.
 	if (isset($action) && $action == 'install') {
-		$titelkop = $lang_install;
+		$titelkop = $lang['install']['page_title'];
 		include_once ('data/inc/header2.php');
 		?>
-		<span class="kop2"><?php echo $lang_install; ?> :: <?php echo $lang_install4; ?></span>
+		<span class="kop2"><?php echo $lang['install']['page_title']; ?> :: <?php echo $lang['install']['step_1']; ?></span>
 		<br />
 		<p>
-			<strong><?php echo $lang_install7; ?></strong>
+			<strong><?php echo $lang['install']['writable']; ?></strong>
 		</p>
 		<?php
 			//Writable checks.
@@ -82,17 +82,17 @@ else {
 
 	//Installation Step 2: General Info.
 	if (isset($action) && $action == 'install2') {
-		$titelkop = $lang_install;
+		$titelkop = $lang['install']['page_title'];
 		include_once ('data/inc/header2.php');
 		?>
-		<span class="kop2"><?php echo $lang_install; ?> :: <?php echo $lang_install5; ?></span>
+		<span class="kop2"><?php echo $lang['install']['page_title']; ?> :: <?php echo $lang['install']['step_2']; ?></span>
 		<br />
 		<p>
 			<strong><?php echo $lang_install27 ?></strong>
 		</p>
 		<form method="post" action="">
 			<p>
-				<label class="kop2" for="cont1"><?php echo $lang_install17 ?></label>
+				<label class="kop2" for="cont1"><?php echo $lang['title'] ?></label>
 				<br />
 				<span class="kop4"><?php echo $lang_settings2 ?></span>
 				<br />
@@ -113,7 +113,7 @@ else {
 				</select>
 			</p>
 			<p>
-				<label class="kop2" for="cont4"><?php echo $lang_login3 ?></label>
+				<label class="kop2" for="cont4"><?php echo $lang['login']['password'] ?></label>
 				<br />
 				<input name="cont4" id="cont4" type="password" />
 				<br /><br />
@@ -121,8 +121,8 @@ else {
 				<br />
 				<input name="cont5" id="cont5" type="password" />
 			</p>
-			<input type="submit" name="Submit" value="<?php echo $lang_install13 ?>" />
-			<input type="button" name="Cancel" value="<?php echo $lang_install14 ?>" onclick="javascript: window.location='?action=install';" />
+			<input type="submit" name="Submit" value="<?php echo $lang['save'] ?>" />
+			<input type="button" name="Cancel" value="<?php echo $lang['cancel']; ?>" onclick="javascript: window.location='?action=install';" />
 		</form>
 		<?php
 		if (isset($_POST['Submit'])) {
@@ -177,27 +177,27 @@ else {
 		include_once ('data/inc/footer.php');
 	}
 
-	//Installation Step 4: Homepage.
+	//Installation Step 3: Homepage.
 	if (isset($action) && $action == 'install4') {
-		$titelkop = $lang_install;
+		$titelkop = $lang['install']['page_title'];
 		include_once ('data/inc/header2.php');
 		?>
-		<span class="kop2"><?php echo $lang_install; ?> :: <?php echo $lang_install29; ?></span>
+		<span class="kop2"><?php echo $lang['install']['page_title']; ?> :: <?php echo $lang['install']['step_3']; ?></span>
 		<br />
 		<p>
 			<strong><?php echo $lang_install16; ?></strong>
 		</p>
 		<form method="post" action="">
-			<label class="kop2" for="cont1"><?php echo $lang_install17; ?></label>
+			<label class="kop2" for="cont1"><?php echo $lang['title']; ?></label>
 			<br />
 			<input name="cont1" id="cont1" type="text" />
 			<br /><br />
-			<label class="kop2" for="cont2"><?php echo $lang_install18; ?></label>
+			<label class="kop2" for="cont2"><?php echo $lang['contents']; ?></label>
 			<br />
 			<textarea name="cont2" id="cont2" class="tinymce" cols="70" rows="20"></textarea>
 			<br />
-			<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
-			<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=install3';" />
+			<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
+			<input type="button" name="Cancel" value="<?php echo $lang['cancel']; ?>" onclick="javascript: window.location='?action=install3';" />
 		</form>
 		<?php
 		//Save the homepage.
@@ -208,12 +208,12 @@ else {
 		include_once ('data/inc/footer.php');
 	}
 
-	//Installation Step 5: Save Installation data.
+	//Installation Step 3: Save Installation data.
 	if (isset($action) && $action == "install5") {
 		install_done();
 
 		//Set pagetitle
-		$titelkop = $lang_install;
+		$titelkop = $lang['install']['page_title'];
 		include_once ('data/inc/header2.php');
 		?>
 			<p>

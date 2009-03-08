@@ -43,11 +43,11 @@ foreach ($module_list as $module) {
 //Form.
 ?>
 <form method="post" action="">
-	<label class="kop2" for="cont1"><?php echo $lang_install17; ?></label>
+	<label class="kop2" for="cont1"><?php echo $lang['title']; ?></label>
 	<br />
 	<input name="cont1" id="cont1" type="text" value="<?php echo $title; ?>" />
 	<br /><br />
-	<span class="kop2"><?php echo $lang_install18; ?></span>
+	<span class="kop2"><?php echo $lang['contents']; ?></span>
 	<br />
 	<textarea class="tinymce" name="cont2" cols="70" rows="20"><?php echo htmlspecialchars($content) ?></textarea>
 	<br />
@@ -123,7 +123,7 @@ foreach ($module_list as $module) {
 					<img src="data/image/options.png" alt="" />
 				</td>
 				<td>
-					<span class="kop3"><?php echo $lang_contact2; ?></span>
+					<span class="kop3"><?php echo $lang['other_options']; ?></span>
 					<br />
 					<input type="checkbox" name="cont4" id="cont4" <?php if ($hidden == 'no') echo'checked="checked"'; ?> value="no" /><label for="cont4"><?php echo $lang_pagehide1; ?></label>
 					<br />
@@ -131,8 +131,8 @@ foreach ($module_list as $module) {
 			</tr>
 		</table>
 	</div>
-	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
-	<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=page';" />
+	<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
+	<input type="button" name="Cancel" value="<?php echo $lang['cancel']; ?>" onclick="javascript: window.location='?action=page';" />
 </form>
 <?php
 //If form is posted...

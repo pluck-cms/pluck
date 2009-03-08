@@ -42,13 +42,13 @@ if(isset($post_reaction_title)) {
 			</td>
 			<td style="width: 600px;">
 				<form method="post" action="">
-					<b><?php echo $lang_install17; ?></b><br />
+					<b><?php echo $lang['title']; ?></b><br />
 			  		<input name="title" type="text" value="<?php echo $post_reaction_title[$key]; ?>" /><br /><br />
 
 					<textarea name="message" rows="5" cols="65"><?php echo $post_reaction_content[$key]; ?></textarea><br /><br />
 
 					<input name="edit_key" type="hidden" value="<?php echo $key; ?>" />
-					<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
+					<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
 				</form>
 			</td>
 			<td>

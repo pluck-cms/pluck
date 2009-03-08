@@ -35,7 +35,7 @@ function albums_page_admin_list() {
 }
 
 function albums_page_admin_albums() {
-	global $cont1, $lang_albums1, $lang_albums2, $lang_albums3, $lang_albums4, $lang_albums19, $lang_install13, $lang_theme12;
+	global $cont1, $lang, $lang_albums1, $lang_albums2, $lang_albums3, $lang_albums4, $lang_albums19, $lang_theme12;
 	?>
 		<p>
 			<strong><?php echo $lang_albums1; ?></strong>
@@ -54,7 +54,7 @@ function albums_page_admin_albums() {
 				<span class="kop4"><?php echo $lang_albums4; ?></span>
 				<br />
 				<input name="cont1" id="cont1" type="text" />
-				<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
+				<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
 			</form>
 		<?php
 		//When form is submitted.
@@ -94,7 +94,7 @@ function albums_page_admin_albums() {
 }
 
 function albums_page_admin_editalbum() {
-	global $cont1, $cont2, $cont3, $lang_albums8, $lang_albums9, $lang_albums10, $lang_albums11, $lang_albums12, $lang_albums13, $lang_albums17, $lang_image2, $lang_install13, $lang_install17, $lang_theme12, $var1;
+	global $cont1, $cont2, $cont3, $lang, $lang_albums8, $lang_albums9, $lang_albums10, $lang_albums11, $lang_albums12, $lang_albums13, $lang_albums17, $lang_image2, $lang, $lang_theme12, $var1;
 
 	//Check if album exists
 	if (file_exists('data/settings/modules/albums/'.$var1)) {
@@ -119,7 +119,7 @@ function albums_page_admin_editalbum() {
 				<span class="kop4"><?php echo $lang_albums13; ?></span>
 			</p>
 			<form method="post" action="" enctype="multipart/form-data">
-				<label class="kop2" for="cont1"><?php echo $lang_install17; ?></label>
+				<label class="kop2" for="cont1"><?php echo $lang['title']; ?></label>
 				<br />
 				<input name="cont1" id="cont1" type="text" />
 				<br /><br />
@@ -132,7 +132,7 @@ function albums_page_admin_editalbum() {
 				<label class="kop4" for="cont3"><?php echo $lang_albums12; ?></label>
 				<input name="cont3" id="cont3" type="text" size="3" value="85" />
 				<br /><br />
-				<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
+				<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
 			</form>
 		<?php
 		//Let's process the image...
@@ -277,7 +277,7 @@ function albums_page_admin_deletealbum() {
 }
 
 function albums_page_admin_editimage() {
-	global $cont1, $cont2, $lang_albums11, $lang_install13, $lang_install14, $lang_install17, $var1, $var2;
+	global $cont1, $cont2, $lang, $lang_albums11, $var1, $var2;
 
 	//Check if an image was defined, and if the image exists
 	if (isset($var1) && file_exists('data/settings/modules/albums/'.$var2.'/'.$var1.'.php')) {
@@ -289,7 +289,7 @@ function albums_page_admin_editimage() {
 		?>
 		<br />
 		<form name="form1" method="post" action="">
-			<label class="kop2" for="cont1"><?php echo $lang_install17; ?></label>
+			<label class="kop2" for="cont1"><?php echo $lang['title']; ?></label>
 			<br />
 			<input name="cont1" id="cont1" type="text" value="<?php echo $name; ?>" />
 			<br /><br />
@@ -297,8 +297,8 @@ function albums_page_admin_editimage() {
 			<br />
 			<textarea cols="50" rows="5" name="cont2" id="cont2"><?php echo $info; ?></textarea>
 			<br /><br />
-			<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
-			<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?module=albums&amp;page=editalbum&amp;var1=<?php echo $var2; ?>';" />
+			<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
+			<input type="button" name="Cancel" value="<?php echo $lang['cancel']; ?>" onclick="javascript: window.location='?module=albums&amp;page=editalbum&amp;var1=<?php echo $var2; ?>';" />
 		</form>
 		<?php
 		//When the information is posted:

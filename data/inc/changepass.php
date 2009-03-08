@@ -32,8 +32,8 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	<br />
 	<input name="cont2" id="cont2" type="password" />
 	<br /><br />
-	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
-	<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=options';" />
+	<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
+	<input type="button" name="Cancel" value="<?php echo $lang['cancel']; ?>" onclick="javascript: window.location='?action=options';" />
 </form>
 <?php
 if (isset($_POST['Submit'])) {

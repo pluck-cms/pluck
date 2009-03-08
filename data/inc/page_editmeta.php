@@ -37,8 +37,8 @@ require_once ('data/settings/pages/'.$var1);
 		<br />
 		<textarea name="cont2" rows="5" cols="50"><?php if (isset($keywords)) echo $keywords; ?></textarea>
 		<br /><br />
-		<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
-		<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?action=page';" />
+		<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
+		<input type="button" name="Cancel" value="<?php echo $lang['cancel']; ?>" onclick="javascript: window.location='?action=page';" />
 	</form>
 <?php
 if (isset($_POST['Submit'])) {

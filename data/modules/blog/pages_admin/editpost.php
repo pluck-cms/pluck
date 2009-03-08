@@ -39,7 +39,7 @@ read_imagesinpages('images');
 </div>
 
 <form method="post" action="">
-	<span class="kop2"><?php echo $lang_install17; ?></span><br>
+	<span class="kop2"><?php echo $lang['title']; ?></span><br>
 	<input name="cont1" type="text" value="<?php echo $post_title; ?>">
 	<br /><br />
 	<span class="kop2"><?php echo $lang_blog26; ?></span>
@@ -66,11 +66,11 @@ if(file_exists('data/settings/modules/blog/categories.dat')) {
 ?>
 	</select><br /><br />
 
-	<span class="kop2"><?php echo $lang_install18; ?></span><br />
+	<span class="kop2"><?php echo $lang['contents']; ?></span><br />
 	<textarea class="tinymce" name="cont3" cols="70" rows="20"><?php echo $post_content; ?></textarea><br>
 
-	<input type="submit" name="Submit" value="<?php echo $lang_install13; ?>" />
-	<input type="button" name="Cancel" value="<?php echo $lang_install14; ?>" onclick="javascript: window.location='?module=blog';" />
+	<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
+	<input type="button" name="Cancel" value="<?php echo $lang['cancel']; ?>" onclick="javascript: window.location='?module=blog';" />
 </form>
 
 <?php
