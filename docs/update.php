@@ -103,25 +103,25 @@ Upgrade files to pluck 4.6 structure
  - convert password to md5
  - add site title to data/settings/options.php
 ----------------*/
-elseif($step == '4') {
+elseif ($step == '4') {
 	//First, create needed folders
-	if(!file_exists('data/settings/modules')) {
+	if (!file_exists('data/settings/modules')) {
 		mkdir('data/settings/modules', 0777);
 		chmod('data/settings/modules', 0777);
 	}
-	if(!file_exists('data/settings/pages')) {
+	if (!file_exists('data/settings/pages')) {
 		mkdir('data/settings/pages', 0777);
 		chmod('data/settings/pages', 0777);
 	}
-	if(!file_exists('data/settings/modules/albums')) {
+	if (!file_exists('data/settings/modules/albums')) {
 		mkdir('data/settings/modules/albums', 0777);
 		chmod('data/settings/modules/albums', 0777);
 	}
-	if(!file_exists('data/settings/modules/blog')) {
+	if (!file_exists('data/settings/modules/blog')) {
 		mkdir('data/settings/modules/blog', 0777);
 		chmod('data/settings/modules/blog', 0777);
 	}
-	if(!file_exists('data/settings/modules/blog/posts')) {
+	if (!file_exists('data/settings/modules/blog/posts')) {
 		mkdir('data/settings/modules/blog/posts', 0777);
 		chmod('data/settings/modules/blog/posts', 0777);
 	}
@@ -134,6 +134,7 @@ elseif($step == '4') {
 			unlink('data/content/'.$page);
 			echo 'Transferred page "'.$page.'"...<br />';
 		}
+		unset($page);
 	}
 
 	//Convert blog posts
@@ -229,13 +230,17 @@ elseif($step == '4') {
 						//Higher the key
 						$key++;
 					}
+					unset($reaction);
 				}
 				//Finish file, chmod it etc.
 				fputs($file, '?>');
 				fclose($file);
 				chmod('data/settings/modules/blog/posts/'.$newfile.'.php', 0777);
 			}
+			unset($blog_post);
 		}
+		unset($blog_category);
+
 		//Now, create array with all new posts
 		$new_posts = read_dir_contents('data/settings/modules/blog/posts','files');
 		//And put those in a new array, sorted on time
@@ -245,6 +250,8 @@ elseif($step == '4') {
 			$unix_time = strtotime($time);
 			$time_array[$new_post] = $unix_time;
 		}
+		unset($new_post);
+
 		//Now, sort the new array
 		asort($time_array);
 
@@ -271,6 +278,7 @@ elseif($step == '4') {
 			//Show message
 			echo 'Transferred blog post "'.$newfile.'"...<br />';
 		}
+		unset($newfile);
 	}
 
 	//Save title in new file

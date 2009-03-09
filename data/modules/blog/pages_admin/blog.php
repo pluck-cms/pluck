@@ -112,6 +112,7 @@ if (file_exists('data/settings/modules/blog/categories.dat')) {
 		</span>
 	<?php
 	}
+	unset($key);
 	echo '</div>';
 }
 
@@ -184,6 +185,8 @@ if (isset($_POST['Submit'])) {
 				else
 					fputs($file,$name);
 			}
+			unset($number);
+
 			//Close file, and chmod it.
 			fclose($file);
 			chmod('data/settings/modules/blog/categories.dat', 0777);

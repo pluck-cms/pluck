@@ -38,4 +38,5 @@ foreach ($module_list as $module) {
 		showmenudiv($module_info['name'], $module_info['intro'], 'data/modules/'.$module.'/'.$module_info['icon'], '?module='.$module);
 	}
 }
+unset($module);
 ?>

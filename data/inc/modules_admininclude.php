@@ -52,6 +52,7 @@ foreach ($module_list as $dir) {
 					call_user_func($dir.'_page_admin_'.$module_page['func']);
 				}
 			}
+			unset($module_page);
 		}
 	}
 
@@ -62,4 +63,5 @@ foreach ($module_list as $dir) {
 		echo $lang_modules27;
 	}
 }
+unset($dir);
 ?>

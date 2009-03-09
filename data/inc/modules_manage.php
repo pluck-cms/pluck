@@ -81,6 +81,7 @@ foreach($dirs as $dir) {
 	</div>
 <?php
 }
+unset($dir);
 ?>
 <div class="menudiv">
 	<span>

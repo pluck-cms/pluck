@@ -47,6 +47,7 @@ function get_pagetitle() {
 			if ($module_page['func'] == CURRENT_MODULE_PAGE)
 				return $module_page['title'];
 		}
+		unset($module_page);
 	}
 }
 
@@ -126,6 +127,7 @@ function theme_menu($html,$htmlactive = NULL) {
 	    		}
 	    	}
 		}
+		unset($file);
 	}
 }
 
@@ -177,6 +179,7 @@ function theme_area($place) {
 					if (module_is_compatible($module_to_include) && function_exists($module_to_include.'_theme_main'))
 							call_user_func($module_to_include.'_theme_main');
 				}
+				unset($module_to_include);
 			}
 		}
 
@@ -187,6 +190,7 @@ function theme_area($place) {
 				if ($module_page['func'] == CURRENT_MODULE_PAGE)
 					call_user_func(CURRENT_MODULE_DIR.'_page_site_'.$module_page['func']);
 			}
+			unset($module_page);
 		}
 	}
 
@@ -208,6 +212,7 @@ function theme_area($place) {
 				}
 			}
 		}
+		unset($area);
 	}
 }
 ?>

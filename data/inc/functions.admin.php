@@ -34,6 +34,7 @@ function read_lang_files($not_this_file) {
 				<?php
 			}
 		}
+		unset($file);
 	}
 }
 
@@ -60,6 +61,7 @@ function read_imagesinpages($dir) {
 			</div>
 		<?php
 		}
+		unset($file);
 	}
 }
 
@@ -88,6 +90,7 @@ function read_pagesinpages($dir, $current_page = null) {
 				<?php
 			}
 		}
+		unset($file);
 	}
 }
 
@@ -269,6 +272,7 @@ function save_page($name, $title, $content, $hidden = 'no', $description = null,
 			if ($order != 0)
 				fputs($file, "\n".'$module_pageinc[\''.$modulename.'\'] = '.$order.';');
 		}
+		unset($modulename);
 	}
 
 	fputs($file, "\n".'?>');

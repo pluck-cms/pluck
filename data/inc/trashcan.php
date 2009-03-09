@@ -82,6 +82,7 @@ else {
 		</div>
 	<?php
 	}
+	unset($page);
 }
 ?>
 <br />
@@ -123,5 +124,6 @@ else {
 	</div>
 	<?php
 	}
+	unset($image);
 }
 ?>

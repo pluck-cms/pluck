@@ -73,5 +73,6 @@ if ($files) {
 			</div>
 		<?php
 	}
+	unset($file);
 }
 ?>

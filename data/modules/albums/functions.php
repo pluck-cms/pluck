@@ -55,6 +55,7 @@ function read_albums($dir) {
 			</div>
 		<?php
 		}
+		unset($dir);
 	}
 }
 
@@ -109,6 +110,7 @@ function read_albumimages($dir) {
 				<?php
 			}
 		}
+		unset($file);
 	}
 }
 ?>

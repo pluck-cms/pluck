@@ -40,6 +40,7 @@ else {
 if (!strpos($_SERVER['SCRIPT_FILENAME'], 'login.php'))
 	require_once ('data/inc/tinymce_inc.php');
 ?>
+<link rel="icon" type="image/vnd.microsoft.icon" href="data/image/favicon.ico" />
 <meta name="robots" content="noindex" />
 <script language="javascript" type="text/javascript">
 <!--

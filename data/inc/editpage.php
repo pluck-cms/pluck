@@ -28,6 +28,7 @@ foreach ($module_list as $module) {
 	if (file_exists('data/modules/'.$module.'/'.$module.'.site.php'))
 		require_once ('data/modules/'.$module.'/'.$module.'.site.php');
 }
+unset($module);
 
 //Generate the menu on the right.
 ?>
@@ -70,6 +71,7 @@ foreach ($module_list as $module) {
 							if (!module_is_compatible($module) || !function_exists($module.'_theme_main'))
 								$number_modules--;
 						}
+						unset($module);
 
 						//Loop through modules, and display them.
 						foreach ($module_list as $module) {
@@ -110,6 +112,7 @@ foreach ($module_list as $module) {
 								<?php
 								}
 							}
+							unset($module);
 						?>
 					</table>
 				</td>

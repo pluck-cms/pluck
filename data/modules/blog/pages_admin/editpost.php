@@ -62,6 +62,7 @@ if(file_exists('data/settings/modules/blog/categories.dat')) {
 		else
 			echo '<option value="'.$name.'" />'.$name.'</option>';
 	}
+	unset($key);
 }
 ?>
 	</select><br /><br />
@@ -159,6 +160,7 @@ if(isset($_POST['Submit'])) {
 			.'$post_reaction_year['.$reaction_key.'] = \''.$post_reaction_year[$reaction_key].'\';'."\n"
 			.'$post_reaction_time['.$reaction_key.'] = \''.$post_reaction_time[$reaction_key].'\';'."\n");
 		}
+		unset($reaction_key);
 	}
 	fputs($file, '?>');
 	fclose($file);

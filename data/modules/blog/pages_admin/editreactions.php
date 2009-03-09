@@ -62,6 +62,7 @@ if(isset($post_reaction_title)) {
 
 <?php
 		}
+		unset($key);
 	}
 }
 
@@ -101,10 +102,10 @@ if(isset($_POST['Submit'])) {
 		.'$post_time = \''.$post_time.'\';'."\n");
 
 		//Check if there already are other reactions
-		if(isset($post_reaction_title)) {
-			foreach($post_reaction_title as $reaction_key => $value) {
+		if (isset($post_reaction_title)) {
+			foreach ($post_reaction_title as $reaction_key => $value) {
 				//If it's the post we want to edit
-				if($reaction_key == $edit_key) {
+				if ($reaction_key == $edit_key) {
 					//And save the modified reaction
 					fputs($file, '$post_reaction_title['.$reaction_key.'] = \''.$title.'\';'."\n"
 					.'$post_reaction_name['.$reaction_key.'] = \''.$name.'\';'."\n"
@@ -131,6 +132,7 @@ if(isset($_POST['Submit'])) {
 					.'$post_reaction_time['.$reaction_key.'] = \''.$post_reaction_time[$reaction_key].'\';'."\n");
 				}
 			}
+			unset($reaction_key);
 		}
 		fputs($file, '?>');
 		fclose($file);

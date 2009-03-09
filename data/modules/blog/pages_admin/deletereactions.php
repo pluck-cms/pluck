@@ -69,6 +69,8 @@ if ((isset($_GET['post'])) && (isset($_GET['key']))) {
 					$new_key++;
 				}
 			}
+			unset($reaction_key);
+
 			fputs($file, '?>');
 			fclose($file);
 			chmod('data/settings/modules/blog/posts/'.$post, 0777);

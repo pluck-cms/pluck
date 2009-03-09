@@ -38,6 +38,7 @@ function module_is_compatible($module) {
 					return true;
 				}
 			}
+			unset($number);
 		}
 	}
 
@@ -172,5 +173,6 @@ function run_hook($name, $par = null) {
 				call_user_func_array($module.'_'.$name, $par);
 		}
 	}
+	unset($module);
 }
 ?>

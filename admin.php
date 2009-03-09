@@ -29,6 +29,7 @@ foreach ($modules as $module) {
 		$module_list[] = $module;
 	}
 }
+unset($module);
 
 //Include security-enhancements.
 require_once ('data/inc/security.php');

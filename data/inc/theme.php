@@ -67,6 +67,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 						}
 					}
 				}
+				unset($dir);
 			}
 			?>
 		</select>

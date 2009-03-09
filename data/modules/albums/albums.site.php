@@ -91,6 +91,7 @@ function albums_page_site_viewalbum() {
 					<?php
 				}
 			}
+			unset($file);
 		}
 	}
 	?>

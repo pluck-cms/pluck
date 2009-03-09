@@ -52,6 +52,8 @@ if(file_exists('data/settings/modules/blog/categories.dat')) {
 	//start table first
 	foreach($categories as $key => $name)
 		echo '<option value="'.$name.'" />'.$name;
+
+	unset($key);
 }
 ?>
 	</select><br /><br />

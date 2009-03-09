@@ -27,6 +27,7 @@ if(isset($_REQUEST)) {
 		if (isset($GLOBALS[$key]))
 			unset($GLOBALS[$key]);
 	}
+	unset($key);
 }
 
 
@@ -38,6 +39,7 @@ foreach ($_GET as $get_key => $get_value) {
 		die ('A hacking attempt has been detected. For security reasons, we\'re blocking any code execution.');
 	}
 }
+unset($get_key);
 
 //Undo magic quotes. http://php.net/manual/en/security.magicquotes.disabling.php.
 ini_set('magic_quotes_sybase', 0);

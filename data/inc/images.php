@@ -95,6 +95,7 @@ $images = read_dir_contents('images', 'files');
 			</div>
 			<?php
 		}
+		unset($images);
 	}
 	elseif (!$images) {
 	?>

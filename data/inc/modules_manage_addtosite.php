@@ -25,6 +25,7 @@ foreach ($module_list as $module) {
 	if (file_exists('data/modules/'.$module.'/'.$module.'.site.php'))
 		require_once ('data/modules/'.$module.'/'.$module.'.site.php');
 }
+unset($module);
 
 //Introduction text
 ?>
@@ -63,6 +64,7 @@ if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php'))
 								if (!module_is_compatible($module) || !function_exists($module.'_theme_main'))
 									$number_modules--;
 							}
+							unset($module);
 
 							//Loop through dirs, and display the modules.
 							foreach ($module_list as $module) {
@@ -100,6 +102,7 @@ if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php'))
 									<?php
 								}
 							}
+							unset($module);
 						?>
 					</table>
 				</td>
@@ -108,6 +111,7 @@ if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php'))
 		</div>
 	<?php
 	}
+	unset($index);
 
 	//Show submit button etc.
 	?>
@@ -151,6 +155,7 @@ if (isset($_POST['Submit'])) {
 			fputs($file, "\n".'$space[\''.$areaname.'\'][\''.$modulename.'\'] = '.$display_order.';');
 		}
 	}
+	unset($variabletosplice);
 
 	//Close the file.
 	fputs($file, "\n".'?>');

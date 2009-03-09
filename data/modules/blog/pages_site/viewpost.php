@@ -59,6 +59,7 @@ if (isset($_GET['post']))
 					</div>
 				<?php
 			}
+			unset($key);
 		}
 	//Show a form to post new reactions
 ?>
@@ -147,6 +148,7 @@ if (isset($_POST['Submit'])) {
 					.'$post_reaction_year['.$reaction_key.'] = \''.$post_reaction_year[$reaction_key].'\';'."\n"
 					.'$post_reaction_time['.$reaction_key.'] = \''.$post_reaction_time[$reaction_key].'\';'."\n");
 				}
+				unset($reaction_key);
 			}
 
 			//If this is the first reaction, use key '0'
