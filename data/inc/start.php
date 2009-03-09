@@ -23,14 +23,14 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 //Introduction text
 ?>
 	<p>
-		<strong><?php echo $lang_start1; ?></strong>
+		<strong><?php echo $lang['start']['welcome']; ?></strong>
 		<br />
-		<?php echo $lang_start9; ?>
+		<?php echo $lang['start']['manage']; ?>
 	</p>
-	<span class="kop2"><?php echo $lang_start10; ?></span>
+	<span class="kop2"><?php echo $lang['start']['more']; ?></span>
 <?php
 //Show the divs
-showmenudiv($lang_install20, $lang_install21, 'data/image/website.png', 'index.php', true);
-showmenudiv($lang_credits, $lang_credits1, 'data/image/credits.png', '?action=credits');
-showmenudiv($lang_start3, $lang_start4, 'data/image/hulp.png', 'http://www.pluck-cms.org/help.php', true);
+showmenudiv($lang['start']['website'], $lang['start']['result'], 'data/image/website.png', 'index.php', true);
+showmenudiv($lang_credits, $lang['start']['people'], 'data/image/credits.png', '?action=credits');
+showmenudiv($lang['start']['help'], $lang['start']['love'], 'data/image/hulp.png', 'http://www.pluck-cms.org/help.php', true);
 ?>

@@ -57,14 +57,14 @@ if (isset($_POST['Submit'])) {
 	//Check if a sitetitle has been given in.
 	if (!isset($cont1)) {
 	?>
-		<strong><?php echo $lang_stitle2; ?></strong>
+		<strong><?php echo $lang['settings']['fill_name']; ?></strong>
 	<?php
 	}
 
 	//Check if emailaddress is valid.
 	elseif (!filter_input(INPUT_POST, 'cont2', FILTER_VALIDATE_EMAIL)) {
 	?>
-		<strong><?php echo $lang_settings7; ?></strong>
+		<strong><?php echo $lang['settings']['email_invalid']; ?></strong>
 	<?php
 	}
 

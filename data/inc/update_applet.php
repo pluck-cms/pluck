@@ -64,22 +64,22 @@ elseif (file_exists('data/settings/update_lastcheck.php') && $lastcheck == $dayo
 //Then determine which icon we need to show... and show it
 if ($update_available == 'yes') {
 	$update_image = 'update-available.png';
-	$update_note = '<a href="http://www.pluck-cms.org/" target="_blank">'.$lang_update2.'</a>';
+	$update_note = '<a href="http://www.pluck-cms.org/" target="_blank">'.$lang['update']['available'].'</a>';
 }
 
 elseif ($update_available == 'urgent') {
 	$update_image = 'update-available-urgent.png';
-	$update_note = '<a href="http://www.pluck-cms.org/" target="_blank">'.$lang_update3.'</a>';
+	$update_note = '<a href="http://www.pluck-cms.org/" target="_blank">'.$lang['update']['urgent'].'</a>';
 }
 
 elseif ($update_available == 'error') {
 	$update_image = 'error.png';
-	$update_note = $lang_update4;
+	$update_note = $lang['update']['failed'];
 }
 
 else {
 	$update_image = 'update-no.png';
-	$update_note = $lang_update1;
+	$update_note = $lang['update']['up_to_date'];
 }
 ?>
 <div>

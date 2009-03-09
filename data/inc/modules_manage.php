@@ -88,7 +88,7 @@ foreach($dirs as $dir) {
 	</span>
 	<span>
 		<span class="kop3">
-			<a href="?action=options">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a>
+			<a href="?action=options">&lt;&lt;&lt; <?php echo $lang['back']; ?></a>
 		</span>
 	</span>
 </div>

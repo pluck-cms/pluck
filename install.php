@@ -88,7 +88,7 @@ else {
 		<span class="kop2"><?php echo $lang['install']['title']; ?> :: <?php echo $lang['install']['step_2']; ?></span>
 		<br />
 		<p>
-			<strong><?php echo $lang_install27 ?></strong>
+			<strong><?php echo $lang['install']['general_info']; ?></strong>
 		</p>
 		<form method="post" action="">
 			<p>
@@ -105,7 +105,7 @@ else {
 				<input name="cont2" id="cont2"type="text" value="<?php if (isset($cont2)) echo htmlentities($cont2); ?>" />
 			</p>
 			<p>
-				<label class="kop2" for="cont3"><?php echo $lang_kop14 ?></label>
+				<label class="kop2" for="cont3"><?php echo $lang['language']['title']; ?></label>
 				<br />
 				<select name="cont3" id="cont3">
 					<option selected="selected" value="en.php">English</option>
@@ -113,15 +113,15 @@ else {
 				</select>
 			</p>
 			<p>
-				<label class="kop2" for="cont4"><?php echo $lang['login']['password'] ?></label>
+				<label class="kop2" for="cont4"><?php echo $lang['login']['password']; ?></label>
 				<br />
 				<input name="cont4" id="cont4" type="password" />
 				<br /><br />
-				<label class="kop2" for="cont5"><?php echo $lang_install26 ?></label>
+				<label class="kop2" for="cont5"><?php echo $lang['install']['repeat_password']; ?></label>
 				<br />
 				<input name="cont5" id="cont5" type="password" />
 			</p>
-			<input type="submit" name="Submit" value="<?php echo $lang['save'] ?>" />
+			<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
 			<input type="button" name="Cancel" value="<?php echo $lang['cancel']; ?>" onclick="javascript: window.location='?action=install';" />
 		</form>
 		<?php
@@ -130,17 +130,17 @@ else {
 			if ($cont4 != $cont5 || $cont4 == '') {
 				?>
 					<br />
-					<span class="red"><?php echo $lang_install28; ?></span>
+					<span class="red"><?php echo $lang['install']['two_passwords']; ?></span>
 				<?php
 				include_once ('data/inc/footer.php');
 				exit;
 			}
 
 			//Check sitetitle.
-			if (!$cont1) {
+			if (empty($cont1)) {
 				?>
 					<br />
-					<span class="red"><?php echo $lang_install15; ?></span>
+					<span class="red"><?php echo $lang['settings']['fill_name']; ?></span>
 				<?php
 				include_once ('data/inc/footer.php');
 				exit;
@@ -185,7 +185,7 @@ else {
 		<span class="kop2"><?php echo $lang['install']['title']; ?> :: <?php echo $lang['install']['step_3']; ?></span>
 		<br />
 		<p>
-			<strong><?php echo $lang_install16; ?></strong>
+			<strong><?php echo $lang['install']['homepage']; ?></strong>
 		</p>
 		<form method="post" action="">
 			<label class="kop2" for="cont1"><?php echo $lang['title']; ?></label>
@@ -217,11 +217,11 @@ else {
 		include_once ('data/inc/header2.php');
 		?>
 			<p>
-				<strong><?php echo $lang_install19; ?></strong>
+				<strong><?php echo $lang['install']['success']; ?></strong>
 			</p>
 		<?php
-		showmenudiv($lang_install20, $lang_install21, 'data/image/website.png', 'index.php');
-		showmenudiv($lang_install22, $lang_install23, 'data/image/password.png', 'login.php');
+		showmenudiv($lang['start']['website'], $lang['start']['result'], 'data/image/website.png', 'index.php');
+		showmenudiv($lang_install22, $lang['install']['manage'], 'data/image/password.png', 'login.php');
 
 		include_once ('data/inc/footer.php');
 	}

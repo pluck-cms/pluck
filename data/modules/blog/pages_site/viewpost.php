@@ -21,7 +21,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 
 //Global language variables
-global $lang_blog14, $lang_blog16, $lang_blog17, $lang_blog18, $lang_contact3, $lang_contact5, $lang_contact6, $lang_contact10, $lang_theme12;
+global $lang, $lang_blog14, $lang_blog16, $lang_blog17, $lang_blog18, $lang_contact3, $lang_contact5, $lang_contact6, $lang_contact10;
 
 //Load variable
 if (isset($_GET['post']))
@@ -175,7 +175,7 @@ if (isset($_POST['Submit'])) {
 if (isset($_GET['pageback'])) {
 ?>
 	<p>
-		<a href="?file=<?php echo $_GET['pageback']; ?>" title="<?php echo $lang_theme12; ?>">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a>
+		<a href="?file=<?php echo $_GET['pageback']; ?>" title="<?php echo $lang['back']; ?>">&lt;&lt;&lt; <?php echo $lang['back']; ?></a>
 	</p>
 <?php
 }

@@ -141,5 +141,5 @@ if(isset($_POST['Submit'])) {
 ?>
 
 <p>
-	<a href="?module=blog"><<< <?php echo $lang_theme12; ?></a>
+	<a href="?module=blog"><<< <?php echo $lang['back']; ?></a>
 </p>

@@ -51,7 +51,7 @@ function albums_page_site_list() {
 }
 
 function albums_page_site_viewalbum() {
-	global $lang_albums18, $lang_theme12;
+	global $lang_albums18;
 
 	//Predefined variable
 	$album = $_GET['album'];
@@ -95,7 +95,7 @@ function albums_page_site_viewalbum() {
 	}
 	?>
 		<p>
-			<a href="?file=<?php echo $pageback; ?>" title="<?php echo $lang_theme12; ?>">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a>
+			<a href="?file=<?php echo $pageback; ?>" title="<?php echo $lang['back']; ?>">&lt;&lt;&lt; <?php echo $lang['back']; ?></a>
 		</p>
 	<?php
 }

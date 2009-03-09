@@ -45,7 +45,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	</p>
 	<form action="" method="post">
 		<select name="cont1">
-			<option value="0"><?php echo $lang_lang2; ?></option>
+			<option value="0"><?php echo $lang['choose']; ?></option>
 			<?php
 			$dirs = read_dir_contents('data/themes','dirs');
 			if ($dirs) {

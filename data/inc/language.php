@@ -23,11 +23,11 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 //Introduction text.
 ?>
 	<p>
-		<strong><?php echo $lang_lang1; ?></strong>
+		<strong><?php echo $lang['language']['choose']; ?></strong>
 	</p>
 	<form action="" method="post">
 		<select name="cont1">
-			<option selected="selected" value="0"><?php echo $lang_lang2; ?></option>
+			<option selected="selected" value="0"><?php echo $lang['choose']; ?></option>
 			<?php read_lang_files(LANG_FILE); ?>
 		</select>
 		<br /><br />
@@ -40,7 +40,7 @@ if (isset($_POST['Submit']) && isset($cont1) && $cont1 != '0' && file_exists('da
 	save_language($cont1);
 
 	//Redirect user.
-	echo $lang_lang3;
+	echo $lang['language']['saved'];
 	redirect('?action=options', 2);
 }
 ?>

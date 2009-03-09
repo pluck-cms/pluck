@@ -43,7 +43,7 @@ if (!isset($_POST['Submit'])) {
 		</span>
 		<span>
 			<span class="kop3">
-				<a href="?action=managemodules">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a>
+				<a href="?action=managemodules">&lt;&lt;&lt; <?php echo $lang['back']; ?></a>
 			</span>
 		</span>
 	</div>

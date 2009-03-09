@@ -103,5 +103,5 @@ $images = read_dir_contents('images', 'files');
 	}
 ?>
 <p>
-	<a href="?action=page">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a>
+	<a href="?action=page">&lt;&lt;&lt; <?php echo $lang['back']; ?></a>
 </p>

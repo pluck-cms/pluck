@@ -129,14 +129,14 @@ else {
 
 			//Page:Options:Settings
 			case 'settings':
-				$titelkop = $lang_settings;
+				$titelkop = $lang['settings']['title'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/settings.php');
 				break;
 
 			//Page:Options:Language
 			case 'language':
-				$titelkop = $lang_kop14;
+				$titelkop = $lang['language']['title'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/language.php');
 				break;

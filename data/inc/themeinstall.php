@@ -43,7 +43,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 			</span>
 			<span>
 				<span class="kop3">
-					<a href="?action=theme" title="<?php echo $lang_theme12; ?>">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a>
+					<a href="?action=theme" title="<?php echo $lang['back']; ?>">&lt;&lt;&lt; <?php echo $lang['back']; ?></a>
 				</span>
 			</span>
 		</div>

@@ -35,7 +35,7 @@ function albums_page_admin_list() {
 }
 
 function albums_page_admin_albums() {
-	global $cont1, $lang, $lang_albums1, $lang_albums2, $lang_albums3, $lang_albums4, $lang_albums19, $lang_theme12;
+	global $cont1, $lang, $lang_albums1, $lang_albums2, $lang_albums3, $lang_albums4, $lang_albums19;
 	?>
 		<p>
 			<strong><?php echo $lang_albums1; ?></strong>
@@ -88,13 +88,13 @@ function albums_page_admin_albums() {
 	}
 	?>
 	<p>
-		<a href="?action=modules">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a>
+		<a href="?action=modules">&lt;&lt;&lt; <?php echo $lang['back']; ?></a>
 	</p>
 <?php
 }
 
 function albums_page_admin_editalbum() {
-	global $cont1, $cont2, $cont3, $lang, $lang_albums8, $lang_albums9, $lang_albums10, $lang_albums11, $lang_albums12, $lang_albums13, $lang_albums17, $lang_image2, $lang, $lang_theme12, $var1;
+	global $cont1, $cont2, $cont3, $lang, $lang_albums8, $lang_albums9, $lang_albums10, $lang_albums11, $lang_albums12, $lang_albums13, $lang_albums17, $lang_image2, $var1;
 
 	//Check if album exists
 	if (file_exists('data/settings/modules/albums/'.$var1)) {
@@ -260,7 +260,7 @@ function albums_page_admin_editalbum() {
 	?>
 		<br />
 		<p>
-			<a href="?module=albums">&lt;&lt;&lt; <?php echo $lang_theme12; ?></a>
+			<a href="?module=albums">&lt;&lt;&lt; <?php echo $lang['back']; ?></a>
 		</p>
 	<?php
 }
