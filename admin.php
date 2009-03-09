@@ -30,15 +30,15 @@ foreach ($modules as $module) {
 	}
 }
 
-//Include security-enhancements
+//Include security-enhancements.
 require_once ('data/inc/security.php');
-//Include functions
+//Include functions.
 require_once ('data/inc/functions.all.php');
 require_once ('data/inc/functions.admin.php');
-//Include variables
+//Include variables.
 require_once ('data/inc/variables.all.php');
 
-//First check if we've installed pluck
+//First check if we've installed pluck.
 if (!file_exists('data/settings/install.dat')) {
 	$titelkop = $lang['install']['not'];
 	include_once ('data/inc/header2.php');
@@ -50,8 +50,8 @@ if (!file_exists('data/settings/install.dat')) {
 
 else {
 	session_start();
-	//Then check if we are properly logged in
-	if ($_SESSION ['cmssystem_loggedin'] != 'ok') {
+	//Then check if we are properly logged in.
+	if (!isset($_SESSION ['cmssystem_loggedin'])) {
 		$titelkop = $lang['login']['not'];
 		include_once ('data/inc/header2.php');
 		redirect('login.php', 3);
@@ -60,7 +60,7 @@ else {
 		exit;
 	}
 
-	//Define pages
+	//Define pages.
 	//------------
 	if (isset($action)) {
 		switch ($action) {
@@ -275,13 +275,13 @@ else {
 	elseif (isset($module))
 		require_once ('data/inc/modules_admininclude.php');
 
-	//Unknown pages
+	//Unknown pages.
 	else {
 		header('Location: ?action=start');
 		exit;
 	}
 
-	//Include footer
+	//Include footer.
 	include_once ('data/inc/footer.php');
 }
 ?>
