@@ -6,7 +6,7 @@ function blog_info() {
 		'intro'         => $lang_blog1,
 		'version'       => '0.1',
 		'author'        => 'pluck development team',
-		'website'       => 'http://spirit55555.dk',
+		'website'       => 'http://www.pluck-cms.org',
 		'icon'          => 'images/blog.png',
 		'compatibility' => '4.6'
 	);
