@@ -50,7 +50,7 @@ if (file_exists('data/settings/pages/'.$var1.'')) {
 	rename('data/settings/pages/'.$var1.$temp.'', 'data/settings/pages/'.$kop.$lowerpagenumber.'.'.$ext.'');
 
 	//Display message
-	echo $lang_updown3;
+	echo $lang['general']['changing_rank'];
 }
 redirect('?action=page', 0);
 ?>

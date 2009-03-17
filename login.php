@@ -59,7 +59,7 @@ else {
 	}
 
 	//If password has not yet been sent.
-	if (!isset($_POST['Submit'])) {
+	if (!isset($_POST['submit'])) {
 		//Include header-file.
 		$titelkop = $lang['login']['title'];
 		include_once ('data/inc/header2.php');
@@ -69,14 +69,14 @@ else {
 				<input name="cont1" size="25" type="password" />
 				<?php //FIXME: Do we use the bogusField for anything? ?>
 				<input type="text" name="bogusField" style="display: none;" />
-				<input type="submit" name="Submit" value="<?php echo $lang['login']['title']; ?>" />
+				<input type="submit" name="submit" value="<?php echo $lang['login']['title']; ?>" />
 			</form>
 		<?php
 		include_once ('data/inc/footer.php');
 	}
 
 	//If password has been sent...
-	elseif (isset($_POST['Submit'])) {
+	elseif (isset($_POST['submit'])) {
 		//...first MD5-encrypt password that has been posted.
 		$pass = md5($cont1);
 

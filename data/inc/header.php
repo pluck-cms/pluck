@@ -29,7 +29,7 @@ require_once ('data/settings/options.php');
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo LANG; ?>" lang="<?php echo LANG; ?>">
 <head>
-<title>pluck <?php echo PLUCK_VERSION.' '.$lang_install22.' - '.$titelkop; ?></title>
+<title>pluck <?php echo PLUCK_VERSION.' '.$lang['general']['admin_center'].' - '.$titelkop; ?></title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <?php
 //Check if we need rtl-direction
@@ -93,7 +93,7 @@ function confirmation(message) {
 		<div class="menuitem">
 			<span>
 				<img src="data/image/menu/modules.png" alt="" />
-				<a href="?action=modules" title="<?php echo $lang_modules; ?>"><?php echo $lang_modules; ?></a>
+				<a href="?action=modules" title="<?php echo $lang['modules']['title']; ?>"><?php echo $lang['modules']['title']; ?></a>
 			</span>
 		</div>
 		<div class="menuitem">

@@ -54,11 +54,11 @@ function albums_page_admin_albums() {
 				<span class="kop4"><?php echo $lang_albums4; ?></span>
 				<br />
 				<input name="cont1" id="cont1" type="text" />
-				<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
+				<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
 			</form>
 		<?php
 		//When form is submitted.
-		if (isset($_POST['Submit'])) {
+		if (isset($_POST['submit'])) {
 			if (isset($cont1) && file_exists('data/settings/modules/albums/'.$cont1))
 				echo '<span class="red">'.$lang_albums19.'</span>';
 
@@ -88,13 +88,13 @@ function albums_page_admin_albums() {
 	}
 	?>
 	<p>
-		<a href="?action=modules">&lt;&lt;&lt; <?php echo $lang['back']; ?></a>
+		<a href="?action=modules">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 	</p>
 <?php
 }
 
 function albums_page_admin_editalbum() {
-	global $cont1, $cont2, $cont3, $lang, $lang_albums8, $lang_albums9, $lang_albums10, $lang_albums11, $lang_albums12, $lang_albums13, $lang_albums17, $lang_image2, $var1;
+	global $cont1, $cont2, $cont3, $lang, $lang_albums8, $lang_albums9, $lang_albums10, $lang_albums11, $lang_albums12, $lang_albums13, $lang_albums17, $var1;
 
 	//Check if album exists
 	if (file_exists('data/settings/modules/albums/'.$var1)) {
@@ -119,7 +119,7 @@ function albums_page_admin_editalbum() {
 				<span class="kop4"><?php echo $lang_albums13; ?></span>
 			</p>
 			<form method="post" action="" enctype="multipart/form-data">
-				<label class="kop2" for="cont1"><?php echo $lang['title']; ?></label>
+				<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
 				<br />
 				<input name="cont1" id="cont1" type="text" />
 				<br /><br />
@@ -132,11 +132,11 @@ function albums_page_admin_editalbum() {
 				<label class="kop4" for="cont3"><?php echo $lang_albums12; ?></label>
 				<input name="cont3" id="cont3" type="text" size="3" value="85" />
 				<br /><br />
-				<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
+				<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
 			</form>
 		<?php
 		//Let's process the image...
-		if (isset($_POST['Submit'])) {
+		if (isset($_POST['submit'])) {
 			//Define some variables
 			$imageme = $_FILES['imagefile']['name'];
 			list($imageze, $ext) = explode('.', $imageme);
@@ -179,7 +179,7 @@ function albums_page_admin_editalbum() {
 
 			//Block images other then JPG.
 			else {
-				echo '<p><span class="red">'.$lang_image2.'</span></p>';
+				echo '<p><span class="red">'.$lang['general']['upload_failed'].'</span></p>';
 				include_once ('data/inc/footer.php');
 				exit;
 			}
@@ -260,7 +260,7 @@ function albums_page_admin_editalbum() {
 	?>
 		<br />
 		<p>
-			<a href="?module=albums">&lt;&lt;&lt; <?php echo $lang['back']; ?></a>
+			<a href="?module=albums">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 		</p>
 	<?php
 }
@@ -289,7 +289,7 @@ function albums_page_admin_editimage() {
 		?>
 		<br />
 		<form name="form1" method="post" action="">
-			<label class="kop2" for="cont1"><?php echo $lang['title']; ?></label>
+			<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
 			<br />
 			<input name="cont1" id="cont1" type="text" value="<?php echo $name; ?>" />
 			<br /><br />
@@ -297,12 +297,12 @@ function albums_page_admin_editimage() {
 			<br />
 			<textarea cols="50" rows="5" name="cont2" id="cont2"><?php echo $info; ?></textarea>
 			<br /><br />
-			<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
-			<input type="button" name="Cancel" value="<?php echo $lang['cancel']; ?>" onclick="javascript: window.location='?module=albums&amp;page=editalbum&amp;var1=<?php echo $var2; ?>';" />
+			<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
+			<input type="button" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?module=albums&amp;page=editalbum&amp;var1=<?php echo $var2; ?>';" />
 		</form>
 		<?php
 		//When the information is posted:
-		if (isset($_POST['Submit'])) {
+		if (isset($_POST['submit'])) {
 			//Sanitize data.
 			$cont1 = sanitize($cont1);
 			$cont2 = sanitize($cont2);
@@ -336,7 +336,7 @@ function albums_page_admin_deleteimage() {
 }
 
 function albums_page_admin_imageup() {
-	global $lang_updown3, $lang_updown6, $var1, $var2;
+	global $lang, $lang_updown6, $var1, $var2;
 
 	//Check if images exist.
 	if (file_exists('data/settings/modules/albums/'.$var2.'/'.$var1.'.jpg') && file_exists('data/settings/modules/albums/'.$var2.'/'.$var1.'.php') && file_exists('data/settings/modules/albums/'.$var2.'/thumb/'.$var1.'.jpg')) {
@@ -368,7 +368,7 @@ function albums_page_admin_imageup() {
 		rename ('data/settings/modules/albums/'.$var2.'/thumb/'.$var1.TEMP.'.jpg', 'data/settings/modules/albums/'.$var2.'/thumb/'.NAME.$higherpagenumber.'.jpg');
 
 		//Show message.
-		echo $lang_updown3;
+		echo $lang['general']['changing_rank'];
 	}
 
 	//Redirect.
@@ -376,7 +376,7 @@ function albums_page_admin_imageup() {
 }
 
 function albums_page_admin_imagedown() {
-	global $lang_updown3, $lang_updown7, $var1, $var2;
+	global $lang, $lang_updown7, $var1, $var2;
 
 	//Check if images exist.
 	if (file_exists('data/settings/modules/albums/'.$var2.'/'.$var1.'.jpg') && file_exists('data/settings/modules/albums/'.$var2.'/'.$var1.'.php') && file_exists('data/settings/modules/albums/'.$var2.'/thumb/'.$var1.'.jpg')) {
@@ -408,7 +408,7 @@ function albums_page_admin_imagedown() {
 		rename ('data/settings/modules/albums/'.$var2.'/thumb/'.$var1.TEMP.'.jpg', 'data/settings/modules/albums/'.$var2.'/thumb/'.NAME.$lowerpagenumber.'.jpg');
 
 		//Show message.
-		echo $lang_updown3;
+		echo $lang['general']['changing_rank'];
 	}
 
 	//Redirect.

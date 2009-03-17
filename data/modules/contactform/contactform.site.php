@@ -26,12 +26,12 @@ function contactform_theme_main() {
 				<br />
 				<textarea name="message" id="message" rows="7" cols="45"></textarea>
 				<br />
-				<input type="submit" name="Submit" value="<?php echo $lang['contactform']['send']; ?>" />
+				<input type="submit" name="submit" value="<?php echo $lang['contactform']['send']; ?>" />
 			</div>
 		</form>
 	<?php
 	//If the the contactform was submitted.
-	if (isset($_POST['Submit'])) {
+	if (isset($_POST['submit'])) {
 		//Check if all fields were filled.
 		if ($name && $sender && $message) {
 			//TODO: We need a better way to check for spam.

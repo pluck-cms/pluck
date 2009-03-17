@@ -24,7 +24,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 		<strong><?php echo $lang_theme6; ?></strong>
 	</p>
 <?php
-	if (!isset($_POST ['Submit'])) {
+	if (!isset($_POST ['submit'])) {
 	?>
 		<div class="menudiv" style="width: 500px;">
 			<span>
@@ -33,7 +33,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 			<div style="display: inline-block;">
 				<form method="post" action="" enctype="multipart/form-data">
 					<input type="file" name="sendfile" />
-					<input type="submit" name="Submit" value="<?php echo $lang_image9; ?>" />
+					<input type="submit" name="submit" value="<?php echo $lang['general']['upload']; ?>" />
 				</form>
 			</div>
 		</div>
@@ -43,17 +43,17 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 			</span>
 			<span>
 				<span class="kop3">
-					<a href="?action=theme" title="<?php echo $lang['back']; ?>">&lt;&lt;&lt; <?php echo $lang['back']; ?></a>
+					<a href="?action=theme" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 				</span>
 			</span>
 		</div>
 	<?php
 }
 
-if (isset($_POST['Submit'])) {
+if (isset($_POST['submit'])) {
 	//If no file has been sent.
 	if (!$_FILES['sendfile'])
-		echo $lang_image2;
+		echo $lang['general']['upload_failed'];
 
 	else {
 		//Some data.
@@ -72,7 +72,7 @@ if (isset($_POST['Submit'])) {
 
 			else {
 				//Save theme-file.
-				copy($_FILES ['sendfile'] ['tmp_name'], $dir.'/'.$filename) or die ($lang_image2);
+				copy($_FILES ['sendfile'] ['tmp_name'], $dir.'/'.$filename) or die ($lang['general']['upload_failed']);
 
 				//Then load the library for extracting the tar.gz-file.
 				require_once ('data/inc/lib/tarlib.class.php');

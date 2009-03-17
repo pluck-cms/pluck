@@ -41,18 +41,18 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 		</div>
 	</div>
 	<p>
-		<strong><?php echo $lang_theme1; ?></strong>
+		<strong><?php echo $lang['theme']['choose']; ?></strong>
 	</p>
 	<form action="" method="post">
 		<select name="cont1">
-			<option value="0"><?php echo $lang['choose']; ?></option>
+			<option value="0"><?php echo $lang['general']['choose']; ?></option>
 			<?php
-			$dirs = read_dir_contents('data/themes','dirs');
+			$dirs = read_dir_contents('data/themes', 'dirs');
 			if ($dirs) {
 				natcasesort($dirs);
 				foreach ($dirs as $dir) {
 					if (file_exists('data/themes/'.$dir.'/info.php')) {
-						include ('data/themes/'.$dir.'/info.php');
+						include_once ('data/themes/'.$dir.'/info.php');
 						//If theme is current theme, select it
 						if ($themedir == THEME) {
 						?>
@@ -72,16 +72,16 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 			?>
 		</select>
 		<br /><br />
-		<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
-		<input type="button" name="Cancel" value="<?php echo $lang['cancel']; ?>" onclick="javascript: window.location='?action=options';" />
+		<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
+		<input type="button" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?action=options';" />
 	</form>
 <?php
 //Save the theme-data
-if (isset($_POST['Submit']) && isset($cont1) && $cont1 != '0' && file_exists('data/themes/'.$cont1)) {
+if (isset($_POST['submit']) && isset($cont1) && $cont1 != '0' && file_exists('data/themes/'.$cont1)) {
 	save_theme($cont1);
 
 	//Redirect user
-	echo $lang_theme3;
+	echo $lang['theme']['saved'];
 	redirect('?action=options', 2);
 }
 ?>

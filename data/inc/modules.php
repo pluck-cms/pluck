@@ -23,7 +23,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 //Introduction text.
 ?>
 	<p>
-		<strong><?php echo $lang_modules1; ?></strong>
+		<strong><?php echo $lang['modules']['message']; ?></strong>
 	</p>
 <?php
 

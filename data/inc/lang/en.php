@@ -15,29 +15,31 @@ Language		English
 ------------------------------------------------
 */
 
-//Name of the language
-$language = "English";
+//Name of the language.
+$language = 'English';
 
 //----------------
-//Translation data
+//Translation data.
 
 //General
-$lang['404']           = '404: not found';
-$lang['not_found']     = 'This page could not be found.';
-$lang['copyright']     = 'pluck &copy; 2005-2009 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck is available under the terms of the GNU General Public License.';
-$lang['save']          = 'Save';
-$lang['cancel']        = 'Cancel';
-$lang['other_options'] = 'other options';
-$lang['title']         = 'title';
-$lang['contents']      = 'contents';
-$lang['choose']        = 'Choose...';
-$lang['back']          = 'back';
-$lang_image2 = 'Upload failed.';
-$lang_install22 = 'administration center';
-$lang_updown3 = 'Changing rank...';
-$lang_page7 = 'insert';
-$lang_modules6 = 'Don\'t display';
-$lang_image9 = "Upload";
+$lang['general']['404']           = '404: not found';
+$lang['general']['not_found']     = 'This page could not be found.';
+$lang['general']['copyright']     = 'pluck &copy; 2005-2009 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck is available under the terms of the GNU General Public License.';
+$lang['general']['save']          = 'Save';
+$lang['general']['cancel']        = 'Cancel';
+$lang['general']['other_options'] = 'other options';
+$lang['general']['title']         = 'title';
+$lang['general']['contents']      = 'contents';
+$lang['general']['choose']        = 'Choose...';
+$lang['general']['back']          = 'back';
+$lang['general']['upload_failed'] = 'Upload failed.';
+$lang['general']['admin_center']  = 'administration center';
+$lang['general']['changing_rank'] = 'Changing rank...';
+$lang['general']['insert']        = 'insert';
+$lang['general']['dont_display']  = 'Don\'t display';
+$lang['general']['upload']        = 'Upload';
+$lang['general']['change_title']  = 'change title';
+$lang['general']['images']        = 'images';
 
 //Login
 $lang['login']['not']         = 'not logged in';
@@ -76,18 +78,18 @@ $lang['update']['available']  = 'update available';
 $lang['update']['urgent']     = '<strong>urgent</strong> update available';
 $lang['update']['failed']     = 'update check failed';
 
-//Trash
-$lang_trash = "trashcan";
-$lang_trash1 = "move item to trashcan";
-$lang_trash2 = "Moving item to trashcan...";
-$lang_trash3 = "items in trashcan";
-$lang_trash4 = "The item could not be moved to the trashcan: the trashcan contains an item with the same name.";
-$lang_trash5 = "Deleted items are listed here. You can take a look at them, restore them or delete them from the trashcan.";
-$lang_trash6 = "empty trashcan";
-$lang_trash7 = "view item";
-$lang_trash8 = "delete item from trashcan";
-$lang_trash9 = "images";
-$lang_trash10 = "restore item";
+//Trashcan
+$lang['trashcan']['title'] = 'trashcan';
+$lang_trash3 = 'items in trashcan';
+$lang_trash1 = 'move item to trashcan';
+$lang_trash2 = 'Moving item to trashcan...';
+$lang_trash4 = 'The item could not be moved to the trashcan: the trashcan contains an item with the same name.';
+$lang_trash5 = 'Deleted items are listed here. You can take a look at them, restore them or delete them from the trashcan.';
+$lang_trash6 = 'empty trashcan';
+$lang_trash7 = 'view item';
+$lang_trash8 = 'delete item from trashcan';
+$lang_trash10 = 'restore item';
+$lang_trash11 = 'Are you sure you want to empty the trashcan? Please note that all items will be lost.';
 
 //Start
 $lang['start']['title']   = 'start';
@@ -149,8 +151,8 @@ $lang_updown6 = "This image already is on the top, so its rank can't be changed.
 $lang_updown7 = "This image already is the last one, so its rank can't be changed.";
 
 //Modules
-$lang_modules = "modules";
-$lang_modules1 = "Pluck has a variety of modules available, which you can use to extend your website with dynamic content.";
+$lang['modules']['title']   = 'modules';
+$lang['modules']['message'] = 'Pluck has a variety of modules available, which you can use to extend your website with dynamic content.';
 
 //Options
 $lang_kop4 = "options";
@@ -164,7 +166,6 @@ $lang_options5 = "it's a good idea to change your password regularly";
 //Settings
 $lang['settings']['title']	= 'general settings';
 $lang_settings5 = "Change general settings like the title of your website and your email address here.";
-$lang_kop6 = "change title";
 $lang_settings2 = "choose the title for your website here";
 $lang_install24 = "email";
 $lang_install25 = "your email address will be used to allow your visitors to contact you through an email form";
@@ -199,20 +200,19 @@ $lang_modules25 = "module installed";
 $lang_modules26 = "return to the <a href=\"?action=managemodules\">module page</a>";
 
 //Theme
-$lang_kop16 = "choose theme";
-$lang_theme1 = "Here you can choose which of the installed themes you want to use.";
-$lang_theme3 = "The themesettings have been saved.";
+$lang['theme']['title']  = 'choose theme';
+$lang['theme']['choose'] = 'Here you can choose which of the installed themes you want to use.';
+$lang['theme']['saved']  = 'The themesettings have been saved.';
+
+//Themeinstall
 $lang_theme5 = "install theme";
 $lang_theme6 = "Here you can install new themes. Please make sure you've downloaded a theme first.";
 $lang_theme8 = "The theme-file is too big; 1MB is the limit.";
 $lang_theme9 = "Installation failed. The server probably doesn't have installed the php-zlib module. You can contact your systemadministrator and ask to install this module.";
 $lang_theme10 =	"theme installed";
 $lang_theme11 =	"return to the <a href=\"?action=theme\">theme page</a>";
-
-//Themeinstall
 $lang_theme14 = "theme and module installation is not supported on this server, you will have to do it <a href=\"http://www.pluck-cms.org/docs/doku.php/docs:install_nozlib\" target=\"_blank\">manually</a>";
 $lang_theme15 = "Install failed: the file you specified is no valid file.";
-$lang_trash11 = "Are you sure you want to empty the trashcan? Please note that all items will be lost.";
 
 //Language
 $lang['language']['title']  = 'language settings';
@@ -220,10 +220,10 @@ $lang['language']['choose'] = 'Choose the language that will be used by pluck.';
 $lang['language']['saved']  = 'The languagesettings have been saved.';
 
 //Changepass
-$lang_kop10 = "change password";
-$lang_cpass1 = "Here you can change the password you use to login to the <i>pluck</i> administrationcenter. It's a good idea to change your password regularly.";
-$lang_cpass2 = "old password";
-$lang_cpass3 = "new password";
-$lang_cpass4 = "Can't change your password: the old password you entered isn't correct.";
+$lang['changepass']['title']   = 'change password';
+$lang['changepass']['message'] = "Here you can change the password you use to login to the <i>pluck</i> administrationcenter. It's a good idea to change your password regularly.";
+$lang['changepass']['old']     = 'old password';
+$lang['changepass']['new']     = 'new password';
+$lang_cpass4 = "Can't change your password, because the old password you entered isn't correct.";
 $lang_cpass5 = "Password has been changed.";
 ?>

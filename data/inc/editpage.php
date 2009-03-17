@@ -44,11 +44,11 @@ unset($module);
 //Form.
 ?>
 <form method="post" action="">
-	<label class="kop2" for="cont1"><?php echo $lang['title']; ?></label>
+	<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
 	<br />
 	<input name="cont1" id="cont1" type="text" value="<?php echo $title; ?>" />
 	<br /><br />
-	<span class="kop2"><?php echo $lang['contents']; ?></span>
+	<span class="kop2"><?php echo $lang['general']['contents']; ?></span>
 	<br />
 	<textarea class="tinymce" name="cont2" cols="70" rows="20"><?php echo htmlspecialchars($content) ?></textarea>
 	<br />
@@ -59,7 +59,7 @@ unset($module);
 					<img src="data/image/modules.png" alt="" />
 				</td>
 				<td>
-					<span class="kop3"><?php echo $lang_modules; ?></span>
+					<span class="kop3"><?php echo $lang['modules']['title']; ?></span>
 					<br />
 					<strong><?php echo $lang_modules16; ?></strong>
 					<br />
@@ -83,7 +83,7 @@ unset($module);
 										<td><?php echo $module_info['name']; ?></td>
 										<td>
 											<select name="cont3[<?php echo $module; ?>]">
-												<option value="0"><?php echo $lang_modules6; ?></option>
+												<option value="0"><?php echo $lang['general']['dont_display']; ?></option>
 												<?php
 													$counting_modules = 1;
 													while ($counting_modules <= $number_modules) {
@@ -126,7 +126,7 @@ unset($module);
 					<img src="data/image/options.png" alt="" />
 				</td>
 				<td>
-					<span class="kop3"><?php echo $lang['other_options']; ?></span>
+					<span class="kop3"><?php echo $lang['general']['other_options']; ?></span>
 					<br />
 					<input type="checkbox" name="cont4" id="cont4" <?php if ($hidden == 'no') echo'checked="checked"'; ?> value="no" /><label for="cont4"><?php echo $lang_pagehide1; ?></label>
 					<br />
@@ -134,12 +134,12 @@ unset($module);
 			</tr>
 		</table>
 	</div>
-	<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
-	<input type="button" name="Cancel" value="<?php echo $lang['cancel']; ?>" onclick="javascript: window.location='?action=page';" />
+	<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
+	<input type="button" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?action=page';" />
 </form>
 <?php
 //If form is posted...
-if (isset($_POST['Submit'])) {
+if (isset($_POST['submit'])) {
 	//Remove .php from the filename. We add it again in save_page.
 	$var1 = preg_replace('/.php$/', '', $var1);
 

@@ -38,5 +38,5 @@ if ($var2 == 'image' && file_exists('data/trash/images/'.$var1)) {
 }
 ?>
 <p>
-	<a href="?action=trashcan">&lt;&lt;&lt; <?php echo $lang['back']; ?></a>
+	<a href="?action=trashcan">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 </p>

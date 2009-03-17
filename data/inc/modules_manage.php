@@ -89,7 +89,7 @@ unset($dir);
 	</span>
 	<span>
 		<span class="kop3">
-			<a href="?action=options">&lt;&lt;&lt; <?php echo $lang['back']; ?></a>
+			<a href="?action=options">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 		</span>
 	</span>
 </div>

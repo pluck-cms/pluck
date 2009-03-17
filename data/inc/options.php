@@ -29,7 +29,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	//Show the divs
 	showmenudiv($lang['settings']['title'], $lang_settings3, 'data/image/page.png', '?action=settings');
 	showmenudiv($lang_modules3, $lang_modules4, 'data/image/modules.png', '?action=managemodules');
-	showmenudiv($lang_kop16, $lang_options3, 'data/image/themes.png', '?action=theme');
+	showmenudiv($lang['theme']['title'], $lang_options3, 'data/image/themes.png', '?action=theme');
 	showmenudiv($lang['language']['title'], $lang_options8, 'data/image/language.png', '?action=language');
-	showmenudiv($lang_kop10, $lang_options5, 'data/image/password.png', '?action=changepass');
+	showmenudiv($lang['changepass']['title'], $lang_options5, 'data/image/password.png', '?action=changepass');
 ?>

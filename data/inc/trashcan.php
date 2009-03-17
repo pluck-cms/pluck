@@ -86,7 +86,7 @@ else {
 }
 ?>
 <br />
-<span class="kop2"><?php echo $lang_trash9; ?></span>
+<span class="kop2"><?php echo $lang['general']['images']; ?></span>
 <br />
 <?php
 //Read images in array

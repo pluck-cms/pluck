@@ -36,14 +36,14 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 				<br />
 				<form name="form1" method="post" action="" enctype="multipart/form-data">
 					<input type="file" name="imagefile" />
-					<input type="submit" name="Submit" value="<?php echo $lang_image9; ?>" />
+					<input type="submit" name="submit" value="<?php echo $lang['general']['upload']; ?>" />
 				</form>
 			</td>
 		</tr>
 	</table>
 </div>
 <?php
-if (isset($_POST ['Submit'])) {
+if (isset($_POST ['submit'])) {
 	//Check if the file is JPG, PNG or GIF
 	if ($_FILES ['imagefile'] ['type'] == 'image/pjpeg' || $_FILES ['imagefile'] ['type'] == 'image/jpeg' || $_FILES ['imagefile'] ['type'] == 'image/png' || $_FILES ['imagefile'] ['type'] == 'image/gif') {
 
@@ -52,7 +52,7 @@ if (isset($_POST ['Submit'])) {
 	$filename = str_replace (' ', '', $filename);
 	$filename = str_replace ('%', '', $filename);
 
-	copy ($_FILES ['imagefile'] ['tmp_name'], 'images/'.$filename) or die ('<br />'.$lang_image2);
+	copy ($_FILES ['imagefile'] ['tmp_name'], 'images/'.$filename) or die ('<br />'.$lang['general']['upload_failed']);
 	chmod('images/'.$filename, 0666);
 	?>
 	<div class="menudiv">
@@ -104,5 +104,5 @@ $images = read_dir_contents('images', 'files');
 	}
 ?>
 <p>
-	<a href="?action=page">&lt;&lt;&lt; <?php echo $lang['back']; ?></a>
+	<a href="?action=page">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 </p>

@@ -174,11 +174,26 @@ a img {
 	border: 0px;
 }
 
-input {
+button, input {
 	background-color: #F4F4F4;
 	border: 1px solid gray;
 	color: gray;
 	padding: 2px;
+}
+
+button {
+	background-image: url('image/error_small.png');
+}
+
+input[type="submit"] {
+	background-image: url('image/update-no_small.png');
+}
+
+input[type="submit"], button {
+	cursor: pointer;
+	background-repeat: no-repeat;
+	background-position: 3px center;
+	padding-left: 20px;
 }
 
 textarea {
@@ -219,4 +234,22 @@ p {
 
 .red {
 	color: red;
+}
+
+.error {
+	color: red;
+}
+
+.info {
+	color: green;
+}
+
+.error, .info {
+	clear: both;
+	background-color: #F4F4F4;
+	border: 1px dotted gray;
+	display: inline-block;
+	font-weight: bold;
+	margin-top: 20px;
+	padding: 10px;
 }

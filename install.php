@@ -121,11 +121,11 @@ else {
 				<br />
 				<input name="cont5" id="cont5" type="password" />
 			</p>
-			<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
-			<input type="button" name="Cancel" value="<?php echo $lang['cancel']; ?>" onclick="javascript: window.location='?action=install';" />
+			<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
+			<input type="button" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?action=install';" />
 		</form>
 		<?php
-		if (isset($_POST['Submit'])) {
+		if (isset($_POST['submit'])) {
 			//Check the passwords.
 			if ($cont4 != $cont5 || $cont4 == '') {
 				?>
@@ -188,20 +188,20 @@ else {
 			<strong><?php echo $lang['install']['homepage']; ?></strong>
 		</p>
 		<form method="post" action="">
-			<label class="kop2" for="cont1"><?php echo $lang['title']; ?></label>
+			<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
 			<br />
 			<input name="cont1" id="cont1" type="text" />
 			<br /><br />
-			<label class="kop2" for="cont2"><?php echo $lang['contents']; ?></label>
+			<label class="kop2" for="cont2"><?php echo $lang['general']['contents']; ?></label>
 			<br />
 			<textarea name="cont2" id="cont2" class="tinymce" cols="70" rows="20"></textarea>
 			<br />
-			<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
-			<input type="button" name="Cancel" value="<?php echo $lang['cancel']; ?>" onclick="javascript: window.location='?action=install3';" />
+			<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
+			<input type="button" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?action=install3';" />
 		</form>
 		<?php
 		//Save the homepage.
-		if (isset($_POST['Submit'])) {
+		if (isset($_POST['submit'])) {
 			save_page('kop1', $cont1, $cont2, 'no');
 			redirect('?action=install5', 0);
 		}
@@ -221,7 +221,7 @@ else {
 			</p>
 		<?php
 		showmenudiv($lang['start']['website'], $lang['start']['result'], 'data/image/website.png', 'index.php');
-		showmenudiv($lang_install22, $lang['install']['manage'], 'data/image/password.png', 'login.php');
+		showmenudiv($lang['general']['admin_center'], $lang['install']['manage'], 'data/image/password.png', 'login.php');
 
 		include_once ('data/inc/footer.php');
 	}

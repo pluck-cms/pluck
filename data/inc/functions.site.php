@@ -37,7 +37,7 @@ function get_pagetitle() {
 
 		//If page doesn't exist; display error
 		else
-			return $lang['404'];
+			return $lang['general']['404'];
 	}
 
 	//Get the title if we are looking at a module page
@@ -156,7 +156,7 @@ function theme_content() {
 
 		//If page doesn't exist, show error message
 		else
-			echo $lang['not_found'];
+			echo $lang['general']['not_found'];
 	}
 }
 

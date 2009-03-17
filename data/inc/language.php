@@ -27,16 +27,16 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	</p>
 	<form action="" method="post">
 		<select name="cont1">
-			<option selected="selected" value="0"><?php echo $lang['choose']; ?></option>
+			<option selected="selected" value="0"><?php echo $lang['general']['choose']; ?></option>
 			<?php read_lang_files(LANG_FILE); ?>
 		</select>
 		<br /><br />
-		<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
-		<input type="button" name="Cancel" value="<?php echo $lang['cancel']; ?>" onclick="javascript: window.location='?action=options';" />
+		<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
+		<input type="button" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?action=options';" />
 	</form>
 <?php
 //Check if chosen language is valid, and then save data.
-if (isset($_POST['Submit']) && isset($cont1) && $cont1 != '0' && file_exists('data/inc/lang/'.$cont1)) {
+if (isset($_POST['submit']) && isset($cont1) && $cont1 != '0' && file_exists('data/inc/lang/'.$cont1)) {
 	save_language($cont1);
 
 	//Redirect user.

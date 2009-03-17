@@ -76,7 +76,7 @@ if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php'))
 											<td><?php echo $module_info['name']; ?></td>
 											<td>
 												<select name="<?php echo $position.'|'.$module; ?>">
-													<option value="0"><?php echo $lang_modules6; ?></option>
+													<option value="0"><?php echo $lang['general']['dont_display']; ?></option>
 													<?php
 														$counting_modules = 1;
 														while ($counting_modules <= $number_modules) {
@@ -115,13 +115,13 @@ if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php'))
 
 	//Show submit button etc.
 	?>
-	<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
-	<input type="button" name="Cancel" value="<?php echo $lang['cancel']; ?>" onclick="javascript: window.location='?action=managemodules';" />
+	<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
+	<input type="button" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?action=managemodules';" />
 </form>
 <?php
 //If the form has been posted, save the data.
 //------------------------------------------
-if (isset($_POST['Submit'])) {
+if (isset($_POST['submit'])) {
 	//Get POST-data.
 	if (isset($_POST['moduledir']))
 		$moduledir = $_POST['moduledir'];
@@ -148,8 +148,8 @@ if (isset($_POST['Submit'])) {
 
 	//Call all POST-variables.
 	foreach ($_POST as $variabletosplice => $display_order) {
-		//Exclude the Submit-button variable, and the modules that we don't want to show.
-		if ($variabletosplice != 'Submit' && $display_order != 0) {
+		//Exclude the submit-button variable, and the modules that we don't want to show.
+		if ($variabletosplice != 'submit' && $display_order != 0) {
 			list($areaname, $modulename) = explode('|', $variabletosplice);
 			//Save the data.
 			fputs($file, "\n".'$space[\''.$areaname.'\'][\''.$modulename.'\'] = '.$display_order.';');

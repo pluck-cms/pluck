@@ -41,7 +41,7 @@ function read_lang_files($not_this_file) {
 //Function: read out the images to let them include in pages
 //------------
 function read_imagesinpages($dir) {
-	global $lang_page7;
+	global $lang;
 	$files = read_dir_contents($dir, 'files');
 	if ($files) {
 		natcasesort($files);
@@ -56,7 +56,7 @@ function read_imagesinpages($dir) {
 						<a  style="font-size: 16px !important;" href="images/<?php echo $file; ?>" target="_blank"><?php echo $file; ?></a>
 					</span>
 					<br />
-					<a style="font-size: 14px;" href="#" onclick="tinyMCE.execCommand('mceInsertContent',false,'&lt;img src=\'images/<?php echo $file; ?>\' alt=\'\' />');return false;"><?php echo $lang_page7; ?></a>
+					<a style="font-size: 14px;" href="#" onclick="tinyMCE.execCommand('mceInsertContent',false,'&lt;img src=\'images/<?php echo $file; ?>\' alt=\'\' />');return false;"><?php echo $lang['general']['insert']; ?></a>
 				</span>
 			</div>
 		<?php

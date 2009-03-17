@@ -102,7 +102,7 @@ else {
 
 			//Page:Modules
 			case 'modules':
-				$titelkop = $lang_modules;
+				$titelkop = $lang['modules']['title'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/modules.php');
 				break;
@@ -144,14 +144,14 @@ else {
 
 			//Page:Options:Theme
 			case 'theme':
-				$titelkop = $lang_kop16;
+				$titelkop = $lang['theme']['title'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/theme.php');
 				break;
 
 			//Page:Options:Changepass
 			case 'changepass':
-				$titelkop = $lang_kop10;
+				$titelkop = $lang['changepass']['title'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/changepass.php');
 				break;
@@ -172,14 +172,14 @@ else {
 
 			//Page:Trashcan
 			case 'trashcan':
-				$titelkop = $lang_trash;
+				$titelkop = $lang['trashcan']['title'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/trashcan.php');
 				break;
 
 			//Page:Empty Trashcan
 			case 'trashcan_empty':
-				$titelkop = $lang_trash;
+				$titelkop = $lang['trashcan']['title'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/trashcan_empty.php');
 				break;

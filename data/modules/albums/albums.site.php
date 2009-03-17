@@ -96,7 +96,7 @@ function albums_page_site_viewalbum() {
 	}
 	?>
 		<p>
-			<a href="?file=<?php echo $pageback; ?>" title="<?php echo $lang['back']; ?>">&lt;&lt;&lt; <?php echo $lang['back']; ?></a>
+			<a href="?file=<?php echo $pageback; ?>" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 		</p>
 	<?php
 }
