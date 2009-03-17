@@ -145,7 +145,7 @@ else
 	<span class="kop4"><?php echo $lang_blog5; ?></span>
 	<br />
 	<input name="cat_name" id="cont1" type="text" />
-	<input type="submit" name="Submit" value="<?php echo $lang['save']; ?>" />
+	<input type="submit" name="Submit" value="<?php echo $lang['general']['save']; ?>" />
 </form>
 
 <?php
@@ -212,7 +212,7 @@ if (isset($_POST['cat_name'])) {
 }
 ?>
 <p>
-	<a href="?action=modules">&lt;&lt;&lt; <?php echo $lang['back']; ?></a>
+	<a href="?action=modules">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 </p>
 
 <?php
