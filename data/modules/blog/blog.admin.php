@@ -222,14 +222,15 @@ if (isset($_POST['cat_name'])) {
 // Page: deletecategory
 //---------------
 function blog_page_admin_deletecategory() {
+	global $var1;
 	//Check if config file exists
 	if(file_exists('data/settings/modules/blog/categories.dat')) {
 		$categories = file_get_contents('data/settings/modules/blog/categories.dat');
 
 		//Check if category exists in file, and if it has been saved comma seperated or not
 		//If category is not last in list:
-		if(ereg($var.',',$categories)) {
-			$categories = str_replace($var.',','',$categories);
+		if(ereg($var1.',',$categories)) {
+			$categories = str_replace($var1.',','',$categories);
 			//Open config file
 			$file = fopen('data/settings/modules/blog/categories.dat', 'w');
 			//Save categories
@@ -239,10 +240,10 @@ function blog_page_admin_deletecategory() {
 			chmod('data/settings/modules/blog/categories.dat', 0777);
 		}
 		//If category is last in list...
-		elseif(ereg($var,$categories)) {
+		elseif(ereg($var1,$categories)) {
 			//...but category is not the only one
-			if(ereg(','.$var,$categories)) {
-				$categories = str_replace(','.$var,'',$categories);
+			if(ereg(','.$var1,$categories)) {
+				$categories = str_replace(','.$var1,'',$categories);
 				//Open config file
 				$file = fopen('data/settings/modules/blog/categories.dat', 'w');
 				//Save categories
@@ -252,7 +253,7 @@ function blog_page_admin_deletecategory() {
 				chmod('data/settings/modules/blog/categories.dat', 0777);
 			}
 			//...and category is the only one
-			elseif(ereg($var,$categories)) {
+			elseif(ereg($var1,$categories)) {
 				unlink('data/settings/modules/blog/categories.dat');
 			}
 		}
