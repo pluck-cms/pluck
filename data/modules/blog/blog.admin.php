@@ -262,3 +262,360 @@ function blog_page_admin_deletecategory() {
 	//Redirect
 	redirect('?module=blog', 0);
 }
+
+//---------------
+// Page: editreactions
+//---------------
+function blog_page_admin_editreactions() {
+	global $lang, $lang_blog20, $lang_blog21, $lang_contact6, $var1, $page;
+?>
+
+<p><b><?php echo $lang_blog20; ?></b></p>
+<?php
+//Include blog post, if it exists
+if (file_exists('data/settings/modules/blog/posts/'.$var1)) {
+	include_once('data/settings/modules/blog/posts/'.$var1);
+
+//Display reactions
+if(isset($post_reaction_title)) {
+	foreach($post_reaction_title as $key => $value) {
+		$post_reaction_content[$key] = str_replace('<br />',"\n",$post_reaction_content[$key]); ?>
+
+<div class="menudiv" style="margin: 10px;">
+	<table>
+		<tr>
+			<td>
+				<img src="data/modules/blog/images/reactions.png" alt="" border="0">
+			</td>
+			<td style="width: 600px;">
+				<form method="post" action="">
+					<b><?php echo $lang['general']['title']; ?></b><br />
+			  		<input name="title" type="text" value="<?php echo $post_reaction_title[$key]; ?>" /><br /><br />
+
+					<textarea name="message" rows="5" cols="65"><?php echo $post_reaction_content[$key]; ?></textarea><br /><br />
+
+					<input name="edit_key" type="hidden" value="<?php echo $key; ?>" />
+					<input type="submit" name="Submit" value="<?php echo $lang['general']['save']; ?>" />
+				</form>
+			</td>
+			<td>
+				<a href="?module=blog&page=deletereactions&post=<?php echo $var1; ?>&key=<?php echo $key; ?>">
+					<img src="data/image/delete_from_trash.png" border="0" title="<?php echo $lang_blog21; ?>" alt="<?php echo $lang_blog21; ?>" />
+				</a>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<?php
+		}
+		unset($key);
+	}
+}
+
+//If form is posted...
+if(isset($_POST['Submit'])) {
+
+	//Check if everything has been filled in
+	if((!isset($_POST['title'])) || (!isset($_POST['message']))) { ?>
+		<span style="color: red;"><?php echo $lang_contact6; ?></span>
+	<?php
+		exit;
+	}
+
+	else {
+		//Fetch key variable
+		$edit_key = $_POST['edit_key'];
+
+		//Delete unwanted characters from post information
+		$title = sanitize($_POST['title']);
+		$name = sanitize($post_reaction_name[$edit_key]);
+		$message = sanitize($_POST['message']);
+
+		//Strip slashes from post itself too
+		$post_title = sanitize($post_title);
+		$post_category = sanitize($post_category);
+		$post_content = sanitize($post_content, false);
+
+		//Then, save existing post information
+		$file = fopen('data/settings/modules/blog/posts/'.$var1, 'w');
+		fputs($file, '<?php'."\n"
+		.'$post_title = \''.$post_title.'\';'."\n"
+		.'$post_category = \''.$post_category.'\';'."\n"
+		.'$post_content = \''.$post_content.'\';'."\n"
+		.'$post_day = \''.$post_day.'\';'."\n"
+		.'$post_month = \''.$post_month.'\';'."\n"
+		.'$post_year = \''.$post_year.'\';'."\n"
+		.'$post_time = \''.$post_time.'\';'."\n");
+
+		//Check if there already are other reactions
+		if (isset($post_reaction_title)) {
+			foreach ($post_reaction_title as $reaction_key => $value) {
+				//If it's the post we want to edit
+				if ($reaction_key == $edit_key) {
+					//And save the modified reaction
+					fputs($file, '$post_reaction_title['.$reaction_key.'] = \''.$title.'\';'."\n"
+					.'$post_reaction_name['.$reaction_key.'] = \''.$name.'\';'."\n"
+					.'$post_reaction_content['.$reaction_key.'] = \''.$message.'\';'."\n"
+					.'$post_reaction_day['.$reaction_key.'] = \''.$post_reaction_day[$reaction_key].'\';'."\n"
+					.'$post_reaction_month['.$reaction_key.'] = \''.$post_reaction_month[$reaction_key].'\';'."\n"
+					.'$post_reaction_year['.$reaction_key.'] = \''.$post_reaction_year[$reaction_key].'\';'."\n"
+					.'$post_reaction_time['.$reaction_key.'] = \''.$post_reaction_time[$reaction_key].'\';'."\n");
+				}
+				//If this is not the reaction we want to edit
+				else {
+					//Sanitize variables first
+					$post_reaction_title[$reaction_key] = sanitize($post_reaction_title[$reaction_key]);
+					$post_reaction_name[$reaction_key] = sanitize($post_reaction_name[$reaction_key]);
+					$post_reaction_content[$reaction_key] = sanitize($post_reaction_content[$reaction_key]);
+
+					//Then save it
+					fputs($file, '$post_reaction_title['.$reaction_key.'] = \''.$post_reaction_title[$reaction_key].'\';'."\n"
+					.'$post_reaction_name['.$reaction_key.'] = \''.$post_reaction_name[$reaction_key].'\';'."\n"
+					.'$post_reaction_content['.$reaction_key.'] = \''.$post_reaction_content[$reaction_key].'\';'."\n"
+					.'$post_reaction_day['.$reaction_key.'] = \''.$post_reaction_day[$reaction_key].'\';'."\n"
+					.'$post_reaction_month['.$reaction_key.'] = \''.$post_reaction_month[$reaction_key].'\';'."\n"
+					.'$post_reaction_year['.$reaction_key.'] = \''.$post_reaction_year[$reaction_key].'\';'."\n"
+					.'$post_reaction_time['.$reaction_key.'] = \''.$post_reaction_time[$reaction_key].'\';'."\n");
+				}
+			}
+			unset($reaction_key);
+		}
+		fputs($file, '?>');
+		fclose($file);
+		chmod('data/settings/modules/blog/posts/'.$var1, 0777);
+		redirect('?module=blog&page=editreactions&var1='.$var1, 0);
+	}
+}
+?>
+
+<p>
+	<a href="?module=blog"><<< <?php echo $lang['general']['back']; ?></a>
+</p>
+
+<?php
+}
+
+//---------------
+// Page: deletereactions
+//---------------
+function blog_page_admin_deletereactions() {
+	if ((isset($_GET['post'])) && (isset($_GET['key']))) {
+		//Set variables
+		$post = $_GET['post'];
+		$key = $_GET['key'];
+
+		//Check if post exists
+		if (file_exists('data/settings/modules/blog/posts/'.$post)) {
+			include('data/settings/modules/blog/posts/'.$post);
+
+			//Check if the post actually contains reactions
+			if(isset($post_reaction_title)) {
+				//Strip slashes from post itself
+				$post_title = sanitize($post_title);
+				$post_category = sanitize($post_category);
+				$post_content = sanitize($post_content, false);
+
+				//Then, save existing post information
+				$file = fopen('data/settings/modules/blog/posts/'.$post, 'w');
+				fputs($file, '<?php'."\n"
+				.'$post_title = \''.$post_title.'\';'."\n"
+				.'$post_category = \''.$post_category.'\';'."\n"
+				.'$post_content = \''.$post_content.'\';'."\n"
+				.'$post_day = \''.$post_day.'\';'."\n"
+				.'$post_month = \''.$post_month.'\';'."\n"
+				.'$post_year = \''.$post_year.'\';'."\n"
+				.'$post_time = \''.$post_time.'\';'."\n");
+
+				//Set new key to 0
+				$new_key = 0;
+
+				//Save reactions
+				foreach($post_reaction_title as $reaction_key => $value) {
+					//Don't save the reaction we want to delete
+					if($reaction_key != $key) {
+						//Sanitize reaction variables
+						$post_reaction_title[$reaction_key] = sanitize($post_reaction_title[$reaction_key]);
+						$post_reaction_name[$reaction_key] = sanitize($post_reaction_name[$reaction_key]);
+						$post_reaction_content[$reaction_key] = sanitize($post_reaction_content[$reaction_key]);
+						fputs($file, '$post_reaction_title['.$new_key.'] = \''.$post_reaction_title[$reaction_key].'\';'."\n"
+						.'$post_reaction_name['.$new_key.'] = \''.$post_reaction_name[$reaction_key].'\';'."\n"
+						.'$post_reaction_content['.$new_key.'] = \''.$post_reaction_content[$reaction_key].'\';'."\n"
+						.'$post_reaction_day['.$new_key.'] = \''.$post_reaction_day[$reaction_key].'\';'."\n"
+						.'$post_reaction_month['.$new_key.'] = \''.$post_reaction_month[$reaction_key].'\';'."\n"
+						.'$post_reaction_year['.$new_key.'] = \''.$post_reaction_year[$reaction_key].'\';'."\n"
+						.'$post_reaction_time['.$new_key.'] = \''.$post_reaction_time[$reaction_key].'\';'."\n");
+						//Adjust new key
+						$new_key++;
+					}
+				}
+				unset($reaction_key);
+
+				fputs($file, '?>');
+				fclose($file);
+				chmod('data/settings/modules/blog/posts/'.$post, 0777);
+				redirect('?module=blog&page=editreactions&var1='.$post, 0);
+			}
+		}
+	}
+
+	//Redirect
+	else {
+		redirect('?module=blog', 0);
+	}
+}
+
+//---------------
+// Page: editpost
+//---------------
+function blog_page_admin_editpost() {
+	global $lang, $lang_page8, $lang_blog27, $lang_blog26, $lang_blog25, $var1, $cont1, $cont2, $cont3;
+
+	//Include the postinformation
+	if (file_exists('data/settings/modules/blog/posts/'.$var1))
+		include('data/settings/modules/blog/posts/'.$var1);
+	else
+		exit;
+?>
+
+<div class="rightmenu">
+<?php echo $lang_page8; ?><br />
+<?php
+	//Generate the menu on the right
+	read_imagesinpages('images');
+?>
+</div>
+
+<form method="post" action="">
+	<span class="kop2"><?php echo $lang['general']['title']; ?></span><br>
+	<input name="cont1" type="text" value="<?php echo $post_title; ?>">
+	<br /><br />
+	<span class="kop2"><?php echo $lang_blog26; ?></span>
+	<br />
+	<select name="cont2">
+		<option value="<?php echo $lang_blog27; ?>"> <?php echo $lang_blog25; ?></option>
+<?php
+	//If there are categories
+	if(file_exists('data/settings/modules/blog/categories.dat')) {
+		//Load them
+		$categories = file_get_contents('data/settings/modules/blog/categories.dat');
+
+		//Then in an array
+		$categories = split(',',$categories);
+
+		//And show them
+		foreach($categories as $key => $name) {
+			if($post_category == $name)
+				echo '<option value="'.$name.'" selected />'.$name.'</option>';
+			else
+				echo '<option value="'.$name.'" />'.$name.'</option>';
+		}
+		unset($key);
+	}
+?>
+	</select><br /><br />
+
+	<span class="kop2"><?php echo $lang['general']['contents']; ?></span><br />
+	<textarea class="tinymce" name="cont3" cols="70" rows="20"><?php echo $post_content; ?></textarea><br>
+
+	<input type="submit" name="Submit" value="<?php echo $lang['general']['save']; ?>" />
+	<input type="button" name="Cancel" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?module=blog';" />
+</form>
+
+<?php
+	//If form is posted...
+	if(isset($_POST['Submit'])) {
+
+		//Sanitize variables
+		$cont1 = sanitize($cont1);
+		$cont2 = sanitize($cont2);
+		$cont3 = sanitize($cont3, false);
+
+		//Generate filename
+		$newfile = strtolower($cont1);
+		$newfile = str_replace('.', '', $newfile);
+		$newfile = str_replace(',', '', $newfile);
+		$newfile = str_replace('?', '', $newfile);
+		$newfile = str_replace(':', '', $newfile);
+		$newfile = str_replace('<', '', $newfile);
+		$newfile = str_replace('>', '', $newfile);
+		$newfile = str_replace('=', '', $newfile);
+		$newfile = str_replace('"', '', $newfile);
+		$newfile = str_replace('\'', '', $newfile);
+		$newfile = str_replace('/', '', $newfile);
+		$newfile = str_replace("\\", '', $newfile);
+		$newfile = str_replace('-', '', $newfile);
+		$newfile = str_replace('  ', '-', $newfile);
+		$newfile = str_replace(' ', '-', $newfile);
+
+		//Udate the post index file, if necessary
+		if ($var1 != $newfile.'.php') {
+			//Change old filename into new filename in post index
+			if (file_exists('data/settings/modules/blog/post_index.dat')) {
+				//Get post index
+				$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
+					//Check if post index contains old filename, and change it into new filename
+				if (ereg($var1."\n",$contents))
+					$contents = str_replace($var1."\n", $newfile.'.php'."\n", $contents);
+				elseif (ereg("\n".$var1,$contents))
+					$contents = str_replace("\n".$var1, "\n".$newfile.'.php', $contents);
+				elseif (ereg($var1,$contents))
+					$contents = str_replace($var1, $newfile.'.php', $contents);
+
+				//Save updated post index
+				$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
+				fputs($file, $contents);
+				fclose($file);
+				chmod('data/settings/modules/blog/post_index.dat', 0777);
+			}
+
+			//Check if the old post exists, then delete it
+			if (file_exists('data/settings/modules/blog/posts/'.$var1)) {
+				//Delete the post
+				unlink('data/settings/modules/blog/posts/'.$var1);
+			}
+
+		//Set the new post file to current file
+		$var = $newfile.'.php';
+		}
+
+		//Save information
+		$file = fopen('data/settings/modules/blog/posts/'.$var1, 'w');
+		fputs($file, '<?php'."\n"
+		.'$post_title = \''.$cont1.'\';'."\n"
+		.'$post_category = \''.$cont2.'\';'."\n"
+		.'$post_content = \''.$cont3.'\';'."\n"
+		.'$post_day = \''.$post_day.'\';'."\n"
+		.'$post_month = \''.$post_month.'\';'."\n"
+		.'$post_year = \''.$post_year.'\';'."\n"
+		.'$post_time = \''.$post_time.'\';'."\n");
+
+		//Check if there are reactions
+		if(isset($post_reaction_title)) {
+			foreach($post_reaction_title as $reaction_key => $value) {
+
+				//Sanitize reaction variables
+				$post_reaction_title[$reaction_key] = sanitize($post_reaction_title[$reaction_key]);
+				$post_reaction_name[$reaction_key] = sanitize($post_reaction_name[$reaction_key]);
+				$post_reaction_content[$reaction_key] = sanitize($post_reaction_content[$reaction_key]);
+
+				//And save the existing reaction
+				fputs($file, '$post_reaction_title['.$reaction_key.'] = \''.$post_reaction_title[$reaction_key].'\';'."\n"
+				.'$post_reaction_name['.$reaction_key.'] = \''.$post_reaction_name[$reaction_key].'\';'."\n"
+				.'$post_reaction_content['.$reaction_key.'] = \''.$post_reaction_content[$reaction_key].'\';'."\n"
+				.'$post_reaction_day['.$reaction_key.'] = \''.$post_reaction_day[$reaction_key].'\';'."\n"
+				.'$post_reaction_month['.$reaction_key.'] = \''.$post_reaction_month[$reaction_key].'\';'."\n"
+				.'$post_reaction_year['.$reaction_key.'] = \''.$post_reaction_year[$reaction_key].'\';'."\n"
+				.'$post_reaction_time['.$reaction_key.'] = \''.$post_reaction_time[$reaction_key].'\';'."\n");
+			}
+			unset($reaction_key);
+		}
+		fputs($file, '?>');
+		fclose($file);
+		chmod('data/settings/modules/blog/posts/'.$var1, 0777);
+
+		//Redirect user
+		redirect('?module=blog', 0);
+	}
+}
+?>
