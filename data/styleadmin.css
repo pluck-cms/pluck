@@ -123,6 +123,7 @@ h3 {
 }
 
 .menudiv .title-module {
+	width: 350px;
 	font-size: 17pt;
 	color: gray;
 }

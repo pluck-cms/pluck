@@ -54,7 +54,7 @@ foreach($dirs as $dir) {
 					<?php
 					}
 				?>
-			</span>
+				</span>
 			<span>
 				<a href="#" onclick="return kadabra('<?php echo $dir; ?>');">
 					<img src="data/image/credits.png" alt="<?php echo $lang_modules8; ?>" title="<?php echo $lang_modules8; ?>" />
@@ -83,13 +83,6 @@ foreach($dirs as $dir) {
 }
 unset($dir);
 ?>
-<div class="menudiv">
-	<span>
-		<img src="data/image/themes.png" alt="" />
-	</span>
-	<span>
-		<span class="kop3">
-			<a href="?action=options">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
-		</span>
-	</span>
-</div>
+<p>
+	<a href="?action=options">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
+</p>
