@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
  * http://www.pluck-cms.org
@@ -8,7 +8,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- 
+
  * See docs/COPYING for the complete license.
 */
 
@@ -19,13 +19,13 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	//Block all other code.
 	exit;
 }
-
-//Introduction text.
 ?>
 <p>
 	<strong><?php echo $lang_page1; ?></strong>
 </p>
 <?php
+//Run hook.
+run_hook('admin_pages_before');
 //New page button.
 showmenudiv($lang_page2, null, 'data/image/newpage.png', '?action=newpage');
 //Manage images button.

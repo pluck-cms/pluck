@@ -40,9 +40,11 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 			</span>
 		</div>
 	</div>
+
 	<p>
 		<strong><?php echo $lang['theme']['choose']; ?></strong>
 	</p>
+	<?php run_hook('admin_theme_before'); ?>
 	<form action="" method="post">
 		<select name="cont1">
 			<option value="0"><?php echo $lang['general']['choose']; ?></option>
