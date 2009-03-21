@@ -134,8 +134,8 @@ unset($module);
 			</tr>
 		</table>
 	</div>
-	<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
-	<input type="button" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?action=page';" />
+	<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" title="<?php echo $lang['general']['save']; ?>" />
+	<button type="button" onclick="javascript: window.location='?action=page';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
 </form>
 <?php
 //If form is posted...

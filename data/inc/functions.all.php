@@ -166,7 +166,7 @@ function run_hook($name, $par = null) {
 	if (!isset($name))
 		return;
 	foreach ($module_list as $module) {
-		if (is_callable($module.'_'.$name) && module_is_compatible($module)) {
+		if (function_exists($module.'_'.$name) && module_is_compatible($module)) {
 			if ($par == null)
 				call_user_func($module.'_'.$name);
 			else
@@ -174,5 +174,28 @@ function run_hook($name, $par = null) {
 		}
 	}
 	unset($module);
+}
+
+function show_error($message, $level, $return = false) {
+	switch ($level) {
+		case 1:
+			$class = 'error';
+			break;
+		case 2:
+			$class = 'notice';
+			break;
+		case 3:
+			$class = 'success';
+			break;
+		default:
+			$class = 'notice';
+	}
+
+	$value = '<span class="'.$class.'">'.$message.'</span>';
+
+	if ($return == true)
+		return $value;
+	else
+		echo $value;
 }
 ?>

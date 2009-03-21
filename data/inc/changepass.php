@@ -22,33 +22,40 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 ?>
 <?php
 if (isset($_POST['submit'])) {
-	//Include old password
+	//Include old password.
 	require_once ('data/settings/pass.php');
 
-	//MD5-encrypt posted passwords
+	//MD5-encrypt posted passwords.
 	if (!empty($cont1))
 		$cont1 = md5($cont1);
 
 	//Check if the old password entered is correct. If it isn't, do:
 	if ($ww != $cont1)
-		$error = '<span class="error">'.$lang_cpass4.'</span>';
+		$error = show_error($lang['changepass']['cant_change'], 1, true);
 
-	//If the old password entered is correct, save it
+	elseif (empty($cont2))
+		$error = show_error($lang['changepass']['empty'], 1, true);
+		
+	elseif ($cont2 != $cont3)
+		$error = show_error($lang['changepass']['different'], 1, true);
+
+	//If the old password entered is correct, save it.
 	else {
-		if (!empty($cont2)) {
 			save_password($cont2);
-			//Redirect user
-			echo '<span class="info">'.$lang_cpass5.'</span>';
+			show_error($lang['changepass']['changed'], 3);
 			redirect('?action=options', 2);
 			include_once ('data/inc/footer.php');
 			exit;
-		}
 	}
 }
 ?>
 <p>
 	<strong><?php echo $lang['changepass']['message']; ?></strong>
 </p>
+<?php
+if (isset($error))
+	echo $error;
+?>
 <form method="post" action="">
 	<label class="kop2" for="cont1"><?php echo $lang['changepass']['old']; ?></label>
 	<br />
@@ -58,9 +65,10 @@ if (isset($_POST['submit'])) {
 	<br />
 	<input name="cont2" id="cont2" type="password" />
 	<br /><br />
+	<label class="kop2" for="cont3"><?php echo $lang['changepass']['repeat']; ?></label>
+	<br />
+	<input name="cont3" id="cont3" type="password" />
+	<br /><br />
 	<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" title="<?php echo $lang['general']['save']; ?>" />
 	<button type="button" onclick="javascript: window.location='?action=options';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
 </form>
-<?php
-if (isset($error))
-	echo $error;

@@ -117,7 +117,7 @@ else {
 				<br />
 				<input name="cont4" id="cont4" type="password" />
 				<br /><br />
-				<label class="kop2" for="cont5"><?php echo $lang['install']['repeat_password']; ?></label>
+				<label class="kop2" for="cont5"><?php echo $lang['changepass']['repeat']; ?></label>
 				<br />
 				<input name="cont5" id="cont5" type="password" />
 			</p>
@@ -127,10 +127,10 @@ else {
 		<?php
 		if (isset($_POST['submit'])) {
 			//Check the passwords.
-			if ($cont4 != $cont5 || $cont4 == '') {
+			if ($cont4 != $cont5 || empty($cont4)) {
 				?>
 					<br />
-					<span class="red"><?php echo $lang['install']['two_passwords']; ?></span>
+					<span class="red"><?php echo $lang['changepass']['different']; ?></span>
 				<?php
 				include_once ('data/inc/footer.php');
 				exit;

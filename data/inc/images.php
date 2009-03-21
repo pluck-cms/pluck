@@ -103,6 +103,7 @@ $images = read_dir_contents('images', 'files');
 	<?php
 	}
 ?>
+<br /><br />
 <p>
 	<a href="?action=page">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 </p>

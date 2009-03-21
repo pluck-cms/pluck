@@ -68,9 +68,7 @@ $lang['install']['proceed']         = 'Proceed...';
 $lang['install']['homepage']        = 'Here you can edit the homepage of your website. Choose a title and edit the contents.';
 $lang['install']['success']         = 'pluck has been successfully installed!';
 $lang['install']['manage']          = 'manage your website';
-$lang['install']['repeat_password'] = 'repeat password';
 $lang['install']['general_info']    = 'Please give some general information about you and your website.';
-$lang['install']['two_passwords']   = 'You entered two different passwords!';
 
 //Update
 $lang['update']['up_to_date'] = 'pluck is up-to-date';
@@ -220,10 +218,13 @@ $lang['language']['choose'] = 'Choose the language that will be used by pluck.';
 $lang['language']['saved']  = 'The languagesettings have been saved.';
 
 //Changepass
-$lang['changepass']['title']   = 'change password';
-$lang['changepass']['message'] = "Here you can change the password you use to login to the <i>pluck</i> administrationcenter. It's a good idea to change your password regularly.";
-$lang['changepass']['old']     = 'old password';
-$lang['changepass']['new']     = 'new password';
-$lang_cpass4 = "Can't change your password, because the old password you entered isn't correct.";
-$lang_cpass5 = "Password has been changed.";
+$lang['changepass']['title']       = 'change password';
+$lang['changepass']['message']     = "Here you can change the password you use to login to the <i>pluck</i> administrationcenter. It's a good idea to change your password regularly.";
+$lang['changepass']['old']         = 'old password';
+$lang['changepass']['new']         = 'new password';
+$lang['changepass']['repeat']      = 'repeat new password';
+$lang['changepass']['cant_change'] = 'Can\'t change your password, because the old password you entered isn\'t correct.';
+$lang['changepass']['different']   = 'You entered two different passwords!';
+$lang['changepass']['empty']       = 'Your new password can\'t be empty.';
+$lang['changepass']['changed']     = 'Password has been changed.';
 ?>
