@@ -26,11 +26,12 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 		<strong><?php echo $lang['language']['choose']; ?></strong>
 	</p>
 	<form action="" method="post">
-		<select name="cont1">
-			<option selected="selected" value="0"><?php echo $lang['general']['choose']; ?></option>
-			<?php read_lang_files(LANG_FILE); ?>
-		</select>
-		<br /><br />
+		<p>
+			<select name="cont1">
+				<option selected="selected" value="0"><?php echo $lang['general']['choose']; ?></option>
+				<?php read_lang_files(LANG_FILE); ?>
+			</select>
+		</p>
 		<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
 		<input type="button" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?action=options';" />
 	</form>

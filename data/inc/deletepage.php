@@ -38,7 +38,7 @@ if (file_exists('data/settings/pages/'.$var1)) {
 		if (file_exists('data/trash/pages/kop1.php')) {
 			$i = 2;
 			$o = 3;
-			while ((file_exists('data/trash/pages/kop'.$i.'.php')) || (file_exists('data/trash/pages/kop'.$o.'.php'))) {
+			while (file_exists('data/trash/pages/kop'.$i.'.php') || file_exists('data/trash/pages/kop'.$o.'.php')) {
 				$i++;
 				$o++;
 			}

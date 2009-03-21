@@ -57,18 +57,21 @@ if (isset($error))
 	echo $error;
 ?>
 <form method="post" action="">
-	<label class="kop2" for="cont1"><?php echo $lang['changepass']['old']; ?></label>
-	<br />
-	<input name="cont1" id="cont1" type="password"/>
-	<br /><br />
-	<label class="kop2" for="cont2"><?php echo $lang['changepass']['new']; ?></label>
-	<br />
-	<input name="cont2" id="cont2" type="password" />
-	<br /><br />
-	<label class="kop2" for="cont3"><?php echo $lang['changepass']['repeat']; ?></label>
-	<br />
-	<input name="cont3" id="cont3" type="password" />
-	<br /><br />
+	<p>
+		<label class="kop2" for="cont1"><?php echo $lang['changepass']['old']; ?></label>
+		<br />
+		<input name="cont1" id="cont1" type="password"/>
+	</p>
+	<p>
+		<label class="kop2" for="cont2"><?php echo $lang['changepass']['new']; ?></label>
+		<br />
+		<input name="cont2" id="cont2" type="password" />
+	</p>
+	<p>
+		<label class="kop2" for="cont3"><?php echo $lang['changepass']['repeat']; ?></label>
+		<br />
+		<input name="cont3" id="cont3" type="password" />
+	</p>
 	<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" title="<?php echo $lang['general']['save']; ?>" />
 	<button type="button" onclick="javascript: window.location='?action=options';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
 </form>

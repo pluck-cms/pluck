@@ -26,9 +26,6 @@ require_once ('data/settings/options.php');
 	<p>
 		<strong><?php echo $lang_settings5; ?></strong>
 	</p>
-
-	<?php run_hook('admin_settings_before'); ?>
-
 	<form method="post" action="">
 		<p>
 			<label class="kop2" for="cont1"><?php echo $lang['general']['change_title']; ?></label>
@@ -50,8 +47,8 @@ require_once ('data/settings/options.php');
 			<input type="checkbox" name="cont3" id="cont3" value="true" <?php if ($xhtmlruleset == 'true') echo 'checked="checked"'; ?> />
 			<label for="cont3">&nbsp;<?php echo $lang_settings6; ?></label>
 		</p>
-		<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
-		<input type="button" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?action=options';" />
+		<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" title="<?php echo $lang['general']['save']; ?>" />
+		<button type="button" onclick="javascript: window.location='?action=options';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
 	</form>
 <?php
 //If form has been submitted.

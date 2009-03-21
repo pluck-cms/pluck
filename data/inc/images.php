@@ -20,7 +20,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
-//Introduction text
+//Introduction text.
 ?>
 <p>
 	<strong><?php echo $lang_image1; ?></strong>
@@ -44,13 +44,13 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 </div>
 <?php
 if (isset($_POST ['submit'])) {
-	//Check if the file is JPG, PNG or GIF
+	//Check if the file is JPG, PNG or GIF.
 	if ($_FILES ['imagefile'] ['type'] == 'image/pjpeg' || $_FILES ['imagefile'] ['type'] == 'image/jpeg' || $_FILES ['imagefile'] ['type'] == 'image/png' || $_FILES ['imagefile'] ['type'] == 'image/gif') {
 
-	//Strip spaces and % from the filename
-	$filename = $_FILES ['imagefile'] ['name'];
-	$filename = str_replace (' ', '', $filename);
-	$filename = str_replace ('%', '', $filename);
+	//Strip spaces and % from the filename.
+	$filename = $_FILES['imagefile']['name'];
+	$filename = str_replace(' ', '', $filename);
+	$filename = str_replace('%', '', $filename);
 
 	copy ($_FILES ['imagefile'] ['tmp_name'], 'images/'.$filename) or die ('<br />'.$lang['general']['upload_failed']);
 	chmod('images/'.$filename, 0666);
@@ -68,7 +68,7 @@ if (isset($_POST ['submit'])) {
 	}
 }
 
-//Display list of uploaded pictures
+//Display list of uploaded pictures.
 ?>
 <span class="kop2"><?php echo $lang_image7; ?></span>
 <br />
@@ -103,7 +103,6 @@ $images = read_dir_contents('images', 'files');
 	<?php
 	}
 ?>
-<br /><br />
 <p>
 	<a href="?action=page">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 </p>

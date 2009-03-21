@@ -44,10 +44,11 @@ unset($module);
 //Form.
 ?>
 <form method="post" action="">
-	<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
-	<br />
-	<input name="cont1" id="cont1" type="text" value="<?php echo $title; ?>" />
-	<br /><br />
+	<p>
+		<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
+		<br />
+		<input name="cont1" id="cont1" type="text" value="<?php echo $title; ?>" />
+	</p>
 	<span class="kop2"><?php echo $lang['general']['contents']; ?></span>
 	<br />
 	<textarea class="tinymce" name="cont2" cols="70" rows="20"><?php echo htmlspecialchars($content) ?></textarea>
