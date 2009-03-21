@@ -198,4 +198,18 @@ function show_error($message, $level, $return = false) {
 	else
 		echo $value;
 }
+
+function seo_url($url) {
+	require_once ('data/inc/lib/url_replace.php');
+
+	$url = preg_replace('/( |_)+/ ', '-', $url);
+	foreach ($lang_url_replace as $old => $new)
+		$url = str_replace($old, $new, $url);
+	$url = urlencode($url);
+	$url = preg_replace('/(%..|\.)/', '', $url);
+	$url = preg_replace('/(-)+/ ', '-', $url);
+	$url = trim($url, '-');
+	$url = strtolower($url);
+	return $url;
+}
 ?>
