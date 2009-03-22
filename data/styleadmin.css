@@ -237,7 +237,8 @@ p {
 .error, .notice, .success {
 		padding: .8em;
 		padding-left: 50px;
-		margin-bottom: 1em;
+		margin-bottom: 0.5em;
+		margin-top: 0.5em;
 		border: 2px solid #ddd;
 		display: inline-block;
 }

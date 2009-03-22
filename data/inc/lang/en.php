@@ -47,7 +47,7 @@ $lang['login']['not_message'] = 'You are not logged in! A moment, please...';
 $lang['login']['title']       = 'log in';
 $lang['login']['password']    = 'password';
 $lang['login']['correct']     = 'Password correct. Logging you in...';
-$lang['login']['incorrect']   = 'Password incorrect. A moment, please...';
+$lang['login']['incorrect']   = 'Password incorrect.';
 $lang['login']['log_out']     = 'log out';
 
 //Install

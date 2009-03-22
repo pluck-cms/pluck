@@ -58,25 +58,21 @@ else {
 		exit;
 	}
 
-	//If password has not yet been sent.
-	if (!isset($_POST['submit'])) {
-		//Include header-file.
-		$titelkop = $lang['login']['title'];
-		include_once ('data/inc/header2.php');
-		?>
-			<span class="kop2"><?php echo $lang['login']['password']; ?></span><br />
-			<form action="login.php" method="post" name="passform">
-				<input name="cont1" size="25" type="password" />
-				<?php //FIXME: Do we use the bogusField for anything? ?>
-				<input type="text" name="bogusField" style="display: none;" />
-				<input type="submit" name="submit" value="<?php echo $lang['login']['title']; ?>" />
-			</form>
-		<?php
-		include_once ('data/inc/footer.php');
-	}
+	//Include header-file.
+	$titelkop = $lang['login']['title'];
+	include_once ('data/inc/header2.php');
+	?>
+		<span class="kop2"><?php echo $lang['login']['password']; ?></span><br />
+		<form action="login.php" method="post" name="passform">
+			<input name="cont1" size="25" type="password" />
+			<?php //FIXME: Do we use the bogusField for anything? ?>
+			<input type="text" name="bogusField" style="display: none;" />
+			<input type="submit" name="submit" value="<?php echo $lang['login']['title']; ?>" />
+		</form>
+	<?php
 
 	//If password has been sent...
-	elseif (isset($_POST['submit'])) {
+	if (isset($_POST['submit'])) {
 		//...first MD5-encrypt password that has been posted.
 		$pass = md5($cont1);
 
@@ -86,21 +82,17 @@ else {
 			$_SESSION['cmssystem_loggedin'] = 'ok';
 			//Display successmessage.
 			$titelkop = $lang['login']['title'];
-			include_once ('data/inc/header2.php');
-			echo $lang['login']['correct'];
-			redirect('admin.php?action=start', 1);
-			include_once ('data/inc/footer.php');
+			show_error($lang['login']['correct'], 3);
+			redirect('admin.php?action=start', 2);
 		}
 
 		//---------------
 		//...or is NOT correct:
 		else {
 			$titelkop = $lang['login']['title'];
-			include_once ('data/inc/header2.php');
-			echo $lang['login']['incorrect'];
-			redirect('login.php', 3);
-			include_once ('data/inc/footer.php');
+			show_error($lang['login']['incorrect'], 1);
 		}
 	}
+	include_once ('data/inc/footer.php');
 }
 ?>
