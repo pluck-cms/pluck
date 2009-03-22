@@ -20,8 +20,12 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
-//Function: check if module is compatible.
-//--------------------
+/**
+ * Check if module is compatible with the current version of pluck.
+ *
+ * @param string $module The module you want to check.
+ * @return bool
+ */
 function module_is_compatible($module) {
 	//Include module information.
 	if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
@@ -46,8 +50,14 @@ function module_is_compatible($module) {
 		return false;
 }
 
-//Function: recursively delete an entire directory.
-//--------------------
+/**
+ * Recursively delete an entire directory.
+ *
+ * @param string $directory The dir you want to remove.
+ * @param bool $empty
+ * @return bool
+ * @todo What does empty mean?
+ */
 function recursive_remove_directory($directory, $empty = false)	{
 	if (substr($directory, -1) == '/')
 		$directory = substr($directory, 0, -1);
@@ -176,6 +186,14 @@ function run_hook($name, $par = null) {
 	unset($module);
 }
 
+/**
+ * Displays or returns an error, notice or success message.
+ *
+ * @param string $message The message to display.
+ * @param integer $level <b>1:</b> error, <b>2:</b> notice and <b>3:</b> success.
+ * @param bool $return Should it return the error?
+ * @return string <b>NOTE:</b> Only returns when $return is true.
+ */
 function show_error($message, $level, $return = false) {
 	switch ($level) {
 		case 1:
@@ -199,15 +217,21 @@ function show_error($message, $level, $return = false) {
 		echo $value;
 }
 
+/**
+ * Convert a given string to a SEO safe URL.
+ *
+ * @param string $url String to convert to a SEO URL.
+ * @return string A SEO safe URL.
+ */
 function seo_url($url) {
 	require_once ('data/inc/lib/url_replace.php');
 
-	$url = preg_replace('/( |_)+/ ', '-', $url);
+	$url = preg_replace('/( |_)+/', '-', $url);
 	foreach ($lang_url_replace as $old => $new)
 		$url = str_replace($old, $new, $url);
 	$url = urlencode($url);
 	$url = preg_replace('/(%..|\.)/', '', $url);
-	$url = preg_replace('/(-)+/ ', '-', $url);
+	$url = preg_replace('/(-)+/', '-', $url);
 	$url = trim($url, '-');
 	$url = strtolower($url);
 	return $url;
