@@ -26,6 +26,7 @@ require_once ('data/settings/options.php');
 	<p>
 		<strong><?php echo $lang_settings5; ?></strong>
 	</p>
+	<?php run_hook('admin_settings_before'); ?>
 	<form method="post" action="">
 		<p>
 			<label class="kop2" for="cont1"><?php echo $lang['general']['change_title']; ?></label>
