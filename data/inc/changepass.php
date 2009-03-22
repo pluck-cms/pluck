@@ -35,7 +35,7 @@ if (isset($_POST['submit'])) {
 
 	elseif (empty($cont2))
 		$error = show_error($lang['changepass']['empty'], 1, true);
-		
+
 	elseif ($cont2 != $cont3)
 		$error = show_error($lang['changepass']['different'], 1, true);
 
