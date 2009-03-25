@@ -73,5 +73,5 @@ if (isset($error))
 		<input name="cont3" id="cont3" type="password" />
 	</p>
 	<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" title="<?php echo $lang['general']['save']; ?>" />
-	<button type="button" onclick="javascript: window.location='?action=options';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
+	<button type="button" class="cancel" onclick="javascript: window.location='?action=options';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
 </form>

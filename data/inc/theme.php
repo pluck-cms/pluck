@@ -75,7 +75,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 		</select>
 		<br /><br />
 		<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
-		<input type="button" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?action=options';" />
+		<button class="cancel" type="button" onclick="javascript: window.location='?action=options';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
 	</form>
 <?php
 //Save the theme-data

@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
  * http://www.pluck-cms.org
@@ -8,7 +8,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- 
+
  * See docs/COPYING for the complete license.
 */
 
@@ -136,7 +136,7 @@ unset($module);
 		</table>
 	</div>
 	<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" title="<?php echo $lang['general']['save']; ?>" />
-	<button type="button" onclick="javascript: window.location='?action=page';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
+	<button class="cancel" type="button" onclick="javascript: window.location='?action=page';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
 </form>
 <?php
 //If form is posted...

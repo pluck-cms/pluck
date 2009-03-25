@@ -182,7 +182,7 @@ button, input {
 	padding: 2px;
 }
 
-button {
+button.cancel {
 	background-image: url('image/error_small.png');
 }
 

@@ -531,7 +531,7 @@ function blog_page_admin_editpost() {
 	<textarea class="tinymce" name="cont3" cols="70" rows="20"><?php echo $post_content; ?></textarea><br>
 
 	<input type="submit" name="Submit" value="<?php echo $lang['general']['save']; ?>" />
-	<input type="button" name="Cancel" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?module=blog';" />
+	<button class="cancel" type="button" onclick="javascript: window.location='?module=blog';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
 </form>
 
 <?php
@@ -721,7 +721,7 @@ function blog_page_admin_newpost() {
 		<textarea class="tinymce" name="cont3" cols="70" rows="20"></textarea><br />
 
 		<input type="submit" name="Submit" value="<?php echo $lang['general']['save']; ?>">
-		<input type="button" name="Cancel" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?module=blog';">
+		<button class="cancel" type="button" onclick="javascript: window.location='?module=blog';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
 	</form>
 
 	<?php
@@ -797,7 +797,7 @@ function blog_page_admin_newpost() {
 		.'$post_time = \''.$time.'\';'."\n"
 		.'?>');
 		fclose($file);
-		chmod('data/settings/modules/blog/posts/'.$newfile.'.php',0777);
+		chmod('data/settings/modules/blog/posts/'.$newfile.'.php', 0777);
 
 		//Redirect user
 		redirect('?module=blog', 0);
