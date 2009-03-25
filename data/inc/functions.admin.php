@@ -47,7 +47,7 @@ function read_imagesinpages($dir) {
 		natcasesort($files);
 		foreach ($files as $file) {
 		?>
-			<div class="menudiv" style="width: 200px;">
+			<div class="menudiv">
 				<span>
 					<img src="data/image/image_small.png" alt="" />
 				</span>
@@ -75,8 +75,9 @@ function read_pagesinpages($dir, $current_page = null) {
 		foreach ($files as $file) {
 			if ($current_page != $file) {
 				require 'data/settings/pages/'.$file;
+				$file = get_page_seoname($file);
 				?>
-					<div class="menudiv" style="width: 200px;">
+					<div class="menudiv">
 						<span>
 							<img src="data/image/page_small.png" alt="" />
 						</span>
@@ -260,9 +261,9 @@ function save_page($name, $title, $content, $hidden = 'no', $description = null,
 	.'$hidden = \''.$hidden.'\';');
 
 	//Save the description and keywords, if any.
-	if (!empty($description) && $description != null)
+	if ($description != null)
 		fputs($file, "\n".'$description = \''.$description.'\';');
-	if (!empty($keywords) && $keywords != null)
+	if ($keywords != null)
 		fputs($file, "\n".'$keywords = \''.$keywords.'\';');
 
 	//Check if there are modules we want to save.

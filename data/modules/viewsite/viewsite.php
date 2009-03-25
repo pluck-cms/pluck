@@ -19,7 +19,7 @@ function viewsite_admin_menu_inside_before() {
 		<div class="menuitem">
 			<span>
 				<img src="data/image/website.png" alt="" height="22" />
-				<a href="index.php?file=kop1.php" title="<?php echo $lang['viewsite']['message']; ?>" target="_blank"><?php echo $lang['viewsite']['message']; ?></a>
+				<a href="index.php<?php echo HOME_PAGE; ?>" title="<?php echo $lang['viewsite']['message']; ?>" target="_blank"><?php echo $lang['viewsite']['message']; ?></a>
 			</span>
 		</div>
 	<?php

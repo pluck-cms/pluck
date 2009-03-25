@@ -20,37 +20,48 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
-//Check if file exists
-if (file_exists('data/settings/pages/'.$var1.'')) {
+//Check if file exists.
+if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
+	$current_page_filename = get_page_filename($var1);
+	$pages = read_dir_contents('data/settings/pages', 'files');
+	sort($pages, SORT_NUMERIC);
 
-	//We can't higher kop1.php, so we have to check:
-	if ($var1 == 'kop1.php') {
-		echo $lang_updown2;
+	//Find current page number, and the prior page number.
+	foreach ($pages as $number => $page) {
+		if ($current_page_filename == $page) {
+			$current_page_number = $number + 1;
+			$prior_page_number = $number;
+		}
+	}
+
+	//Check if the page isn't already the first one.
+	if (!isset($prior_page_number) || $prior_page_number == 0) {
+		show_error($lang_updown2, 2);
 		redirect('?action=page', 2);
 		include_once('data/inc/footer.php');
 		exit;
 	}
 
-	//Determine the page number
-	list($pagenumber1, $extension) = explode('.', $var1);
-	list($filename, $pagenumber) =  explode('p', $pagenumber1);
+	//Fin the prior page filename.
+	foreach ($pages as $number => $page) {
+		if ($prior_page_number == $number + 1)
+			$prior_page_filename = $page;
+	}
 
-	//Define prefixes
-	$temp = '_temp';
-	$kop = 'kop';
-	$ext = 'php';
-	//First make temporary file
-	rename('data/settings/pages/'.$var1.'', 'data/settings/pages/'.$var1.$temp.'');
+	//Split the filenames, so we can switch numbers.
+	$current_page_filename_split = explode('.', $current_page_filename);
+	$prior_page_filename_split = explode('.', $prior_page_filename);
 
-	//Then make the higher page one lower
-	$higherpagenumber = ($pagenumber-1);
-	rename('data/settings/pages/'.$kop.$higherpagenumber.'.'.$ext.'', 'data/settings/pages/'.$var1.'');
+	//Switch the numbers.
+	$current_page_filename_new = $prior_page_filename_split[0].'.'.$current_page_filename_split[1].'.'.$current_page_filename_split[2];
+	$prior_page_filename_new = $current_page_filename_split[0].'.'.$prior_page_filename_split[1].'.'.$prior_page_filename_split[2];
 
-	//Finally, give the temp-file its final name
-	rename('data/settings/pages/'.$var1.$temp.'', 'data/settings/pages/'.$kop.$higherpagenumber.'.'.$ext.'');
+	//And rename the files.
+	rename('data/settings/pages/'.$current_page_filename, 'data/settings/pages/'.$current_page_filename_new);
+	rename('data/settings/pages/'.$prior_page_filename, 'data/settings/pages/'.$prior_page_filename_new);
 
-	//Display message
-	echo $lang['general']['changing_rank'];
+	//Display message.
+	show_error($lang['general']['changing_rank'], 3);
 }
 redirect('?action=page', 0);
 ?>

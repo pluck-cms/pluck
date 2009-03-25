@@ -12,6 +12,25 @@
  * See docs/COPYING for the complete license.
 */
 
+//Load all the modules, so we can use hooks.
+//This has to be done before anything else.
+$path = opendir('data/modules');
+while (false !== ($dir = readdir($path))) {
+	if ($dir != '.' && $dir != '..') {
+		if (is_dir('data/modules/'.$dir))
+			$modules[] = $dir;
+	}
+}
+closedir($path);
+
+foreach ($modules as $module) {
+	if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
+		require_once ('data/modules/'.$module.'/'.$module.'.php');
+		$module_list[] = $module;
+	}
+}
+unset($module);
+
 //Include security-enhancements.
 require_once ('data/inc/security.php');
 //Include functions.
@@ -92,7 +111,7 @@ else {
 		</p>
 		<form method="post" action="">
 			<p>
-				<label class="kop2" for="cont1"><?php echo $lang['title'] ?></label>
+				<label class="kop2" for="cont1"><?php echo $lang['general']['title'] ?></label>
 				<br />
 				<span class="kop4"><?php echo $lang_settings2 ?></span>
 				<br />
@@ -202,7 +221,8 @@ else {
 		<?php
 		//Save the homepage.
 		if (isset($_POST['submit'])) {
-			save_page('kop1', $cont1, $cont2, 'no');
+			$pagename = seo_url($cont1);
+			save_page('1.'.$pagename, $cont1, $cont2, 'no');
 			redirect('?action=install5', 0);
 		}
 		include_once ('data/inc/footer.php');

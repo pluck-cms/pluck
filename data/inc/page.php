@@ -34,9 +34,10 @@ showmenudiv($lang_kop17, null, 'data/image/image.png', '?action=images');
 //Show pages.
 $files = read_dir_contents('data/settings/pages', 'files');
 if ($files) {
-	natcasesort($files);
+	sort($files, SORT_NUMERIC);
 	foreach ($files as $file) {
 		include ('data/settings/pages/'.$file);
+		$file = get_page_seoname($file);
 		?>
 			<div class="menudiv">
 				<span>
@@ -46,7 +47,7 @@ if ($files) {
 				<?php run_hook('admin_page_list_before'); ?>
 				<span>
 					<a href="?action=editpage&amp;var1=<?php echo $file; ?>">
-					<img src="data/image/edit.png" title="<?php echo $lang_page3; ?>" alt="<?php echo $lang_page3; ?>" />
+						<img src="data/image/edit.png" title="<?php echo $lang_page3; ?>" alt="<?php echo $lang_page3; ?>" />
 					</a>
 				</span>
 				<span>

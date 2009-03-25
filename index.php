@@ -53,7 +53,7 @@ require_once ('data/inc/functions.site.php');
 require_once ('data/inc/variables.all.php');
 require_once ('data/inc/variables.site.php');
 
-//Then, if we have a RTL-language and theme hasn't been converted
+//Then, if we have a RTL-language and theme hasn't been converted.
 if (isset($direction) && $direction == 'rtl' && !file_exists(THEME_DIR.'/style-rtl.css')) {
 	//Convert theme and save CSS
 	include_once ('data/inc/themes_convert-rtl.php');
@@ -61,29 +61,23 @@ if (isset($direction) && $direction == 'rtl' && !file_exists(THEME_DIR.'/style-r
 
 run_hook('site_before_redirects');
 
-//Check if a page or module has been specified, if not: redirect to kop1.php
-if (!defined('CURRENT_PAGE_FILENAME') && !defined('CURRENT_MODULE_DIR')) {
-	header('Location: '.HOME_PAGE);
-	exit;
-}
-
-//Or if a page has been specified but it's empty
-elseif (defined('CURRENT_PAGE_FILENAME') && empty($_GET['file'])) {
+//Check if a page or module has been specified, if not: redirect to HOME_PAGE.
+if (!defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_MODULE_DIR')) {
 	header('Location: '.HOME_PAGE);
 	exit;
 }
 
 //If a module has been specified...
 if (defined('CURRENT_MODULE_DIR')) {
-	//Check if the module exists
+	//Check if the module exists.
 	if (file_exists('data/modules/'.CURRENT_MODULE_DIR)) {
-		//And check if we also specified a page (if not, redirect)
+		//And check if we also specified a page (if not, redirect).
 		if (defined('CURRENT_MODULE_DIR') && !defined('CURRENT_MODULE_PAGE')) {
 			header('Location: '.HOME_PAGE);
 			exit;
 		}
 
-		//If a page has been set, check if it exists (if not, redirect)
+		//If a page has been set, check if it exists (if not, redirect).
 		elseif (defined('CURRENT_MODULE_DIR') && defined('CURRENT_MODULE_PAGE')) {
 			if (!function_exists(CURRENT_MODULE_DIR.'_page_site_'.CURRENT_MODULE_PAGE)) {
 				header('Location: '.HOME_PAGE);
@@ -92,15 +86,13 @@ if (defined('CURRENT_MODULE_DIR')) {
 		}
 	}
 
-	//If module doesn't exist, also redirect
+	//If module doesn't exist, also redirect.
 	else {
 		header('Location: '.HOME_PAGE);
 		exit;
 	}
 }
 
-//NOW, INCLUDE THE PAGE
-//---------------------------------
-//---------------------------------
+//Now, include the page.
 include_once (THEME_DIR.'/theme.php');
 ?>
