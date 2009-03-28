@@ -28,8 +28,36 @@ function get_pagetitle() {
 	if (defined('CURRENT_PAGE_SEONAME')) {
 		//Check if page exists
 		if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
-			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
-			return $title;
+			/*if (strpos(CURRENT_PAGE_FILENAME, '/') !== false) {
+				$parts = explode('/', CURRENT_PAGE_FILENAME);
+				$count = count($parts);
+				unset($parts[$count -1]);
+
+				$pages = $parts;
+				include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
+				$titles[] = $title;
+
+				foreach ($parts as $part) {
+					$page = implode('/', $pages);
+					include ('data/settings/pages/'.get_page_filename($page));
+					$titles[] = $title;
+					$pages = explode('/', $page);
+					$count = count($pages);
+					unset($pages[$count -1]);
+				}
+
+				$final_title = '';
+				foreach ($titles as $title)
+					$final_title =  $final_title.' &middot; '.$title;
+
+				$final_title = ltrim($final_title, '&middot; ');
+				return $final_title;
+			}
+			
+			else {*/
+				include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
+				return $title;
+			//}
 		}
 
 		//If page doesn't exist; display error

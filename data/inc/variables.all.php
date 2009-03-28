@@ -65,6 +65,7 @@ if (file_exists('data/settings/pages')) {
 	//FIXME: Is there a better way to do this?
 	else
 		$homepage = '404';
+
 	run_hook('const_home_page', array(&$homepage));
 	define('HOME_PAGE', '?file='.$homepage);
 	unset($homepage);

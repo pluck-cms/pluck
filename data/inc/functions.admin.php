@@ -95,6 +95,81 @@ function read_pagesinpages($dir, $current_page = null) {
 	}
 }
 
+function show_pages($patch) {
+	$files = read_dir_contents($patch, 'files');
+	if ($files) {
+		sort($files, SORT_NUMERIC);
+		foreach ($files as $file) {
+			show_page_box($patch.'/'.$file);
+			if (file_exists($patch.'/'.get_page_seoname($file))) {
+				$dirs = read_dir_contents($patch, 'dirs');
+				if ($dirs) {
+					foreach ($dirs as $dir) {
+						$seo_file = explode('/', get_page_seoname($patch.'/'.$file));
+						$seo_count = count($seo_file);
+						$seo_file = $seo_file[$seo_count - 1];
+						if (empty($seo_file) || $dir == $seo_file) {
+							show_pages($patch.'/'.$dir);
+						}
+					}
+					unset($dir);
+				}
+			}
+		}
+		unset($file);
+	}
+}
+
+function show_page_box($file) {
+	global $lang_page3, $lang_meta1, $lang_updown1, $lang_trash1;
+
+	include_once ($file);
+	$file = str_replace('data/settings/pages/', '', $file);
+	$file = get_page_seoname($file);
+
+	//Find the margin.
+	preg_match_all('|\/|', $file, $margin);
+	if (!empty($margin[0]))
+		$margin = count($margin[0]) * 20 + 10;
+	else
+		$margin = 0;
+	?>
+		<div class="menudiv" <?php if ($margin != 0) echo 'style="margin-left: '.$margin.'px;"'; ?>>
+			<span>
+				<img src="data/image/page.png" alt="" />
+			</span>
+			<span class="title-page"><?php echo $title; ?></span>
+			<?php run_hook('admin_page_list_before'); ?>
+			<span>
+				<a href="?action=editpage&amp;var1=<?php echo $file; ?>">
+					<img src="data/image/edit.png" title="<?php echo $lang_page3; ?>" alt="<?php echo $lang_page3; ?>" />
+				</a>
+			</span>
+			<span>
+				<a href="?action=editmeta&amp;var1=<?php echo $file; ?>">
+					<img src="data/image/siteinformation.png" title="<?php echo $lang_meta1; ?>" alt="<?php echo $lang_meta1; ?>" />
+				</a>
+			</span>
+			<span>
+				<a href="?action=pageup&amp;var1=<?php echo $file; ?>">
+					<img src="data/image/up.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" />
+				</a>
+			</span>
+			<span>
+				<a href="?action=pagedown&amp;var1=<?php echo $file; ?>">
+					<img src="data/image/down.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" />
+				</a>
+			</span>
+			<span>
+				<a href="?action=deletepage&amp;var1=<?php echo $file; ?>">
+					<img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" />
+				</a>
+			</span>
+			<?php run_hook('admin_page_list_after'); ?>
+		</div>
+	<?php
+}
+
 //Function: display a menudiv.
 //-------------------
 function showmenudiv($title, $text, $image, $url, $blank = false, $more = null) {
