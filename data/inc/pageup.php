@@ -23,7 +23,20 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 //Check if file exists.
 if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
 	$current_page_filename = get_page_filename($var1);
-	$pages = read_dir_contents('data/settings/pages', 'files');
+
+	if (strpos($current_page_filename, '/') !== false) {
+		$patch = explode('/', $current_page_filename);
+		$count = count($patch);
+		$current_page_filename = $patch[$count - 1];
+		unset($patch[$count - 1]);
+		$patch = implode('/', $patch);
+		$patch = '/'.$patch;
+	}
+
+	else
+		$patch = '';
+
+	$pages = read_dir_contents('data/settings/pages'.$patch, 'files');
 	sort($pages, SORT_NUMERIC);
 
 	//Find current page number, and the prior page number.
@@ -56,9 +69,12 @@ if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
 	$current_page_filename_new = $prior_page_filename_split[0].'.'.$current_page_filename_split[1].'.'.$current_page_filename_split[2];
 	$prior_page_filename_new = $current_page_filename_split[0].'.'.$prior_page_filename_split[1].'.'.$prior_page_filename_split[2];
 
+	if (strpos($patch, '/') !== false)
+		$patch = ltrim($patch, '/').'/';
+
 	//And rename the files.
-	rename('data/settings/pages/'.$current_page_filename, 'data/settings/pages/'.$current_page_filename_new);
-	rename('data/settings/pages/'.$prior_page_filename, 'data/settings/pages/'.$prior_page_filename_new);
+	rename('data/settings/pages/'.$patch.$current_page_filename, 'data/settings/pages/'.$patch.$current_page_filename_new);
+	rename('data/settings/pages/'.$patch.$prior_page_filename, 'data/settings/pages/'.$patch.$prior_page_filename_new);
 
 	//Display message.
 	show_error($lang['general']['changing_rank'], 3);
