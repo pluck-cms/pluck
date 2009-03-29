@@ -50,7 +50,7 @@ foreach($dirs as $dir) {
 					//If module has been disabled, show warning
 					if (!module_is_compatible($dir)) {
 					?>
-						<span class="red"><?php echo $lang_modules27; ?></span>
+						<span style="color:red;"><?php echo $lang_modules27; ?></span>
 					<?php
 					}
 				?>

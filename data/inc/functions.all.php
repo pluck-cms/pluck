@@ -38,7 +38,7 @@ function module_is_compatible($module) {
 
 			//Now check if we have a compatible version. NOTE: If pluck is an alpha or beta version, it will always be compatible.
 			foreach ($version_compat as $number => $version) {
-				if ($version == PLUCK_VERSION || preg_match('/(alpha|beta)/', PLUCK_VERSION)) {
+				if (preg_match('/'.$version.'/', PLUCK_VERSION) || preg_match('/(alpha|beta)/', PLUCK_VERSION)) {
 					return true;
 				}
 			}
@@ -252,8 +252,8 @@ function get_page_seoname($filename) {
 
 		//Remove "data/settings/pages/" from the patch, if it exist.
 		$patch = str_replace('data/settings/pages/', '', $patch);
-		
-		//Run thought the pages in the folder, if it exists.
+
+		//Run through the pages in the folder, if it exists.
 		if (file_exists('data/settings/pages/'.$patch)) {
 			$pages = read_dir_contents('data/settings/pages/'.$patch, 'files');
 			if ($pages != false) {

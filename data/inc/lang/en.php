@@ -219,7 +219,7 @@ $lang['language']['saved']  = 'The languagesettings have been saved.';
 
 //Changepass
 $lang['changepass']['title']       = 'change password';
-$lang['changepass']['message']     = "Here you can change the password you use to login to the <i>pluck</i> administrationcenter. It's a good idea to change your password regularly.";
+$lang['changepass']['message']     = 'Here you can change the password you use to login to the <i>pluck</i> administrationcenter. It\'s a good idea to change your password regularly.';
 $lang['changepass']['old']         = 'old password';
 $lang['changepass']['new']         = 'new password';
 $lang['changepass']['repeat']      = 'repeat new password';
@@ -227,4 +227,63 @@ $lang['changepass']['cant_change'] = 'Can\'t change your password, because the o
 $lang['changepass']['different']   = 'You entered two different passwords!';
 $lang['changepass']['empty']       = 'Your new password can\'t be empty.';
 $lang['changepass']['changed']     = 'Password has been changed.';
+
+//Blog
+$lang_blog = 'blog';
+$lang_blog1 = 'use a blog to post news or write articles for your visitors';
+$lang_blog3 = 'categories';
+$lang_blog4 = 'new category';
+$lang_blog5 = 'choose a name for your new category first, then click "save"';
+$lang_blog6 = 'delete category';
+$lang_blog7 = 'edit category';
+$lang_blog9 = 'existing posts';
+$lang_blog10 = 'write new post';
+$lang_blog11 = 'edit post';
+$lang_blog12 = 'delete post';
+$lang_blog14 = 'posted in';
+$lang_blog16 = 'reactions';
+$lang_blog17 = 'Title:';
+$lang_blog19 = 'edit reactions';
+$lang_blog20 = 'Here, you can edit the reactions of your visitors on the post.';
+$lang_blog21 = 'delete reaction';
+$lang_blog22 = 'HTML-code is not allowed.';
+$lang_blog23 = 'view or post reactions';
+$lang_blog24 = 'Here, you can make new posts to add to your blog. Posts will be automatically sorted on date.';
+$lang_blog25 = 'Choose category...';
+$lang_blog26 = 'category';
+$lang_blog27 = 'no category';
+
+//Albums
+$lang_albums = 'albums';
+$lang_albums1 = 'Here you can manage your albums. Use albums to show your visitors your favourite photos and images. Insert the albums in your page(s) by choosing "insert album" when editing a page.';
+$lang_albums2 = 'edit albums';
+$lang_albums3 = 'new album';
+$lang_albums4 = 'choose a name for your new album first, then click "save"';
+$lang_albums5 = 'delete album';
+$lang_albums6 = 'edit album';
+$lang_albums7 = 'use albums to show your visitors your favourite photos and images';
+$lang_albums8 = 'Use this page to add, delete and edit images in your album. Only <b>JPG</b>-images are supported.';
+$lang_albums9 = 'edit images';
+$lang_albums10 ='new image';
+$lang_albums11 = 'description';
+$lang_albums12 = 'quality (1-100)';
+$lang_albums13 = 'upload a new image here. choose a title and a description, and choose the quality at which the images should be processed. the higher the quality, the higher the filesize.';
+$lang_albums14 = 'nothing yet...';
+$lang_albums15 = 'edit image';
+$lang_albums16	= 'Albums are not supported on this server: it probably doesn\'t have installed the php-gd module. You can contact your system administrator and ask to install this module.';
+$lang_albums17	= 'include album in this page:';
+$lang_albums18 = 'The specified album doesn\'t exist.';
+$lang_albums19 = 'There is already an album with that name.';
+
+//Contact form
+$lang['contactform']['module_name']  = 'contact form';
+$lang['contactform']['module_intro'] = 'with a contact form, you can allow your visitors to send you a message';
+$lang['contactform']['name']         = 'Name:';
+$lang['contactform']['email']        = 'Email:';
+$lang['contactform']['message']      = 'Message:';
+$lang['contactform']['send']         = 'Send';
+$lang['contactform']['fields']       = 'You didn\'t fill in all fields correctly.';
+$lang['contactform']['email_title']  = 'Message from your website from';
+$lang['contactform']['been_send']    = 'Your message has been send succesfully.';
+$lang['contactform']['not_send']     = 'Your message could not be send, an error occurred.';
 ?>
