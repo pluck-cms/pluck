@@ -20,8 +20,10 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
+$filename = get_page_filename($var1);
+
 //Include the actual siteinfo
-require_once ('data/settings/pages/'.$var1);
+require_once ('data/settings/pages/'.$filename);
 
 //Introduction text
 ?>
@@ -43,13 +45,13 @@ require_once ('data/settings/pages/'.$var1);
 <?php
 if (isset($_POST['submit'])) {
 	//Remove .php from the filename. We add it again in save_page.
-	$page = preg_replace('/.php$/', '', $var1);
+	$filename = preg_replace('/.php$/', '', $filename);
 
 	//Save the page
 	if (isset($module_pageinc))
-		save_page($page, $title, $content, $hidden, $cont1, $cont2, $module_pageinc);
+		save_page($filename, $title, $content, $hidden, $cont1, $cont2, $module_pageinc);
 	else
-		save_page($page, $title, $content, $hidden, $cont1, $cont2);
+		save_page($filename, $title, $content, $hidden, $cont1, $cont2);
 
 	//Redirect user
 	echo $lang_meta4;

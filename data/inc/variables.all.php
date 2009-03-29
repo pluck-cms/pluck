@@ -53,20 +53,23 @@ if (file_exists('data/settings/themepref.php')) {
 	define('THEME', $themepref);
 	define('THEME_DIR', 'data/themes/'.$themepref);
 }
-define('HOME_PAGE', '?file=kop1.php');
 
-//General variables (included for compatibiltiy with pluck 4.6).
-$pluck_version = PLUCK_VERSION;
-$site_title = SITE_TITLE;
-$site_langfile = LANG_FILE;
-$site_lang = LANG;
-if (file_exists('data/settings/options.php'))
-	$site_email = EMAIL;
-if (file_exists('data/settings/themepref.php')) {
-	$site_theme = THEME;
-	$themedirectory = THEME_DIR;
+if (file_exists('data/settings/pages')) {
+	$homepage = read_dir_contents('data/settings/pages', 'files');
+
+	if ($homepage != false) {
+		sort($homepage, SORT_NUMERIC);
+		$homepage = get_page_seoname($homepage[0]);
+	}
+
+	//FIXME: Is there a better way to do this?
+	else
+		$homepage = '404';
+
+	run_hook('const_home_page', array(&$homepage));
+	define('HOME_PAGE', '?file='.$homepage);
+	unset($homepage);
 }
-$homepage = HOME_PAGE;
 
 //GETS
 if (isset($_GET['action']))

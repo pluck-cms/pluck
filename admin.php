@@ -232,7 +232,6 @@ else {
 			case 'deletepage':
 				$titelkop = $lang_trash1;
 				include_once ('data/inc/header.php');
-				echo $lang_trash2;
 				include_once ('data/inc/deletepage.php');
 				break;
 

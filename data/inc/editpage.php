@@ -20,8 +20,10 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
+$filename = get_page_filename($var1);
+
 //Include page information.
-require_once ('data/settings/pages/'.$var1);
+require_once ('data/settings/pages/'.$filename);
 
 //Load module functions.
 foreach ($module_list as $module) {
@@ -37,7 +39,7 @@ unset($module);
 <br />
 <?php
 	read_imagesinpages('images');
-	read_pagesinpages('data/settings/pages', $var1);
+	read_pagesinpages('data/settings/pages', $filename);
 ?>
 </div>
 <?php
@@ -141,11 +143,24 @@ unset($module);
 <?php
 //If form is posted...
 if (isset($_POST['submit'])) {
-	//Remove .php from the filename. We add it again in save_page.
-	$var1 = preg_replace('/.php$/', '', $var1);
+	//Get the filename.
+	$filename = get_page_filename($var1);
 
+	//Remove the old file.
+	//TODO: Only delete the file, when the title has been changed.
+	unlink('data/settings/pages/'.$filename);
+	
+	//Create the new filename.
+	$filename = explode('.', $filename);
+	$newfilename = $filename[0].'.'.seo_url($cont1);
+
+	if (empty($description))
+		$description = '';
+	if (empty($keywords))
+		$keywords = '';
+		
 	//Save the page.
-	save_page($var1, $cont1, $cont2, $cont4, $description, $keywords, $cont3);
+	save_page($newfilename, $cont1, $cont2, $cont4, $description, $keywords, $cont3);
 
 	//Redirect the user.
 	redirect('?action=page', 0);

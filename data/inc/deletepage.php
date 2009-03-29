@@ -21,37 +21,29 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 
 //Check if page exists.
-if (file_exists('data/settings/pages/'.$var1)) {
+if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
+	$pages = read_dir_contents('data/trash/pages', 'files');
 
-	//First check if there isn't an item with the same name in the trashcan.
-	if (!file_exists('data/trash/pages/'.$var1)) {
-
-		//Move the page to the trashcan.
-		copy('data/settings/pages/'.$var1, 'data/trash/pages/'.$var1);
-		chmod('data/trash/pages/'.$var1, 0777);
-		unlink('data/settings/pages/'.$var1);
-	}
-
-	//If there is an item with the same name in the trashcan.
-	else {
-		//Now we have to check which filenames we can then use.
-		if (file_exists('data/trash/pages/kop1.php')) {
-			$i = 2;
-			$o = 3;
-			while (file_exists('data/trash/pages/kop'.$i.'.php') || file_exists('data/trash/pages/kop'.$o.'.php')) {
-				$i++;
-				$o++;
+	//If there are pages in trash, check if there's one with the same name.
+	if ($pages != false) {
+		foreach ($pages as $page) {
+			if ($page ==  $var1.'.php') {
+				show_error($lang_trash4, 2);
+				redirect('?action=page', 2);
+				include_once('data/inc/footer.php');
+				exit;
 			}
-			$newfile = 'data/trash/pages/kop'.$i.'.php';
 		}
-		else
-			$newfile = 'data/trash/pages/kop1.php';
-
-		//Move the file with the new filename.
-		copy('data/settings/pages/'.$var1, $newfile);
-		chmod($newfile, 0777);
-		unlink('data/settings/pages/'.$var1);
 	}
+
+	//Move the file.
+	rename('data/settings/pages/'.get_page_filename($var1), 'data/trash/pages/'.$var1.'.php');
+
+	//Reorder the pages
+	reorder_pages('data/settings/pages');
+
+	//Show message.
+	show_error($lang_trash2, 3);
 }
 
 //Redirect user.

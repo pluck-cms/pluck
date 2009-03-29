@@ -236,4 +236,84 @@ function seo_url($url) {
 	$url = strtolower($url);
 	return $url;
 }
+
+function get_page_seoname($filename) {
+	if (strpos($filename, '/') !== false) {
+		//Split the page name, and count how many matches there are.
+		$matches = explode('/', $filename);
+		$count = count($matches);
+
+		//The last match is the page we want to find.
+		$page = $matches[$count - 1];
+
+		//Remove the last match, so we can find the file patch.
+		unset($matches[$count - 1]);
+		$patch = implode('/', $matches);
+
+		//Remove "data/settings/pages/" from the patch, if it exist.
+		$patch = str_replace('data/settings/pages/', '', $patch);
+		
+		//Run thought the pages in the folder, if it exists.
+		if (file_exists('data/settings/pages/'.$patch)) {
+			$pages = read_dir_contents('data/settings/pages/'.$patch, 'files');
+			if ($pages != false) {
+				foreach ($pages as $filename) {
+					//Is there a page with the name?
+					if ($filename == $page) {
+						$seoname = explode('.', $filename);
+						return $patch.'/'.$seoname[1];
+					}
+				}
+				unset($filename);
+			}
+		}
+	}
+
+	elseif (file_exists('data/settings/pages/'.$filename)) {
+		$seoname = explode('.', $filename);
+		return $seoname[1];
+	}
+	return false;
+}
+
+function get_page_filename($seoname) {
+	$pages = read_dir_contents('data/settings/pages', 'files');
+
+	//Are there any pages?
+	if ($pages != false) {
+		//Is it a sub page?
+		if (strpos($seoname, '/') !== false) {
+			//Split the page name, and count how many matches there are.
+			$matches = explode('/', $seoname);
+			$count = count($matches);
+
+			//The last match is the page we want to find.
+			$page = $matches[$count - 1];
+
+			//Remove the last match, so we can find the file patch.
+			unset($matches[$count - 1]);
+			$patch = implode('/', $matches);
+
+			//Run thought the pages in the sub-folder, if it exists.
+			if (file_exists('data/settings/pages/'.$patch)) {
+				$pages = read_dir_contents('data/settings/pages/'.$patch, 'files');
+				if ($pages != false) {
+					foreach ($pages as $filename) {
+						if (strpos($filename, '.'.$page.'.'))
+							return $patch.'/'.$filename;
+					}
+				}
+			}
+		}
+
+		//Or just a normal one?
+		else {
+			foreach ($pages as $filename) {
+				if (strpos($filename, '.'.$seoname.'.'))
+					return $filename;
+			}
+		}
+	}
+	return false;
+}
 ?>

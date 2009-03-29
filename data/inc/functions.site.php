@@ -25,14 +25,39 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 function get_pagetitle() {
 	global $lang, $module;
 	//Get the title if we are looking at a normal page
-	if (isset($_GET['file']) && !empty($_GET['file'])) {
-		if (isset($_GET ['file']))
-			$filetoread = $_GET ['file'];
-
+	if (defined('CURRENT_PAGE_SEONAME')) {
 		//Check if page exists
-		if (file_exists('data/settings/pages/'.$filetoread)) {
-			include ('data/settings/pages/'.$filetoread);
-			return $title;
+		if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
+			/*if (strpos(CURRENT_PAGE_FILENAME, '/') !== false) {
+				$parts = explode('/', CURRENT_PAGE_FILENAME);
+				$count = count($parts);
+				unset($parts[$count -1]);
+
+				$pages = $parts;
+				include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
+				$titles[] = $title;
+
+				foreach ($parts as $part) {
+					$page = implode('/', $pages);
+					include ('data/settings/pages/'.get_page_filename($page));
+					$titles[] = $title;
+					$pages = explode('/', $page);
+					$count = count($pages);
+					unset($pages[$count -1]);
+				}
+
+				$final_title = '';
+				foreach ($titles as $title)
+					$final_title =  $final_title.' &middot; '.$title;
+
+				$final_title = ltrim($final_title, '&middot; ');
+				return $final_title;
+			}
+			
+			else {*/
+				include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
+				return $title;
+			//}
 		}
 
 		//If page doesn't exist; display error
@@ -100,22 +125,19 @@ function theme_sitetitle() {
 
 //[THEME] FUNCTION TO SHOW THE MENU
 //---------------------------------
-function theme_menu($html,$htmlactive = NULL) {
+function theme_menu($html, $htmlactive = NULL) {
 	$files = read_dir_contents('data/settings/pages', 'files');
 	if ($files) {
 		//Sort the array.
 		natcasesort($files);
 
 		foreach ($files as $file) {
-			if (isset($_GET['file']))
-				$currentpage = $_GET['file'];
-
 			include ('data/settings/pages/'.$file);
-
+			$file = get_page_seoname($file);
 			//Only display in menu if page isn't hidden by user.
 			if (isset($hidden) && $hidden == 'no') {
 				//Check if we need to show an active link.
-				if (isset($currentpage) && $currentpage == $file && $htmlactive) {
+				if (defined('CURRENT_PAGE_SEONAME') && CURRENT_PAGE_SEONAME == $file && $htmlactive) {
 					$html_new = str_replace('#title', $title, $htmlactive);
 					$html_new = str_replace('#file', '?file='.$file, $html_new);
 					echo $html_new;
@@ -144,9 +166,9 @@ function theme_content() {
 	global $lang;
 
 	//Get the contents only if we are looking at a normal page
-	if (defined('CURRENT_PAGE_FILENAME')) {
+	if (defined('CURRENT_PAGE_SEONAME')) {
 		//Check if page exists
-		if (file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
+		if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
 			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
 			run_hook('theme_content_before');
 			run_hook('theme_content', array(&$content));

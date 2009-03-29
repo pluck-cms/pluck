@@ -21,8 +21,8 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 
 //Page
-if ($var2 == 'page' && file_exists('data/trash/pages/'.$var1))
-	unlink('data/trash/pages/'.$var1);
+if ($var2 == 'page' && file_exists('data/trash/pages/'.$var1.'.php'))
+	unlink('data/trash/pages/'.$var1.'.php');
 
 //Image
 if ($var2 == 'image' && file_exists('data/trash/images/'.$var1))

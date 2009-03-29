@@ -20,8 +20,8 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
-if ($var2 == 'page' && file_exists('data/trash/pages/'.$var1)) {
-	include ('data/trash/pages/'.$var1);
+if ($var2 == 'page' && file_exists('data/trash/pages/'.$var1.'.php')) {
+	include ('data/trash/pages/'.$var1.'.php');
 	?>
 		<div class="menudiv" style="padding: 15px; margin: 25px;">
 			<span class="kop2"><?php echo $title; ?></span>

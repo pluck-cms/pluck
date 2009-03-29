@@ -125,19 +125,16 @@ unset($module);
 <?php
 //If form is posted...
 if (isset($_POST['submit'])) {
-	//Check which filenames are already in use.
-	if (file_exists('data/settings/pages/kop1.php')) {
-		$i = 2;
-		$o = 3;
-		while (file_exists('data/settings/pages/kop'.$i.'.php') || file_exists('data/settings/pages/kop'.$o.'.php')) {
-			$i++;
-			$o++;
-		}
-		$newfile = 'kop'.$i;
-	}
-	else {
-		$newfile = 'kop1';
-	}
+	$pages = read_dir_contents('data/settings/pages', 'files');
+
+	if ($pages == false)
+		$pages = 0;
+	else
+		$pages = count($pages);
+
+	$pages++;
+
+	$newfile = $pages.'.'.seo_url($cont1);
 
 	//Save the page.
 	save_page($newfile, $cont1, $cont2, $cont4, null, null, $cont3);

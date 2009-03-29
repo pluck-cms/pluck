@@ -32,47 +32,5 @@ showmenudiv($lang_page2, null, 'data/image/newpage.png', '?action=newpage');
 showmenudiv($lang_kop17, null, 'data/image/image.png', '?action=images');
 
 //Show pages.
-$files = read_dir_contents('data/settings/pages', 'files');
-if ($files) {
-	natcasesort($files);
-	foreach ($files as $file) {
-		include ('data/settings/pages/'.$file);
-		?>
-			<div class="menudiv">
-				<span>
-					<img src="data/image/page.png" alt="" />
-				</span>
-				<span class="title-page"><?php echo $title; ?></span>
-				<?php run_hook('admin_page_list_before'); ?>
-				<span>
-					<a href="?action=editpage&amp;var1=<?php echo $file; ?>">
-					<img src="data/image/edit.png" title="<?php echo $lang_page3; ?>" alt="<?php echo $lang_page3; ?>" />
-					</a>
-				</span>
-				<span>
-					<a href="?action=editmeta&amp;var1=<?php echo $file; ?>">
-						<img src="data/image/siteinformation.png" title="<?php echo $lang_meta1; ?>" alt="<?php echo $lang_meta1; ?>" />
-					</a>
-				</span>
-				<span>
-					<a href="?action=pageup&amp;var1=<?php echo $file; ?>">
-						<img src="data/image/up.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" />
-					</a>
-				</span>
-				<span>
-					<a href="?action=pagedown&amp;var1=<?php echo $file; ?>">
-						<img src="data/image/down.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" />
-					</a>
-				</span>
-				<span>
-					<a href="?action=deletepage&amp;var1=<?php echo $file; ?>">
-						<img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" />
-					</a>
-				</span>
-				<?php run_hook('admin_page_list_after'); ?>
-			</div>
-		<?php
-	}
-	unset($file);
-}
+show_pages('data/settings/pages');
 ?>
