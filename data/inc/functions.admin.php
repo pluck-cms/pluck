@@ -170,6 +170,18 @@ function show_page_box($file) {
 	<?php
 }
 
+function reorder_pages($patch) {
+	$pages = read_dir_contents($patch, 'files');
+	sort($pages, SORT_NUMERIC);
+
+	$number = 1;
+	foreach ($pages as $page) {
+		$parts = explode('.', $page);
+		rename($patch.'/'.$page, $patch.'/'.$number.'.'.$parts[1].'.'.$parts[2]);
+		$number++;
+	}
+}
+
 //Function: display a menudiv.
 //-------------------
 function showmenudiv($title, $text, $image, $url, $blank = false, $more = null) {

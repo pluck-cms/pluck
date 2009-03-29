@@ -39,6 +39,9 @@ if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
 	//Move the file.
 	rename('data/settings/pages/'.get_page_filename($var1), 'data/trash/pages/'.$var1.'.php');
 
+	//Reorder the pages
+	reorder_pages('data/settings/pages');
+
 	//Show message.
 	show_error($lang_trash2, 3);
 }
