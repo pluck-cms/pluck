@@ -156,7 +156,7 @@ echo $tinymce_lang_line;
 
 //MS IE7 fix
 //Don't display a comma when XHTML Compatibilty Mode is turned off
-if ($xhtmlruleset == "true")
+if (isset($xhtmlruleset) && $xhtmlruleset == 'true')
 	$comma = ',';
 else
 	$comma = '';
@@ -174,7 +174,7 @@ else
 	theme_advanced_resize_horizontal : false<?php echo $comma ?>
 <?php
 //Include the Full XHTML Ruleset, when that has been set
-if ($xhtmlruleset == 'true') {
+if (isset($xhtmlruleset) && $xhtmlruleset == 'true') {
 ?>
 valid_elements : "" +
 "+a[id|style|rel|rev|charset|hreflang|dir|lang|tabindex|accesskey|type|name|href|target|title|class|onfocus|onblur|onclick|" +
