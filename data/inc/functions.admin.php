@@ -121,7 +121,7 @@ function show_pages($patch) {
 }
 
 function show_page_box($file) {
-	global $lang_page3, $lang_meta1, $lang_updown1, $lang_trash1;
+	global $lang, $lang_page3, $lang_meta1, $lang_updown1;
 
 	include_once ($file);
 	$file = str_replace('data/settings/pages/', '', $file);
@@ -162,7 +162,7 @@ function show_page_box($file) {
 			</span>
 			<span>
 				<a href="?action=deletepage&amp;var1=<?php echo $file; ?>">
-					<img src="data/image/delete.png" title="<?php echo $lang_trash1; ?>" alt="<?php echo $lang_trash1; ?>" />
+					<img src="data/image/delete.png" title="<?php echo $lang['trashcan']['move_to_trash']; ?>" alt="<?php echo $lang['trashcan']['move_to_trash']; ?>" />
 				</a>
 			</span>
 			<?php run_hook('admin_page_list_after'); ?>

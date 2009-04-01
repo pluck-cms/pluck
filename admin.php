@@ -201,36 +201,31 @@ else {
 
 			//Page:Trash_deleteitem
 			case 'trash_deleteitem':
-				$titelkop = $lang_trash8;
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/trashcan_deleteitem.php');
 				break;
 
 			//Page:Trash_restoreitem
 			case 'trash_restoreitem':
-				$titelkop = $lang_trash10;
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/trashcan_restoreitem.php');
 				break;
 
 			//Page:Trash_viewitem
 			case 'trash_viewitem':
-				$titelkop = $lang_trash7;
+				$titelkop = $lang['trashcan']['view_item'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/trashcan_viewitem.php');
 				break;
 
 			//Page:Deleteimage
 			case 'deleteimage':
-				$titelkop = $lang_trash1;
 				include_once ('data/inc/header.php');
-				echo $lang_trash2;
 				include_once ('data/inc/deleteimage.php');
 				break;
 
 			//Page:Deletepage
 			case 'deletepage':
-				$titelkop = $lang_trash1;
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/deletepage.php');
 				break;

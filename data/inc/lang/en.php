@@ -78,16 +78,18 @@ $lang['update']['failed']     = 'update check failed';
 
 //Trashcan
 $lang['trashcan']['title'] = 'trashcan';
-$lang_trash3 = 'items in trashcan';
-$lang_trash1 = 'move item to trashcan';
-$lang_trash2 = 'Moving item to trashcan...';
-$lang_trash4 = 'The item could not be moved to the trashcan: the trashcan contains an item with the same name.';
-$lang_trash5 = 'Deleted items are listed here. You can take a look at them, restore them or delete them from the trashcan.';
-$lang_trash6 = 'empty trashcan';
-$lang_trash7 = 'view item';
-$lang_trash8 = 'delete item from trashcan';
-$lang_trash10 = 'restore item';
-$lang_trash11 = 'Are you sure you want to empty the trashcan? Please note that all items will be lost.';
+$lang['trashcan']['items_in_trash'] = 'items in trashcan';
+$lang['trashcan']['move_to_trash'] = 'move item to trashcan';
+$lang['trashcan']['moving_item'] = 'Moving item to trashcan...';
+$lang['trashcan']['same_name'] = 'The item could not be moved to the trashcan: the trashcan contains an item with the same name.';
+$lang['trashcan']['message'] = 'Deleted items are listed here. You can take a look at them, restore them or delete them from the trashcan.';
+$lang['trashcan']['empty']  = 'empty trashcan';
+$lang['trashcan']['empty_confirm'] = 'Are you sure you want to empty the trashcan? Please note that all items will be lost.';
+$lang['trashcan']['view_item'] = 'view item';
+$lang['trashcan']['delete_item'] = 'delete item from trashcan';
+$lang['trashcan']['deleting'] = 'Deleting item from trashcan...';
+$lang['trashcan']['restore_item'] = 'restore item';
+$lang['trashcan']['restoring'] = 'Restoring item from trashcan...';
 
 //Start
 $lang['start']['title']   = 'start';

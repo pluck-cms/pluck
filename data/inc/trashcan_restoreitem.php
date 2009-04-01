@@ -25,6 +25,7 @@ if ($var2 == 'page' && file_exists('data/trash/pages/'.$var1.'.php')) {
 	$pages = read_dir_contents('data/settings/pages', 'files');
 
 	if (get_page_filename($var1) != false) {
+		//TODO: Add text for error
 		show_error($lang_trash12, 2);
 		redirect('?action=trashcan', 2);
 	}
@@ -36,6 +37,7 @@ if ($var2 == 'page' && file_exists('data/trash/pages/'.$var1.'.php')) {
 			$next_number = count($pages) + 1;
 
 		rename('data/trash/pages/'.$var1.'.php', 'data/settings/pages/'.$next_number.'.'.$var1.'.php');
+		show_error($lang['trashcan']['restoring'], 3);
 		redirect('?action=trashcan', 0);
 	}
 }
@@ -47,9 +49,6 @@ elseif ($var2 == 'image' && file_exists('data/trash/images/'.$var1)) {
 		copy('data/trash/images/'.$var1, 'images/'.$var1);
 		chmod('images/'.$var1, 0777);
 		unlink('data/trash/images/'.$var1);
-
-		//Redirect.
-		redirect('?action=trashcan', 0);
 	}
 
 	//If there already is an image with the same name.
@@ -59,9 +58,9 @@ elseif ($var2 == 'image' && file_exists('data/trash/images/'.$var1)) {
 		copy('data/trash/images/'.$var1, 'images/'.$filename.'.'.$extension);
 		chmod('images/'.$filename.'.'.$extension, 0777);
 		unlink('data/trash/images/'.$var1);
-
-		//Redirect.
-		redirect('?action=trashcan', 0);
 	}
+	//Redirect.
+	show_error($lang['trashcan']['restoring'], 3);
+	redirect('?action=trashcan', 0);
 }
 ?>

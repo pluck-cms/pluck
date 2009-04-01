@@ -21,7 +21,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 ?>
 	<p>
-		<strong><?php echo $lang_trash5; ?></strong>
+		<strong><?php echo $lang['trashcan']['message']; ?></strong>
 	</p>
 <?php
 //Define how much items we have in the trashcan
@@ -38,9 +38,9 @@ else
 			<img src="data/image/<?php echo $trash_image; ?>" alt="" />
 		</span>
 		<span>
-			<?php echo $trashcan_items.' '.$lang_trash3; ?>
+			<?php echo $trashcan_items.' '.$lang['trashcan']['items_in_trash']; ?>
 			<br />
-			<a href="?action=trashcan_empty" onclick="return confirm('<?php echo $lang_trash11; ?>');"><?php echo $lang_trash6; ?></a>
+			<a href="?action=trashcan_empty" onclick="return confirm('<?php echo $lang['trashcan']['empty_confirm']; ?>');"><?php echo $lang['trashcan']['empty']; ?></a>
 		</span>
 	</div>
 	<span class="kop2"><?php echo $lang_kop2; ?></span>
@@ -67,17 +67,17 @@ else {
 				</span>
 				<span>
 					<a href="?action=trash_viewitem&amp;var1=<?php echo $page; ?>&amp;var2=page">
-						<img src="data/image/view.png" alt="<?php echo $lang_trash7; ?>" title="<?php echo $lang_trash7; ?>" />
+						<img src="data/image/view.png" alt="<?php echo $lang['trashcan']['view_item']; ?>" title="<?php echo $lang['trashcan']['view_item']; ?>" />
 					</a>
 				</span>
 				<span>
 					<a href="?action=trash_restoreitem&amp;var1=<?php echo $page; ?>&amp;var2=page">
-						<img src="data/image/restore.png" title="<?php echo $lang_trash10; ?>" alt="<?php echo $lang_trash10; ?>" />
+						<img src="data/image/restore.png" title="<?php echo $lang['trashcan']['restore_item']; ?>" alt="<?php echo $lang['trashcan']['restore_item']; ?>" />
 					</a>
 				</span>
 				<span>
 					<a href="?action=trash_deleteitem&amp;var1=<?php echo $page; ?>&amp;var2=page">
-						<img src="data/image/delete_from_trash.png" title="<?php echo $lang_trash8; ?>" alt="<?php echo $lang_trash8; ?>" />
+						<img src="data/image/delete_from_trash.png" title="<?php echo $lang['trashcan']['delete_item']; ?>" alt="<?php echo $lang['trashcan']['delete_item']; ?>" />
 					</a>
 				</span>
 			</div>

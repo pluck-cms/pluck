@@ -80,13 +80,12 @@ else {
 		if ($pass == $ww) {
 			//Save session.
 			$_SESSION['cmssystem_loggedin'] = 'ok';
-			//Display successmessage.
+			//Display success message.
 			$titelkop = $lang['login']['title'];
 			show_error($lang['login']['correct'], 3);
-			redirect('admin.php?action=start', 2);
+			redirect('admin.php?action=start', 1);
 		}
 
-		//---------------
 		//...or is NOT correct:
 		else {
 			$titelkop = $lang['login']['title'];

@@ -29,5 +29,6 @@ if ($var2 == 'image' && file_exists('data/trash/images/'.$var1))
 	unlink('data/trash/images/'.$var1);
 
 //Redirect
+show_error($lang['trashcan']['deleting'], 3);
 redirect('?action=trashcan', 0);
 ?>
