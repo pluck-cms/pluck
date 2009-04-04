@@ -74,7 +74,7 @@ else {
 
 			//Page:Credits
 			case 'credits':
-				$titelkop = $lang_credits;
+				$titelkop = $lang['credits']['title'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/credits.php');
 				break;
@@ -109,21 +109,21 @@ else {
 
 			//Page:Manage Modules
 			case 'managemodules':
-				$titelkop = $lang_modules3;
+				$titelkop = $lang['modules_manage']['title'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/modules_manage.php');
 				break;
 
 			//Page:Module Add To Site
 			case 'module_addtosite':
-				$titelkop = $lang_modules14;
+				$titelkop = $lang['modules_addtosite']['title'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/modules_manage_addtosite.php');
 				break;
 
 			//Page:Options
 			case 'options':
-				$titelkop = $lang_kop4;
+				$titelkop = $lang['options']['title'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/options.php');
 				break;
@@ -165,7 +165,7 @@ else {
 
 			//Page:Options:Moduleinstall
 			case 'installmodule':
-				$titelkop = $lang_modules23;
+				$titelkop = $lang['modules_install']['title'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/modules_install.php');
 				break;

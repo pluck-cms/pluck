@@ -99,7 +99,7 @@ function confirmation(message) {
 		<div class="menuitem">
 			<span>
 				<img src="data/image/menu/options.png" alt="" />
-				<a href="?action=options" title="<?php echo $lang_kop4; ?>"><?php echo $lang_kop4; ?></a>
+				<a href="?action=options" title="<?php echo $lang['options']['title']; ?>"><?php echo $lang['options']['title']; ?></a>
 			</span>
 		</div>
 		<div class="menuitem">

@@ -113,13 +113,13 @@ else {
 			<p>
 				<label class="kop2" for="cont1"><?php echo $lang['general']['title'] ?></label>
 				<br />
-				<span class="kop4"><?php echo $lang_settings2 ?></span>
+				<span class="kop4"><?php echo $lang['settings']['choose_title'] ?></span>
 				<br />
 				<input name="cont1" id="cont1" type="text" value="<?php if (isset($cont1)) echo htmlentities($cont1); ?>"/>
 				<br />
-				<label class="kop2" for="cont2"><?php echo $lang_install24 ?></label>
+				<label class="kop2" for="cont2"><?php echo $lang['settings']['email'] ?></label>
 				<br />
-				<span class="kop4"><?php echo $lang_install25 ?></span>
+				<span class="kop4"><?php echo $lang['settings']['email_descr'] ?></span>
 				<br />
 				<input name="cont2" id="cont2"type="text" value="<?php if (isset($cont2)) echo htmlentities($cont2); ?>" />
 			</p>

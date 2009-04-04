@@ -30,7 +30,7 @@ unset($module);
 //Introduction text
 ?>
 	<p>
-		<strong><?php echo $lang_modules15; ?></strong>
+		<strong><?php echo $lang['modules_addtosite']['message']; ?></strong>
 	</p>
 <?php
 
@@ -55,7 +55,7 @@ if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php'))
 				<td>
 					<span style="font-size: 17pt; color: gray;"><?php echo $position; ?></span>
 					<br />
-					<strong><?php echo $lang_modules7; ?></strong>
+					<strong><?php echo $lang['modules_addtosite']['choose_order']; ?></strong>
 					<table>
 						<?php
 							//First count how many modules we have, and exclude disabled modules.

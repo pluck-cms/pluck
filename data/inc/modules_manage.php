@@ -21,14 +21,14 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 ?>
 <p>
-	<strong><?php echo $lang_modules5; ?></strong>
+	<strong><?php echo $lang['modules_manage']['message']; ?></strong>
 </p>
 <div class="smallmenu">
 	<span class="smallmenu_button">
-		<a class="smallmenu_a" href="?action=module_addtosite" style="background: url('data/image/add_small.png') no-repeat;"><?php echo $lang_modules13; ?></a>
+		<a class="smallmenu_a" href="?action=module_addtosite" style="background: url('data/image/add_small.png') no-repeat;"><?php echo $lang['modules_manage']['add']; ?></a>
 	</span>
 	<span class="smallmenu_button">
-		<a class="smallmenu_a" href="?action=installmodule" style="background: url('data/image/install_small.png') no-repeat;"><?php echo $lang_modules11; ?></a>
+		<a class="smallmenu_a" href="?action=installmodule" style="background: url('data/image/install_small.png') no-repeat;"><?php echo $lang['modules_manage']['install']; ?></a>
 	</span>
 </div>
 <?php
@@ -50,19 +50,19 @@ foreach($dirs as $dir) {
 					//If module has been disabled, show warning
 					if (!module_is_compatible($dir)) {
 					?>
-						<span style="color:red;"><?php echo $lang_modules27; ?></span>
+						<span style="color:red;"><?php echo $lang['modules_manage']['not_compatible']; ?></span>
 					<?php
 					}
 				?>
 				</span>
 			<span>
 				<a href="#" onclick="return kadabra('<?php echo $dir; ?>');">
-					<img src="data/image/credits.png" alt="<?php echo $lang_modules8; ?>" title="<?php echo $lang_modules8; ?>" />
+					<img src="data/image/credits.png" alt="<?php echo $lang['modules_manage']['information']; ?>" title="<?php echo $lang['modules_manage']['information']; ?>" />
 				</a>
 			</span>
 			<span>
-				<a href="?action=module_delete&amp;var1=<?php echo $dir; ?>" onclick="return confirm('<?php echo $lang_modules19; ?>');">
-					<img src="data/image/delete_from_trash.png" title="<?php echo $lang_modules10; ?>" alt="<?php echo $lang_modules10; ?>" />
+				<a href="?action=module_delete&amp;var1=<?php echo $dir; ?>" onclick="return confirm('<?php echo $lang['modules_manage']['uninstall_confirm']; ?>');">
+					<img src="data/image/delete_from_trash.png" title="<?php echo $lang['modules_manage']['uninstall']; ?>" alt="<?php echo $lang['modules_manage']['uninstall']; ?>" />
 				</a>
 			</span>
 		</div>
@@ -70,11 +70,11 @@ foreach($dirs as $dir) {
 			<p id="<?php echo $dir; ?>" style="display: none; padding-left: 43px;">
 				<?php echo $module_info['intro']; ?>
 				<br />
-				<strong><?php echo $lang_modules2; ?></strong>: <?php echo $module_info['version']; ?>
+				<strong><?php echo $lang['modules_manage']['version']; ?></strong>: <?php echo $module_info['version']; ?>
 				<br />
-				<strong><?php echo $lang_modules18; ?></strong>: <?php echo $module_info['author']; ?>
+				<strong><?php echo $lang['modules_manage']['author']; ?></strong>: <?php echo $module_info['author']; ?>
 				<br />
-				<strong><?php echo $lang_modules17; ?></strong>: <a href="<?php echo $module_info['website']; ?>" target="_blank"><?php echo $module_info['website'] ?></a>
+				<strong><?php echo $lang['modules_manage']['website']; ?></strong>: <a href="<?php echo $module_info['website']; ?>" target="_blank"><?php echo $module_info['website'] ?></a>
 				<br />
 			</p>
 		</div>

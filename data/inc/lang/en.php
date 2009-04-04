@@ -40,6 +40,7 @@ $lang['general']['dont_display']  = 'Don\'t display';
 $lang['general']['upload']        = 'Upload';
 $lang['general']['change_title']  = 'change title';
 $lang['general']['images']        = 'images';
+$lang_theme15 = "Install failed: the file you specified is no valid file.";
 
 //Login
 $lang['login']['not']         = 'not logged in';
@@ -103,13 +104,13 @@ $lang['start']['help']    = 'need help?';
 $lang['start']['love']    = 'we\'d love to help you';
 
 //Credits
-$lang_credits = "credits";
-$lang_credits2 = "Our thanks goes to all the following people, for helping in the development of pluck.";
-$lang_credits3 = "project leader";
-$lang_credits6 = "main developers";
-$lang_credits7 = "contributions";
-$lang_credits4 = "translation";
-$lang_credits5 = "more thanks";
+$lang['credits']['title'] = 'credits';
+$lang['credits']['message'] = 'Our thanks goes to all the following people, for helping in the development of pluck.';
+$lang['credits']['project_leader'] = 'project leader';
+$lang['credits']['developers'] = 'main developers';
+$lang['credits']['contributions'] = 'contributions';
+$lang['credits']['translation'] = 'translation';
+$lang['credits']['more'] = 'more thanks';
 
 //Page
 $lang_kop2 = "pages";
@@ -155,49 +156,48 @@ $lang['modules']['title']   = 'modules';
 $lang['modules']['message'] = 'Pluck has a variety of modules available, which you can use to extend your website with dynamic content.';
 
 //Options
-$lang_kop4 = "options";
-$lang_options1 = "Here you can configure pluck so it suits your wishes and taste.";
-$lang_settings3 = "change general settings like the title of your website and your email address";
-$lang_modules4 = "manage modules and include them in your website";
-$lang_options3 = "change the look and feel of your website";
-$lang_options8 = "choose the language that will be used by pluck";
-$lang_options5 = "it's a good idea to change your password regularly";
+$lang['options']['title'] = 'options';
+$lang['options']['message'] = 'Here you can configure pluck so it suits your wishes and taste.';
+$lang['options']['settings_descr'] = 'change general settings like the title of your website and your email address';
+$lang['options']['modules_descr'] = 'manage modules and include them in your website';
+$lang['options']['themes_descr'] = 'change the look and feel of your website';
+$lang['options']['lang_descr'] = 'choose the language that will be used by pluck';
+$lang['options']['pass_descr'] = 'it is a good idea to change your password regularly';
 
 //Settings
-$lang['settings']['title']	= 'general settings';
-$lang_settings5 = "Change general settings like the title of your website and your email address here.";
-$lang_settings2 = "choose the title for your website here";
-$lang_install24 = "email";
-$lang_install25 = "your email address will be used to allow your visitors to contact you through an email form";
-$lang_settings6 = "Turn on the XHTML Compatibility Mode (may be slower)";
-$lang_settings4 = "Changing the general settings...";
+$lang['settings']['title'] = 'general settings';
+$lang['settings']['message'] = 'Change general settings like the title of your website and your email address here.';
+$lang['settings']['choose_title'] = 'choose the title for your website here';
+$lang['settings']['email'] = 'email';
+$lang['settings']['email_descr'] = 'your email address will be used to allow your visitors to contact you through an email form';
+$lang['settings']['xhtml_mode'] = 'Turn on the XHTML Compatibility Mode (may be slower)';
+$lang['settings']['changing_settings'] = 'Changing the general settings...';
 $lang['settings']['fill_name']     = 'You have to fill in a name for your website, it can\'t be empty.';
 $lang['settings']['email_invalid'] = 'The emailaddress you entered is invalid!';
 
-//Managemodules
-$lang_modules3 = "manage modules";
-$lang_modules5 = "Manage your modules here. Remove unused modules, or start your search for new modules to enrich your website with new functionality. You can also add modules to your website, by choosing <i>Add modules to website</i>.";
-$lang_modules13 = "Add modules to website...";
-$lang_modules11 = "Install a module...";
-$lang_modules8 = "module information";
-$lang_modules10 = "uninstall module";
-$lang_modules2 = "version";
-$lang_modules18 = "author";
-$lang_modules17 = "website";
-$lang_modules19 = "Are you sure you want to uninstall this module? Please note that the settings of the module will not be lost.";
-$lang_modules27 = "This module is not compatible with your version of pluck, and has been disabled.";
+//Modules_manage
+$lang['modules_manage']['title'] = 'manage modules';
+$lang['modules_manage']['message'] = 'Manage your modules here. Remove unused modules, or start your search for new modules to enrich your website with new functionality. You can also add modules to your website, by choosing <i>Add modules to website</i>.';
+$lang['modules_manage']['add'] = 'Add modules to website...';
+$lang['modules_manage']['install'] = 'Install a module...';
+$lang['modules_manage']['information'] = 'module information';
+$lang['modules_manage']['uninstall'] = 'uninstall module';
+$lang['modules_manage']['uninstall_confirm'] = 'Are you sure you want to uninstall this module? Please note that the settings of the module will not be lost.';
+$lang['modules_manage']['version'] = 'version';
+$lang['modules_manage']['author'] = 'author';
+$lang['modules_manage']['website'] = 'website';
+$lang['modules_manage']['not_compatible'] = 'This module is not compatible with your version of pluck, and has been disabled.';
 
-//Module_addtosite
-$lang_modules14 = "add modules to website";
-$lang_modules15 = "Configure here in which areas on your websites modules will be displayed. These settings are theme specific: if you change to another theme, you will have to set this again. Please also note that these settings will apply for all pages on your website.";
-$lang_modules7 = "Choose in which order the modules should be displayed.";
+//Modules_addtosite
+$lang['modules_addtosite']['title'] = 'add modules to website';
+$lang['modules_addtosite']['message'] = 'Configure here in which areas on your websites modules will be displayed. These settings are theme specific: if you change to another theme, you will have to set this again. Please also note that these settings will apply for all pages on your website.';
+$lang['modules_addtosite']['choose_order'] = 'Choose in which order the modules should be displayed.';
 
 //Installmodule
-$lang_modules23 = "install modules";
-$lang_modules20 = "Here you can install new modules. Please make sure you've downloaded a module first.";
-$lang_modules24 = "The module-file is too big; 2MB is the limit.";
-$lang_modules25 = "module installed";
-$lang_modules26 = "return to the <a href=\"?action=managemodules\">module page</a>";
+$lang['modules_install']['title'] = 'install modules';
+$lang['modules_install']['message'] = 'Here you can install new modules. Please make sure you have downloaded a module first.';
+$lang['modules_install']['too_big'] = 'The module-file is too big; 2MB is the limit.';
+$lang['modules_install']['success'] = 'The module has been installed successfully.';
 
 //Theme
 $lang['theme']['title']  = 'choose theme';
@@ -212,7 +212,6 @@ $lang_theme9 = "Installation failed. The server probably doesn't have installed 
 $lang_theme10 =	"theme installed";
 $lang_theme11 =	"return to the <a href=\"?action=theme\">theme page</a>";
 $lang_theme14 = "theme and module installation is not supported on this server, you will have to do it <a href=\"http://www.pluck-cms.org/docs/doku.php/docs:install_nozlib\" target=\"_blank\">manually</a>";
-$lang_theme15 = "Install failed: the file you specified is no valid file.";
 
 //Language
 $lang['language']['title']  = 'language settings';
