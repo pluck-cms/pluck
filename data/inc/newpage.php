@@ -27,6 +27,35 @@ foreach ($module_list as $module) {
 }
 unset($module);
 
+//If form is posted...
+if (isset($_POST['submit'])) {
+	$pages = read_dir_contents('data/settings/pages', 'files');
+
+	if ($pages == false)
+		$pages = 0;
+	else
+		$pages = count($pages);
+
+	$pages++;
+
+	$newfile = $pages.'.'.seo_url($cont1);
+
+	//Save the page.
+	save_page($newfile, $cont1, $cont2, $cont4, null, null, $cont3);
+
+	//Redirect the user.
+	if(strtolower($_POST['submit'] = 'save'))
+	{
+		$filename = get_page_filename($newfile);
+		redirect('?action=editpage&var1='.seo_url($cont1), 0);
+	}
+	else
+	{
+		redirect('?action=page', 0);
+	}
+}
+
+
 //Generate the menu on the right.
 ?>
 <div class="rightmenu">
@@ -119,27 +148,7 @@ unset($module);
 			</tr>
 		</table>
 	</div>
-	<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" title="<?php echo $lang['general']['save']; ?>" />
+	<input class="save" type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>"/>
+	<input type="submit" name="submit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
 	<button class="cancel" type="button" onclick="javascript: window.location='?action=page';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
 </form>
-<?php
-//If form is posted...
-if (isset($_POST['submit'])) {
-	$pages = read_dir_contents('data/settings/pages', 'files');
-
-	if ($pages == false)
-		$pages = 0;
-	else
-		$pages = count($pages);
-
-	$pages++;
-
-	$newfile = $pages.'.'.seo_url($cont1);
-
-	//Save the page.
-	save_page($newfile, $cont1, $cont2, $cont4, null, null, $cont3);
-
-	//Redirect the user.
-	redirect('?action=page', 0);
-}
-?>

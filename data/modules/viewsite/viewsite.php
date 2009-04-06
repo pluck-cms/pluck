@@ -16,12 +16,12 @@ function viewsite_info() {
 function viewsite_admin_menu_inside_before() {
 	global $lang;
 	?>
-		<div class="menuitem">
+		<a class="menuitem" href="index.php<?php echo HOME_PAGE; ?>" title="<?php echo $lang['viewsite']['message']; ?>" target="_blank">
 			<span>
 				<img src="data/image/website.png" alt="" height="22" />
-				<a href="index.php<?php echo HOME_PAGE; ?>" title="<?php echo $lang['viewsite']['message']; ?>" target="_blank"><?php echo $lang['viewsite']['message']; ?></a>
+				<?php echo $lang['viewsite']['message']; ?>
 			</span>
-		</div>
+		</a>
 	<?php
 }
 ?>

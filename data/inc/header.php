@@ -78,36 +78,36 @@ function confirmation(message) {
 	<?php run_hook('admin_menu_outside_before'); ?>
 	<div id="menu">
 		<?php run_hook('admin_menu_inside_before'); ?>
-		<div class="menuitem">
+		<a class="menuitem" href="?action=start" title="<?php echo $lang['start']['title']; ?>">
 			<span>
 				<img src="data/image/menu/start.png" alt="" />
-				<a href="?action=start" title="<?php echo $lang['start']['title']; ?>"><?php echo $lang['start']['title']; ?></a>
+				<?php echo $lang['start']['title']; ?>
 			</span>
-		</div>
-		<div class="menuitem">
+		</a>
+		<a class="menuitem" href="?action=page" title="<?php echo $lang_kop2; ?>">
 			<span>
 				<img src="data/image/menu/pages.png" alt="" />
-				<a href="?action=page" title="<?php echo $lang_kop2; ?>"><?php echo $lang_kop2; ?></a>
+				<?php echo $lang_kop2; ?>
 			</span>
-		</div>
-		<div class="menuitem">
+		</a>
+		<a class="menuitem" href="?action=modules" title="<?php echo $lang['modules']['title']; ?>">
 			<span>
 				<img src="data/image/menu/modules.png" alt="" />
-				<a href="?action=modules" title="<?php echo $lang['modules']['title']; ?>"><?php echo $lang['modules']['title']; ?></a>
+				<?php echo $lang['modules']['title']; ?>
 			</span>
-		</div>
-		<div class="menuitem">
+		</a>
+		<a class="menuitem" href="?action=options" title="<?php echo $lang_kop4; ?>">
 			<span>
 				<img src="data/image/menu/options.png" alt="" />
-				<a href="?action=options" title="<?php echo $lang_kop4; ?>"><?php echo $lang_kop4; ?></a>
+				<?php echo $lang_kop4; ?>
 			</span>
-		</div>
-		<div class="menuitem">
+		</a>
+		<a class="menuitem" href="?action=logout" title="<?php echo $lang['login']['log_out']; ?>">
 			<span>
 				<img src="data/image/menu/logout.png" alt="" />
-				<a href="?action=logout" title="<?php echo $lang['login']['log_out']; ?>"><?php echo $lang['login']['log_out']; ?></a>
+				<?php echo $lang['login']['log_out']; ?>
 			</span>
-		</div>
+		</a >
 		<?php run_hook('admin_menu_inside_after'); ?>
 	</div>
 	<?php run_hook('admin_menu_outside_after'); ?>

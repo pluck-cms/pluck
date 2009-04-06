@@ -25,6 +25,8 @@ body {
 }
 
 .menuitem {
+	display:block;
+	width:auto;
 	color: #B6B6B6;
 	font-size: 14px;
 	padding: 70px 9px 0px 9px;
@@ -33,6 +35,11 @@ body {
 	text-decoration: none;
 	height: 30px;
 	float: left;
+	color:gray;
+}
+
+.menuitem:hover{
+color:#3766AC;
 }
 
 .menuitem span {
@@ -184,6 +191,10 @@ button, input {
 
 button.cancel {
 	background-image: url('image/error_small.png');
+}
+
+input[type="submit"].save{
+	background-image: url('image/document_save.png');
 }
 
 input[type="submit"] {
