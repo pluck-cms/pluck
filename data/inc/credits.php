@@ -22,35 +22,36 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 ?>
 
 <p>
-	<strong><?php echo $lang_credits2; ?></strong>
+	<strong><?php echo $lang['credits']['message']; ?></strong>
 </p>
 <p>
-	<span class="kop2"><?php echo $lang_credits3; ?></span>
+	<span class="kop2"><?php echo $lang['credits']['project_leader']; ?></span>
 	<br />
 	<a href="http://www.somp.nl" target="_blank">Sander Thijsen</a>
 </p>
 <p>
-	<span class="kop2"><?php echo $lang_credits6; ?></span>
-	<br />
-	<a href="http://www.somp.nl" target="_blank">Sander Thijsen</a>
+	<span class="kop2"><?php echo $lang['credits']['developers']; ?></span>
 	<br />
 	<a href="http://spirit55555.dk" target="_blank">Anders Jørgensen</a>
+	<br />
+	<a href="http://www.somp.nl" target="_blank">Sander Thijsen</a>
 </p>
 <p>
-	<span class="kop2"><?php echo $lang_credits7; ?></span>
+	<span class="kop2"><?php echo $lang['credits']['contributions']; ?></span>
 	<br />
 	Kristaps Ancāns
 	<br />
 	Callan Barrett
 	<br />
-	Dennis Sewbarath
-	<br />
 	Bogumił Cieniek
+	<br />
+	Dennis Sewbarath
+
 </p>
 <?php
 //Translation
 //-----------
-//First seek out who's the translator
+//First determine who's the translator
 if ($langpref == 'nl.php')
 	$translator = 'Sander Thijsen';
 if ($langpref == 'da.php')
@@ -104,7 +105,7 @@ if ($langpref == 'sk.php')
 if ($langpref != 'en.php') {
 ?>
 	<p>
-		<span class="kop2"><?php echo $lang_credits4.' ('.$lang.')'; ?></span>
+		<span class="kop2"><?php echo $lang['credits']['translation'].' ('.$lang.')'; ?></span>
 		<br />
 		<?php echo $translator; ?>
 	</p>
@@ -112,7 +113,7 @@ if ($langpref != 'en.php') {
 }
 ?>
 <p>
-	<span class="kop2"><?php echo $lang_credits5; ?></span>
+	<span class="kop2"><?php echo $lang['credits']['more']; ?></span>
 	<br />
 	<a href="http://tinymce.moxiecode.com" target="_blank">MoxieCode</a>, for making the excellent TinyMCE-editor used in pluck
 	<br />

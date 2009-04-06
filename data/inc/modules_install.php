@@ -21,35 +21,24 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 ?>
 <p>
-	<strong><?php echo $lang_modules20; ?></strong>
+	<strong><?php echo $lang['modules_install']['message']; ?></strong>
 </p>
-<?php
-if (!isset($_POST['submit'])) {
-?>
-	<div class="menudiv" style="width: 500px;">
-		<span>
-			<img src="data/image/install.png" alt="" />
-		</span>
-		<div style="display: inline-block;">
-			<form method="post" action="" enctype="multipart/form-data">
-				<input type="file" name="sendfile" />
-				<input type="submit" name="submit" value="<?php echo $lang['general']['upload']; ?>" />
-			</form>
-		</div>
+<div class="menudiv" style="width: 500px;">
+	<span>
+		<img src="data/image/install.png" alt="" />
+	</span>
+	<div style="display: inline-block;">
+		<form method="post" action="" enctype="multipart/form-data">
+			<input type="file" name="sendfile" />
+			<input type="submit" name="submit" value="<?php echo $lang['general']['upload']; ?>" />
+		</form>
 	</div>
-	<div class="menudiv" style="width: 500px;">
-		<span>
-			<img src="data/image/modules.png" alt="" />
-		</span>
-		<span>
-			<span class="kop3">
-				<a href="?action=managemodules">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
-			</span>
-		</span>
-	</div>
-<?php
-}
+</div>
+<p>
+	<a href="?action=managemodules">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
+</p>
 
+<?php
 if (isset($_POST ['submit'])) {
 	//If no file has been sent.
 	if (!$_FILES ['sendfile'])
@@ -68,7 +57,7 @@ if (isset($_POST ['submit'])) {
 		else {
 			//Check if file isn't too big.
 			if ($_FILES['sendfile']['size'] > $maxfilesize)
-				echo $lang_modules24;
+				echo $lang['modules_install']['too_big'];
 
 			else {
 				//Save theme-file.
@@ -78,12 +67,12 @@ if (isset($_POST ['submit'])) {
 				require_once ('data/inc/lib/tarlib.class.php');
 
 				//Load the tarfile.
-				$tar = new TarLib($dir.'/$filename');
+				$tar = new TarLib($dir.'/'.$filename);
 
 				//And extract it.
 				$tar->Extract(FULL_ARCHIVE, $dir);
 				//After extraction: delete the tar.gz-file.
-				unlink($dir.'/$filename');
+				unlink($dir.'/'.$filename);
 
 				//Make directory for module settings (if it doesn't exist).
 				$dirtocreate = str_replace('.tar.gz', '', $filename);
@@ -93,18 +82,8 @@ if (isset($_POST ['submit'])) {
 				}
 
 				//Display success message.
-				?>
-				<div class="menudiv">
-					<span>
-						<img src="data/image/install.png" alt="" />
-					</span>
-					<span>
-						<span class="kop3"><?php echo $lang_modules25; ?></span>
-						<br />
-						<?php echo $lang_modules26; ?>
-					</span>
-				</div>
-			<?php
+				show_error($lang['modules_install']['success'], 3);
+				redirect('?action=managemodules', 2);
 			}
 		}
 	}

@@ -31,6 +31,6 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 <?php
 //Show the divs
 showmenudiv($lang['start']['website'], $lang['start']['result'], 'data/image/website.png', 'index.php', true);
-showmenudiv($lang_credits, $lang['start']['people'], 'data/image/credits.png', '?action=credits');
+showmenudiv($lang['credits']['title'], $lang['start']['people'], 'data/image/credits.png', '?action=credits');
 showmenudiv($lang['start']['help'], $lang['start']['love'], 'data/image/hulp.png', 'http://www.pluck-cms.org/help.php', true);
 ?>

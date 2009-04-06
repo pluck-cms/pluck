@@ -21,14 +21,14 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 ?>
 	<p>
-		<strong><?php echo $lang_options1; ?></strong>
+		<strong><?php echo $lang['options']['message']; ?></strong>
 	</p>
 <?php
 run_hook('admin_options_before');
-showmenudiv($lang['settings']['title'], $lang_settings3, 'data/image/page.png', '?action=settings');
-showmenudiv($lang_modules3, $lang_modules4, 'data/image/modules.png', '?action=managemodules');
-showmenudiv($lang['theme']['title'], $lang_options3, 'data/image/themes.png', '?action=theme');
-showmenudiv($lang['language']['title'], $lang_options8, 'data/image/language.png', '?action=language');
-showmenudiv($lang['changepass']['title'], $lang_options5, 'data/image/password.png', '?action=changepass');
+showmenudiv($lang['settings']['title'], $lang['options']['settings_descr'], 'data/image/page.png', '?action=settings');
+showmenudiv($lang['modules_manage']['title'], $lang['options']['modules_descr'], 'data/image/modules.png', '?action=managemodules');
+showmenudiv($lang['theme']['title'], $lang['options']['themes_descr'], 'data/image/themes.png', '?action=theme');
+showmenudiv($lang['language']['title'], $lang['options']['lang_descr'], 'data/image/language.png', '?action=language');
+showmenudiv($lang['changepass']['title'], $lang['options']['pass_descr'], 'data/image/password.png', '?action=changepass');
 run_hook('admin_options_after');
 ?>

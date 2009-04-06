@@ -24,21 +24,21 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 require_once ('data/settings/options.php');
 ?>
 	<p>
-		<strong><?php echo $lang_settings5; ?></strong>
+		<strong><?php echo $lang['settings']['message']; ?></strong>
 	</p>
 	<?php run_hook('admin_settings_before'); ?>
 	<form method="post" action="">
 		<p>
 			<label class="kop2" for="cont1"><?php echo $lang['general']['change_title']; ?></label>
 			<br />
-			<span class="kop4"><?php echo $lang_settings2; ?></span>
+			<span class="kop4"><?php echo $lang['settings']['choose_title']; ?></span>
 			<br />
 			<input name="cont1" id="cont1" type="text" value="<?php echo $sitetitle; ?>" />
 		</p>
 		<p>
-			<label class="kop2" for="cont2"><?php echo $lang_install24; ?></label>
+			<label class="kop2" for="cont2"><?php echo $lang['settings']['email']; ?></label>
 			<br />
-			<span class="kop4"><?php echo $lang_install25; ?></span>
+			<span class="kop4"><?php echo $lang['settings']['email_descr']; ?></span>
 			<br />
 			<input name="cont2" id="cont2" type="text" value="<?php echo $email; ?>" />
 		</p>
@@ -46,7 +46,7 @@ require_once ('data/settings/options.php');
 			<span class="kop2"><?php echo $lang['general']['other_options']; ?></span>
 			<br />
 			<input type="checkbox" name="cont3" id="cont3" value="true" <?php if ($xhtmlruleset == 'true') echo 'checked="checked"'; ?> />
-			<label for="cont3">&nbsp;<?php echo $lang_settings6; ?></label>
+			<label for="cont3">&nbsp;<?php echo $lang['settings']['xhtml_mode']; ?></label>
 		</p>
 		<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" title="<?php echo $lang['general']['save']; ?>" />
 		<button class="cancel" type="button" onclick="javascript: window.location='?action=options';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
@@ -77,8 +77,8 @@ if (isset($_POST['submit'])) {
 		//Then, save the settings.
 		save_options($cont1, $cont2, $cont3);
 
+		show_error($lang['settings']['changing_settings'], 3);
 		redirect('?action=options', 0);
-		echo $lang_settings4;
 	}
 }
 ?>

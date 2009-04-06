@@ -28,7 +28,7 @@ if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
 	if ($pages != false) {
 		foreach ($pages as $page) {
 			if ($page ==  $var1.'.php') {
-				show_error($lang['trashcan']['same_name'], 2);
+				show_error($lang['trashcan']['same_name'], 1);
 				redirect('?action=page', 2);
 				include_once('data/inc/footer.php');
 				exit;

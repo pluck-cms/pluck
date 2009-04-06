@@ -96,10 +96,10 @@ function confirmation(message) {
 				<?php echo $lang['modules']['title']; ?>
 			</span>
 		</a>
-		<a class="menuitem" href="?action=options" title="<?php echo $lang_kop4; ?>">
+		<a class="menuitem" href="?action=options" title="<?php echo $lang['options']['title'];; ?>">
 			<span>
 				<img src="data/image/menu/options.png" alt="" />
-				<?php echo $lang_kop4; ?>
+				<?php echo $lang['options']['title']; ?>
 			</span>
 		</a>
 		<a class="menuitem" href="?action=logout" title="<?php echo $lang['login']['log_out']; ?>">
