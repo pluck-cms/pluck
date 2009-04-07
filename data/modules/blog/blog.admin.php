@@ -482,61 +482,19 @@ function blog_page_admin_deletereactions() {
 //---------------
 function blog_page_admin_editpost() {
 	global $lang, $lang_page8, $lang_blog27, $lang_blog26, $lang_blog25, $var1, $cont1, $cont2, $cont3;
-
+	
 	//Include the postinformation
 	if (file_exists('data/settings/modules/blog/posts/'.$var1))
+	{
 		include('data/settings/modules/blog/posts/'.$var1);
-	else
-		exit;
-?>
-
-<div class="rightmenu">
-<?php echo $lang_page8; ?><br />
-<?php
-	//Generate the menu on the right
-	read_imagesinpages('images');
-?>
-</div>
-
-<form method="post" action="">
-	<span class="kop2"><?php echo $lang['general']['title']; ?></span><br>
-	<input name="cont1" type="text" value="<?php echo $post_title; ?>">
-	<br /><br />
-	<span class="kop2"><?php echo $lang_blog26; ?></span>
-	<br />
-	<select name="cont2">
-		<option value="<?php echo $lang_blog27; ?>"> <?php echo $lang_blog25; ?></option>
-<?php
-	//If there are categories
-	if(file_exists('data/settings/modules/blog/categories.dat')) {
-		//Load them
-		$categories = file_get_contents('data/settings/modules/blog/categories.dat');
-
-		//Then in an array
-		$categories = split(',',$categories);
-
-		//And show them
-		foreach($categories as $key => $name) {
-			if($post_category == $name)
-				echo '<option value="'.$name.'" selected />'.$name.'</option>';
-			else
-				echo '<option value="'.$name.'" />'.$name.'</option>';
-		}
-		unset($key);
 	}
-?>
-	</select><br /><br />
-
-	<span class="kop2"><?php echo $lang['general']['contents']; ?></span><br />
-	<textarea class="tinymce" name="cont3" cols="70" rows="20"><?php echo $post_content; ?></textarea><br>
-
-	<input type="submit" name="Submit" value="<?php echo $lang['general']['save']; ?>" />
-	<button class="cancel" type="button" onclick="javascript: window.location='?module=blog';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
-</form>
-
-<?php
+	else
+	{
+		exit;
+	}
+	
 	//If form is posted...
-	if(isset($_POST['Submit'])) {
+	if(isset($_POST['submit'])) {
 
 		//Sanitize variables
 		$cont1 = sanitize($cont1);
@@ -627,8 +585,63 @@ function blog_page_admin_editpost() {
 		chmod('data/settings/modules/blog/posts/'.$var1, 0777);
 
 		//Redirect user
-		redirect('?module=blog', 0);
+		if($_POST['submit'] != 'Save')
+		{
+			redirect('?module=blog', 0);
+		}
+		include('data/settings/modules/blog/posts/'.$var1);
 	}
+
+
+?>
+
+<div class="rightmenu">
+<?php echo $lang_page8; ?><br />
+<?php
+	//Generate the menu on the right
+	read_imagesinpages('images');
+?>
+</div>
+
+<form method="post" action="">
+	<span class="kop2"><?php echo $lang['general']['title']; ?></span><br>
+	<input name="cont1" type="text" value="<?php echo $post_title; ?>">
+	<br /><br />
+	<span class="kop2"><?php echo $lang_blog26; ?></span>
+	<br />
+	<select name="cont2">
+		<option value="<?php echo $lang_blog27; ?>"> <?php echo $lang_blog25; ?></option>
+<?php
+	//If there are categories
+	if(file_exists('data/settings/modules/blog/categories.dat')) {
+		//Load them
+		$categories = file_get_contents('data/settings/modules/blog/categories.dat');
+
+		//Then in an array
+		$categories = split(',',$categories);
+
+		//And show them
+		foreach($categories as $key => $name) {
+			if($post_category == $name)
+				echo '<option value="'.$name.'" selected />'.$name.'</option>';
+			else
+				echo '<option value="'.$name.'" />'.$name.'</option>';
+		}
+		unset($key);
+	}
+?>
+	</select><br /><br />
+
+	<span class="kop2"><?php echo $lang['general']['contents']; ?></span><br />
+	<textarea class="tinymce" name="cont3" cols="70" rows="20"><?php echo $post_content; ?></textarea><br>
+	
+	<input class="save" type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>"/>
+	<input type="submit" name="submit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
+	<button class="cancel" type="button" onclick="javascript: window.location='?module=blog';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
+</form>
+
+<?php
+	
 }
 
 //---------------
@@ -682,51 +695,9 @@ function blog_page_admin_deletepost() {
 //---------------
 function blog_page_admin_newpost() {
 	global $lang, $lang_page8, $lang_blog27, $lang_blog26, $lang_blog25, $var1, $cont1, $cont2, $cont3;
-	?>
-
-	<div class="rightmenu">
-		<?php echo $lang_page8; ?><br />
-		<?php
-			//Generate the menu on the right
-			read_imagesinpages('images');
-		?>
-	</div>
-
-	<form method="post" action="">
-		<span class="kop2"><?php echo $lang['general']['title']; ?></span><br />
-		<input name="cont1" type="text" value=""><br /><br />
-
-		<span class="kop2"><?php echo $lang_blog26; ?></span><br />
-		<select name="cont2">
-			<option value="<?php echo $lang_blog27; ?>" /> <?php echo $lang_blog25; ?>
-	<?php
-	//If there are categories
-	if(file_exists('data/settings/modules/blog/categories.dat')) {
-		//Load them
-		$categories = file_get_contents('data/settings/modules/blog/categories.dat');
-
-		//Then in an array
-		$categories = split(',',$categories);
-
-		//And show them
-		foreach($categories as $key => $name)
-			echo '<option value="'.$name.'" />'.$name;
-
-		unset($key);
-	}
-	?>
-		</select><br /><br />
-
-		<span class="kop2"><?php echo $lang['general']['contents']; ?></span><br />
-		<textarea class="tinymce" name="cont3" cols="70" rows="20"></textarea><br />
-
-		<input type="submit" name="Submit" value="<?php echo $lang['general']['save']; ?>">
-		<button class="cancel" type="button" onclick="javascript: window.location='?module=blog';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
-	</form>
-
-	<?php
+	
 	//If form is posted...
-	if(isset($_POST['Submit'])) {
+	if(isset($_POST['submit'])) {
 
 		//Sanitize variables
 		$cont1 = sanitize($cont1);
@@ -800,7 +771,61 @@ function blog_page_admin_newpost() {
 		chmod('data/settings/modules/blog/posts/'.$newfile.'.php', 0777);
 
 		//Redirect user
-		redirect('?module=blog', 0);
+		if($_POST['submit'] == 'Save')
+		{
+			//exit('redirecting to edit page newfile = '.$newfile);
+			redirect('?module=blog&page=editpost&var1='.$newfile.'.php', 0);
+		}
+		else
+		{
+			redirect('?module=blog', 0);
+		}
 	}
+	
+	?>
+
+	<div class="rightmenu">
+		<?php echo $lang_page8; ?><br />
+		<?php
+			//Generate the menu on the right
+			read_imagesinpages('images');
+		?>
+	</div>
+
+	<form method="post" action="">
+		<span class="kop2"><?php echo $lang['general']['title']; ?></span><br />
+		<input name="cont1" type="text" value=""><br /><br />
+
+		<span class="kop2"><?php echo $lang_blog26; ?></span><br />
+		<select name="cont2">
+			<option value="<?php echo $lang_blog27; ?>" /> <?php echo $lang_blog25; ?>
+	<?php
+	//If there are categories
+	if(file_exists('data/settings/modules/blog/categories.dat')) {
+		//Load them
+		$categories = file_get_contents('data/settings/modules/blog/categories.dat');
+
+		//Then in an array
+		$categories = split(',',$categories);
+
+		//And show them
+		foreach($categories as $key => $name)
+			echo '<option value="'.$name.'" />'.$name;
+
+		unset($key);
+	}
+	?>
+		</select><br /><br />
+
+		<span class="kop2"><?php echo $lang['general']['contents']; ?></span><br />
+		<textarea class="tinymce" name="cont3" cols="70" rows="20"></textarea><br />
+
+		<input class="save" type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>"/>
+		<input type="submit" name="submit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
+		<button class="cancel" type="button" onclick="javascript: window.location='?module=blog';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
+	</form>
+
+	<?php
+
 }
 ?>

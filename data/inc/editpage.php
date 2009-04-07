@@ -20,6 +20,34 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
+//If form is posted...
+if (isset($_POST['submit'])) {
+	//Get the filename.
+	$filename = get_page_filename($var1);
+
+	//Remove the old file.
+	//TODO: Only delete the file, when the title has been changed.
+	unlink('data/settings/pages/'.$filename);
+	
+	//Create the new filename.
+	$filename = explode('.', $filename);
+	$newfilename = $filename[0].'.'.seo_url($cont1);
+
+	if (empty($description))
+		$description = '';
+	if (empty($keywords))
+		$keywords = '';
+		
+	//Save the page.
+	save_page($newfilename, $cont1, $cont2, $cont4, $description, $keywords, $cont3);
+	
+	//Redirect the user. only if they are doing a save_exit
+	if(strtolower($_POST['submit']) != 'save')
+	{
+		redirect('?action=page', 0);
+	}
+}
+
 $filename = get_page_filename($var1);
 
 //Include page information.
@@ -45,7 +73,7 @@ unset($module);
 <?php
 //Form.
 ?>
-<form method="post" action="">
+<form name="page_form" method="post" action="">
 	<p>
 		<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
 		<br />
@@ -137,32 +165,8 @@ unset($module);
 			</tr>
 		</table>
 	</div>
-	<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" title="<?php echo $lang['general']['save']; ?>" />
+	<input class="save" type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>"/>
+	<input type="submit" name="submit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
 	<button class="cancel" type="button" onclick="javascript: window.location='?action=page';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
 </form>
-<?php
-//If form is posted...
-if (isset($_POST['submit'])) {
-	//Get the filename.
-	$filename = get_page_filename($var1);
 
-	//Remove the old file.
-	//TODO: Only delete the file, when the title has been changed.
-	unlink('data/settings/pages/'.$filename);
-	
-	//Create the new filename.
-	$filename = explode('.', $filename);
-	$newfilename = $filename[0].'.'.seo_url($cont1);
-
-	if (empty($description))
-		$description = '';
-	if (empty($keywords))
-		$keywords = '';
-		
-	//Save the page.
-	save_page($newfilename, $cont1, $cont2, $cont4, $description, $keywords, $cont3);
-
-	//Redirect the user.
-	redirect('?action=page', 0);
-}
-?>
