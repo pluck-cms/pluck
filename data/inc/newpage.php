@@ -44,7 +44,7 @@ if (isset($_POST['submit'])) {
 	save_page($newfile, $cont1, $cont2, $cont4, null, null, $cont3);
 
 	//Redirect the user.
-	if(strtolower($_POST['submit'] = 'save'))
+	if($_POST['submit'] = 'Save')
 	{
 		$filename = get_page_filename($newfile);
 		redirect('?action=editpage&var1='.seo_url($cont1), 0);

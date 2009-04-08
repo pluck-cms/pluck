@@ -42,7 +42,7 @@ if (isset($_POST['submit'])) {
 	save_page($newfilename, $cont1, $cont2, $cont4, $description, $keywords, $cont3);
 	
 	//Redirect the user. only if they are doing a save_exit
-	if(strtolower($_POST['submit']) != 'save')
+	if($_POST['submit'] != 'Save')
 	{
 		redirect('?action=page', 0);
 	}

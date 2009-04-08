@@ -30,6 +30,7 @@ else
 	$trash_image = 'trash-full.png';
 ?>
 <div>
-	<a href="?action=trashcan"><img src="data/image/<?php echo $trash_image; ?>" alt="<?php echo $lang['trashcan']['title'] ?>" title="<?php echo $lang['trashcan']['title']; ?>" /></a>
+	<a href="?action=trashcan"><img src="data/image/<?php echo $trash_image; ?>" alt="<?php echo $lang['trashcan']['title'] ?>" title="<?php echo $lang['trashcan']['title']; ?>" />
 	<?php echo $trashcan_items; ?> <?php echo $lang['trashcan']['items_in_trash']; ?>
+	</a>
 </div>

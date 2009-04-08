@@ -63,26 +63,21 @@ elseif (file_exists('data/settings/update_lastcheck.php') && $lastcheck == $dayo
 
 //Then determine which icon we need to show... and show it
 if ($update_available == 'yes') {
-	$update_image = 'update-available.png';
-	$update_note = '<a href="http://www.pluck-cms.org/" target="_blank">'.$lang['update']['available'].'</a>';
+	$update_note = '<a href="http://www.pluck-cms.org/" target="_blank"><img src="data/image/update-available.png" alt="" /> '.$lang['update']['available'].'</a>';
 }
 
 elseif ($update_available == 'urgent') {
-	$update_image = 'update-available-urgent.png';
-	$update_note = '<a href="http://www.pluck-cms.org/" target="_blank">'.$lang['update']['urgent'].'</a>';
+	$update_note = '<a href="http://www.pluck-cms.org/" target="_blank"><img src="data/image/update-available-urgent.png" alt="" /> '.$lang['update']['urgent'].'</a>';
 }
 
 elseif ($update_available == 'error') {
-	$update_image = 'error.png';
-	$update_note = $lang['update']['failed'];
+	$update_note = '<img src="data/image/error.png" alt="" /> '.$lang['update']['failed'];
 }
 
 else {
-	$update_image = 'update-no.png';
-	$update_note = $lang['update']['up_to_date'];
+	$update_note = '<img src="data/image/update-no.png" alt="" /> '.$lang['update']['up_to_date'];
 }
 ?>
 <div>
-	<img src="data/image/<?php echo $update_image; ?>" alt="" />
 	<?php echo $update_note; ?>
 </div>
