@@ -21,7 +21,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 
 //If form is posted...
-if (isset($_POST['submit'])) {
+if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	//Get the filename.
 	$filename = get_page_filename($var1);
 
@@ -42,7 +42,7 @@ if (isset($_POST['submit'])) {
 	save_page($newfilename, $cont1, $cont2, $cont4, $description, $keywords, $cont3);
 	
 	//Redirect the user. only if they are doing a save_exit
-	if($_POST['submit'] != 'Save')
+	if(isset($_POST['save_exit']))
 	{
 		redirect('?action=page', 0);
 	}
@@ -165,8 +165,8 @@ unset($module);
 			</tr>
 		</table>
 	</div>
-	<input class="save" type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>"/>
-	<input type="submit" name="submit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
+	<input class="save" type="submit" name="save" value="<?php echo $lang['general']['save']; ?>"/>
+	<input type="submit" name="save_exit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
 	<button class="cancel" type="button" onclick="javascript: window.location='?action=page';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
 </form>
 

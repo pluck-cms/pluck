@@ -28,7 +28,7 @@ foreach ($module_list as $module) {
 unset($module);
 
 //If form is posted...
-if (isset($_POST['submit'])) {
+if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	$pages = read_dir_contents('data/settings/pages', 'files');
 
 	if ($pages == false)
@@ -44,12 +44,12 @@ if (isset($_POST['submit'])) {
 	save_page($newfile, $cont1, $cont2, $cont4, null, null, $cont3);
 
 	//Redirect the user.
-	if($_POST['submit'] = 'Save')
+	if(isset($_POST['save']))
 	{
 		$filename = get_page_filename($newfile);
 		redirect('?action=editpage&var1='.seo_url($cont1), 0);
 	}
-	else
+	else if(isset($_POST['save_exit']))
 	{
 		redirect('?action=page', 0);
 	}
@@ -148,7 +148,7 @@ if (isset($_POST['submit'])) {
 			</tr>
 		</table>
 	</div>
-	<input class="save" type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>"/>
-	<input type="submit" name="submit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
+	<input class="save" type="submit" name="save" value="<?php echo $lang['general']['save']; ?>"/>
+	<input type="submit" name="save_exit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
 	<button class="cancel" type="button" onclick="javascript: window.location='?action=page';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
 </form>

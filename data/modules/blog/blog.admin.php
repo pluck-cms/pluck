@@ -494,7 +494,7 @@ function blog_page_admin_editpost() {
 	}
 	
 	//If form is posted...
-	if(isset($_POST['submit'])) {
+	if(isset($_POST['save']) || isset($_POST['save_exit'])) {
 
 		//Sanitize variables
 		$cont1 = sanitize($cont1);
@@ -585,7 +585,7 @@ function blog_page_admin_editpost() {
 		chmod('data/settings/modules/blog/posts/'.$var1, 0777);
 
 		//Redirect user
-		if($_POST['submit'] != 'Save')
+		if(isset($_POST['save_exit']))
 		{
 			redirect('?module=blog', 0);
 		}
@@ -635,8 +635,8 @@ function blog_page_admin_editpost() {
 	<span class="kop2"><?php echo $lang['general']['contents']; ?></span><br />
 	<textarea class="tinymce" name="cont3" cols="70" rows="20"><?php echo $post_content; ?></textarea><br>
 	
-	<input class="save" type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>"/>
-	<input type="submit" name="submit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
+	<input class="save" type="submit" name="save" value="<?php echo $lang['general']['save']; ?>"/>
+	<input type="submit" name="save_exit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
 	<button class="cancel" type="button" onclick="javascript: window.location='?module=blog';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
 </form>
 
@@ -697,7 +697,7 @@ function blog_page_admin_newpost() {
 	global $lang, $lang_page8, $lang_blog27, $lang_blog26, $lang_blog25, $var1, $cont1, $cont2, $cont3;
 	
 	//If form is posted...
-	if(isset($_POST['submit'])) {
+	if(isset($_POST['save']) || isset($_POST['save_exit'])) {
 
 		//Sanitize variables
 		$cont1 = sanitize($cont1);
@@ -771,12 +771,12 @@ function blog_page_admin_newpost() {
 		chmod('data/settings/modules/blog/posts/'.$newfile.'.php', 0777);
 
 		//Redirect user
-		if($_POST['submit'] == 'Save')
+		if(isset($_POST['save']))
 		{
 			//exit('redirecting to edit page newfile = '.$newfile);
 			redirect('?module=blog&page=editpost&var1='.$newfile.'.php', 0);
 		}
-		else
+		else if(isset($_POST['save_exit']))
 		{
 			redirect('?module=blog', 0);
 		}
@@ -820,8 +820,8 @@ function blog_page_admin_newpost() {
 		<span class="kop2"><?php echo $lang['general']['contents']; ?></span><br />
 		<textarea class="tinymce" name="cont3" cols="70" rows="20"></textarea><br />
 
-		<input class="save" type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>"/>
-		<input type="submit" name="submit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
+		<input class="save" type="submit" name="save" value="<?php echo $lang['general']['save']; ?>"/>
+		<input type="submit" name="save_exit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
 		<button class="cancel" type="button" onclick="javascript: window.location='?module=blog';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
 	</form>
 
