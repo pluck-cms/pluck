@@ -482,7 +482,7 @@ function blog_page_admin_deletereactions() {
 //---------------
 function blog_page_admin_editpost() {
 	global $lang, $lang_page8, $lang_blog27, $lang_blog26, $lang_blog25, $var1, $cont1, $cont2, $cont3;
-	
+		
 	//Include the postinformation
 	if (file_exists('data/settings/modules/blog/posts/'.$var1))
 	{
@@ -494,7 +494,7 @@ function blog_page_admin_editpost() {
 	}
 	
 	//If form is posted...
-	if(isset($_POST['save']) || isset($_POST['save_exit'])) {
+	if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 
 		//Sanitize variables
 		$cont1 = sanitize($cont1);
@@ -546,7 +546,8 @@ function blog_page_admin_editpost() {
 			}
 
 		//Set the new post file to current file
-		$var = $newfile.'.php';
+		$titleSwitch = true;
+		$var1 = $newfile.'.php';
 		}
 
 		//Save information
@@ -561,8 +562,8 @@ function blog_page_admin_editpost() {
 		.'$post_time = \''.$post_time.'\';'."\n");
 
 		//Check if there are reactions
-		if(isset($post_reaction_title)) {
-			foreach($post_reaction_title as $reaction_key => $value) {
+		if (isset($post_reaction_title)) {
+			foreach ($post_reaction_title as $reaction_key => $value) {
 
 				//Sanitize reaction variables
 				$post_reaction_title[$reaction_key] = sanitize($post_reaction_title[$reaction_key]);
@@ -583,12 +584,15 @@ function blog_page_admin_editpost() {
 		fputs($file, '?>');
 		fclose($file);
 		chmod('data/settings/modules/blog/posts/'.$var1, 0777);
-
-		//Redirect user
-		if(isset($_POST['save_exit']))
-		{
+		
+		//Redirect user 
+		//If the title has been changed and it is a plain save, redirect to the edit page with the new title in the var1 slot
+		if (isset($titleSwitch) && isset($_POST['save']))
+			redirect('?module=blog&page=editpost&var1='.$newfile.'.php', 0);
+		
+		if (isset($_POST['save_exit']))
 			redirect('?module=blog', 0);
-		}
+			
 		include('data/settings/modules/blog/posts/'.$var1);
 	}
 
@@ -697,7 +701,7 @@ function blog_page_admin_newpost() {
 	global $lang, $lang_page8, $lang_blog27, $lang_blog26, $lang_blog25, $var1, $cont1, $cont2, $cont3;
 	
 	//If form is posted...
-	if(isset($_POST['save']) || isset($_POST['save_exit'])) {
+	if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 
 		//Sanitize variables
 		$cont1 = sanitize($cont1);
@@ -771,15 +775,11 @@ function blog_page_admin_newpost() {
 		chmod('data/settings/modules/blog/posts/'.$newfile.'.php', 0777);
 
 		//Redirect user
-		if(isset($_POST['save']))
-		{
-			//exit('redirecting to edit page newfile = '.$newfile);
+		if (isset($_POST['save']))
 			redirect('?module=blog&page=editpost&var1='.$newfile.'.php', 0);
-		}
-		else if(isset($_POST['save_exit']))
-		{
+		elseif (isset($_POST['save_exit']))
 			redirect('?module=blog', 0);
-		}
+
 	}
 	
 	?>

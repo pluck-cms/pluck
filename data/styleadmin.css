@@ -194,7 +194,8 @@ button, input {
 
 button.cancel {
 	background-image: url('image/error_small.png');
-	*background-image:none; /* remove background image for IE */
+	*margin-left:5px;
+	_background-image:none; /* remove background image for IE6 */
 }
 
 input[type="submit"].save{

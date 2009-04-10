@@ -20,19 +20,17 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
+//Get the filename.
+$filename = get_page_filename($var1);
+
 //If form is posted...
 if (isset($_POST['save']) || isset($_POST['save_exit'])) {
-	//Get the filename.
-	$filename = get_page_filename($var1);
 
-	//Remove the old file.
-	//TODO: Only delete the file, when the title has been changed.
-	unlink('data/settings/pages/'.$filename);
-	
 	//Create the new filename.
-	$filename = explode('.', $filename);
-	$newfilename = $filename[0].'.'.seo_url($cont1);
-
+	$filenameArray = explode('.', $filename);
+	$seo_title = seo_url($cont1);
+	$newfilename = $filenameArray[0].'.'.$seo_title;
+	
 	if (empty($description))
 		$description = '';
 	if (empty($keywords))
@@ -41,14 +39,23 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	//Save the page.
 	save_page($newfilename, $cont1, $cont2, $cont4, $description, $keywords, $cont3);
 	
-	//Redirect the user. only if they are doing a save_exit
-	if(isset($_POST['save_exit']))
-	{
-		redirect('?action=page', 0);
+	//Check if the title is different from what we started with
+	if ($seo_title != $filenameArray[1]){
+		//Remove the old file.
+		//Only delete the file, when the title has been changed.
+		unlink('data/settings/pages/'.$filename);
+		//Redirect to the new title only if it is a plain save
+		if (isset($_POST['save'])){
+			redirect('?action=editpage&var1='.$seo_title, 0);
+			exit;
+		}
 	}
-}
+	
+	//Redirect the user. only if they are doing a save_exit
+	if (isset($_POST['save_exit']))
+		redirect('?action=page', 0);
 
-$filename = get_page_filename($var1);
+}
 
 //Include page information.
 require_once ('data/settings/pages/'.$filename);

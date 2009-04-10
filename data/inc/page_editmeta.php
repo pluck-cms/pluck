@@ -23,7 +23,29 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 $filename = get_page_filename($var1);
 
 //Include the actual siteinfo
-require_once ('data/settings/pages/'.$filename);
+require ('data/settings/pages/'.$filename);
+
+if (isset($_POST['save']) || isset($_POST['save_exit'])){
+	//Remove .php from the filename. We add it again in save_page.
+	$filenameCut = preg_replace('/.php$/', '', $filename);
+
+	//Save the page
+	if (isset($module_pageinc))
+		save_page($filenameCut, $title, $content, $hidden, $cont1, $cont2, $module_pageinc);
+	else
+		save_page($filenameCut, $title, $content, $hidden, $cont1, $cont2);
+
+	//Redirect user only if they hit save and exit
+	if (isset($_POST['save_exit'])){
+		echo $lang_meta4;
+		redirect('?action=page', 0);
+	}
+	
+	//Include the site info again with updated data
+	require ('data/settings/pages/'.$filename);
+	
+}
+
 
 //Introduction text
 ?>
@@ -39,22 +61,7 @@ require_once ('data/settings/pages/'.$filename);
 		<br />
 		<textarea name="cont2" rows="5" cols="50"><?php if (isset($keywords)) echo $keywords; ?></textarea>
 		<br /><br />
-		<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
-		<input type="button" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?action=page';" />
+		<input class="save" type="submit" name="save" value="<?php echo $lang['general']['save']; ?>"/>
+		<input type="submit" name="save_exit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
+		<button class="cancel" type="button" onclick="javascript: window.location='?action=page';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
 	</form>
-<?php
-if (isset($_POST['submit'])) {
-	//Remove .php from the filename. We add it again in save_page.
-	$filename = preg_replace('/.php$/', '', $filename);
-
-	//Save the page
-	if (isset($module_pageinc))
-		save_page($filename, $title, $content, $hidden, $cont1, $cont2, $module_pageinc);
-	else
-		save_page($filename, $title, $content, $hidden, $cont1, $cont2);
-
-	//Redirect user
-	echo $lang_meta4;
-	redirect('?action=page', 0);
-}
-?>

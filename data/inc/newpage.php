@@ -37,22 +37,20 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 		$pages = count($pages);
 
 	$pages++;
-
-	$newfile = $pages.'.'.seo_url($cont1);
+	$seo_title = seo_url($cont1);
+	$newfile = $pages.'.'.$seo_title;
 
 	//Save the page.
 	save_page($newfile, $cont1, $cont2, $cont4, null, null, $cont3);
 
 	//Redirect the user.
-	if(isset($_POST['save']))
-	{
+	if (isset($_POST['save'])){
 		$filename = get_page_filename($newfile);
-		redirect('?action=editpage&var1='.seo_url($cont1), 0);
+		redirect('?action=editpage&var1='.$seo_title, 0);
 	}
-	else if(isset($_POST['save_exit']))
-	{
+	elseif (isset($_POST['save_exit']))
 		redirect('?action=page', 0);
-	}
+
 }
 
 
