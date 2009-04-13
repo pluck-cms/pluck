@@ -238,6 +238,9 @@ function seo_url($url) {
 }
 
 function get_page_seoname($filename) {
+	//Remove "data/settings/pages/" from the patch, if it exist.
+	$filename = str_replace('data/settings/pages/', '', $filename);
+
 	if (strpos($filename, '/') !== false) {
 		//Split the page name, and count how many matches there are.
 		$matches = explode('/', $filename);
@@ -249,9 +252,6 @@ function get_page_seoname($filename) {
 		//Remove the last match, so we can find the file patch.
 		unset($matches[$count - 1]);
 		$patch = implode('/', $matches);
-
-		//Remove "data/settings/pages/" from the patch, if it exist.
-		$patch = str_replace('data/settings/pages/', '', $patch);
 
 		//Run through the pages in the folder, if it exists.
 		if (file_exists('data/settings/pages/'.$patch)) {
@@ -277,6 +277,10 @@ function get_page_seoname($filename) {
 }
 
 function get_page_filename($seoname) {
+	//Remove "data/settings/pages/" from the patch, if it exist.
+	$seoname = str_replace('data/settings/pages/', '', $seoname);
+
+	//Read the pages.
 	$pages = read_dir_contents('data/settings/pages', 'files');
 
 	//Are there any pages?

@@ -101,20 +101,8 @@ function show_pages($patch) {
 		sort($files, SORT_NUMERIC);
 		foreach ($files as $file) {
 			show_page_box($patch.'/'.$file);
-			if (file_exists($patch.'/'.get_page_seoname($file))) {
-				$dirs = read_dir_contents($patch, 'dirs');
-				if ($dirs) {
-					foreach ($dirs as $dir) {
-						$seo_file = explode('/', get_page_seoname($patch.'/'.$file));
-						$seo_count = count($seo_file);
-						$seo_file = $seo_file[$seo_count - 1];
-						if (empty($seo_file) || $dir == $seo_file) {
-							show_pages($patch.'/'.$dir);
-						}
-					}
-					unset($dir);
-				}
-			}
+			if (file_exists('data/settings/pages/'.get_page_seoname($patch.'/'.$file)))
+				show_pages('data/settings/pages/'.get_page_seoname($patch.'/'.$file));
 		}
 		unset($file);
 	}
@@ -124,7 +112,6 @@ function show_page_box($file) {
 	global $lang, $lang_page3, $lang_meta1, $lang_updown1;
 
 	include_once ($file);
-	$file = str_replace('data/settings/pages/', '', $file);
 	$file = get_page_seoname($file);
 
 	//Find the margin.
