@@ -20,19 +20,21 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
+//redirect for a cancel
+if (isset($_POST['cancel']))
+	redirect('?action=page', 0);
+
+//Get the filename.
+$filename = get_page_filename($var1);
+
 //If form is posted...
-if (isset($_POST['submit'])) {
-	//Get the filename.
-	$filename = get_page_filename($var1);
+if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 
-	//Remove the old file.
-	//TODO: Only delete the file, when the title has been changed.
-	unlink('data/settings/pages/'.$filename);
-	
 	//Create the new filename.
-	$filename = explode('.', $filename);
-	$newfilename = $filename[0].'.'.seo_url($cont1);
-
+	$filenameArray = explode('.', $filename);
+	$seo_title = seo_url($cont1);
+	$newfilename = $filenameArray[0].'.'.$seo_title;
+	
 	if (empty($description))
 		$description = '';
 	if (empty($keywords))
@@ -41,14 +43,23 @@ if (isset($_POST['submit'])) {
 	//Save the page.
 	save_page($newfilename, $cont1, $cont2, $cont4, $description, $keywords, $cont3);
 	
-	//Redirect the user. only if they are doing a save_exit
-	if(strtolower($_POST['submit']) != 'save')
-	{
-		redirect('?action=page', 0);
+	//Check if the title is different from what we started with
+	if ($seo_title != $filenameArray[1]){
+		//Remove the old file.
+		//Only delete the file, when the title has been changed.
+		unlink('data/settings/pages/'.$filename);
+		//Redirect to the new title only if it is a plain save
+		if (isset($_POST['save'])){
+			redirect('?action=editpage&var1='.$seo_title, 0);
+			exit;
+		}
 	}
-}
+	
+	//Redirect the user. only if they are doing a save_exit
+	if (isset($_POST['save_exit']))
+		redirect('?action=page', 0);
 
-$filename = get_page_filename($var1);
+}
 
 //Include page information.
 require_once ('data/settings/pages/'.$filename);
@@ -165,8 +176,8 @@ unset($module);
 			</tr>
 		</table>
 	</div>
-	<input class="save" type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>"/>
-	<input type="submit" name="submit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
-	<button class="cancel" type="button" onclick="javascript: window.location='?action=page';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
+	<input class="save" type="submit" name="save" value="<?php echo $lang['general']['save']; ?>"/>
+	<input type="submit" name="save_exit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
+	<input class="cancel" type="submit" name="cancel" title="<?php echo $lang['general']['cancel']; ?>" value="<?php echo $lang['general']['cancel']; ?>" />
 </form>
 
