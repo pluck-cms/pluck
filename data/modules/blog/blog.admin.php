@@ -482,6 +482,10 @@ function blog_page_admin_deletereactions() {
 //---------------
 function blog_page_admin_editpost() {
 	global $lang, $lang_page8, $lang_blog27, $lang_blog26, $lang_blog25, $var1, $cont1, $cont2, $cont3;
+	
+	//redirect for a cancel
+	if (isset($_POST['cancel']))
+		redirect('?module=blog', 0);
 		
 	//Include the postinformation
 	if (file_exists('data/settings/modules/blog/posts/'.$var1))
@@ -641,7 +645,7 @@ function blog_page_admin_editpost() {
 	
 	<input class="save" type="submit" name="save" value="<?php echo $lang['general']['save']; ?>"/>
 	<input type="submit" name="save_exit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
-	<button class="cancel" type="button" onclick="javascript: window.location='?module=blog';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
+	<input class="cancel" type="submit" name="cancel" title="<?php echo $lang['general']['cancel']; ?>" value="<?php echo $lang['general']['cancel']; ?>" />
 </form>
 
 <?php
@@ -699,6 +703,10 @@ function blog_page_admin_deletepost() {
 //---------------
 function blog_page_admin_newpost() {
 	global $lang, $lang_page8, $lang_blog27, $lang_blog26, $lang_blog25, $var1, $cont1, $cont2, $cont3;
+	
+	//redirect for a cancel
+	if (isset($_POST['cancel']))
+		redirect('?module=blog', 0);
 	
 	//If form is posted...
 	if (isset($_POST['save']) || isset($_POST['save_exit'])) {
@@ -822,7 +830,7 @@ function blog_page_admin_newpost() {
 
 		<input class="save" type="submit" name="save" value="<?php echo $lang['general']['save']; ?>"/>
 		<input type="submit" name="save_exit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
-		<button class="cancel" type="button" onclick="javascript: window.location='?module=blog';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
+		<input class="cancel" type="submit" name="cancel" title="<?php echo $lang['general']['cancel']; ?>" value="<?php echo $lang['general']['cancel']; ?>" />
 	</form>
 
 	<?php

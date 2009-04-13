@@ -20,6 +20,10 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
+//redirect for a cancel
+if (isset($_POST['cancel']))
+	redirect('?action=page', 0);
+
 //Get the filename.
 $filename = get_page_filename($var1);
 
@@ -174,6 +178,6 @@ unset($module);
 	</div>
 	<input class="save" type="submit" name="save" value="<?php echo $lang['general']['save']; ?>"/>
 	<input type="submit" name="save_exit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
-	<button class="cancel" type="button" onclick="javascript: window.location='?action=page';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
+	<input class="cancel" type="submit" name="cancel" title="<?php echo $lang['general']['cancel']; ?>" value="<?php echo $lang['general']['cancel']; ?>" />
 </form>
 
