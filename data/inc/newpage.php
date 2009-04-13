@@ -48,10 +48,9 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	save_page($newfile, $cont1, $cont2, $cont4, null, null, $cont3);
 
 	//Redirect the user.
-	if (isset($_POST['save'])){
-		$filename = get_page_filename($newfile);
+	if (isset($_POST['save']))
 		redirect('?action=editpage&var1='.$seo_title, 0);
-	}
+
 	elseif (isset($_POST['save_exit']))
 		redirect('?action=page', 0);
 
@@ -61,21 +60,18 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 //Generate the menu on the right.
 ?>
 <div class="rightmenu">
-<?php echo $lang_page8; ?>
-<br />
+<p><?php echo $lang_page8; ?></p>
 <?php
 	read_imagesinpages('images');
 	read_pagesinpages('data/settings/pages');
 ?>
 </div>
-<?php
-//Form.
-?>
 <form method="post" action="">
-	<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
-	<br />
-	<input name="cont1" id="cont1" type="text" />
-	<br /><br />
+	<p>
+		<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
+		<br />
+		<input name="cont1" id="cont1" type="text" />
+	</p>
 	<span class="kop2"><?php echo $lang['general']['contents']; ?></span>
 	<br />
 	<textarea class="tinymce" name="cont2" cols="70" rows="20"></textarea>

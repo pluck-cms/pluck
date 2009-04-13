@@ -1,12 +1,8 @@
-* {
-	margin: 0px;
-	padding: 0px;
-}
-
 body {
 	background-color: white;
 	font-family: "DejaVu Sans", "Bitstream Vera Sans", Verdana, sans-serif;
 	font-size: 100%;
+	margin: 0;
 }
 
 #menuheader {
@@ -25,8 +21,8 @@ body {
 }
 
 .menuitem {
-	display:block;
-	width:auto;
+	display: block;
+	width: auto;
 	color: #B6B6B6;
 	font-size: 14px;
 	padding: 70px 9px 0px 9px;
@@ -35,11 +31,11 @@ body {
 	text-decoration: none;
 	height: 30px;
 	float: left;
-	color:gray;
+	color: gray;
 }
 
-.menuitem:hover{
-color:#3766AC;
+.menuitem:hover {
+	color:#3766AC;
 }
 
 .menuitem span {
@@ -145,8 +141,6 @@ h3 {
 	font-size: 17pt;
 
 }
-
-
 
 .menudiv span .more {
 	font-size: 8pt;

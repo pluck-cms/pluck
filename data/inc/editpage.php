@@ -31,9 +31,9 @@ $filename = get_page_filename($var1);
 if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 
 	//Create the new filename.
-	$filenameArray = explode('.', $filename);
+	$filename_array = explode('.', $filename);
 	$seo_title = seo_url($cont1);
-	$newfilename = $filenameArray[0].'.'.$seo_title;
+	$newfilename = $filename_array[0].'.'.$seo_title;
 	
 	if (empty($description))
 		$description = '';
@@ -44,12 +44,12 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	save_page($newfilename, $cont1, $cont2, $cont4, $description, $keywords, $cont3);
 	
 	//Check if the title is different from what we started with
-	if ($seo_title != $filenameArray[1]){
+	if ($seo_title != $filename_array[1]) {
 		//Remove the old file.
 		//Only delete the file, when the title has been changed.
 		unlink('data/settings/pages/'.$filename);
 		//Redirect to the new title only if it is a plain save
-		if (isset($_POST['save'])){
+		if (isset($_POST['save'])) {
 			redirect('?action=editpage&var1='.$seo_title, 0);
 			exit;
 		}
@@ -74,16 +74,12 @@ unset($module);
 //Generate the menu on the right.
 ?>
 <div class="rightmenu">
-<?php echo $lang_page8; ?>
-<br />
+<p><?php echo $lang_page8; ?></p>
 <?php
 	read_imagesinpages('images');
 	read_pagesinpages('data/settings/pages', $filename);
 ?>
 </div>
-<?php
-//Form.
-?>
 <form name="page_form" method="post" action="">
 	<p>
 		<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>

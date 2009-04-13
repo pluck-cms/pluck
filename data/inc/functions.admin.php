@@ -95,23 +95,29 @@ function read_pagesinpages($dir, $current_page = null) {
 	}
 }
 
-function show_pages($patch) {
+function get_pages($patch = 'data/settings/pages') {
+	global $pages;
 	$files = read_dir_contents($patch, 'files');
 	if ($files) {
 		sort($files, SORT_NUMERIC);
 		foreach ($files as $file) {
-			show_page_box($patch.'/'.$file);
+			$pages[] = $patch.'/'.$file;
 			if (file_exists('data/settings/pages/'.get_page_seoname($patch.'/'.$file)))
-				show_pages('data/settings/pages/'.get_page_seoname($patch.'/'.$file));
+				get_pages('data/settings/pages/'.get_page_seoname($patch.'/'.$file));
 		}
 		unset($file);
 	}
+
+	foreach ($pages as $key => $page)
+		$pages[$key] = str_replace('data/settings/pages/', '', $page);
+
+	return $pages;
 }
 
 function show_page_box($file) {
 	global $lang, $lang_page3, $lang_meta1, $lang_updown1;
 
-	include_once ($file);
+	include_once ('data/settings/pages/'.$file);
 	$file = get_page_seoname($file);
 
 	//Find the margin.
@@ -155,6 +161,27 @@ function show_page_box($file) {
 			<?php run_hook('admin_page_list_after'); ?>
 		</div>
 	<?php
+}
+
+function show_subpage_select($name, $current_page = null) {
+	$pages = get_pages();
+	echo '<select name="'.$name.'" id="'.$name.'">';
+	echo '<option value="none">None</option>';
+
+	foreach ($pages as $page) {
+		include ('data/settings/pages/'.$page);
+
+		preg_match_all('|\/|', $page, $indent);
+		$indent = count($indent[0]);
+
+		if (!empty($indent))
+			$indent = str_repeat('&emsp;', $indent);
+		else
+			$indent = null;
+
+		echo '<option value="'.$page.'">'.$indent.$title.'</option>';
+	}
+	echo '</select>';
 }
 
 function reorder_pages($patch) {

@@ -32,5 +32,7 @@ showmenudiv($lang_page2, null, 'data/image/newpage.png', '?action=newpage');
 showmenudiv($lang_kop17, null, 'data/image/image.png', '?action=images');
 
 //Show pages.
-show_pages('data/settings/pages');
+$pages = get_pages();
+foreach ($pages as $page)
+	show_page_box($page);
 ?>
