@@ -26,7 +26,7 @@ $lang['general']['404']           = '404: not found';
 $lang['general']['not_found']     = 'This page could not be found.';
 $lang['general']['copyright']     = 'pluck &copy; 2005-2009 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck is available under the terms of the GNU General Public License.';
 $lang['general']['save']          = 'Save';
-$lang['general']['save_exit']   = 'Save and Exit';
+$lang['general']['save_exit']     = 'Save and Exit';
 $lang['general']['cancel']        = 'Cancel';
 $lang['general']['other_options'] = 'other options';
 $lang['general']['title']         = 'title';
@@ -79,19 +79,19 @@ $lang['update']['urgent']     = '<strong>urgent</strong> update available';
 $lang['update']['failed']     = 'update check failed';
 
 //Trashcan
-$lang['trashcan']['title'] = 'trashcan';
+$lang['trashcan']['title']          = 'trashcan';
 $lang['trashcan']['items_in_trash'] = 'items in trashcan';
-$lang['trashcan']['move_to_trash'] = 'move item to trashcan';
-$lang['trashcan']['moving_item'] = 'Moving item to trashcan...';
-$lang['trashcan']['same_name'] = 'The item could not be moved to the trashcan: the trashcan contains an item with the same name.';
-$lang['trashcan']['message'] = 'Deleted items are listed here. You can take a look at them, restore them or delete them from the trashcan.';
-$lang['trashcan']['empty']  = 'empty trashcan';
-$lang['trashcan']['empty_confirm'] = 'Are you sure you want to empty the trashcan? Please note that all items will be lost.';
-$lang['trashcan']['view_item'] = 'view item';
-$lang['trashcan']['delete_item'] = 'delete item from trashcan';
-$lang['trashcan']['deleting'] = 'Deleting item from trashcan...';
-$lang['trashcan']['restore_item'] = 'restore item';
-$lang['trashcan']['restoring'] = 'Restoring item from trashcan...';
+$lang['trashcan']['move_to_trash']  = 'move item to trashcan';
+$lang['trashcan']['moving_item']    = 'Moving item to trashcan...';
+$lang['trashcan']['same_name']      = 'The item could not be moved to the trashcan: the trashcan contains an item with the same name.';
+$lang['trashcan']['message']        = 'Deleted items are listed here. You can take a look at them, restore them or delete them from the trashcan.';
+$lang['trashcan']['empty']          = 'empty trashcan';
+$lang['trashcan']['empty_confirm']  = 'Are you sure you want to empty the trashcan? Please note that all items will be lost.';
+$lang['trashcan']['view_item']      = 'view item';
+$lang['trashcan']['delete_item']    = 'delete item from trashcan';
+$lang['trashcan']['deleting']       = 'Deleting item from trashcan...';
+$lang['trashcan']['restore_item']   = 'restore item';
+$lang['trashcan']['restoring']      = 'Restoring item from trashcan...';
 
 //Start
 $lang['start']['title']   = 'start';
@@ -105,13 +105,13 @@ $lang['start']['help']    = 'need help?';
 $lang['start']['love']    = 'we\'d love to help you';
 
 //Credits
-$lang['credits']['title'] = 'credits';
-$lang['credits']['message'] = 'Our thanks goes to all the following people, for helping in the development of pluck.';
+$lang['credits']['title']          = 'credits';
+$lang['credits']['message']        = 'Our thanks goes to all the following people, for helping in the development of pluck.';
 $lang['credits']['project_leader'] = 'project leader';
-$lang['credits']['developers'] = 'main developers';
-$lang['credits']['contributions'] = 'contributions';
-$lang['credits']['translation'] = 'translation';
-$lang['credits']['more'] = 'more thanks';
+$lang['credits']['developers']     = 'main developers';
+$lang['credits']['contributions']  = 'contributions';
+$lang['credits']['translation']    = 'translation';
+$lang['credits']['more']           = 'more thanks';
 
 //Page
 $lang_kop2 = "pages";
@@ -157,45 +157,45 @@ $lang['modules']['title']   = 'modules';
 $lang['modules']['message'] = 'Pluck has a variety of modules available, which you can use to extend your website with dynamic content.';
 
 //Options
-$lang['options']['title'] = 'options';
-$lang['options']['message'] = 'Here you can configure pluck so it suits your wishes and taste.';
+$lang['options']['title']          = 'options';
+$lang['options']['message']        = 'Here you can configure pluck so it suits your wishes and taste.';
 $lang['options']['settings_descr'] = 'change general settings like the title of your website and your email address';
-$lang['options']['modules_descr'] = 'manage modules and include them in your website';
-$lang['options']['themes_descr'] = 'change the look and feel of your website';
-$lang['options']['lang_descr'] = 'choose the language that will be used by pluck';
-$lang['options']['pass_descr'] = 'it is a good idea to change your password regularly';
+$lang['options']['modules_descr']  = 'manage modules and include them in your website';
+$lang['options']['themes_descr']   = 'change the look and feel of your website';
+$lang['options']['lang_descr']     = 'choose the language that will be used by pluck';
+$lang['options']['pass_descr']     = 'it is a good idea to change your password regularly';
 
 //Settings
-$lang['settings']['title'] = 'general settings';
-$lang['settings']['message'] = 'Change general settings like the title of your website and your email address here.';
-$lang['settings']['choose_title'] = 'choose the title for your website here';
-$lang['settings']['email'] = 'email';
-$lang['settings']['email_descr'] = 'your email address will be used to allow your visitors to contact you through an email form';
-$lang['settings']['xhtml_mode'] = 'Turn on the XHTML Compatibility Mode (may be slower)';
+$lang['settings']['title']             = 'general settings';
+$lang['settings']['message']           = 'Change general settings like the title of your website and your email address here.';
+$lang['settings']['choose_title']      = 'choose the title for your website here';
+$lang['settings']['email']             = 'email';
+$lang['settings']['email_descr']       = 'your email address will be used to allow your visitors to contact you through an email form';
+$lang['settings']['xhtml_mode']        = 'Turn on the XHTML Compatibility Mode (may be slower)';
 $lang['settings']['changing_settings'] = 'Changing the general settings...';
-$lang['settings']['fill_name']     = 'You have to fill in a name for your website, it can\'t be empty.';
-$lang['settings']['email_invalid'] = 'The emailaddress you entered is invalid!';
+$lang['settings']['fill_name']         = 'You have to fill in a name for your website, it can\'t be empty.';
+$lang['settings']['email_invalid']     = 'The emailaddress you entered is invalid!';
 
 //Modules_manage
-$lang['modules_manage']['title'] = 'manage modules';
-$lang['modules_manage']['message'] = 'Manage your modules here. Remove unused modules, or start your search for new modules to enrich your website with new functionality. You can also add modules to your website, by choosing <i>Add modules to website</i>.';
-$lang['modules_manage']['add'] = 'Add modules to website...';
-$lang['modules_manage']['install'] = 'Install a module...';
-$lang['modules_manage']['information'] = 'module information';
-$lang['modules_manage']['uninstall'] = 'uninstall module';
+$lang['modules_manage']['title']             = 'manage modules';
+$lang['modules_manage']['message']           = 'Manage your modules here. Remove unused modules, or start your search for new modules to enrich your website with new functionality. You can also add modules to your website, by choosing <i>Add modules to website</i>.';
+$lang['modules_manage']['add']               = 'Add modules to website...';
+$lang['modules_manage']['install']           = 'Install a module...';
+$lang['modules_manage']['information']       = 'module information';
+$lang['modules_manage']['uninstall']         = 'uninstall module';
 $lang['modules_manage']['uninstall_confirm'] = 'Are you sure you want to uninstall this module? Please note that the settings of the module will not be lost.';
-$lang['modules_manage']['version'] = 'version';
-$lang['modules_manage']['author'] = 'author';
-$lang['modules_manage']['website'] = 'website';
-$lang['modules_manage']['not_compatible'] = 'This module is not compatible with your version of pluck, and has been disabled.';
+$lang['modules_manage']['version']           = 'version';
+$lang['modules_manage']['author']            = 'author';
+$lang['modules_manage']['website']           = 'website';
+$lang['modules_manage']['not_compatible']    = 'This module is not compatible with your version of pluck, and has been disabled.';
 
 //Modules_addtosite
-$lang['modules_addtosite']['title'] = 'add modules to website';
-$lang['modules_addtosite']['message'] = 'Configure here in which areas on your websites modules will be displayed. These settings are theme specific: if you change to another theme, you will have to set this again. Please also note that these settings will apply for all pages on your website.';
+$lang['modules_addtosite']['title']        = 'add modules to website';
+$lang['modules_addtosite']['message']      = 'Configure here in which areas on your websites modules will be displayed. These settings are theme specific: if you change to another theme, you will have to set this again. Please also note that these settings will apply for all pages on your website.';
 $lang['modules_addtosite']['choose_order'] = 'Choose in which order the modules should be displayed.';
 
 //Installmodule
-$lang['modules_install']['title'] = 'install modules';
+$lang['modules_install']['title']   = 'install modules';
 $lang['modules_install']['message'] = 'Here you can install new modules. Please make sure you have downloaded a module first.';
 $lang['modules_install']['too_big'] = 'The module-file is too big; 2MB is the limit.';
 $lang['modules_install']['success'] = 'The module has been installed successfully.';

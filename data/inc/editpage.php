@@ -29,11 +29,9 @@ $filename = get_page_filename($var1);
 
 //If form is posted...
 if (isset($_POST['save']) || isset($_POST['save_exit'])) {
-
 	//Create the new filename.
 	$filename_array = explode('.', $filename);
-	$seo_title = seo_url($cont1);
-	$newfilename = $filename_array[0].'.'.$seo_title;
+	$newfilename = $filename_array[0].'.'.seo_url($cont1);
 	
 	if (empty($description))
 		$description = '';
@@ -44,13 +42,13 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	save_page($newfilename, $cont1, $cont2, $cont4, $description, $keywords, $cont3);
 	
 	//Check if the title is different from what we started with
-	if ($seo_title != $filename_array[1]) {
+	if ($newfilename.'.php' != $filename) {
 		//Remove the old file.
-		//Only delete the file, when the title has been changed.
 		unlink('data/settings/pages/'.$filename);
+
 		//Redirect to the new title only if it is a plain save
 		if (isset($_POST['save'])) {
-			redirect('?action=editpage&var1='.$seo_title, 0);
+			redirect('?action=editpage&var1='.get_page_seoname($newfilename.'.php'), 0);
 			exit;
 		}
 	}
@@ -164,10 +162,15 @@ unset($module);
 					<img src="data/image/options.png" alt="" />
 				</td>
 				<td>
-					<span class="kop3"><?php echo $lang['general']['other_options']; ?></span>
+					<p>
+						<span class="kop3"><?php echo $lang['general']['other_options']; ?></span>
+						<br />
+						<input type="checkbox" name="cont4" id="cont4" <?php if ($hidden == 'no') echo'checked="checked"'; ?> value="no" /><label for="cont4"><?php echo $lang_pagehide1; ?></label>
+					</p>
+					<?php //TODO: Translate. ?>
+					<span class="kop3">sub-page of</span>
 					<br />
-					<input type="checkbox" name="cont4" id="cont4" <?php if ($hidden == 'no') echo'checked="checked"'; ?> value="no" /><label for="cont4"><?php echo $lang_pagehide1; ?></label>
-					<br />
+					<?php show_subpage_select('cont5', $var1); ?>
 				</td>
 			</tr>
 		</table>

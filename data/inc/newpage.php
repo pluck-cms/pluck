@@ -33,23 +33,31 @@ unset($module);
 
 //If form is posted...
 if (isset($_POST['save']) || isset($_POST['save_exit'])) {
-	$pages = read_dir_contents('data/settings/pages', 'files');
+	//Check if we want a sub-page.
+	if (!empty($cont5)) {
+		//We need to make sure that the dir exists, and if not, create it.
+		if (!file_exists('data/settings/pages/'.rtrim($cont5, '/')))
+			mkdir('data/settings/pages/'.rtrim($cont5, '/'));
+		$pages = read_dir_contents('data/settings/pages/'.rtrim($cont5, '/'), 'files');
+	}
+	else
+		$pages = read_dir_contents('data/settings/pages', 'files');
 
 	if ($pages == false)
-		$pages = 0;
+		$number = 0;
 	else
-		$pages = count($pages);
+		$number = count($pages);
 
-	$pages++;
+	$number++;
 	$seo_title = seo_url($cont1);
-	$newfile = $pages.'.'.$seo_title;
+	$newfile = $cont5.$number.'.'.$seo_title;
 
 	//Save the page.
 	save_page($newfile, $cont1, $cont2, $cont4, null, null, $cont3);
 
 	//Redirect the user.
 	if (isset($_POST['save']))
-		redirect('?action=editpage&var1='.$seo_title, 0);
+		redirect('?action=editpage&var1='.$cont5.$seo_title, 0);
 
 	elseif (isset($_POST['save_exit']))
 		redirect('?action=page', 0);
@@ -62,8 +70,8 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 <div class="rightmenu">
 <p><?php echo $lang_page8; ?></p>
 <?php
-	read_imagesinpages('images');
-	read_pagesinpages('data/settings/pages');
+read_imagesinpages('images');
+read_pagesinpages('data/settings/pages');
 ?>
 </div>
 <form method="post" action="">
@@ -89,42 +97,42 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 					<br />
 					<table>
 					<?php
-						//First count how many modules we have, and exclude disabled modules.
-						$number_modules = count($module_list);
-						foreach ($module_list as $module) {
-							if (!module_is_compatible($module) || !function_exists($module.'_theme_main'))
-								$number_modules--;
+					//First count how many modules we have, and exclude disabled modules.
+					$number_modules = count($module_list);
+					foreach ($module_list as $module) {
+						if (!module_is_compatible($module) || !function_exists($module.'_theme_main'))
+							$number_modules--;
+					}
+					unset($module);
+
+					//Loop through modules, and display them.
+					foreach ($module_list as $module) {
+						//Only show if module is compatible.
+						if (module_is_compatible($module) && function_exists($module.'_theme_main')) {
+							$module_info = call_user_func($module.'_info');
+							?>
+								<tr>
+									<td><?php echo $module_info['name']; ?></td>
+									<td>
+										<select name="cont3[<?php echo $module; ?>]">
+											<option value="0"><?php echo $lang['general']['dont_display']; ?></option>
+											<?php
+											$counting_modules = 1;
+											while ($counting_modules <= $number_modules) {
+												?>
+													<option value="<?php echo $counting_modules; ?>"><?php echo $counting_modules; ?></option>
+												<?php
+												//Higher counting_modules.
+												$counting_modules++;
+											}
+											?>
+										</select>
+									</td>
+								</tr>
+							<?php
+							}
 						}
 						unset($module);
-
-						//Loop through modules, and display them.
-						foreach ($module_list as $module) {
-							//Only show if module is compatible.
-							if (module_is_compatible($module) && function_exists($module.'_theme_main')) {
-								$module_info = call_user_func($module.'_info');
-								?>
-									<tr>
-										<td><?php echo $module_info['name']; ?></td>
-										<td>
-											<select name="cont3[<?php echo $module; ?>]">
-												<option value="0"><?php echo $lang['general']['dont_display']; ?></option>
-												<?php
-													$counting_modules = 1;
-													while ($counting_modules <= $number_modules) {
-														?>
-															<option value="<?php echo $counting_modules; ?>"><?php echo $counting_modules; ?></option>
-														<?php
-														//Higher counting_modules.
-														$counting_modules++;
-													}
-												?>
-											</select>
-										</td>
-									</tr>
-								<?php
-								}
-							}
-							unset($module);
 						?>
 					</table>
 				</td>
@@ -138,10 +146,15 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 					<img src="data/image/options.png" alt="" />
 				</td>
 				<td>
-					<span class="kop3"><?php echo $lang['general']['other_options']; ?></span>
+					<p>
+						<span class="kop3"><?php echo $lang['general']['other_options']; ?></span>
+						<br />
+						<input type="checkbox" name="cont4" id="cont4" checked="checked" value="no" /><label for="cont4"><?php echo $lang_pagehide1; ?></label>
+					</p>
+					<?php //TODO: Translate. ?>
+					<span class="kop3">sub-page of</span>
 					<br />
-					<input type="checkbox" name="cont4" id="cont4" checked="checked" value="no" /><label for="cont4"><?php echo $lang_pagehide1; ?></label>
-					<br />
+					<?php show_subpage_select('cont5'); ?>
 				</td>
 			</tr>
 		</table>

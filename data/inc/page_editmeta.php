@@ -57,15 +57,17 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])){
 		<strong><?php echo $lang_meta2; ?></strong>
 	</p>
 	<form method="post" action="">
-		<span class="kop2"><?php echo $lang_albums11; ?></span>
-		<br />
-		<textarea name="cont1" rows="3" cols="50"><?php if (isset($description)) echo $description; ?></textarea>
-		<br /><br />
+		<p>
+			<span class="kop2"><?php echo $lang_albums11; ?></span>
+			<br />
+			<textarea name="cont1" rows="3" cols="50"><?php if (isset($description)) echo $description; ?></textarea>
+		</p>
 		<span class="kop2"><?php echo $lang_siteinfo4; ?></span> (<?php echo $lang_siteinfo5; ?>)
 		<br />
 		<textarea name="cont2" rows="5" cols="50"><?php if (isset($keywords)) echo $keywords; ?></textarea>
-		<br /><br />
-		<input class="save" type="submit" name="save" value="<?php echo $lang['general']['save']; ?>"/>
-		<input type="submit" name="save_exit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
-		<input class="cancel" type="submit" name="cancel" title="<?php echo $lang['general']['cancel']; ?>" value="<?php echo $lang['general']['cancel']; ?>" />
+		<p>
+			<input class="save" type="submit" name="save" value="<?php echo $lang['general']['save']; ?>"/>
+			<input type="submit" name="save_exit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
+			<input class="cancel" type="submit" name="cancel" title="<?php echo $lang['general']['cancel']; ?>" value="<?php echo $lang['general']['cancel']; ?>" />
+		</p>
 	</form>

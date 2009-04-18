@@ -106,12 +106,27 @@ function get_pages($patch = 'data/settings/pages') {
 				get_pages('data/settings/pages/'.get_page_seoname($patch.'/'.$file));
 		}
 		unset($file);
+
+		foreach ($pages as $key => $page)
+			$pages[$key] = str_replace('data/settings/pages/', '', $page);
+
+		return $pages;
 	}
 
-	foreach ($pages as $key => $page)
-		$pages[$key] = str_replace('data/settings/pages/', '', $page);
+	return false;
+}
 
-	return $pages;
+function get_sub_page_dir($page) {
+	//Don't do anything if it's not a sub-page.
+	if (strpos($page, '/') !== false && file_exists('data/settings/pages/'.get_page_filename($page))) {
+		$page = explode('/', $page);
+		$count = count($page);
+		unset($page[$count -1]);
+		$page = implode('/', $page);
+		return $page;
+	}
+
+	return false;
 }
 
 function show_page_box($file) {
@@ -166,21 +181,31 @@ function show_page_box($file) {
 function show_subpage_select($name, $current_page = null) {
 	$pages = get_pages();
 	echo '<select name="'.$name.'" id="'.$name.'">';
-	echo '<option value="none">None</option>';
+	//TODO: Translate.
+	echo '<option value="">None</option>';
 
 	foreach ($pages as $page) {
-		include ('data/settings/pages/'.$page);
+		//You should not be able to add a page as a sub-page of itself.
+		if (strpos(get_page_seoname($page), $current_page) === false) {
+			include ('data/settings/pages/'.$page);
 
-		preg_match_all('|\/|', $page, $indent);
-		$indent = count($indent[0]);
+			preg_match_all('|\/|', $page, $indent);
+			$indent = count($indent[0]);
 
-		if (!empty($indent))
-			$indent = str_repeat('&emsp;', $indent);
-		else
-			$indent = null;
+			if (!empty($indent))
+				$indent = str_repeat('&emsp;', $indent);
+			else
+				$indent = null;
 
-		echo '<option value="'.$page.'">'.$indent.$title.'</option>';
+			if (get_page_seoname($page) == get_sub_page_dir($current_page))
+				$selected = ' selected="selected"';
+			else
+				$selected = null;
+
+			echo '<option value="'.get_page_seoname($page).'/"'.$selected.'>'.$indent.$title.'</option>';
+		}
 	}
+	unset($page);
 	echo '</select>';
 }
 
