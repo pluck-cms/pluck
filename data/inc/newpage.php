@@ -56,11 +56,17 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	save_page($newfile, $cont1, $cont2, $cont4, null, null, $cont3);
 
 	//Redirect the user.
-	if (isset($_POST['save']))
+	if (isset($_POST['save'])) {
 		redirect('?action=editpage&var1='.$cont5.$seo_title, 0);
+		include_once ('data/inc/footer.php');
+		exit;
+	}
 
-	elseif (isset($_POST['save_exit']))
+	elseif (isset($_POST['save_exit'])) {
 		redirect('?action=page', 0);
+		include_once ('data/inc/footer.php');
+		exit;
+	}
 
 }
 

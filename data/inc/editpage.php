@@ -46,16 +46,24 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 		//Remove the old file.
 		unlink('data/settings/pages/'.$filename);
 
+		//If there are sub-pages, rename the folder.
+		if (file_exists('data/settings/pages/'.get_page_seoname($filename)))
+			rename('data/settings/pages/'.$var1, 'data/settings/pages/'.get_page_seoname($newfilename.'.php'));
+
 		//Redirect to the new title only if it is a plain save
 		if (isset($_POST['save'])) {
 			redirect('?action=editpage&var1='.get_page_seoname($newfilename.'.php'), 0);
+			include_once ('data/inc/footer.php');
 			exit;
 		}
 	}
 	
 	//Redirect the user. only if they are doing a save_exit
-	if (isset($_POST['save_exit']))
+	if (isset($_POST['save_exit'])) {
 		redirect('?action=page', 0);
+		include_once ('data/inc/footer.php');
+		exit;
+	}
 
 }
 

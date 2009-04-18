@@ -184,28 +184,30 @@ function show_subpage_select($name, $current_page = null) {
 	//TODO: Translate.
 	echo '<option value="">None</option>';
 
-	foreach ($pages as $page) {
-		//You should not be able to add a page as a sub-page of itself.
-		if (strpos(get_page_seoname($page), $current_page) === false) {
-			include ('data/settings/pages/'.$page);
+	if ($pages) {
+		foreach ($pages as $page) {
+			//You should not be able to add a page as a sub-page of itself.
+			if (strpos(get_page_seoname($page), $current_page) === false) {
+				include ('data/settings/pages/'.$page);
 
-			preg_match_all('|\/|', $page, $indent);
-			$indent = count($indent[0]);
+				preg_match_all('|\/|', $page, $indent);
+				$indent = count($indent[0]);
 
-			if (!empty($indent))
-				$indent = str_repeat('&emsp;', $indent);
-			else
-				$indent = null;
+				if (!empty($indent))
+					$indent = str_repeat('&emsp;', $indent);
+				else
+					$indent = null;
 
-			if (get_page_seoname($page) == get_sub_page_dir($current_page))
-				$selected = ' selected="selected"';
-			else
-				$selected = null;
+				if (get_page_seoname($page) == get_sub_page_dir($current_page))
+					$selected = ' selected="selected"';
+				else
+					$selected = null;
 
-			echo '<option value="'.get_page_seoname($page).'/"'.$selected.'>'.$indent.$title.'</option>';
+				echo '<option value="'.get_page_seoname($page).'/"'.$selected.'>'.$indent.$title.'</option>';
+			}
 		}
+		unset($page);
 	}
-	unset($page);
 	echo '</select>';
 }
 

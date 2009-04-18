@@ -33,6 +33,9 @@ showmenudiv($lang_kop17, null, 'data/image/image.png', '?action=images');
 
 //Show pages.
 $pages = get_pages();
-foreach ($pages as $page)
-	show_page_box($page);
+
+if ($pages) {
+	foreach ($pages as $page)
+		show_page_box($page);
+}
 ?>
