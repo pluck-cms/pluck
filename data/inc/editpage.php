@@ -20,9 +20,12 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
-//redirect for a cancel
-if (isset($_POST['cancel']))
+//Redirect for a cancel.
+if (isset($_POST['cancel'])) {
 	redirect('?action=page', 0);
+	include_once ('data/inc/footer.php');
+	exit;
+}
 
 //Get the filename.
 $filename = get_page_filename($var1);
@@ -41,7 +44,7 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	//Save the page.
 	save_page($newfilename, $cont1, $cont2, $cont4, $description, $keywords, $cont3);
 	
-	//Check if the title is different from what we started with
+	//Check if the title is different from what we started with.
 	if ($newfilename.'.php' != $filename) {
 		//Remove the old file.
 		unlink('data/settings/pages/'.$filename);
@@ -50,7 +53,7 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 		if (file_exists('data/settings/pages/'.get_page_seoname($filename)))
 			rename('data/settings/pages/'.$var1, 'data/settings/pages/'.get_page_seoname($newfilename.'.php'));
 
-		//Redirect to the new title only if it is a plain save
+		//Redirect to the new title only if it is a plain save.
 		if (isset($_POST['save'])) {
 			redirect('?action=editpage&var1='.get_page_seoname($newfilename.'.php'), 0);
 			include_once ('data/inc/footer.php');
@@ -58,7 +61,7 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 		}
 	}
 	
-	//Redirect the user. only if they are doing a save_exit
+	//Redirect the user. only if they are doing a save_exit.
 	if (isset($_POST['save_exit'])) {
 		redirect('?action=page', 0);
 		include_once ('data/inc/footer.php');

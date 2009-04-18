@@ -20,9 +20,12 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
-//redirect for a cancel
-if (isset($_POST['cancel']))
+//Redirect for a cancel.
+if (isset($_POST['cancel'])) {
 	redirect('?action=page', 0);
+	include_once ('data/inc/footer.php');
+	exit;
+}
 
 //Load module functions.
 foreach ($module_list as $module) {
