@@ -1,6 +1,6 @@
 tinyMCE.addI18n({br:{
 common:{
-edit_confirm:"Deseja usar o modo de edi\u00C3\u0083\u00C2\u00A7\u00C3\u0083\u00C2\u00A3o avan\u00C3\u0083\u00C2\u00A7ado neste campo de texto?",
+edit_confirm:"Deseja usar o modo de edi\u00E7\u00E3o avan\u00E7ado neste campo de texto?",
 apply:"Aplicar",
 insert:"Inserir",
 update:"Atualizar",
@@ -8,11 +8,11 @@ cancel:"Cancelar",
 close:"Fechar",
 browse:"Procurar",
 class_name:"Classe",
-not_set:"-- N\u00C3\u0083\u00C2\u00A3o especificado --",
-clipboard_msg:"Copiar/cortar/colar n\u00C3\u0083\u00C2\u00A3o est\u00C3\u0083\u00C2\u00A1 dispon\u00C3\u0083\u00C2\u00ADvel no Mozilla/Firefox.\nDeseja mais informa\u00C3\u0083\u00C2\u00A7\u00C3\u0083\u00C2\u00B5es sobre este problema?",
-clipboard_no_support:"O seu navegador n\u00C3\u0083\u00C2\u00A3o tem suporte para esta fun\u00C3\u0083\u00C2\u00A7\u00C3\u0083\u00C2\u00A3o, use os atalhos do teclado.",
-popup_blocked:"Detect\u00C3\u0083\u00C2\u00A1mos que o seu bloqueador de popups bloqueou uma janela que \u00C3\u0083\u00C2\u00A9 essencial para o aplicativo. Voc\u00C3\u0083\u00C2\u00AA precisa desactivar o bloqueador de popups para utilizar esta ferramenta.",
-invalid_data:"Erro: Valores inv\u00C3\u0083\u00C2\u00A1lidos est\u00C3\u0083\u00C2\u00A3o marcados a vermelho.",
+not_set:"-- N\u00E3o especificado --",
+clipboard_msg:"Copiar/cortar/colar n\u00E3o est\u00E1 dispon\u00EDvel no Mozilla/Firefox.\nDeseja mais informa\u00E7\u00F5es sobre este problema?",
+clipboard_no_support:"O seu navegador n\u00E3o tem suporte para esta fun\u00E7\u00E3o, use os atalhos do teclado.",
+popup_blocked:"Detectamos que o seu bloqueador de popups bloqueou uma janela que \u00E9 essencial para o aplicativo. Voc\u00EA precisa desativar o bloqueador de popups para utilizar esta ferramenta.",
+invalid_data:"Erro: Valores inv\u00E1lidos est\u00E3o marcados em vermelho.",
 more_colors:"Mais Cores"
 },
 contextmenu:{
@@ -27,16 +27,16 @@ date_fmt:"%d-%m-%Y",
 time_fmt:"%H:%M:%S",
 insertdate_desc:"Inserir data",
 inserttime_desc:"Inserir hora",
-months_long:"Janeiro,Fevereiro,Mar\u00C3\u0083\u00C2\u00A7o,Abril,Maio,Junho,Julho,Agosto,Setembro,Outubro,Novembro,Dezembro",
+months_long:"Janeiro,Fevereiro,Mar\u00E7o,Abril,Maio,Junho,Julho,Agosto,Setembro,Outubro,Novembro,Dezembro",
 months_short:"Jan,Fev,Mar,Abr,Mai,Jun,Jul,Ago,Set,Out,Nov,Dez",
-day_long:"Domingo,Segunda-Feira,Ter\u00C3\u0083\u00C2\u00A7a-Feira,Quarta-Feira,Quinta-Feira,Sexta-Feira,S\u00C3\u0083\u00C2\u00A1bado,Domingo",
+day_long:"Domingo,Segunda-Feira,Ter\u00E7a-Feira,Quarta-Feira,Quinta-Feira,Sexta-Feira,S\u00E1bado,Domingo",
 day_short:"Dom,Seg,Ter,Qua,Qui,Sex,Sab,Dom"
 },
 print:{
 print_desc:"Imprimir"
 },
 preview:{
-preview_desc:"Pr\u00C3\u0083\u00C2\u00A9-Visualizar"
+preview_desc:"Pr\u00E9-Visualizar"
 },
 directionality:{
 ltr_desc:"Da esquerda para direita",
@@ -45,20 +45,20 @@ rtl_desc:"Da direita para esquerda"
 layer:{
 insertlayer_desc:"Inserir nova camada",
 forward_desc:"Mover para frente",
-backward_desc:"Mover para tr\u00C3\u0083\u00C2\u00A1s",
+backward_desc:"Mover para tr\u00E1s",
 absolute_desc:"Alternar posicionamento absoluto",
 content:"Nova camada..."
 },
 save:{
-save_desc:"Guardar",
-cancel_desc:"Cancelar todas as altera\u00C3\u0083\u00C2\u00A7\u00C3\u0083\u00C2\u00B5es"
+save_desc:"Salvar",
+cancel_desc:"Cancelar todas as altera\u00E7\u00F5es"
 },
 nonbreaking:{
-nonbreaking_desc:"Inserir um espa\u00C3\u0083\u00C2\u00A7o"
+nonbreaking_desc:"Inserir um espa\u00E7o"
 },
 iespell:{
 iespell_desc:"Verificar ortografia",
-download:"Aplicativo de ortografia n\u00C3\u0083\u00C2\u00A3o-detectado. Deseja instal\u00C3\u0083\u00C2\u00A1-lo agora?"
+download:"Aplicativo de ortografia n\u00E3o-detectado. Deseja instal\u00E1-lo agora?"
 },
 advhr:{
 advhr_desc:"Separador horizontal"
@@ -77,9 +77,9 @@ advlink:{
 link_desc:"Inserir/editar hyperlink"
 },
 xhtmlxtras:{
-cite_desc:"Cita\u00C3\u0083\u00C2\u00A7\u00C3\u0083\u00C2\u00A3o",
-abbr_desc:"Abrevia\u00C3\u0083\u00C2\u00A7\u00C3\u0083\u00C2\u00A3o",
-acronym_desc:"Acr\u00C3\u0083\u00C2\u00B4nimo",
+cite_desc:"Cita\u00E7\u00E3o",
+abbr_desc:"Abrevia\u00E7\u00E3o",
+acronym_desc:"Acr\u00F4nimo",
 del_desc:"Apagar",
 ins_desc:"Inserir",
 attribs_desc:"Inserir/Editar atributos"
@@ -90,7 +90,7 @@ desc:"Editar CSS"
 paste:{
 paste_text_desc:"Colar como texto simples",
 paste_word_desc:"Colar (copiado do WORD)",
-selectall_desc:"Seleccionar tudo"
+selectall_desc:"Selecionar tudo"
 },
 paste_dlg:{
 text_title:"Use CTRL+V para colar o texto na janela.",
@@ -105,10 +105,10 @@ delete_row_desc:"Apagar linha",
 col_before_desc:"Inserir coluna antes",
 col_after_desc:"Inserir coluna depois",
 delete_col_desc:"Remover coluna",
-split_cells_desc:"Dividir c\u00C3\u0083\u00C2\u00A9lulas",
-merge_cells_desc:"Unir c\u00C3\u0083\u00C2\u00A9lulas",
+split_cells_desc:"Dividir c\u00E9lulas",
+merge_cells_desc:"Unir c\u00E9lulas",
 row_desc:"Propriedades das linhas",
-cell_desc:"Propriedades das c\u00C3\u0083\u00C2\u00A9lulas",
+cell_desc:"Propriedades das c\u00E9lulas",
 props_desc:"Propriedades da tabela",
 paste_row_before_desc:"Colar linha antes",
 paste_row_after_desc:"Colar linha depois",
@@ -117,17 +117,17 @@ copy_row_desc:"Copiar linha",
 del:"Apagar tabela",
 row:"Linha",
 col:"Coluna",
-cell:"C\u00C3\u0083\u00C2\u00A9lula"
+cell:"C\u00E9lula"
 },
 autosave:{
-unload_msg:"As mudan\u00C3\u0083\u00C2\u00A7as efectuadas ser\u00C3\u0083\u00C2\u00A3o perdidas se sair desta p\u00C3\u0083\u00C2\u00A1gina."
+unload_msg:"As mudan\u00E7as efetuadas ser\u00E3o perdidas se sair desta p\u00E1gina."
 },
 fullscreen:{
-desc:"Ecr\u00C3\u0083\u00C2\u00A3o Inteiro"
+desc:"Tela Inteira"
 },
 media:{
-desc:"Inserir/editar media embutido",
-edit:"Editar media embutido"
+desc:"Inserir/Editar m\u00EDdia incorporada",
+edit:"Editar m\u00EDdia incorporada"
 },
 fullpage:{
 desc:"Propriedades do Documento"
@@ -139,16 +139,16 @@ visualchars:{
 desc:"Caracteres de controle visual ligado/desligado"
 },
 spellchecker:{
-desc:"Alternar verifica\u00C3\u0083\u00C2\u00A7\u00C3\u0083\u00C2\u00A3o ortogr\u00C3\u0083\u00C2\u00A1fica",
-menu:"Configura\u00C3\u0083\u00C2\u00A7\u00C3\u0083\u00C2\u00B5es de ortografia",
+desc:"Alternar verifica\u00E7\u00E3o ortogr\u00E1fica",
+menu:"Configura\u00E7\u00F5es de ortografia",
 ignore_word:"Ignorar palavra",
 ignore_words:"Ignorar tudo",
 langs:"Linguagens",
 wait:"Aguarde...",
-sug:"Sugest\u00C3\u0083\u00C2\u00B5es",
-no_sug:"Sem sugest\u00C3\u0083\u00C2\u00B5es",
-no_mpell:"N\u00C3\u0083\u00C2\u00A3o foram detectados erros de ortografia."
+sug:"Sugest\u00F5es",
+no_sug:"Sem sugest\u00F5es",
+no_mpell:"N\u00E3o foram detectados erros de ortografia."
 },
 pagebreak:{
-desc:"Inserir quebra de p\u00C3\u0083\u00C2\u00A1gina."
+desc:"Inserir quebra de p\u00E1gina."
 }}});

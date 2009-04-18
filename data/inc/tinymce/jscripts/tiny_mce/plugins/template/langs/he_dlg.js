@@ -11,5 +11,5 @@ cdate_format:"%Y-%m-%d %H:%M:%S",
 months_long:"January,February,March,April,May,June,July,August,September,October,November,December",
 months_short:"Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
 day_long:"\u05E8\u05D0\u05E9\u05D5\u05DF,\u05E9\u05E0\u05D9,\u05E9\u05DC\u05D9\u05E9\u05D9,\u05E8\u05D1\u05D9\u05E2\u05D9,\u05D7\u05DE\u05D9\u05E9\u05D9,\u05E9\u05D9\u05E9\u05D9,\u05E9\u05D1\u05EA",
-day_short:"Sun,Mon,Tue,Wed,Thu,Fri,Sat,Sun"
+day_short:"\u05E8\u05D0\u05E9\u05D5\u05DF,\u05E9\u05E0\u05D9,\u05E9\u05DC\u05D9\u05E9\u05D9,\u05E8\u05D1\u05D9\u05E2\u05D9,\u05D7\u05DE\u05D9\u05E9\u05D9,\u05E9\u05D9\u05E9\u05D9,\u05E9\u05D1\u05EA"
 });

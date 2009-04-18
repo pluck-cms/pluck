@@ -1,5 +1,5 @@
 tinyMCE.addI18n('tw.xhtmlxtras_dlg',{
-attribute_label_title:"\u67E5\u627E",
+attribute_label_title:"Title",
 attribute_label_id:"ID",
 attribute_label_class:"\u985E\u578B",
 attribute_label_style:"\u6A23\u5F0F",

@@ -1,5 +1,5 @@
 tinyMCE.addI18n('de.media_dlg',{
-title:"Multimedia-Inhalte einf\u00FCgen / bearbeiten",
+title:"Multimedia-Inhalte einf\u00FCgen/bearbeiten",
 general:"Allgemein",
 advanced:"Erweitert",
 file:"Datei/URL",

@@ -1,5 +1,5 @@
 /**
- * $Id: editor_plugin_src.js 917 2008-09-03 19:08:38Z spocke $
+ * $Id: editor_plugin_src.js 999 2009-02-10 17:42:58Z spocke $
  *
  * @author Moxiecode
  * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
@@ -265,8 +265,8 @@
 			} else
 				DOM.setStyle('mceModalBlocker', 'z-index', t.zIndex - 1);
 
-			if (tinymce.isIE6 || (tinymce.isIE && !DOM.boxModel))
-				DOM.setStyles('mceModalBlocker', {position : 'absolute', width : vp.w - 2, height : vp.h - 2});
+			if (tinymce.isIE6 || /Firefox\/2\./.test(navigator.userAgent) || (tinymce.isIE && !DOM.boxModel))
+				DOM.setStyles('mceModalBlocker', {position : 'absolute', left : vp.x, top : vp.y, width : vp.w - 2, height : vp.h - 2});
 
 			t.focus(id);
 			t._fixIELayout(id, 1);
@@ -358,7 +358,7 @@
 				});
 
 				if (tinymce.isIE6 || (tinymce.isIE && !DOM.boxModel))
-					DOM.setStyles('mceEventBlocker', {position : 'absolute', width : vp.w - 2, height : vp.h - 2});
+					DOM.setStyles('mceEventBlocker', {position : 'absolute', left : vp.x, top : vp.y, width : vp.w - 2, height : vp.h - 2});
 
 				eb = new Element('mceEventBlocker');
 				eb.update();
