@@ -56,9 +56,6 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 		$newfilename = $filename_array[0].'.'.seo_url($cont1);
 	}
 
-	/*echo $filename.'<br />';
-	echo $newfilename.'.php'.'<br />';*/
-
 	if (empty($description))
 		$description = '';
 	if (empty($keywords))
