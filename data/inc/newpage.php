@@ -40,7 +40,7 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	if (!empty($cont5)) {
 		//We need to make sure that the dir exists, and if not, create it.
 		if (!file_exists('data/settings/pages/'.rtrim($cont5, '/')))
-			mkdir('data/settings/pages/'.rtrim($cont5, '/'));
+			mkdir('data/settings/pages/'.rtrim($cont5, '/'), 0777);
 		$pages = read_dir_contents('data/settings/pages/'.rtrim($cont5, '/'), 'files');
 	}
 	else

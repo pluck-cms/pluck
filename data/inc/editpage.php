@@ -32,26 +32,53 @@ $filename = get_page_filename($var1);
 
 //If form is posted...
 if (isset($_POST['save']) || isset($_POST['save_exit'])) {
-	//Create the new filename.
-	$filename_array = explode('.', $filename);
-	$newfilename = $filename_array[0].'.'.seo_url($cont1);
-	
+	//Is it a sub-page, or do we want to make it one?
+	if (strpos($var1, '/') !== false || !empty($cont5)) {
+		$page_name = explode('/', $cont5);
+		$count = count($page_name);
+		unset($page_name[$count]);
+
+		$dir = get_sub_page_dir($var1);
+		$filename_array = str_replace($dir.'/', '', $filename);
+		$filename_array = explode('.', $filename_array);
+
+		$newfilename = implode($page_name).'/'.$filename_array[0].'.'.seo_url($cont1);
+		$newdir = get_sub_page_dir($newfilename);
+
+		//We need to make sure that the dir exists, and if not, create it.
+		if (!file_exists('data/settings/pages/'.$newdir))
+			mkdir('data/settings/pages/'.$newdir, 0777);
+	}
+
+	//If not, just create the new filename.
+	else {
+		$filename_array = explode('.', $filename);
+		$newfilename = $filename_array[0].'.'.seo_url($cont1);
+	}
+
+	/*echo $filename.'<br />';
+	echo $newfilename.'.php'.'<br />';*/
+
 	if (empty($description))
 		$description = '';
 	if (empty($keywords))
 		$keywords = '';
-		
+
 	//Save the page.
 	save_page($newfilename, $cont1, $cont2, $cont4, $description, $keywords, $cont3);
-	
+
 	//Check if the title is different from what we started with.
 	if ($newfilename.'.php' != $filename) {
+		//If there are sub-pages, rename the folder.
+		if (file_exists('data/settings/pages/'.get_page_seoname($filename)))
+			rename('data/settings/pages/'.get_page_seoname($filename), 'data/settings/pages/'.get_page_seoname($newfilename.'.php'));
+
 		//Remove the old file.
 		unlink('data/settings/pages/'.$filename);
 
-		//If there are sub-pages, rename the folder.
-		if (file_exists('data/settings/pages/'.get_page_seoname($filename)))
-			rename('data/settings/pages/'.$var1, 'data/settings/pages/'.get_page_seoname($newfilename.'.php'));
+		//If there are no files in the old dir, delete it.
+		if (isset($dir) && read_dir_contents('data/settings/pages/'.$dir, 'files') == false)
+			rmdir('data/settings/pages/'.$dir);
 
 		//Redirect to the new title only if it is a plain save.
 		if (isset($_POST['save'])) {
@@ -60,14 +87,13 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 			exit;
 		}
 	}
-	
+
 	//Redirect the user. only if they are doing a save_exit.
 	if (isset($_POST['save_exit'])) {
 		redirect('?action=page', 0);
 		include_once ('data/inc/footer.php');
 		exit;
 	}
-
 }
 
 //Include page information.
