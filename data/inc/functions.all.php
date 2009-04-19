@@ -224,7 +224,7 @@ function show_error($message, $level, $return = false) {
  * @return string A SEO safe URL.
  */
 function seo_url($url) {
-	require_once ('data/inc/lib/url_replace.php');
+	require ('data/inc/lib/url_replace.php');
 
 	$url = preg_replace('/( |_)+/', '-', $url);
 	foreach ($lang_url_replace as $old => $new)

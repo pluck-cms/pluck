@@ -48,12 +48,32 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 		//We need to make sure that the dir exists, and if not, create it.
 		if (!file_exists('data/settings/pages/'.$newdir))
 			mkdir('data/settings/pages/'.$newdir, 0777);
+
+		//If the name isn't the same as before, we have to find the correct number.
+		if ($newfilename.'.php' != $filename) {
+			$pages = read_dir_contents('data/settings/pages/'.$newdir, 'files');
+
+			if ($pages) {
+				$count = count($pages);
+				$number = $count + 1;
+			}
+			else
+				$number = 1;
+
+			$newfilename = implode($page_name).'/'.$number.'.'.seo_url($cont1);
+		}
 	}
 
 	//If not, just create the new filename.
 	else {
 		$filename_array = explode('.', $filename);
 		$newfilename = $filename_array[0].'.'.seo_url($cont1);
+
+		if ($newfilename.'.php' != $filename) {
+			$pages = read_dir_contents('data/settings/pages', 'files');
+			$count = count($pages);
+			$newfilename = ($count + 1).'.'.seo_url($cont1);
+		}
 	}
 
 	if (empty($description))
@@ -76,6 +96,12 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 		//If there are no files in the old dir, delete it.
 		if (isset($dir) && read_dir_contents('data/settings/pages/'.$dir, 'files') == false)
 			rmdir('data/settings/pages/'.$dir);
+
+		//If there are pages, we need to reorder them.
+		elseif (isset($dir))
+			reorder_pages('data/settings/pages/'.$dir);
+		else
+			reorder_pages('data/settings/pages');
 
 		//Redirect to the new title only if it is a plain save.
 		if (isset($_POST['save'])) {
@@ -213,4 +239,3 @@ unset($module);
 	<input type="submit" name="save_exit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
 	<input class="cancel" type="submit" name="cancel" title="<?php echo $lang['general']['cancel']; ?>" value="<?php echo $lang['general']['cancel']; ?>" />
 </form>
-

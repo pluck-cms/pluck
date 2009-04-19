@@ -37,5 +37,6 @@ $pages = get_pages();
 if ($pages) {
 	foreach ($pages as $page)
 		show_page_box($page);
+	unset($page);
 }
 ?>
