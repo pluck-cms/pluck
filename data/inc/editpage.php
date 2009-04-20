@@ -42,7 +42,7 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 		$filename_array = str_replace($dir.'/', '', $filename);
 		$filename_array = explode('.', $filename_array);
 
-		$newfilename = implode($page_name).'/'.$filename_array[0].'.'.seo_url($cont1);
+		$newfilename = implode('/', $page_name).'/'.$filename_array[0].'.'.seo_url($cont1);
 		$newdir = get_sub_page_dir($newfilename);
 
 		//We need to make sure that the dir exists, and if not, create it.
@@ -60,7 +60,7 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 			else
 				$number = 1;
 
-			$newfilename = implode($page_name).'/'.$number.'.'.seo_url($cont1);
+			$newfilename = implode('/', $page_name).'/'.$number.'.'.seo_url($cont1);
 		}
 	}
 
