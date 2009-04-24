@@ -18,7 +18,7 @@ Translators website	http://soltys.biz
 */
 
 //Name of the language (in English!)
-$lang = "Polish";
+$language = "Polish";
 
 
 //----------------

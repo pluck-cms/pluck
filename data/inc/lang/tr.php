@@ -18,7 +18,7 @@ Translators website	http://www.seqizz.net
 */
 
 //Name of the language (in English!)
-$lang = "Turkish";
+$language = "Turkish";
 
 
 //----------------

@@ -18,7 +18,7 @@ Translators website	http://www.scriptclub.com
 */
 
 //Name of the language (in English!)
-$lang = "Portuguese (Brazilian)";
+$language = "Portuguese (Brazilian)";
 
 
 //----------------

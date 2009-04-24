@@ -18,7 +18,7 @@ Translators website	http://pluck.extra.hu
 */
 
 //Name of the language (in English!)
-$lang = "Hungarian";
+$language = "Hungarian";
 
 
 //----------------

@@ -18,7 +18,7 @@ Translators website	http://neverendingdream.zxq.net/
 */
 
 //Name of the language (in English!)
-$lang = "Slovenian";
+$language = "Slovenian";
 
 
 //----------------

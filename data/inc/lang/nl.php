@@ -18,7 +18,7 @@ Translators website	http://www.somp.nl
 */
 
 //Name of the language
-$lang = "Dutch";
+$language = "Dutch";
 
 //----------------
 //Translation data

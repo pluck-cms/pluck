@@ -18,7 +18,7 @@ Translators website	http://www.dsl-iran.com/
 */
 
 //Name of the language (in English!)
-$lang = "Persian";
+$language = "Persian";
 $direction = "rtl";
 
 //----------------

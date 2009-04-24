@@ -18,7 +18,7 @@ Translators website	http://fyfi.net
 */
 
 //Name of the language (in English!)
-$lang = "Latvian";
+$language = "Latvian";
 
 
 //----------------

@@ -18,7 +18,7 @@ Translators website	http://www.okrets.se
 */
 
 //Name of the language (in English!)
-$lang = "Swedish";
+$language = "Swedish";
 
 
 //----------------

@@ -22,26 +22,26 @@ $language = 'English';
 //Translation data.
 
 //General
-$lang['general']['404']           = '404: not found';
-$lang['general']['not_found']     = 'This page could not be found.';
-$lang['general']['copyright']     = 'pluck &copy; 2005-2009 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck is available under the terms of the GNU General Public License.';
-$lang['general']['save']          = 'Save';
-$lang['general']['save_exit']     = 'Save and Exit';
-$lang['general']['cancel']        = 'Cancel';
-$lang['general']['other_options'] = 'other options';
-$lang['general']['title']         = 'title';
-$lang['general']['contents']      = 'contents';
-$lang['general']['choose']        = 'Choose...';
-$lang['general']['back']          = 'back';
-$lang['general']['upload_failed'] = 'Upload failed.';
-$lang['general']['admin_center']  = 'administration center';
-$lang['general']['changing_rank'] = 'Changing rank...';
-$lang['general']['insert']        = 'insert';
-$lang['general']['dont_display']  = 'Don\'t display';
-$lang['general']['upload']        = 'Upload';
-$lang['general']['change_title']  = 'change title';
-$lang['general']['images']        = 'images';
-$lang_theme15 = "Install failed: the file you specified is no valid file.";
+$lang['general']['404']            = '404: not found';
+$lang['general']['not_found']      = 'This page could not be found.';
+$lang['general']['copyright']      = 'pluck &copy; 2005-2009 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck is available under the terms of the GNU General Public License.';
+$lang['general']['save']           = 'Save';
+$lang['general']['save_exit']      = 'Save and Exit';
+$lang['general']['cancel']         = 'Cancel';
+$lang['general']['other_options']  = 'other options';
+$lang['general']['title']          = 'title';
+$lang['general']['contents']       = 'contents';
+$lang['general']['choose']         = 'Choose...';
+$lang['general']['back']           = 'back';
+$lang['general']['upload_failed']  = 'Upload failed.';
+$lang['general']['admin_center']   = 'administration center';
+$lang['general']['changing_rank']  = 'Changing rank...';
+$lang['general']['insert']         = 'insert';
+$lang['general']['dont_display']   = 'Don\'t display';
+$lang['general']['upload']         = 'Upload';
+$lang['general']['change_title']   = 'change title';
+$lang['general']['images']         = 'images';
+$lang['general']['not_valid_file'] = 'Install failed: the file you specified is not a valid file.';
 
 //Login
 $lang['login']['not']         = 'not logged in';
@@ -208,11 +208,11 @@ $lang['theme']['saved']  = 'The themesettings have been saved.';
 //Themeinstall
 $lang_theme5 = "install theme";
 $lang_theme6 = "Here you can install new themes. Please make sure you've downloaded a theme first.";
+$lang_theme11 =	"return to the <a href=\"?action=theme\">theme page</a>";
+$lang_theme14 = "theme and module installation is not supported on this server, you will have to do it manually.";
+$lang_theme10 =	"theme installed";
 $lang_theme8 = "The theme-file is too big; 1MB is the limit.";
 $lang_theme9 = "Installation failed. The server probably doesn't have installed the php-zlib module. You can contact your systemadministrator and ask to install this module.";
-$lang_theme10 =	"theme installed";
-$lang_theme11 =	"return to the <a href=\"?action=theme\">theme page</a>";
-$lang_theme14 = "theme and module installation is not supported on this server, you will have to do it <a href=\"http://www.pluck-cms.org/docs/doku.php/docs:install_nozlib\" target=\"_blank\">manually</a>";
 
 //Language
 $lang['language']['title']  = 'language settings';

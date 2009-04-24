@@ -18,7 +18,7 @@ Translators website	none
 */
 
 //Name of the language (in English!)
-$lang = "Portuguese";
+$language = "Portuguese";
 
 
 //----------------

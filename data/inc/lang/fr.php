@@ -18,7 +18,7 @@ Translators website	http://www.fizzyexpress.com
 */
 
 //Name of the language (in English!)
-$lang = "French";
+$language = "French";
 
 
 //----------------

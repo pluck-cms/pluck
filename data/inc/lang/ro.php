@@ -17,7 +17,7 @@ Translators:    Adi Roiban https://launchpad.net/~adiroiban
 */
 
 //Name of the language
-$lang = "Romanian";
+$language = "Romanian";
 
 //----------------
 //Translation data

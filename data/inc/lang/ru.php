@@ -18,7 +18,7 @@ Translators website	http://www.inetessentials.ru
 */
 
 //Name of the language (in English!)
-$lang = "Russian";
+$language = "Russian";
 
 
 //----------------

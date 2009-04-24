@@ -18,7 +18,7 @@ Translators website	http://www.we-cms.info
 */
 
 //Name of the language (in English!)
-$lang = "Hebrew";
+$language = "Hebrew";
 $direction = "rtl";
 
 //----------------

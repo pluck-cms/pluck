@@ -18,7 +18,7 @@ Translators website	http://www.at-4u.net/
 */
 
 //Name of the language (in English!)
-$lang = "Croatian";
+$language = "Croatian";
 
 
 //----------------

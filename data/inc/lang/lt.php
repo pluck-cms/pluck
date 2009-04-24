@@ -18,7 +18,7 @@ Translators website	http://www.eurinet.lt
 */
 
 //Name of the language (in English!)
-$lang = "Lithuanian";
+$language = "Lithuanian";
 
 
 //----------------

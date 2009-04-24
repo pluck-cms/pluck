@@ -52,7 +52,7 @@ if (isset($_POST ['submit'])) {
 
 		//Check if we're dealing with a file with tar.gz in filename.
 		if (!strpos($filename, '.tar.gz'))
-			echo $lang_theme15;
+			echo $lang['general']['not_valid_file'];
 
 		else {
 			//Check if file isn't too big.
