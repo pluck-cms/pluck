@@ -43,7 +43,7 @@ if (!file_exists('data/settings/install.dat')) {
 	$titelkop = $lang['install']['not'];
 	include_once ('data/inc/header2.php');
 	redirect('install.php', 3);
-	echo $lang['install']['not_message'];
+	show_error($lang['install']['not_message'], 1);
 	include_once('data/inc/footer.php');
 }
 
@@ -61,15 +61,6 @@ else {
 	//Include header-file.
 	$titelkop = $lang['login']['title'];
 	include_once ('data/inc/header2.php');
-	?>
-		<span class="kop2"><?php echo $lang['login']['password']; ?></span><br />
-		<form action="login.php" method="post" name="passform">
-			<input name="cont1" size="25" type="password" />
-			<?php //FIXME: Do we use the bogusField for anything? ?>
-			<input type="text" name="bogusField" style="display: none;" />
-			<input type="submit" name="submit" value="<?php echo $lang['login']['title']; ?>" />
-		</form>
-	<?php
 
 	//If password has been sent...
 	if (isset($_POST['submit'])) {
@@ -81,17 +72,28 @@ else {
 			//Save session.
 			$_SESSION['cmssystem_loggedin'] = 'ok';
 			//Display success message.
-			$titelkop = $lang['login']['title'];
 			show_error($lang['login']['correct'], 3);
 			redirect('admin.php?action=start', 1);
+			include_once ('data/inc/footer.php');
+			exit;
 		}
 
 		//...or is NOT correct:
-		else {
-			$titelkop = $lang['login']['title'];
-			show_error($lang['login']['incorrect'], 1);
-		}
+		else
+			$login_error = show_error($lang['login']['incorrect'], 1, true);
 	}
+	?>
+		<span class="kop2"><?php echo $lang['login']['password']; ?></span><br />
+		<form action="login.php" method="post" name="passform">
+			<input name="cont1" size="25" type="password" />
+			<?php //FIXME: Do we use the bogusField for anything? ?>
+			<input type="text" name="bogusField" style="display: none;" />
+			<input type="submit" name="submit" value="<?php echo $lang['login']['title']; ?>" />
+		</form>
+	<?php
+	if (isset($login_error))
+		echo $login_error;
+
 	include_once ('data/inc/footer.php');
 }
 ?>

@@ -44,7 +44,7 @@ if (file_exists('data/settings/install.dat')) {
 	$titelkop = $lang['install']['title'];
 	include_once ('data/inc/header2.php');
 	redirect('login.php', 3);
-	echo $lang['install']['already'];
+	show_error($lang['install']['already'], 2);
 	include_once ('data/inc/footer.php');
 }
 

@@ -44,7 +44,7 @@ if (!file_exists('data/settings/install.dat')) {
 	$titelkop = $lang['install']['not'];
 	include_once ('data/inc/header2.php');
 	redirect('install.php', 3);
-	echo $lang['install']['not_message'];
+	show_error($lang['install']['not_message'], 1);
 	include_once ('data/inc/footer.php');
 	exit;
 }
@@ -56,7 +56,7 @@ else {
 		$titelkop = $lang['login']['not'];
 		include_once ('data/inc/header2.php');
 		redirect('login.php', 3);
-		echo $lang['login']['not_message'];
+		show_error($lang['login']['not_message'], 2);
 		include_once ('data/inc/footer.php');
 		exit;
 	}
