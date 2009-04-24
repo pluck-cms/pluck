@@ -168,7 +168,5 @@ read_pagesinpages('data/settings/pages');
 			</tr>
 		</table>
 	</div>
-	<input class="save" type="submit" name="save" value="<?php echo $lang['general']['save']; ?>"/>
-	<input type="submit" name="save_exit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
-	<input class="cancel" type="submit" name="cancel" title="<?php echo $lang['general']['cancel']; ?>" value="<?php echo $lang['general']['cancel']; ?>" />
+	<?php show_common_submits(); ?>
 </form>

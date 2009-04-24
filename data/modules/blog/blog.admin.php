@@ -640,12 +640,11 @@ function blog_page_admin_editpost() {
 ?>
 	</select><br /><br />
 
-	<span class="kop2"><?php echo $lang['general']['contents']; ?></span><br />
-	<textarea class="tinymce" name="cont3" cols="70" rows="20"><?php echo $post_content; ?></textarea><br>
-	
-	<input class="save" type="submit" name="save" value="<?php echo $lang['general']['save']; ?>"/>
-	<input type="submit" name="save_exit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
-	<input class="cancel" type="submit" name="cancel" title="<?php echo $lang['general']['cancel']; ?>" value="<?php echo $lang['general']['cancel']; ?>" />
+	<span class="kop2"><?php echo $lang['general']['contents']; ?></span>
+	<br />
+	<textarea class="tinymce" name="cont3" cols="70" rows="20"><?php echo $post_content; ?></textarea>
+	<br />
+	<?php show_common_submits(); ?>
 </form>
 
 <?php
@@ -823,17 +822,14 @@ function blog_page_admin_newpost() {
 		unset($key);
 	}
 	?>
-		</select><br /><br />
-
-		<span class="kop2"><?php echo $lang['general']['contents']; ?></span><br />
-		<textarea class="tinymce" name="cont3" cols="70" rows="20"></textarea><br />
-
-		<input class="save" type="submit" name="save" value="<?php echo $lang['general']['save']; ?>"/>
-		<input type="submit" name="save_exit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
-		<input class="cancel" type="submit" name="cancel" title="<?php echo $lang['general']['cancel']; ?>" value="<?php echo $lang['general']['cancel']; ?>" />
+		</select>
+		<br /><br />
+		<span class="kop2"><?php echo $lang['general']['contents']; ?></span>
+		<br />
+		<textarea class="tinymce" name="cont3" cols="70" rows="20"></textarea>
+		<br />
+		<?php show_common_submits(); ?>
 	</form>
-
 	<?php
-
 }
 ?>

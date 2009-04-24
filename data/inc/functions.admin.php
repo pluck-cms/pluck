@@ -223,6 +223,15 @@ function reorder_pages($patch) {
 	}
 }
 
+function show_common_submits() {
+	global $lang;
+	?>
+		<input class="save" type="submit" name="save" value="<?php echo $lang['general']['save']; ?>" title="<?php echo $lang['general']['save']; ?>" />
+		<input type="submit" name="save_exit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
+		<input class="cancel" type="submit" name="cancel" title="<?php echo $lang['general']['cancel']; ?>" value="<?php echo $lang['general']['cancel']; ?>" />
+	<?php
+}
+
 //Function: display a menudiv.
 //-------------------
 function showmenudiv($title, $text, $image, $url, $blank = false, $more = null) {
