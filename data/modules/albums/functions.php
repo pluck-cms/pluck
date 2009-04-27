@@ -66,7 +66,7 @@ function read_albumimages($dir) {
 	global $lang_albums6, $lang_albums14, $lang_kop13, $lang_updown5, $var1;
 	$files = read_dir_contents($dir, 'files');
 	if (!$files)
-		echo '<span class="kop4">'.$lang_albums14.'</span>';
+		echo '<span class="kop4">'.$lang_albums14.'</span><br />';
 
 	elseif ($files) {
 		natcasesort($files);

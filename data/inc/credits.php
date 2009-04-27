@@ -46,6 +46,8 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	Bogumił Cieniek
 	<br />
 	Dennis Sewbarath
+	<br />
+	Kevin Zettler
 
 </p>
 <?php

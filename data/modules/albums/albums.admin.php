@@ -103,16 +103,6 @@ function albums_page_admin_editalbum() {
 			<p>
 				<strong><?php echo $lang_albums8; ?></strong>
 			</p>
-		<?php
-		//Edit images
-		?>
-			<span class="kop2"><?php echo $lang_albums9; ?></span>
-			<br />
-		<?php
-		read_albumimages('data/settings/modules/albums/'.$var1);
-
-		//New images upload
-		?>
 			<p>
 				<span class="kop2"><?php echo $lang_albums10; ?></span>
 				<br />
@@ -134,7 +124,14 @@ function albums_page_admin_editalbum() {
 				<br /><br />
 				<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
 			</form>
+			<br />
 		<?php
+		//Edit images
+		?>
+		<span class="kop2"><?php echo $lang_albums9; ?></span>
+		<br />
+		<?php
+		read_albumimages('data/settings/modules/albums/'.$var1);
 		//Let's process the image...
 		if (isset($_POST['submit'])) {
 			//Define some variables
