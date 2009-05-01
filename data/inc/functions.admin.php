@@ -182,7 +182,7 @@ function show_subpage_select($name, $current_page = null) {
 	$pages = get_pages();
 	echo '<select name="'.$name.'" id="'.$name.'">';
 	//TODO: Translate.
-	echo '<option value="">None</option>';
+	echo '<option value="">none</option>';
 
 	if ($pages) {
 		foreach ($pages as $page) {

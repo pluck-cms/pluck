@@ -77,7 +77,7 @@ if ($langpref == 'no.php')
 if ($langpref == 'pt.php')
 	$translator = 'Marco Paulo Ferreira<br />Hélio Carrasqueira';
 if ($langpref == 'pt_br.php')
-	$translator = 'Gilnei Moraes<br />sarkioja';
+	$translator = 'Gilnei Moraes<br />Henrique Gogó<br />sarkioja';
 if ($langpref == 'ru.php')
 	$translator = 'Tkachev Vasily';
 if ($langpref == 'sv.php')

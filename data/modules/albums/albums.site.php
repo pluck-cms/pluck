@@ -31,13 +31,11 @@ function albums_theme_main() {
 function albums_theme_meta() {
 	global $module;
 
-	//Only insert LightBox when we're viewing an album
+	//Only insert LyteBox when we're viewing an album
 	if (isset($module) && $module == 'albums') {
 	?>
-		<link href="data/inc/lightbox/lightbox.css" rel="stylesheet" type="text/css" media="screen" />
-		<script src="data/inc/lightbox/prototype.js" type="text/javascript"></script>
-		<script src="data/inc/lightbox/scriptaculous.js?load=effects" type="text/javascript"></script>
-		<script src="data/inc/lightbox/lightbox.js" type="text/javascript"></script>
+		<script type="text/javascript" language="javascript" src="data/inc/lytebox/lytebox.js"></script>
+		<link rel="stylesheet" href="data/inc/lytebox/lytebox.css" type="text/css" media="screen" />
 	<?php
 	}
 }
@@ -51,7 +49,7 @@ function albums_page_site_list() {
 }
 
 function albums_page_site_viewalbum() {
-	global $lang_albums18;
+	global $lang, $lang_albums18;
 
 	//Predefined variable
 	$album = $_GET['album'];
@@ -76,7 +74,7 @@ function albums_page_site_viewalbum() {
 							<table>
 								<tr>
 									<td>
-										<a href="data/modules/albums/albums_getimage.php?image=<?php echo $album; ?>/<?php echo $fdirname; ?>.jpg" rel="lightbox[album]" title="<?php echo $name; ?>">
+										<a href="data/modules/albums/albums_getimage.php?image=<?php echo $album; ?>/<?php echo $fdirname; ?>.jpg" rel="lytebox[album]" title="<?php echo $name; ?>">
 											<img src="data/modules/albums/albums_getimage.php?image=<?php echo $album; ?>/thumb/<?php echo $fdirname; ?>.jpg" alt="<?php echo $name; ?>" title="<?php echo $name; ?>" />
 										</a>
 									</td>

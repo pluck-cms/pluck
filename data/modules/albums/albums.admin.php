@@ -35,7 +35,7 @@ function albums_page_admin_list() {
 }
 
 function albums_page_admin_albums() {
-	global $cont1, $lang, $lang_albums1, $lang_albums2, $lang_albums3, $lang_albums4, $lang_albums19;
+	global $cont1, $lang, $lang_albums1, $lang_albums2, $lang_albums3, $lang_albums4, $lang_albums19, $lang_albums16;
 	?>
 		<p>
 			<strong><?php echo $lang_albums1; ?></strong>
