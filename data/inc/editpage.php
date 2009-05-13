@@ -51,16 +51,22 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 
 		//If the name isn't the same as before, we have to find the correct number.
 		if ($newfilename.'.php' != $filename) {
-			$pages = read_dir_contents('data/settings/pages/'.$newdir, 'files');
+			//If the sub-folder is the same, use the same number as before.
+			if ($dir.'/' == $newdir)
+				$number = $filename_array[0];
 
-			if ($pages) {
-				$count = count($pages);
-				$number = $count + 1;
+			else {
+				$pages = read_dir_contents('data/settings/pages/'.$newdir, 'files');
+
+				if ($pages) {
+					$count = count($pages);
+					$number = $count + 1;
+				}
+				else
+					$number = 1;
 			}
-			else
-				$number = 1;
 
-			$newfilename = implode('/', $page_name).'/'.$number.'.'.seo_url($cont1);
+			$newfilename = implode('/', $page_name).$number.'.'.seo_url($cont1);
 		}
 	}
 
@@ -68,12 +74,6 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	else {
 		$filename_array = explode('.', $filename);
 		$newfilename = $filename_array[0].'.'.seo_url($cont1);
-
-		if ($newfilename.'.php' != $filename) {
-			$pages = read_dir_contents('data/settings/pages', 'files');
-			$count = count($pages);
-			$newfilename = ($count + 1).'.'.seo_url($cont1);
-		}
 	}
 
 	if (empty($description))

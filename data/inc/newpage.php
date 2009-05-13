@@ -43,9 +43,11 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 			mkdir('data/settings/pages/'.rtrim($cont5, '/'), 0777);
 		$pages = read_dir_contents('data/settings/pages/'.rtrim($cont5, '/'), 'files');
 	}
+
 	else
 		$pages = read_dir_contents('data/settings/pages', 'files');
 
+	//Are there any pages?
 	if ($pages == false)
 		$number = 0;
 	else
@@ -70,9 +72,7 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 		include_once ('data/inc/footer.php');
 		exit;
 	}
-
 }
-
 
 //Generate the menu on the right.
 ?>
