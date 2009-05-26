@@ -318,11 +318,7 @@ function save_password($password) {
 	//MD5-hash password
 	$password = md5($password);
 	//Save password
-	$data = 'data/settings/pass.php';
-	$file = fopen($data, 'w');
-	fputs($file, '<?php $ww = \''.$password.'\'; ?>');
-	fclose($file);
-	chmod($data, 0777);
+	save_file('data/settings/pass.php', '<?php $ww = \''.$password.'\'; ?>');
 }
 
 //Function: save the options.

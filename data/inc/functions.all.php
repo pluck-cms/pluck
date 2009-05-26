@@ -132,12 +132,11 @@ function read_dir_contents($directory, $mode) {
 	$path = opendir($directory);
 	while (false !== ($file = readdir($path))) {
 		if ($file != '.' && $file != '..') {
-			if (is_file($directory.'/'.$file)) {
+			if (is_file($directory.'/'.$file))
 				$files[] = $file;
-			}
-			elseif (is_dir($directory.'/'.$file)) {
+
+			elseif (is_dir($directory.'/'.$file))
 				$dirs[] = $file;
-			}
 		}
 	}
 	closedir($path);
@@ -148,6 +147,20 @@ function read_dir_contents($directory, $mode) {
 		return $dirs;
 	else
 		return false;
+}
+
+/**
+ * Universal function for saving files.
+ *
+ * @param string $file Full patch to the file.
+ * @param string $content The page content.
+ * @param int $chmod With leading zero!
+ */
+function save_file($file, $content, $chmod = 0777) {
+	$data = fopen($file, 'w');
+	fputs($data, $content);
+	fclose($data);
+	chmod($file, $chmod);
 }
 
 /**
