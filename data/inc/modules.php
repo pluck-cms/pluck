@@ -22,9 +22,9 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 
 //Introduction text.
 ?>
-	<p>
-		<strong><?php echo $lang['modules']['message']; ?></strong>
-	</p>
+<p>
+	<strong><?php echo $lang['modules']['message']; ?></strong>
+</p>
 <?php
 
 foreach ($module_list as $module) {

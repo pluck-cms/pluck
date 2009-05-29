@@ -23,18 +23,18 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	<div class="rightmenu">
 		<div class="menudiv" style="padding-right: 120px;">
 			<span>
-				<img src="data/image/install.png" alt="<?php echo $lang_theme5; ?>" title="<?php echo $lang_theme5; ?>" />
+				<img src="data/image/install.png" alt="<?php echo $lang['theme_install']['title']; ?>" title="<?php echo $lang['theme_install']['title']; ?>" />
 			</span>
 			<span>
 			<?php
 				//If zlib is installed.
 				if (get_extension_funcs('zlib')) {
-					echo '<span class="kop3"><a href="?action=themeinstall" title="'.$lang_theme5.'">'.$lang_theme5.'</a></span>';
+					echo '<span class="kop3"><a href="?action=themeinstall" title="'.$lang['theme_install']['title'].'">'.$lang['theme_install']['title'].'</a></span>';
 				}
 				//If zlib is not installed.
 				elseif (!get_extension_funcs('zlib')) {
-					echo '<span class="kop3">'.$lang_theme5.'</span><br />';
-					echo '<span class="red">'.$lang_theme14.'</span>';
+					echo '<span class="kop3">'.$lang['theme_install']['title'].'</span><br />';
+					echo '<span class="red">'.$lang['theme_install']['not_supported'].'</span>';
 				}
 			?>
 			</span>
@@ -75,15 +75,21 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 		</select>
 		<br /><br />
 		<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
-		<button class="cancel" type="button" onclick="javascript: window.location='?action=options';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
+		<input class="cancel" name="cancel" type="submit" value="<?php echo $lang['general']['cancel']; ?>" />
 	</form>
 <?php
-//Save the theme-data
+//Save the theme-data.
 if (isset($_POST['submit']) && isset($cont1) && $cont1 != '0' && file_exists('data/themes/'.$cont1)) {
 	save_theme($cont1);
 
 	//Redirect user
 	echo $lang['theme']['saved'];
 	redirect('?action=options', 2);
+}
+//Redirect for a cancel.
+if (isset($_POST['cancel'])) {
+	redirect('?action=options', 0);
+	include_once ('data/inc/footer.php');
+	exit;
 }
 ?>

@@ -21,7 +21,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 ?>
 	<p>
-		<strong><?php echo $lang_theme6; ?></strong>
+		<strong><?php echo $lang['theme_install']['message']; ?></strong>
 	</p>
 <?php
 	if (!isset($_POST ['submit'])) {
@@ -37,16 +37,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 				</form>
 			</div>
 		</div>
-		<div class="menudiv" style="width: 500px;">
-			<span>
-				<img src="data/image/themes.png" alt="" />
-			</span>
-			<span>
-				<span class="kop3">
-					<a href="?action=theme" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
-				</span>
-			</span>
-		</div>
+		<a href="?action=theme" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 	<?php
 }
 
@@ -59,7 +50,7 @@ if (isset($_POST['submit'])) {
 		//Some data.
 		$dir = 'data/themes'; //Where we will save and extract the file.
 		$maxfilesize = 1000000; //Max size of file.
-		$filename = $_FILES ['sendfile'] ['name']; //Determine filename.
+		$filename = $_FILES['sendfile']['name']; //Determine filename.
 
 		//Check if we're dealing with a file with tar.gz in filename.
 		if (!strpos($filename, '.tar.gz'))
@@ -67,12 +58,12 @@ if (isset($_POST['submit'])) {
 
 		else {
 			//Check if file isn't too big.
-			if ($_FILES ['sendfile'] ['size'] > $maxfilesize)
-				echo $lang_theme8;
+			if ($_FILES['sendfile']['size'] > $maxfilesize)
+				show_error($lang['theme_install']['too_big'], 1, true);
 
 			else {
 				//Save theme-file.
-				copy($_FILES ['sendfile'] ['tmp_name'], $dir.'/'.$filename) or die ($lang['general']['upload_failed']);
+				copy($_FILES['sendfile']['tmp_name'], $dir.'/'.$filename) or die ($lang['general']['upload_failed']);
 
 				//Then load the library for extracting the tar.gz-file.
 				require_once ('data/inc/lib/tarlib.class.php');
@@ -92,9 +83,9 @@ if (isset($_POST['submit'])) {
 							<img src="data/image/install.png" alt="" />
 						</span>
 						<span>
-							<span class="kop3"><?php echo $lang_theme10; ?></span>
+							<span class="kop3"><?php echo $lang['theme_install']['success']; ?></span>
 							<br />
-							<?php echo $lang_theme11; ?>
+							<?php echo $lang['theme_install']['return']; ?>
 						</span>
 					</div>
 				<?php

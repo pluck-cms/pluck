@@ -158,7 +158,7 @@ else {
 
 			//Page:Options:Themeinstall
 			case 'themeinstall':
-				$titelkop = $lang_theme5;
+				$titelkop = $lang['theme_install']['title'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/themeinstall.php');
 				break;

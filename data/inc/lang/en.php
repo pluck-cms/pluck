@@ -206,13 +206,12 @@ $lang['theme']['choose'] = 'Here you can choose which of the installed themes yo
 $lang['theme']['saved']  = 'The themesettings have been saved.';
 
 //Themeinstall
-$lang_theme5 = "install theme";
-$lang_theme6 = "Here you can install new themes. Please make sure you've downloaded a theme first.";
-$lang_theme11 =	"return to the <a href=\"?action=theme\">theme page</a>";
-$lang_theme14 = "theme and module installation is not supported on this server, you will have to do it manually.";
-$lang_theme10 =	"theme installed";
-$lang_theme8 = "The theme-file is too big; 1MB is the limit.";
-$lang_theme9 = "Installation failed. The server probably doesn't have installed the php-zlib module. You can contact your systemadministrator and ask to install this module.";
+$lang['theme_install']['title'] = 'install theme';
+$lang['theme_install']['message'] = 'Here you can install new themes. Please make sure you\'ve downloaded a theme first.';
+$lang['theme_install']['return'] = 'return to the <a href="?action=theme">theme page</a>';
+$lang['theme_install']['not_supported'] = 'theme and module installation is not supported on this server, you will have to do it manually.';
+$lang['theme_install']['success'] = 'theme installed';
+$lang['theme_install']['too_big'] = 'The theme file is too big; 1MB is the maximum.';
 
 //Language
 $lang['language']['title']  = 'language settings';
