@@ -49,7 +49,7 @@ if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
 
 	//Check if the page isn't already the first one.
 	if (!isset($prior_page_number) || $prior_page_number == 0) {
-		show_error($lang_updown2, 2);
+		show_error($lang['page']['top'], 2);
 		redirect('?action=page', 2);
 		include_once('data/inc/footer.php');
 		exit;

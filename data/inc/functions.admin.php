@@ -68,7 +68,7 @@ function read_imagesinpages($dir) {
 //Function: read out the pages to let them be included in pages as link
 //------------
 function read_pagesinpages($dir, $current_page = null) {
-	global $lang_page9;
+	global $lang;
 	$files = read_dir_contents($dir, 'files');
 	if ($files) {
 		natcasesort($files);
@@ -85,7 +85,7 @@ function read_pagesinpages($dir, $current_page = null) {
 							<span style="font-size: 16px; color: gray;"><?php echo $title; ?></span>
 							<br />
 							<?php $escaped_title = str_replace('\'', '\\\'', $title); ?>
-							<a href="#" onclick="tinyMCE.execCommand('mceInsertContent',false,'&lt;a href=\'index.php?file=<?php echo $file; ?>\' title=\'<?php echo $escaped_title ?>\'><?php echo $escaped_title ?>&lt;/a>');return false;"><?php echo $lang_page9; ?></a>
+							<a href="#" onclick="tinyMCE.execCommand('mceInsertContent',false,'&lt;a href=\'index.php?file=<?php echo $file; ?>\' title=\'<?php echo $escaped_title ?>\'><?php echo $escaped_title ?>&lt;/a>');return false;"><?php echo $lang['page']['insert_link']; ?></a>
 						</span>
 					</div>
 				<?php
@@ -130,7 +130,7 @@ function get_sub_page_dir($page) {
 }
 
 function show_page_box($file) {
-	global $lang, $lang_page3, $lang_meta1, $lang_updown1;
+	global $lang;
 
 	include_once ('data/settings/pages/'.$file);
 	$file = get_page_seoname($file);
@@ -150,22 +150,22 @@ function show_page_box($file) {
 			<?php run_hook('admin_page_list_before'); ?>
 			<span>
 				<a href="?action=editpage&amp;var1=<?php echo $file; ?>">
-					<img src="data/image/edit.png" title="<?php echo $lang_page3; ?>" alt="<?php echo $lang_page3; ?>" />
+					<img src="data/image/edit.png" title="<?php echo $lang['page']['edit']; ?>" alt="<?php echo $lang['page']['edit']; ?>" />
 				</a>
 			</span>
 			<span>
 				<a href="?action=editmeta&amp;var1=<?php echo $file; ?>">
-					<img src="data/image/siteinformation.png" title="<?php echo $lang_meta1; ?>" alt="<?php echo $lang_meta1; ?>" />
+					<img src="data/image/siteinformation.png" title="<?php echo $lang['editmeta']['title']; ?>" alt="<?php echo $lang['editmeta']['title']; ?>" />
 				</a>
 			</span>
 			<span>
 				<a href="?action=pageup&amp;var1=<?php echo $file; ?>">
-					<img src="data/image/up.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" />
+					<img src="data/image/up.png" title="<?php echo $lang['page']['change_order']; ?>" alt="<?php echo $lang['page']['change_order']; ?>" />
 				</a>
 			</span>
 			<span>
 				<a href="?action=pagedown&amp;var1=<?php echo $file; ?>">
-					<img src="data/image/down.png" title="<?php echo $lang_updown1; ?>" alt="<?php echo $lang_updown1; ?>" />
+					<img src="data/image/down.png" title="<?php echo $lang['page']['change_order']; ?>" alt="<?php echo $lang['page']['change_order']; ?>" />
 				</a>
 			</span>
 			<span>
@@ -179,10 +179,11 @@ function show_page_box($file) {
 }
 
 function show_subpage_select($name, $current_page = null) {
+	global $lang;
+
 	$pages = get_pages();
 	echo '<select name="'.$name.'" id="'.$name.'">';
-	//TODO: Translate.
-	echo '<option value="">none</option>';
+	echo '<option value="">'.$lang['general']['none'].'</option>';
 
 	if ($pages) {
 		foreach ($pages as $page) {

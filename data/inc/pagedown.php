@@ -51,7 +51,7 @@ if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
 
 	//Check if the page isn't already the last one.
 	if (!isset($next_page_number)) {
-		show_error($lang_updown4, 2);
+		show_error($lang['page']['last'], 2);
 		redirect('?action=page', 2);
 		include_once('data/inc/footer.php');
 		exit;

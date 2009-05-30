@@ -84,10 +84,10 @@ function confirmation(message) {
 				<?php echo $lang['start']['title']; ?>
 			</span>
 		</a>
-		<a class="menuitem" href="?action=page" title="<?php echo $lang_kop2; ?>">
+		<a class="menuitem" href="?action=page" title="<?php echo $lang['page']['title']; ?>">
 			<span>
 				<img src="data/image/menu/pages.png" alt="" />
-				<?php echo $lang_kop2; ?>
+				<?php echo $lang['page']['title']; ?>
 			</span>
 		</a>
 		<a class="menuitem" href="?action=modules" title="<?php echo $lang['modules']['title']; ?>">

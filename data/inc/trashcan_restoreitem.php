@@ -26,7 +26,7 @@ if ($var2 == 'page' && file_exists('data/trash/pages/'.$var1.'.php')) {
 
 	if (get_page_filename($var1) != false) {
 		//TODO: Add text for error
-		show_error($lang_trash12, 2);
+		//show_error(, 2);
 		redirect('?action=trashcan', 2);
 	}
 

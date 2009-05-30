@@ -170,8 +170,7 @@ function albums_page_admin_editalbum() {
 				rename($fullimage, 'data/settings/modules/albums/'.$var1.'/'.$newfile.'.jpg');
 				$fullimage = 'data/settings/modules/albums/'.$var1.'/'.$newfile.'.jpg';
 				$thumbimage = 'data/settings/modules/albums/'.$var1.'/thumb/'.$newfile.'.jpg';
-
-				//FIXME: Need to CHMOD the full image.
+				chmod($fullimage, 0777);
 			}
 
 			//Block images other then JPG.

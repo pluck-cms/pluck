@@ -42,6 +42,8 @@ $lang['general']['upload']         = 'Upload';
 $lang['general']['change_title']   = 'change title';
 $lang['general']['images']         = 'images';
 $lang['general']['not_valid_file'] = 'Install failed: the file you specified is not a valid file.';
+$lang['general']['none']           = 'none';
+$lang['general']['description']    = 'description';
 
 //Login
 $lang['login']['not']         = 'not logged in';
@@ -114,27 +116,27 @@ $lang['credits']['translation']    = 'translation';
 $lang['credits']['more']           = 'more thanks';
 
 //Page
-$lang_kop2 = "pages";
-$lang_page1 = "Here you can manage, edit and delete your pages.";
-$lang_updown1 = "change page order";
-$lang_updown2 = "This page already is on the top, so its rank can't be changed.";
-$lang_updown4 = "This page already is the last one, so its rank can't be changed.";
+$lang['page']['title']        = 'pages';
+$lang['page']['message']      = 'Here you can manage, edit and delete your pages.';
+$lang['page']['change_order'] = 'change page order';
+$lang['page']['top']          = 'This page already is on the top, so its rank can\'t be changed.';
+$lang['page']['last']         = 'This page already is the last one, so its rank can\'t be changed.';
 
 //Newpage and Editpage
-$lang_page2 = "new page";
-$lang_kop11 = "new page";
-$lang_page3 = "edit page";
-$lang_pagehide1 = "show page in menu";
-$lang_page8 = "These items are ready to be implemented in this page:";
-$lang_page9 = "insert link";
-$lang_modules16 = "Choose if you want modules displayed on this page, and in which order.";
+$lang['page']['new']         = 'new page';
+$lang['page']['edit']        = 'edit page';
+$lang['page']['items']       = 'These items are ready to be implemented in this page:';
+$lang['page']['insert_link'] = 'insert link';
+$lang['page']['modules']     = 'Choose if you want modules displayed on this page, and in which order.';
+$lang['page']['in_menu']     = 'show page in menu';
+$lang['page']['sub_page']    = 'sub-page of';
 
 //Editmeta
-$lang_siteinfo4 = "keywords";
-$lang_siteinfo5 = "seperated by a comma";
-$lang_meta1 = "edit page information";
-$lang_meta2 = "Here you can fill in some information about this page, to get better results in search engines.";
-$lang_meta4 = "Changing page information...";
+$lang['editmeta']['title']    = 'edit page information';
+$lang['editmeta']['message']  = 'Here you can fill in some information about this page, to get better results in search engines.';
+$lang['editmeta']['keywords'] = 'keywords';
+$lang['editmeta']['comma']    = 'seperated by a comma';
+$lang['editmeta']['changing'] = 'Changing page information...';
 
 //Images
 $lang_kop17 = "manage images";
@@ -146,11 +148,6 @@ $lang_image4 = "Size:";
 $lang_image5 = "Type:";
 $lang_kop13 = "delete image";
 $lang_image6 = "Upload successfull!";
-$lang_image11 = "This image can't be deleted.";
-$lang_image12 = "Unable to delete the image. Check the rights of the files and directories.";
-$lang_updown5 = "change image order";
-$lang_updown6 = "This image already is on the top, so its rank can't be changed.";
-$lang_updown7 = "This image already is the last one, so its rank can't be changed.";
 
 //Modules
 $lang['modules']['title']   = 'modules';
@@ -206,12 +203,12 @@ $lang['theme']['choose'] = 'Here you can choose which of the installed themes yo
 $lang['theme']['saved']  = 'The themesettings have been saved.';
 
 //Themeinstall
-$lang['theme_install']['title'] = 'install theme';
-$lang['theme_install']['message'] = 'Here you can install new themes. Please make sure you\'ve downloaded a theme first.';
-$lang['theme_install']['return'] = 'return to the <a href="?action=theme">theme page</a>';
+$lang['theme_install']['title']         = 'install theme';
+$lang['theme_install']['message']       = 'Here you can install new themes. Please make sure you\'ve downloaded a theme first.';
+$lang['theme_install']['return']        = 'return to the <a href="?action=theme">theme page</a>';
 $lang['theme_install']['not_supported'] = 'theme and module installation is not supported on this server, you will have to do it manually.';
-$lang['theme_install']['success'] = 'theme installed';
-$lang['theme_install']['too_big'] = 'The theme file is too big; 1MB is the maximum.';
+$lang['theme_install']['success']       = 'theme installed';
+$lang['theme_install']['too_big']       = 'The theme file is too big; 1MB is the maximum.';
 
 //Language
 $lang['language']['title']  = 'language settings';
@@ -275,6 +272,9 @@ $lang_albums16	= 'Albums are not supported on this server: it probably doesn\'t 
 $lang_albums17	= 'include album in this page:';
 $lang_albums18 = 'The specified album doesn\'t exist.';
 $lang_albums19 = 'There is already an album with that name.';
+$lang_updown5 = "change image order";
+$lang_updown6 = "This image already is on the top, so its rank can't be changed.";
+$lang_updown7 = "This image already is the last one, so its rank can't be changed.";
 
 //Contact form
 $lang['contactform']['module_name']  = 'contact form';

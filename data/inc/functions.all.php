@@ -54,9 +54,8 @@ function module_is_compatible($module) {
  * Recursively delete an entire directory.
  *
  * @param string $directory The dir you want to remove.
- * @param bool $empty
+ * @param bool $empty Should the dir remain empty?
  * @return bool
- * @todo What does empty mean?
  */
 function recursive_remove_directory($directory, $empty = false)	{
 	if (substr($directory, -1) == '/')
@@ -126,7 +125,6 @@ function redirect($url, $time) {
  * @param  string $directory The directory where the files are in.
  * @param  string $mode Should it read dirs or files?
  * @return array The directories or files.
- * @todo   Should mode be a boolean (true for dirs and false for files)?
  */
 function read_dir_contents($directory, $mode) {
 	$path = opendir($directory);

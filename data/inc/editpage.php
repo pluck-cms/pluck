@@ -132,7 +132,7 @@ unset($module);
 //Generate the menu on the right.
 ?>
 <div class="rightmenu">
-<p><?php echo $lang_page8; ?></p>
+<p><?php echo $lang['page']['items']; ?></p>
 <?php
 	read_imagesinpages('images');
 	read_pagesinpages('data/settings/pages', $filename);
@@ -157,7 +157,7 @@ unset($module);
 				<td>
 					<span class="kop3"><?php echo $lang['modules']['title']; ?></span>
 					<br />
-					<strong><?php echo $lang_modules16; ?></strong>
+					<strong><?php echo $lang['page']['modules']; ?></strong>
 					<br />
 					<table>
 					<?php
@@ -225,10 +225,9 @@ unset($module);
 					<p>
 						<span class="kop3"><?php echo $lang['general']['other_options']; ?></span>
 						<br />
-						<input type="checkbox" name="cont4" id="cont4" <?php if ($hidden == 'no') echo'checked="checked"'; ?> value="no" /><label for="cont4"><?php echo $lang_pagehide1; ?></label>
+						<input type="checkbox" name="cont4" id="cont4" <?php if ($hidden == 'no') echo'checked="checked"'; ?> value="no" /><label for="cont4"><?php echo $lang['page']['in_menu']; ?></label>
 					</p>
-					<?php //TODO: Translate. ?>
-					<span class="kop3">sub-page of</span>
+					<span class="kop3"><?php echo $lang['page']['sub_page']; ?></span>
 					<br />
 					<?php show_subpage_select('cont5', $var1); ?>
 				</td>

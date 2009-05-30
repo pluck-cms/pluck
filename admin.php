@@ -81,14 +81,14 @@ else {
 
 			//Page:Pages
 			case 'page':
-				$titelkop = $lang_kop2;
+				$titelkop = $lang['page']['title'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/page.php');
 				break;
 
 			//Page:New Page
 			case 'newpage':
-				$titelkop = $lang_kop11;
+				$titelkop = $lang['page']['new'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/newpage.php');
 				break;
@@ -232,28 +232,28 @@ else {
 
 			//Page:Editmeta
 			case 'editmeta':
-				$titelkop = $lang_meta1;
+				$titelkop = $lang['editmeta']['title'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/page_editmeta.php');
 				break;
 
 			//Page:Editpage
 			case 'editpage':
-				$titelkop = $lang_page3;
+				$titelkop = $lang['page']['edit'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/editpage.php');
 				break;
 
 			//Page:Pageup
 			case 'pageup':
-				$titelkop = $lang_updown1;
+				$titelkop = $lang['page']['change_order'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/pageup.php');
 				break;
 
 			//Page:Pagdown
 			case 'pagedown':
-				$titelkop = $lang_updown1;
+				$titelkop = $lang['page']['change_order'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/pagedown.php');
 				break;

@@ -26,10 +26,10 @@ if (isset($_POST['cancel']))
 
 $filename = get_page_filename($var1);
 
-//Include the actual siteinfo
+//Include the actual siteinfo.
 require ('data/settings/pages/'.$filename);
 
-if (isset($_POST['save']) || isset($_POST['save_exit'])){
+if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	//Remove .php from the filename. We add it again in save_page.
 	$filenameCut = preg_replace('/.php$/', '', $filename);
 
@@ -39,13 +39,13 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])){
 	else
 		save_page($filenameCut, $title, $content, $hidden, $cont1, $cont2);
 
-	//Redirect user only if they hit save and exit
-	if (isset($_POST['save_exit'])){
-		echo $lang_meta4;
+	//Redirect user only if they hit save and exit.
+	if (isset($_POST['save_exit'])) {
+		show_error($lang['editmeta']['changing'], 3);
 		redirect('?action=page', 0);
 	}
 	
-	//Include the site info again with updated data
+	//Include the site info again with updated data.
 	require ('data/settings/pages/'.$filename);
 	
 }
@@ -54,15 +54,15 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])){
 //Introduction text
 ?>
 	<p>
-		<strong><?php echo $lang_meta2; ?></strong>
+		<strong><?php echo $lang['editmeta']['message']; ?></strong>
 	</p>
 	<form method="post" action="">
 		<p>
-			<span class="kop2"><?php echo $lang_albums11; ?></span>
+			<span class="kop2"><?php echo $lang['general']['description']; ?></span>
 			<br />
 			<textarea name="cont1" rows="3" cols="50"><?php if (isset($description)) echo $description; ?></textarea>
 		</p>
-		<span class="kop2"><?php echo $lang_siteinfo4; ?></span> (<?php echo $lang_siteinfo5; ?>)
+		<span class="kop2"><?php echo $lang['editmeta']['keywords']; ?></span> (<?php echo $lang['editmeta']['comma']; ?>)
 		<br />
 		<textarea name="cont2" rows="5" cols="50"><?php if (isset($keywords)) echo $keywords; ?></textarea>
 		<p>

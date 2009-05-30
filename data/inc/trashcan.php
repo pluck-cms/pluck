@@ -43,7 +43,7 @@ else
 			<a href="?action=trashcan_empty" onclick="return confirm('<?php echo $lang['trashcan']['empty_confirm']; ?>');"><?php echo $lang['trashcan']['empty']; ?></a>
 		</span>
 	</div>
-	<span class="kop2"><?php echo $lang_kop2; ?></span>
+	<span class="kop2"><?php echo $lang['page']['title']; ?></span>
 	<br />
 <?php
 //Read pages in array

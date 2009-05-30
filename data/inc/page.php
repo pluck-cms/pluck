@@ -21,13 +21,13 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 ?>
 <p>
-	<strong><?php echo $lang_page1; ?></strong>
+	<strong><?php echo $lang['page']['message']; ?></strong>
 </p>
 <?php
 //Run hook.
 run_hook('admin_pages_before');
 //New page button.
-showmenudiv($lang_page2, null, 'data/image/newpage.png', '?action=newpage');
+showmenudiv($lang['page']['new'], null, 'data/image/newpage.png', '?action=newpage');
 //Manage images button.
 showmenudiv($lang_kop17, null, 'data/image/image.png', '?action=images');
 

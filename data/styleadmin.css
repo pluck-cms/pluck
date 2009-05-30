@@ -241,49 +241,49 @@ p {
 
 /* From Blueprint CSS - http://blueprintcss.org/ */
 .error, .notice, .success {
-		padding: .8em;
-		padding-left: 50px;
-		margin-bottom: 0.5em;
-		margin-top: 0.5em;
-		border: 2px solid #ddd;
-		display: inline-block;
+	padding: .8em;
+	padding-left: 50px;
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+	border: 2px solid #ddd;
+	display: inline-block;
 }
 
 .error {
-		background: #FBE3E4;
-		color: #8a1f11;
-		border-color: #FBC2C4;
-		background-image: url(image/error_1.png);
-		background-repeat: no-repeat;
-		background-position: 8px center;
+	background: #FBE3E4;
+	color: #8a1f11;
+	border-color: #FBC2C4;
+	background-image: url(image/error_1.png);
+	background-repeat: no-repeat;
+	background-position: 8px center;
 }
 
 .notice {
-		background: #FFF6BF;
-		color: #514721;
-		border-color: #FFD324;
-		background-image: url(image/error_2.png);
-		background-repeat: no-repeat;
-		background-position: 8px center;
+	background: #FFF6BF;
+	color: #514721;
+	border-color: #FFD324;
+	background-image: url(image/error_2.png);
+	background-repeat: no-repeat;
+	background-position: 8px center;
 }
 
 .success {
-		background: #E6EFC2;
-		color: #264409;
-		border-color: #C6D880;
-		background-image: url(image/error_3.png);
-		background-repeat: no-repeat;
-		background-position: 8px center;
+	background: #E6EFC2;
+	color: #264409;
+	border-color: #C6D880;
+	background-image: url(image/error_3.png);
+	background-repeat: no-repeat;
+	background-position: 8px center;
 }
 
 .error a {
-		color: #8a1f11;
+	color: #8a1f11;
 }
 
 .notice a {
-		color:#514721;
+	color:#514721;
 }
 
 .success a {
-		color:#264409;
+	color:#264409;
 }
