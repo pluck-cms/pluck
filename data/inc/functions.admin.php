@@ -304,11 +304,7 @@ function check_writable($file) {
 //Function: write the install file.
 //-------------------
 function install_done() {
-	$data = 'data/settings/install.dat';
-	$file = fopen($data, 'w');
-	fputs($file, '');
-	fclose($file);
-	chmod($data, 0777);
+	save_file('data/settings/install.dat', '');
 }
 
 /*SAVE FUNCTIONS*/
@@ -327,35 +323,24 @@ function save_password($password) {
 function save_options($title, $email, $xhtml) {
 	$title = sanitize($title);
 	$email = sanitize($email);
-	$data = 'data/settings/options.php';
-	$file = fopen($data, 'w');
-	fputs($file, '<?php'."\n"
+	$data = '<?php'."\n"
 	.'$sitetitle = \''.$title.'\';'."\n"
 	.'$email = \''.$email.'\';'."\n"
 	.'$xhtmlruleset = \''.$xhtml.'\';'."\n"
-	.'?>');
-	fclose($file);
-	chmod($data, 0777);
+	.'?>';
+	save_file('data/settings/options.php', $data);
 }
 
 //Function: save the prefered language.
 //-------------------
 function save_language($language) {
-	$data = 'data/settings/langpref.php';
-	$file = fopen($data, 'w');
-	fputs($file, '<?php $langpref = \''.$language.'\'; ?>');
-	chmod($data, 0777);
-	fclose($file);
+	save_file('data/settings/langpref.php', '<?php $langpref = \''.$language.'\'; ?>');
 }
 
 //Function: save theme.
 //-------------------
 function save_theme($theme) {
-	$data = 'data/settings/themepref.php';
-	$file = fopen($data, 'w');
-	fputs($file, '<?php $themepref = \''.$theme.'\'; ?>');
-	chmod($data, 0777);
-	fclose($file);
+	save_file('data/settings/themepref.php', '<?php $themepref = \''.$theme.'\'; ?>');
 }
 
 /**
@@ -384,34 +369,29 @@ function save_page($name, $title, $content, $hidden = 'no', $description = null,
 	if ($hidden != 'no')
 		$hidden = 'yes';
 
-	//Open the file.
-	$data = 'data/settings/pages/'.$name.'.php';
-	$file = fopen($data, 'w');
-
 	//Save the title, content and hidden status.
-	fputs($file, '<?php'."\n"
+	$data = '<?php'."\n"
 	.'$title = \''.$title.'\';'."\n"
 	.'$content = \''.$content.'\';'."\n"
-	.'$hidden = \''.$hidden.'\';');
+	.'$hidden = \''.$hidden.'\';';
 
 	//Save the description and keywords, if any.
 	if ($description != null)
-		fputs($file, "\n".'$description = \''.$description.'\';');
+		$data .= "\n".'$description = \''.$description.'\';';
 	if ($keywords != null)
-		fputs($file, "\n".'$keywords = \''.$keywords.'\';');
+		$data .= "\n".'$keywords = \''.$keywords.'\';';
 
 	//Check if there are modules we want to save.
 	if (is_array($modules)) {
 		foreach ($modules as $modulename => $order) {
 			//Only save it if we want to display the module.
 			if ($order != 0)
-				fputs($file, "\n".'$module_pageinc[\''.$modulename.'\'] = '.$order.';');
+				$data .= "\n".'$module_pageinc[\''.$modulename.'\'] = '.$order.';';
 		}
 		unset($modulename);
 	}
 
-	fputs($file, "\n".'?>');
-	fclose($file);
-	chmod($data, 0777);
+	//Save the file.
+	save_file('data/settings/pages/'.$name.'.php', $data);
 }
 ?>
