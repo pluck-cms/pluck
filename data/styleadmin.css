@@ -190,7 +190,7 @@ input[type="submit"].cancel {
 	background-image: url('image/error_small.png');
 }
 
-input[type="submit"].save{
+input[type="submit"].save {
 	background-image: url('image/document_save.png');
 }
 

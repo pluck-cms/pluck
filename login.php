@@ -12,28 +12,13 @@
  * See docs/COPYING for the complete license.
 */
 
-//Load all the modules, so we can use hooks.
-//This has to be done before anything else.
-$path = opendir('data/modules');
-while (false !== ($dir = readdir($path))) {
-	if ($dir != '.' && $dir != '..') {
-		if (is_dir('data/modules/'.$dir))
-			$modules[] = $dir;
-	}
-}
-closedir($path);
-
-foreach ($modules as $module) {
-	if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
-		require_once ('data/modules/'.$module.'/'.$module.'.php');
-		$module_list[] = $module;
-	}
-}
-unset($module);
+//First set the charset: utf-8.
+header('Content-Type:text/html;charset=utf-8');
 
 //Include security-enhancements.
 require_once ('data/inc/security.php');
 //Include functions.
+require_once ('data/inc/functions.modules.php');
 require_once ('data/inc/functions.all.php');
 //Include variables.
 require_once ('data/inc/variables.all.php');

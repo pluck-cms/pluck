@@ -21,32 +21,10 @@ if (!file_exists('data/settings/install.dat')) {
 	exit;
 }
 
-//Load all the modules, so we can use hooks.
-//This has to be done before anything else.
-$path = opendir('data/modules');
-while (false !== ($dir = readdir($path))) {
-	if ($dir != '.' && $dir != '..') {
-		if (is_dir('data/modules/'.$dir))
-			$modules[] = $dir;
-	}
-}
-closedir($path);
-
-foreach ($modules as $module) {
-	if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
-		require_once ('data/modules/'.$module.'/'.$module.'.php');
-
-		if (file_exists('data/modules/'.$module.'/'.$module.'.site.php'))
-			require_once ('data/modules/'.$module.'/'.$module.'.site.php');
-
-		$module_list[] = $module;
-	}
-}
-unset($module);
-
 //Include security-enhancements.
 require_once ('data/inc/security.php');
 //Include functions.
+require_once ('data/inc/functions.modules.php');
 require_once ('data/inc/functions.all.php');
 require_once ('data/inc/functions.site.php');
 //Include variables.
