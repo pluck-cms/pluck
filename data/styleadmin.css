@@ -179,11 +179,15 @@ a img {
 	border: 0px;
 }
 
-button, input {
+button, input, textarea {
 	background-color: #F4F4F4;
 	border: 1px solid gray;
 	color: gray;
 	padding: 2px;
+}
+
+input:focus, textarea:focus {
+	border-color: #3766AC;
 }
 
 input[type="submit"].cancel {
@@ -203,13 +207,6 @@ input[type="submit"], button {
 	background-repeat: no-repeat;
 	background-position: 3px center;
 	padding-left: 20px;
-}
-
-textarea {
-	background-color: #F4F4F4;
-	border: 1px solid gray;
-	color: gray;
-	margin-top: 2px;
 }
 
 p {

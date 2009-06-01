@@ -54,6 +54,11 @@ if (file_exists('data/settings/themepref.php')) {
 	define('THEME_DIR', 'data/themes/'.$themepref);
 }
 
+if (isset($_GET['module'])) {
+	define('MODULE_DIR', 'data/modules/'.$_GET['module']);
+	define('MODULE_SETTINGS', 'data/settings/modules/'.$_GET['module']);
+}
+
 if (file_exists('data/settings/pages')) {
 	$homepage = read_dir_contents('data/settings/pages', 'files');
 

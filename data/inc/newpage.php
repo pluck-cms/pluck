@@ -80,7 +80,7 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 <p><?php echo $lang['page']['items']; ?></p>
 <?php
 read_imagesinpages('images');
-read_pagesinpages('data/settings/pages');
+read_pagesinpages();
 ?>
 </div>
 <form method="post" action="">

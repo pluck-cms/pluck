@@ -36,24 +36,25 @@ function read_albums($dir) {
 	elseif (isset($dirs)) {
 		natcasesort($dirs);
 		foreach ($dirs as $dir) {
-		?>
-			<div class="menudiv">
-				<span>
-					<img src="data/modules/albums/images/albums.png" alt="" />
-				</span>
-				<span style="width: 350px; font-size: 17pt;"><?php echo $dir; ?></span>
-				<span>
-					<a href="?module=albums&amp;page=editalbum&amp;var1=<?php echo $dir; ?>">
-						<img src="data/image/edit.png" title="<?php echo $lang_albums6; ?>" alt="<?php echo $lang_albums6; ?>" />
-					</a>
-				</span>
-				<span>
-					<a href="?module=albums&amp;page=deletealbum&amp;var1=<?php echo $dir; ?>">
-						<img src="data/image/delete_from_trash.png"  title="<?php echo $lang_albums5; ?>" alt="<?php echo $lang_albums5; ?>" />
-					</a>
-				</span>
-			</div>
-		<?php
+			include_once (MODULE_SETTINGS.'/'.$dir.'.php');
+			?>
+				<div class="menudiv">
+					<span>
+						<img src="<?php echo MODULE_DIR; ?>/images/albums.png" alt="" />
+					</span>
+					<span style="width: 350px; font-size: 17pt;"><?php echo $album_name; ?></span>
+					<span>
+						<a href="?module=albums&amp;page=editalbum&amp;var1=<?php echo $dir; ?>">
+							<img src="data/image/edit.png" title="<?php echo $lang_albums6; ?>" alt="<?php echo $lang_albums6; ?>" />
+						</a>
+					</span>
+					<span>
+						<a href="?module=albums&amp;page=deletealbum&amp;var1=<?php echo $dir; ?>">
+							<img src="data/image/delete_from_trash.png"  title="<?php echo $lang_albums5; ?>" alt="<?php echo $lang_albums5; ?>" />
+						</a>
+					</span>
+				</div>
+			<?php
 		}
 		unset($dir);
 	}
@@ -73,12 +74,12 @@ function read_albumimages($dir) {
 		foreach ($files as $file) {
 			list($fdirname, $ext) = explode('.', $file);
 			if ($ext == 'jpg') {
-				include ('data/settings/modules/albums/'.$var1.'/'.$fdirname.'.php');
+				include_once (MODULE_SETTINGS.'/'.$var1.'/'.$fdirname.'.php');
 				?>
 					<div class="menudiv">
 						<span>
-							<a href="data/modules/albums/albums_getimage.php?image=<?php echo $var1.'/'.$fdirname; ?>.jpg" target="_blank">
-								<img src="data/modules/albums/albums_getimage.php?image=<?php echo $var1; ?>/thumb/<?php echo $fdirname; ?>.jpg" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" />
+							<a href="<?php echo MODULE_DIR; ?>/albums_getimage.php?image=<?php echo $var1.'/'.$fdirname; ?>.jpg" target="_blank">
+								<img src="<?php echo MODULE_DIR; ?>/albums_getimage.php?image=<?php echo $var1; ?>/thumb/<?php echo $fdirname; ?>.jpg" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" />
 							</a>
 						</span>
 						<span style="width: 500px;">
@@ -87,22 +88,22 @@ function read_albumimages($dir) {
 							<i><?php echo $info; ?></i>
 						</span>
 						<span>
-							<a href="?module=albums&amp;page=editimage&amp;var1=<?php echo $fdirname; ?>&amp;var2=<?php echo $var1; ?>">
+							<a href="?module=albums&amp;page=editimage&amp;var1=<?php echo $var1; ?>&amp;var2=<?php echo $fdirname; ?>">
 								<img src="data/image/edit.png" title="<?php echo $lang_albums6; ?>" alt="<?php echo $lang_albums6; ?>" />
 							</a>
 						</span>
 						<span>
-							<a href="?module=albums&amp;page=imageup&amp;var1=<?php echo $fdirname; ?>&amp;var2=<?php echo $var1; ?>">
+							<a href="?module=albums&amp;page=imageup&amp;var1=<?php echo $var1; ?>&amp;var2=<?php echo $fdirname; ?>">
 								<img src="data/image/up.png" title="<?php echo $lang_updown5; ?>" alt="<?php echo $lang_updown5; ?>" />
 							</a>
 						</span>
 						<span>
-							<a href="?module=albums&amp;page=imagedown&amp;var1=<?php echo $fdirname; ?>&amp;var2=<?php echo $var1; ?>">
+							<a href="?module=albums&amp;page=imagedown&amp;var1=<?php echo $var1; ?>&amp;var2=<?php echo $fdirname; ?>">
 								<img src="data/image/down.png" title="<?php echo $lang_updown5; ?>" alt="<?php echo $lang_updown5; ?>" />
 							</a>
 						</span>
 						<span>
-							<a href="?module=albums&amp;page=deleteimage&amp;var1=<?php echo $fdirname; ?>&amp;var2=<?php echo $var1; ?>">
+							<a href="?module=albums&amp;page=deleteimage&amp;var1=<?php echo $var1; ?>&amp;var2=<?php echo $fdirname; ?>">
 								<img src="data/image/delete_from_trash.png" title="<?php echo $lang_kop13; ?>" alt="<?php echo $lang_kop13; ?>" />
 							</a>
 						</span>
@@ -112,5 +113,13 @@ function read_albumimages($dir) {
 		}
 		unset($file);
 	}
+}
+
+function get_image_filename() {
+	return false;
+}
+
+function get_image_seoname() {
+	return false;
 }
 ?>

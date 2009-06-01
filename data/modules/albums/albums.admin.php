@@ -2,14 +2,20 @@
 require_once ('data/modules/albums/functions.php');
 
 function albums_page_admin_list() {
-	global $lang_albums, $lang_albums5, $lang_albums6, $lang_albums15, $lang_kop13, $lang_updown5;
+	global $lang_albums, $lang_albums5, $lang_albums6, $lang_albums15, $lang_kop13, $lang_updown5, $var1;
+
+	if (isset($var1))
+		include (MODULE_SETTINGS.'/'.$var1.'.php');
+	else
+		$album_name = '';
+
 	$module_page_admin[] = array(
 		'func'  => 'albums',
 		'title' => $lang_albums
 	);
 	$module_page_admin[] = array(
 		'func'  => 'editalbum',
-		'title' => $lang_albums6
+		'title' => $lang_albums6.' - '.$album_name
 	);
 	$module_page_admin[] = array(
 		'func'  => 'deletealbum',
@@ -43,9 +49,7 @@ function albums_page_admin_albums() {
 		<span class="kop2"><?php echo $lang_albums2; ?></span>
 		<br />
 		<?php
-		read_albums('data/settings/modules/albums');
-		//Check if the PHP-gd module is installed on server.
-		if (extension_loaded('gd')) {
+		read_albums(MODULE_SETTINGS);
 		?>
 			<br /><br />
 			<label class="kop2" for="cont1"><?php echo $lang_albums3; ?></label>
@@ -59,33 +63,26 @@ function albums_page_admin_albums() {
 		<?php
 		//When form is submitted.
 		if (isset($_POST['submit'])) {
-			if (isset($cont1) && file_exists('data/settings/modules/albums/'.$cont1))
-				echo '<span class="red">'.$lang_albums19.'</span>';
+			if (isset($cont1) && file_exists(MODULE_SETTINGS.'/'.$cont1))
+				show_error($lang_albums19, 1);
 
 			elseif (isset($cont1)) {
-				//Delete unwanted characters.
-				$cont1 = str_replace ('"','', $cont1);
-				$cont1 = str_replace (' ','', $cont1);
-				$cont1 = str_replace ('\'','', $cont1);
-				$cont1 = str_replace ('.','', $cont1);
-				$cont1 = str_replace ('/','', $cont1);
+				//The pretty album name.
+				$album_name = sanitize($cont1);
+
+				//Make the album url safe to use.
+				$cont1 = seo_url($cont1);
 
 				//Create and chmod directories.
-				mkdir ('data/settings/modules/albums/'.$cont1);
-				mkdir ('data/settings/modules/albums/'.$cont1.'/thumb');
-				chmod ('data/settings/modules/albums/'.$cont1, 0777);
-				chmod ('data/settings/modules/albums/'.$cont1.'/thumb', 0777);
+				mkdir(MODULE_SETTINGS.'/'.$cont1, 0777);
+				mkdir(MODULE_SETTINGS.'/'.$cont1.'/thumb', 0777);
+
+				//Create album file.
+				save_file(MODULE_SETTINGS.'/'.$cont1.'.php','<?php $album_name = \''.$album_name.'\'; ?>');
+
 				redirect('?module=albums', 0);
 			}
 		}
-	}
-
-	//If PHP-gd module is not installed.
-	elseif (!extension_loaded('gd')) {
-	?>
-		<p class="red"><?php echo $lang_albums16; ?></p>
-	<?php
-	}
 	?>
 	<p>
 		<a href="?action=modules">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
@@ -97,7 +94,7 @@ function albums_page_admin_editalbum() {
 	global $cont1, $cont2, $cont3, $lang, $lang_albums8, $lang_albums9, $lang_albums10, $lang_albums11, $lang_albums12, $lang_albums13, $lang_albums17, $var1;
 
 	//Check if album exists
-	if (file_exists('data/settings/modules/albums/'.$var1)) {
+	if (file_exists(MODULE_SETTINGS.'/'.$var1)) {
 		//Introduction text.
 		?>
 			<p>
@@ -109,19 +106,22 @@ function albums_page_admin_editalbum() {
 				<span class="kop4"><?php echo $lang_albums13; ?></span>
 			</p>
 			<form method="post" action="" enctype="multipart/form-data">
-				<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
-				<br />
-				<input name="cont1" id="cont1" type="text" />
-				<br /><br />
-				<label class="kop2" for="cont2"><?php echo $lang_albums11; ?></label>
-				<br />
-				<textarea cols="50" rows="5" name="cont2" id="cont2"></textarea>
-				<br /><br />
-				<input type="file" name="imagefile" id="imagefile" />
-				<br />
-				<label class="kop4" for="cont3"><?php echo $lang_albums12; ?></label>
-				<input name="cont3" id="cont3" type="text" size="3" value="85" />
-				<br /><br />
+				<p>
+					<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
+					<br />
+					<input name="cont1" id="cont1" type="text" />
+				</p>
+				<p>
+					<label class="kop2" for="cont2"><?php echo $lang_albums11; ?></label>
+					<br />
+					<textarea cols="50" rows="5" name="cont2" id="cont2"></textarea>
+				</p>
+				<p>
+					<input type="file" name="imagefile" id="imagefile" />
+					<br />
+					<label class="kop4" for="cont3"><?php echo $lang_albums12; ?></label>
+					<input name="cont3" id="cont3" type="text" size="3" value="85" />
+				</p>
 				<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
 			</form>
 			<br />
@@ -147,7 +147,7 @@ function albums_page_admin_editalbum() {
 				copy($_FILES['imagefile']['tmp_name'], 'data/settings/modules/albums/'.$var1.'/'.$_FILES['imagefile']['name']) or die ('Error: Upload failed!');
 
 				//If the extension is with capitals, we have to rename it...
-				if ($ext == 'JPG') {
+				if ($ext != 'jpg') {
 					rename($fullimage, 'data/settings/modules/albums/'.$var1.'/'.$imageze.'.jpg');
 					$fullimage = 'data/settings/modules/albums/'.$var1.'/'.$imageze.'.jpg';
 					$thumbimage = 'data/settings/modules/albums/'.$var1.'/thumb/'.$imageze.'.jpg';
@@ -239,15 +239,14 @@ function albums_page_admin_editalbum() {
 			$cont2 = sanitize($cont2);
 			$cont2 = str_replace ("\n",'<br />', $cont2);
 
-			//Then save the imageinformation.
-			$data = 'data/settings/modules/albums/'.$var1.'/'.$newfile.'.php';
-			$file = fopen($data, 'w');
-			fputs($file, '<?php'."\n"
+			//Compose the data.
+			$data = '<?php'."\n"
 			.'$name = \''.$cont1.'\';'."\n"
 			.'$info = \''.$cont2.'\';'."\n"
-			.'?>');
-			fclose($file);
-			chmod($data, 0777);
+			.'?>';
+
+			//Then save the image information.
+			save_file('data/settings/modules/albums/'.$var1.'/'.$newfile.'.php', $data);
 
 			//Redirect.
 			redirect('?module=albums&page=editalbum&var1='.$var1, 0);
@@ -265,8 +264,9 @@ function albums_page_admin_deletealbum() {
 	global $var1;
 
 	//Check if an album was defined, and if the album exists
-	if (isset($var1) && file_exists('data/settings/modules/albums/'.$var1)) {
-		recursive_remove_directory('data/settings/modules/albums/'.$var1);
+	if (isset($var1) && file_exists(MODULE_SETTINGS.'/'.$var1)) {
+		recursive_remove_directory(MODULE_SETTINGS.'/'.$var1);
+		unlink(MODULE_SETTINGS.'/'.$var1.'.php');
 	}
 
 	redirect('?module=albums', 0);
@@ -285,14 +285,16 @@ function albums_page_admin_editimage() {
 		?>
 		<br />
 		<form name="form1" method="post" action="">
-			<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
-			<br />
-			<input name="cont1" id="cont1" type="text" value="<?php echo $name; ?>" />
-			<br /><br />
-			<label class="kop2" for="cont2"><?php echo $lang_albums11; ?></label>
-			<br />
-			<textarea cols="50" rows="5" name="cont2" id="cont2"><?php echo $info; ?></textarea>
-			<br /><br />
+			<p>
+				<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
+				<br />
+				<input name="cont1" id="cont1" type="text" value="<?php echo $name; ?>" />
+			</p>
+			<p>
+				<label class="kop2" for="cont2"><?php echo $lang_albums11; ?></label>
+				<br />
+				<textarea cols="50" rows="5" name="cont2" id="cont2"><?php echo $info; ?></textarea>
+			</p>
 			<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
 			<input type="button" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?module=albums&amp;page=editalbum&amp;var1=<?php echo $var2; ?>';" />
 		</form>
@@ -322,13 +324,13 @@ function albums_page_admin_editimage() {
 function albums_page_admin_deleteimage() {
 	global $var1, $var2;
 	//Check if an image was defined, and if the image exists
-	if (isset($var1) && isset($var2) && file_exists('data/settings/modules/albums/'.$var2.'/'.$var1.'.php') && file_exists('data/settings/modules/albums/'.$var2.'/thumb/'.$var1.'.jpg')) {
-		unlink('data/settings/modules/albums/'.$var2.'/'.$var1.'.php');
-		unlink('data/settings/modules/albums/'.$var2.'/'.$var1.'.jpg');
-		unlink('data/settings/modules/albums/'.$var2.'/thumb/'.$var1.'.jpg');
+	if (isset($var1) && isset($var2) && file_exists('data/settings/modules/albums/'.$var1.'/'.$var2.'.php') && file_exists('data/settings/modules/albums/'.$var1.'/thumb/'.$var2.'.jpg')) {
+		unlink('data/settings/modules/albums/'.$var1.'/'.$var2.'.php');
+		unlink('data/settings/modules/albums/'.$var1.'/'.$var2.'.jpg');
+		unlink('data/settings/modules/albums/'.$var1.'/thumb/'.$var2.'.jpg');
 	}
 
-	redirect('?module=albums&page=editalbum&var1='.$var2, 0);
+	redirect('?module=albums&page=editalbum&var1='.$var1, 0);
 }
 
 function albums_page_admin_imageup() {

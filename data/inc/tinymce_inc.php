@@ -139,6 +139,7 @@ else
 //Then return the tinymce-code
 ?>
 <script language="javascript" type="text/javascript" src="data/inc/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+<?php run_hook('tinymce_scripts'); ?>
 <script language="javascript" type="text/javascript">
 //<![CDATA[
 tinyMCE.init({
@@ -163,7 +164,8 @@ else
 ?>
 	theme : "advanced",
 	width : "600px",
-	plugins : "table,media,safari",
+	plugins : "table,media,safari<?php run_hook('tinymce_plugins'); ?>",
+	<?php run_hook('tinymce_options'); ?>
 	theme_advanced_buttons1 : "bold,italic,underline,strikethrough,separator,justifyleft,justifycenter,justifyright,separator,formatselect,fontsizeselect",
 	theme_advanced_buttons2 : "cut,copy,paste,separator,undo,redo,separator,bullist,numlist,outdent,indent,separator,link,unlink,anchor,image,media,separator,table,forecolor,backcolor,separator,code,cleanup",
 	theme_advanced_buttons3 : "",

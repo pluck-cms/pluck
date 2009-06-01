@@ -13,15 +13,21 @@ closedir($path);
 foreach ($modules as $module) {
 	if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
 		require_once ('data/modules/'.$module.'/'.$module.'.php');
+
+		//If we are on the index.php, include the needed functions.
+		if (strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') !== false && file_exists('data/modules/'.$module.'/'.$module.'.site.php'))
+				require_once ('data/modules/'.$module.'/'.$module.'.site.php');
+
 		$module_list[] = $module;
 	}
 }
 unset($module);
 
 /**
- * Run a module hook.
+ * Run a module hook. Can also filter strings.
  *
  * @param string $name Name of the hook.
+ * @param array $par The strings to filter, if it's a filter hook.
  */
 function run_hook($name, $par = null) {
 	global $module_list;

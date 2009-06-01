@@ -135,7 +135,7 @@ unset($module);
 <p><?php echo $lang['page']['items']; ?></p>
 <?php
 	read_imagesinpages('images');
-	read_pagesinpages('data/settings/pages', $filename);
+	read_pagesinpages($filename);
 ?>
 </div>
 <form name="page_form" method="post" action="">

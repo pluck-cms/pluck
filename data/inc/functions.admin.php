@@ -67,9 +67,9 @@ function read_imagesinpages($dir) {
 
 //Function: read out the pages to let them be included in pages as link
 //------------
-function read_pagesinpages($dir, $current_page = null) {
+function read_pagesinpages($current_page = null) {
 	global $lang;
-	$files = read_dir_contents($dir, 'files');
+	$files = get_pages();
 	if ($files) {
 		natcasesort($files);
 		foreach ($files as $file) {
@@ -95,15 +95,14 @@ function read_pagesinpages($dir, $current_page = null) {
 	}
 }
 
-function get_pages($patch = 'data/settings/pages') {
-	global $pages;
+function get_pages($patch = 'data/settings/pages', &$pages = null) {
 	$files = read_dir_contents($patch, 'files');
 	if ($files) {
 		sort($files, SORT_NUMERIC);
 		foreach ($files as $file) {
 			$pages[] = $patch.'/'.$file;
 			if (file_exists('data/settings/pages/'.get_page_seoname($patch.'/'.$file)))
-				get_pages('data/settings/pages/'.get_page_seoname($patch.'/'.$file));
+				get_pages('data/settings/pages/'.get_page_seoname($patch.'/'.$file), $pages);
 		}
 		unset($file);
 
@@ -390,6 +389,8 @@ function save_page($name, $title, $content, $hidden = 'no', $description = null,
 		}
 		unset($modulename);
 	}
+
+	$data .= "\n".'?>';
 
 	//Save the file.
 	save_file('data/settings/pages/'.$name.'.php', $data);

@@ -16,7 +16,7 @@
 $image = $_GET['image'];
 
 //Then, check for hacking attempts (Remote Code Execution), and block them.
-if (!strpos($image, 'thumb')) {
+if (strpos($image, 'thumb') === false) {
 	if (preg_match('#([.*])([/])([A-Za-z0-9.]{0,11})#', $image, $matches)) {
 		if ($image != $matches[0]) {
 			unset($image);
@@ -25,7 +25,7 @@ if (!strpos($image, 'thumb')) {
 	}
 }
 
-elseif (strpos($image, 'thumb')) {
+elseif (strpos($image, 'thumb') !== false) {
 	if (preg_match('#([.*])([/])thumb([/])([A-Za-z0-9.]{0,11})#', $image, $matches)) {
 		if ($image != $matches[0]) {
 			unset($image);

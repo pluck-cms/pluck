@@ -198,7 +198,7 @@ function theme_area($place) {
 				natcasesort($module_pageinc);
 				foreach ($module_pageinc as $module_to_include => $order) {
 					//Check if module is compatible, and the function exists.
-					if (module_is_compatible($module_to_include) && function_exists($module_to_include.'_theme_main'))
+					//if (module_is_compatible($module_to_include) && function_exists($module_to_include.'_theme_main'))
 							call_user_func($module_to_include.'_theme_main');
 				}
 				unset($module_to_include);
