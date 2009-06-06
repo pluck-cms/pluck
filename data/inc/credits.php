@@ -113,6 +113,8 @@ if ($langpref != 'en.php') {
 	</p>
 <?php
 }
+
+//TODO: All the following lines should be translated.
 ?>
 <p>
 	<span class="kop2"><?php echo $lang['credits']['more']; ?></span>

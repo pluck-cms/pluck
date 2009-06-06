@@ -1,5 +1,7 @@
 <?php
-require_once ('data/modules/albums/functions.php');
+require_once 'data/modules/albums/functions.php';
+
+require_once 'data/inc/lib/SmartImage.class.php';
 
 function albums_page_admin_list() {
 	global $lang_albums, $lang_albums5, $lang_albums6, $lang_albums15, $lang_kop13, $lang_updown5, $var1;
@@ -131,20 +133,25 @@ function albums_page_admin_editalbum() {
 		<span class="kop2"><?php echo $lang_albums9; ?></span>
 		<br />
 		<?php
-		read_albumimages('data/settings/modules/albums/'.$var1);
+		read_albumimages(MODULE_SETTINGS.'/'.$var1);
 		//Let's process the image...
 		if (isset($_POST['submit'])) {
 			//Define some variables
 			$imageme = $_FILES['imagefile']['name'];
 			list($imageze, $ext) = explode('.', $imageme);
-			$fullimage = 'data/settings/modules/albums/'.$var1.'/'.$imageme;
-			$thumbimage = 'data/settings/modules/albums/'.$var1.'/thumb/'.$imageme;
-			$tempimage = 'data/settings/modules/albums/'.$var1.'/temp.jpg';
+			$fullimage = MODULE_SETTINGS.'/'.$var1.'/'.$imageme;
+			$thumbimage = MODULE_SETTINGS.'/'.$var1.'/thumb/'.$imageme;
 
 			//First: Upload the image.
 			//If file is pjpeg or jpeg: Accept.
 			if ($_FILES['imagefile']['type'] == 'image/jpeg' || $_FILES['imagefile']['type'] == 'image/pjpeg') {
-				copy($_FILES['imagefile']['tmp_name'], 'data/settings/modules/albums/'.$var1.'/'.$_FILES['imagefile']['name']) or die ('Error: Upload failed!');
+
+				//If we somehow can't copy the image, show an error.
+				if (!copy($_FILES['imagefile']['tmp_name'], MODULE_SETTINGS.'/'.$var1.'/'.$_FILES['imagefile']['name'])) {
+					show_error($lang['general']['upload_failed'], 1);
+					include_once ('data/inc/footer.php');
+					exit;
+				}
 
 				//If the extension is with capitals, we have to rename it...
 				if ($ext != 'jpg') {
@@ -152,6 +159,8 @@ function albums_page_admin_editalbum() {
 					$fullimage = 'data/settings/modules/albums/'.$var1.'/'.$imageze.'.jpg';
 					$thumbimage = 'data/settings/modules/albums/'.$var1.'/thumb/'.$imageze.'.jpg';
 				}
+
+				//$images = read_dir_contents(MODULE_SETTINGS.'/'.$var1, 'files');
 
 				//Define which filenames are already in use, and define what filename we should use.
 				if (file_exists('data/settings/modules/albums/'.$var1.'/image1.jpg')) {
@@ -175,7 +184,8 @@ function albums_page_admin_editalbum() {
 
 			//Block images other then JPG.
 			else {
-				echo '<p><span class="red">'.$lang['general']['upload_failed'].'</span></p>';
+				//FIXME: Maybe a better error message?
+				show_error($lang['general']['upload_failed'], 1);
 				include_once ('data/inc/footer.php');
 				exit;
 			}
@@ -184,55 +194,44 @@ function albums_page_admin_editalbum() {
 			copy ($fullimage, $thumbimage) or die ('Error: Thumb copying failed!');
 
 			//Compress the big image.
-			$ThumbWidth = 640;
+			$image_width = 640;
+			$image = new SmartImage($fullimage, true);
 			list($width, $height) = getimagesize($fullimage);
 			$imgratio = $width / $height;
 
 			if ($imgratio > 1) {
-				$newwidth = $ThumbWidth;
-				$newheight = $ThumbWidth / $imgratio;
+				$newwidth = $image_width;
+				$newheight = $image_width / $imgratio;
 			}
 
 			else {
-				$newheight = $ThumbWidth;
-				$newwidth = $ThumbWidth * $imgratio;
+				$newheight = $image_width;
+				$newwidth = $image_width * $imgratio;
 			}
 
-			$resized_img = imagecreatetruecolor($newwidth, $newheight);
-			$new_img = imagecreatefromjpeg($fullimage);
-
-			imagecopyresampled($resized_img, $new_img, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-			ImageJpeg($resized_img, $tempimage, $cont3);
-			ImageDestroy($resized_img);
-			ImageDestroy($new_img);
-			unlink($fullimage);
-			rename($tempimage, $fullimage);
+			$image->resize($newwidth, $newheight);
+			$image->saveImage($fullimage, $cont3);
+			$image->close();
 
 			//Then make a thumb from the image.
-			$ThumbWidth = 200;
+			$thumb_width = 200;
+			$thumb = new SmartImage($thumbimage, true);
 			list($width, $height) = getimagesize($thumbimage);
 			$imgratio = $width / $height;
 
 			if ($imgratio > 1) {
-				$newwidth = $ThumbWidth;
-				$newheight = $ThumbWidth / $imgratio;
+				$newwidth = $thumb_width;
+				$newheight = $thumb_width / $imgratio;
 			}
 
 			else {
-				$newheight = $ThumbWidth;
-				$newwidth = $ThumbWidth * $imgratio;
+				$newheight = $thumb_width;
+				$newwidth = $thumb_width * $imgratio;
 			}
 
-			$resized_img = imagecreatetruecolor($newwidth, $newheight);
-			$new_img = imagecreatefromjpeg($thumbimage);
-
-			imagecopyresampled($resized_img, $new_img, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-			ImageJpeg($resized_img, $tempimage);
-			ImageDestroy($resized_img);
-			ImageDestroy($new_img);
-			unlink($thumbimage);
-			rename($tempimage, $thumbimage);
-			chmod($thumbimage, 0777);
+			$thumb->resize($newwidth, $newheight);
+			$thumb->saveImage($thumbimage, $cont3);
+			$thumb->close();
 
 			//Sanitize data.
 			$cont1 = sanitize($cont1);
@@ -246,7 +245,7 @@ function albums_page_admin_editalbum() {
 			.'?>';
 
 			//Then save the image information.
-			save_file('data/settings/modules/albums/'.$var1.'/'.$newfile.'.php', $data);
+			save_file(MODULE_SETTINGS.'/'.$var1.'/'.$newfile.'.php', $data);
 
 			//Redirect.
 			redirect('?module=albums&page=editalbum&var1='.$var1, 0);
@@ -275,12 +274,12 @@ function albums_page_admin_deletealbum() {
 function albums_page_admin_editimage() {
 	global $cont1, $cont2, $lang, $lang_albums11, $var1, $var2;
 
-	//Check if an image was defined, and if the image exists
-	if (isset($var1) && file_exists('data/settings/modules/albums/'.$var2.'/'.$var1.'.php')) {
-		//Include the image-information
-		include_once ('data/settings/modules/albums/'.$var2.'/'.$var1.'.php');
+	//Check if an image was defined, and if the image exists.
+	if (isset($var2) && file_exists('data/settings/modules/albums/'.$var1.'/'.$var2.'.php')) {
+		//Include the image-information.
+		include_once ('data/settings/modules/albums/'.$var1.'/'.$var2.'.php');
 
-		//Replace html-breaks by real ones
+		//Replace html-breaks by real ones.
 		$info = str_replace('<br />', "\n", $info);
 		?>
 		<br />
@@ -296,7 +295,7 @@ function albums_page_admin_editimage() {
 				<textarea cols="50" rows="5" name="cont2" id="cont2"><?php echo $info; ?></textarea>
 			</p>
 			<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
-			<input type="button" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?module=albums&amp;page=editalbum&amp;var1=<?php echo $var2; ?>';" />
+			<input type="button" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?module=albums&amp;page=editalbum&amp;var1=<?php echo $var1; ?>';" />
 		</form>
 		<?php
 		//When the information is posted:
@@ -307,16 +306,14 @@ function albums_page_admin_editimage() {
 			$cont2 = str_replace ("\n",'<br />', $cont2);
 
 			//Then save the imageinformation
-			$data = 'data/settings/modules/albums/'.$var2.'/'.$var1.'.php';
-			$file = fopen($data, 'w');
-			fputs($file, '<?php'."\n"
+			$data = '<?php'."\n"
 			.'$name = \''.$cont1.'\';'."\n"
 			.'$info = \''.$cont2.'\';'."\n"
-			.'?>');
-			fclose($file);
-			chmod($data, 0777);
+			.'?>';
 
-			redirect('?module=albums&page=editalbum&var1='.$var2, 0);
+			save_file(MODULE_SETTINGS.'/'.$var1.'/'.$var2.'.php', $data);
+
+			redirect('?module=albums&page=editalbum&var1='.$var1, 0);
 		}
 	}
 }
