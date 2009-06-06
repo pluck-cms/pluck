@@ -23,6 +23,9 @@ foreach ($modules as $module) {
 }
 unset($module);
 
+//Sort the mdoules.
+natcasesort($module_list);
+
 /**
  * Run a module hook. Can also filter strings.
  *
@@ -72,5 +75,28 @@ function module_is_compatible($module) {
 
 	else
 		return false;
+}
+
+function module_insert_at_position($array, $data, $position) {
+	array_splice($array, $position - 1, 0, $data);
+	return $array;
+}
+
+function module_insert_before($array, $data, $subject) {
+	$search = array_search($subject, $array);
+
+	if ($search !== false)
+		return module_insert_at_position($array, $data, $search + 1);
+	else
+		return $array;
+}
+
+function module_insert_after($array, $data, $subject) {
+	$search = array_search($subject, $array);
+
+	if ($search !== false)
+		return module_insert_at_position($array, $data, $search + 2);
+	else
+		return $array;
 }
 ?>

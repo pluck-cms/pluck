@@ -13,15 +13,16 @@ function viewsite_info() {
 	return $module_info;
 }
 
-function viewsite_admin_menu_inside_before() {
+function viewsite_admin_menu($links) {
 	global $lang;
-	?>
-		<a class="menuitem" href="index.php<?php echo HOME_PAGE; ?>" title="<?php echo $lang['viewsite']['message']; ?>" target="_blank">
-			<span>
-				<img src="data/image/website.png" alt="" height="22" />
-				<?php echo $lang['viewsite']['message']; ?>
-			</span>
-		</a>
-	<?php
+	
+	$data[] = array(
+		'href' => 'index.php'.HOME_PAGE,
+		'img'  => 'data/modules/viewsite/images/viewsite.png',
+		'text' => $lang['viewsite']['message'],
+		'target' => '_blank'
+	);
+
+	$links = module_insert_at_position($links, $data, 1);
 }
 ?>

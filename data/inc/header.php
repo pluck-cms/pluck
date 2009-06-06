@@ -75,42 +75,52 @@ function confirmation(message) {
 		<?php include_once ('data/inc/update_applet.php'); ?>
 	</div>
 	<h1>pluck</h1>
-	<?php run_hook('admin_menu_outside_before'); ?>
+	<?php run_hook('admin_menu_before'); ?>
+	<?php
+	$links = array(
+		array(
+			'href' => '?action=start',
+			'img'  => 'data/image/menu/start.png',
+			'text' => $lang['start']['title']
+		),
+		array(
+			'href' => '?action=page',
+			'img'  => 'data/image/menu/pages.png',
+			'text' => $lang['page']['title']
+		),
+		array(
+			'href' => '?action=modules',
+			'img'  => 'data/image/menu/modules.png',
+			'text' => $lang['modules']['title']
+		),
+		array(
+			'href' => '?action=options',
+			'img'  => 'data/image/menu/options.png',
+			'text' => $lang['options']['title']
+		),
+		array(
+			'href' => '?action=logout',
+			'img'  => 'data/image/menu/logout.png',
+			'text' => $lang['login']['log_out']
+		)
+	);
+	run_hook('admin_menu', array(&$links));
+	?>
 	<div id="menu">
-		<?php run_hook('admin_menu_inside_before'); ?>
-		<a class="menuitem" href="?action=start" title="<?php echo $lang['start']['title']; ?>">
-			<span>
-				<img src="data/image/menu/start.png" alt="" />
-				<?php echo $lang['start']['title']; ?>
-			</span>
-		</a>
-		<a class="menuitem" href="?action=page" title="<?php echo $lang['page']['title']; ?>">
-			<span>
-				<img src="data/image/menu/pages.png" alt="" />
-				<?php echo $lang['page']['title']; ?>
-			</span>
-		</a>
-		<a class="menuitem" href="?action=modules" title="<?php echo $lang['modules']['title']; ?>">
-			<span>
-				<img src="data/image/menu/modules.png" alt="" />
-				<?php echo $lang['modules']['title']; ?>
-			</span>
-		</a>
-		<a class="menuitem" href="?action=options" title="<?php echo $lang['options']['title'];; ?>">
-			<span>
-				<img src="data/image/menu/options.png" alt="" />
-				<?php echo $lang['options']['title']; ?>
-			</span>
-		</a>
-		<a class="menuitem" href="?action=logout" title="<?php echo $lang['login']['log_out']; ?>">
-			<span>
-				<img src="data/image/menu/logout.png" alt="" />
-				<?php echo $lang['login']['log_out']; ?>
-			</span>
-		</a >
-		<?php run_hook('admin_menu_inside_after'); ?>
+		<?php
+		foreach ($links as $link) {
+			?>
+				<a class="menuitem" href="<?php echo $link['href']; ?>" title="<?php echo $link['text']; ?>" <?php if (isset($link['target'])) echo 'target="'.$link['target'].'"'; ?>>
+					<span>
+						<img src="<?php echo $link['img']; ?>" alt="" />
+						<?php echo $link['text']; ?>
+					</span>
+				</a>
+			<?php
+		}
+		?>
 	</div>
-	<?php run_hook('admin_menu_outside_after'); ?>
+	<?php run_hook('admin_menu_after'); ?>
 </div>
 <div id="text">
 <?php if (isset($titelkop)) { ?>

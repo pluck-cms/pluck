@@ -166,9 +166,35 @@ else
 	width : "600px",
 	plugins : "table,media,safari<?php run_hook('tinymce_plugins'); ?>",
 	<?php run_hook('tinymce_options'); ?>
-	theme_advanced_buttons1 : "bold,italic,underline,strikethrough,separator,justifyleft,justifycenter,justifyright,separator,formatselect,fontsizeselect",
-	theme_advanced_buttons2 : "cut,copy,paste,separator,undo,redo,separator,bullist,numlist,outdent,indent,separator,link,unlink,anchor,image,media,separator,table,forecolor,backcolor,separator,code,cleanup",
-	theme_advanced_buttons3 : "",
+	<?php
+	$buttons = array(
+		'bold', 'italic', 'underline', 'strikethrough',
+		'separator', 'justifyleft', 'justifycenter', 'justifyright',
+		'separator', 'formatselect', 'fontsizeselect'
+	);
+	run_hook('tinymce_buttons1', array(&$buttons));
+	$number = count($buttons);
+	?>
+	theme_advanced_buttons1 : "<?php foreach ($buttons as $key => $button) {echo $button; if (($number - 1) != $key) echo ',';}?>",
+	<?php
+	$buttons = array(
+		'cut', 'copy', 'paste' ,'separator',
+		'undo', 'redo', 'separator', 'bullist',
+		'numlist', 'outdent', 'indent', 'separator',
+		'link', 'unlink', 'anchor', 'image',
+		'media', 'separator', 'table', 'forecolor',
+		'backcolor', 'separator', 'code', 'cleanup'
+	);
+	run_hook('tinymce_buttons2', array(&$buttons));
+	$number = count($buttons);
+	?>
+	theme_advanced_buttons2 : "<?php foreach ($buttons as $key => $button) {echo $button; if (($number - 1) != $key) echo ',';}?>",
+	<?php
+	$buttons = array();
+	run_hook('tinymce_buttons3', array(&$buttons));
+	$number = count($buttons);
+	?>
+	theme_advanced_buttons3 : "<?php foreach ($buttons as $key => $button) {echo $button; if (($number - 1) != $key) echo ',';}?>",
 	theme_advanced_toolbar_location : "top",
 	theme_advanced_toolbar_align : "left",
 	theme_advanced_path_location : "bottom",

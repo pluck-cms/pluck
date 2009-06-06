@@ -32,23 +32,21 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	</span>
 </div>
 <?php
-//Readout dir and put dirs in array
-$dirs = read_dir_contents('data/modules', 'dirs');
 //Display modules
-foreach($dirs as $dir) {
-	$module_info = call_user_func($dir.'_info');
+foreach($module_list as $module) {
+	$module_info = call_user_func($module.'_info');
 	?>
 	<div class="menudiv">
 		<div>
 			<span>
-				<img src="data/modules/<?php echo $dir; ?>/<?php echo $module_info['icon']; ?>" alt="" />
+				<img src="data/modules/<?php echo $module; ?>/<?php echo $module_info['icon']; ?>" alt="" />
 			</span>
 			<span>
 				<span class="title-module"><?php echo $module_info['name']; ?></span>
 				<br />
 				<?php
 					//If module has been disabled, show warning
-					if (!module_is_compatible($dir)) {
+					if (!module_is_compatible($module)) {
 					?>
 						<span style="color:red;"><?php echo $lang['modules_manage']['not_compatible']; ?></span>
 					<?php
@@ -56,18 +54,18 @@ foreach($dirs as $dir) {
 				?>
 				</span>
 			<span>
-				<a href="#" onclick="return kadabra('<?php echo $dir; ?>');">
+				<a href="#" onclick="return kadabra('<?php echo $module; ?>');">
 					<img src="data/image/credits.png" alt="<?php echo $lang['modules_manage']['information']; ?>" title="<?php echo $lang['modules_manage']['information']; ?>" />
 				</a>
 			</span>
 			<span>
-				<a href="?action=module_delete&amp;var1=<?php echo $dir; ?>" onclick="return confirm('<?php echo $lang['modules_manage']['uninstall_confirm']; ?>');">
+				<a href="?action=module_delete&amp;var1=<?php echo $module; ?>" onclick="return confirm('<?php echo $lang['modules_manage']['uninstall_confirm']; ?>');">
 					<img src="data/image/delete_from_trash.png" title="<?php echo $lang['modules_manage']['uninstall']; ?>" alt="<?php echo $lang['modules_manage']['uninstall']; ?>" />
 				</a>
 			</span>
 		</div>
 		<div>
-			<p id="<?php echo $dir; ?>" style="display: none; padding-left: 43px;">
+			<p id="<?php echo $module; ?>" style="display: none; padding-left: 43px;">
 				<?php echo $module_info['intro']; ?>
 				<br />
 				<strong><?php echo $lang['modules_manage']['version']; ?></strong>: <?php echo $module_info['version']; ?>
@@ -81,7 +79,7 @@ foreach($dirs as $dir) {
 	</div>
 <?php
 }
-unset($dir);
+unset($module);
 ?>
 <p>
 	<a href="?action=options">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
