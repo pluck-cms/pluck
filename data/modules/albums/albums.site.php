@@ -10,12 +10,27 @@ function albums_theme_main() {
 		//Loop through dirs.
 		foreach ($albums as $album) {
 			include_once('data/settings/modules/albums/'.$album.'.php');
+
+			//Find the firs image.
+			$files = read_dir_contents('data/settings/modules/albums/'.$album, 'files');
+			natcasesort($files);
+			foreach ($files as $file) {
+				$parts = explode('.', $file);
+				if (count($parts) == 4) {
+					list($number, $fdirname, $ext, $php) = $parts;
+					$first_image = $fdirname.'.'.$ext;
+					break;
+				}
+			}
+			unset($file);
 			?>
 				<div class="album">
 					<table>
 						<tr>
 							<td>
-								<a href="?module=albums&amp;page=viewalbum&amp;album=<?php echo $album; ?>&amp;pageback=<?php echo CURRENT_PAGE_SEONAME; ?>" title="album <?php echo $album_name; ?>"><img alt="<?php echo $album_name; ?>" title="<?php echo $album_name; ?>" src="data/modules/albums/albums_getimage.php?image=<?php echo $album; ?>/thumb/image1.jpg" /></a>
+								<a href="?module=albums&amp;page=viewalbum&amp;album=<?php echo $album; ?>&amp;pageback=<?php echo CURRENT_PAGE_SEONAME; ?>" title="album <?php echo $album_name; ?>">
+									<img alt="<?php echo $album_name; ?>" title="<?php echo $album_name; ?>" src="data/modules/albums/albums_getimage.php?image=<?php echo $album; ?>/thumb/<?php echo $first_image; ?>" />
+								</a>
 							</td>
 							<td>
 								<span class="albuminfo">
@@ -80,17 +95,17 @@ function albums_page_site_viewalbum() {
 		if ($files) {
 			natcasesort($files);
 			foreach ($files as $file) {
-				//Check if the files are JPG
-				list($fdirname, $ext) = explode('.', $file);
-				if ($ext == 'jpg') {
-					include_once ('data/settings/modules/albums/'.$album.'/'.$fdirname.'.php');
+				$parts = explode('.', $file);
+				if (count($parts) == 4) {
+					list($number, $fdirname, $ext, $php) = $parts;
+					include_once ('data/settings/modules/albums/'.$album.'/'.albums_get_php_filename($album, $fdirname));
 					?>
 						<div class="album">
 							<table>
 								<tr>
 									<td>
-										<a href="data/modules/albums/albums_getimage.php?image=<?php echo $album; ?>/<?php echo $fdirname; ?>.jpg" rel="lytebox[album]" title="<?php echo $name; ?>">
-											<img src="data/modules/albums/albums_getimage.php?image=<?php echo $album; ?>/thumb/<?php echo $fdirname; ?>.jpg" alt="<?php echo $name; ?>" title="<?php echo $name; ?>" />
+										<a href="data/modules/albums/albums_getimage.php?image=<?php echo $album; ?>/<?php echo $fdirname.'.'.$ext; ?>" rel="lytebox[album]" title="<?php echo $name; ?>">
+											<img src="data/modules/albums/albums_getimage.php?image=<?php echo $album; ?>/thumb/<?php echo $fdirname.'.'.$ext; ?>" alt="<?php echo $name; ?>" title="<?php echo $name; ?>" />
 										</a>
 									</td>
 									<td>

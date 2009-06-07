@@ -50,7 +50,7 @@ else
 $pages = read_dir_contents('data/trash/pages', 'files');
 
 if ($pages == false)
-	echo '<span class="kop4">'.$lang_albums14.'</span>';
+	echo '<span class="kop4">'.$lang['general']['nothing_yet'].'</span>';
 
 else {
 	natsort($pages);
@@ -92,11 +92,10 @@ else {
 <?php
 //Read images in array
 $images = read_dir_contents('data/trash/images', 'files');
-if ($images == false) {
-?>
-	<span class="kop4"><?php echo $lang_albums14; ?></span>
-<?php
-}
+
+if ($images == false)
+	echo '<span class="kop4">'.$lang['general']['nothing_yet'].'</span>';
+
 else {
 	foreach ($images as $image) {
 	?>
@@ -109,17 +108,17 @@ else {
 			</span>
 			<span>
 				<a href="?action=trash_viewitem&amp;var1=<?php echo $image; ?>&amp;var2=image">
-					<img src="data/image/view.png" alt="<?php echo $lang_trash7; ?>" title="<?php echo $lang_trash7; ?>" />
+					<img src="data/image/view.png" alt="<?php echo $lang['trashcan']['view_item']; ?>" title="<?php echo $lang['trashcan']['view_item']; ?>" />
 				</a>
 			</span>
 			<span>
 				<a href="?action=trash_restoreitem&amp;var1=<?php echo $image; ?>&amp;var2=image">
-					<img src="data/image/restore.png" title="<?php echo $lang_trash10; ?>" alt="<?php echo $lang_trash10; ?>" />
+					<img src="data/image/restore.png" title="<?php echo $lang['trashcan']['restore_item']; ?>" alt="<?php echo $lang['trashcan']['restore_item']; ?>" />
 				</a>
 			</span>
 			<span>
 				<a href="?action=trash_deleteitem&amp;var1=<?php echo $image; ?>&amp;var2=image">
-					<img src="data/image/delete_from_trash.png" title="<?php echo $lang_trash8; ?>" alt="<?php echo $lang_trash8; ?>" />
+					<img src="data/image/delete_from_trash.png" title="<?php echo $lang['trashcan']['delete_item']; ?>" alt="<?php echo $lang['trashcan']['delete_item']; ?>" />
 				</a>
 			</span>
 		</div>

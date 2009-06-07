@@ -27,11 +27,11 @@ define('NAME', 'image');
 //Function: Readout albums.
 //------------
 function read_albums($dir) {
-	global $lang_albums5, $lang_albums6, $lang_albums14;
+	global $lang, $lang_albums5, $lang_albums6;
 	$dirs = read_dir_contents($dir, 'dirs');
 
 	if (!$dirs)
-		echo '<span class="kop4">'.$lang_albums14.'</span>';
+		echo '<span class="kop4">'.$lang['general']['nothing_yet'].'</span>';
 
 	elseif (isset($dirs)) {
 		natcasesort($dirs);
@@ -64,22 +64,23 @@ function read_albums($dir) {
 //Function: Readout album-images.
 //------------
 function read_albumimages($dir) {
-	global $lang_albums6, $lang_albums14, $lang_kop13, $lang_updown5, $var1;
+	global $lang, $lang_albums6, $lang_kop13, $lang_updown5, $var1;
 	$files = read_dir_contents($dir, 'files');
 	if (!$files)
-		echo '<span class="kop4">'.$lang_albums14.'</span><br />';
+		echo '<span class="kop4">'.$lang['general']['nothing_yet'].'</span><br />';
 
 	elseif ($files) {
 		natcasesort($files);
 		foreach ($files as $file) {
-			list($fdirname, $ext) = explode('.', $file);
-			if ($ext == 'jpg') {
-				include_once (MODULE_SETTINGS.'/'.$var1.'/'.$fdirname.'.php');
+			$parts = explode('.', $file);
+			if (count($parts) == 4) {
+				list($number, $fdirname, $ext, $php) = $parts;
+				include_once (MODULE_SETTINGS.'/'.$var1.'/'.$file);
 				?>
 					<div class="menudiv">
 						<span>
-							<a href="<?php echo MODULE_DIR; ?>/albums_getimage.php?image=<?php echo $var1.'/'.$fdirname; ?>.jpg" target="_blank">
-								<img src="<?php echo MODULE_DIR; ?>/albums_getimage.php?image=<?php echo $var1; ?>/thumb/<?php echo $fdirname; ?>.jpg" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" />
+							<a href="<?php echo MODULE_DIR; ?>/albums_getimage.php?image=<?php echo $var1.'/'.$fdirname.'.'.$ext; ?>" target="_blank">
+								<img src="<?php echo MODULE_DIR; ?>/albums_getimage.php?image=<?php echo $var1; ?>/thumb/<?php echo $fdirname.'.'.$ext; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" />
 							</a>
 						</span>
 						<span style="width: 500px;">
@@ -115,11 +116,40 @@ function read_albumimages($dir) {
 	}
 }
 
-function get_image_filename() {
+function albums_get_image_filename($album, $seoname) {
 	return false;
 }
 
-function get_image_seoname() {
+function albums_get_image_seoname($album, $filename) {
 	return false;
+}
+
+function albums_get_php_filename($album, $seoname) {
+	$files = read_dir_contents(MODULE_SETTINGS.'/'.$album, 'files');
+	foreach ($files as $file) {
+		$parts = explode('.', $file);
+		if (count($parts) == 4) {
+			list($number, $fdirname, $ext, $php) = $parts;
+			if ($seoname == $fdirname && file_exists(MODULE_SETTINGS.'/'.$album.'/'.$fdirname.'.'.$ext))
+				return $file;
+		}
+	}
+	return false;
+}
+
+//TODO: Needs updating!
+function albums_reorder_images($album) {
+	$files = read_dir_contents(MODULE_SETTINGS.'/'.$album, 'files');
+
+	$number = 1;
+	foreach ($files as $file) {
+		$parts = explode('.', $file);
+		if ($parts[2] == '.php') {
+			rename(MODULE_SETTINGS.'/'.$album.'/'.$file, MODULE_SETTINGS.'/'.$album.'/'.$number.'.'.$parts[1].'.'.$parts[2]);
+			rename(MODULE_SETTINGS.'/'.$album.'/'.$parts[0].'.'.$parts[1].'.jpg', MODULE_SETTINGS.'/'.$album.'/'.$number.'.'.$parts[1].'.jpg');
+			rename(MODULE_SETTINGS.'/'.$album.'/thumb/'.$parts[0].'.'.$parts[1].'.jpg', MODULE_SETTINGS.'/'.$album.'/thumb/'.$number.'.'.$parts[1].'.jpg');
+			$number++;
+		}
+	}
 }
 ?>

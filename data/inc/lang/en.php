@@ -44,6 +44,7 @@ $lang['general']['images']         = 'images';
 $lang['general']['not_valid_file'] = 'Install failed: the file you specified is not a valid file.';
 $lang['general']['none']           = 'none';
 $lang['general']['description']    = 'description';
+$lang['general']['nothing_yet']    = 'nothing yet...';
 
 //Login
 $lang['login']['not']         = 'not logged in';
