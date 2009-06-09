@@ -52,12 +52,12 @@ if (isset($_POST ['submit'])) {
 
 		//Check if we're dealing with a file with tar.gz in filename.
 		if (!strpos($filename, '.tar.gz'))
-			echo $lang['general']['not_valid_file'];
+			show_error($lang['general']['not_valid_file'], 1);
 
 		else {
 			//Check if file isn't too big.
 			if ($_FILES['sendfile']['size'] > $maxfilesize)
-				echo $lang['modules_install']['too_big'];
+				show_error($lang['modules_install']['too_big'], 1);
 
 			else {
 				//Save theme-file.

@@ -20,13 +20,6 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
-//Redirect for a cancel.
-if (isset($_POST['cancel'])) {
-	redirect('?action=page', 0);
-	include_once ('data/inc/footer.php');
-	exit;
-}
-
 //Load module functions.
 foreach ($module_list as $module) {
 	if (file_exists('data/modules/'.$module.'/'.$module.'.site.php'))
@@ -167,5 +160,5 @@ read_pagesinpages();
 			</tr>
 		</table>
 	</div>
-	<?php show_common_submits(); ?>
+	<?php show_common_submits('?action=page', true); ?>
 </form>

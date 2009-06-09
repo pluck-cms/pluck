@@ -44,6 +44,7 @@ if (file_exists('data/settings/themepref.php'))
 
 //Some constants.
 define('PLUCK_VERSION', '4.7 alpha');
+define('SITE_URL', 'http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']));
 define('SITE_TITLE', get_sitetitle());
 if (file_exists('data/settings/options.php'))
 	define('EMAIL', $email);

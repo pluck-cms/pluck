@@ -23,24 +23,21 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	<p>
 		<strong><?php echo $lang['theme_install']['message']; ?></strong>
 	</p>
-<?php
-	if (!isset($_POST ['submit'])) {
-	?>
-		<div class="menudiv" style="width: 500px;">
-			<span>
-				<img src="data/image/install.png" alt="" />
-			</span>
-			<div style="display: inline-block;">
-				<form method="post" action="" enctype="multipart/form-data">
-					<input type="file" name="sendfile" />
-					<input type="submit" name="submit" value="<?php echo $lang['general']['upload']; ?>" />
-				</form>
-			</div>
+	<div class="menudiv" style="width: 500px;">
+		<span>
+			<img src="data/image/install.png" alt="" />
+		</span>
+		<div style="display: inline-block;">
+			<form method="post" action="" enctype="multipart/form-data">
+				<input type="file" name="sendfile" />
+				<input type="submit" name="submit" value="<?php echo $lang['general']['upload']; ?>" />
+			</form>
 		</div>
+	</div>
+	<p>
 		<a href="?action=theme" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
-	<?php
-}
-
+	</p>
+<?php
 if (isset($_POST['submit'])) {
 	//If no file has been sent.
 	if (!$_FILES['sendfile'])
@@ -54,7 +51,7 @@ if (isset($_POST['submit'])) {
 
 		//Check if we're dealing with a file with tar.gz in filename.
 		if (!strpos($filename, '.tar.gz'))
-			echo $lang['general']['not_valid_file'];
+			show_error($lang['general']['not_valid_file'], 1);
 
 		else {
 			//Check if file isn't too big.

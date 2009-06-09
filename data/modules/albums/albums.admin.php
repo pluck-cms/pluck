@@ -100,6 +100,120 @@ function albums_page_admin_albums() {
 function albums_page_admin_editalbum() {
 	global $cont1, $cont2, $cont3, $lang, $lang_albums8, $lang_albums9, $lang_albums10, $lang_albums11, $lang_albums12, $lang_albums13, $lang_albums17, $var1;
 
+	//Let's process the image...
+	if (isset($_POST['submit'])) {
+		//Define some variables
+		list($imageze, $ext) = explode('.', $_FILES['imagefile']['name']);
+		$imageze = seo_url($imageze);
+		$fullimage = MODULE_SETTINGS.'/'.$var1.'/'.$imageze.'.'.$ext;
+		$thumbimage = MODULE_SETTINGS.'/'.$var1.'/thumb/'.$imageze.'.'.$ext;
+
+		//First: Upload the image.
+		//If file is jpeg, pjpeg, png or gif: Accept.
+		if (in_array($_FILES['imagefile']['type'], array('image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'))) {
+
+			//Check if the image name already exists.
+			$images = read_dir_contents(MODULE_SETTINGS.'/'.$var1.'/thumb', 'files');
+			foreach ($images as $image) {
+				$parts = explode('.', $image);
+				if ($parts[0] == $imageze) {
+					$name_exist = true;
+					break;
+				}
+			}
+
+			//Don't do anything, if the name already exists.
+			//TODO: Translate, and maybe make it better.
+			if (isset($name_exist))
+				show_error('There is already an image with that name.', 1);
+				
+			//If we somehow can't copy the image, show an error.
+			elseif (!copy($_FILES['imagefile']['tmp_name'], $fullimage) || !copy ($_FILES['imagefile']['tmp_name'], $thumbimage))
+				show_error($lang['general']['upload_failed'], 1);
+
+			else {
+				//If the extension is with capitals, we have to rename it...
+				if ($ext != strtolower($ext)) {
+					$ext = strtolower($ext);
+					rename($fullimage, MODULE_SETTINGS.'/'.$var1.'/'.$imageze.'.'.$ext);
+					rename($thumbimage, MODULE_SETTINGS.'/'.$var1.'/thumb/'.$imageze.'.'.$ext);
+					$fullimage = MODULE_SETTINGS.'/'.$var1.'/'.$imageze.'.'.$ext;
+					$thumbimage = MODULE_SETTINGS.'/'.$var1.'/thumb/'.$imageze.'.'.$ext;
+				}
+
+				//Compress the big image.
+				$image_width = 640;
+				$image = new SmartImage($fullimage, true);
+				list($width, $height) = getimagesize($fullimage);
+				$imgratio = $width / $height;
+
+				if ($imgratio > 1) {
+					$newwidth = $image_width;
+					$newheight = $image_width / $imgratio;
+				}
+
+				else {
+					$newheight = $image_width;
+					$newwidth = $image_width * $imgratio;
+				}
+
+				$image->resize($newwidth, $newheight);
+				$image->saveImage($fullimage, $cont3);
+				$image->close();
+				chmod($fullimage, 0777);
+
+				//Then make a thumb from the image.
+				$thumb_width = 200;
+				$thumb = new SmartImage($thumbimage, true);
+				list($width, $height) = getimagesize($thumbimage);
+				$imgratio = $width / $height;
+
+				if ($imgratio > 1) {
+					$newwidth = $thumb_width;
+					$newheight = $thumb_width / $imgratio;
+				}
+
+				else {
+					$newheight = $thumb_width;
+					$newwidth = $thumb_width * $imgratio;
+				}
+
+				$thumb->resize($newwidth, $newheight);
+				$thumb->saveImage($thumbimage, $cont3);
+				$thumb->close();
+				chmod($thumbimage, 0777);
+
+				//Find the number.
+				$images = read_dir_contents(MODULE_SETTINGS.'/'.$var1.'/thumb', 'files');
+
+				if ($images)
+					$number = count($images);
+				else
+					$number = 1;
+
+				//Sanitize data.
+				$cont1 = sanitize($cont1);
+				$cont2 = sanitize($cont2);
+				$cont2 = str_replace ("\n",'<br />', $cont2);
+
+				//Compose the data.
+				$data = '<?php'."\n"
+				.'$name = \''.$cont1.'\';'."\n"
+				.'$info = \''.$cont2.'\';'."\n"
+				.'?>';
+
+				//Then save the image information.
+				save_file(MODULE_SETTINGS.'/'.$var1.'/'.$number.'.'.$imageze.'.'.$ext.'.php', $data);
+			}
+		}
+
+		//Block unknown image types.
+		else {
+			//FIXME: Maybe a better error message?
+			show_error($lang['general']['upload_failed'], 1);
+		}
+	}
+	
 	//Check if album exists
 	if (file_exists(MODULE_SETTINGS.'/'.$var1)) {
 		//Introduction text.
@@ -139,112 +253,7 @@ function albums_page_admin_editalbum() {
 		<br />
 		<?php
 		read_albumimages(MODULE_SETTINGS.'/'.$var1);
-		//Let's process the image...
-		if (isset($_POST['submit'])) {
-			//Define some variables
-			list($imageze, $ext) = explode('.', $_FILES['imagefile']['name']);
-			$imageze = seo_url($imageze);
-			$fullimage = MODULE_SETTINGS.'/'.$var1.'/'.$imageze.'.'.$ext;
-			$thumbimage = MODULE_SETTINGS.'/'.$var1.'/thumb/'.$imageze.'.'.$ext;
-
-			//First: Upload the image.
-			//If file is jpeg, pjpeg, png or gif: Accept.
-			if (in_array($_FILES['imagefile']['type'], array('image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'))) {
-
-				//If we somehow can't copy the image, show an error.
-				if (!copy($_FILES['imagefile']['tmp_name'], $fullimage)) {
-					show_error($lang['general']['upload_failed'], 1);
-					include_once ('data/inc/footer.php');
-					exit;
-				}
-
-				//If the extension is with capitals, we have to rename it...
-				if ($ext != strtolower($ext)) {
-					$ext = strtolower($ext);
-					rename($fullimage, MODULE_SETTINGS.'/'.$var1.'/'.$imageze.'.'.$ext);
-					$fullimage = MODULE_SETTINGS.'/'.$var1.'/'.$imageze.'.'.$ext;
-					$thumbimage = MODULE_SETTINGS.'/'.$var1.'/thumb/'.$imageze.'.'.$ext;
-				}
-			}
-
-			//Block unknown image types.
-			else {
-				//FIXME: Maybe a better error message?
-				show_error($lang['general']['upload_failed'], 1);
-				include_once ('data/inc/footer.php');
-				exit;
-			}
-
-			//Copy the image to the thumbdir.
-			copy ($fullimage, $thumbimage) or die ('Error: Thumb copying failed!');
-
-			//Compress the big image.
-			$image_width = 640;
-			$image = new SmartImage($fullimage, true);
-			list($width, $height) = getimagesize($fullimage);
-			$imgratio = $width / $height;
-
-			if ($imgratio > 1) {
-				$newwidth = $image_width;
-				$newheight = $image_width / $imgratio;
-			}
-
-			else {
-				$newheight = $image_width;
-				$newwidth = $image_width * $imgratio;
-			}
-
-			$image->resize($newwidth, $newheight);
-			$image->saveImage($fullimage, $cont3);
-			$image->close();
-			chmod($fullimage, 0777);
-
-			//Then make a thumb from the image.
-			$thumb_width = 200;
-			$thumb = new SmartImage($thumbimage, true);
-			list($width, $height) = getimagesize($thumbimage);
-			$imgratio = $width / $height;
-
-			if ($imgratio > 1) {
-				$newwidth = $thumb_width;
-				$newheight = $thumb_width / $imgratio;
-			}
-
-			else {
-				$newheight = $thumb_width;
-				$newwidth = $thumb_width * $imgratio;
-			}
-
-			$thumb->resize($newwidth, $newheight);
-			$thumb->saveImage($thumbimage, $cont3);
-			$thumb->close();
-			chmod($thumbimage, 0777);
-
-			//Find the number.
-			$images = read_dir_contents(MODULE_SETTINGS.'/'.$var1.'/thumb', 'files');
-
-			if ($images)
-				$number = count($images);
-			else
-				$number = 1;
-
-			//Sanitize data.
-			$cont1 = sanitize($cont1);
-			$cont2 = sanitize($cont2);
-			$cont2 = str_replace ("\n",'<br />', $cont2);
-
-			//Compose the data.
-			$data = '<?php'."\n"
-			.'$name = \''.$cont1.'\';'."\n"
-			.'$info = \''.$cont2.'\';'."\n"
-			.'?>';
-
-			//Then save the image information.
-			save_file(MODULE_SETTINGS.'/'.$var1.'/'.$number.'.'.$imageze.'.'.$ext.'.php', $data);
-
-			//Redirect.
-			redirect('?module=albums&page=editalbum&var1='.$var1, 0);
-		}
+		
 	}
 	?>
 		<br />

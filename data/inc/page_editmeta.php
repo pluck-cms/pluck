@@ -20,10 +20,6 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
-//redirect for a cancel
-if (isset($_POST['cancel']))
-	redirect('?action=page', 0);
-
 $filename = get_page_filename($var1);
 
 //Include the actual siteinfo.
@@ -31,13 +27,13 @@ require ('data/settings/pages/'.$filename);
 
 if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	//Remove .php from the filename. We add it again in save_page.
-	$filenameCut = preg_replace('/.php$/', '', $filename);
+	$filename_cut = preg_replace('/.php$/', '', $filename);
 
 	//Save the page
 	if (isset($module_pageinc))
-		save_page($filenameCut, $title, $content, $hidden, $cont1, $cont2, $module_pageinc);
+		save_page($filename_cut, $title, $content, $hidden, $cont1, $cont2, $module_pageinc);
 	else
-		save_page($filenameCut, $title, $content, $hidden, $cont1, $cont2);
+		save_page($filename_cut, $title, $content, $hidden, $cont1, $cont2);
 
 	//Redirect user only if they hit save and exit.
 	if (isset($_POST['save_exit'])) {
@@ -62,12 +58,12 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 			<br />
 			<textarea name="cont1" rows="3" cols="50"><?php if (isset($description)) echo $description; ?></textarea>
 		</p>
-		<span class="kop2"><?php echo $lang['editmeta']['keywords']; ?></span> (<?php echo $lang['editmeta']['comma']; ?>)
-		<br />
-		<textarea name="cont2" rows="5" cols="50"><?php if (isset($keywords)) echo $keywords; ?></textarea>
 		<p>
-			<input class="save" type="submit" name="save" value="<?php echo $lang['general']['save']; ?>"/>
-			<input type="submit" name="save_exit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
-			<input class="cancel" type="submit" name="cancel" title="<?php echo $lang['general']['cancel']; ?>" value="<?php echo $lang['general']['cancel']; ?>" />
+			<span class="kop2"><?php echo $lang['editmeta']['keywords']; ?></span> (<?php echo $lang['editmeta']['comma']; ?>)
+			<br />
+			<textarea name="cont2" rows="5" cols="50"><?php if (isset($keywords)) echo $keywords; ?></textarea>
+		</p>
+		<p>
+			<?php show_common_submits('?action=page', true); ?>
 		</p>
 	</form>

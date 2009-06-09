@@ -21,7 +21,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 ?>
 <?php
-if (isset($_POST['submit'])) {
+if (isset($_POST['save'])) {
 	//Include old password.
 	require_once ('data/settings/pass.php');
 
@@ -72,6 +72,5 @@ if (isset($error))
 		<br />
 		<input name="cont3" id="cont3" type="password" />
 	</p>
-	<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" title="<?php echo $lang['general']['save']; ?>" />
-	<button type="button" class="cancel" onclick="javascript: window.location='?action=options';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
+	<?php show_common_submits('?action=options'); ?>
 </form>

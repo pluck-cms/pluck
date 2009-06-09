@@ -20,28 +20,28 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
-//Introduction text.
-?>
-	<p>
-		<strong><?php echo $lang['language']['choose']; ?></strong>
-	</p>
-	<form action="" method="post">
-		<p>
-			<select name="cont1">
-				<option selected="selected" value="0"><?php echo $lang['general']['choose']; ?></option>
-				<?php read_lang_files(LANG_FILE); ?>
-			</select>
-		</p>
-		<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
-		<button type="button" class="cancel" onclick="javascript: window.location='?action=options';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
-	</form>
-<?php
 //Check if chosen language is valid, and then save data.
-if (isset($_POST['submit']) && isset($cont1) && $cont1 != '0' && file_exists('data/inc/lang/'.$cont1)) {
+if (isset($_POST['save'], $cont1) && $cont1 != '0' && file_exists('data/inc/lang/'.$cont1)) {
 	save_language($cont1);
 
 	//Redirect user.
-	echo $lang['language']['saved'];
+	show_error($lang['language']['saved'], 3);
 	redirect('?action=options', 2);
+	include_once ('data/inc/footer.php');
+	exit;
 }
+
+//Introduction text.
 ?>
+<p>
+	<strong><?php echo $lang['language']['choose']; ?></strong>
+</p>
+<form action="" method="post">
+	<p>
+		<select name="cont1">
+			<option selected="selected" value="0"><?php echo $lang['general']['choose']; ?></option>
+			<?php read_lang_files(LANG_FILE); ?>
+		</select>
+	</p>
+	<?php show_common_submits('?action=options'); ?>
+</form>

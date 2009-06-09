@@ -223,12 +223,14 @@ function reorder_pages($patch) {
 	}
 }
 
-function show_common_submits() {
+function show_common_submits($url, $exit = false) {
 	global $lang;
 	?>
-		<input class="save" type="submit" name="save" value="<?php echo $lang['general']['save']; ?>" title="<?php echo $lang['general']['save']; ?>" />
+		<input <?php if ($exit) echo 'class="save"'; ?> type="submit" name="save" value="<?php echo $lang['general']['save']; ?>" title="<?php echo $lang['general']['save']; ?>" />
+		<?php if ($exit): ?>
 		<input type="submit" name="save_exit" value="<?php echo $lang['general']['save_exit']; ?>" title="<?php echo $lang['general']['save_exit']; ?>" />
-		<input class="cancel" type="submit" name="cancel" title="<?php echo $lang['general']['cancel']; ?>" value="<?php echo $lang['general']['cancel']; ?>" />
+		<?php endif; ?>
+		<a class="cancel" href="<?php echo $url; ?>" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></a>
 	<?php
 }
 

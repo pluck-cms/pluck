@@ -22,52 +22,16 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 
 //Include old settings, to display them.
 require_once ('data/settings/options.php');
-?>
-	<p>
-		<strong><?php echo $lang['settings']['message']; ?></strong>
-	</p>
-	<?php run_hook('admin_settings_before'); ?>
-	<form method="post" action="">
-		<p>
-			<label class="kop2" for="cont1"><?php echo $lang['general']['change_title']; ?></label>
-			<br />
-			<span class="kop4"><?php echo $lang['settings']['choose_title']; ?></span>
-			<br />
-			<input name="cont1" id="cont1" type="text" value="<?php echo $sitetitle; ?>" />
-		</p>
-		<p>
-			<label class="kop2" for="cont2"><?php echo $lang['settings']['email']; ?></label>
-			<br />
-			<span class="kop4"><?php echo $lang['settings']['email_descr']; ?></span>
-			<br />
-			<input name="cont2" id="cont2" type="text" value="<?php echo $email; ?>" />
-		</p>
-		<p>
-			<span class="kop2"><?php echo $lang['general']['other_options']; ?></span>
-			<br />
-			<input type="checkbox" name="cont3" id="cont3" value="true" <?php if ($xhtmlruleset == 'true') echo 'checked="checked"'; ?> />
-			<label for="cont3">&nbsp;<?php echo $lang['settings']['xhtml_mode']; ?></label>
-		</p>
-		<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" title="<?php echo $lang['general']['save']; ?>" />
-		<button class="cancel" type="button" onclick="javascript: window.location='?action=options';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
-	</form>
-<?php
-//If form has been submitted.
-if (isset($_POST['submit'])) {
 
+//If form has been submitted.
+if (isset($_POST['save'])) {
 	//Check if a sitetitle has been given in.
-	if (!isset($cont1)) {
-	?>
-		<strong><?php echo $lang['settings']['fill_name']; ?></strong>
-	<?php
-	}
+	if (empty($cont1))
+		$error = show_error($lang['settings']['fill_name'], 1, true);
 
 	//Check if emailaddress is valid.
-	elseif (!filter_input(INPUT_POST, 'cont2', FILTER_VALIDATE_EMAIL)) {
-	?>
-		<strong><?php echo $lang['settings']['email_invalid']; ?></strong>
-	<?php
-	}
+	elseif (!filter_input(INPUT_POST, 'cont2', FILTER_VALIDATE_EMAIL))
+		$error = show_error($lang['settings']['email_invalid'], 1, true);
 
 	else {
 		//If XHTML-ruleset is not on, turn it off.
@@ -78,7 +42,40 @@ if (isset($_POST['submit'])) {
 		save_options($cont1, $cont2, $cont3);
 
 		show_error($lang['settings']['changing_settings'], 3);
-		redirect('?action=options', 0);
+		redirect('?action=options', 2);
+		include_once ('data/inc/footer.php');
+		exit;
 	}
 }
 ?>
+<p>
+	<strong><?php echo $lang['settings']['message']; ?></strong>
+</p>
+<?php
+if (isset($error))
+	echo $error;
+?>
+<?php run_hook('admin_settings_before'); ?>
+<form method="post" action="">
+	<p>
+		<label class="kop2" for="cont1"><?php echo $lang['general']['change_title']; ?></label>
+		<br />
+		<span class="kop4"><?php echo $lang['settings']['choose_title']; ?></span>
+		<br />
+		<input name="cont1" id="cont1" type="text" value="<?php echo $sitetitle; ?>" />
+	</p>
+	<p>
+		<label class="kop2" for="cont2"><?php echo $lang['settings']['email']; ?></label>
+		<br />
+		<span class="kop4"><?php echo $lang['settings']['email_descr']; ?></span>
+		<br />
+		<input name="cont2" id="cont2" type="text" value="<?php echo $email; ?>" />
+	</p>
+	<p>
+		<span class="kop2"><?php echo $lang['general']['other_options']; ?></span>
+		<br />
+		<input type="checkbox" name="cont3" id="cont3" value="true" <?php if ($xhtmlruleset == 'true') echo 'checked="checked"'; ?> />
+		<label for="cont3">&nbsp;<?php echo $lang['settings']['xhtml_mode']; ?></label>
+	</p>
+	<?php show_common_submits('?action=options'); ?>
+</form>

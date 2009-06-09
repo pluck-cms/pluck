@@ -19,35 +19,45 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	//Block all other code.
 	exit;
 }
-?>
-	<div class="rightmenu">
-		<div class="menudiv" style="padding-right: 120px;">
-			<span>
-				<img src="data/image/install.png" alt="<?php echo $lang['theme_install']['title']; ?>" title="<?php echo $lang['theme_install']['title']; ?>" />
-			</span>
-			<span>
-			<?php
-				//If zlib is installed.
-				if (get_extension_funcs('zlib')) {
-					echo '<span class="kop3"><a href="?action=themeinstall" title="'.$lang['theme_install']['title'].'">'.$lang['theme_install']['title'].'</a></span>';
-				}
-				//If zlib is not installed.
-				elseif (!get_extension_funcs('zlib')) {
-					echo '<span class="kop3">'.$lang['theme_install']['title'].'</span><br />';
-					echo '<span class="red">'.$lang['theme_install']['not_supported'].'</span>';
-				}
-			?>
-			</span>
-		</div>
-	</div>
 
+//Save the theme-data.
+if (isset($_POST['save'], $cont1) && file_exists('data/themes/'.$cont1)) {
+	save_theme($cont1);
+
+	//Redirect user
+	show_error($lang['theme']['saved'], 3);
+	redirect('?action=options', 2);
+	include_once ('data/inc/footer.php');
+	exit;
+}
+?>
+<div class="rightmenu">
+	<div class="menudiv" style="padding-right: 120px;">
+		<span>
+			<img src="data/image/install.png" alt="<?php echo $lang['theme_install']['title']; ?>" title="<?php echo $lang['theme_install']['title']; ?>" />
+		</span>
+		<span>
+		<?php
+			//If zlib is installed.
+			if (get_extension_funcs('zlib')) {
+				echo '<span class="kop3"><a href="?action=themeinstall" title="'.$lang['theme_install']['title'].'">'.$lang['theme_install']['title'].'</a></span>';
+			}
+			//If zlib is not installed.
+			elseif (!get_extension_funcs('zlib')) {
+				echo '<span class="kop3">'.$lang['theme_install']['title'].'</span><br />';
+				echo '<span class="red">'.$lang['theme_install']['not_supported'].'</span>';
+			}
+		?>
+		</span>
+	</div>
+</div>
+<p>
+	<strong><?php echo $lang['theme']['choose']; ?></strong>
+</p>
+<?php run_hook('admin_theme_before'); ?>
+<form action="" method="post">
 	<p>
-		<strong><?php echo $lang['theme']['choose']; ?></strong>
-	</p>
-	<?php run_hook('admin_theme_before'); ?>
-	<form action="" method="post">
 		<select name="cont1">
-			<option value="0"><?php echo $lang['general']['choose']; ?></option>
 			<?php
 			$dirs = read_dir_contents('data/themes', 'dirs');
 			if ($dirs) {
@@ -73,23 +83,6 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 			}
 			?>
 		</select>
-		<br /><br />
-		<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
-		<input class="cancel" name="cancel" type="submit" value="<?php echo $lang['general']['cancel']; ?>" />
-	</form>
-<?php
-//Save the theme-data.
-if (isset($_POST['submit']) && isset($cont1) && $cont1 != '0' && file_exists('data/themes/'.$cont1)) {
-	save_theme($cont1);
-
-	//Redirect user
-	echo $lang['theme']['saved'];
-	redirect('?action=options', 2);
-}
-//Redirect for a cancel.
-if (isset($_POST['cancel'])) {
-	redirect('?action=options', 0);
-	include_once ('data/inc/footer.php');
-	exit;
-}
-?>
+	</p>
+	<?php show_common_submits('?action=options'); ?>
+</form>
