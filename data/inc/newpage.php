@@ -135,7 +135,7 @@ read_pagesinpages();
 		<input type="checkbox" name="cont4" id="cont4" checked="checked" value="no" />
 		<label for="cont4"><?php echo $lang['page']['in_menu']; ?></label>
 		<br />
-		<span><?php echo $lang['page']['sub_page']; ?></span>
+		<label for="cont5"><?php echo $lang['page']['sub_page']; ?></label>
 		<?php show_subpage_select('cont5'); ?>
 	</div>
 	<?php show_common_submits('?action=page', true); ?>

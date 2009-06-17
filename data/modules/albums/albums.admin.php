@@ -102,15 +102,13 @@ function albums_page_admin_editalbum() {
 
 	//Let's process the image...
 	if (isset($_POST['submit'])) {
-		//Define some variables
-		list($imageze, $ext) = explode('.', $_FILES['imagefile']['name']);
-		$imageze = seo_url($imageze);
-		$fullimage = MODULE_SETTINGS.'/'.$var1.'/'.$imageze.'.'.$ext;
-		$thumbimage = MODULE_SETTINGS.'/'.$var1.'/thumb/'.$imageze.'.'.$ext;
-
-		//First: Upload the image.
 		//If file is jpeg, pjpeg, png or gif: Accept.
 		if (in_array($_FILES['imagefile']['type'], array('image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'))) {
+			//Define some variables
+			list($imageze, $ext) = explode('.', $_FILES['imagefile']['name']);
+			$imageze = seo_url($imageze);
+			$fullimage = MODULE_SETTINGS.'/'.$var1.'/'.$imageze.'.'.$ext;
+			$thumbimage = MODULE_SETTINGS.'/'.$var1.'/thumb/'.$imageze.'.'.$ext;
 
 			//Check if the image name already exists.
 			$images = read_dir_contents(MODULE_SETTINGS.'/'.$var1.'/thumb', 'files');
@@ -125,11 +123,12 @@ function albums_page_admin_editalbum() {
 			//Don't do anything, if the name already exists.
 			//TODO: Translate, and maybe make it better.
 			if (isset($name_exist))
-				show_error('There is already an image with that name.', 1);
+				$error = show_error('There is already an image with that name.', 1, true);
 				
 			//If we somehow can't copy the image, show an error.
-			elseif (!copy($_FILES['imagefile']['tmp_name'], $fullimage) || !copy ($_FILES['imagefile']['tmp_name'], $thumbimage))
-				show_error($lang['general']['upload_failed'], 1);
+			elseif (!copy($_FILES['imagefile']['tmp_name'], $fullimage) || !copy ($_FILES['imagefile']['tmp_name'], $thumbimage)) {
+				$error = show_error($lang['general']['upload_failed'], 1, true);
+			}
 
 			else {
 				//If the extension is with capitals, we have to rename it...
@@ -210,7 +209,7 @@ function albums_page_admin_editalbum() {
 		//Block unknown image types.
 		else {
 			//FIXME: Maybe a better error message?
-			show_error($lang['general']['upload_failed'], 1);
+			$error = show_error($lang['general']['upload_failed'], 1, true);
 		}
 	}
 	
@@ -226,6 +225,10 @@ function albums_page_admin_editalbum() {
 				<br />
 				<span class="kop4"><?php echo $lang_albums13; ?></span>
 			</p>
+			<?php
+			if (isset($error))
+				echo $error;
+			?>
 			<form method="post" action="" enctype="multipart/form-data">
 				<p>
 					<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>

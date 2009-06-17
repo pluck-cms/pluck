@@ -24,8 +24,6 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 define('TEMP', '_temp');
 define('NAME', 'image');
 
-//Function: Readout albums.
-//------------
 function read_albums($dir) {
 	global $lang, $lang_albums5, $lang_albums6;
 	$dirs = read_dir_contents($dir, 'dirs');
@@ -60,9 +58,6 @@ function read_albums($dir) {
 	}
 }
 
-
-//Function: Readout album-images.
-//------------
 function read_albumimages($dir) {
 	global $lang, $lang_albums6, $lang_kop13, $lang_updown5, $var1;
 	$files = read_dir_contents($dir, 'files');
@@ -114,14 +109,6 @@ function read_albumimages($dir) {
 		}
 		unset($file);
 	}
-}
-
-function albums_get_image_filename($album, $seoname) {
-	return false;
-}
-
-function albums_get_image_seoname($album, $filename) {
-	return false;
 }
 
 function albums_get_php_filename($album, $seoname) {
