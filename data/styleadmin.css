@@ -1,8 +1,12 @@
+@charset "utf-8";
+
+@import "reset.css";
+
 body {
 	background-color: white;
 	font-family: "DejaVu Sans", "Bitstream Vera Sans", Verdana, sans-serif;
 	font-size: 100%;
-	margin: 0;
+	line-height: 1.5em;
 }
 
 #menuheader {
@@ -54,7 +58,7 @@ body {
 
 .menuitem2 {
 	color: #B6B6B6;
-	font-size: 15pt;
+	font-size: 20px;
 }
 
 #statusbox {
@@ -63,11 +67,10 @@ body {
 	padding-left: 15px;
 	width: 150px;
 	float: right;
-	margin: 10px 0 10px 0;
+	margin: 10px 0;
 }
 
 #statusbox div {
-	/*font-family: Verdana;*/
 	font-size: 11px;
 	margin-top: 3px;
 }
@@ -79,16 +82,17 @@ body {
 
 h1 {
 	color: #3766AC;
-	font-size: 27pt;
+	font-size: 35px;
 	font-weight: bold;
 	float: left;
-	margin: 50px 25px 0px 75px;
+	margin: 60px 25px 0px 75px;
 }
 
 h2 {
 	color: #3766AC;
 	font-weight: bold;
-	font-size: 20pt;
+	font-size: 30px;
+	margin-bottom: 15px;
 }
 
 h3 {
@@ -96,7 +100,7 @@ h3 {
 }
 
 .kop2 {
-	font-size: 14pt;
+	font-size: 20px;
 	color: #3766AC;
 	font-weight: bold;
 }
@@ -106,7 +110,7 @@ h3 {
 }
 
 .kop3 {
-	font-size: 17pt;
+	font-size: 22px;
 }
 
 .kop4 {
@@ -122,12 +126,12 @@ h3 {
 
 .menudiv .title-page {
 	width: 350px;
-	font-size: 17pt;
+	font-size: 23px;
 }
 
 .menudiv .title-module {
 	width: 350px;
-	font-size: 17pt;
+	font-size: 23px;
 	color: gray;
 }
 
@@ -138,12 +142,12 @@ h3 {
 }
 
 .menudiv span span a {
-	font-size: 17pt;
+	font-size: 23px;
 
 }
 
 .menudiv span .more {
-	font-size: 8pt;
+	font-size: 12px;
 	color: gray;
 }
 
@@ -173,10 +177,6 @@ a {
 a:hover {
 	color: #3766AC;
 	text-decoration: none;
-}
-
-a img {
-	border: 0px;
 }
 
 button, input, textarea, a.cancel {
@@ -211,7 +211,7 @@ input[type="submit"], a.cancel {
 }
 
 p {
-	margin: 0 0 15px 0;
+	margin-bottom: 15px;
 }
 
 .rightmenu {
