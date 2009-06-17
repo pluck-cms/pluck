@@ -482,125 +482,34 @@ function blog_page_admin_deletereactions() {
 //---------------
 function blog_page_admin_editpost() {
 	global $lang, $lang_page8, $lang_blog27, $lang_blog26, $lang_blog25, $var1, $cont1, $cont2, $cont3;
-	
-	//redirect for a cancel
+	include('data/modules/blog/functions.php');
+
+	//Redirect for a cancel.
 	if (isset($_POST['cancel']))
 		redirect('?module=blog', 0);
-		
-	//Include the postinformation
+
+	//Include the post information.
 	if (file_exists('data/settings/modules/blog/posts/'.$var1))
-	{
 		include('data/settings/modules/blog/posts/'.$var1);
-	}
 	else
-	{
 		exit;
-	}
-	
+
 	//If form is posted...
 	if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 
-		//Sanitize variables
-		$cont1 = sanitize($cont1);
-		$cont2 = sanitize($cont2);
-		$cont3 = sanitize($cont3, false);
+		//Save blogpost.
+		$newfile = blog_save_post($cont1, $cont2, $cont3, $var1, $post_day, $post_month, $post_year, $post_time);
 
-		//Generate filename
-		$newfile = strtolower($cont1);
-		$newfile = str_replace('.', '', $newfile);
-		$newfile = str_replace(',', '', $newfile);
-		$newfile = str_replace('?', '', $newfile);
-		$newfile = str_replace(':', '', $newfile);
-		$newfile = str_replace('<', '', $newfile);
-		$newfile = str_replace('>', '', $newfile);
-		$newfile = str_replace('=', '', $newfile);
-		$newfile = str_replace('"', '', $newfile);
-		$newfile = str_replace('\'', '', $newfile);
-		$newfile = str_replace('/', '', $newfile);
-		$newfile = str_replace("\\", '', $newfile);
-		$newfile = str_replace('-', '', $newfile);
-		$newfile = str_replace('  ', '-', $newfile);
-		$newfile = str_replace(' ', '-', $newfile);
-
-		//Udate the post index file, if necessary
-		if ($var1 != $newfile.'.php') {
-			//Change old filename into new filename in post index
-			if (file_exists('data/settings/modules/blog/post_index.dat')) {
-				//Get post index
-				$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
-					//Check if post index contains old filename, and change it into new filename
-				if (ereg($var1."\n",$contents))
-					$contents = str_replace($var1."\n", $newfile.'.php'."\n", $contents);
-				elseif (ereg("\n".$var1,$contents))
-					$contents = str_replace("\n".$var1, "\n".$newfile.'.php', $contents);
-				elseif (ereg($var1,$contents))
-					$contents = str_replace($var1, $newfile.'.php', $contents);
-
-				//Save updated post index
-				$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
-				fputs($file, $contents);
-				fclose($file);
-				chmod('data/settings/modules/blog/post_index.dat', 0777);
-			}
-
-			//Check if the old post exists, then delete it
-			if (file_exists('data/settings/modules/blog/posts/'.$var1)) {
-				//Delete the post
-				unlink('data/settings/modules/blog/posts/'.$var1);
-			}
-
-		//Set the new post file to current file
-		$titleSwitch = true;
-		$var1 = $newfile.'.php';
-		}
-
-		//Save information
-		$file = fopen('data/settings/modules/blog/posts/'.$var1, 'w');
-		fputs($file, '<?php'."\n"
-		.'$post_title = \''.$cont1.'\';'."\n"
-		.'$post_category = \''.$cont2.'\';'."\n"
-		.'$post_content = \''.$cont3.'\';'."\n"
-		.'$post_day = \''.$post_day.'\';'."\n"
-		.'$post_month = \''.$post_month.'\';'."\n"
-		.'$post_year = \''.$post_year.'\';'."\n"
-		.'$post_time = \''.$post_time.'\';'."\n");
-
-		//Check if there are reactions
-		if (isset($post_reaction_title)) {
-			foreach ($post_reaction_title as $reaction_key => $value) {
-
-				//Sanitize reaction variables
-				$post_reaction_title[$reaction_key] = sanitize($post_reaction_title[$reaction_key]);
-				$post_reaction_name[$reaction_key] = sanitize($post_reaction_name[$reaction_key]);
-				$post_reaction_content[$reaction_key] = sanitize($post_reaction_content[$reaction_key]);
-
-				//And save the existing reaction
-				fputs($file, '$post_reaction_title['.$reaction_key.'] = \''.$post_reaction_title[$reaction_key].'\';'."\n"
-				.'$post_reaction_name['.$reaction_key.'] = \''.$post_reaction_name[$reaction_key].'\';'."\n"
-				.'$post_reaction_content['.$reaction_key.'] = \''.$post_reaction_content[$reaction_key].'\';'."\n"
-				.'$post_reaction_day['.$reaction_key.'] = \''.$post_reaction_day[$reaction_key].'\';'."\n"
-				.'$post_reaction_month['.$reaction_key.'] = \''.$post_reaction_month[$reaction_key].'\';'."\n"
-				.'$post_reaction_year['.$reaction_key.'] = \''.$post_reaction_year[$reaction_key].'\';'."\n"
-				.'$post_reaction_time['.$reaction_key.'] = \''.$post_reaction_time[$reaction_key].'\';'."\n");
-			}
-			unset($reaction_key);
-		}
-		fputs($file, '?>');
-		fclose($file);
-		chmod('data/settings/modules/blog/posts/'.$var1, 0777);
-		
-		//Redirect user 
+		//Redirect user
 		//If the title has been changed and it is a plain save, redirect to the edit page with the new title in the var1 slot
-		if (isset($titleSwitch) && isset($_POST['save']))
-			redirect('?module=blog&page=editpost&var1='.$newfile.'.php', 0);
-		
+		if (isset($_POST['save']))
+			redirect('?module=blog&page=editpost&var1='.$newfile, 0);
+
 		if (isset($_POST['save_exit']))
 			redirect('?module=blog', 0);
-			
+
 		include('data/settings/modules/blog/posts/'.$var1);
 	}
-
-
 ?>
 
 <div class="rightmenu">
@@ -648,7 +557,6 @@ function blog_page_admin_editpost() {
 </form>
 
 <?php
-	
 }
 
 //---------------
@@ -702,24 +610,14 @@ function blog_page_admin_deletepost() {
 //---------------
 function blog_page_admin_newpost() {
 	global $lang, $lang_page8, $lang_blog27, $lang_blog26, $lang_blog25, $var1, $cont1, $cont2, $cont3;
-	
-	//redirect for a cancel
+	include('data/modules/blog/functions.php');
+
+	//Redirect for a cancel.
 	if (isset($_POST['cancel']))
 		redirect('?module=blog', 0);
-	
+
 	//If form is posted...
 	if (isset($_POST['save']) || isset($_POST['save_exit'])) {
-
-		//Sanitize variables
-		$cont1 = sanitize($cont1);
-		$cont2 = sanitize($cont2);
-		$cont3 = sanitize($cont3, false);
-
-		//Determine the date
-		$day = date("d");
-		$month = date("m");
-		$year = date("Y");
-		$time = date("H:i");
 
 		//Check if 'posts' directory exists, if not; create it
 		if(!file_exists('data/settings/modules/blog/posts')) {
@@ -727,68 +625,16 @@ function blog_page_admin_newpost() {
 			chmod('data/settings/modules/blog/posts',0777);
 		}
 
-		//Generate filename
-		$newfile = strtolower($cont1);
-		$newfile = str_replace('.','',$newfile);
-		$newfile = str_replace(',','',$newfile);
-		$newfile = str_replace('?','',$newfile);
-		$newfile = str_replace(':','',$newfile);
-		$newfile = str_replace('<','',$newfile);
-		$newfile = str_replace('>','',$newfile);
-		$newfile = str_replace('=','',$newfile);
-		$newfile = str_replace('"','',$newfile);
-		$newfile = str_replace('\'','',$newfile);
-		$newfile = str_replace('/','',$newfile);
-		$newfile = str_replace("\\",'',$newfile);
-		$newfile = str_replace('  ','-',$newfile);
-		$newfile = str_replace(' ','-',$newfile);
-
-		//Make sure chosen filename doesn't exist
-		if(file_exists('data/settings/modules/blog/posts/'.$newfile.'.php')) {
-			$newfile = $newfile.'-new';
-		}
-
-		//Create/update the post_index.dat file
-		if(file_exists('data/settings/modules/blog/post_index.dat')) {
-			$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
-			$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
-			if(!empty($contents)) {
-				fputs($file,$newfile.'.php'."\n".$contents);
-			}
-			else {
-				fputs($file,$newfile.'.php');
-			}
-		}
-		else {
-			$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
-			fputs($file,$newfile.'.php');
-		}
-		fclose($file);
-		unset($file);
-		chmod('data/settings/modules/blog/post_index.dat', 0777);
-
-		//Save information
-		$file = fopen('data/settings/modules/blog/posts/'.$newfile.'.php', 'w');
-		fputs($file, '<?php'."\n"
-		.'$post_title = \''.$cont1.'\';'."\n"
-		.'$post_category = \''.$cont2.'\';'."\n"
-		.'$post_content = \''.$cont3.'\';'."\n"
-		.'$post_day = \''.$day.'\';'."\n"
-		.'$post_month = \''.$month.'\';'."\n"
-		.'$post_year = \''.$year.'\';'."\n"
-		.'$post_time = \''.$time.'\';'."\n"
-		.'?>');
-		fclose($file);
-		chmod('data/settings/modules/blog/posts/'.$newfile.'.php', 0777);
+		//Save blogpost.
+		$newfile = blog_save_post($cont1, $cont2, $cont3);
 
 		//Redirect user
 		if (isset($_POST['save']))
-			redirect('?module=blog&page=editpost&var1='.$newfile.'.php', 0);
+			redirect('?module=blog&page=editpost&var1='.$newfile, 0);
 		elseif (isset($_POST['save_exit']))
 			redirect('?module=blog', 0);
 
 	}
-	
 	?>
 
 	<div class="rightmenu">
