@@ -85,80 +85,58 @@ read_pagesinpages();
 	<span class="kop2"><?php echo $lang['general']['contents']; ?></span>
 	<br />
 	<textarea class="tinymce" name="cont2" cols="70" rows="20"></textarea>
-	<br />
-	<div class="menudiv" style="width: 585px; margin-left: 0px;">
+	<div class="menudiv" style="width: 588px; margin-left: 0;">
+		<p class="kop2"><?php echo $lang['modules']['title']; ?></p>
+		<p class="kop4" style="margin-bottom: 5px;"><?php echo $lang['page']['modules']; ?></p>
 		<table>
-			<tr>
-				<td>
-					<img src="data/image/modules.png" alt="" />
-				</td>
-				<td>
-					<span class="kop3"><?php echo $lang['modules']['title']; ?></span>
-					<br />
-					<strong><?php echo $lang['page']['modules']; ?></strong>
-					<br />
-					<table>
-					<?php
-					//First count how many modules we have, and exclude disabled modules.
-					$number_modules = count($module_list);
-					foreach ($module_list as $module) {
-						if (!module_is_compatible($module) || !function_exists($module.'_theme_main'))
-							$number_modules--;
-					}
-					unset($module);
+		<?php
+		//First count how many modules we have, and exclude disabled modules.
+		$number_modules = count($module_list);
+		foreach ($module_list as $module) {
+			if (!module_is_compatible($module) || !function_exists($module.'_theme_main'))
+				$number_modules--;
+		}
+		unset($module);
 
-					//Loop through modules, and display them.
-					foreach ($module_list as $module) {
-						//Only show if module is compatible.
-						if (module_is_compatible($module) && function_exists($module.'_theme_main')) {
-							$module_info = call_user_func($module.'_info');
-							?>
-								<tr>
-									<td><?php echo $module_info['name']; ?></td>
-									<td>
-										<select name="cont3[<?php echo $module; ?>]">
-											<option value="0"><?php echo $lang['general']['dont_display']; ?></option>
-											<?php
-											$counting_modules = 1;
-											while ($counting_modules <= $number_modules) {
-												?>
-													<option value="<?php echo $counting_modules; ?>"><?php echo $counting_modules; ?></option>
-												<?php
-												//Higher counting_modules.
-												$counting_modules++;
-											}
-											?>
-										</select>
-									</td>
-								</tr>
-							<?php
-							}
-						}
-						unset($module);
-						?>
-					</table>
-				</td>
-			</tr>
+		//Loop through modules, and display them.
+		foreach ($module_list as $module) {
+			//Only show if module is compatible.
+			if (module_is_compatible($module) && function_exists($module.'_theme_main')) {
+				$module_info = call_user_func($module.'_info');
+				?>
+					<tr>
+						<td><?php echo $module_info['name']; ?></td>
+						<td>
+							<select name="cont3[<?php echo $module; ?>]">
+								<option value="0"><?php echo $lang['general']['dont_display']; ?></option>
+								<?php
+								$counting_modules = 1;
+								while ($counting_modules <= $number_modules) {
+									?>
+										<option value="<?php echo $counting_modules; ?>"><?php echo $counting_modules; ?></option>
+									<?php
+									//Higher counting_modules.
+									$counting_modules++;
+								}
+								?>
+							</select>
+						</td>
+					</tr>
+				<?php
+				}
+			}
+			unset($module);
+			?>
 		</table>
 	</div>
-	<div class="menudiv" style="width: 585px; margin-left: 0px;">
-		<table>
-			<tr>
-				<td>
-					<img src="data/image/options.png" alt="" />
-				</td>
-				<td>
-					<p>
-						<span class="kop3"><?php echo $lang['general']['other_options']; ?></span>
-						<br />
-						<input type="checkbox" name="cont4" id="cont4" checked="checked" value="no" /><label for="cont4"><?php echo $lang['page']['in_menu']; ?></label>
-					</p>
-					<span class="kop3"><?php echo $lang['page']['sub_page']; ?></span>
-					<br />
-					<?php show_subpage_select('cont5'); ?>
-				</td>
-			</tr>
-		</table>
+	<div class="menudiv" style="width: 588px; margin-left: 0;">
+		<p class="kop2"><?php echo $lang['general']['other_options']; ?></p>
+		<p class="kop4" style="margin-bottom: 5px;"><?php echo $lang['page']['options']; ?></p>
+		<input type="checkbox" name="cont4" id="cont4" checked="checked" value="no" />
+		<label for="cont4"><?php echo $lang['page']['in_menu']; ?></label>
+		<br />
+		<span><?php echo $lang['page']['sub_page']; ?></span>
+		<?php show_subpage_select('cont5'); ?>
 	</div>
 	<?php show_common_submits('?action=page', true); ?>
 </form>

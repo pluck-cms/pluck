@@ -151,6 +151,10 @@ h3 {
 	color: gray;
 }
 
+.menudiv p {
+	margin: 0;
+}
+
 #somp {
 	border-top: 1px dashed gray;
 	color: gray;

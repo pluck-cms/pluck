@@ -129,6 +129,7 @@ $lang['page']['edit']        = 'edit page';
 $lang['page']['items']       = 'These items are ready to be implemented in this page:';
 $lang['page']['insert_link'] = 'insert link';
 $lang['page']['modules']     = 'Choose if you want modules displayed on this page, and in which order.';
+$lang['page']['options']     = 'other options related to the page';
 $lang['page']['in_menu']     = 'show page in menu';
 $lang['page']['sub_page']    = 'sub-page of';
 
