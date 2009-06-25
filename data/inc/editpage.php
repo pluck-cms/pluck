@@ -12,7 +12,7 @@
  * See docs/COPYING for the complete license.
 */
 
-//Make sure the file isn't accessed directly
+//Make sure the file isn't accessed directly.
 if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
 	//Give out an "Access denied!" error.
 	echo 'Access denied!';

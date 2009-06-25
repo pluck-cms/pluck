@@ -12,6 +12,14 @@
  * See docs/COPYING for the complete license.
 */
 
+//Make sure the file isn't accessed directly.
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit;
+}
+
 function blog_page_site_list() {
 	if (isset($_GET['post']) && file_exists('data/settings/modules/blog/posts/'.$_GET['post'])) {
 		include ('data/settings/modules/blog/posts/'.$_GET['post']);

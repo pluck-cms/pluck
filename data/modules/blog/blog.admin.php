@@ -12,6 +12,14 @@
  * See docs/COPYING for the complete license.
 */
 
+//Make sure the file isn't accessed directly.
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
+	//Give out an "Access denied!" error.
+	echo 'Access denied!';
+	//Block all other code.
+	exit;
+}
+
 function blog_page_admin_list() {
 	global $lang_blog, $lang_blog6, $lang_blog19, $lang_blog21, $lang_blog11, $lang_blog12, $lang_blog10;
 	$module_page_admin[] = array(
@@ -482,7 +490,7 @@ function blog_page_admin_deletereactions() {
 //---------------
 function blog_page_admin_editpost() {
 	global $lang, $lang_page8, $lang_blog27, $lang_blog26, $lang_blog25, $var1, $cont1, $cont2, $cont3;
-	include('data/modules/blog/functions.php');
+	require_once('data/modules/blog/functions.php');
 
 	//Redirect for a cancel.
 	if (isset($_POST['cancel']))
@@ -564,43 +572,12 @@ function blog_page_admin_editpost() {
 //---------------
 function blog_page_admin_deletepost() {
 	global $var1;
+	require_once('data/modules/blog/functions.php');
 
-	//First, update the post index
-	if(file_exists('data/settings/modules/blog/post_index.dat')) {
-		//Get post index
-		$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
+	//Delete blogpost.
+	blog_delete_post($var1);
 
-		//Check if post index contains post we want to delete, and filter out the post
-		if(ereg($var1."\n",$contents)) {
-			$contents = str_replace($var1."\n",'',$contents);
-		}
-		elseif(ereg("\n".$var1,$contents)) {
-			$contents = str_replace("\n".$var1,'',$contents);
-		}
-		elseif(ereg($var1,$contents)) {
-			$contents = str_replace($var1,'',$contents);
-		}
-
-		//Save updated post index
-		$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
-		fputs($file,$contents);
-		fclose($file);
-
-		//Reload contents of post index in variable
-		$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
-		//If variable/file is empty, delete post index
-		if(empty($contents)) {
-			unlink('data/settings/modules/blog/post_index.dat');
-		}
-	}
-
-	//Check if post exists, then delete it
-	if(file_exists('data/settings/modules/blog/posts/'.$var1)) {
-		//Delete the post
-		unlink('data/settings/modules/blog/posts/'.$var1);
-	}
-
-	//Redirect
+	//Redirect.
 	redirect('?module=blog', 0);
 }
 
