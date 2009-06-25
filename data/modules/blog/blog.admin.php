@@ -508,15 +508,13 @@ function blog_page_admin_editpost() {
 		//Save blogpost.
 		$newfile = blog_save_post($cont1, $cont2, $cont3, $var1, $post_day, $post_month, $post_year, $post_time);
 
-		//Redirect user
-		//If the title has been changed and it is a plain save, redirect to the edit page with the new title in the var1 slot
+		//Redirect user.
+		//If the title has been changed and it is a plain save, redirect to the edit page with the new title in the var1 slot.
 		if (isset($_POST['save']))
 			redirect('?module=blog&page=editpost&var1='.$newfile, 0);
 
 		if (isset($_POST['save_exit']))
 			redirect('?module=blog', 0);
-
-		include('data/settings/modules/blog/posts/'.$var1);
 	}
 ?>
 
@@ -561,7 +559,7 @@ function blog_page_admin_editpost() {
 	<br />
 	<textarea class="tinymce" name="cont3" cols="70" rows="20"><?php echo $post_content; ?></textarea>
 	<br />
-	<?php show_common_submits(); ?>
+	<?php show_common_submits('?module=blog', true); ?>
 </form>
 
 <?php
@@ -651,7 +649,7 @@ function blog_page_admin_newpost() {
 		<br />
 		<textarea class="tinymce" name="cont3" cols="70" rows="20"></textarea>
 		<br />
-		<?php show_common_submits(); ?>
+		<?php show_common_submits('?module=blog', true); ?>
 	</form>
 	<?php
 }

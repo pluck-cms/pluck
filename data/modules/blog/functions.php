@@ -68,7 +68,7 @@ function blog_save_post($title, $category, $content, $name = null, $post_day = n
 	$newfile = str_replace(' ', '-', $newfile);
 
 	//Make sure chosen filename doesn't exist
-	if(file_exists('data/settings/modules/blog/posts/'.$newfile.'.php'))
+	while((!isset($name) && file_exists('data/settings/modules/blog/posts/'.$newfile.'.php')) || (isset($name) && $name != $newfile.'.php' && file_exists('data/settings/modules/blog/posts/'.$newfile.'.php')))
 		$newfile = $newfile.'-new';
 	//Include extension.
 	$newfile = $newfile.'.php';
