@@ -194,7 +194,6 @@ function blog_delete_post($post) {
 		unlink('data/settings/modules/blog/posts/'.$post);
 }
 
-
 /**
  * Load categories in an array. Will return FALSE if no categories exist.
  */
@@ -202,6 +201,8 @@ function blog_get_categories() {
 	if (file_exists('data/settings/modules/blog/categories.dat')) {
 		//Load them.
 		$categories = file_get_contents('data/settings/modules/blog/categories.dat');
+		//Filter out linebreaks.
+		$categories = str_replace("\n", '', $categories);
 		//Then in an array.
 		$categories = explode(',',$categories);
 
@@ -299,5 +300,43 @@ function blog_create_category($category) {
 	//Close file, and chmod it.
 	fclose($file);
 	chmod('data/settings/modules/blog/categories.dat', 0777);
+}
+
+/**
+ * Delete a blog category.
+ *
+ * @param string $category The name of the category that needs to be deleted.
+ */
+function blog_delete_category($category) {
+	//Check if config file exists.
+	if (file_exists('data/settings/modules/blog/categories.dat')) {
+		$categories = file_get_contents('data/settings/modules/blog/categories.dat');
+		$categories = str_replace("\n", '', $categories);
+
+		//If category is the only one, delete config file.
+		if ($category == $categories) {
+			unlink('data/settings/modules/blog/categories.dat');
+		}
+
+		//If category is not last in list, delete it.
+		elseif (preg_match('/\b'.$category.',/', $categories, $matches) && blog_category_exists($category)) {
+			$categories = preg_replace('/\b'.$category.',/', '', $categories);
+			//Save new config file.
+			$file = fopen('data/settings/modules/blog/categories.dat', 'w');
+			fputs($file, $categories);
+			fclose($file);
+			chmod('data/settings/modules/blog/categories.dat', 0777);
+		}
+
+		//If category is last in list, delete it.
+		elseif (preg_match('/,\b'.$category.'\b/', $categories, $matches) && blog_category_exists($category)) {
+			$categories = preg_replace('/,\b'.$category.'\b/', '', $categories);
+			//Save new config file.
+			$file = fopen('data/settings/modules/blog/categories.dat', 'w');
+			fputs($file, $categories);
+			fclose($file);
+			chmod('data/settings/modules/blog/categories.dat', 0777);
+		}
+	}
 }
 ?>
