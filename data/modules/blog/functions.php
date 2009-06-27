@@ -62,7 +62,7 @@ function blog_save_post($title, $category, $content, $name = null, $post_day = n
 	$newfile = str_replace('"', '', $newfile);
 	$newfile = str_replace('\'', '', $newfile);
 	$newfile = str_replace('/', '', $newfile);
-	$newfile = str_replace("\\", '', $newfile);
+	$newfile = str_replace('\\', '', $newfile);
 	$newfile = str_replace('-', '', $newfile);
 	$newfile = str_replace('  ', '-', $newfile);
 	$newfile = str_replace(' ', '-', $newfile);
@@ -192,5 +192,112 @@ function blog_delete_post($post) {
 	//Check if post exists, then delete it.
 	if(file_exists('data/settings/modules/blog/posts/'.$post))
 		unlink('data/settings/modules/blog/posts/'.$post);
+}
+
+
+/**
+ * Load categories in an array. Will return FALSE if no categories exist.
+ */
+function blog_get_categories() {
+	if (file_exists('data/settings/modules/blog/categories.dat')) {
+		//Load them.
+		$categories = file_get_contents('data/settings/modules/blog/categories.dat');
+		//Then in an array.
+		$categories = explode(',',$categories);
+
+		return $categories;
+	}
+	else
+		return FALSE;
+}
+
+/**
+ * Checks whether a blog category exists. Returns TRUE or FALSE.
+ *
+ * @param string $category The category to check for.
+ */
+function blog_category_exists($category) {
+	if (blog_get_categories()) {
+		//Load them.
+		$categories = blog_get_categories();
+
+		//Set variable to FALSE.
+		$cat_exists = FALSE;
+		//Start checking categories.
+		foreach ($categories as $key => $name) {
+			if ($name == $category)
+				$cat_exists = TRUE;
+		}
+
+		//Return result, unset variable.
+		return $cat_exists;
+		unset($cat_exists);
+	}
+	else
+		return FALSE;
+}
+
+/**
+ * Create a blog category.
+ *
+ * @param string $category The name of the category that needs to be created.
+ */
+function blog_create_category($category) {
+	//Filter category name from inappropriate characters.
+	$category = str_replace('"', '', $category);
+	$category = str_replace('\'', '', $category);
+	$category = str_replace(',', '', $category);
+	$category = str_replace(',', '', $category);
+	$category = str_replace('/', '', $category);
+	$category = str_replace('\\', '', $category);
+
+	//Read out existing categories, if they exist.
+	if (file_exists('data/settings/modules/blog/categories.dat'))
+		$categories = file_get_contents('data/settings/modules/blog/categories.dat');
+
+	//If there are existing categories, but category we want to create doesn't exist yet; add it to array.
+	if (isset($categories) && !blog_category_exists($category)) {
+		//Load existing categories in array.
+		$categories = explode(',', $categories);
+
+		//Determine the array number for our new category.
+		$num = 0;
+		while (isset($categories[$num]))
+			$num++;
+
+		//Add new category to array.
+		$categories[$num] = $category;
+	}
+
+	//If the category already exists, don't add it to array.
+	elseif (isset($categories) && blog_category_exists($category)) {
+		//Load existing categories in array, but don't add new category.
+		$categories = explode(',', $categories);
+	}
+
+	//If there are no categories yet, just set new category in array.
+	elseif (!isset($categories))
+		$categories[0] = $category;
+
+	//Now, sort the array.
+	natcasesort($categories);
+	//Reset keys of array.
+	$categories = array_merge(array(), $categories);
+
+	//Open config file to save categories.
+	$file = fopen('data/settings/modules/blog/categories.dat', 'w');
+
+	foreach($categories as $number => $name) {
+		$number_next = $number + 1;
+		if (isset($categories[$number_next]))
+			fputs($file, $name.',');
+		else
+			fputs($file, $name);
+	}
+	unset($number);
+
+	//Close file, and chmod it.
+	fclose($file);
+	chmod('data/settings/modules/blog/categories.dat', 0777);
 }
 ?>

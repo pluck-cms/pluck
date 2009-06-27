@@ -58,13 +58,14 @@ function blog_page_admin_list() {
 //---------------
 function blog_page_admin_blog() {
 	global $lang_blog24, $lang_blog10, $lang_blog9, $lang_blog11, $lang_blog19, $lang_blog12, $lang_albums14, $lang_blog3, $lang_blog4, $lang_blog5, $lang_blog6, $lang_blog14, $lang;
+	require_once('data/modules/blog/functions.php');
 	?>
 	<p>
 		<strong><?php echo $lang_blog24; ?></strong>
 	</p>
-<?php
-showmenudiv($lang_blog10, false, 'data/image/newpage.png', '?module=blog&amp;page=newpost', false);
-?>
+	<?php
+		showmenudiv($lang_blog10, false, 'data/image/newpage.png', '?module=blog&amp;page=newpost', false);
+	?>
 	<span class="kop2"><?php echo $lang_blog9; ?></span><br />
 <?php
 //Display existing posts, but only if post-index file exists.
@@ -129,12 +130,9 @@ else
 	<br />
 <?php
 //If there already are categories.
-if (file_exists('data/settings/modules/blog/categories.dat')) {
-	//Load them
-	$categories = file_get_contents('data/settings/modules/blog/categories.dat');
-
-	//Then in an array.
-	$categories = split(',',$categories);
+if (blog_get_categories()) {
+	//Get categories.
+	$categories = blog_get_categories();
 
 	//And show them.
 	echo '<div>';
@@ -171,62 +169,8 @@ else
 <?php
 //When form is submitted.
 if (isset($_POST['cat_name'])) {
-	$cat_name = $_POST['cat_name'];
-	//Filter category name from inappropriate characters.
-	$cat_name = str_replace ("\"","", $cat_name);
-	$cat_name = str_replace ("'","", $cat_name);
-	$cat_name = str_replace (",","", $cat_name);
-	$cat_name = str_replace (".","", $cat_name);
-	$cat_name = str_replace ("/","", $cat_name);
-	$cat_name = str_replace ("\\","", $cat_name);
-
-	//Read out existing categories, if they exist.
-	if (file_exists('data/settings/modules/blog/categories.dat'))
-		$categories = file_get_contents('data/settings/modules/blog/categories.dat');
-
-	//Make sure category doesn't already exist.
-	//FIXME: Replace ereg with strpos.
-	if (!ereg($cat_name.',',$categories) || !ereg(','.$cat_name,$categories) || !isset($categories)) {
-
-		//If there are already existing categories...
-		if (file_exists('data/settings/modules/blog/categories.dat')) {
-			//Load existing categories in array
-			$categories = split(',',$categories);
-
-			//Determine the array number for our new category.
-			$num = 0;
-			while (isset($categories[$num]))
-				$num++;
-
-			//Add new category to array.
-			$categories[$num] = $cat_name;
-		}
-
-		//If there are no categories yet, just set new category in array.
-		else
-			$categories[0] = $cat_name;
-
-		//Now, sort the array.
-		natsort($categories);
-		//Reset keys of array.
-		$categories = array_merge(array(), $categories);
-
-		//Open config file to save categories.
-		$file = fopen('data/settings/modules/blog/categories.dat', 'w');
-
-		foreach($categories as $number => $name) {
-			$number_next = $number + 1;
-			if (isset($categories[$number_next]))
-				fputs($file,$name.',');
-			else
-				fputs($file,$name);
-		}
-		unset($number);
-
-		//Close file, and chmod it.
-		fclose($file);
-		chmod('data/settings/modules/blog/categories.dat', 0777);
-	}
+	//Create category.
+	blog_create_category($_POST['cat_name']);
 	//Redirect user.
 	redirect('?module=blog', 0);
 }
