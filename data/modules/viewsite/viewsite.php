@@ -1,7 +1,7 @@
 <?php
 function viewsite_info() {
 	global $lang;
-	$module_info = array(
+	return array(
 		'name'          => $lang['viewsite']['module_name'],
 		'intro'         => $lang['viewsite']['module_intro'],
 		'version'       => '0.1',
@@ -10,7 +10,6 @@ function viewsite_info() {
 		'icon'          => '../../image/website.png',
 		'compatibility' => '4.7'
 	);
-	return $module_info;
 }
 
 function viewsite_admin_menu($links) {

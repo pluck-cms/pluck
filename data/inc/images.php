@@ -26,45 +26,37 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	<strong><?php echo $lang_image1; ?></strong>
 </p>
 <div class="menudiv">
-	<table>
-		<tr>
-			<td>
-				<img src="data/image/image.png" alt="" />
-			</td>
-			<td>
-				<span class="kop2"><?php echo $lang_image8; ?></span>
-				<br />
-				<form name="form1" method="post" action="" enctype="multipart/form-data">
-					<input type="file" name="imagefile" />
-					<input type="submit" name="submit" value="<?php echo $lang['general']['upload']; ?>" />
-				</form>
-			</td>
-		</tr>
-	</table>
+	<span>
+		<img src="data/image/image.png" alt="" />
+	</span>
+	<div style="display: inline-block;">
+		<form name="form1" method="post" action="" enctype="multipart/form-data">
+			<input type="file" name="imagefile" />
+			<input type="submit" name="submit" value="<?php echo $lang['general']['upload']; ?>" />
+		</form>
+	</div>
 </div>
 <?php
-if (isset($_POST ['submit'])) {
+if (isset($_POST['submit'])) {
 	//Check if the file is JPG, PNG or GIF.
-	if ($_FILES ['imagefile'] ['type'] == 'image/pjpeg' || $_FILES ['imagefile'] ['type'] == 'image/jpeg' || $_FILES ['imagefile'] ['type'] == 'image/png' || $_FILES ['imagefile'] ['type'] == 'image/gif') {
+	if (in_array($_FILES['imagefile']['type'], array('image/pjpeg', 'image/jpeg','image/png', 'image/gif'))) {
+		if (!copy($_FILES['imagefile']['tmp_name'], 'images/'.$filename))
+			show_error($lang['general']['upload_failed'], 1);
 
-	//Strip spaces and % from the filename.
-	$filename = $_FILES['imagefile']['name'];
-	$filename = str_replace(' ', '', $filename);
-	$filename = str_replace('%', '', $filename);
-
-	copy ($_FILES ['imagefile'] ['tmp_name'], 'images/'.$filename) or die ('<br />'.$lang['general']['upload_failed']);
-	chmod('images/'.$filename, 0666);
-	?>
-	<div class="menudiv">
-		<strong><?php echo $lang_image3; ?></strong> <?php echo $filename; ?>
-		<br />
-		<strong><?php echo $lang_image4; ?></strong> <?php echo $_FILES ['imagefile'] ['size']; ?> bytes
-		<br />
-		<strong><?php echo $lang_image5; ?></strong> <?php echo $_FILES ['imagefile'] ['type']; ?>
-		<br />
-		<strong><?php echo $lang_image6; ?></strong>
-	</div>
-	<?php
+		else {
+			chmod('images/'.$filename, 0666);
+			?>
+				<div class="menudiv">
+					<strong><?php echo $lang_image3; ?></strong> <?php echo $filename; ?>
+					<br />
+					<strong><?php echo $lang_image4; ?></strong> <?php echo $_FILES['imagefile']['size']; ?> bytes
+					<br />
+					<strong><?php echo $lang_image5; ?></strong> <?php echo $_FILES['imagefile']['type']; ?>
+					<br />
+					<strong><?php echo $lang_image6; ?></strong>
+				</div>
+			<?php
+		}
 	}
 }
 
@@ -97,7 +89,7 @@ $images = read_dir_contents('images', 'files');
 		}
 		unset($images);
 	}
-	elseif (!$images) {
+	else {
 	?>
 		<span class="kop4"><?php echo $lang_albums14; ?></span>
 	<?php

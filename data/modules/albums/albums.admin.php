@@ -301,16 +301,15 @@ function albums_page_admin_editimage() {
 				<br />
 				<textarea cols="50" rows="5" name="cont2" id="cont2"><?php echo $info; ?></textarea>
 			</p>
-			<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
-			<input type="button" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?module=albums&amp;page=editalbum&amp;var1=<?php echo $var1; ?>';" />
+			<?php show_common_submits('?module=albums&amp;page=editalbum&amp;var1='.$var1); ?>
 		</form>
 		<?php
 		//When the information is posted:
-		if (isset($_POST['submit'])) {
+		if (isset($_POST['save'])) {
 			//Sanitize data.
 			$cont1 = sanitize($cont1);
 			$cont2 = sanitize($cont2);
-			$cont2 = str_replace ("\n",'<br />', $cont2);
+			$cont2 = nl2br($cont2);
 
 			//Then save the imageinformation
 			$data = '<?php'."\n"

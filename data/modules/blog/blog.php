@@ -22,7 +22,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 
 function blog_info() {
 	global $lang_blog, $lang_blog1;
-	$module_info = array(
+	return array(
 		'name'          => $lang_blog,
 		'intro'         => $lang_blog1,
 		'version'       => '0.1',
@@ -31,6 +31,5 @@ function blog_info() {
 		'icon'          => 'images/blog.png',
 		'compatibility' => '4.7'
 	);
-	return $module_info;
 }
 ?>
