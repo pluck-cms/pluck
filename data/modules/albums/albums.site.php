@@ -1,5 +1,5 @@
 <?php
-require_once ('data/modules/albums/functions.php');
+require_once 'data/modules/albums/functions.php';
 
 function albums_theme_main() {
 	//Don't show something that isn't there.
@@ -9,7 +9,7 @@ function albums_theme_main() {
 
 		//Loop through dirs.
 		foreach ($albums as $album) {
-			include_once('data/settings/modules/albums/'.$album.'.php');
+			include 'data/settings/modules/albums/'.$album.'.php';
 
 			//Find the firs image.
 			$files = read_dir_contents('data/settings/modules/albums/'.$album, 'files');
@@ -28,13 +28,13 @@ function albums_theme_main() {
 					<table>
 						<tr>
 							<td>
-								<a href="?module=albums&amp;page=viewalbum&amp;album=<?php echo $album; ?>&amp;pageback=<?php echo CURRENT_PAGE_SEONAME; ?>" title="album <?php echo $album_name; ?>">
+								<a href="?file=<?php echo CURRENT_PAGE_SEONAME; ?>&amp;module=albums&amp;page=viewalbum&amp;album=<?php echo $album; ?>" title="album <?php echo $album_name; ?>">
 									<img alt="<?php echo $album_name; ?>" title="<?php echo $album_name; ?>" src="data/modules/albums/albums_getimage.php?image=<?php echo $album; ?>/thumb/<?php echo $first_image; ?>" />
 								</a>
 							</td>
 							<td>
 								<span class="albuminfo">
-									<a href="?module=albums&amp;page=viewalbum&amp;album=<?php echo $album; ?>&amp;pageback=<?php echo CURRENT_PAGE_SEONAME; ?>" title="album <?php echo $album_name; ?>"><?php echo $album_name; ?></a>
+									<a href="?file=<?php echo CURRENT_PAGE_SEONAME; ?>&amp;module=albums&amp;page=viewalbum&amp;album=<?php echo $album; ?>" title="album <?php echo $album_name; ?>"><?php echo $album_name; ?></a>
 								</span>
 							</td>
 						</tr>
@@ -122,12 +122,10 @@ function albums_page_site_viewalbum() {
 			unset($file);
 		}
 	}
-	if (isset($pageback)) {
-		?>
-			<p>
-				<a href="?file=<?php echo $pageback; ?>" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
-			</p>
-		<?php
-	}
+	?>
+		<p>
+			<a href="?file=<?php echo CURRENT_PAGE_SEONAME; ?>" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
+		</p>
+	<?php
 }
 ?>

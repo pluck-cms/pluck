@@ -50,7 +50,7 @@ if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
 	//Move the file.
 	rename('data/settings/pages/'.get_page_filename($var1), 'data/trash/pages/'.$newfile.'.php');
 
-	//If it's a sub-page, we have to dao a few things.
+	//If it's a sub-page, we have to do a few things.
 	if (strpos($var1, '/') !== false) {
 		//Delete the dir, if there are no other pages.
 		if (read_dir_contents('data/settings/pages/'.get_sub_page_dir($var1), 'files') == false)

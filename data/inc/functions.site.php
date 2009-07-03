@@ -24,56 +24,57 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 //---------------------------------
 function get_pagetitle() {
 	global $lang, $module;
-	//Get the title if we are looking at a normal page
-	if (defined('CURRENT_PAGE_SEONAME')) {
-		//Check if page exists
-		if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
-			/*if (strpos(CURRENT_PAGE_FILENAME, '/') !== false) {
-				$parts = explode('/', CURRENT_PAGE_FILENAME);
-				$count = count($parts);
-				unset($parts[$count -1]);
 
-				$pages = $parts;
-				include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
+	//Check if page exists
+	if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
+		if (strpos(CURRENT_PAGE_FILENAME, '/') !== false) {
+			$parts = explode('/', CURRENT_PAGE_FILENAME);
+			$count = count($parts);
+			unset($parts[$count -1]);
+
+			$pages = $parts;
+			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
+			$titles[] = $title;
+
+			foreach ($parts as $part) {
+				$page = implode('/', $pages);
+				include ('data/settings/pages/'.get_page_filename($page));
 				$titles[] = $title;
-
-				foreach ($parts as $part) {
-					$page = implode('/', $pages);
-					include ('data/settings/pages/'.get_page_filename($page));
-					$titles[] = $title;
-					$pages = explode('/', $page);
-					$count = count($pages);
-					unset($pages[$count -1]);
-				}
-
-				$final_title = '';
-				foreach ($titles as $title)
-					$final_title =  $final_title.' &middot; '.$title;
-
-				$final_title = ltrim($final_title, '&middot; ');
-				return $final_title;
+				$pages = explode('/', $page);
+				$count = count($pages);
+				unset($pages[$count -1]);
 			}
-			
-			else {*/
-				include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
-				return $title;
-			//}
+
+			$final_title = '';
+			foreach ($titles as $title)
+				$final_title .=  ' &middot; '.$title;
+
+			$page_title = ltrim($final_title, '&middot; ');
 		}
 
-		//If page doesn't exist; display error
-		else
-			return $lang['general']['404'];
+		else {
+			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
+			$page_title = $title;
+		}
 	}
 
+	//If page doesn't exist; display error
+	else
+		return $lang['general']['404'];
+
 	//Get the title if we are looking at a module page
-	elseif (isset($module) && module_is_compatible($module) && function_exists($module.'_page_site_list')) {
+	if (isset($module) && module_is_compatible($module) && function_exists($module.'_page_site_list')) {
 		$module_page_site = call_user_func($module.'_page_site_list');
 		foreach ($module_page_site as $module_page) {
-			if ($module_page['func'] == CURRENT_MODULE_PAGE)
-				return $module_page['title'];
+			if ($module_page['func'] == CURRENT_MODULE_PAGE) {
+				$page_title = $module_page['title'].' &middot; '.$page_title;
+				break;
+			}
 		}
 		unset($module_page);
 	}
+
+	return $page_title;
 }
 
 //FUNCTIONS FOR FILLING IN THE PAGE
@@ -166,7 +167,7 @@ function theme_content() {
 	global $lang;
 
 	//Get the contents only if we are looking at a normal page
-	if (defined('CURRENT_PAGE_SEONAME')) {
+	if (defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_MODULE_DIR')) {
 		//Check if page exists
 		if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
 			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
@@ -189,7 +190,7 @@ function theme_area($place) {
 	global $lang_modules27;
 	//If mainspace: include the page-specific modules.
 	if ($place == 'main') {
-		if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
+		if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME) && !defined('CURRENT_MODULE_DIR')) {
 			//Include page-information.
 			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
 			//First, check if we want to include any modules.
@@ -198,7 +199,7 @@ function theme_area($place) {
 				natcasesort($module_pageinc);
 				foreach ($module_pageinc as $module_to_include => $order) {
 					//Check if module is compatible, and the function exists.
-					//if (module_is_compatible($module_to_include) && function_exists($module_to_include.'_theme_main'))
+					if (module_is_compatible($module_to_include) && function_exists($module_to_include.'_theme_main'))
 							call_user_func($module_to_include.'_theme_main');
 				}
 				unset($module_to_include);
@@ -206,7 +207,7 @@ function theme_area($place) {
 		}
 
 		//If we are looking at a module page.
-		elseif (defined('CURRENT_MODULE_DIR')) {
+		if (defined('CURRENT_MODULE_DIR')) {
 			$module_page_site = call_user_func(CURRENT_MODULE_DIR.'_page_site_list');
 			foreach ($module_page_site as $module_page) {
 				if ($module_page['func'] == CURRENT_MODULE_PAGE)
@@ -217,7 +218,7 @@ function theme_area($place) {
 	}
 
 	//Include info of theme (to see which modules we should include etc), but only if file exists.
-	elseif (file_exists('data/settings/themes/'.THEME.'/moduleconf.php')) {
+	elseif (file_exists('data/settings/themes/'.THEME.'/moduleconf.php') && !defined('CURRENT_MODULE_DIR')) {
 		include ('data/settings/themes/'.THEME.'/moduleconf.php');
 
 		//Get the array and sort it.

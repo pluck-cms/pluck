@@ -112,11 +112,13 @@ function albums_page_admin_editalbum() {
 
 			//Check if the image name already exists.
 			$images = read_dir_contents(MODULE_SETTINGS.'/'.$var1.'/thumb', 'files');
-			foreach ($images as $image) {
-				$parts = explode('.', $image);
-				if ($parts[0] == $imageze) {
-					$name_exist = true;
-					break;
+			if ($images) {
+				foreach ($images as $image) {
+					$parts = explode('.', $image);
+					if ($parts[0] == $imageze) {
+						$name_exist = true;
+						break;
+					}
 				}
 			}
 
