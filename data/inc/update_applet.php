@@ -20,7 +20,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
-//First get the day of the year
+//First get the day of the year.
 $dayofyear = date('z');
 
 //If the updatecheckfile existst, include it.
@@ -28,11 +28,12 @@ if (file_exists('data/settings/update_lastcheck.php'))
 	include_once ('data/settings/update_lastcheck.php');
 
 //We want to check for updates if:
-//1 Updatecheckfile doesn't exist
-//2 Updatecheckfile exists, but last check was not today
-if (!file_exists('data/settings/update_lastcheck.php') || ((file_exists('data/settings/update_lastcheck.php') && $lastcheck != $dayofyear))) {
+//1: Updatecheckfile doesn't exist.
+//2: Updatecheckfile exists, but last check was not today.
+//3: Updatecheckfile exists, but the last checked pluck version is not the same as the current.
+if (!file_exists('data/settings/update_lastcheck.php') || (file_exists('data/settings/update_lastcheck.php') && $lastcheck != $dayofyear) || (file_exists('data/settings/update_lastcheck.php') && $pluck_version != PLUCK_VERSION)) {
 	//Iniate CURL to fetch update-info,
-	//but only if CURL-extension is loaded
+	//but only if CURL-extension is loaded.
 	if (extension_loaded('curl')) {
 		$geturl = curl_init();
 		$timeout = 10;
@@ -43,40 +44,34 @@ if (!file_exists('data/settings/update_lastcheck.php') || ((file_exists('data/se
 		curl_close($geturl);
 	}
 
-	//If CURL isn't loaded, save an error-status
+	//If CURL isn't loaded, save an error-status.
 	else
 		$update_available = 'error';
 
-	$data = 'data/settings/update_lastcheck.php';
-	$file = fopen($data, 'w');
-	fputs($file, '<?php'."\n"
+	$data = '<?php'."\n"
 	.'$lastcheck = "'.$dayofyear.'";'."\n"
 	.'$lastupdatestatus = "'.$update_available.'";'."\n"
-	.'?>');
-	fclose($file);
-	chmod($data, 0777);
+	.'$pluck_version = "'.PLUCK_VERSION.'";'."\n"
+	.'?>';
+	save_file('data/settings/update_lastcheck.php', $data);
 }
 
-//If update-file exists and we already checked for updates today, use old updatecheck result
+//If update-file exists and we already checked for updates today, use old updatecheck result.
 elseif (file_exists('data/settings/update_lastcheck.php') && $lastcheck == $dayofyear)
 	$update_available = $lastupdatestatus;
 
-//Then determine which icon we need to show... and show it
-if ($update_available == 'yes') {
+//Then determine which icon we need to show... and show it.
+if ($update_available == 'yes')
 	$update_note = '<a href="http://www.pluck-cms.org/" target="_blank"><img src="data/image/update-available.png" alt="" /> '.$lang['update']['available'].'</a>';
-}
 
-elseif ($update_available == 'urgent') {
+elseif ($update_available == 'urgent')
 	$update_note = '<a href="http://www.pluck-cms.org/" target="_blank"><img src="data/image/update-available-urgent.png" alt="" /> '.$lang['update']['urgent'].'</a>';
-}
 
-elseif ($update_available == 'error') {
+elseif ($update_available == 'error')
 	$update_note = '<img src="data/image/error.png" alt="" /> '.$lang['update']['failed'];
-}
 
-else {
+else
 	$update_note = '<img src="data/image/update-no.png" alt="" /> '.$lang['update']['up_to_date'];
-}
 ?>
 <div>
 	<?php echo $update_note; ?>
