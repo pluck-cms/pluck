@@ -56,51 +56,51 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 //First determine who's the translator
 if ($langpref == 'nl.php')
 	$translator = 'Sander Thijsen';
-if ($langpref == 'da.php')
+elseif ($langpref == 'da.php')
 	$translator = 'Thomas Andresen<br />Lone Hansen';
-if ($langpref == 'de.php')
+elseif ($langpref == 'de.php')
 	$translator = 'Max Effenberger<br />Dennis Sewberath<br />stoffal';
-if ($langpref == 'es.php')
+elseif ($langpref == 'es.php')
 	$translator = 'Cesc';
-if ($langpref == 'ct.php')
+elseif ($langpref == 'ct.php')
 	$translator = 'Cesc';
-if ($langpref == 'fr.php')
+elseif ($langpref == 'fr.php')
 	$translator = 'zigzagbe<br />Dominique Heimler';
-if ($langpref == 'he.php')
+elseif ($langpref == 'he.php')
 	$translator = 'Erez Wolf';
-if ($langpref == 'hu.php')
+elseif ($langpref == 'hu.php')
 	$translator = 'Wix';
-if ($langpref == 'lt.php')
+elseif ($langpref == 'lt.php')
 	$translator = 'Mindaugas Salamachinas';
-if ($langpref == 'no.php')
+elseif ($langpref == 'no.php')
 	$translator = 'John Erik Kristensen';
-if ($langpref == 'pt.php')
+elseif ($langpref == 'pt.php')
 	$translator = 'Marco Paulo Ferreira<br />Hélio Carrasqueira';
-if ($langpref == 'pt_br.php')
+elseif ($langpref == 'pt_br.php')
 	$translator = 'Gilnei Moraes<br />Henrique Gogó<br />sarkioja';
-if ($langpref == 'ru.php')
+elseif ($langpref == 'ru.php')
 	$translator = 'Tkachev Vasily';
-if ($langpref == 'sv.php')
+elseif ($langpref == 'sv.php')
 	$translator = 'Carl Jansson';
-if ($langpref == 'bg.php')
+elseif ($langpref == 'bg.php')
 	$translator = 'smartx';
-if ($langpref == 'th.php')
+elseif ($langpref == 'th.php')
 	$translator = 'meandev';
-if ($langpref == 'lv.php')
+elseif ($langpref == 'lv.php')
 	$translator = 'Munky';
-if ($langpref == 'it.php')
+elseif ($langpref == 'it.php')
 	$translator = 'Skc';
-if ($langpref == 'hr.php')
+elseif ($langpref == 'hr.php')
 	$translator = 'atghoust';
-if ($langpref == 'pl.php')
+elseif ($langpref == 'pl.php')
 	$translator = 'Leszek Soltys<br />Bogumił Cieniek';
-if ($langpref == 'fa.php')
+elseif ($langpref == 'fa.php')
 	$translator = 'heam';
-if ($langpref == 'fi.php')
+elseif ($langpref == 'fi.php')
 	$translator = 'maxtuska';
-if ($langpref == 'sl.php')
+elseif ($langpref == 'sl.php')
 	$translator = 'Evelina';
-if ($langpref == 'sk.php')
+elseif ($langpref == 'sk.php')
 	$translator = 'greppi';
 
 //Then display, if language is not English
@@ -113,21 +113,17 @@ if ($langpref != 'en.php') {
 	</p>
 <?php
 }
-
-//TODO: All the following lines should be translated.
 ?>
 <p>
 	<span class="kop2"><?php echo $lang['credits']['more']; ?></span>
 	<br />
-	<a href="http://tinymce.moxiecode.com" target="_blank">MoxieCode</a>, for making the excellent TinyMCE-editor used in pluck
+	<a href="http://tinymce.moxiecode.com" target="_blank">MoxieCode</a>, <?php echo $lang['credits']['tinymce']; ?>
 	<br />
-	<a href="http://www.phpconcept.net" target="_blank">PhpConcept</a>, for making PclTar, used in the automatic theme-installer
+	<a href="http://maxg.info" target="_blank">Maxg</a>, <?php echo $lang['credits']['maxgtar']; ?>
 	<br />
-	<a href="http://www.huddletogether.com/projects/lightbox2" target="_blank">Lokesh</a>, for developing LightBox2, used in pluck to serve the images in your albums with flair
+	<a href="http://www.dolem.com/lytebox" target="_blank">Markus F. Hay</a>, <?php echo $lang['credits']['lytebox']; ?>
 	<br />
-	<a href="http://www.justinbarkhuff.com/lab/lightbox_slideshow/" target="_blank">Justin Barkhuff</a>, for providing the slideshow feature for LightBox2
+	<a href="http://tango.freedesktop.org" target="_blank">The Tango Desktop Project</a>, <?php echo $lang['credits']['tango']; ?>
 	<br />
-	<a href="http://tango.freedesktop.org" target="_blank">The Tango Desktop Project</a>, for designing the wonderful icons used in the pluck administration center
-	<br />
-	<a href="http://www.famfamfam.com/lab/icons/silk/" target="_blank">Mark James</a>, for designing the "Silk" icons, also used in pluck
+	<a href="http://www.famfamfam.com/lab/icons/silk/" target="_blank">Mark James</a>, <?php echo $lang['credits']['slik']; ?>
 </p>

@@ -24,22 +24,16 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 if ($var2 == 'page' && file_exists('data/trash/pages/'.$var1.'.php')) {
 	$pages = read_dir_contents('data/settings/pages', 'files');
 
-	if (get_page_filename($var1) != false) {
-		//TODO: Add text for error
-		//show_error(, 2);
-		redirect('?action=trashcan', 2);
-	}
+	if ($pages == false)
+		$next_number = 1;
+	else
+		$next_number = count($pages) + 1;
 
-	else {
-		if ($pages == false)
-			$next_number = 1;
-		else
-			$next_number = count($pages) + 1;
-
-		rename('data/trash/pages/'.$var1.'.php', 'data/settings/pages/'.$next_number.'.'.$var1.'.php');
-		show_error($lang['trashcan']['restoring'], 3);
-		redirect('?action=trashcan', 0);
-	}
+	rename('data/trash/pages/'.$var1.'.php', 'data/settings/pages/'.$next_number.'.'.$var1.'.php');
+	
+	//Redirect.
+	show_error($lang['trashcan']['restoring'], 3);
+	redirect('?action=trashcan', 0);
 }
 
 //If we want to restore an image.
@@ -59,6 +53,7 @@ elseif ($var2 == 'image' && file_exists('data/trash/images/'.$var1)) {
 		chmod('images/'.$filename.'.'.$extension, 0777);
 		unlink('data/trash/images/'.$var1);
 	}
+
 	//Redirect.
 	show_error($lang['trashcan']['restoring'], 3);
 	redirect('?action=trashcan', 0);
