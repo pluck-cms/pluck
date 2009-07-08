@@ -40,14 +40,14 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 if (isset($_POST['submit'])) {
 	//Check if the file is JPG, PNG or GIF.
 	if (in_array($_FILES['imagefile']['type'], array('image/pjpeg', 'image/jpeg','image/png', 'image/gif'))) {
-		if (!copy($_FILES['imagefile']['tmp_name'], 'images/'.$filename))
+		if (!copy($_FILES['imagefile']['tmp_name'], 'images/'.$_FILES['imagefile']['name']))
 			show_error($lang['general']['upload_failed'], 1);
 
 		else {
-			chmod('images/'.$filename, 0666);
+			chmod('images/'.$_FILES['imagefile']['name'], 0666);
 			?>
 				<div class="menudiv">
-					<strong><?php echo $lang_image3; ?></strong> <?php echo $filename; ?>
+					<strong><?php echo $lang_image3; ?></strong> <?php echo $_FILES['imagefile']['name']; ?>
 					<br />
 					<strong><?php echo $lang_image4; ?></strong> <?php echo $_FILES['imagefile']['size']; ?> bytes
 					<br />

@@ -42,26 +42,30 @@ function read_lang_files($not_this_file) {
 //------------
 function read_imagesinpages($dir) {
 	global $lang;
-	$files = read_dir_contents($dir, 'files');
-	if ($files) {
-		natcasesort($files);
-		foreach ($files as $file) {
-		?>
-			<div class="menudiv">
-				<span>
-					<img src="data/image/image_small.png" alt="" />
-				</span>
-				<span>
-					<span>
-						<a  style="font-size: 16px !important;" href="images/<?php echo $file; ?>" target="_blank"><?php echo $file; ?></a>
-					</span>
-					<br />
-					<a style="font-size: 14px;" href="#" onclick="tinyMCE.execCommand('mceInsertContent',false,'&lt;img src=\'images/<?php echo $file; ?>\' alt=\'\' />');return false;"><?php echo $lang['general']['insert']; ?></a>
-				</span>
-			</div>
-		<?php
-		}
-		unset($file);
+
+	$images = read_dir_contents($dir, 'files');
+	if ($images) {
+	?>
+		<div class="menudiv">
+			<span>
+				<img src="data/image/image_small.png" alt="" />
+			</span>
+			<span>
+				<select id="insert_images">
+					<?php
+					natcasesort($images);
+					foreach ($images as $image) {
+					?>
+						<option><?php echo $image; ?></option>
+					<?php
+					}
+					?>
+				</select>
+				<br />
+				<a href="#" onclick="insert_image_link();return false;"><?php echo $lang['general']['insert']; ?></a>
+			</span>
+		</div>
+	<?php
 	}
 }
 
@@ -69,29 +73,40 @@ function read_imagesinpages($dir) {
 //------------
 function read_pagesinpages($current_page = null) {
 	global $lang;
+
 	$files = get_pages();
 	if ($files) {
-		natcasesort($files);
-		foreach ($files as $file) {
-			if ($current_page != $file) {
-				require 'data/settings/pages/'.$file;
-				$file = get_page_seoname($file);
-				?>
-					<div class="menudiv">
-						<span>
-							<img src="data/image/page_small.png" alt="" />
-						</span>
-						<span style="font-size: 14px;">
-							<span style="font-size: 16px; color: gray;"><?php echo $title; ?></span>
-							<br />
-							<?php $escaped_title = str_replace('\'', '\\\'', $title); ?>
-							<a href="#" onclick="tinyMCE.execCommand('mceInsertContent',false,'&lt;a href=\'index.php?file=<?php echo $file; ?>\' title=\'<?php echo $escaped_title ?>\'><?php echo $escaped_title ?>&lt;/a>');return false;"><?php echo $lang['page']['insert_link']; ?></a>
-						</span>
-					</div>
-				<?php
-			}
-		}
-		unset($file);
+	?>
+		<div class="menudiv">
+			<span>
+				<img src="data/image/page_small.png" alt="" />
+			</span>
+			<span>
+				<select id="insert_pages">
+					<?php
+					foreach ($files as $file) {
+							require 'data/settings/pages/'.$file;
+							$file = get_page_seoname($file);
+
+							preg_match_all('|\/|', $file, $indent);
+							$indent = count($indent[0]);
+
+							if (!empty($indent))
+								$indent = str_repeat('&emsp;', $indent);
+							else
+								$indent = null;
+							?>
+								<option value="<?php echo $file; ?>"><?php echo $indent.$title; ?></option>
+							<?php
+					}
+					unset($file);
+					?>
+				</select>
+				<br />
+				<a href="#" onclick="insert_page_link(); return false;"><?php echo $lang['page']['insert_link']; ?></a>
+			</span>
+		</div>
+	<?php
 	}
 }
 

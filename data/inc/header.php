@@ -57,12 +57,32 @@ function kadabra(zap) {
 	else
 		return true;
 }
-//-->
-</script>
-<script type="text/javascript">
-<!--
+
 function confirmation(message) {
 	return confirm(message);
+}
+
+function insert_page_link() {
+	var id = document.getElementById('insert_pages');
+	var page = id.selectedIndex;
+	var file = id.options[page].value;
+	var title = id.options[page].text;
+
+	//Remove indent space.
+	//@fixme Not the best way to do it, but it works.
+	title = escape(title);
+	title = title.replace(/%u2003/g, '');
+	title = unescape(title);
+
+	tinyMCE.execCommand('mceInsertContent',false,'<a href="index.php?file=' + file + '" title="' + title + '">' + title + '<\/a>');
+}
+
+function insert_image_link() {
+	var id = document.getElementById('insert_images');
+	var image = id.selectedIndex;
+	var file = id.options[image].text;
+
+	tinyMCE.execCommand('mceInsertContent',false,'<img src="images/' + file + '" alt="" \/>');
 }
 //-->
 </script>
@@ -123,6 +143,6 @@ function confirmation(message) {
 	<?php run_hook('admin_menu_after'); ?>
 </div>
 <div id="text">
-<?php if (isset($titelkop)) { ?>
+<?php if (isset($titelkop)): ?>
 	<h2><?php echo $titelkop; ?></h2>
-<?php } ?>
+<?php endif; ?>
