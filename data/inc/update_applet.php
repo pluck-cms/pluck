@@ -49,9 +49,9 @@ if (!file_exists('data/settings/update_lastcheck.php') || (file_exists('data/set
 		$update_available = 'error';
 
 	$data = '<?php'."\n"
-	.'$lastcheck = "'.$dayofyear.'";'."\n"
-	.'$lastupdatestatus = "'.$update_available.'";'."\n"
-	.'$pluck_version = "'.PLUCK_VERSION.'";'."\n"
+	.'$lastcheck = \''.$dayofyear.'\';'."\n"
+	.'$lastupdatestatus = \''.$update_available.'\';'."\n"
+	.'$pluck_version = \''.PLUCK_VERSION.'\';'."\n"
 	.'?>';
 	save_file('data/settings/update_lastcheck.php', $data);
 }

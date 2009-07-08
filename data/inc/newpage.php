@@ -72,8 +72,8 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 <div class="rightmenu">
 <p><?php echo $lang['page']['items']; ?></p>
 <?php
-read_imagesinpages('images');
 read_pagesinpages();
+read_imagesinpages('images');
 ?>
 </div>
 <form method="post" action="">

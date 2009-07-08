@@ -62,7 +62,7 @@ function read_imagesinpages($dir) {
 					?>
 				</select>
 				<br />
-				<a href="#" onclick="insert_image_link();return false;"><?php echo $lang['general']['insert']; ?></a>
+				<a href="#" onclick="insert_image_link('<?php echo $dir; ?>');return false;"><?php echo $lang['general']['insert']; ?></a>
 			</span>
 		</div>
 	<?php
@@ -71,7 +71,7 @@ function read_imagesinpages($dir) {
 
 //Function: read out the pages to let them be included in pages as link
 //------------
-function read_pagesinpages($current_page = null) {
+function read_pagesinpages() {
 	global $lang;
 
 	$files = get_pages();

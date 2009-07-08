@@ -77,12 +77,12 @@ function insert_page_link() {
 	tinyMCE.execCommand('mceInsertContent',false,'<a href="index.php?file=' + file + '" title="' + title + '">' + title + '<\/a>');
 }
 
-function insert_image_link() {
+function insert_image_link(dir) {
 	var id = document.getElementById('insert_images');
 	var image = id.selectedIndex;
 	var file = id.options[image].text;
 
-	tinyMCE.execCommand('mceInsertContent',false,'<img src="images/' + file + '" alt="" \/>');
+	tinyMCE.execCommand('mceInsertContent',false,'<img src="' + dir + '/' + file + '" alt="" \/>');
 }
 //-->
 </script>

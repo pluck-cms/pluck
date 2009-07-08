@@ -127,8 +127,8 @@ unset($module);
 <div class="rightmenu">
 <p><?php echo $lang['page']['items']; ?></p>
 <?php
+	read_pagesinpages();
 	read_imagesinpages('images');
-	read_pagesinpages($filename);
 ?>
 </div>
 <form name="page_form" method="post" action="">
