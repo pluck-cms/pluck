@@ -44,9 +44,8 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	if ($pages == false)
 		$number = 0;
 	else
-		$number = count($pages);
+		$number = count($pages) + 1;
 
-	$number++;
 	$seo_title = seo_url($cont1);
 	$newfile = $cont5.$number.'.'.$seo_title;
 

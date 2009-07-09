@@ -22,18 +22,27 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 
 //If we want to restore a page.
 if ($var2 == 'page' && file_exists('data/trash/pages/'.$var1.'.php')) {
-	$pages = read_dir_contents('data/settings/pages', 'files');
 
-	if ($pages == false)
-		$next_number = 1;
-	else
-		$next_number = count($pages) + 1;
+	//We can't restore the page if there is a page with the same name.
+	if (get_page_filename($var1) != false) {
+		show_error($lang['trashcan']['same_page_name'], 1);
+		redirect('?action=trashcan', 3);
+	}
 
-	rename('data/trash/pages/'.$var1.'.php', 'data/settings/pages/'.$next_number.'.'.$var1.'.php');
-	
-	//Redirect.
-	show_error($lang['trashcan']['restoring'], 3);
-	redirect('?action=trashcan', 0);
+	else {
+		$pages = read_dir_contents('data/settings/pages', 'files');
+
+		if ($pages == false)
+			$next_number = 1;
+		else
+			$next_number = count($pages) + 1;
+
+		rename('data/trash/pages/'.$var1.'.php', 'data/settings/pages/'.$next_number.'.'.$var1.'.php');
+
+		//Redirect.
+		show_error($lang['trashcan']['restoring'], 3);
+		redirect('?action=trashcan', 1);
+	}
 }
 
 //If we want to restore an image.
@@ -56,6 +65,6 @@ elseif ($var2 == 'image' && file_exists('data/trash/images/'.$var1)) {
 
 	//Redirect.
 	show_error($lang['trashcan']['restoring'], 3);
-	redirect('?action=trashcan', 0);
+	redirect('?action=trashcan', 1);
 }
 ?>
