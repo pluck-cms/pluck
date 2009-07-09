@@ -138,6 +138,7 @@ $lang['page']['modules']     = 'Choose if you want modules displayed on this pag
 $lang['page']['options']     = 'other options related to the page';
 $lang['page']['in_menu']     = 'show page in menu';
 $lang['page']['sub_page']    = 'sub-page of';
+$lang['page']['name_exists'] = 'A page with the same or similar title already exists.<br />Please change the title of this page or the other.';
 
 //Editmeta
 $lang['editmeta']['title']    = 'edit page information';
