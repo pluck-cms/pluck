@@ -59,7 +59,7 @@ function read_albums($dir) {
 }
 
 function read_albumimages($dir) {
-	global $lang, $lang_albums6, $lang_kop13, $lang_updown5, $var1;
+	global $lang, $lang_albums15, $lang_kop13, $lang_updown5, $var1;
 	$files = read_dir_contents($dir, 'files');
 	if (!$files)
 		echo '<span class="kop4">'.$lang['general']['nothing_yet'].'</span><br />';
@@ -85,7 +85,7 @@ function read_albumimages($dir) {
 						</span>
 						<span>
 							<a href="?module=albums&amp;page=editimage&amp;var1=<?php echo $var1; ?>&amp;var2=<?php echo $fdirname; ?>">
-								<img src="data/image/edit.png" title="<?php echo $lang_albums6; ?>" alt="<?php echo $lang_albums6; ?>" />
+								<img src="data/image/edit.png" title="<?php echo $lang_albums15; ?>" alt="<?php echo $lang_albums15; ?>" />
 							</a>
 						</span>
 						<span>
