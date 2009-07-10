@@ -144,7 +144,7 @@ function albums_page_admin_editalbum() {
 
 				//Compress the big image.
 				$image_width = 640;
-				$image = new SmartImage($fullimage, true);
+				$image = new SmartImage($fullimage);
 				list($width, $height) = getimagesize($fullimage);
 				$imgratio = $width / $height;
 
@@ -165,7 +165,7 @@ function albums_page_admin_editalbum() {
 
 				//Then make a thumb from the image.
 				$thumb_width = 200;
-				$thumb = new SmartImage($thumbimage, true);
+				$thumb = new SmartImage($thumbimage);
 				list($width, $height) = getimagesize($thumbimage);
 				$imgratio = $width / $height;
 
@@ -327,15 +327,25 @@ function albums_page_admin_editimage() {
 }
 
 function albums_page_admin_deleteimage() {
-	global $var1, $var2;
-	//Check if an image was defined, and if the image exists
-	if (isset($var1) && isset($var2) && file_exists('data/settings/modules/albums/'.$var1.'/'.$var2.'.php') && file_exists('data/settings/modules/albums/'.$var1.'/thumb/'.$var2.'.jpg')) {
-		unlink('data/settings/modules/albums/'.$var1.'/'.$var2.'.php');
-		unlink('data/settings/modules/albums/'.$var1.'/'.$var2.'.jpg');
-		unlink('data/settings/modules/albums/'.$var1.'/thumb/'.$var2.'.jpg');
-	}
+    global $var1, $var2;
 
-	redirect('?module=albums&page=editalbum&var1='.$var1, 0);
+    //Check if an image was defined, and if the image exists.
+    if (isset($var1, $var2) && file_exists('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2))) {
+	    //Find the extension of the image before we delete anything.
+	    $parts =  explode('.', albums_get_php_filename($var1, $var2));
+
+	    //First, delete the php file.
+	    unlink('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2));
+
+	    //And then delete the image and the thumb.
+	    unlink('data/settings/modules/albums/'.$var1.'/'.$parts[1].'.'.$parts[2]);
+	    unlink('data/settings/modules/albums/'.$var1.'/thumb/'.$parts[1].'.'.$parts[2]);
+
+	    //Finally, reorder the images.
+	    albums_reorder_images($var1);
+    }
+
+    redirect('?module=albums&page=editalbum&var1='.$var1, 0);
 }
 
 function albums_page_admin_imageup() {

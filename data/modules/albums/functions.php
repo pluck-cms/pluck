@@ -124,19 +124,19 @@ function albums_get_php_filename($album, $seoname) {
 	return false;
 }
 
-//TODO: Needs updating!
 function albums_reorder_images($album) {
 	$files = read_dir_contents(MODULE_SETTINGS.'/'.$album, 'files');
 
-	$number = 1;
-	foreach ($files as $file) {
-		$parts = explode('.', $file);
-		if ($parts[2] == '.php') {
-			rename(MODULE_SETTINGS.'/'.$album.'/'.$file, MODULE_SETTINGS.'/'.$album.'/'.$number.'.'.$parts[1].'.'.$parts[2]);
-			rename(MODULE_SETTINGS.'/'.$album.'/'.$parts[0].'.'.$parts[1].'.jpg', MODULE_SETTINGS.'/'.$album.'/'.$number.'.'.$parts[1].'.jpg');
-			rename(MODULE_SETTINGS.'/'.$album.'/thumb/'.$parts[0].'.'.$parts[1].'.jpg', MODULE_SETTINGS.'/'.$album.'/thumb/'.$number.'.'.$parts[1].'.jpg');
-			$number++;
-		}
+	//Don't reorder somthing that aren't there.
+	if ($files) {
+	    $number = 1;
+	    foreach ($files as $file) {
+		    $parts = explode('.', $file);
+		    if (isset($parts[3])) {
+			    rename(MODULE_SETTINGS.'/'.$album.'/'.$file, MODULE_SETTINGS.'/'.$album.'/'.$number.'.'.$parts[1].'.'.$parts[2].'.'.$parts[3]);
+			    $number++;
+		    }
+	    }
 	}
 }
 ?>
