@@ -327,104 +327,118 @@ function albums_page_admin_editimage() {
 }
 
 function albums_page_admin_deleteimage() {
-    global $var1, $var2;
+	global $var1, $var2;
 
-    //Check if an image was defined, and if the image exists.
-    if (isset($var1, $var2) && file_exists('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2))) {
-	    //Find the extension of the image before we delete anything.
-	    $parts =  explode('.', albums_get_php_filename($var1, $var2));
+	//Check if an image was defined, and if the image exists.
+	if (isset($var1, $var2) && file_exists('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2))) {
+		//Find the extension of the image before we delete anything.
+		$parts =  explode('.', albums_get_php_filename($var1, $var2));
 
-	    //First, delete the php file.
-	    unlink('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2));
+		//First, delete the php file.
+		unlink('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2));
 
-	    //And then delete the image and the thumb.
-	    unlink('data/settings/modules/albums/'.$var1.'/'.$parts[1].'.'.$parts[2]);
-	    unlink('data/settings/modules/albums/'.$var1.'/thumb/'.$parts[1].'.'.$parts[2]);
+		//And then delete the image and the thumb.
+		unlink('data/settings/modules/albums/'.$var1.'/'.$parts[1].'.'.$parts[2]);
+		unlink('data/settings/modules/albums/'.$var1.'/thumb/'.$parts[1].'.'.$parts[2]);
 
-	    //Finally, reorder the images.
-	    albums_reorder_images($var1);
-    }
+		//Finally, reorder the images.
+		albums_reorder_images($var1);
+	}
 
-    redirect('?module=albums&page=editalbum&var1='.$var1, 0);
+	redirect('?module=albums&page=editalbum&var1='.$var1, 0);
 }
 
 function albums_page_admin_imageup() {
-	global $lang, $lang_updown6, $var1, $var2;
+global $lang, $lang_updown6, $var1, $var2;
 
-	//Check if images exist.
-	if (file_exists('data/settings/modules/albums/'.$var2.'/'.$var1.'.jpg') && file_exists('data/settings/modules/albums/'.$var2.'/'.$var1.'.php') && file_exists('data/settings/modules/albums/'.$var2.'/thumb/'.$var1.'.jpg')) {
-		//We can't higher image1, so we have to check:
-		if ($var1 == 'image1') {
-			echo $lang_updown6;
-			redirect('?module=albums&page=editalbum&var1='.$var2, 2);
-			include_once ('data/inc/footer.php');
-			exit;
-		}
+//Check if images exist.
+if (isset($var1, $var2) && file_exists('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2))) {
+	$current_parts =  explode('.', albums_get_php_filename($var1, $var2));
 
-		//Determine the imagenumber.
-		list($filename, $pagenumber) = explode('e', $var1);
-		$higherpagenumber = $pagenumber - 1;
-
-		//First make temporary files.
-		rename('data/settings/modules/albums/'.$var2.'/'.$var1.'.jpg', 'data/settings/modules/albums/'.$var2.'/'.$var1.TEMP.'.jpg');
-		rename('data/settings/modules/albums/'.$var2.'/'.$var1.'.php', 'data/settings/modules/albums/'.$var2.'/'.$var1.TEMP.'.php');
-		rename('data/settings/modules/albums/'.$var2.'/thumb/'.$var1.'.jpg', 'data/settings/modules/albums/'.$var2.'/thumb/'.$var1.TEMP.'.jpg');
-
-		//Then make the higher images one higher.
-		rename('data/settings/modules/albums/'.$var2.'/'.NAME.$higherpagenumber.'.jpg', 'data/settings/modules/albums/'.$var2.'/'.$var1.'.jpg');
-		rename('data/settings/modules/albums/'.$var2.'/'.NAME.$higherpagenumber.'.php', 'data/settings/modules/albums/'.$var2.'/'.$var1.'.php');
-		rename('data/settings/modules/albums/'.$var2.'/thumb/'.NAME.$higherpagenumber.'.jpg', 'data/settings/modules/albums/'.$var2.'/thumb/'.$var1.'.jpg');
-
-		//Finally, give the temp-files its final name.
-		rename ('data/settings/modules/albums/'.$var2.'/'.$var1.TEMP.'.jpg', 'data/settings/modules/albums/'.$var2.'/'.NAME.$higherpagenumber.'.jpg');
-		rename ('data/settings/modules/albums/'.$var2.'/'.$var1.TEMP.'.php', 'data/settings/modules/albums/'.$var2.'/'.NAME.$higherpagenumber.'.php');
-		rename ('data/settings/modules/albums/'.$var2.'/thumb/'.$var1.TEMP.'.jpg', 'data/settings/modules/albums/'.$var2.'/thumb/'.NAME.$higherpagenumber.'.jpg');
-
-		//Show message.
-		show_error($lang['general']['changing_rank'], 3);
+	//We can't higher the first image, so we have to check.
+	if ($current_parts[0] == 1) {
+		show_error($lang_updown6, 2);
+		redirect('?module=albums&page=editalbum&var1='.$var1, 2);
+		include_once ('data/inc/footer.php');
+		exit;
 	}
 
-	//Redirect.
-	redirect('?module=albums&page=editalbum&var1='.$var2, 0);
+	$files = read_dir_contents(MODULE_SETTINGS.'/'.$var1, 'files');
+
+	//Now we need to find the name of the other image, so we can switch numbers.
+	foreach ($files as $file) {
+		$file_parts = explode('.', $file);
+		if ($current_parts[0] - 1 == $file_parts[0]) {
+		$prior_parts = $file_parts;
+		break;
+		}
+	}
+	unset($file);
+
+	//Switch the numbers.
+	$current_image_new = $prior_parts[0].'.'.$current_parts[1].'.'.$current_parts[2].'.php';
+	$prior_image_new = $current_parts[0].'.'.$prior_parts[1].'.'.$prior_parts[2].'.php';
+
+	//And finaly, rename the files.
+	rename(MODULE_SETTINGS.'/'.$var1.'/'.implode('.', $current_parts), MODULE_SETTINGS.'/'.$var1.'/'.$current_image_new);
+	rename(MODULE_SETTINGS.'/'.$var1.'/'.implode('.', $prior_parts), MODULE_SETTINGS.'/'.$var1.'/'.$prior_image_new);
+
+	//Show message.
+	show_error($lang['general']['changing_rank'], 3);
+}
+
+//Redirect.
+redirect('?module=albums&page=editalbum&var1='.$var1, 0);
 }
 
 function albums_page_admin_imagedown() {
 	global $lang, $lang_updown7, $var1, $var2;
 
 	//Check if images exist.
-	if (file_exists('data/settings/modules/albums/'.$var2.'/'.$var1.'.jpg') && file_exists('data/settings/modules/albums/'.$var2.'/'.$var1.'.php') && file_exists('data/settings/modules/albums/'.$var2.'/thumb/'.$var1.'.jpg')) {
-		//Determine the imagenumber
-		list($filename, $pagenumber) = explode('e', $var1);
-		$lowerpagenumber = $pagenumber + 1;
+	if (isset($var1, $var2) && file_exists('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2))) {
+		$current_parts =  explode('.', albums_get_php_filename($var1, $var2));
 
-		//We can't lower the last image, so we have to check:
-		if (!file_exists('data/settings/modules/albums/'.$var2.'/'.NAME.$lowerpagenumber.'.jpg')) {
-			echo $lang_updown7;
-			redirect('?module=albums&page=editalbum&var1='.$var2, 2);
+		$files = read_dir_contents(MODULE_SETTINGS.'/'.$var1, 'files');
+		$number_of_files = 0;
+
+		//Count the number of PHP files.
+		foreach ($files as $file) {
+		    $file_parts = explode('.', $file);
+		    if (isset($file_parts[3]))
+			$number_of_files++;
+		}
+
+		//We can't lower the last image, so we have to check.
+		if ($number_of_files == $current_parts[0]) {
+			show_error($lang_updown7, 2);
+			redirect('?module=albums&page=editalbum&var1='.$var1, 2);
 			include_once ('data/inc/footer.php');
 			exit;
 		}
 
-		//First make temporary files.
-		rename('data/settings/modules/albums/'.$var2.'/'.$var1.'.jpg', 'data/settings/modules/albums/'.$var2.'/'.$var1.TEMP.'.jpg');
-		rename('data/settings/modules/albums/'.$var2.'/'.$var1.'.php', 'data/settings/modules/albums/'.$var2.'/'.$var1.TEMP.'.php');
-		rename('data/settings/modules/albums/'.$var2.'/thumb/'.$var1.'.jpg', 'data/settings/modules/albums/'.$var2.'/thumb/'.$var1.TEMP.'.jpg');
+		//Now we need to find the name of the other image, so we can switch numbers.
+		foreach ($files as $file) {
+		    $file_parts = explode('.', $file);
+		    if ($current_parts[0] + 1 == $file_parts[0]) {
+			$next_parts = $file_parts;
+			break;
+		    }
+		}
+		unset($file);
 
-		//Then make the higher images one higher.
-		rename('data/settings/modules/albums/'.$var2.'/'.NAME.$lowerpagenumber.'.jpg', 'data/settings/modules/albums/'.$var2.'/'.$var1.'.jpg');
-		rename('data/settings/modules/albums/'.$var2.'/'.NAME.$lowerpagenumber.'.php', 'data/settings/modules/albums/'.$var2.'/'.$var1.'.php');
-		rename('data/settings/modules/albums/'.$var2.'/thumb/'.NAME.$lowerpagenumber.'.jpg', 'data/settings/modules/albums/'.$var2.'/thumb/'.$var1.'.jpg');
+		//Switch the numbers.
+		$current_image_new = $next_parts[0].'.'.$current_parts[1].'.'.$current_parts[2].'.php';
+		$next_image_new = $current_parts[0].'.'.$next_parts[1].'.'.$next_parts[2].'.php';
 
-		//Finally, give the temp-files its final name.
-		rename ('data/settings/modules/albums/'.$var2.'/'.$var1.TEMP.'.jpg', 'data/settings/modules/albums/'.$var2.'/'.NAME.$lowerpagenumber.'.jpg');
-		rename ('data/settings/modules/albums/'.$var2.'/'.$var1.TEMP.'.php', 'data/settings/modules/albums/'.$var2.'/'.NAME.$lowerpagenumber.'.php');
-		rename ('data/settings/modules/albums/'.$var2.'/thumb/'.$var1.TEMP.'.jpg', 'data/settings/modules/albums/'.$var2.'/thumb/'.NAME.$lowerpagenumber.'.jpg');
+		//And finaly, rename the files.
+		rename(MODULE_SETTINGS.'/'.$var1.'/'.implode('.', $current_parts), MODULE_SETTINGS.'/'.$var1.'/'.$current_image_new);
+		rename(MODULE_SETTINGS.'/'.$var1.'/'.implode('.', $next_parts), MODULE_SETTINGS.'/'.$var1.'/'.$next_image_new);
 
 		//Show message.
 		show_error($lang['general']['changing_rank'], 3);
 	}
 
 	//Redirect.
-	redirect('?module=albums&page=editalbum&var1='.$var2, 0);
+	redirect('?module=albums&page=editalbum&var1='.$var1, 0);
 }
 ?>
