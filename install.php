@@ -54,7 +54,7 @@ else {
 	}
 
 	//Installation Step 1: CHMOD.
-	if (isset($action) && $action == 'install') {
+	elseif (isset($action) && $action == 'install') {
 		$titelkop = $lang['install']['title'];
 		include_once ('data/inc/header2.php');
 		?>
@@ -85,9 +85,56 @@ else {
 	}
 
 	//Installation Step 2: General Info.
-	if (isset($action) && $action == 'install2') {
+	elseif (isset($action) && $action == 'install2') {
 		$titelkop = $lang['install']['title'];
 		include_once ('data/inc/header2.php');
+
+		if (isset($_POST['save'])) {
+			//Check sitetitle.
+			$trim_title = trim($cont1);
+			if (empty($trim_title))
+				$error['title'] = show_error($lang['settings']['fill_name'], 1, true);
+
+			//Check the email.
+			if (!filter_input(INPUT_POST, 'cont2', FILTER_VALIDATE_EMAIL))
+				$error['email'] = show_error($lang['settings']['email_invalid'], 1, true);
+
+			//Check the passwords.
+			if ($cont4 != $cont5 || empty($cont4))
+				$error['pass'] = show_error($lang['changepass']['different'], 1, true);
+
+			if (!isset($error)) {
+				//Save prefered language.
+				save_language($cont3);
+
+				//Save options.
+				save_options($cont1, $cont2, false);
+
+				//Save password.
+				save_password($cont4);
+
+				//Save theme.
+				save_theme('default');
+
+				//Make some dirs for the trashcan and modulesettings.
+				mkdir('data/trash/pages', 0777);
+				chmod('data/trash/pages', 0777);
+				mkdir('data/trash/images', 0777);
+				chmod('data/trash/images', 0777);
+				mkdir('data/settings/modules', 0777);
+				chmod('data/settings/modules', 0777);
+				mkdir('data/settings/pages', 0777);
+				chmod('data/settings/pages', 0777);
+				mkdir('data/settings/modules/albums', 0777);
+				chmod('data/settings/modules/albums', 0777);
+				mkdir('data/settings/modules/blog', 0777);
+				chmod('data/settings/modules/blog', 0777);
+
+				redirect('?action=install4', 0);
+				include_once ('data/inc/footer.php');
+				exit;
+			}
+		}
 		?>
 		<span class="kop2"><?php echo $lang['install']['title']; ?> :: <?php echo $lang['install']['step_2']; ?></span>
 		<br />
@@ -96,12 +143,14 @@ else {
 		</p>
 		<form method="post" action="">
 			<p>
+				<?php if (isset($error['title'])) echo $error['title'].'<br />'; ?>
 				<label class="kop2" for="cont1"><?php echo $lang['general']['title'] ?></label>
 				<br />
 				<span class="kop4"><?php echo $lang['settings']['choose_title'] ?></span>
 				<br />
 				<input name="cont1" id="cont1" type="text" value="<?php if (isset($cont1)) echo htmlentities($cont1); ?>"/>
 				<br />
+				<?php if (isset($error['email'])) echo $error['email'].'<br />'; ?>
 				<label class="kop2" for="cont2"><?php echo $lang['settings']['email'] ?></label>
 				<br />
 				<span class="kop4"><?php echo $lang['settings']['email_descr'] ?></span>
@@ -117,6 +166,7 @@ else {
 				</select>
 			</p>
 			<p>
+				<?php if (isset($error['pass'])) echo $error['pass'].'<br />'; ?>
 				<label class="kop2" for="cont4"><?php echo $lang['login']['password']; ?></label>
 				<br />
 				<input name="cont4" id="cont4" type="password" />
@@ -125,66 +175,25 @@ else {
 				<br />
 				<input name="cont5" id="cont5" type="password" />
 			</p>
-			<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
-			<input type="button" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?action=install';" />
+			<?php show_common_submits('?action=install'); ?>
 		</form>
 		<?php
-		if (isset($_POST['submit'])) {
-			//Check the passwords.
-			if ($cont4 != $cont5 || empty($cont4)) {
-				?>
-					<br />
-					<span class="red"><?php echo $lang['changepass']['different']; ?></span>
-				<?php
-				include_once ('data/inc/footer.php');
-				exit;
-			}
-
-			//Check sitetitle.
-			if (empty($cont1)) {
-				?>
-					<br />
-					<span class="red"><?php echo $lang['settings']['fill_name']; ?></span>
-				<?php
-				include_once ('data/inc/footer.php');
-				exit;
-			}
-
-			//Save prefered language.
-			save_language($cont3);
-
-			//Save options.
-			save_options($cont1, $cont2, false);
-
-			//Save password.
-			save_password($cont4);
-
-			//Save theme.
-			save_theme('default');
-
-			//Make some dirs for the trashcan and modulesettings.
-			mkdir('data/trash/pages', 0777);
-			chmod('data/trash/pages', 0777);
-			mkdir('data/trash/images', 0777);
-			chmod('data/trash/images', 0777);
-			mkdir('data/settings/modules', 0777);
-			chmod('data/settings/modules', 0777);
-			mkdir('data/settings/pages', 0777);
-			chmod('data/settings/pages', 0777);
-			mkdir('data/settings/modules/albums', 0777);
-			chmod('data/settings/modules/albums', 0777);
-			mkdir('data/settings/modules/blog', 0777);
-			chmod('data/settings/modules/blog', 0777);
-
-			redirect('?action=install4', 0);
-		}
 		include_once ('data/inc/footer.php');
 	}
 
 	//Installation Step 3: Homepage.
-	if (isset($action) && $action == 'install4') {
+	elseif (isset($action) && $action == 'install4') {
 		$titelkop = $lang['install']['title'];
 		include_once ('data/inc/header2.php');
+
+		//Save the homepage.
+		if (isset($_POST['save'])) {
+			$pagename = seo_url($cont1);
+			save_page('1.'.$pagename, $cont1, $cont2, 'no');
+			redirect('?action=install5', 0);
+			include_once ('data/inc/footer.php');
+			exit;
+		}
 		?>
 		<span class="kop2"><?php echo $lang['install']['title']; ?> :: <?php echo $lang['install']['step_3']; ?></span>
 		<br />
@@ -200,21 +209,14 @@ else {
 			<br />
 			<textarea name="cont2" id="cont2" class="tinymce" cols="70" rows="20"></textarea>
 			<br />
-			<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
-			<input type="button" value="<?php echo $lang['general']['cancel']; ?>" onclick="javascript: window.location='?action=install3';" />
+			<?php show_common_submits('?action=install3'); ?>
 		</form>
 		<?php
-		//Save the homepage.
-		if (isset($_POST['submit'])) {
-			$pagename = seo_url($cont1);
-			save_page('1.'.$pagename, $cont1, $cont2, 'no');
-			redirect('?action=install5', 0);
-		}
 		include_once ('data/inc/footer.php');
 	}
 
 	//Installation Step 3: Save Installation data.
-	if (isset($action) && $action == "install5") {
+	elseif (isset($action) && $action == "install5") {
 		install_done();
 
 		//Set pagetitle
