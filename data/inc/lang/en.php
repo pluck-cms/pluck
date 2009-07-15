@@ -235,7 +235,7 @@ $lang['changepass']['different']   = 'You entered two different passwords!';
 $lang['changepass']['empty']       = 'Your new password can\'t be empty.';
 $lang['changepass']['changed']     = 'Password has been changed.';
 
-//Blog
+//Blog.
 $lang_blog = 'blog';
 $lang_blog1 = 'use a blog to post news or write articles for your visitors';
 $lang_blog3 = 'categories';
@@ -260,7 +260,7 @@ $lang_blog25 = 'Choose category...';
 $lang_blog26 = 'category';
 $lang_blog27 = 'no category';
 
-//Albums
+//Albums.
 $lang_albums = 'albums';
 $lang_albums1 = 'Here you can manage your albums. Use albums to show your visitors your favourite photos and images. Insert the albums in your page(s) by choosing "insert album" when editing a page.';
 $lang_albums2 = 'edit albums';
@@ -285,7 +285,7 @@ $lang_updown5 = "change image order";
 $lang_updown6 = "This image already is on the top, so its rank can't be changed.";
 $lang_updown7 = "This image already is the last one, so its rank can't be changed.";
 
-//Contact form
+//Contact form.
 $lang['contactform']['module_name']  = 'contact form';
 $lang['contactform']['module_intro'] = 'with a contact form, you can allow your visitors to send you a message';
 $lang['contactform']['name']         = 'Name:';
@@ -296,4 +296,9 @@ $lang['contactform']['fields']       = 'You didn\'t fill in all fields correctly
 $lang['contactform']['email_title']  = 'Message from your website from';
 $lang['contactform']['been_send']    = 'Your message has been send succesfully.';
 $lang['contactform']['not_send']     = 'Your message could not be send, an error occurred.';
+
+//View site link
+$lang['viewsite']['module_name']  = 'view site link';
+$lang['viewsite']['module_intro'] = 'Created to show the new hooks. Adds a direct link to the site in the admin menu.';
+$lang['viewsite']['message']      = 'view site';
 ?>
