@@ -46,7 +46,7 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 
 		//Are there any pages?
 		if ($pages == false)
-			$number = 0;
+			$number = 1;
 		else
 			$number = count($pages) + 1;
 
