@@ -25,115 +25,140 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 //First check out which language we use and which tinymce-language we need
 //---------------
 
+switch ($langpref) {
 //Dutch
-if ($langpref == 'nl.php')
+	case 'nl.php':
 	$tinymce_lang = 'nl';
+	break;
 
 //Danish
-elseif ($langpref == 'da.php')
+	case 'da.php':
 	$tinymce_lang = 'da';
+	break;
 
 //German
-elseif ($langpref == 'de.php')
+	case 'de.php':
 	$tinymce_lang = 'de';
+	break;
 
 //French
-elseif ($langpref == 'fr.php')
+	case 'fr.php':
 	$tinymce_lang = 'fr';
+	break;
 
 //Portuguese/Brazilian (using normal Portuguese)
-elseif ($langpref == 'pt_br.php')
+	case 'pt_br.php':
 	$tinymce_lang = 'pt';
+	break;
 
 //Russian
-elseif ($langpref == 'ru.php')
+	case 'ru.php':
 	$tinymce_lang = 'ru';
+	break;
 
 //Hungarian
-elseif ($langpref == 'hu.php')
+	case 'hu.php':
 	$tinymce_lang = 'hu';
+	break;
 
 //Spanish
-elseif ($langpref == 'es.php')
+	case 'es.php':
 	$tinymce_lang = 'es';
-
+	break;
+	
 //Swedish
-elseif ($langpref == 'sv.php')
+	case 'sv.php':
 	$tinymce_lang = 'sv';
-
+	break;
+	
 //Catalan
-elseif ($langpref == 'ct.php')
+	case 'ca.php':
 	$tinymce_lang = 'ca';
+	break;
 
 //Italian
-elseif ($langpref == 'it.php')
+	case 'it.php':
 	$tinymce_lang = 'it';
+	break;
 
 //Hebrew
-elseif ($langpref == 'he.php')
+	case 'he.php':
 	$tinymce_lang = 'he';
+	break;
 
 //Portuguese
-elseif ($langpref == 'pt.php')
+	case 'pt.php':
 	$tinymce_lang = 'pt';
+	break;
 
-//Lithuanian
-elseif ($langpref == 'lt.php')
+//Lithuanian	
+	case'lt.php':
 	$tinymce_lang = 'lt';
-
+	break;
+	
 //Norwegian
 //Using Bokmål by default, if you'd rather use Nynorsk, change 'nb' into 'nn'
-elseif ($langpref == 'no.php')
+	case 'no.php':
 	$tinymce_lang = 'nb';
-
+	break;
+	
 //Bulgarian
-elseif ($langpref == 'bg.php')
+	case 'bg.php':
 	$tinymce_lang = 'bg';
-
+	break;
+	
 //Latvian
-elseif ($langpref == 'lv.php')
+	case 'lv.php':
 	$tinymce_lang = 'lv';
+	break;
 
 //Polish
-elseif ($langpref == 'pl.php')
+	case 'pl.php':
 	$tinymce_lang = 'pl';
+	break;
 
 //Slovak
-elseif ($langpref == 'sk.php')
+	case 'sk.php':
 	$tinymce_lang = 'sk';
+	break;
 
 //Slovenian
-elseif ($langpref == 'sl.php')
+	case 'sl.php':
 	$tinymce_lang = 'sl';
-
+	break;
+	
 //Finnish
-elseif ($langpref == 'fi.php')
+	case 'fi.php':
 	$tinymce_lang = 'fi';
 
 //Croatian
-elseif ($langpref == 'hr.php')
+	case 'hr.php':
 	$tinymce_lang = 'hr';
+	break;
 
 //Persian
-elseif ($langpref == 'fa.php')
+	case 'fa.php':
 	$tinymce_lang = 'fa';
 
 //Turkish
-elseif ($langpref == 'tr.php')
+	case 'tr.php':
 	$tinymce_lang = 'tr';
+	break;
 
 //Greek
-elseif ($langpref == 'el.php')
+	case 'el.php':
 	$tinymce_lang = 'el';
+	break;
 
 //Thai (not (yet) supported!)
-elseif ($langpref == 'th.php')
+	case 'th.php':
 	$tinymce_lang = 'en';
+	break;
 
 //In any other case: English
-else
+	default:
 	$tinymce_lang = 'en';
-
+}
 
 //--------------------------
 //Then return the tinymce-code
