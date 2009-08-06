@@ -140,94 +140,18 @@ function blog_page_site_viewpost() {
 <?php
 	//If form is posted...
 	if (isset($_POST['Submit'])) {
-
-		//Get post filename
-		$post = $_GET['post'];
+		require_once('data/modules/blog/functions.php');
 
 		//Check if everything has been filled in.
 		if (empty($_POST['title']) || empty($_POST['name']) || empty($_POST['message']))
 			echo '<span style="color: red;">'.$lang_contact6.'</span>';
 
+		//Add reaction.
 		else {
-			//Then fetch our posted variables
-			$title = $_POST['title'];
-			$name = $_POST['name'];
-			$message = $_POST['message'];
+			blog_save_reaction($_GET['post'], $_POST['title'], $_POST['name'], $_POST['message']);
 
-			//Check for HTML, and eventually block it
-			//FIXME: Replace ereg with strpos.
-			if (ereg('<', $title) || ereg('>', $title) || ereg('<', $name) || ereg('>', $name) || ereg('<', $message) || ereg('>', $message))
-				echo '<span style="color: red;">'.$lang_blog22.'</span>';
-
-			//If no HTML is present
-			else {
-				//Delete unwanted characters
-				$title = sanitize($title);
-				$name = sanitize($name);
-				$message = sanitize($message);
-				$post_title = sanitize($post_title);
-				$post_category = sanitize($post_category);
-				$post_content = sanitize($post_content, false);
-
-				//Determine the date
-				$day = date('d');
-				$month = date('m');
-				$year = date('Y');
-				$time = date('H:i');
-
-				//Then, save existing post information
-				$file = fopen('data/settings/modules/blog/posts/'.$post, 'w');
-				fputs($file, '<?php'."\n"
-				.'$post_title = \''.$post_title.'\';'."\n"
-				.'$post_category = \''.$post_category.'\';'."\n"
-				.'$post_content = \''.$post_content.'\';'."\n"
-				.'$post_day = \''.$post_day.'\';'."\n"
-				.'$post_month = \''.$post_month.'\';'."\n"
-				.'$post_year = \''.$post_year.'\';'."\n"
-				.'$post_time = \''.$post_time.'\';'."\n");
-
-				//Check if there already are other reactions
-				if (isset($post_reaction_title)) {
-					foreach ($post_reaction_title as $reaction_key => $value) {
-						//Set key
-						$key = $reaction_key + 1;
-
-						//Sanitize reaction variables
-						$post_reaction_title[$reaction_key] = sanitize($post_reaction_title[$reaction_key]);
-						$post_reaction_name[$reaction_key] = sanitize($post_reaction_name[$reaction_key]);
-						$post_reaction_content[$reaction_key] = sanitize($post_reaction_content[$reaction_key]);
-
-						//And save the existing reaction
-						fputs($file, '$post_reaction_title['.$reaction_key.'] = \''.$post_reaction_title[$reaction_key].'\';'."\n"
-						.'$post_reaction_name['.$reaction_key.'] = \''.$post_reaction_name[$reaction_key].'\';'."\n"
-						.'$post_reaction_content['.$reaction_key.'] = \''.$post_reaction_content[$reaction_key].'\';'."\n"
-						.'$post_reaction_day['.$reaction_key.'] = \''.$post_reaction_day[$reaction_key].'\';'."\n"
-						.'$post_reaction_month['.$reaction_key.'] = \''.$post_reaction_month[$reaction_key].'\';'."\n"
-						.'$post_reaction_year['.$reaction_key.'] = \''.$post_reaction_year[$reaction_key].'\';'."\n"
-						.'$post_reaction_time['.$reaction_key.'] = \''.$post_reaction_time[$reaction_key].'\';'."\n");
-					}
-					unset($reaction_key);
-				}
-
-				//If this is the first reaction, use key '0'
-				else
-					$key = 0;
-
-				//Then, save reaction
-				fputs($file, '$post_reaction_title['.$key.'] = \''.$title.'\';'."\n"
-				.'$post_reaction_name['.$key.'] = \''.$name.'\';'."\n"
-				.'$post_reaction_content['.$key.'] = \''.$message.'\';'."\n"
-				.'$post_reaction_day['.$key.'] = \''.$day.'\';'."\n"
-				.'$post_reaction_month['.$key.'] = \''.$month.'\';'."\n"
-				.'$post_reaction_year['.$key.'] = \''.$year.'\';'."\n"
-				.'$post_reaction_time['.$key.'] = \''.$time.'\';'."\n"
-				.'?>');
-				fclose($file);
-				chmod('data/settings/modules/blog/posts/'.$post, 0777);
-
-				//Redirect user
-				redirect('?module=blog&page=viewpost&post='.$post.'&pageback='.$_GET['pageback'], 0);
-			}
+			//Redirect user.
+			redirect('?module=blog&page=viewpost&post='.$_GET['post'].'&pageback='.$_GET['pageback'], 0);
 		}
 	}
 
