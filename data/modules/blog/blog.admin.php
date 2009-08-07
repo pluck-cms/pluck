@@ -202,10 +202,10 @@ function blog_page_admin_editreactions() {
 if (file_exists('data/settings/modules/blog/posts/'.$var1)) {
 	include_once('data/settings/modules/blog/posts/'.$var1);
 
-//Display reactions
-if(isset($post_reaction_title)) {
-	foreach($post_reaction_title as $key => $value) {
-		$post_reaction_content[$key] = str_replace('<br />',"\n",$post_reaction_content[$key]); ?>
+	//Display reactions
+	if(isset($post_reaction_title)) {
+		foreach($post_reaction_title as $key => $value) {
+			$post_reaction_content[$key] = str_replace('<br />',"\n",$post_reaction_content[$key]); ?>
 
 <div class="menudiv" style="margin: 10px;">
 	<table>
@@ -233,83 +233,27 @@ if(isset($post_reaction_title)) {
 	</table>
 </div>
 
-<?php
-		}
+<?php	}
 		unset($key);
 	}
 }
 
 //If form is posted...
 if(isset($_POST['Submit'])) {
-
 	//Check if everything has been filled in
 	if((!isset($_POST['title'])) || (!isset($_POST['message']))) { ?>
 		<span style="color: red;"><?php echo $lang_contact6; ?></span>
-	<?php
-		exit;
+		<?php exit;
 	}
 
 	else {
-		//Fetch key variable
-		$edit_key = $_POST['edit_key'];
-
-		//Delete unwanted characters from post information
-		$title = sanitize($_POST['title']);
-		$name = sanitize($post_reaction_name[$edit_key]);
-		$message = sanitize($_POST['message']);
-
-		//Strip slashes from post itself too
-		$post_title = sanitize($post_title);
-		$post_category = sanitize($post_category);
-		$post_content = sanitize($post_content, false);
-
-		//Then, save existing post information
-		$file = fopen('data/settings/modules/blog/posts/'.$var1, 'w');
-		fputs($file, '<?php'."\n"
-		.'$post_title = \''.$post_title.'\';'."\n"
-		.'$post_category = \''.$post_category.'\';'."\n"
-		.'$post_content = \''.$post_content.'\';'."\n"
-		.'$post_day = \''.$post_day.'\';'."\n"
-		.'$post_month = \''.$post_month.'\';'."\n"
-		.'$post_year = \''.$post_year.'\';'."\n"
-		.'$post_time = \''.$post_time.'\';'."\n");
-
-		//Check if there already are other reactions
-		if (isset($post_reaction_title)) {
-			foreach ($post_reaction_title as $reaction_key => $value) {
-				//If it's the post we want to edit
-				if ($reaction_key == $edit_key) {
-					//And save the modified reaction
-					fputs($file, '$post_reaction_title['.$reaction_key.'] = \''.$title.'\';'."\n"
-					.'$post_reaction_name['.$reaction_key.'] = \''.$name.'\';'."\n"
-					.'$post_reaction_content['.$reaction_key.'] = \''.$message.'\';'."\n"
-					.'$post_reaction_day['.$reaction_key.'] = \''.$post_reaction_day[$reaction_key].'\';'."\n"
-					.'$post_reaction_month['.$reaction_key.'] = \''.$post_reaction_month[$reaction_key].'\';'."\n"
-					.'$post_reaction_year['.$reaction_key.'] = \''.$post_reaction_year[$reaction_key].'\';'."\n"
-					.'$post_reaction_time['.$reaction_key.'] = \''.$post_reaction_time[$reaction_key].'\';'."\n");
-				}
-				//If this is not the reaction we want to edit
-				else {
-					//Sanitize variables first
-					$post_reaction_title[$reaction_key] = sanitize($post_reaction_title[$reaction_key]);
-					$post_reaction_name[$reaction_key] = sanitize($post_reaction_name[$reaction_key]);
-					$post_reaction_content[$reaction_key] = sanitize($post_reaction_content[$reaction_key]);
-
-					//Then save it
-					fputs($file, '$post_reaction_title['.$reaction_key.'] = \''.$post_reaction_title[$reaction_key].'\';'."\n"
-					.'$post_reaction_name['.$reaction_key.'] = \''.$post_reaction_name[$reaction_key].'\';'."\n"
-					.'$post_reaction_content['.$reaction_key.'] = \''.$post_reaction_content[$reaction_key].'\';'."\n"
-					.'$post_reaction_day['.$reaction_key.'] = \''.$post_reaction_day[$reaction_key].'\';'."\n"
-					.'$post_reaction_month['.$reaction_key.'] = \''.$post_reaction_month[$reaction_key].'\';'."\n"
-					.'$post_reaction_year['.$reaction_key.'] = \''.$post_reaction_year[$reaction_key].'\';'."\n"
-					.'$post_reaction_time['.$reaction_key.'] = \''.$post_reaction_time[$reaction_key].'\';'."\n");
-				}
-			}
-			unset($reaction_key);
-		}
-		fputs($file, '?>');
-		fclose($file);
-		chmod('data/settings/modules/blog/posts/'.$var1, 0777);
+		//Include functions.
+		require_once('data/modules/blog/functions.php');
+		//Get information of blog post.
+		include('data/settings/modules/blog/posts/'.$var1);
+		//Save reaction.
+		blog_save_reaction($var1, $_POST['title'], $post_reaction_name[$_POST['edit_key']], $_POST['message'], $_POST['edit_key']);
+		//Redirect.
 		redirect('?module=blog&page=editreactions&var1='.$var1, 0);
 	}
 }

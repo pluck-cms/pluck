@@ -201,8 +201,9 @@ function blog_delete_post($post) {
  * @param string $title The title of the reaction.
  * @param string $name The name of the person posting the reaction.
  * @param string $message The message of the reaction.
+ * @param int $id If an existing reaction needs to be edited, the id of the reaction should go here.
  */
-function blog_save_reaction($post, $title, $name, $message) {
+function blog_save_reaction($post, $title, $name, $message, $id = null) {
 	//Get information of blog post.
 	include('data/settings/modules/blog/posts/'.$post);
 
@@ -243,36 +244,54 @@ function blog_save_reaction($post, $title, $name, $message) {
 				//Set key
 				$key = $reaction_key + 1;
 
-				//Sanitize reaction variables
-				$post_reaction_title[$reaction_key] = sanitize($post_reaction_title[$reaction_key]);
-				$post_reaction_name[$reaction_key] = sanitize($post_reaction_name[$reaction_key]);
-				$post_reaction_content[$reaction_key] = sanitize($post_reaction_content[$reaction_key]);
+				//If we need to edit this reaction, do it.
+				if (isset($id) && $reaction_key == $id) {
+					fputs($file, '$post_reaction_title['.$reaction_key.'] = \''.$title.'\';'."\n"
+					.'$post_reaction_name['.$reaction_key.'] = \''.$name.'\';'."\n"
+					.'$post_reaction_content['.$reaction_key.'] = \''.$message.'\';'."\n"
+					.'$post_reaction_day['.$reaction_key.'] = \''.$post_reaction_day[$reaction_key].'\';'."\n"
+					.'$post_reaction_month['.$reaction_key.'] = \''.$post_reaction_month[$reaction_key].'\';'."\n"
+					.'$post_reaction_year['.$reaction_key.'] = \''.$post_reaction_year[$reaction_key].'\';'."\n"
+					.'$post_reaction_time['.$reaction_key.'] = \''.$post_reaction_time[$reaction_key].'\';'."\n");
+				}
 
-				//And save the existing reaction
-				fputs($file, '$post_reaction_title['.$reaction_key.'] = \''.$post_reaction_title[$reaction_key].'\';'."\n"
-				.'$post_reaction_name['.$reaction_key.'] = \''.$post_reaction_name[$reaction_key].'\';'."\n"
-				.'$post_reaction_content['.$reaction_key.'] = \''.$post_reaction_content[$reaction_key].'\';'."\n"
-				.'$post_reaction_day['.$reaction_key.'] = \''.$post_reaction_day[$reaction_key].'\';'."\n"
-				.'$post_reaction_month['.$reaction_key.'] = \''.$post_reaction_month[$reaction_key].'\';'."\n"
-				.'$post_reaction_year['.$reaction_key.'] = \''.$post_reaction_year[$reaction_key].'\';'."\n"
-				.'$post_reaction_time['.$reaction_key.'] = \''.$post_reaction_time[$reaction_key].'\';'."\n");
+				//Save existing reactions.
+				else {
+					//Sanitize reaction variables.
+					$post_reaction_title[$reaction_key] = sanitize($post_reaction_title[$reaction_key]);
+					$post_reaction_name[$reaction_key] = sanitize($post_reaction_name[$reaction_key]);
+					$post_reaction_content[$reaction_key] = sanitize($post_reaction_content[$reaction_key]);
+
+					//And save the existing reaction.
+					fputs($file, '$post_reaction_title['.$reaction_key.'] = \''.$post_reaction_title[$reaction_key].'\';'."\n"
+					.'$post_reaction_name['.$reaction_key.'] = \''.$post_reaction_name[$reaction_key].'\';'."\n"
+					.'$post_reaction_content['.$reaction_key.'] = \''.$post_reaction_content[$reaction_key].'\';'."\n"
+					.'$post_reaction_day['.$reaction_key.'] = \''.$post_reaction_day[$reaction_key].'\';'."\n"
+					.'$post_reaction_month['.$reaction_key.'] = \''.$post_reaction_month[$reaction_key].'\';'."\n"
+					.'$post_reaction_year['.$reaction_key.'] = \''.$post_reaction_year[$reaction_key].'\';'."\n"
+					.'$post_reaction_time['.$reaction_key.'] = \''.$post_reaction_time[$reaction_key].'\';'."\n");
+				}
 			}
 			unset($reaction_key);
 		}
 
-		//If this is the first reaction, use key '0'
-		else
+		//If this is the first reaction, use key '0'.
+		elseif (!isset($post_reaction_title) && !isset($id))
 			$key = 0;
 
-		//Then, save reaction
-		fputs($file, '$post_reaction_title['.$key.'] = \''.$title.'\';'."\n"
-		.'$post_reaction_name['.$key.'] = \''.$name.'\';'."\n"
-		.'$post_reaction_content['.$key.'] = \''.$message.'\';'."\n"
-		.'$post_reaction_day['.$key.'] = \''.$day.'\';'."\n"
-		.'$post_reaction_month['.$key.'] = \''.$month.'\';'."\n"
-		.'$post_reaction_year['.$key.'] = \''.$year.'\';'."\n"
-		.'$post_reaction_time['.$key.'] = \''.$time.'\';'."\n"
-		.'?>');
+		//Only save a new reaction if $id is empty.
+		if (!isset($id)) {
+			fputs($file, '$post_reaction_title['.$key.'] = \''.$title.'\';'."\n"
+			.'$post_reaction_name['.$key.'] = \''.$name.'\';'."\n"
+			.'$post_reaction_content['.$key.'] = \''.$message.'\';'."\n"
+			.'$post_reaction_day['.$key.'] = \''.$day.'\';'."\n"
+			.'$post_reaction_month['.$key.'] = \''.$month.'\';'."\n"
+			.'$post_reaction_year['.$key.'] = \''.$year.'\';'."\n"
+			.'$post_reaction_time['.$key.'] = \''.$time.'\';'."\n");
+		}
+
+		//Finish file.
+		fputs($file, '?>');
 		fclose($file);
 		chmod('data/settings/modules/blog/posts/'.$post, 0777);
 	}
