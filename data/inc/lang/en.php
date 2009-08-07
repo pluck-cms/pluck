@@ -24,7 +24,7 @@ $language = 'English';
 //General
 $lang['general']['404']            = '404: not found';
 $lang['general']['not_found']      = 'This page could not be found.';
-$lang['general']['copyright']      = 'pluck &copy; 2005-2009 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck is available under the terms of the GNU General Public License.';
+$lang['general']['copyright']      = 'pluck © 2005-2009 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck is available under the terms of the GNU General Public License.';
 $lang['general']['save']           = 'Save';
 $lang['general']['save_exit']      = 'Save and Exit';
 $lang['general']['cancel']         = 'Cancel';
