@@ -126,7 +126,7 @@ $lang['credits']['tinymce']        = 'za stworzenie wspaniałego edytora TinyMCE
 $lang['credits']['maxgtar']        = 'za stworzenie MaxgTar, używanego do obsługi spakowanych skórek i instalacji modułów';
 $lang['credits']['lytebox']        = 'za rozwój for LyteBox, używanego w plucku do zarządzania sprytnie grafikami';
 $lang['credits']['tango']          = 'za stworzenie wspaniałych ikon używanych w centrum administracji plucka';
-$lang['credits']['slik']           = 'za stworzenie ikon "Silk" icons, również używanych w plucku';
+$lang['credits']['slik']           = 'za stworzenie ikon "Silk", również używanych w plucku';
 
 //Page
 $lang['page']['title']        = 'strony';
@@ -305,6 +305,6 @@ $lang['contactform']['not_send']     = 'Twoja wiadomość nie mogła być wysła
 
 //View site link
 $lang['viewsite']['module_name']  = 'łącze do strony';
-$lang['viewsite']['module_intro'] = 'Stworzono by kokazać możliwośći "haków". Dodaje bezpośredni link do strony w menu adnina.';
+$lang['viewsite']['module_intro'] = 'Stworzono by pokazać możliwości "haków". Dodaje bezpośredni link do strony w menu adnina.';
 $lang['viewsite']['message']      = 'Zobacz stronę';
 ?>
