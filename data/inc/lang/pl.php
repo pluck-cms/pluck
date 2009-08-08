@@ -30,7 +30,7 @@ $language = 'Polish';
 //General
 $lang['general']['404']            = '404: nie znaleziono';
 $lang['general']['not_found']      = 'Tej strony nie odnaleziono.';
-$lang['general']['copyright']      = 'pluck © 2005-2008 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck został udostępniony na warunkach GNU General Public License.';
+$lang['general']['copyright']      = 'pluck © 2005-2009 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck został udostępniony na warunkach GNU General Public License.';
 $lang['general']['save']           = 'Zapisz';
 $lang['general']['save_exit']      = 'Zapisz i wyjdź';
 $lang['general']['cancel']         = 'Anuluj';
