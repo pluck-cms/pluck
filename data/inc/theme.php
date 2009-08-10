@@ -50,6 +50,10 @@ if (isset($_POST['save'], $cont1) && file_exists('data/themes/'.$cont1)) {
 		?>
 		</span>
 	</div>
+	<div class="menudiv" style="padding-right: 120px;">
+		<span><img src="data/image/delete.png" alt="<?php echo $lang['theme_uninstall']['title']; ?>" title="<?php echo $lang['theme_uninstall']['title']; ?>" /></span>
+		<span class="kop3"><a href="?action=themeuninstall" title="<?php echo $lang['theme_uninstall']['title']; ?>"><?php echo$lang['theme_uninstall']['title']; ?></a></span>
+	</div>
 </div>
 <p>
 	<strong><?php echo $lang['theme']['choose']; ?></strong>

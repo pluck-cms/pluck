@@ -211,6 +211,11 @@ $lang['theme']['title']  = 'choose theme';
 $lang['theme']['choose'] = 'Here you can choose which of the installed themes you want to use.';
 $lang['theme']['saved']  = 'The themesettings have been saved.';
 
+//Themeuninstall
+$lang['theme_uninstall']['title']             = 'uninstall theme';
+$lang['theme_uninstall']['message']           = 'Here you can uninstall your thmes. Active theme is not listed here.';
+$lang['theme_uninstall']['uninstall_confirm'] = 'Are you sure you want to uninstall this theme?';
+
 //Themeinstall
 $lang['theme_install']['title']         = 'install theme';
 $lang['theme_install']['message']       = 'Here you can install new themes. Please make sure you\'ve downloaded a theme first.';

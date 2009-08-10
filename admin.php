@@ -148,6 +148,20 @@ else {
 				include_once ('data/inc/themeinstall.php');
 				break;
 
+			//Page:Options:Themeinstall
+			case 'themeuninstall':
+				$titelkop = $lang['theme_uninstall']['title'];
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/themeuninstall.php');
+				break;
+
+			//Page:Options:Theme_Delete
+			case 'theme_delete':
+				$titelkop = $lang['theme_uninstall']['title'];
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/themeuninstall_delete.php');
+				break;
+
 			//Page:Options:Moduleinstall
 			case 'installmodule':
 				$titelkop = $lang['modules_install']['title'];

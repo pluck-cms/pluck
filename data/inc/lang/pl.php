@@ -225,6 +225,11 @@ $lang['theme_install']['not_supported'] = 'automatyczne instalowanie szablonów 
 $lang['theme_install']['success']       = 'szablon zainstalowany';
 $lang['theme_install']['too_big']       = 'Rozmiar pliku z szablonem jest za duży; limitem jest 1MB.';
 
+//Themeuninstall
+$lang['theme_uninstall']['title']             = 'odinstaluj szablon';
+$lang['theme_uninstall']['message']           = 'Tutaj możesz odinstalować szablony. Szablon akualnie używany nie jest pokazany.';
+$lang['theme_uninstall']['uninstall_confirm'] = 'Czy jesteś pewien że chcesz odinstalować ten szablon?';
+
 //Language
 $lang['language']['title']  = 'ustawienia języków';
 $lang['language']['choose'] = 'Wybierz język którego będzie używał pluck.';
