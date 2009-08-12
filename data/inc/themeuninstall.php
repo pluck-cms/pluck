@@ -30,7 +30,10 @@ if ($dirs) {
 			//If theme is current theme, dont show it
 			if ($themedir !== THEME) {
 			?>
-			<span><a href="?action=theme_delete&amp;var1=<?php echo $themedir; ?>" onclick="return confirm('<?php echo $lang['theme_uninstall']['uninstall_confirm']; ?>');"><img src="data/image/delete_from_trash.png" title="<?php echo $lang['theme_uninstall']['title']; ?>" alt="<?php echo $lang['theme_uninstall']['title']; ?>" /><?php echo $themename; ?></a></span><br />
+			<div class="menudiv">
+						<span>
+							<a href="?action=theme_delete&amp;var1=<?php echo $themedir; ?>" onclick="return confirm('<?php echo $lang['theme_uninstall']['uninstall_confirm']; ?>');"><img src="data/image/delete_from_trash.png" title="<?php echo $lang['theme_uninstall']['title']; ?>" alt="<?php echo $lang['theme_uninstall']['title']; ?>" /><?php echo $themename; ?></a>
+						</span></div>
 			<?php
 			}
 		}
@@ -38,3 +41,5 @@ if ($dirs) {
 	unset($dir);
 }
 ?>
+<p>
+		<a href="?action=theme" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a></p>
