@@ -130,19 +130,6 @@ function get_pages($patch = 'data/settings/pages', &$pages = null) {
 	return false;
 }
 
-function get_sub_page_dir($page) {
-	//Don't do anything if it's not a sub-page.
-	if (strpos($page, '/') !== false && file_exists('data/settings/pages/'.get_page_filename($page))) {
-		$page = explode('/', $page);
-		$count = count($page);
-		unset($page[$count -1]);
-		$page = implode('/', $page);
-		return $page;
-	}
-
-	return false;
-}
-
 function show_page_box($file) {
 	global $lang;
 

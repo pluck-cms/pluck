@@ -126,31 +126,46 @@ function theme_sitetitle() {
 
 //[THEME] FUNCTION TO SHOW THE MENU
 //---------------------------------
-function theme_menu($html, $htmlactive = NULL) {
-	$files = read_dir_contents('data/settings/pages', 'files');
+function theme_menu($block, $inline, $active_id = null, $level = 0) {
+	theme_menu_data($block, $inline, $active_id, $level, 'data/settings/pages');
+}
+
+function theme_menu_data($block, $inline, $active_id, $level, $dir) {
+	$files = read_dir_contents($dir, 'files');
+
 	if ($files) {
 		//Sort the array.
 		natcasesort($files);
 
+		echo '<'.$block.'>';
+
 		foreach ($files as $file) {
-			include ('data/settings/pages/'.$file);
-			$file = get_page_seoname($file);
+			include ($dir.'/'.$file);
+
+			$file = get_page_seoname($dir.'/'.$file);
 			//Only display in menu if page isn't hidden by user.
 			if (isset($hidden) && $hidden == 'no') {
 				//Check if we need to show an active link.
-				if (defined('CURRENT_PAGE_SEONAME') && CURRENT_PAGE_SEONAME == $file && $htmlactive) {
-					$html_new = str_replace('#title', $title, $htmlactive);
-					$html_new = str_replace('#file', '?file='.$file, $html_new);
-					echo $html_new;
-				}
-				else {
-					$html_new = str_replace('#title', $title, $html);
-					$html_new = str_replace('#file', '?file='.$file, $html_new);
-	    			echo $html_new;
-	    		}
+				if (defined('CURRENT_PAGE_SEONAME') && CURRENT_PAGE_SEONAME == $file && $active_id)
+					echo '<'.$inline.' id="'.$active_id.'">';
+
+				else
+					echo '<'.$inline.'>';
+
+				echo '<a href="?file='.$file.'" title="'.$title.'">'.$title.'</a>';
+
+				preg_match_all('|\/|', $file, $page_level);
+				$page_level = count($page_level[0]);
+
+				if ($level > $page_level && is_dir('data/settings/pages/'.$file))
+					theme_menu_data($block, $inline, $active_id, $level, 'data/settings/pages/'.$file);
+
+				echo '</'.$inline.'>';
 	    	}
 		}
 		unset($file);
+
+		echo '</'.$block.'>';
 	}
 }
 

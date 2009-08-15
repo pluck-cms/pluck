@@ -8,9 +8,7 @@
 <div id="container">
 	<div id="header">
 		<h1 title="<?php theme_sitetitle(); ?>"><?php theme_sitetitle(); ?></h1>
-		<ul>
-			<?php theme_menu('<li><a href="#file">#title</a></li>', '<li><a href="#file" class="act">#title</a></li>'); ?>
-		</ul>
+		<?php theme_menu('ul', 'li', 'active', 1); ?>
 	</div>
 	<div id="content">
 		<h2 title="<?php theme_pagetitle(); ?>"><?php theme_pagetitle(); ?></h2>

@@ -71,32 +71,48 @@ textarea, input {
 	height: 150px;
 }
 
-#header ul {
+#header > ul {
 	float: right;
 	list-style: none;
 	margin-top: 61px;
 }
 
-#header ul li {
+#header > ul > li {
+	border: 1px solid transparent;
+	border-bottom: none;
+	display: block;
 	float: left;
 }
 
-#header ul a {
+#header ul li {
 	color: #323538;
-	display: block;
-	line-height: 47px;
-	text-decoration: none;
-	padding: 1px 14px;
-	margin: 0 2px;
 	font-size: 20px;
+	line-height: 47px;
+	margin: 0 2px;
+	padding: 0 14px;
 }
 
-#header ul a.act, #header ul a:hover {
+#header ul a {
+	text-decoration: none;
+}
+
+#active, #header > ul > li:hover {
+	border-color: #5B7900 !important;
+	background-color: #FAFEEB;
+}
+
+#header ul ul {
+	background-color: #FAFEEB;
 	border: 1px solid #5B7900;
-	border-bottom: none;
-	padding: 0 14px;
-	margin: 0 1px;
-	background: #FAFEEB;
+	border-top: none;
+	display: none;
+	list-style: none;
+	margin-left: -15px;
+	position: absolute;
+}
+
+#header ul li:hover ul {
+	display: block;
 }
 
 #content {
