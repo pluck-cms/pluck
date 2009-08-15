@@ -34,10 +34,13 @@ if (!file_exists('data/settings/install.dat')) {
 	exit;
 }
 
+//If pluck has been installed, proceed.
 else {
-	session_start();
+
 	//Then check if we are properly logged in.
-	if (!isset($_SESSION ['cmssystem_loggedin'])) {
+	session_start();
+	require_once ('data/settings/token.php');
+	if (!isset($_SESSION[$token]) || ($_SESSION[$token] != 'pluck_loggedin')) {
 		$titelkop = $lang['login']['not'];
 		include_once ('data/inc/header2.php');
 		redirect('login.php', 3);
@@ -172,7 +175,9 @@ else {
 			//Page:Logout
 			case 'logout':
 				$titelkop = $lang['login']['log_out'];
-				session_destroy();
+				//Destroy current session. First get token.
+				unset($_SESSION[$token]);
+				unset($token);
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/logout.php');
 				break;

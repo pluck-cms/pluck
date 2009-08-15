@@ -20,8 +20,9 @@ error_reporting(E_ALL|E_STRICT);
 //Set timezone.
 date_default_timezone_set('UTC');
 
-//Register Globals.
-//If Register Globals are ON, unset injected variables.
+/* Register Globals.
+ * If Register Globals are ON, unset injected variables.
+ */
 if(isset($_REQUEST)) {
 	foreach ($_REQUEST as $key => $value) {
 		if (isset($GLOBALS[$key]))
@@ -30,10 +31,10 @@ if(isset($_REQUEST)) {
 	unset($key);
 }
 
-
-//Cross Site Scripting, Remote File Inclusion, etc.
-//Check for strange characters in $_GET keys.
-//All keys with or "/" or ".." or ":" or "<" or ">" or "=" or ";" or ")" are blocked, so that it's virtually impossible to inject any HTML-code, or external websites.
+/* Cross Site Scripting, Remote File Inclusion, etc.
+ * Check for strange characters in $_GET keys.
+ * All keys with or "/" or ".." or ":" or "<" or ">" or "=" or ";" or ")" are blocked, so that it's virtually impossible to inject any HTML-code, or external websites.
+ */
 foreach ($_GET as $get_key => $get_value) {
 	if (preg_match('|[\\\]+|', $get_value) || strpos($get_value, '..') !== false || strpos($get_value, ':') !== false || strpos($get_value, '<') !== false || strpos($get_value, '>') !== false || strpos($get_value, '=') !== false || strpos($get_value, ';') !== false || strpos($get_value, ')') !== false) {
 		die ('A hacking attempt has been detected. For security reasons, we\'re blocking any code execution.');
@@ -41,7 +42,9 @@ foreach ($_GET as $get_key => $get_value) {
 }
 unset($get_key);
 
-//Undo magic quotes. http://php.net/manual/en/security.magicquotes.disabling.php.
+/*
+ * Undo magic quotes; http://php.net/manual/en/security.magicquotes.disabling.php.
+ */
 ini_set('magic_quotes_sybase', 0);
 ini_set('magic_quotes_runtime', 0);
 if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc() == 1) {
@@ -54,5 +57,17 @@ if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc() == 1) {
 	$_GET = array_map('stripslashes_deep', $_GET);
 	$_COOKIE = array_map('stripslashes_deep', $_COOKIE);
 	$_REQUEST = array_map('stripslashes_deep', $_REQUEST);
+}
+
+/*
+ * Check if we have a saved security token. If not, generate one and save it.
+ */
+if (!file_exists('data/settings/token.php')) {
+	$token = md5(uniqid(mt_rand(), true));
+	$data = fopen('data/settings/token.php', 'w');
+	fputs($data, '<?php $token = \''.$token.'\'; ?>');
+	fclose($data);
+	chmod('data/settings/token.php', 0777);
+	unset($token);
 }
 ?>

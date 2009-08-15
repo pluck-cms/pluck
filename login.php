@@ -36,9 +36,10 @@ if (!file_exists('data/settings/install.dat')) {
 else {
 	require_once ('data/settings/pass.php');
 
-	//Check if we're already logged in.
+	//Check if we're already logged in. First, get the token.
+	require_once ('data/settings/token.php');
 	session_start();
-	if (isset($_SESSION['cmssystem_loggedin']) && ($_SESSION['cmssystem_loggedin'] == 'ok')) {
+	if (isset($_SESSION[$token]) && ($_SESSION[$token] == 'pluck_loggedin')) {
 		header('Location: admin.php');
 		exit;
 	}
@@ -47,15 +48,13 @@ else {
 	$titelkop = $lang['login']['title'];
 	include_once ('data/inc/header2.php');
 
-	//If password has been sent, and the bogus input is empty...
+	//If password has been sent, and the bogus input is empty, MD5-encrypt password.
 	if (isset($_POST['submit']) && empty($_POST['bogus'])) {
-		//...first MD5-encrypt password that has been posted.
 		$pass = md5($cont1);
 
-		//...and is correct:
+		//If password is correct, save session-cookie.
 		if ($pass == $ww) {
-			//Save session.
-			$_SESSION['cmssystem_loggedin'] = 'ok';
+			$_SESSION[$token] = 'pluck_loggedin';
 			//Display success message.
 			show_error($lang['login']['correct'], 3);
 			redirect('admin.php?action=start', 1);
@@ -63,7 +62,7 @@ else {
 			exit;
 		}
 
-		//...or is NOT correct:
+		//If password is not correct, display error.
 		else
 			$login_error = show_error($lang['login']['incorrect'], 1, true);
 	}
