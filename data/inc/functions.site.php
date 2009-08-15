@@ -25,7 +25,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 function get_pagetitle() {
 	global $lang, $module;
 
-	//Check if page exists
+	//Check if we want to get the title for a page, and check whether the page exists.
 	if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
 		if (strpos(CURRENT_PAGE_FILENAME, '/') !== false) {
 			$parts = explode('/', CURRENT_PAGE_FILENAME);
@@ -58,16 +58,16 @@ function get_pagetitle() {
 		}
 	}
 
-	//If page doesn't exist; display error
-	else
-		return $lang['general']['404'];
+	//If page doesn't exist, and we don't want to display a module; display error.
+	elseif (!defined('CURRENT_PAGE_FILENAME') && !isset($module))
+		$page_title = $lang['general']['404'];
 
 	//Get the title if we are looking at a module page
-	if (isset($module) && module_is_compatible($module) && function_exists($module.'_page_site_list')) {
+	elseif (isset($module) && module_is_compatible($module) && function_exists($module.'_page_site_list')) {
 		$module_page_site = call_user_func($module.'_page_site_list');
 		foreach ($module_page_site as $module_page) {
 			if ($module_page['func'] == CURRENT_MODULE_PAGE) {
-				$page_title = $module_page['title'].' &middot; '.$page_title;
+				$page_title = $module_page['title'];
 				break;
 			}
 		}
