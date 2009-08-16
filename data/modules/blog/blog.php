@@ -21,10 +21,10 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 
 function blog_info() {
-	global $lang_blog, $lang_blog1;
+	global $lang;
 	return array(
-		'name'          => $lang_blog,
-		'intro'         => $lang_blog1,
+		'name'          => $lang['blog']['title'],
+		'intro'         => $lang['blog']['descr'],
 		'version'       => '0.1',
 		'author'        => 'pluck development team',
 		'website'       => 'http://www.pluck-cms.org',

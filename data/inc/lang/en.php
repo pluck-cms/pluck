@@ -236,17 +236,16 @@ $lang['changepass']['empty']       = 'Your new password can\'t be empty.';
 $lang['changepass']['changed']     = 'Password has been changed.';
 
 //Blog.
-$lang_blog = 'blog';
-$lang_blog1 = 'use a blog to post news or write articles for your visitors';
-$lang_blog3 = 'categories';
-$lang_blog4 = 'new category';
-$lang_blog5 = 'choose a name for your new category first, then click "save"';
-$lang_blog6 = 'delete category';
-$lang_blog7 = 'edit category';
-$lang_blog9 = 'existing posts';
-$lang_blog10 = 'write new post';
-$lang_blog11 = 'edit post';
-$lang_blog12 = 'delete post';
+$lang['blog']['title'] = 'blog';
+$lang['blog']['descr'] = 'use a blog to post news or write articles for your visitors';
+$lang['blog']['categories'] = 'categories';
+$lang['blog']['new_cat'] = 'new category';
+$lang['blog']['new_cat_message'] = 'choose a name for your new category first, then click "save"';
+$lang['blog']['delete_cat'] = 'delete category';
+$lang['blog']['posts'] = 'existing posts';
+$lang['blog']['new_post'] = 'write new post';
+$lang['blog']['edit_post'] = 'edit post';
+$lang['blog']['delete_post'] = 'delete post';
 $lang_blog14 = 'posted in';
 $lang_blog16 = 'reactions';
 $lang_blog17 = 'Title:';

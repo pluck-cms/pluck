@@ -21,14 +21,14 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 
 function blog_page_admin_list() {
-	global $lang_blog, $lang_blog6, $lang_blog19, $lang_blog21, $lang_blog11, $lang_blog12, $lang_blog10;
+	global $lang, $lang_blog19, $lang_blog21;
 	$module_page_admin[] = array(
 		'func'  => 'blog',
-		'title' => $lang_blog
+		'title' => $lang['blog']['title']
 	);
 	$module_page_admin[] = array(
 		'func'  => 'deletecategory',
-		'title' => $lang_blog6
+		'title' => $lang['blog']['delete_cat']
 	);
 	$module_page_admin[] = array(
 		'func'  => 'editreactions',
@@ -40,15 +40,15 @@ function blog_page_admin_list() {
 	);
 	$module_page_admin[] = array(
 		'func'  => 'editpost',
-		'title' => $lang_blog11
+		'title' => $lang['blog']['edit_post']
 	);
 	$module_page_admin[] = array(
 		'func'  => 'deletepost',
-		'title' => $lang_blog12
+		'title' => $lang['blog']['delete_post']
 	);
 	$module_page_admin[] = array(
 		'func'  => 'newpost',
-		'title' => $lang_blog10
+		'title' => $lang['blog']['new_post']
 	);
 	return $module_page_admin;
 }
@@ -57,16 +57,16 @@ function blog_page_admin_list() {
 // Page: admin
 //---------------
 function blog_page_admin_blog() {
-	global $lang_blog24, $lang_blog10, $lang_blog9, $lang_blog11, $lang_blog19, $lang_blog12, $lang_albums14, $lang_blog3, $lang_blog4, $lang_blog5, $lang_blog6, $lang_blog14, $lang;
+	global $lang_blog24, $lang_blog19, $lang_albums14, $lang_blog14, $lang;
 	require_once ('data/modules/blog/functions.php');
 	?>
 	<p>
 		<strong><?php echo $lang_blog24; ?></strong>
 	</p>
 	<?php
-		showmenudiv($lang_blog10, false, 'data/image/newpage.png', '?module=blog&amp;page=newpost', false);
+		showmenudiv($lang['blog']['new_post'], false, 'data/image/newpage.png', '?module=blog&amp;page=newpost', false);
 	?>
-	<span class="kop2"><?php echo $lang_blog9; ?></span><br />
+	<span class="kop2"><?php echo $lang['blog']['posts']; ?></span><br />
 <?php
 //Display existing posts.
 if (blog_get_posts()) {
@@ -88,7 +88,7 @@ if (blog_get_posts()) {
 					</span>
 					<span>
 						<a href="?module=blog&amp;page=editpost&amp;var1=<?php echo $file; ?>">
-							<img src="data/image/edit.png" title="<?php echo $lang_blog11; ?>" alt="<?php echo $lang_blog11; ?>" />
+							<img src="data/image/edit.png" title="<?php echo $lang['blog']['edit_post']; ?>" alt="<?php echo $lang['blog']['edit_post']; ?>" />
 						</a>
 					</span>
 					<span>
@@ -98,7 +98,7 @@ if (blog_get_posts()) {
 					</span>
 					<span>
 						<a href="?module=blog&amp;page=deletepost&amp;var1=<?php echo $file; ?>">
-							<img src="data/image/delete_from_trash.png" title="<?php echo $lang_blog12; ?>" alt="<?php echo $lang_blog12; ?>" />
+							<img src="data/image/delete_from_trash.png" title="<?php echo $lang['blog']['delete_post']; ?>" alt="<?php echo $lang['blog']['delete_post']; ?>" />
 						</a>
 					</span>
 					<br />
@@ -123,7 +123,7 @@ else
 	echo '<span class="kop4">'.$lang_albums14.'</span><br />';
 ?>
 	<br />
-	<span class="kop2"><?php echo $lang_blog3; ?></span>
+	<span class="kop2"><?php echo $lang['blog']['categories']; ?></span>
 	<br />
 <?php
 //If there already are categories.
@@ -138,7 +138,7 @@ if (blog_get_categories()) {
 		<span><?php echo $name; ?> &nbsp;</span>
 		<span>
 			<a href="?module=blog&amp;page=deletecategory&amp;var1=<?php echo $name; ?>">
-				<img src="data/image/delete_from_trash_small.png" width="16" height="16" alt="<?php echo $lang_blog6; ?>" title="<?php echo $lang_blog6; ?>" />
+				<img src="data/image/delete_from_trash_small.png" width="16" height="16" alt="<?php echo $lang['blog']['delete_cat']; ?>" title="<?php echo $lang['blog']['delete_cat']; ?>" />
 			</a>
 		</span><br />
 	<?php
@@ -154,10 +154,10 @@ else
 //New category.
 ?>
 <br />
-<label class="kop2" for="cont1"><?php echo $lang_blog4; ?></label>
+<label class="kop2" for="cont1"><?php echo $lang['blog']['new_cat']; ?></label>
 <br />
 <form method="post" action="">
-	<span class="kop4"><?php echo $lang_blog5; ?></span>
+	<span class="kop4"><?php echo $lang['blog']['new_cat_message']; ?></span>
 	<br />
 	<input name="cat_name" id="cont1" type="text" />
 	<input type="submit" name="Submit" value="<?php echo $lang['general']['save']; ?>" />
