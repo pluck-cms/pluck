@@ -58,7 +58,7 @@ function blog_page_admin_list() {
 //---------------
 function blog_page_admin_blog() {
 	global $lang_blog24, $lang_blog10, $lang_blog9, $lang_blog11, $lang_blog19, $lang_blog12, $lang_albums14, $lang_blog3, $lang_blog4, $lang_blog5, $lang_blog6, $lang_blog14, $lang;
-	require_once('data/modules/blog/functions.php');
+	require_once ('data/modules/blog/functions.php');
 	?>
 	<p>
 		<strong><?php echo $lang_blog24; ?></strong>
@@ -68,13 +68,12 @@ function blog_page_admin_blog() {
 	?>
 	<span class="kop2"><?php echo $lang_blog9; ?></span><br />
 <?php
-//Display existing posts, but only if post-index file exists.
-if (file_exists('data/settings/modules/blog/post_index.dat')) {
-	$handle = fopen('data/settings/modules/blog/post_index.dat', 'r');
-	while (!feof($handle)) {
-		$file = fgets($handle, 4096);
-		//Filter out line breaks.
-		$file = str_replace ("\n", '', $file);
+//Display existing posts.
+if (blog_get_posts()) {
+	//Load posts in array.
+	$posts = blog_get_posts();
+
+	foreach ($posts as $order => $file) {
 		//Check if post exists.
 		if (file_exists('data/settings/modules/blog/posts/'.$file) && is_file('data/settings/modules/blog/posts/'.$file)) {
 			//Include post information.
@@ -117,8 +116,6 @@ if (file_exists('data/settings/modules/blog/post_index.dat')) {
 			<?php
 		}
 	}
-	//Close module-dir.
-	fclose($handle);
 }
 
 //If no posts exist, display message.

@@ -36,14 +36,14 @@ function blog_page_site_list() {
 //---------------
 function blog_theme_main() {
 	global $lang_blog14, $lang_blog23;
+	require_once ('data/modules/blog/functions.php');
 
-	//Display existing posts, but only if post-index file exists.
-	if (file_exists('data/settings/modules/blog/post_index.dat')) {
-		$handle = fopen('data/settings/modules/blog/post_index.dat', 'r');
-		while (!feof($handle)) {
-			$file = fgets($handle, 4096);
-			//Filter out line breaks.
-			$file = str_replace ("\n",'', $file);
+	//Display existing posts.
+	if (blog_get_posts()) {
+		//Load posts in array.
+		$posts = blog_get_posts();
+
+		foreach ($posts as $order => $file) {
 			//Check if post exists.
 			if (file_exists('data/settings/modules/blog/posts/'.$file) && is_file('data/settings/modules/blog/posts/'.$file)) {
 				//Include post information.
@@ -66,8 +66,6 @@ function blog_theme_main() {
 				<?php
 			}
 		}
-		//Close module-dir.
-		fclose($handle);
 	}
 }
 

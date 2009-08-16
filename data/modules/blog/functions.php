@@ -316,6 +316,30 @@ function blog_get_categories() {
 }
 
 /**
+ * Load posts in an array. Will return FALSE if no posts exist.
+ */
+function blog_get_posts() {
+	if (file_exists('data/settings/modules/blog/post_index.dat')) {
+		//Open post index.
+		$handle = fopen('data/settings/modules/blog/post_index.dat', 'r');
+
+		while (!feof($handle)) {
+			$file = fgets($handle, 4096);
+			//Filter out line breaks.
+			$file = str_replace ("\n", '', $file);
+			//Load in an array.
+			$posts[] = $file;
+		}
+		//Close directory.
+		fclose($handle);
+		//Return array.
+		return $posts;
+	}
+	else
+		return FALSE;
+}
+
+/**
  * Checks whether a blog category exists. Returns TRUE or FALSE.
  *
  * @param string $category The category to check for.
