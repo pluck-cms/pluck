@@ -24,7 +24,7 @@ $language = 'English';
 //General
 $lang['general']['404']            = '404: not found';
 $lang['general']['not_found']      = 'This page could not be found.';
-$lang['general']['copyright']      = 'pluck &copy; 2005-2009 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck is available under the terms of the GNU General Public License.';
+$lang['general']['copyright']      = 'pluck © 2005-2009 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck is available under the terms of the GNU General Public License.';
 $lang['general']['save']           = 'Save';
 $lang['general']['save_exit']      = 'Save and Exit';
 $lang['general']['cancel']         = 'Cancel';
@@ -210,6 +210,11 @@ $lang['modules_install']['success'] = 'The module has been installed successfull
 $lang['theme']['title']  = 'choose theme';
 $lang['theme']['choose'] = 'Here you can choose which of the installed themes you want to use.';
 $lang['theme']['saved']  = 'The themesettings have been saved.';
+
+//Themeuninstall
+$lang['theme_uninstall']['title']             = 'uninstall theme';
+$lang['theme_uninstall']['message']           = 'Here you can uninstall your thmes. Active theme is not listed here.';
+$lang['theme_uninstall']['uninstall_confirm'] = 'Are you sure you want to uninstall this theme?';
 
 //Themeinstall
 $lang['theme_install']['title']         = 'install theme';

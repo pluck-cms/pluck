@@ -2,7 +2,8 @@
 /*
  * This file is part of pluck, the easy content management system
  * Copyright (c) somp (www.somp.nl)
- * http://www.pluck-cms.org
+ * http://www.pluck-cms.org
+
  * Pluck is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -42,7 +43,8 @@ while (!feof($handle)) {
 	}
 
 	//Save the line in our css-file
-	$file = fopen('data/themes/'.$themepref.'/style-rtl.css', 'a');	fputs($file, $buffer);
+	$file = fopen('data/themes/'.$themepref.'/style-rtl.css', 'a');
+	fputs($file, $buffer);
 	fclose($file);
 	chmod('data/themes/'.$themepref.'/style-rtl.css', 0755);
 
