@@ -204,13 +204,14 @@ function blog_delete_post($post) {
  * @param int $id If an existing reaction needs to be edited, the id of the reaction should go here.
  */
 function blog_save_reaction($post, $title, $name, $message, $id = null) {
+	global $lang;
 	//Get information of blog post.
 	include('data/settings/modules/blog/posts/'.$post);
 
 	//Check for HTML, and block if needed.
 	//FIXME: Replace ereg with strpos.
 	if (ereg('<', $title) || ereg('>', $title) || ereg('<', $name) || ereg('>', $name) || ereg('<', $message) || ereg('>', $message))
-		echo '<span style="color: red;">'.$lang_blog22.'</span>';
+		echo '<span style="color: red;">'.$lang['blog']['html_not_allowed'].'</span>';
 
 	else {
 		//Delete unwanted characters

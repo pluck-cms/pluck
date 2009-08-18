@@ -21,7 +21,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 
 function blog_page_admin_list() {
-	global $lang, $lang_blog19, $lang_blog21;
+	global $lang;
 	$module_page_admin[] = array(
 		'func'  => 'blog',
 		'title' => $lang['blog']['title']
@@ -32,11 +32,11 @@ function blog_page_admin_list() {
 	);
 	$module_page_admin[] = array(
 		'func'  => 'editreactions',
-		'title' => $lang_blog19
+		'title' => $lang['blog']['edit_reactions']
 	);
 	$module_page_admin[] = array(
 		'func'  => 'deletereactions',
-		'title' => $lang_blog21
+		'title' => $lang['blog']['delete_reaction']
 	);
 	$module_page_admin[] = array(
 		'func'  => 'editpost',
@@ -57,11 +57,11 @@ function blog_page_admin_list() {
 // Page: admin
 //---------------
 function blog_page_admin_blog() {
-	global $lang_blog24, $lang_blog19, $lang_albums14, $lang_blog14, $lang;
+	global $lang, $lang_albums14;
 	require_once ('data/modules/blog/functions.php');
 	?>
 	<p>
-		<strong><?php echo $lang_blog24; ?></strong>
+		<strong><?php echo $lang['blog']['message']; ?></strong>
 	</p>
 	<?php
 		showmenudiv($lang['blog']['new_post'], false, 'data/image/newpage.png', '?module=blog&amp;page=newpost', false);
@@ -93,7 +93,7 @@ if (blog_get_posts()) {
 					</span>
 					<span>
 						<a href="?module=blog&amp;page=editreactions&amp;var1=<?php echo $file; ?>">
-							<img src="data/modules/blog/images/reactions.png" title="<?php echo $lang_blog19; ?>" alt="<?php echo $lang_blog19; ?>" />
+							<img src="data/modules/blog/images/reactions.png" title="<?php echo $lang['blog']['edit_reactions']; ?>" alt="<?php echo $lang['blog']['edit_reactions']; ?>" />
 						</a>
 					</span>
 					<span>
@@ -108,7 +108,7 @@ if (blog_get_posts()) {
 							//Show post date and category.
 							echo $post_month.'-'.$post_day.'-'.$post_year;
 							if (isset($post_category))
-								echo ', '.$lang_blog14.' '.$post_category;
+								echo ', '.$lang['blog']['posted_in'].' '.$post_category;
 							?>
 						</span>
 					</span>
@@ -190,10 +190,10 @@ function blog_page_admin_deletecategory() {
 // Page: editreactions
 //---------------
 function blog_page_admin_editreactions() {
-	global $lang, $lang_blog20, $lang_blog21, $lang_contact6, $var1, $page;
+	global $lang, $var1, $page;
 ?>
 
-<p><b><?php echo $lang_blog20; ?></b></p>
+<p><b><?php echo $lang['blog']['edit_reactions_message']; ?></b></p>
 <?php
 //Include blog post, if it exists
 if (file_exists('data/settings/modules/blog/posts/'.$var1)) {
@@ -223,7 +223,7 @@ if (file_exists('data/settings/modules/blog/posts/'.$var1)) {
 			</td>
 			<td>
 				<a href="?module=blog&page=deletereactions&post=<?php echo $var1; ?>&key=<?php echo $key; ?>">
-					<img src="data/image/delete_from_trash.png" border="0" title="<?php echo $lang_blog21; ?>" alt="<?php echo $lang_blog21; ?>" />
+					<img src="data/image/delete_from_trash.png" border="0" title="<?php echo $lang['blog']['delete_reaction']; ?>" alt="<?php echo $lang['blog']['delete_reaction']; ?>" />
 				</a>
 			</td>
 		</tr>
@@ -237,9 +237,9 @@ if (file_exists('data/settings/modules/blog/posts/'.$var1)) {
 
 //If form is posted...
 if(isset($_POST['Submit'])) {
-	//Check if everything has been filled in
+	//Check if everything has been filled in.
 	if((!isset($_POST['title'])) || (!isset($_POST['message']))) { ?>
-		<span style="color: red;"><?php echo $lang_contact6; ?></span>
+		<span style="color: red;"><?php echo $lang['contactform']['fields']; ?></span>
 		<?php exit;
 	}
 
@@ -336,7 +336,7 @@ function blog_page_admin_deletereactions() {
 // Page: editpost
 //---------------
 function blog_page_admin_editpost() {
-	global $lang, $lang_page8, $lang_blog27, $lang_blog26, $lang_blog25, $var1, $cont1, $cont2, $cont3;
+	global $lang, $var1, $cont1, $cont2, $cont3;
 	require_once('data/modules/blog/functions.php');
 
 	//Redirect for a cancel.
@@ -366,7 +366,7 @@ function blog_page_admin_editpost() {
 ?>
 
 <div class="rightmenu">
-<?php echo $lang_page8; ?><br />
+<?php echo $lang['page']['items']; ?><br />
 <?php
 	//Generate the menu on the right
 	read_imagesinpages('images');
@@ -377,20 +377,20 @@ function blog_page_admin_editpost() {
 	<span class="kop2"><?php echo $lang['general']['title']; ?></span><br>
 	<input name="cont1" type="text" value="<?php echo $post_title; ?>">
 	<br /><br />
-	<span class="kop2"><?php echo $lang_blog26; ?></span>
+	<span class="kop2"><?php echo $lang['blog']['category']; ?></span>
 	<br />
 	<select name="cont2">
-		<option value="<?php echo $lang_blog27; ?>"> <?php echo $lang_blog25; ?></option>
+		<option value="<?php echo $lang['blog']['no_cat']; ?>"> <?php echo $lang['blog']['choose_cat']; ?></option>
 <?php
-	//If there are categories
+	//If there are categories.
 	if(file_exists('data/settings/modules/blog/categories.dat')) {
 		//Load them
 		$categories = file_get_contents('data/settings/modules/blog/categories.dat');
 
-		//Then in an array
+		//Then in an array.
 		$categories = split(',',$categories);
 
-		//And show them
+		//And show them.
 		foreach($categories as $key => $name) {
 			if($post_category == $name)
 				echo '<option value="'.$name.'" selected />'.$name.'</option>';
@@ -431,7 +431,7 @@ function blog_page_admin_deletepost() {
 // Page: newpost
 //---------------
 function blog_page_admin_newpost() {
-	global $lang, $lang_page8, $lang_blog27, $lang_blog26, $lang_blog25, $var1, $cont1, $cont2, $cont3;
+	global $lang, $var1, $cont1, $cont2, $cont3;
 	include('data/modules/blog/functions.php');
 
 	//Redirect for a cancel.
@@ -460,7 +460,7 @@ function blog_page_admin_newpost() {
 	?>
 
 	<div class="rightmenu">
-		<?php echo $lang_page8; ?><br />
+		<?php echo $lang['page']['items']; ?><br />
 		<?php
 			//Generate the menu on the right
 			read_imagesinpages('images');
@@ -471,9 +471,9 @@ function blog_page_admin_newpost() {
 		<span class="kop2"><?php echo $lang['general']['title']; ?></span><br />
 		<input name="cont1" type="text" value=""><br /><br />
 
-		<span class="kop2"><?php echo $lang_blog26; ?></span><br />
+		<span class="kop2"><?php echo $lang['blog']['category']; ?></span><br />
 		<select name="cont2">
-			<option value="<?php echo $lang_blog27; ?>" /> <?php echo $lang_blog25; ?>
+			<option value="<?php echo $lang['blog']['no_cat']; ?>" /> <?php echo $lang['blog']['choose_cat']; ?>
 	<?php
 	//If there are categories
 	if(file_exists('data/settings/modules/blog/categories.dat')) {

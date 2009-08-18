@@ -237,8 +237,12 @@ $lang['changepass']['changed']     = 'Password has been changed.';
 
 //Blog.
 $lang['blog']['title'] = 'blog';
+$lang['blog']['message'] = 'Here, you can make new posts to add to your blog. Posts will be automatically sorted on date.';
 $lang['blog']['descr'] = 'use a blog to post news or write articles for your visitors';
 $lang['blog']['categories'] = 'categories';
+$lang['blog']['category'] = 'category';
+$lang['blog']['choose_cat'] = 'Choose category...';
+$lang['blog']['no_cat'] = 'no category';
 $lang['blog']['new_cat'] = 'new category';
 $lang['blog']['new_cat_message'] = 'choose a name for your new category first, then click "save"';
 $lang['blog']['delete_cat'] = 'delete category';
@@ -246,18 +250,15 @@ $lang['blog']['posts'] = 'existing posts';
 $lang['blog']['new_post'] = 'write new post';
 $lang['blog']['edit_post'] = 'edit post';
 $lang['blog']['delete_post'] = 'delete post';
-$lang_blog14 = 'posted in';
-$lang_blog16 = 'reactions';
-$lang_blog17 = 'Title:';
-$lang_blog19 = 'edit reactions';
-$lang_blog20 = 'Here, you can edit the reactions of your visitors on the post.';
-$lang_blog21 = 'delete reaction';
-$lang_blog22 = 'HTML-code is not allowed.';
-$lang_blog23 = 'view or post reactions';
-$lang_blog24 = 'Here, you can make new posts to add to your blog. Posts will be automatically sorted on date.';
-$lang_blog25 = 'Choose category...';
-$lang_blog26 = 'category';
-$lang_blog27 = 'no category';
+$lang['blog']['posted_in'] = 'posted in';
+$lang['blog']['posted_by'] = 'posted by';
+$lang['blog']['reactions'] = 'reactions';
+$lang['blog']['new_reaction_title'] = 'Title:';
+$lang['blog']['edit_reactions'] = 'edit reactions';
+$lang['blog']['edit_reactions_message'] = 'Here, you can edit the reactions of your visitors on the post.';
+$lang['blog']['delete_reaction'] = 'delete reaction';
+$lang['blog']['html_not_allowed'] = 'HTML-code is not allowed.';
+$lang['blog']['view_reactions'] = 'view or post reactions';
 
 //Albums.
 $lang_albums = 'albums';
@@ -280,9 +281,9 @@ $lang_albums16	= 'Albums are not supported on this server: it probably doesn\'t 
 $lang_albums17	= 'include album in this page:';
 $lang_albums18 = 'The specified album doesn\'t exist.';
 $lang_albums19 = 'There is already an album with that name.';
-$lang_updown5 = "change image order";
-$lang_updown6 = "This image already is on the top, so its rank can't be changed.";
-$lang_updown7 = "This image already is the last one, so its rank can't be changed.";
+$lang_updown5 = 'change image order';
+$lang_updown6 = 'This image already is on the top, so its rank can\'t be changed.';
+$lang_updown7 = 'This image already is the last one, so its rank can\'t be changed.';
 
 //Contact form.
 $lang['contactform']['module_name']  = 'contact form';

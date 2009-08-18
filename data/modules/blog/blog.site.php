@@ -35,7 +35,7 @@ function blog_page_site_list() {
 // Theme: main
 //---------------
 function blog_theme_main() {
-	global $lang_blog14, $lang_blog23;
+	global $lang;
 	require_once ('data/modules/blog/functions.php');
 
 	//Display existing posts.
@@ -55,12 +55,12 @@ function blog_theme_main() {
 						</span>
 						<br />
 						<span class="postinfo">
-							<?php echo $lang_blog14; ?> <span style="font-weight: bold;"><?php echo $post_category; ?></span> - <?php echo $post_month; ?>-<?php echo $post_day; ?>-<?php echo $post_year; ?>, <?php echo $post_time; ?>
+							<?php echo $lang['blog']['posted_in']; ?> <span style="font-weight: bold;"><?php echo $post_category; ?></span> - <?php echo $post_month; ?>-<?php echo $post_day; ?>-<?php echo $post_year; ?>, <?php echo $post_time; ?>
 						</span>
 						<br /><br />
 						<?php echo $post_content; ?>
 						<p>
-							<a href="?module=blog&amp;page=viewpost&amp;post=<?php echo $file; ?>&amp;pageback=<?php echo CURRENT_PAGE_FILENAME; ?>" title="<?php echo $lang_blog23; ?>">&raquo; <?php echo $lang_blog23; ?></a>
+							<a href="?module=blog&amp;page=viewpost&amp;post=<?php echo $file; ?>&amp;pageback=<?php echo CURRENT_PAGE_FILENAME; ?>" title="<?php echo $lang['blog']['view_reactions']; ?>">&raquo; <?php echo $lang['blog']['view_reactions']; ?></a>
 						</p>
 					</div>
 				<?php
@@ -73,21 +73,21 @@ function blog_theme_main() {
 // Page: viewpost
 //---------------
 function blog_page_site_viewpost() {
-	//Global language variables
-	global $lang, $lang_blog14, $lang_blog16, $lang_blog17, $lang_blog18, $lang_contact3, $lang_contact5, $lang_contact6, $lang_contact10;
+	//Global language variables.
+	global $lang;
 
-	//Load blogpost
+	//Load blog post.
 	if (isset($_GET['post']) && file_exists('data/settings/modules/blog/posts/'.$_GET['post']))
 		include ('data/settings/modules/blog/posts/'.$_GET['post']);
 	?>
 		<div class="blogpost">
 			<span class="postinfo">
-				<?php echo $lang_blog14; ?> <span style="font-weight: bold;"><?php echo $post_category; ?></span> - <?php echo $post_month; ?>-<?php echo $post_day; ?>-<?php echo $post_year; ?>, <?php echo $post_time; ?>
+				<?php echo $lang['blog']['posted_in']; ?> <span style="font-weight: bold;"><?php echo $post_category; ?></span> - <?php echo $post_month; ?>-<?php echo $post_day; ?>-<?php echo $post_year; ?>, <?php echo $post_time; ?>
 			</span><br /><br />
 			<?php echo $post_content; ?>
 		</div>
 		<div style="margin-top: 10px;">
-			<span style="font-size: 19px"><?php echo $lang_blog16; ?></span>
+			<span style="font-size: 19px"><?php echo $lang['blog']['reactions']; ?></span>
 			<?php
 				//Then show the reactions.
 				//Check if there are reactions.
@@ -100,13 +100,13 @@ function blog_page_site_viewpost() {
 							</span>
 							<br />
 							<span class="postinfo">
-								<?php echo $lang_blog18; ?> <span style="font-weight: bold;"><?php echo $post_reaction_name[$key]; ?></span> -  <?php echo $post_reaction_month[$key]; ?>-<?php echo $post_reaction_day[$key]; ?>-<?php echo $post_reaction_year[$key]; ?>, <?php echo $post_reaction_time[$key]; ?>
+								<?php echo $lang['blog']['posted_by']; ?> <span style="font-weight: bold;"><?php echo $post_reaction_name[$key]; ?></span> -  <?php echo $post_reaction_month[$key]; ?>-<?php echo $post_reaction_day[$key]; ?>-<?php echo $post_reaction_year[$key]; ?>, <?php echo $post_reaction_time[$key]; ?>
 							</span>
 							<br />
 							<?php
-								//Change linebreaks in html-breaks
+								//Change linebreaks in html-breaks.
 								$post_reaction_content_br = str_replace("\n", '<br />', $post_reaction_content[$key]);
-								//Display post
+								//Display post.
 								echo $post_reaction_content_br;
 							?>
 						</div>
@@ -114,23 +114,23 @@ function blog_page_site_viewpost() {
 				}
 				unset($key);
 			}
-		//Show a form to post new reactions
+		//Show a form to post new reactions.
 	?>
 		<form method="post" action="" style="margin-top: 5px; margin-bottom: 15px;">
 			<div>
-				<label><?php echo $lang_blog17; ?></label>
+				<label><?php echo $lang['blog']['new_reaction_title']; ?></label>
 				<br />
 				<input name="title" type="text" />
 				<br />
-				<label><?php echo $lang_contact3; ?></label>
+				<label><?php echo $lang['contactform']['name']; ?></label>
 				<br />
 				<input name="name" type="text" />
 				<br />
-				<label><?php echo $lang_contact5; ?></label>
+				<label><?php echo $lang['contactform']['message']; ?></label>
 				<br />
 				<textarea name="message" rows="7" cols="45"></textarea>
 				<br />
-				<input type="submit" name="Submit" value="<?php echo $lang_contact10; ?>" />
+				<input type="submit" name="Submit" value="<?php echo $lang['contactform']['send']; ?>" />
 			</div>
 		</form>
 	</div>
@@ -142,7 +142,7 @@ function blog_page_site_viewpost() {
 
 		//Check if everything has been filled in.
 		if (empty($_POST['title']) || empty($_POST['name']) || empty($_POST['message']))
-			echo '<span style="color: red;">'.$lang_contact6.'</span>';
+			echo '<span style="color: red;">'.$lang['contactform']['fields'].'</span>';
 
 		//Add reaction.
 		else {
