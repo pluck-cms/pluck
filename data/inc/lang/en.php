@@ -213,7 +213,7 @@ $lang['theme']['saved']  = 'The themesettings have been saved.';
 
 //Themeuninstall
 $lang['theme_uninstall']['title']             = 'uninstall theme';
-$lang['theme_uninstall']['message']           = 'Here you can uninstall your thmes. Active theme is not listed here.';
+$lang['theme_uninstall']['message']           = 'Here you can uninstall your themes. The currently active theme is not listed here.';
 $lang['theme_uninstall']['uninstall_confirm'] = 'Are you sure you want to uninstall this theme?';
 
 //Themeinstall
