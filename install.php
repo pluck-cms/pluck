@@ -148,7 +148,7 @@ else {
 				<br />
 				<span class="kop4"><?php echo $lang['settings']['choose_title'] ?></span>
 				<br />
-				<input name="cont1" id="cont1" type="text" value="<?php if (isset($cont1)) echo htmlentities($cont1); ?>"/>
+				<input name="cont1" id="cont1" type="text" value="<?php if (isset($cont1)) echo htmlentities($cont1); ?>" style="width:30em;" />
 				<br />
 				<?php if (isset($error['email'])) echo $error['email'].'<br />'; ?>
 				<label class="kop2" for="cont2"><?php echo $lang['settings']['email'] ?></label>

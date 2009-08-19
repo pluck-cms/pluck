@@ -247,29 +247,29 @@ $lang['changepass']['empty']       = 'Twoje nowe hasło nie może być puste.';
 $lang['changepass']['changed']     = 'Hasło zostało zmienione.';
 
 //Blog.
-$lang_blog   = 'blog';
-$lang_blog1  = 'użyj bloga do dodawania artykułów i aktualności';
-$lang_blog3  = 'kategorie';
-$lang_blog4  = 'nowa kategoria';
-$lang_blog5  = 'wpisz nazwę nowej kategorii i naciśnij przycisk "zapisz"';
-$lang_blog6  = 'usuń kategorię';
-$lang_blog7  = 'edytuj kategorię';
-$lang_blog9  = 'istniejące artykuły';
-$lang_blog10 = 'napisz nowy artykuł';
-$lang_blog11 = 'edytuj artykuł';
-$lang_blog12 = 'usuń artykuł';
-$lang_blog14 = 'opublikowano w';
-$lang_blog16 = 'odpowiedzi';
-$lang_blog17 = 'Tytuł:';
-$lang_blog19 = 'edytuj odpowiedź';
-$lang_blog20 = 'Tutaj możesz edytować odpowiedzi na twój artykuł.';
-$lang_blog21 = 'usuń odpowiedź';
-$lang_blog22 = 'Kod HTML nie jest dozwolony.';
-$lang_blog23 = 'przejrzyj lub napisz odpowiedź';
-$lang_blog24 = 'Tutaj możesz utworzyć nowe wiadomości na blogu. Zostaną one automatycznie posortowane względem daty.';
-$lang_blog25 = 'Wybierz kategorię...';
-$lang_blog26 = 'kategoria';
-$lang_blog27 = 'brak kategorii';
+$lang['blog']['title'] = 'blog';
+$lang['blog']['message'] = 'Tutaj możesz utworzyć nowe wiadomości na blogu. Zostaną one automatycznie posortowane względem daty.';
+$lang['blog']['descr'] = 'użyj bloga do dodawania artykułów i aktualności';
+$lang['blog']['categories'] = 'kategorie';
+$lang['blog']['category'] = 'kategoria';
+$lang['blog']['choose_cat'] = 'Wybierz kategorię...';
+$lang['blog']['no_cat'] = 'brak kategorii';
+$lang['blog']['new_cat'] = 'nowa kategoria';
+$lang['blog']['new_cat_message'] = 'najpierw wpisz nazwę nowej kategorii, wtedy naciśnij przycisk "zapisz"';
+$lang['blog']['delete_cat'] = 'usuń kategorię';
+$lang['blog']['posts']  = 'istniejące artykuły';
+$lang['blog']['new_post'] = 'napisz nowy artykuł';
+$lang['blog']['edit_post'] = 'edytuj artykuł';
+$lang['blog']['delete_post'] = 'usuń artykuł';
+$lang['blog']['posted_in'] = 'opublikowano w';
+$lang['blog']['posted_by'] = 'opublikowane przez';
+$lang['blog']['reactions'] = 'odpowiedzi';
+$lang['blog']['new_reaction_title'] = 'Tytuł:';
+$lang['blog']['edit_reactions'] = 'edytuj odpowiedź';
+$lang['blog']['edit_reactions_message'] = 'Tutaj możesz edytować odpowiedzi na twój artykuł.';
+$lang['blog']['delete_reaction'] = 'usuń odpowiedź';
+$lang['blog']['html_not_allowed'] = 'Kod HTML jest niedozwolony.';
+$lang['blog']['view_reactions'] = 'przejrzyj lub napisz odpowiedź';
 
 //Albums.
 $lang_albums   = 'albumy';
@@ -311,5 +311,5 @@ $lang['contactform']['not_send']     = 'Twoja wiadomość nie mogła być wysła
 //View site link
 $lang['viewsite']['module_name']  = 'łącze do strony';
 $lang['viewsite']['module_intro'] = 'Stworzono by pokazać możliwości "haków". Dodaje bezpośredni link do strony w menu adnina.';
-$lang['viewsite']['message']      = 'Zobacz stronę';
+$lang['viewsite']['message']      = 'Podgąd';
 ?>
