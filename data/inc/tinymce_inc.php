@@ -163,9 +163,9 @@ switch ($langpref) {
 //--------------------------
 //Then return the tinymce-code
 ?>
-<script language="javascript" type="text/javascript" src="data/inc/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript" src="data/inc/lib/tiny_mce/tiny_mce.js"></script>
 <?php run_hook('tinymce_scripts'); ?>
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
 //<![CDATA[
 tinyMCE.init({
 	mode : "textareas",

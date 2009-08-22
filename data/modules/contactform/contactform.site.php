@@ -42,7 +42,7 @@ function contactform_theme_main() {
 			$message = sanitize($message);
 
 			//Change enters in their html-equivalents.
-			$message = str_replace ("\n",'<br>', $message);
+			$message = nl2br($message);
 
 			//Now we're going to send our email.
 			if (mail(EMAIL, $lang['contactform']['email_title'].$name, '<html><body>'.$message.'</body></html>', 'From: '.$sender."\n".'Content-type: text/html; charset=utf-8'))
@@ -53,7 +53,7 @@ function contactform_theme_main() {
 		}
 		//If not all fields were filled.
 		else
-			echo '<span class="red">'.$lang['contactform']['fields'].'</span>';
+			echo '<span class="error">'.$lang['contactform']['fields'].'</span>';
 	}
 }
 ?>

@@ -52,8 +52,8 @@ function albums_theme_meta() {
 	//Only insert LyteBox when we're viewing an album
 	if (isset($module) && $module == 'albums') {
 	?>
-		<script type="text/javascript" src="data/inc/lytebox/lytebox.js"></script>
-		<link rel="stylesheet" href="data/inc/lytebox/lytebox.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="data/inc/lib/lytebox/lytebox.js"></script>
+		<link rel="stylesheet" href="data/inc/lib/lytebox/lytebox.css" type="text/css" media="screen" />
 	<?php
 	}
 }
