@@ -75,7 +75,7 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 		$keywords = '';
 
 	//Save the page.
-	save_page($newfilename, $cont1, $cont2, $cont4, $description, $keywords, $cont3);
+	save_page($newfilename, $cont1, $cont2, $cont4, $description, $keywords, $cont3, $theme_page_file);
 
 	//Check if the title is different from what we started with.
 	if ($newfilename.'.php' != $filename) {
@@ -204,6 +204,36 @@ unset($module);
 		<br />
 		<label for="cont5"><?php echo $lang['page']['sub_page']; ?></label>
 		<?php show_subpage_select('cont5', $var1); ?>
+		<br />
+		<?php
+$files = read_dir_contents(THEME_DIR,'files');
+	if ($files) {
+	$tmp = '0';
+		natcasesort($files);
+		foreach ($files as $file) {
+			if (preg_match('/.php/', $file)) {
+			$tmp++;
+			}
+		}
+			if ($tmp > '2') {
+			echo $lang['theme']['title'] . ' <select name="theme_page_file">';
+				foreach ($files as $file) {
+					if (preg_match('/.php/', $file)) {
+					$file = str_replace('.php', '', $file);
+						if ($file !== 'info') {
+							if ($file == $theme_file) {
+								echo '<option value="'.$file.'" selected>'.$file;
+							}
+							else {
+								echo '<option value="'.$file.'">'.$file;
+							}
+						}
+					}
+				}
+			}
+		}
+	?>
+	</select>
 	</div>
 	<?php show_common_submits('?action=page', true); ?>
 </form>

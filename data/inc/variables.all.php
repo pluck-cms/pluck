@@ -104,4 +104,6 @@ if (isset($_POST['cont4']))
 	$cont4 = $_POST['cont4'];
 if (isset($_POST['cont5']))
 	$cont5 = $_POST['cont5'];
+if (isset($_POST['theme_page_file']))
+	$theme_page_file = $_POST['theme_page_file'];
 ?>
