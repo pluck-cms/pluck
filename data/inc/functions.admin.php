@@ -377,7 +377,7 @@ function save_page($name, $title, $content, $hidden = 'no', $description = null,
 	.'$title = \''.$title.'\';'."\n"
 	.'$content = \''.$content.'\';'."\n"
 	.'$hidden = \''.$hidden.'\';'."\n"
-	.'$theme_file = \''.$theme_file.'\'';
+	.'$theme_file = \''.$theme_file.'\';'."\n";
 
 	//Save the description and keywords, if any.
 	if ($description != null)
