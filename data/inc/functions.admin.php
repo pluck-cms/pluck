@@ -316,7 +316,7 @@ function install_done() {
 //-------------------
 function save_password($password) {
 	//MD5-hash password
-	$password = md5($password);
+	$password = hash('sha512', $password);
 	//Save password
 	save_file('data/settings/pass.php', '<?php $ww = \''.$password.'\'; ?>');
 }

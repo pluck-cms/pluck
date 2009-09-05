@@ -63,7 +63,7 @@ if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc() == 1) {
  * Check if we have a saved security token. If not, generate one and save it.
  */
 if (!file_exists('data/settings/token.php')) {
-	$token = md5(uniqid(mt_rand(), true));
+	$token = hash('sha512', uniqid(mt_rand(), true));
 	$data = fopen('data/settings/token.php', 'w');
 	fputs($data, '<?php $token = \''.$token.'\'; ?>');
 	fclose($data);

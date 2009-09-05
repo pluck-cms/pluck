@@ -50,11 +50,12 @@ else {
 
 	//If password has been sent, and the bogus input is empty, MD5-encrypt password.
 	if (isset($_POST['submit']) && empty($_POST['bogus'])) {
-		$pass = md5($cont1);
+		$pass = hash('sha512', $cont1);
 
 		//If password is correct, save session-cookie.
 		if ($pass == $ww) {
 			$_SESSION[$token] = 'pluck_loggedin';
+
 			//Display success message.
 			show_error($lang['login']['correct'], 3);
 			redirect('admin.php?action=start', 1);
@@ -71,7 +72,7 @@ else {
 		<form action="login.php" method="post" name="passform">
 			<input name="cont1" size="25" type="password" />
 			<input type="text" name="bogus" style="display: none;" />
-			<input type="submit" name="submit" value="<?php echo $lang['login']['title']; ?>" />
+			<input type="submit" name="submit" value="<?php echo ucfirst($lang['login']['title']); ?>" />
 		</form>
 	<?php
 	if (isset($login_error))
