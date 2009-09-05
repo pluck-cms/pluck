@@ -20,11 +20,6 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
-/*
- * TODO: Deleting a page with sub-pages will not delete the sub-pages.
- *       Find a way to handle this.
- */
-
 //Check if page exists.
 if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
 	$pages = read_dir_contents('data/trash/pages', 'files');
@@ -45,10 +40,40 @@ if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
 				exit;
 			}
 		}
+		unset($page);
+	}
+
+	//Are there any sub-pages?
+	if (read_dir_contents('data/settings/pages/'.$var1, 'files') == true) {
+		//Find the sub-pages.
+		foreach (get_pages() as $page) {
+			if (strpos($page, $var1.'/') !== false)
+				$sub_pages[] = $page;
+		}
+		unset($page);
+
+		//If there are pages in trash, check if there's just one with the same name as one of the sub-pages.
+		foreach ($sub_pages as $sub_page) {
+			foreach ($pages as $page) {
+				if ($page ==  str_replace(get_sub_page_dir(get_page_seoname($sub_page)).'/', '', get_page_seoname($sub_page)).'.php') {
+					show_error($lang['trashcan']['same_name'], 1);
+					redirect('?action=page', 2);
+					include_once('data/inc/footer.php');
+					exit;
+				}
+			}
+			unset($page);
+		}
 	}
 
 	//Move the file.
 	rename('data/settings/pages/'.get_page_filename($var1), 'data/trash/pages/'.$newfile.'.php');
+
+	//Then move the sub-pages, if any.
+	if (isset($sub_pages)) {
+		foreach ($sub_pages as $sub_page)
+			rename('data/settings/pages/'.$sub_page, 'data/trash/pages/'.str_replace(get_sub_page_dir(get_page_seoname($sub_page)).'/', '', get_page_seoname($sub_page)).'.php');
+	}
 
 	//If it's a sub-page, we have to do a few things.
 	if (strpos($var1, '/') !== false) {
