@@ -62,7 +62,7 @@ if (isset($error))
 		<br />
 		<span class="kop4"><?php echo $lang['settings']['choose_title']; ?></span>
 		<br />
-		<input name="cont1" id="cont1" type="text" value="<?php echo $sitetitle; ?>" style="width:30em;" />
+		<input name="cont1" id="cont1" type="text" value="<?php echo $sitetitle; ?>" />
 	</p>
 	<p>
 		<label class="kop2" for="cont2"><?php echo $lang['settings']['email']; ?></label>
