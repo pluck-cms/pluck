@@ -72,10 +72,5 @@ if (defined('CURRENT_MODULE_DIR')) {
 }
 
 //Now, include the page.
-if(file_exists(THEME_DIR.'/'.theme_file_page().'.php')) {
-	include_once(THEME_DIR.'/'.theme_file_page().'.php');
-}
-else {
-	include_once(THEME_DIR.'/theme.php');	
-}
+include_once(THEME_DIR.'/theme.php');	
 ?>

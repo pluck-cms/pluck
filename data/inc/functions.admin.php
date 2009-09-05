@@ -357,7 +357,7 @@ function save_theme($theme) {
  * @param string $keywords The keywords.
  * @param array $modules If there are any modules on the page.
  */
-function save_page($name, $title, $content, $hidden = 'no', $description = null, $keywords = null, $modules = null, $theme_file = null) {
+function save_page($name, $title, $content, $hidden = 'no', $description = null, $keywords = null, $modules = null) {
 	//Run a few hooks.
 	run_hook('admin_save_page', array(&$name, &$title, &$content));
 	run_hook('admin_save_page_meta', array(&$description, &$keywords));
@@ -376,8 +376,7 @@ function save_page($name, $title, $content, $hidden = 'no', $description = null,
 	$data = '<?php'."\n"
 	.'$title = \''.$title.'\';'."\n"
 	.'$content = \''.$content.'\';'."\n"
-	.'$hidden = \''.$hidden.'\';'."\n"
-	.'$theme_file = \''.$theme_file.'\';'."\n";
+	.'$hidden = \''.$hidden.'\';';
 
 	//Save the description and keywords, if any.
 	if ($description != null)

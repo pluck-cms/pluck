@@ -91,22 +91,10 @@ function theme_meta() {
 	}
 
 	//Check which CSS-file we need to use (LTR or RTL)
-	if (isset($direction) && $direction == 'rtl') {
-		if(file_exists(THEME_DIR.'/'.theme_file_page().'-rtl.css')) {
-			$cssfile = THEME_DIR.'/'.theme_file_page().'-rtl.css';
-		}
-		else {
-			$cssfile = THEME_DIR.'/style-rtl.css';
-		}
-	}
-	else {
-		if(file_exists(THEME_DIR.'/'.theme_file_page().'.css')) {
-			$cssfile = THEME_DIR.'/'.theme_file_page().'.css';
-		}
-		else {
-			$cssfile = THEME_DIR.'/style.css';
-		}
-	}
+	if (isset($direction) && $direction == 'rtl')
+		$cssfile = THEME_DIR.'/style-rtl.css';
+	else
+		$cssfile = THEME_DIR.'/style.css';
 
 	echo '<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />'."\n";
 	echo '<meta name="generator" content="pluck '.PLUCK_VERSION.'" />'."\n";
@@ -210,21 +198,6 @@ function theme_content() {
 	}
 }
 
-//[THEME] FUNCTION TO RETURN THEME FILE FOR PAGE
-//---------------------------------
-function theme_file_page() {
-	//Get needed variables
-
-	//Get the contents only if we are looking at a normal page
-	if (defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_MODULE_DIR')) {
-		//Check if page exists
-		if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
-			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
-			return $theme_file;
-			
-		}
-	}
-}
 //[THEME] FUNCTION TO INCLUDE MODULES
 //---------------------------------
 function theme_area($place) {
