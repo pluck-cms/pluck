@@ -40,6 +40,56 @@ include_once ('data/themes/'.THEME.'/info.php');
 if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php'))
 	include_once ('data/settings/themes/'.THEME.'/moduleconf.php');
 
+//If the form has been posted, save the data.
+if (isset($_POST['save'])) {
+	//Get POST-data.
+	if (isset($_POST['moduledir']))
+		$moduledir = $_POST['moduledir'];
+	if (isset($_POST['position']))
+		$position = $_POST['position'];
+
+	//First, check if the settings/modules_inc dir exists.
+	//If not, create the dir.
+	if (!file_exists('data/settings/themes')) {
+		mkdir('data/settings/themes', 0777);
+		chmod('data/settings/themes', 0777);
+	}
+
+	//Then, check if a dir for the current theme is already available.
+	//If not, create the appropriate dirs.
+	if (!file_exists('data/settings/themes/'.THEME)) {
+		mkdir('data/settings/themes/'.THEME, 0777);
+		chmod('data/settings/themes/'.THEME, 0777);
+	}
+
+	//Then fopen it.
+	$file = fopen('data/settings/themes/'.THEME.'/moduleconf.php', 'w');
+	fputs($file, '<?php');
+
+	//Call all POST-variables.
+	foreach ($_POST as $variabletosplice => $display_order) {
+		//Exclude the submit-button variable, and the modules that we don't want to show.
+		if ($variabletosplice != 'submit' && $display_order != 0) {
+			list($areaname, $modulename) = explode('|', $variabletosplice);
+			//Save the data.
+			fputs($file, "\n".'$space[\''.$areaname.'\'][\''.$modulename.'\'] = '.$display_order.';');
+		}
+	}
+	unset($variabletosplice);
+
+	//Close the file.
+	fputs($file, "\n".'?>');
+	fclose($file);
+	chmod('data/settings/themes/'.THEME.'/moduleconf.php', 0777);
+
+	//If there are no modules, just delete the file.
+	if (!isset($areaname))
+		unlink('data/settings/themes/'.THEME.'/moduleconf.php');
+
+	//And redirect the user.
+	redirect('?action=module_addtosite', 0);
+}
+
 //Start html-form.
 ?>
 <form action="" method="post">
@@ -114,59 +164,6 @@ if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php'))
 	unset($index);
 
 	//Show submit button etc.
+	show_common_submits('?action=managemodules');
 	?>
-	<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
-	<button class="cancel" type="button" onclick="javascript: window.location='?action=managemodules';" title="<?php echo $lang['general']['cancel']; ?>"><?php echo $lang['general']['cancel']; ?></button>
 </form>
-<?php
-//If the form has been posted, save the data.
-//------------------------------------------
-if (isset($_POST['submit'])) {
-	//Get POST-data.
-	if (isset($_POST['moduledir']))
-		$moduledir = $_POST['moduledir'];
-	if (isset($_POST['position']))
-		$position = $_POST['position'];
-
-	//First, check if the settings/modules_inc dir exists.
-	//If not, create the dir.
-	if (!file_exists('data/settings/themes')) {
-		mkdir('data/settings/themes', 0777);
-		chmod('data/settings/themes', 0777);
-	}
-
-	//Then, check if a dir for the current theme is already available.
-	//If not, create the appropriate dirs.
-	if (!file_exists('data/settings/themes/'.THEME)) {
-		mkdir('data/settings/themes/'.THEME, 0777);
-		chmod('data/settings/themes/'.THEME, 0777);
-	}
-
-	//Then fopen it.
-	$file = fopen('data/settings/themes/'.THEME.'/moduleconf.php', 'w');
-	fputs($file, '<?php');
-
-	//Call all POST-variables.
-	foreach ($_POST as $variabletosplice => $display_order) {
-		//Exclude the submit-button variable, and the modules that we don't want to show.
-		if ($variabletosplice != 'submit' && $display_order != 0) {
-			list($areaname, $modulename) = explode('|', $variabletosplice);
-			//Save the data.
-			fputs($file, "\n".'$space[\''.$areaname.'\'][\''.$modulename.'\'] = '.$display_order.';');
-		}
-	}
-	unset($variabletosplice);
-
-	//Close the file.
-	fputs($file, "\n".'?>');
-	fclose($file);
-	chmod('data/settings/themes/'.THEME.'/moduleconf.php', 0777);
-
-	//If there are no modules, just delete the file.
-	if (!isset($areaname))
-		unlink('data/settings/themes/'.THEME.'/moduleconf.php');
-
-	//And redirect the user.
-	redirect('?action=module_addtosite', 0);
-}
-?>

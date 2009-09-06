@@ -198,6 +198,12 @@ function seo_url($url) {
 	return $url;
 }
 
+/**
+ * Get the seoname of a page.
+ *
+ * @param string $filename The filename
+ * @return string The seoname
+ */
 function get_page_seoname($filename) {
 	//Remove "data/settings/pages/" from the patch, if it exist.
 	$filename = str_replace('data/settings/pages/', '', $filename);
@@ -237,6 +243,12 @@ function get_page_seoname($filename) {
 	return false;
 }
 
+/**
+ * Get the filename of a page.
+ *
+ * @param string $seoname The seoname
+ * @return string The filename
+ */
 function get_page_filename($seoname) {
 	//Remove "data/settings/pages/" from the patch, if it exist.
 	$seoname = str_replace('data/settings/pages/', '', $seoname);
@@ -282,6 +294,12 @@ function get_page_filename($seoname) {
 	return false;
 }
 
+/**
+ * Get the sub-page directory of a page.
+ *
+ * @param <type> $page The page seoname
+ * @return <type> The sub-page directory
+ */
 function get_sub_page_dir($page) {
 	//Don't do anything if it's not a sub-page.
 	if (strpos($page, '/') !== false && file_exists('data/settings/pages/'.get_page_filename($page))) {
