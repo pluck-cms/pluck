@@ -20,8 +20,11 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
-//Function: get page title
-//---------------------------------
+/**
+ * Get the page title.
+ *
+ * @return string The page title.
+ */
 function get_pagetitle() {
 	global $lang, $module;
 
@@ -76,10 +79,6 @@ function get_pagetitle() {
 
 	return $page_title;
 }
-
-//FUNCTIONS FOR FILLING IN THE PAGE
-//---------------------------------
-//---------------------------------
 
 //[THEME] FUNCTION TO INCLUDE META-DATA IN THE PAGE
 //---------------------------------

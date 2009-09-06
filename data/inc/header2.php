@@ -66,9 +66,9 @@ if (document.layers)
 
 <body>
 <div id="menuheader">
-<h1>pluck</h1>
-<div id="menu2">
-	<span class="menuitem2"><?php echo $titelkop; ?></span>
-</div>
+	<h1>pluck</h1>
+	<div id="menu2">
+		<span class="menuitem2"><?php echo $titelkop; ?></span>
+	</div>
 </div>
 <div id="text">
