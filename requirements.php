@@ -21,6 +21,7 @@ header('Content-Type:text/html;charset=utf-8');
 <title>pluck 4.7 requirements check></title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="data/styleadmin.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="icon" type="image/vnd.microsoft.icon" href="data/image/favicon.ico" />
 </head>
 <body>
 <div id="menuheader">
