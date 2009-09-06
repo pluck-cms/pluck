@@ -12,9 +12,6 @@
  * See docs/COPYING for the complete license.
 */
 
-//First set the charset: utf-8.
-header('Content-Type:text/html;charset=utf-8');
-
 //Include security-enhancements.
 require_once ('data/inc/security.php');
 //Include functions.
