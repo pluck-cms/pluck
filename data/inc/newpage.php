@@ -36,8 +36,10 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 		//Check if we want a sub-page.
 		if (!empty($cont5)) {
 			//We need to make sure that the dir exists, and if not, create it.
-			if (!file_exists('data/settings/pages/'.rtrim($cont5, '/')))
+			if (!file_exists('data/settings/pages/'.rtrim($cont5, '/'))) {
 				mkdir('data/settings/pages/'.rtrim($cont5, '/'), 0777);
+				chmod('data/settings/pages/'.rtrim($cont5, '/'), 0777);
+			}
 			$pages = read_dir_contents('data/settings/pages/'.rtrim($cont5, '/'), 'files');
 		}
 
@@ -56,7 +58,7 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 		//Save the page.
 		save_page($newfile, $cont1, $cont2, $cont4, null, null, $cont3);
 	}
-	
+
 	//Redirect the user.
 	if (isset($_POST['save']) && !isset($error)) {
 		redirect('?action=editpage&var1='.$cont5.$seo_title, 0);

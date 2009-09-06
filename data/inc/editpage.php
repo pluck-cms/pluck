@@ -39,8 +39,10 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 		$newdir = get_sub_page_dir($newfilename);
 
 		//We need to make sure that the dir exists, and if not, create it.
-		if (!file_exists('data/settings/pages/'.$newdir))
+		if (!file_exists('data/settings/pages/'.$newdir)) {
 			mkdir('data/settings/pages/'.$newdir, 0777);
+			chmod('data/settings/pages/'.$newdir, 0777);
+		}
 
 		//If the name isn't the same as before, we have to find the correct number.
 		if ($newfilename.'.php' != $filename) {
