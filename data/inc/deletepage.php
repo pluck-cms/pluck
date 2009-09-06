@@ -31,7 +31,7 @@ if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
 		$newfile = $var1;
 
 	//If there are pages in trash, check if there's one with the same name.
-	if ($pages != false) {
+	if ($pages) {
 		foreach ($pages as $page) {
 			if ($page ==  $newfile.'.php') {
 				show_error($lang['trashcan']['same_name'], 1);
@@ -44,7 +44,7 @@ if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
 	}
 
 	//Are there any sub-pages?
-	if (read_dir_contents('data/settings/pages/'.$var1, 'files') == true) {
+	if (is_dir('data/settings/pages/'.$var1) && read_dir_contents('data/settings/pages/'.$var1, 'files') == true) {
 		//Find the sub-pages.
 		foreach (get_pages() as $page) {
 			if (strpos($page, $var1.'/') !== false)
@@ -53,16 +53,18 @@ if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
 		unset($page);
 
 		//If there are pages in trash, check if there's just one with the same name as one of the sub-pages.
-		foreach ($sub_pages as $sub_page) {
-			foreach ($pages as $page) {
-				if ($page ==  str_replace(get_sub_page_dir(get_page_seoname($sub_page)).'/', '', get_page_seoname($sub_page)).'.php') {
-					show_error($lang['trashcan']['same_name'], 1);
-					redirect('?action=page', 2);
-					include_once('data/inc/footer.php');
-					exit;
+		if ($pages) {
+			foreach ($sub_pages as $sub_page) {
+				foreach ($pages as $page) {
+					if ($page ==  str_replace(get_sub_page_dir(get_page_seoname($sub_page)).'/', '', get_page_seoname($sub_page)).'.php') {
+						show_error($lang['trashcan']['same_name'], 1);
+						redirect('?action=page', 2);
+						include_once('data/inc/footer.php');
+						exit;
+					}
 				}
+				unset($page);
 			}
-			unset($page);
 		}
 	}
 
@@ -73,6 +75,9 @@ if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
 	if (isset($sub_pages)) {
 		foreach ($sub_pages as $sub_page)
 			rename('data/settings/pages/'.$sub_page, 'data/trash/pages/'.str_replace(get_sub_page_dir(get_page_seoname($sub_page)).'/', '', get_page_seoname($sub_page)).'.php');
+
+		//Delete the dir where the sub-pages were in.
+		rmdir('data/settings/pages/'.$var1);
 	}
 
 	//If it's a sub-page, we have to do a few things.

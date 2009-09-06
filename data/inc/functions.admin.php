@@ -189,7 +189,7 @@ function show_subpage_select($name, $current_page = null) {
 	if ($pages) {
 		foreach ($pages as $page) {
 			//You should not be able to add a page as a sub-page of itself.
-			if (strpos(get_page_seoname($page), $current_page) === false) {
+			if (strpos($page, get_page_filename($current_page)) === false && strpos(get_page_seoname($page), $current_page.'/') === false) {
 				include ('data/settings/pages/'.$page);
 
 				preg_match_all('|\/|', $page, $indent);
@@ -215,13 +215,17 @@ function show_subpage_select($name, $current_page = null) {
 
 function reorder_pages($patch) {
 	$pages = read_dir_contents($patch, 'files');
-	sort($pages, SORT_NUMERIC);
+	
+	//Only reorder if there are any files.
+	if ($pages) {
+		sort($pages, SORT_NUMERIC);
 
-	$number = 1;
-	foreach ($pages as $page) {
-		$parts = explode('.', $page);
-		rename($patch.'/'.$page, $patch.'/'.$number.'.'.$parts[1].'.'.$parts[2]);
-		$number++;
+		$number = 1;
+		foreach ($pages as $page) {
+			$parts = explode('.', $page);
+			rename($patch.'/'.$page, $patch.'/'.$number.'.'.$parts[1].'.'.$parts[2]);
+			$number++;
+		}
 	}
 }
 
