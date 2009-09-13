@@ -29,7 +29,7 @@ run_hook('admin_pages_before');
 //New page button.
 showmenudiv($lang['page']['new'], null, 'data/image/newpage.png', '?action=newpage');
 //Manage images button.
-showmenudiv($lang_kop17, null, 'data/image/image.png', '?action=images');
+showmenudiv($lang['images']['title'], null, 'data/image/image.png', '?action=images');
 
 //Show pages.
 $pages = get_pages();

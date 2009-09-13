@@ -40,7 +40,7 @@ function read_albums($dir) {
 					<span>
 						<img src="<?php echo MODULE_DIR; ?>/images/albums.png" alt="" />
 					</span>
-					<span style="width: 350px; font-size: 17pt;"><?php echo $album_name; ?></span>
+					<span class="title-page"><?php echo $album_name; ?></span>
 					<span>
 						<a href="?module=albums&amp;page=editalbum&amp;var1=<?php echo $dir; ?>">
 							<img src="data/image/edit.png" title="<?php echo $lang_albums6; ?>" alt="<?php echo $lang_albums6; ?>" />
@@ -78,7 +78,7 @@ function read_albumimages($dir) {
 								<img src="<?php echo MODULE_DIR; ?>/albums_getimage.php?image=<?php echo $var1; ?>/thumb/<?php echo $fdirname.'.'.$ext; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" />
 							</a>
 						</span>
-						<span style="width: 500px;">
+						<span class="title-page">
 							<span class="kop3"><?php echo $name; ?></span>
 							<br />
 							<i><?php echo $info; ?></i>

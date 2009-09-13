@@ -80,7 +80,7 @@ else {
 
 			//Page:Manage Images
 			case 'images':
-				$titelkop = $lang_kop17;
+				$titelkop = $lang['images']['title'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/images.php');
 				break;

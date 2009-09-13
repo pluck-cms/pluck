@@ -258,7 +258,6 @@ function albums_page_admin_editalbum() {
 		<br />
 		<?php
 		read_albumimages(MODULE_SETTINGS.'/'.$var1);
-		
 	}
 	?>
 		<br />

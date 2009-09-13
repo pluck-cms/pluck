@@ -65,9 +65,8 @@ body {
 	border-left: 1px dotted #CCCCCC;
 	height: 80%;
 	padding-left: 15px;
-	width: 160px;
 	float: right;
-	margin: 10px 0;
+	margin: 10px 25px 10px 0;
 }
 
 #statusbox div {
@@ -222,6 +221,7 @@ p {
 	color: #3766AC;
 	float: right;
 	font-size: 12px;
+	width: 30%;
 }
 
 .smallmenu {

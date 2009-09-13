@@ -147,9 +147,8 @@ $lang['editmeta']['comma']    = 'seperated by a comma';
 $lang['editmeta']['changing'] = 'Changing page information...';
 
 //Images
-$lang_kop17 = "manage images";
+$lang['images']['title'] = 'manage images';
 $lang_image1 = "Here you can upload your images, which you can put on your webpages later. There are three supported imagetypes: JPG, PNG and GIF.";
-$lang_image8 = "upload image";
 $lang_image7 = "uploaded images";
 $lang_image3 = "Name:";
 $lang_image4 = "Size:";
