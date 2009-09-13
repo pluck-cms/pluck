@@ -189,7 +189,7 @@ function show_subpage_select($name, $current_page = null) {
 	if ($pages) {
 		foreach ($pages as $page) {
 			//You should not be able to add a page as a sub-page of itself.
-			if (strpos($page, get_page_filename($current_page)) === false && strpos(get_page_seoname($page), $current_page.'/') === false) {
+			if (is_null($current_page) || (strpos($page, get_page_filename($current_page)) === false && strpos(get_page_seoname($page), $current_page.'/') === false)) {
 				include ('data/settings/pages/'.$page);
 
 				preg_match_all('|\/|', $page, $indent);

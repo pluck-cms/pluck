@@ -125,11 +125,20 @@ function theme_sitetitle() {
 
 //[THEME] FUNCTION TO SHOW THE MENU
 //---------------------------------
-function theme_menu($block, $inline, $active_id = null, $level = 0) {
-	theme_menu_data($block, $inline, $active_id, $level, 'data/settings/pages');
+function theme_menu($block, $inline, $active_id = null, $level = 0, $only_subpages = false) {
+	if ($only_subpages)
+		$dir = 'data/settings/pages/'.CURRENT_PAGE_SEONAME;
+	else
+		$dir = 'data/settings/pages';
+
+	theme_menu_data($block, $inline, $active_id, $level, $dir);
 }
 
 function theme_menu_data($block, $inline, $active_id, $level, $dir) {
+	//if there is no sub-pages, just return.
+	if (!is_dir($dir))
+		return;
+
 	$files = read_dir_contents($dir, 'files');
 
 	if ($files) {
