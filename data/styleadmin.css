@@ -126,6 +126,9 @@ h3 {
 .menudiv .title-page {
 	width: 350px;
 	font-size: 23px;
+	overflow: hidden;
+	/* This is CSS3 */
+	text-overflow: ellipsis;
 }
 
 .menudiv .title-module {

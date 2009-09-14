@@ -23,7 +23,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 //Introduction text.
 ?>
 <p>
-	<strong><?php echo $lang_image1; ?></strong>
+	<strong><?php echo $lang['images']['message']; ?></strong>
 </p>
 <div class="menudiv">
 	<span>
@@ -47,13 +47,13 @@ if (isset($_POST['submit'])) {
 			chmod('images/'.$_FILES['imagefile']['name'], 0666);
 			?>
 				<div class="menudiv">
-					<strong><?php echo $lang_image3; ?></strong> <?php echo $_FILES['imagefile']['name']; ?>
+					<strong><?php echo $lang['images']['name']; ?></strong> <?php echo $_FILES['imagefile']['name']; ?>
 					<br />
-					<strong><?php echo $lang_image4; ?></strong> <?php echo $_FILES['imagefile']['size']; ?> bytes
+					<strong><?php echo $lang['images']['size']; ?></strong> <?php echo $_FILES['imagefile']['size'].' '.$lang['images']['bytes']; ?>
 					<br />
-					<strong><?php echo $lang_image5; ?></strong> <?php echo $_FILES['imagefile']['type']; ?>
+					<strong><?php echo $lang['images']['type']; ?></strong> <?php echo $_FILES['imagefile']['type']; ?>
 					<br />
-					<strong><?php echo $lang_image6; ?></strong>
+					<strong><?php echo $lang['images']['success']; ?></strong>
 				</div>
 			<?php
 		}
@@ -62,7 +62,7 @@ if (isset($_POST['submit'])) {
 
 //Display list of uploaded pictures.
 ?>
-<span class="kop2"><?php echo $lang_image7; ?></span>
+<span class="kop2"><?php echo $lang['images']['uploaded']; ?></span>
 <br />
 <?php
 //Show the uploaded images
@@ -75,25 +75,24 @@ $images = read_dir_contents('images', 'files');
 				<span>
 					<img src="data/image/image.png" alt="" />
 				</span>
-				<span style="width: 350px">
-					<span style="font-size: 17pt;"><?php echo $image; ?></span>
+				<span class="title-page"><?php echo $image; ?></span>
+				<span>
+					<a href="images/<?php echo $image; ?>" target="_blank">
+						<img src="data/image/view.png" alt="" />
+					</a>
 				</span>
 				<span>
-					<a href="images/<?php echo $image; ?>" target="_blank"><img src="data/image/view.png" alt="" /></a>
-				</span>
-				<span>
-					<a href="?action=deleteimage&amp;var1=<?php echo $image; ?>"><img src="data/image/delete.png" title="<?php echo $lang['trashcan']['move_to_trash']; ?>" alt="<?php echo $lang['trashcan']['move_to_trash']; ?>" /></a>
+					<a href="?action=deleteimage&amp;var1=<?php echo $image; ?>">
+						<img src="data/image/delete.png" title="<?php echo $lang['trashcan']['move_to_trash']; ?>" alt="<?php echo $lang['trashcan']['move_to_trash']; ?>" />
+					</a>
 				</span>
 			</div>
 			<?php
 		}
 		unset($images);
 	}
-	else {
-	?>
-		<span class="kop4"><?php echo $lang_albums14; ?></span>
-	<?php
-	}
+	else
+		echo '<span class="kop4">'.$lang_albums14.'</span>';
 ?>
 <p>
 	<a href="?action=page">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>

@@ -147,14 +147,14 @@ $lang['editmeta']['comma']    = 'seperated by a comma';
 $lang['editmeta']['changing'] = 'Changing page information...';
 
 //Images
-$lang['images']['title'] = 'manage images';
-$lang_image1 = "Here you can upload your images, which you can put on your webpages later. There are three supported imagetypes: JPG, PNG and GIF.";
-$lang_image7 = "uploaded images";
-$lang_image3 = "Name:";
-$lang_image4 = "Size:";
-$lang_image5 = "Type:";
-$lang_kop13 = "delete image";
-$lang_image6 = "Upload successfull!";
+$lang['images']['title']    = 'manage images';
+$lang['images']['message']  = 'Here you can upload your images, which you can put on your webpages later. There are three supported imagetypes: JPG, PNG and GIF.';
+$lang['images']['uploaded'] = 'uploaded images';
+$lang['images']['name']     = 'Name:';
+$lang['images']['size']     = 'Size:';
+$lang['images']['type']     = 'Type:';
+$lang['images']['bytes']    = 'bytes';
+$lang['images']['success']  = 'Upload successfull!';
 
 //Modules
 $lang['modules']['title']   = 'modules';
@@ -280,13 +280,13 @@ $lang_albums12 = 'quality (1-100)';
 $lang_albums13 = 'upload a new image here. choose a title and a description, and choose the quality at which the images should be processed. the higher the quality, the higher the filesize.';
 $lang_albums14 = 'nothing yet...';
 $lang_albums15 = 'edit image';
-$lang_albums16	= 'Albums are not supported on this server: it probably doesn\'t have installed the php-gd module. You can contact your system administrator and ask to install this module.';
 $lang_albums17	= 'include album in this page:';
 $lang_albums18 = 'The specified album doesn\'t exist.';
 $lang_albums19 = 'There is already an album with that name.';
 $lang_updown5 = 'change image order';
 $lang_updown6 = 'This image already is on the top, so its rank can\'t be changed.';
 $lang_updown7 = 'This image already is the last one, so its rank can\'t be changed.';
+$lang_kop13 = "delete image";
 
 //Contact form.
 $lang['contactform']['module_name']  = 'contact form';
