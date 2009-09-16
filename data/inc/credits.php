@@ -107,7 +107,7 @@ elseif ($langpref == 'sk.php')
 if ($langpref != 'en.php') {
 ?>
 	<p>
-		<span class="kop2"><?php echo $lang['credits']['translation'].' ('.$lang.')'; ?></span>
+		<span class="kop2"><?php echo $lang['credits']['translation'].' ('.$language.')'; ?></span>
 		<br />
 		<?php echo $translator; ?>
 	</p>

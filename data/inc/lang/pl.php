@@ -23,7 +23,6 @@ Translators website	http://www.pluck.ekyo.pl
 $language = 'Polish';
 
 
-
 //----------------
 //Translation data
 
@@ -73,7 +72,6 @@ $lang['install']['step_2']          = 'krok 2';
 $lang['install']['step_3']          = 'krok 3';
 $lang['install']['writable']        = 'Sprawdź czy masz prawo zapisu do wyświetlonych plików i katalogów, klikając przycisk "Odśwież". Jeśli ustawiłeś prawa do zapisu, możesz przejść do następnego kroku.';
 $lang['install']['good']            = 'Dobrze';
-$lang['install']['false']           = 'Fałsz';
 $lang['install']['refresh']         = 'Odśwież';
 $lang['install']['proceed']         = 'Kontynuuj...';
 $lang['install']['homepage']        = 'W tym miejscu możesz edytować stronę główną. Wpisz tytuł i edytuj treść.';
@@ -154,15 +152,14 @@ $lang['editmeta']['comma']    = 'oddzielone przecinkami';
 $lang['editmeta']['changing'] = 'Zmieniam informacje o stronie...';
 
 //Images
-$lang_kop17  = "zarządzaj obrazkami";
-$lang_image1 = "Tutaj możesz załadować swoje obrazki, które będziesz mógł umieścić na podstronach później. Wymagane rozszerzenie obrazka to: JPG, PNG lub GIF.";
-$lang_image8 = "załaduj obrazek";
-$lang_image7 = "załadowane obrazki";
-$lang_image3 = "Nazwa:";
-$lang_image4 = "Rozmiar:";
-$lang_image5 = "Typ:";
-$lang_kop13  = "delete image";
-$lang_image6 = "Załadowano!";
+$lang['images']['title']    = 'zarządzaj obrazkami';
+$lang['images']['message']  = 'Tutaj możesz załadować swoje obrazki, które będziesz mógł umieścić na podstronach później. Wymagane rozszerzenie obrazka to: JPG, PNG lub GIF.';
+$lang['images']['uploaded'] = 'załadowane obrazki';
+$lang['images']['name']     = 'Nazwa:';
+$lang['images']['size']     = 'Rozmiar:';
+$lang['images']['type']     = 'Typ:';
+$lang['images']['bytes']    = 'bitów';
+$lang['images']['success']  = 'Załadowano!';
 
 //Modules
 $lang['modules']['title']   = 'moduły';
@@ -217,6 +214,11 @@ $lang['theme']['title']  = 'wybierz szablon';
 $lang['theme']['choose'] = 'Wybierz który z zainstalowanych szablonów ma zostać użyty.';
 $lang['theme']['saved']  = 'Ustawienia szablonu zostały zapisane.';
 
+//Themeuninstall
+$lang['theme_uninstall']['title']             = 'odinstaluj szablon';
+$lang['theme_uninstall']['message']           = 'Tutaj możesz odinstalować szablony. Szablon akualnie używany nie jest pokazany.';
+$lang['theme_uninstall']['uninstall_confirm'] = 'Czy jesteś pewien że chcesz odinstalować ten szablon?';
+
 //Themeinstall
 $lang['theme_install']['title']         = 'zainstaluj szablon';
 $lang['theme_install']['message']       = 'Tutaj możesz instalować nowe szablony. Upewnij się jednak, że najpierw ściągnąłeś szablon.';
@@ -224,11 +226,6 @@ $lang['theme_install']['return']        = 'powrót do <a href="?action=theme">sz
 $lang['theme_install']['not_supported'] = 'automatyczne instalowanie szablonów oraz modułów, nie jest wspierane przez ten serwer, musisz to zrobić ręcznie';
 $lang['theme_install']['success']       = 'szablon zainstalowany';
 $lang['theme_install']['too_big']       = 'Rozmiar pliku z szablonem jest za duży; limitem jest 1MB.';
-
-//Themeuninstall
-$lang['theme_uninstall']['title']             = 'odinstaluj szablon';
-$lang['theme_uninstall']['message']           = 'Tutaj możesz odinstalować szablony. Szablon akualnie używany nie jest pokazany.';
-$lang['theme_uninstall']['uninstall_confirm'] = 'Czy jesteś pewien że chcesz odinstalować ten szablon?';
 
 //Language
 $lang['language']['title']  = 'ustawienia języków';
@@ -288,13 +285,13 @@ $lang_albums12 = 'jakość (1-100)';
 $lang_albums13 = 'Tutaj możesz załadować nowy obrazek. Wybierz jego tytuł, opis i jakość z jaką ma być zapisany. Im wyższa jakość tym większy rozmiar pliku.';
 $lang_albums14 = 'pusto...';
 $lang_albums15 = 'edytuj obrazek';
-$lang_albums16 = 'Albumy nie są obsługiwane. Serwer najprawdopodobniej nie ma zainstalowanego modułu php-gd. Spytaj się administratora serwera czy zainstaluje ten moduł.';
 $lang_albums17 = 'dołącz album do tej strony:';
 $lang_albums18 = 'Podany album nie istnieje.';
 $lang_albums19 = 'Album o tej nazwie już istnieje.';
 $lang_updown5  = 'zmień kolejność obrazków';
 $lang_updown6  = 'Ten obrazek jest już na samej górze.';
 $lang_updown7 = 'Ten obrazek jest już na samym dole.';
+$lang_kop13 = "skasuj obrazek";
 
 //Contact form.
 $lang['contactform']['module_name']  = 'formularz kontaktowy';
