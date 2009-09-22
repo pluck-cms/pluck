@@ -91,10 +91,10 @@ function albums_page_admin_albums() {
 			}
 		}
 	?>
-	<p>
-		<a href="?action=modules">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
-	</p>
-<?php
+		<p>
+			<a href="?action=modules">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
+		</p>
+	<?php
 }
 
 function albums_page_admin_editalbum() {

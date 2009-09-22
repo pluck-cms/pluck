@@ -32,15 +32,15 @@ if (isset($_POST['save'], $cont1) && file_exists('data/themes/'.$cont1)) {
 }
 ?>
 <div class="rightmenu">
-	<div class="menudiv" style="padding-right: 120px;">
+	<div class="menudiv">
 		<span>
 			<img src="data/image/install.png" alt="<?php echo $lang['theme_install']['title']; ?>" title="<?php echo $lang['theme_install']['title']; ?>" />
 		</span>
 		<span class="kop3">
 			<a href="?action=themeinstall" title="<?php echo $lang['theme_install']['title']; ?>"><?php echo $lang['theme_install']['title']; ?></a>
-		</span>';
+		</span>
 	</div>
-	<div class="menudiv" style="padding-right: 120px;">
+	<div class="menudiv">
 		<span><img src="data/image/delete.png" alt="<?php echo $lang['theme_uninstall']['title']; ?>" title="<?php echo $lang['theme_uninstall']['title']; ?>" /></span>
 		<span class="kop3">
 			<a href="?action=themeuninstall" title="<?php echo $lang['theme_uninstall']['title']; ?>"><?php echo$lang['theme_uninstall']['title']; ?></a>

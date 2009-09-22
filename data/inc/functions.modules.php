@@ -44,7 +44,7 @@ foreach ($modules as $module) {
 }
 unset($module);
 
-//Sort the mdoules.
+//Sort the modules.
 natcasesort($module_list);
 
 /**

@@ -186,7 +186,7 @@ a:hover {
 }
 
 button, input, textarea, a.cancel {
-	font-size: 85%;
+	font-size: 14px;
 	background-color: #F4F4F4;
 	border: 1px solid gray;
 	color: gray;
