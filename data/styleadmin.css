@@ -28,22 +28,23 @@ body {
 	width: auto;
 	color: #B6B6B6;
 	font-size: 14px;
-	padding: 70px 9px 0px 9px;
 	text-align: center;
 	text-decoration: none;
-	height: 38px;
 	float: left;
 	color: gray;
 	position: relative;
 	bottom: 8px;
 }
 
-.menuitem:hover {
-	color:#3766AC;
+#menu a {
+	display: inline-block;
+	height: 38px;
+	padding: 70px 9px 0px 9px;
 }
 
-.menuitem:hover {
+#menu a:hover {
 	background-image: url(image/back_hover.jpg);
+	color: #3766AC;
 }
 
 #menu2 {
@@ -79,7 +80,7 @@ h1 {
 	font-size: 35px;
 	font-weight: bold;
 	float: left;
-	margin: 60px 25px 0px 75px;
+	margin: 60px 25px 0 75px;
 }
 
 h2 {
@@ -162,12 +163,10 @@ h3 {
 
 #somp a {
 	color: #3766AC;
-	text-decoration: none;
 }
 
 #somp a:hover {
 	color: gray;
-	text-decoration: none;
 }
 
 a {
