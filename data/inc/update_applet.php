@@ -73,6 +73,6 @@ elseif ($update_available == 'error')
 else
 	$update_note = '<img src="data/image/update-no.png" alt="" /> '.$lang['update']['up_to_date'];
 ?>
-<div>
+<li>
 	<?php echo $update_note; ?>
-</div>
+</li>

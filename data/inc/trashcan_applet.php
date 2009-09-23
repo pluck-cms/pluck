@@ -29,8 +29,8 @@ if ($trashcan_items == '0')
 else
 	$trash_image = 'trash-full.png';
 ?>
-<div>
+<li>
 	<a href="?action=trashcan"><img src="data/image/<?php echo $trash_image; ?>" alt="<?php echo $lang['trashcan']['title'] ?>" title="<?php echo $lang['trashcan']['title']; ?>" />
 	<?php echo $trashcan_items; ?> <?php echo $lang['trashcan']['items_in_trash']; ?>
 	</a>
-</div>
+</li>

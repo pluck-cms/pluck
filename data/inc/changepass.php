@@ -27,7 +27,7 @@ if (isset($_POST['save'])) {
 
 	//MD5-encrypt posted passwords.
 	if (!empty($cont1))
-		$cont1 = md5($cont1);
+		$cont1 = hash('sha512', $cont1);
 
 	//Check if the old password entered is correct. If it isn't, do:
 	if ($ww != $cont1)

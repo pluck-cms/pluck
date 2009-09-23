@@ -71,7 +71,7 @@ function insert_page_link() {
 	title = title.replace(/%u2003/g, '');
 	title = unescape(title);
 
-	tinyMCE.execCommand('mceInsertContent',false,'<a href="index.php?file=' + file + '" title="' + title + '">' + title + '<\/a>');
+	tinyMCE.execCommand('mceInsertContent', false, '<a href="index.php?file=' + file + '" title="' + title + '">' + title + '<\/a>');
 }
 
 function insert_image_link(dir) {
@@ -79,7 +79,7 @@ function insert_image_link(dir) {
 	var image = id.selectedIndex;
 	var file = id.options[image].text;
 
-	tinyMCE.execCommand('mceInsertContent',false,'<img src="' + dir + '/' + file + '" alt="" \/>');
+	tinyMCE.execCommand('mceInsertContent', false, '<img src="' + dir + '/' + file + '" alt="" \/>');
 }
 //-->
 </script>
@@ -87,10 +87,10 @@ function insert_image_link(dir) {
 </head>
 <body>
 <div id="menuheader">
-	<div id="statusbox">
+	<ul id="statusbox">
 		<?php include_once ('data/inc/trashcan_applet.php'); ?>
 		<?php include_once ('data/inc/update_applet.php'); ?>
-	</div>
+	</ul>
 	<h1>pluck</h1>
 	<?php run_hook('admin_menu_before'); ?>
 	<?php
@@ -123,20 +123,20 @@ function insert_image_link(dir) {
 	);
 	run_hook('admin_menu', array(&$links));
 	?>
-	<div id="menu">
+	<ul id="menu">
 		<?php
 		foreach ($links as $link) {
 			?>
-				<a class="menuitem" href="<?php echo $link['href']; ?>" title="<?php echo $link['text']; ?>" <?php if (isset($link['target'])) echo 'target="'.$link['target'].'"'; ?>>
-					<span>
+				<li>
+					<a href="<?php echo $link['href']; ?>" title="<?php echo $link['text']; ?>" <?php if (isset($link['target'])) echo 'target="'.$link['target'].'"'; ?>>
 						<img src="<?php echo $link['img']; ?>" alt="" />
 						<?php echo $link['text']; ?>
-					</span>
-				</a>
+					</a>
+				</li>
 			<?php
 		}
 		?>
-	</div>
+	</ul>
 	<?php run_hook('admin_menu_after'); ?>
 </div>
 <div id="text">

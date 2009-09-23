@@ -16,35 +16,30 @@ body {
 }
 
 #menuheader img {
-	position: relative;
-	top: 6px;
+	vertical-align: middle;
 }
 
 #menu {
 	height: 100px;
 }
 
-.menuitem {
+#menu li {
 	display: block;
 	width: auto;
 	color: #B6B6B6;
 	font-size: 14px;
 	padding: 70px 9px 0px 9px;
-	margin-bottom: 5px;
 	text-align: center;
 	text-decoration: none;
-	height: 30px;
+	height: 38px;
 	float: left;
 	color: gray;
+	position: relative;
+	bottom: 8px;
 }
 
 .menuitem:hover {
 	color:#3766AC;
-}
-
-.menuitem span {
-	position: relative;
-	bottom: 8px;
 }
 
 .menuitem:hover {
@@ -69,9 +64,9 @@ body {
 	margin: 10px 25px 10px 0;
 }
 
-#statusbox div {
+#statusbox li {
 	font-size: 11px;
-	margin-top: 3px;
+	margin-top: 10px;
 }
 
 #text {
@@ -279,16 +274,4 @@ p {
 	background-image: url(image/error_3.png);
 	background-repeat: no-repeat;
 	background-position: 8px center;
-}
-
-.error a {
-	color: #8a1f11;
-}
-
-.notice a {
-	color:#514721;
-}
-
-.success a {
-	color:#264409;
 }
