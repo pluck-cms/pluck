@@ -90,7 +90,7 @@ function theme_meta() {
 	}
 
 	//Check which CSS-file we need to use (LTR or RTL)
-	if (isset($direction) && $direction == 'rtl')
+	if (DIRECTION_RTL)
 		$cssfile = THEME_DIR.'/style-rtl.css';
 	else
 		$cssfile = THEME_DIR.'/style.css';
@@ -111,7 +111,7 @@ function theme_meta() {
 	}
 
 	//If RTL, set direction to RTL in CSS
-	if (isset($direction) && $direction == 'rtl')
+	if (DIRECTION_RTL)
 		echo '<style type="text/css">body {direction:rtl;}</style>'."\n";
 
 	run_hook('theme_meta');

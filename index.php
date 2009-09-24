@@ -32,7 +32,7 @@ require_once ('data/inc/variables.all.php');
 require_once ('data/inc/variables.site.php');
 
 //Then, if we have a RTL-language and theme hasn't been converted.
-if (isset($direction) && $direction == 'rtl' && !file_exists(THEME_DIR.'/style-rtl.css')) {
+if (DIRECTION_RTL && !file_exists(THEME_DIR.'/style-rtl.css')) {
 	//Convert theme and save CSS.
 	include_once ('data/inc/themes_convert-rtl.php');
 }

@@ -142,8 +142,14 @@ function show_page_box($file) {
 		$margin = count($margin[0]) * 20 + 10;
 	else
 		$margin = 0;
+
+	//We have to chech for RTL.
+	if (DIRECTION_RTL)
+		$direction = 'right';
+	else
+		$direction = 'left'
 	?>
-		<div class="menudiv" <?php if ($margin != 0) echo 'style="margin-left: '.$margin.'px;"'; ?>>
+		<div class="menudiv" <?php if ($margin != 0) echo 'style="margin-'.$direction.': '.$margin.'px;"'; ?>>
 			<span>
 				<img src="data/image/page.png" alt="" />
 			</span>

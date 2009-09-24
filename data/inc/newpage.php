@@ -95,7 +95,7 @@ if (isset($error))
 	<span class="kop2"><?php echo $lang['general']['contents']; ?></span>
 	<br />
 	<textarea class="tinymce" name="cont2" cols="70" rows="20"><?php if (isset($cont2)) echo $cont2; ?></textarea>
-	<div class="menudiv" style="width: 588px; margin-left: 0;">
+	<div class="menudiv" style="width: 588px; margin-<?php if (DIRECTION_RTL) echo 'right'; else echo 'left'; ?>: 0;">
 		<p class="kop2"><?php echo $lang['modules']['title']; ?></p>
 		<p class="kop4" style="margin-bottom: 5px;"><?php echo $lang['page']['modules']; ?></p>
 		<table>
@@ -139,7 +139,7 @@ if (isset($error))
 			?>
 		</table>
 	</div>
-	<div class="menudiv" style="width: 588px; margin-left: 0;">
+	<div class="menudiv" style="width: 588px; margin-<?php if (DIRECTION_RTL) echo 'right'; else echo 'left'; ?>: 0;">
 		<p class="kop2"><?php echo $lang['general']['other_options']; ?></p>
 		<p class="kop4" style="margin-bottom: 5px;"><?php echo $lang['page']['options']; ?></p>
 		<input type="checkbox" name="cont4" id="cont4" <?php if (isset($cont4) || (!isset($_POST['save']) && !isset($_POST['save_exit']))) echo 'checked="checked" ';?>value="no" />

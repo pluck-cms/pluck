@@ -54,6 +54,10 @@ if (file_exists('data/settings/themepref.php')) {
 	define('THEME', $themepref);
 	define('THEME_DIR', 'data/themes/'.$themepref);
 }
+if (isset($direction) && $direction = 'rtl')
+	define('DIRECTION_RTL', true);
+else
+	define('DIRECTION_RTL', false);
 
 if (isset($_GET['module'])) {
 	define('MODULE_DIR', 'data/modules/'.$_GET['module']);

@@ -184,7 +184,7 @@ h3 {
 	margin: 10px;
 }
 
-.menudiv .title-page {
+.menudiv .title-page, .menudiv .title-module {
 	width: 350px;
 	font-size: 23px;
 	overflow: hidden;
@@ -193,9 +193,12 @@ h3 {
 }
 
 .menudiv .title-module {
-	width: 350px;
-	font-size: 23px;
 	color: gray;
+}
+
+.menudiv .module-text {
+	display: none;
+	padding-left: 43px;
 }
 
 .menudiv span {

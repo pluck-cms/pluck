@@ -29,7 +29,7 @@ header('Content-Type:text/html;charset=utf-8');
 <title>pluck <?php echo PLUCK_VERSION; ?> - <?php echo $titelkop; ?></title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <?php
-if (isset($direction) && $direction == 'rtl') {
+if (DIRECTION_RTL) {
 	echo '<link href="data/styleadmin-rtl.css" rel="stylesheet" type="text/css" media="screen" />';
 }
 else {

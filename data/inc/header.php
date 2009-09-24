@@ -30,7 +30,7 @@ header("Content-Type:text/html;charset=utf-8");
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <?php
 //Check if we need rtl-direction
-if (isset($direction) && $direction == "rtl")
+if (DIRECTION_RTL)
 	echo '<link href="data/styleadmin-rtl.css" rel="stylesheet" type="text/css" media="screen" />';
 else
 	echo '<link href="data/styleadmin.css" rel="stylesheet" type="text/css" media="screen" />';

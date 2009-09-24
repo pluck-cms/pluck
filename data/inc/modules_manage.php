@@ -48,7 +48,7 @@ foreach($module_list as $module) {
 					//If module has been disabled, show warning
 					if (!module_is_compatible($module)) {
 					?>
-						<span style="color:red;"><?php echo $lang['modules_manage']['not_compatible']; ?></span>
+						<span style="color: red;"><?php echo $lang['modules_manage']['not_compatible']; ?></span>
 					<?php
 					}
 				?>
@@ -65,7 +65,7 @@ foreach($module_list as $module) {
 			</span>
 		</div>
 		<div>
-			<p id="<?php echo $module; ?>" style="display: none; padding-left: 43px;">
+			<p id="<?php echo $module; ?>" class="module-text">
 				<?php echo $module_info['intro']; ?>
 				<br />
 				<strong><?php echo $lang['modules_manage']['version']; ?></strong>: <?php echo $module_info['version']; ?>

@@ -173,7 +173,7 @@ tinyMCE.init({
 	entity_encoding : "raw",
 <?php
 //Check if we need to set the direction to rtl
-if (isset($direction) && $direction == 'rtl')
+if (DIRECTION_RTL)
 	echo 'directionality : "rtl",';
 
 //Include the right language
