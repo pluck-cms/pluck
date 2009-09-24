@@ -87,10 +87,6 @@ function insert_image_link(dir) {
 </head>
 <body>
 <div id="menuheader">
-	<ul id="statusbox">
-		<?php include_once ('data/inc/trashcan_applet.php'); ?>
-		<?php include_once ('data/inc/update_applet.php'); ?>
-	</ul>
 	<h1>pluck</h1>
 	<?php run_hook('admin_menu_before'); ?>
 	<?php
@@ -138,6 +134,10 @@ function insert_image_link(dir) {
 		?>
 	</ul>
 	<?php run_hook('admin_menu_after'); ?>
+	<ul id="statusbox">
+		<?php include_once ('data/inc/trashcan_applet.php'); ?>
+		<?php include_once ('data/inc/update_applet.php'); ?>
+	</ul>
 </div>
 <div id="text">
 <?php if (isset($titelkop)): ?>

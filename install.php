@@ -68,7 +68,6 @@ else {
 			check_writable('data/trash');
 			check_writable('data/themes');
 			check_writable('data/themes/default');
-			check_writable('data/themes/green');
 			check_writable('data/themes/oldstyle');
 			check_writable('data/settings/langpref.php');
 		?>
@@ -122,10 +121,6 @@ else {
 				chmod('data/settings/modules', 0777);
 				mkdir('data/settings/pages', 0777);
 				chmod('data/settings/pages', 0777);
-				mkdir('data/settings/modules/albums', 0777);
-				chmod('data/settings/modules/albums', 0777);
-				mkdir('data/settings/modules/blog', 0777);
-				chmod('data/settings/modules/blog', 0777);
 
 				redirect('?action=install4', 0);
 				include_once ('data/inc/footer.php');

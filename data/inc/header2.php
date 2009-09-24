@@ -42,33 +42,18 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'login.php'))
 ?>
 <link rel="icon" type="image/vnd.microsoft.icon" href="data/image/favicon.ico" />
 <meta name="robots" content="noindex" />
-<script language="javascript" type="text/javascript">
-<!--
+<script type="text/javascript">
 function refresh() {
 	window.location.reload(false);
 }
-//-->
-</script>
-<script language="javascript" type="text/javascript">
-<!--
-//Enter-listener.
-if (document.layers)
-	document.captureEvents(Event.KEYDOWN);
-	document.onkeydown =
-	function (evt) {
-		var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
-		if (keyCode == 13)   //13 = the code for pressing ENTER.
-			document.form.submit();
-	}
-//-->
 </script>
 </head>
 
 <body>
 <div id="menuheader">
 	<h1>pluck</h1>
-	<div id="menu2">
-		<span class="menuitem2"><?php echo $titelkop; ?></span>
-	</div>
+	<ul id="menu2">
+		<li><?php echo $titelkop; ?></li>
+	</ul>
 </div>
 <div id="text">

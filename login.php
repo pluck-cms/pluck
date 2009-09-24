@@ -66,7 +66,7 @@ else {
 	}
 	?>
 		<span class="kop2"><?php echo $lang['login']['password']; ?></span><br />
-		<form action="login.php" method="post" name="passform">
+		<form action="" method="post">
 			<input name="cont1" size="25" type="password" />
 			<input type="text" name="bogus" style="display: none;" />
 			<input type="submit" name="submit" value="<?php echo ucfirst($lang['login']['title']); ?>" />
