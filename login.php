@@ -55,7 +55,10 @@ else {
 
 			//Display success message.
 			show_error($lang['login']['correct'], 3);
-			redirect('admin.php?action=start', 1);
+			if (isset($_SESSION['pluck_before']))
+				redirect($_SESSION['pluck_before'], 1);
+			else
+				redirect('admin.php?action=start', 1);
 			include_once ('data/inc/footer.php');
 			exit;
 		}

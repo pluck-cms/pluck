@@ -38,10 +38,11 @@ else {
 	session_start();
 	require_once ('data/settings/token.php');
 	if (!isset($_SESSION[$token]) || ($_SESSION[$token] != 'pluck_loggedin')) {
+		$_SESSION['pluck_before'] = 'admin.php?'.$_SERVER['QUERY_STRING'];
 		$titelkop = $lang['login']['not'];
 		include_once ('data/inc/header2.php');
-		redirect('login.php', 3);
 		show_error($lang['login']['not_message'], 2);
+		redirect('login.php', 3);
 		include_once ('data/inc/footer.php');
 		exit;
 	}
