@@ -29,7 +29,7 @@ function get_pagetitle() {
 	global $lang, $module;
 
 	//Check if we want to get the title for a page, and check whether the page exists.
-	if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
+	if (!defined('CURRENT_MODULE_PAGE') && defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
 		if (strpos(CURRENT_PAGE_FILENAME, '/') !== false) {
 			$parts = explode('/', CURRENT_PAGE_FILENAME);
 			$count = count($parts);

@@ -45,6 +45,11 @@ $lang['general']['not_valid_file'] = 'Install failed: the file you specified is 
 $lang['general']['none']           = 'none';
 $lang['general']['description']    = 'description';
 $lang['general']['nothing_yet']    = 'nothing yet...';
+$lang['general']['send']           = 'Send';
+$lang['general']['name']           = 'Name:';
+$lang['general']['email']          = 'Email:';
+$lang['general']['message']        = 'Message:';
+$lang['general']['website']        = 'Website:';
 
 //Login
 $lang['login']['not']         = 'not logged in';
@@ -245,7 +250,7 @@ $lang['blog']['descr']                  = 'use a blog to post news or write arti
 $lang['blog']['categories']             = 'categories';
 $lang['blog']['category']               = 'category';
 $lang['blog']['choose_cat']             = 'Choose category...';
-$lang['blog']['no_cat']                 = 'no category';
+$lang['blog']['no_cat']                 = 'No category';
 $lang['blog']['new_cat']                = 'new category';
 $lang['blog']['new_cat_message']        = 'choose a name for your new category first, then click "save"';
 $lang['blog']['delete_cat']             = 'delete category';
@@ -253,15 +258,15 @@ $lang['blog']['posts']                  = 'existing posts';
 $lang['blog']['new_post']               = 'write new post';
 $lang['blog']['edit_post']              = 'edit post';
 $lang['blog']['delete_post']            = 'delete post';
-$lang['blog']['posted_in']              = 'posted in';
+$lang['blog']['at']                     = 'at';
+$lang['blog']['in']                     = 'in';
 $lang['blog']['posted_by']              = 'posted by';
 $lang['blog']['reactions']              = 'reactions';
-$lang['blog']['new_reaction_title']     = 'Title:';
 $lang['blog']['edit_reactions']         = 'edit reactions';
 $lang['blog']['edit_reactions_message'] = 'Here, you can edit the reactions of your visitors on the post.';
 $lang['blog']['delete_reaction']        = 'delete reaction';
 $lang['blog']['html_not_allowed']       = 'HTML-code is not allowed.';
-$lang['blog']['view_reactions']         = 'view or post reactions';
+$lang['blog']['no_reactions']           = 'no reactions';
 
 //Albums.
 $lang_albums = 'albums';
@@ -291,10 +296,6 @@ $lang_kop13 = "delete image";
 //Contact form.
 $lang['contactform']['module_name']  = 'contact form';
 $lang['contactform']['module_intro'] = 'with a contact form, you can allow your visitors to send you a message';
-$lang['contactform']['name']         = 'Name:';
-$lang['contactform']['email']        = 'Email:';
-$lang['contactform']['message']      = 'Message:';
-$lang['contactform']['send']         = 'Send';
 $lang['contactform']['fields']       = 'You didn\'t fill in all fields correctly.';
 $lang['contactform']['email_title']  = 'Message from your website from';
 $lang['contactform']['been_send']    = 'Your message has been send succesfully.';

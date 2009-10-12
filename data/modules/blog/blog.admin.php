@@ -20,6 +20,8 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
+require_once ('data/modules/blog/functions.php');
+
 function blog_page_admin_list() {
 	global $lang;
 	$module_page_admin[] = array(
@@ -57,123 +59,121 @@ function blog_page_admin_list() {
 // Page: admin
 //---------------
 function blog_page_admin_blog() {
-	global $lang, $lang_albums14;
-	require_once ('data/modules/blog/functions.php');
+	global $cont1, $lang, $lang_albums14;
 	?>
 	<p>
 		<strong><?php echo $lang['blog']['message']; ?></strong>
 	</p>
+	<?php showmenudiv($lang['blog']['new_post'], false, 'data/image/newpage.png', '?module=blog&amp;page=newpost', false); ?>
+	<span class="kop2"><?php echo $lang['blog']['posts']; ?></span>
+	<br />
 	<?php
-		showmenudiv($lang['blog']['new_post'], false, 'data/image/newpage.png', '?module=blog&amp;page=newpost', false);
-	?>
-	<span class="kop2"><?php echo $lang['blog']['posts']; ?></span><br />
-<?php
-//Display existing posts.
-if (blog_get_posts()) {
-	//Load posts in array.
-	$posts = blog_get_posts();
+	//Display existing posts.
+	if (blog_get_posts()) {
+		//Load posts in array.
+		$posts = blog_get_posts();
 
-	foreach ($posts as $order => $file) {
-		//Check if post exists.
-		if (file_exists('data/settings/modules/blog/posts/'.$file) && is_file('data/settings/modules/blog/posts/'.$file)) {
-			//Include post information.
-			include ('data/settings/modules/blog/posts/'.$file);
-			?>
-				<div class="menudiv" style="margin: 10px;">
+		foreach ($posts as $post) {
+		?>
+			<div class="menudiv">
+				<span>
+					<img src="data/modules/blog/images/blog.png" alt="" />
+				</span>
+				<span class="title-page"><?php echo $post['title']; ?></span>
+				<span>
+					<a href="?module=blog&amp;page=editpost&amp;var1=<?php echo $post['seoname']; ?>">
+						<img src="data/image/edit.png" title="<?php echo $lang['blog']['edit_post']; ?>" alt="<?php echo $lang['blog']['edit_post']; ?>" />
+					</a>
+				</span>
+				<?php
+				if (blog_get_reactions($post['seoname'])):
+				?>
 					<span>
-						<img src="data/modules/blog/images/blog.png" alt="" />
-					</span>
-					<span style="width: 500px;">
-						<span style="font-size: 17pt;"><?php echo $post_title; ?></span>
-					</span>
-					<span>
-						<a href="?module=blog&amp;page=editpost&amp;var1=<?php echo $file; ?>">
-							<img src="data/image/edit.png" title="<?php echo $lang['blog']['edit_post']; ?>" alt="<?php echo $lang['blog']['edit_post']; ?>" />
-						</a>
-					</span>
-					<span>
-						<a href="?module=blog&amp;page=editreactions&amp;var1=<?php echo $file; ?>">
+						<a href="?module=blog&amp;page=editreactions&amp;var1=<?php echo $post['seoname']; ?>">
 							<img src="data/modules/blog/images/reactions.png" title="<?php echo $lang['blog']['edit_reactions']; ?>" alt="<?php echo $lang['blog']['edit_reactions']; ?>" />
 						</a>
 					</span>
-					<span>
-						<a href="?module=blog&amp;page=deletepost&amp;var1=<?php echo $file; ?>">
-							<img src="data/image/delete_from_trash.png" title="<?php echo $lang['blog']['delete_post']; ?>" alt="<?php echo $lang['blog']['delete_post']; ?>" />
-						</a>
+				<?php
+				endif;
+				?>
+				<span>
+					<a href="?module=blog&amp;page=deletepost&amp;var1=<?php echo $post['seoname']; ?>">
+						<img src="data/image/delete_from_trash.png" title="<?php echo $lang['blog']['delete_post']; ?>" alt="<?php echo $lang['blog']['delete_post']; ?>" />
+					</a>
+				</span>
+				<br />
+				<span>
+					<span style="font-size: 12px; font-style: italic">
+						<?php
+						//Show post date and category.
+						echo $post['date'].' '.$lang['blog']['at'].' '.$post['time'];
+						if (isset($post['category']) && !empty($post['category']))
+							echo ' '.$lang['blog']['in'].' '.$post['category'];
+						?>
 					</span>
-					<br />
-					<span style="margin-top: 10px">
-						<span style="font-size: 12px; font-style: italic">
-							<?php
-							//Show post date and category.
-							echo $post_month.'-'.$post_day.'-'.$post_year;
-							if (isset($post_category))
-								echo ', '.$lang['blog']['posted_in'].' '.$post_category;
-							?>
-						</span>
-					</span>
-				</div>
-			<?php
+				</span>
+			</div>
+		<?php
 		}
 	}
-}
 
-//If no posts exist, display message.
-else
-	echo '<span class="kop4">'.$lang_albums14.'</span><br />';
-?>
-	<br />
+	//If no posts exist, display message.
+	else
+		echo '<span class="kop4">'.$lang_albums14.'</span><br /><br />';
+	?>
 	<span class="kop2"><?php echo $lang['blog']['categories']; ?></span>
 	<br />
-<?php
-//If there already are categories.
-if (blog_get_categories()) {
-	//Get categories.
-	$categories = blog_get_categories();
-
-	//And show them.
-	echo '<div>';
-	foreach ($categories as $key => $name) {
-	?>
-		<span><?php echo $name; ?> &nbsp;</span>
-		<span>
-			<a href="?module=blog&amp;page=deletecategory&amp;var1=<?php echo $name; ?>">
-				<img src="data/image/delete_from_trash_small.png" width="16" height="16" alt="<?php echo $lang['blog']['delete_cat']; ?>" title="<?php echo $lang['blog']['delete_cat']; ?>" />
-			</a>
-		</span><br />
 	<?php
+	//If there already are categories.
+	if (blog_get_categories()) {
+		//Get categories.
+		$categories = blog_get_categories();
+
+		//And show them.
+		echo '<div>';
+		foreach ($categories as $category) {
+		?>
+			<div class="menudiv">
+				<span>
+					<img src="data/image/page.png" alt="" />
+				</span>
+				<span class="title-page"><?php echo $category['title']; ?> &nbsp;</span>
+				<span>
+					<a href="?module=blog&amp;page=deletecategory&amp;var1=<?php echo $category['seoname']; ?>">
+						<img src="data/image/delete_from_trash.png" alt="<?php echo $lang['blog']['delete_cat']; ?>" title="<?php echo $lang['blog']['delete_cat']; ?>" />
+					</a>
+				</span>
+			</div>
+		<?php
+		}
+		unset($category);
+		echo '</div>';
 	}
-	unset($key);
-	echo '</div>';
-}
 
-//If no categories exist, show a message.
-else
-	echo '<span class="kop4">'.$lang_albums14.'</span><br />';
+	//If no categories exist, show a message.
+	else
+		echo '<span class="kop4">'.$lang_albums14.'</span><br /><br />';
 
-//New category.
-?>
-<br />
-<label class="kop2" for="cont1"><?php echo $lang['blog']['new_cat']; ?></label>
-<br />
-<form method="post" action="">
-	<span class="kop4"><?php echo $lang['blog']['new_cat_message']; ?></span>
-	<br />
-	<input name="cat_name" id="cont1" type="text" />
-	<input type="submit" name="Submit" value="<?php echo $lang['general']['save']; ?>" />
-</form>
-
-<?php
-//When form is submitted.
-if (isset($_POST['cat_name'])) {
-	blog_create_category($_POST['cat_name']);
-	redirect('?module=blog', 0);
-}
-?>
-<p>
-	<a href="?action=modules">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
-</p>
-
+	//New category.
+	?>
+		<form method="post" action="">
+			<label class="kop2" for="cont1"><?php echo $lang['blog']['new_cat']; ?></label>
+			<br />
+			<span class="kop4"><?php echo $lang['blog']['new_cat_message']; ?></span>
+			<br />
+			<input name="cont1" id="cont1" type="text" />
+			<input type="submit" name="Submit" value="<?php echo $lang['general']['save']; ?>" />
+		</form>
+	<?php
+	//When form is submitted.
+	if (isset($cont1) && !empty($cont1)) {
+		blog_create_category($cont1);
+		redirect('?module=blog', 0);
+	}
+	?>
+	<p>
+		<a href="?action=modules">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
+	</p>
 <?php
 }
 
@@ -181,8 +181,12 @@ if (isset($_POST['cat_name'])) {
 // Page: deletecategory
 //---------------
 function blog_page_admin_deletecategory() {
-	require_once('data/modules/blog/functions.php');
-	blog_delete_category($_GET['var1']);
+	global $var1;
+
+	//Check if config file exists.
+	if (file_exists(BLOG_CATEGORIES_DIR.'/'.$var1.'.php'))
+		unlink(BLOG_CATEGORIES_DIR.'/'.$var1.'.php');
+
 	redirect('?module=blog', 0);
 }
 
@@ -191,46 +195,48 @@ function blog_page_admin_deletecategory() {
 //---------------
 function blog_page_admin_editreactions() {
 	global $lang, $var1, $page;
-?>
+	?>
+	<p>
+		<strong><?php echo $lang['blog']['edit_reactions_message']; ?></strong>
+	</p>
+	<?php
+	//Include blog post, if it exists
+	if (file_exists('data/settings/modules/blog/posts/'.$var1)) {
+		include_once('data/settings/modules/blog/posts/'.$var1);
 
-<p><b><?php echo $lang['blog']['edit_reactions_message']; ?></b></p>
-<?php
-//Include blog post, if it exists
-if (file_exists('data/settings/modules/blog/posts/'.$var1)) {
-	include_once('data/settings/modules/blog/posts/'.$var1);
-
-	//Display reactions
-	if(isset($post_reaction_title)) {
-		foreach($post_reaction_title as $key => $value) {
-			$post_reaction_content[$key] = str_replace('<br />',"\n",$post_reaction_content[$key]); ?>
-
-<div class="menudiv" style="margin: 10px;">
-	<table>
-		<tr>
-			<td>
-				<img src="data/modules/blog/images/reactions.png" alt="" border="0">
-			</td>
-			<td style="width: 600px;">
-				<form method="post" action="">
-					<b><?php echo $lang['general']['title']; ?></b><br />
-			  		<input name="title" type="text" value="<?php echo $post_reaction_title[$key]; ?>" /><br /><br />
-
-					<textarea name="message" rows="5" cols="65"><?php echo $post_reaction_content[$key]; ?></textarea><br /><br />
-
-					<input name="edit_key" type="hidden" value="<?php echo $key; ?>" />
-					<input type="submit" name="Submit" value="<?php echo $lang['general']['save']; ?>" />
-				</form>
-			</td>
-			<td>
-				<a href="?module=blog&page=deletereactions&post=<?php echo $var1; ?>&key=<?php echo $key; ?>">
-					<img src="data/image/delete_from_trash.png" border="0" title="<?php echo $lang['blog']['delete_reaction']; ?>" alt="<?php echo $lang['blog']['delete_reaction']; ?>" />
-				</a>
-			</td>
-		</tr>
-	</table>
-</div>
-
-<?php	}
+		//Display reactions
+		if(isset($post_reaction_title)) {
+			foreach($post_reaction_title as $key => $value) {
+				$post_reaction_content[$key] = str_replace('<br />',"\n",$post_reaction_content[$key]);
+				//TODO: The rest of this function is one big mess. Clean it up somehow!
+				?>
+					<div class="menudiv">
+						<table>
+							<tr>
+								<td>
+									<img src="data/modules/blog/images/reactions.png" alt="" border="0">
+								</td>
+								<td style="width: 600px;">
+									<form method="post" action="">
+										<b><?php echo $lang['general']['title']; ?></b><br />
+										<input name="title" type="text" value="<?php echo $post_reaction_title[$key]; ?>" />
+										<br /><br />
+										<textarea name="message" rows="5" cols="65"><?php echo $post_reaction_content[$key]; ?></textarea>
+										<br /><br />
+										<input name="edit_key" type="hidden" value="<?php echo $key; ?>" />
+										<input type="submit" name="Submit" value="<?php echo $lang['general']['save']; ?>" />
+									</form>
+								</td>
+								<td>
+									<a href="?module=blog&page=deletereactions&post=<?php echo $var1; ?>&key=<?php echo $key; ?>">
+										<img src="data/image/delete_from_trash.png" border="0" title="<?php echo $lang['blog']['delete_reaction']; ?>" alt="<?php echo $lang['blog']['delete_reaction']; ?>" />
+									</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+				<?php
+			}
 		unset($key);
 	}
 }
@@ -238,7 +244,7 @@ if (file_exists('data/settings/modules/blog/posts/'.$var1)) {
 //If form is posted...
 if(isset($_POST['Submit'])) {
 	//Check if everything has been filled in.
-	if((!isset($_POST['title'])) || (!isset($_POST['message']))) { ?>
+	if(!isset($_POST['title']) || !isset($_POST['message'])) { ?>
 		<span style="color: red;"><?php echo $lang['contactform']['fields']; ?></span>
 		<?php exit;
 	}
@@ -267,69 +273,8 @@ if(isset($_POST['Submit'])) {
 // Page: deletereactions
 //---------------
 function blog_page_admin_deletereactions() {
-	if ((isset($_GET['post'])) && (isset($_GET['key']))) {
-		//Set variables
-		$post = $_GET['post'];
-		$key = $_GET['key'];
-
-		//Check if post exists
-		if (file_exists('data/settings/modules/blog/posts/'.$post)) {
-			include('data/settings/modules/blog/posts/'.$post);
-
-			//Check if the post actually contains reactions
-			if(isset($post_reaction_title)) {
-				//Strip slashes from post itself
-				$post_title = sanitize($post_title);
-				$post_category = sanitize($post_category);
-				$post_content = sanitize($post_content, false);
-
-				//Then, save existing post information
-				$file = fopen('data/settings/modules/blog/posts/'.$post, 'w');
-				fputs($file, '<?php'."\n"
-				.'$post_title = \''.$post_title.'\';'."\n"
-				.'$post_category = \''.$post_category.'\';'."\n"
-				.'$post_content = \''.$post_content.'\';'."\n"
-				.'$post_day = \''.$post_day.'\';'."\n"
-				.'$post_month = \''.$post_month.'\';'."\n"
-				.'$post_year = \''.$post_year.'\';'."\n"
-				.'$post_time = \''.$post_time.'\';'."\n");
-
-				//Set new key to 0
-				$new_key = 0;
-
-				//Save reactions
-				foreach($post_reaction_title as $reaction_key => $value) {
-					//Don't save the reaction we want to delete
-					if($reaction_key != $key) {
-						//Sanitize reaction variables
-						$post_reaction_title[$reaction_key] = sanitize($post_reaction_title[$reaction_key]);
-						$post_reaction_name[$reaction_key] = sanitize($post_reaction_name[$reaction_key]);
-						$post_reaction_content[$reaction_key] = sanitize($post_reaction_content[$reaction_key]);
-						fputs($file, '$post_reaction_title['.$new_key.'] = \''.$post_reaction_title[$reaction_key].'\';'."\n"
-						.'$post_reaction_name['.$new_key.'] = \''.$post_reaction_name[$reaction_key].'\';'."\n"
-						.'$post_reaction_content['.$new_key.'] = \''.$post_reaction_content[$reaction_key].'\';'."\n"
-						.'$post_reaction_day['.$new_key.'] = \''.$post_reaction_day[$reaction_key].'\';'."\n"
-						.'$post_reaction_month['.$new_key.'] = \''.$post_reaction_month[$reaction_key].'\';'."\n"
-						.'$post_reaction_year['.$new_key.'] = \''.$post_reaction_year[$reaction_key].'\';'."\n"
-						.'$post_reaction_time['.$new_key.'] = \''.$post_reaction_time[$reaction_key].'\';'."\n");
-						//Adjust new key
-						$new_key++;
-					}
-				}
-				unset($reaction_key);
-
-				fputs($file, '?>');
-				fclose($file);
-				chmod('data/settings/modules/blog/posts/'.$post, 0777);
-				redirect('?module=blog&page=editreactions&var1='.$post, 0);
-			}
-		}
-	}
-
-	//Redirect
-	else {
-		redirect('?module=blog', 0);
-	}
+	//TODO: Make it work!
+	redirect('?module=blog&page=editreactions&var1='.$post, 0);
 }
 
 //---------------
@@ -337,79 +282,60 @@ function blog_page_admin_deletereactions() {
 //---------------
 function blog_page_admin_editpost() {
 	global $lang, $var1, $cont1, $cont2, $cont3;
-	require_once('data/modules/blog/functions.php');
-
-	//Redirect for a cancel.
-	if (isset($_POST['cancel']))
-		redirect('?module=blog', 0);
-
-	//Include the post information.
-	if (file_exists('data/settings/modules/blog/posts/'.$var1))
-		include('data/settings/modules/blog/posts/'.$var1);
-	else
-		exit;
 
 	//If form is posted...
 	if (isset($_POST['save']) || isset($_POST['save_exit'])) {
-
 		//Save blogpost.
-		$newfile = blog_save_post($cont1, $cont2, $cont3, $var1, $post_day, $post_month, $post_year, $post_time);
+		$seoname = blog_save_post($cont1, $cont2, $cont3, $var1);
 
 		//Redirect user.
-		//If the title has been changed and it is a plain save, redirect to the edit page with the new title in the var1 slot.
 		if (isset($_POST['save']))
-			redirect('?module=blog&page=editpost&var1='.$newfile, 0);
-
-		if (isset($_POST['save_exit']))
+			redirect('?module=blog&page=editpost&var1='.$seoname, 0);
+		else
 			redirect('?module=blog', 0);
 	}
-?>
 
-<div class="rightmenu">
-<?php echo $lang['page']['items']; ?><br />
-<?php
-	//Generate the menu on the right
-	read_imagesinpages('images');
-?>
-</div>
+	$post = blog_get_post($var1);
+	?>
+		<div class="rightmenu">
+			<p><?php echo $lang['page']['items']; ?></p>
+			<?php read_imagesinpages('images'); ?>
+		</div>
+		<form method="post" action="">
+			<p>
+				<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
+				<br />
+				<input name="cont1" id="cont1" type="text" value="<?php echo $post['title']; ?>" />
+			</p>
+			<p>
+			<label class="kop2" for="cont2"><?php echo $lang['blog']['category']; ?></label>
+			<br />
+			<select name="cont2" id="cont2">
+				<option value=""><?php echo $lang['blog']['choose_cat']; ?></option>
+				<?php
+				//If there are categories.
+				if (blog_get_categories()) {
+					$categories = blog_get_categories();
 
-<form method="post" action="">
-	<span class="kop2"><?php echo $lang['general']['title']; ?></span><br>
-	<input name="cont1" type="text" value="<?php echo $post_title; ?>">
-	<br /><br />
-	<span class="kop2"><?php echo $lang['blog']['category']; ?></span>
-	<br />
-	<select name="cont2">
-		<option value="<?php echo $lang['blog']['no_cat']; ?>"> <?php echo $lang['blog']['choose_cat']; ?></option>
-<?php
-	//If there are categories.
-	if(file_exists('data/settings/modules/blog/categories.dat')) {
-		//Load them
-		$categories = file_get_contents('data/settings/modules/blog/categories.dat');
-
-		//Then in an array.
-		$categories = split(',',$categories);
-
-		//And show them.
-		foreach($categories as $key => $name) {
-			if($post_category == $name)
-				echo '<option value="'.$name.'" selected />'.$name.'</option>';
-			else
-				echo '<option value="'.$name.'" />'.$name.'</option>';
-		}
-		unset($key);
-	}
-?>
-	</select><br /><br />
-
-	<span class="kop2"><?php echo $lang['general']['contents']; ?></span>
-	<br />
-	<textarea class="tinymce" name="cont3" cols="70" rows="20"><?php echo $post_content; ?></textarea>
-	<br />
-	<?php show_common_submits('?module=blog', true); ?>
-</form>
-
-<?php
+					foreach($categories as $category) {
+						if ($post['category'] == $category['seoname'])
+							echo '<option value="'.$category['seoname'].'" selected="selected">'.$category['title'].'</option>';
+						else
+							echo '<option value="'.$category['seoname'].'">'.$category['title'].'</option>';
+					}
+					unset($key);
+				}
+				?>
+			</select>
+			</p>
+			<p>
+				<label class="kop2" for="cont3"><?php echo $lang['general']['contents']; ?></label>
+				<br />
+				<textarea class="tinymce" name="cont3" id="cont3" cols="70" rows="20"><?php echo htmlspecialchars($post['content']); ?></textarea>
+			</p>
+			<?php show_common_submits('?module=blog', true); ?>
+		</form>
+	<?php
 }
 
 //---------------
@@ -417,10 +343,8 @@ function blog_page_admin_editpost() {
 //---------------
 function blog_page_admin_deletepost() {
 	global $var1;
-	require_once('data/modules/blog/functions.php');
 
-	//Delete blogpost.
-	blog_delete_post($var1);
+	//TODO: Make it work!
 
 	//Redirect.
 	redirect('?module=blog', 0);
@@ -432,72 +356,59 @@ function blog_page_admin_deletepost() {
 //---------------
 function blog_page_admin_newpost() {
 	global $lang, $var1, $cont1, $cont2, $cont3;
-	include('data/modules/blog/functions.php');
-
-	//Redirect for a cancel.
-	if (isset($_POST['cancel']))
-		redirect('?module=blog', 0);
 
 	//If form is posted...
 	if (isset($_POST['save']) || isset($_POST['save_exit'])) {
-
-		//Check if 'posts' directory exists, if not; create it
-		if(!file_exists('data/settings/modules/blog/posts')) {
-			mkdir('data/settings/modules/blog/posts',0777);
-			chmod('data/settings/modules/blog/posts',0777);
+		//Check if 'posts' directory exists, if not; create it.
+		if (!is_dir(BLOG_POSTS_DIR)) {
+			mkdir(BLOG_POSTS_DIR, 0777);
+			chmod(BLOG_POSTS_DIR, 0777);
 		}
 
 		//Save blogpost.
-		$newfile = blog_save_post($cont1, $cont2, $cont3);
+		$seoname = blog_save_post($cont1, $cont2, $cont3);
 
-		//Redirect user
+		//Redirect user.
 		if (isset($_POST['save']))
-			redirect('?module=blog&page=editpost&var1='.$newfile, 0);
-		elseif (isset($_POST['save_exit']))
+			redirect('?module=blog&page=editpost&var1='.$seoname, 0);
+		else
 			redirect('?module=blog', 0);
-
 	}
 	?>
+		<div class="rightmenu">
+			<p><?php echo $lang['page']['items']; ?></p>
+			<?php read_imagesinpages('images'); ?>
+		</div>
+		<form method="post" action="">
+			<p>
+				<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
+				<br />
+				<input name="cont1" id="cont1" type="text" />
+			</p>
+			<p>
+			<label class="kop2" for="cont2"><?php echo $lang['blog']['category']; ?></label>
+			<br />
+			<select name="cont2" id="cont2">
+				<option value=""><?php echo $lang['blog']['choose_cat']; ?></option>
+				<?php
+				//If there are categories.
+				if (blog_get_categories()) {
+					$categories = blog_get_categories();
 
-	<div class="rightmenu">
-		<?php echo $lang['page']['items']; ?><br />
-		<?php
-			//Generate the menu on the right
-			read_imagesinpages('images');
-		?>
-	</div>
-
-	<form method="post" action="">
-		<span class="kop2"><?php echo $lang['general']['title']; ?></span><br />
-		<input name="cont1" type="text" value=""><br /><br />
-
-		<span class="kop2"><?php echo $lang['blog']['category']; ?></span><br />
-		<select name="cont2">
-			<option value="<?php echo $lang['blog']['no_cat']; ?>" /> <?php echo $lang['blog']['choose_cat']; ?>
-	<?php
-	//If there are categories
-	if(file_exists('data/settings/modules/blog/categories.dat')) {
-		//Load them
-		$categories = file_get_contents('data/settings/modules/blog/categories.dat');
-
-		//Then in an array
-		$categories = split(',',$categories);
-
-		//And show them
-		foreach($categories as $key => $name)
-			echo '<option value="'.$name.'" />'.$name;
-
-		unset($key);
-	}
-	?>
-		</select>
-		<br /><br />
-		<span class="kop2"><?php echo $lang['general']['contents']; ?></span>
-		<br />
-		<textarea class="tinymce" name="cont3" cols="70" rows="20"></textarea>
-		<br />
-		<?php show_common_submits('?module=blog', true); ?>
-	</form>
+					foreach($categories as $category)
+						echo '<option value="'.$category['seoname'].'">'.$category['title'].'</option>';
+					unset($key);
+				}
+				?>
+			</select>
+			</p>
+			<p>
+				<label class="kop2" for="cont3"><?php echo $lang['general']['contents']; ?></label>
+				<br />
+				<textarea class="tinymce" name="cont3" id="cont3" cols="70" rows="20"></textarea>
+			</p>
+			<?php show_common_submits('?module=blog', true); ?>
+		</form>
 	<?php
 }
 ?>

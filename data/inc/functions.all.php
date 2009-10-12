@@ -121,12 +121,26 @@ function read_dir_contents($directory, $mode) {
  * Universal function for saving files.
  *
  * @param string $file Full patch to the file.
- * @param string $content The page content.
+ * @param mixed $content The page content. If it's an array, it will create the structure for you.
  * @param int $chmod With leading zero!
  */
 function save_file($file, $content, $chmod = 0777) {
 	$data = fopen($file, 'w');
-	fputs($data, $content);
+
+	//If it's an array, we have to create the structure.
+	if (is_array($content) && !empty($content)) {
+		$final_content = '<?php'."\n";
+		foreach ($content as $var => $value) {
+			$final_content .= '$'.$var.' = \''.$value.'\';'."\n";
+		}
+		$final_content .= '?>';
+
+		fputs($data, $final_content);
+	}
+
+	else
+		fputs($data, $content);
+
 	fclose($data);
 	chmod($file, $chmod);
 }

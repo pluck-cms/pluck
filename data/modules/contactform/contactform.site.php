@@ -3,30 +3,30 @@ function contactform_theme_main() {
 	global $lang;
 
 	//Define some variables.
-	if (isset($_POST['name']))
-		$name = $_POST['name'];
-	if (isset($_POST['sender']))
-		$sender = $_POST['sender'];
-	if (isset($_POST['message']))
-		$message = $_POST['message'];
+	if (isset($_POST['contactform_name']))
+		$name = $_POST['contactform_name'];
+	if (isset($_POST['contactform_sender']))
+		$sender = $_POST['contactform_sender'];
+	if (isset($_POST['contactform_message']))
+		$message = $_POST['contactform_message'];
 
 	//Then show the contactform.
 	?>
 		<form method="post" action="" id="contactform">
 			<div>
-				<label for="name"><?php echo $lang['contactform']['name']; ?></label>
+				<label for="contactform_name"><?php echo $lang['general']['name']; ?></label>
 				<br />
-				<input name="name" id="name" type="text" />
+				<input name="contactform_name" id="contactform_name" type="text" />
 				<br />
-				<label for="sender"><?php echo $lang['contactform']['email']; ?></label>
+				<label for="contactform_sender"><?php echo $lang['general']['email']; ?></label>
 				<br />
-				<input name="sender" id="sender" type="text" />
+				<input name="contactform_sender" id="contactform_sender" type="text" />
 				<br />
-				<label for="message"><?php echo $lang['contactform']['message']; ?></label>
+				<label for="contactform_message"><?php echo $lang['general']['message']; ?></label>
 				<br />
-				<textarea name="message" id="message" rows="7" cols="45"></textarea>
+				<textarea name="contactform_message" id="contactform_message" rows="7" cols="45"></textarea>
 				<br />
-				<input type="submit" name="submit" value="<?php echo $lang['contactform']['send']; ?>" />
+				<input type="submit" name="submit" value="<?php echo $lang['general']['send']; ?>" />
 			</div>
 		</form>
 	<?php

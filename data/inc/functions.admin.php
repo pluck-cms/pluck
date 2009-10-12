@@ -328,7 +328,7 @@ function save_password($password) {
 	//MD5-hash password
 	$password = hash('sha512', $password);
 	//Save password
-	save_file('data/settings/pass.php', '<?php $ww = \''.$password.'\'; ?>');
+	save_file('data/settings/pass.php', array('ww' => $password));
 }
 
 //Function: save the options.
@@ -347,13 +347,13 @@ function save_options($title, $email, $xhtml) {
 //Function: save the prefered language.
 //-------------------
 function save_language($language) {
-	save_file('data/settings/langpref.php', '<?php $langpref = \''.$language.'\'; ?>');
+	save_file('data/settings/langpref.php', array('langpref' => $language));
 }
 
 //Function: save theme.
 //-------------------
 function save_theme($theme) {
-	save_file('data/settings/themepref.php', '<?php $themepref = \''.$theme.'\'; ?>');
+	save_file('data/settings/themepref.php', array('themepref' => $theme));
 }
 
 /**

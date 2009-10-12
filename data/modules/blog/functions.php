@@ -20,324 +20,257 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
+define('BLOG_POSTS_DIR', 'data/settings/modules/blog/posts');
+define('BLOG_CATEGORIES_DIR', 'data/settings/modules/blog/categories');
+
 /**
  * Save or edit a blog post.
  *
  * @param string $title The title of the blog post.
  * @param string $category The category of the blog post.
  * @param string $content The contents of the blog post (the post itself).
- * @param string $name The filename of the blog post, if the post already exists (with extension).
- * @param string $post_day The day when the post is posted (by default current day).
- * @param string $post_month The month when the post is posted (by default current month).
- * @param string $post_year The year when the post is posted (by default current year).
- * @param string $post_time The time when the post is posted (by default current time).
+ * @param string $seoname The current seoname of the blog post, if it already exists.
  */
-function blog_save_post($title, $category, $content, $name = null, $post_day = null, $post_month = null, $post_year = null, $post_time = null) {
-	global $post_reaction_title, $post_reaction_name, $post_reaction_content, $post_reaction_day, $post_reaction_month, $post_reaction_year, $post_reaction_time;
-
-	//Sanitize variables
+function blog_save_post($title, $category, $content, $current_seoname = null) {
+	//Sanitize variables.
 	$title = sanitize($title);
-	$category = sanitize($category);
 	$content = sanitize($content, false);
 
-	//Get dates.
-	if (!isset($post_day))
-		$post_day = date('d');
-	if (!isset($post_month))
-		$post_month = date('m');
-	if (!isset($post_year))
-		$post_year = date('Y');
-	if (!isset($post_time))
-		$post_time = date('H:i');
+	$seoname = seo_url($title);
 
-	//Generate filename
-	$newfile = strtolower($title);
-	$newfile = str_replace('.', '', $newfile);
-	$newfile = str_replace(',', '', $newfile);
-	$newfile = str_replace('?', '', $newfile);
-	$newfile = str_replace(':', '', $newfile);
-	$newfile = str_replace('<', '', $newfile);
-	$newfile = str_replace('>', '', $newfile);
-	$newfile = str_replace('=', '', $newfile);
-	$newfile = str_replace('"', '', $newfile);
-	$newfile = str_replace('\'', '', $newfile);
-	$newfile = str_replace('/', '', $newfile);
-	$newfile = str_replace('\\', '', $newfile);
-	$newfile = str_replace('-', '', $newfile);
-	$newfile = str_replace('  ', '-', $newfile);
-	$newfile = str_replace(' ', '-', $newfile);
+	if (!empty($current_seoname)) {
+		$current_filename = blog_get_post_filename($current_seoname);
+		$parts = explode('.', $current_filename);
+		$number = $parts[0];
 
-	//Make sure chosen filename doesn't exist
-	while((!isset($name) && file_exists('data/settings/modules/blog/posts/'.$newfile.'.php')) || (isset($name) && $name != $newfile.'.php' && file_exists('data/settings/modules/blog/posts/'.$newfile.'.php')))
-		$newfile = $newfile.'-new';
-	//Include extension.
-	$newfile = $newfile.'.php';
+		//Get the post time.
+		include BLOG_POSTS_DIR.'/'.$current_filename;
 
-	//If post already exists, check if we need to update the post index (if the title has changed).
-	if (isset($name) && $name != $newfile) {
-		//Change old filename into new filename in post index.
-		if (file_exists('data/settings/modules/blog/post_index.dat')) {
-			$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
+		if ($seoname != $current_seoname) {
+			unlink(BLOG_POSTS_DIR.'/'.$current_filename);
 
-			//Check if post index contains old filename, and change it into new filename.
-			if (strpos($contents, $name."\n") !== FALSE)
-				$contents = str_replace($name."\n", $newfile."\n", $contents);
-			elseif (strpos($contents, "\n".$name) !== FALSE)
-				$contents = str_replace("\n".$name, "\n".$newfile, $contents);
-			elseif (strpos($contents, $name) !== FALSE)
-				$contents = str_replace($name, $newfile, $contents);
-
-			//Save updated post index.
-			$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
-			fputs($file, $contents);
-			fclose($file);
-			chmod('data/settings/modules/blog/post_index.dat', 0777);
-		}
-
-		//Check if the old post exists, then delete it.
-		if (file_exists('data/settings/modules/blog/posts/'.$name)) {
-			//Delete the post
-			unlink('data/settings/modules/blog/posts/'.$name);
+			if (is_dir(BLOG_POSTS_DIR.'/'.$current_seoname))
+				rename(BLOG_POSTS_DIR.'/'.$current_seoname, BLOG_POSTS_DIR.'/'.$seoname);
 		}
 	}
 
-	//If post does not exist.
-	elseif (!isset($name)) {
-		if(file_exists('data/settings/modules/blog/post_index.dat')) {
-			$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
-			$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
-			if(!empty($contents))
-				fputs($file, $newfile."\n".$contents);
-			else
-				fputs($file, $newfile);
+	else {
+		$files = read_dir_contents(BLOG_POSTS_DIR, 'files');
+
+		//Find the number.
+		if ($files) {
+			$number = count($files);
+			$number++;
 		}
-		else {
-			$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
-			fputs($file, $newfile);
-		}
-		fclose($file);
-		unset($file);
-		chmod('data/settings/modules/blog/post_index.dat', 0777);
+		else
+			$number = 1;
+
+		$post_time = time();
 	}
 
-	//Save information
-	$file = fopen('data/settings/modules/blog/posts/'.$newfile, 'w');
-	fputs($file, '<?php'."\n"
-	.'$post_title = \''.$title.'\';'."\n"
-	.'$post_category = \''.$category.'\';'."\n"
-	.'$post_content = \''.$content.'\';'."\n"
-	.'$post_day = \''.$post_day.'\';'."\n"
-	.'$post_month = \''.$post_month.'\';'."\n"
-	.'$post_year = \''.$post_year.'\';'."\n"
-	.'$post_time = \''.$post_time.'\';'."\n");
+	//Save information.
+	$data['post_title']    = $title;
+	$data['post_category'] = $category;
+	$data['post_content']  = $content;
+	$data['post_time']     = $post_time;
 
-	//Check if there are reactions
-	if (isset($name) && isset($post_reaction_title)) {
-		foreach ($post_reaction_title as $reaction_key => $value) {
+	save_file(BLOG_POSTS_DIR.'/'.$number.'.'.$seoname.'.php', $data);
 
-			//Sanitize reaction variables
-			$post_reaction_title[$reaction_key] = sanitize($post_reaction_title[$reaction_key]);
-			$post_reaction_name[$reaction_key] = sanitize($post_reaction_name[$reaction_key]);
-			$post_reaction_content[$reaction_key] = sanitize($post_reaction_content[$reaction_key]);
-
-			//And save the existing reaction
-			fputs($file, '$post_reaction_title['.$reaction_key.'] = \''.$post_reaction_title[$reaction_key].'\';'."\n"
-			.'$post_reaction_name['.$reaction_key.'] = \''.$post_reaction_name[$reaction_key].'\';'."\n"
-			.'$post_reaction_content['.$reaction_key.'] = \''.$post_reaction_content[$reaction_key].'\';'."\n"
-			.'$post_reaction_day['.$reaction_key.'] = \''.$post_reaction_day[$reaction_key].'\';'."\n"
-			.'$post_reaction_month['.$reaction_key.'] = \''.$post_reaction_month[$reaction_key].'\';'."\n"
-			.'$post_reaction_year['.$reaction_key.'] = \''.$post_reaction_year[$reaction_key].'\';'."\n"
-			.'$post_reaction_time['.$reaction_key.'] = \''.$post_reaction_time[$reaction_key].'\';'."\n");
-		}
-		unset($reaction_key);
-	}
-	fputs($file, '?>');
-	fclose($file);
-	chmod('data/settings/modules/blog/posts/'.$newfile, 0777);
-
-	//Return filename under which post has been saved (to allow for redirect).
-	return $newfile;
+	//Return seoname under which post has been saved (to allow for redirect).
+	return $seoname;
 }
 
-/**
- * Delete a blog post.
- *
- * @param string $post The filename of the blog post that needs to be deleted (with extension).
- */
-function blog_delete_post($post) {
-	//First, update the post index.
-	if(file_exists('data/settings/modules/blog/post_index.dat')) {
-		$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
+function blog_get_post_filename($seoname) {
+	$posts = read_dir_contents(BLOG_POSTS_DIR, 'files');
 
-		//Check if post index contains post we want to delete, and filter out the post.
-		if(strpos($contents, $post."\n") !== FALSE)
-			$contents = str_replace($post."\n",'',$contents);
-		elseif(strpos($contents, "\n".$post) !== FALSE)
-			$contents = str_replace("\n".$post,'',$contents);
-		elseif(strpos($contents, $post) !== FALSE)
-			$contents = str_replace($post,'',$contents);
-
-		//Save updated post index.
-		$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
-		fputs($file, $contents);
-		fclose($file);
-
-		//Reload contents of post index in variable.
-		$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
-		//If file is empty, delete post index.
-		if(empty($contents))
-			unlink('data/settings/modules/blog/post_index.dat');
+	if ($posts) {
+		foreach ($posts as $filename) {
+			if (strpos($filename, '.'.$seoname.'.'))
+				return $filename;
+		}
+		unset($filename);
 	}
 
-	//Check if post exists, then delete it.
-	if(file_exists('data/settings/modules/blog/posts/'.$post))
-		unlink('data/settings/modules/blog/posts/'.$post);
+	return false;
+}
+
+function blog_get_post_seoname($filename) {
+	if (file_exists(BLOG_POSTS_DIR.'/'.$filename)) {
+		$parts = explode('.', $filename);
+		return $parts[1];
+	}
+
+	else
+		return false;
 }
 
 /**
  * Save/add a reaction to a blog post.
  *
- * @param string $post The filename of the blog post to which the reaction should be added.
- * @param string $title The title of the reaction.
+ * @param string $post The seoname of the blog post to which the reaction should be added.
  * @param string $name The name of the person posting the reaction.
+ * @param string $email The e-mail of the person posting the reaction.
  * @param string $message The message of the reaction.
  * @param int $id If an existing reaction needs to be edited, the id of the reaction should go here.
  */
-function blog_save_reaction($post, $title, $name, $message, $id = null) {
+function blog_save_reaction($post, $name, $email, $website, $message, $id = null) {
 	global $lang;
-	//Get information of blog post.
-	include('data/settings/modules/blog/posts/'.$post);
 
-	//Check for HTML, and block if needed.
-	//FIXME: Replace ereg with strpos.
-	if (ereg('<', $title) || ereg('>', $title) || ereg('<', $name) || ereg('>', $name) || ereg('<', $message) || ereg('>', $message))
-		echo '<span style="color: red;">'.$lang['blog']['html_not_allowed'].'</span>';
+	//Sanitize variables.
+	$name = sanitize($name);
+	$message = sanitize($message);
+
+	//Have to make sure that the dir exists.
+	if (!is_dir(BLOG_POSTS_DIR.'/'.$post)) {
+		mkdir(BLOG_POSTS_DIR.'/'.$post, 0777);
+		chmod(BLOG_POSTS_DIR.'/'.$post, 0777);
+	}
+
+	if (!empty($id)) {
+		include BLOG_POSTS_DIR.'/'.$post.'/'.$id.'.php';
+
+		$number = $id;
+	}
 
 	else {
-		//Delete unwanted characters
-		$title = sanitize($title);
-		$name = sanitize($name);
-		$message = sanitize($message);
-		$post_title = sanitize($post_title);
-		$post_category = sanitize($post_category);
-		$post_content = sanitize($post_content, false);
+		$files = read_dir_contents(BLOG_POSTS_DIR.'/'.$post, 'files');
 
-		//Determine the date
-		$day = date('d');
-		$month = date('m');
-		$year = date('Y');
-		$time = date('H:i');
-
-		//Then, save existing post information
-		$file = fopen('data/settings/modules/blog/posts/'.$post, 'w');
-		fputs($file, '<?php'."\n"
-		.'$post_title = \''.$post_title.'\';'."\n"
-		.'$post_category = \''.$post_category.'\';'."\n"
-		.'$post_content = \''.$post_content.'\';'."\n"
-		.'$post_day = \''.$post_day.'\';'."\n"
-		.'$post_month = \''.$post_month.'\';'."\n"
-		.'$post_year = \''.$post_year.'\';'."\n"
-		.'$post_time = \''.$post_time.'\';'."\n");
-
-		//Check if there already are other reactions
-		if (isset($post_reaction_title)) {
-			foreach ($post_reaction_title as $reaction_key => $value) {
-				//Set key
-				$key = $reaction_key + 1;
-
-				//If we need to edit this reaction, do it.
-				if (isset($id) && $reaction_key == $id) {
-					fputs($file, '$post_reaction_title['.$reaction_key.'] = \''.$title.'\';'."\n"
-					.'$post_reaction_name['.$reaction_key.'] = \''.$name.'\';'."\n"
-					.'$post_reaction_content['.$reaction_key.'] = \''.$message.'\';'."\n"
-					.'$post_reaction_day['.$reaction_key.'] = \''.$post_reaction_day[$reaction_key].'\';'."\n"
-					.'$post_reaction_month['.$reaction_key.'] = \''.$post_reaction_month[$reaction_key].'\';'."\n"
-					.'$post_reaction_year['.$reaction_key.'] = \''.$post_reaction_year[$reaction_key].'\';'."\n"
-					.'$post_reaction_time['.$reaction_key.'] = \''.$post_reaction_time[$reaction_key].'\';'."\n");
-				}
-
-				//Save existing reactions.
-				else {
-					//Sanitize reaction variables.
-					$post_reaction_title[$reaction_key] = sanitize($post_reaction_title[$reaction_key]);
-					$post_reaction_name[$reaction_key] = sanitize($post_reaction_name[$reaction_key]);
-					$post_reaction_content[$reaction_key] = sanitize($post_reaction_content[$reaction_key]);
-
-					//And save the existing reaction.
-					fputs($file, '$post_reaction_title['.$reaction_key.'] = \''.$post_reaction_title[$reaction_key].'\';'."\n"
-					.'$post_reaction_name['.$reaction_key.'] = \''.$post_reaction_name[$reaction_key].'\';'."\n"
-					.'$post_reaction_content['.$reaction_key.'] = \''.$post_reaction_content[$reaction_key].'\';'."\n"
-					.'$post_reaction_day['.$reaction_key.'] = \''.$post_reaction_day[$reaction_key].'\';'."\n"
-					.'$post_reaction_month['.$reaction_key.'] = \''.$post_reaction_month[$reaction_key].'\';'."\n"
-					.'$post_reaction_year['.$reaction_key.'] = \''.$post_reaction_year[$reaction_key].'\';'."\n"
-					.'$post_reaction_time['.$reaction_key.'] = \''.$post_reaction_time[$reaction_key].'\';'."\n");
-				}
-			}
-			unset($reaction_key);
+		if ($files) {
+			$number = count($files);
+			$number++;
 		}
 
-		//If this is the first reaction, use key '0'.
-		elseif (!isset($post_reaction_title) && !isset($id))
-			$key = 0;
+		else
+			$number = 1;
 
-		//Only save a new reaction if $id is empty.
-		if (!isset($id)) {
-			fputs($file, '$post_reaction_title['.$key.'] = \''.$title.'\';'."\n"
-			.'$post_reaction_name['.$key.'] = \''.$name.'\';'."\n"
-			.'$post_reaction_content['.$key.'] = \''.$message.'\';'."\n"
-			.'$post_reaction_day['.$key.'] = \''.$day.'\';'."\n"
-			.'$post_reaction_month['.$key.'] = \''.$month.'\';'."\n"
-			.'$post_reaction_year['.$key.'] = \''.$year.'\';'."\n"
-			.'$post_reaction_time['.$key.'] = \''.$time.'\';'."\n");
-		}
-
-		//Finish file.
-		fputs($file, '?>');
-		fclose($file);
-		chmod('data/settings/modules/blog/posts/'.$post, 0777);
+		$post_time = time();
 	}
+
+	$data['reaction_name']    = $name;
+	$data['reaction_email']   = $email;
+	$data['reaction_website'] = $website;
+	$data['reaction_message'] = $message;
+	$data['reaction_time']    = $post_time;
+
+	save_file(BLOG_POSTS_DIR.'/'.$post.'/'.$number.'.php', $data);
 }
 
-/**
- * Load categories in an array. Will return FALSE if no categories exist.
- */
-function blog_get_categories() {
-	if (file_exists('data/settings/modules/blog/categories.dat')) {
-		//Load them.
-		$categories = file_get_contents('data/settings/modules/blog/categories.dat');
-		//Filter out linebreaks.
-		$categories = str_replace("\n", '', $categories);
-		//Then in an array.
-		$categories = explode(',',$categories);
+function blog_get_reaction($post, $id) {
+	if (file_exists(BLOG_POSTS_DIR.'/'.$post.'/'.$id.'.php')) {
+		include BLOG_POSTS_DIR.'/'.$post.'/'.$id.'.php';
 
-		return $categories;
+		return array(
+			'id'      => $id,
+			'name'    => $reaction_name,
+			'email'   => $reaction_email,
+			'website' => $reaction_website,
+			'message' => $reaction_message,
+			'date'    => blog_date_convert($reaction_time),
+			'time'    => blog_time_convert($reaction_time)
+		);
 	}
+
 	else
-		return FALSE;
+		return false;
+}
+
+function blog_get_reactions($post) {
+	if (is_dir(BLOG_POSTS_DIR.'/'.$post)) {
+		$files = read_dir_contents(BLOG_POSTS_DIR.'/'.$post, 'files');
+
+		if ($files) {
+			asort($files);
+
+			foreach ($files as $reaction) {
+				include BLOG_POSTS_DIR.'/'.$post.'/'.$reaction;
+				$parts = explode('.', $reaction);
+				$reactions[] = blog_get_reaction($post, $parts[0]);
+			}
+			unset($reaction);
+
+			return $reactions;
+		}
+	}
+
+	return false;
 }
 
 /**
  * Load posts in an array. Will return FALSE if no posts exist.
  */
 function blog_get_posts() {
-	if (file_exists('data/settings/modules/blog/post_index.dat')) {
-		//Open post index.
-		$handle = fopen('data/settings/modules/blog/post_index.dat', 'r');
+	$files = read_dir_contents(BLOG_POSTS_DIR, 'files');
 
-		while (!feof($handle)) {
-			$file = fgets($handle, 4096);
-			//Filter out line breaks.
-			$file = str_replace ("\n", '', $file);
-			//Load in an array.
-			$posts[] = $file;
+	if ($files) {
+		arsort($files);
+
+		foreach ($files as $post) {
+			include BLOG_POSTS_DIR.'/'.$post;
+			$posts[] = blog_get_post(blog_get_post_seoname($post));
 		}
-		//Close directory.
-		fclose($handle);
-		//Return array.
+		unset($post);
+
 		return $posts;
 	}
+
 	else
-		return FALSE;
+		return false;
+}
+
+function blog_get_post($seoname) {
+	if (file_exists(BLOG_POSTS_DIR.'/'.blog_get_post_filename($seoname))) {
+		include BLOG_POSTS_DIR.'/'.blog_get_post_filename($seoname);
+
+		return array(
+			'title'            => $post_title,
+			'seoname'          => $seoname,
+			'content'          => $post_content,
+			'category'         => blog_get_category_title($post_category),
+			'category_seoname' => $post_category,
+			'date'             => blog_date_convert($post_time),
+			'time'             => blog_time_convert($post_time)
+		);
+	}
+
+	else
+		return false;
+}
+
+/**
+ * Load categories in an array. Will return FALSE if no categories exist.
+ */
+function blog_get_categories() {
+	$files = read_dir_contents(BLOG_CATEGORIES_DIR, 'files');
+
+	if ($files) {
+		foreach ($files as $category) {
+			include BLOG_CATEGORIES_DIR.'/'.$category;
+			$categories[] = array(
+				'title'   => $category_title,
+				'seoname' => str_replace('.php', '', $category)
+			);
+		}
+		unset($category);
+
+		return $categories;
+	}
+
+	else
+		return false;
+}
+
+function blog_get_category_title($seoname) {
+	global $lang;
+
+	if (blog_category_exists($seoname)) {
+		include BLOG_CATEGORIES_DIR.'/'.$seoname.'.php';
+		return $category_title;
+	}
+
+	elseif (empty($seoname) || !blog_category_exists($seoname))
+		return $lang['blog']['no_cat'];
+	else
+		return false;
 }
 
 /**
@@ -347,23 +280,16 @@ function blog_get_posts() {
  */
 function blog_category_exists($category) {
 	if (blog_get_categories()) {
-		//Load them.
-		$categories = blog_get_categories();
+		$files = blog_get_categories();
 
-		//Set variable to FALSE.
-		$cat_exists = FALSE;
-		//Start checking categories.
-		foreach ($categories as $key => $name) {
-			if ($name == $category)
-				$cat_exists = TRUE;
+		foreach ($files as $file) {
+			if ($file['seoname'] == $category)
+				return true;
 		}
-
-		//Return result, unset variable.
-		return $cat_exists;
-		unset($cat_exists);
+		unset($file);
 	}
-	else
-		return FALSE;
+
+	return false;
 }
 
 /**
@@ -372,99 +298,16 @@ function blog_category_exists($category) {
  * @param string $category The name of the category that needs to be created.
  */
 function blog_create_category($category) {
-	//Filter category name from inappropriate characters.
-	$category = str_replace('"', '', $category);
-	$category = str_replace('\'', '', $category);
-	$category = str_replace(',', '', $category);
-	$category = str_replace(',', '', $category);
-	$category = str_replace('/', '', $category);
-	$category = str_replace('\\', '', $category);
+	$data['category_title'] = sanitize($category);
 
-	//Read out existing categories, if they exist.
-	if (file_exists('data/settings/modules/blog/categories.dat'))
-		$categories = file_get_contents('data/settings/modules/blog/categories.dat');
-
-	//If there are existing categories, but category we want to create doesn't exist yet; add it to array.
-	if (isset($categories) && !blog_category_exists($category)) {
-		//Load existing categories in array.
-		$categories = explode(',', $categories);
-
-		//Determine the array number for our new category.
-		$num = 0;
-		while (isset($categories[$num]))
-			$num++;
-
-		//Add new category to array.
-		$categories[$num] = $category;
-	}
-
-	//If the category already exists, don't add it to array.
-	elseif (isset($categories) && blog_category_exists($category)) {
-		//Load existing categories in array, but don't add new category.
-		$categories = explode(',', $categories);
-	}
-
-	//If there are no categories yet, just set new category in array.
-	elseif (!isset($categories))
-		$categories[0] = $category;
-
-	//Now, sort the array.
-	natcasesort($categories);
-	//Reset keys of array.
-	$categories = array_merge(array(), $categories);
-
-	//Open config file to save categories.
-	$file = fopen('data/settings/modules/blog/categories.dat', 'w');
-
-	foreach($categories as $number => $name) {
-		$number_next = $number + 1;
-		if (isset($categories[$number_next]))
-			fputs($file, $name.',');
-		else
-			fputs($file, $name);
-	}
-	unset($number);
-
-	//Close file, and chmod it.
-	fclose($file);
-	chmod('data/settings/modules/blog/categories.dat', 0777);
+	save_file(BLOG_CATEGORIES_DIR.'/'.seo_url($category).'.php', $data);
 }
 
-/**
- * Delete a blog category.
- *
- * @param string $category The name of the category that needs to be deleted.
- */
-function blog_delete_category($category) {
-	//Check if config file exists.
-	if (file_exists('data/settings/modules/blog/categories.dat')) {
-		$categories = file_get_contents('data/settings/modules/blog/categories.dat');
-		$categories = str_replace("\n", '', $categories);
+function blog_date_convert($timestamp) {
+	return date('j/m-y', $timestamp);
+}
 
-		//If category is the only one, delete config file.
-		if ($category == $categories) {
-			unlink('data/settings/modules/blog/categories.dat');
-		}
-
-		//If category is not last in list, delete it.
-		elseif (preg_match('/\b'.$category.',/', $categories, $matches) && blog_category_exists($category)) {
-			$categories = preg_replace('/\b'.$category.',/', '', $categories);
-			//Save new config file.
-			$file = fopen('data/settings/modules/blog/categories.dat', 'w');
-			fputs($file, $categories);
-			fclose($file);
-			chmod('data/settings/modules/blog/categories.dat', 0777);
-		}
-
-		//If category is last in list, delete it.
-		elseif (preg_match('/,\b'.$category.'\b/', $categories, $matches) && blog_category_exists($category)) {
-			$categories = preg_replace('/,\b'.$category.'\b/', '', $categories);
-			//Save new config file.
-			$file = fopen('data/settings/modules/blog/categories.dat', 'w');
-			fputs($file, $categories);
-			fclose($file);
-			chmod('data/settings/modules/blog/categories.dat', 0777);
-		}
-	}
+function blog_time_convert($timestamp) {
+	return date('H:i', $timestamp);
 }
 ?>

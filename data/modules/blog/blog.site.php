@@ -20,14 +20,16 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
+require_once ('data/modules/blog/functions.php');
+
 function blog_page_site_list() {
-	if (isset($_GET['post']) && file_exists('data/settings/modules/blog/posts/'.$_GET['post'])) {
-		include ('data/settings/modules/blog/posts/'.$_GET['post']);
-		$module_page_admin[] = array(
-			'func'  => 'viewpost',
-			'title' => $post_title
-		);
-	}
+	include BLOG_POSTS_DIR.'/'.blog_get_post_filename($_GET['post']);
+
+	$module_page_admin[] = array(
+		'func'  => 'viewpost',
+		'title' => $post_title
+	);
+
 	return $module_page_admin;
 }
 
@@ -36,35 +38,29 @@ function blog_page_site_list() {
 //---------------
 function blog_theme_main() {
 	global $lang;
-	require_once ('data/modules/blog/functions.php');
 
 	//Display existing posts.
 	if (blog_get_posts()) {
 		//Load posts in array.
 		$posts = blog_get_posts();
 
-		foreach ($posts as $order => $file) {
-			//Check if post exists.
-			if (file_exists('data/settings/modules/blog/posts/'.$file) && is_file('data/settings/modules/blog/posts/'.$file)) {
-				//Include post information.
-				include_once ('data/settings/modules/blog/posts/'.$file);
-				?>
-					<div class="blogpost">
-						<span class="posttitle">
-							<a href="?module=blog&amp;page=viewpost&amp;post=<?php echo $file; ?>&amp;pageback=<?php echo CURRENT_PAGE_FILENAME; ?>" title="post <?php echo $post_title; ?>"><?php echo $post_title; ?></a>
-						</span>
-						<br />
-						<span class="postinfo">
-							<?php echo $lang['blog']['posted_in']; ?> <span style="font-weight: bold;"><?php echo $post_category; ?></span> - <?php echo $post_month; ?>-<?php echo $post_day; ?>-<?php echo $post_year; ?>, <?php echo $post_time; ?>
-						</span>
-						<br /><br />
-						<?php echo $post_content; ?>
-						<p>
-							<a href="?module=blog&amp;page=viewpost&amp;post=<?php echo $file; ?>&amp;pageback=<?php echo CURRENT_PAGE_FILENAME; ?>" title="<?php echo $lang['blog']['view_reactions']; ?>">&raquo; <?php echo $lang['blog']['view_reactions']; ?></a>
-						</p>
-					</div>
-				<?php
-			}
+		foreach ($posts as $post) {
+		?>
+			<div class="blog_post">
+				<p class="blog_post_title">
+					<a href="?file=<?php echo CURRENT_PAGE_SEONAME; ?>&amp;module=blog&amp;page=viewpost&amp;post=<?php echo $post['seoname']; ?>" title="<?php echo $post['title']; ?>"><?php echo $post['title']; ?></a>
+				</p>
+				<span class="blog_post_info">
+					<?php echo $post['date'].' '.$lang['blog']['at'].' '.$post['time'].' '.$lang['blog']['in'].' '.$post['category']; ?>
+				</span>
+				<div class="blog_post_content">
+					<?php echo $post['content']; ?>
+				</div>
+				<p class="blog_post_more">
+					<a href="?file=<?php echo CURRENT_PAGE_SEONAME; ?>&amp;module=blog&amp;page=viewpost&amp;post=<?php echo $post['seoname']; ?>" title="<?php echo $lang['blog']['no_reactions']; ?>">&raquo; <?php echo $lang['blog']['no_reactions']; ?></a>
+				</p>
+			</div>
+		<?php
 		}
 	}
 }
@@ -77,88 +73,90 @@ function blog_page_site_viewpost() {
 	global $lang;
 
 	//Load blog post.
-	if (isset($_GET['post']) && file_exists('data/settings/modules/blog/posts/'.$_GET['post']))
-		include ('data/settings/modules/blog/posts/'.$_GET['post']);
+	$post = blog_get_post($_GET['post']);
 	?>
-		<div class="blogpost">
-			<span class="postinfo">
-				<?php echo $lang['blog']['posted_in']; ?> <span style="font-weight: bold;"><?php echo $post_category; ?></span> - <?php echo $post_month; ?>-<?php echo $post_day; ?>-<?php echo $post_year; ?>, <?php echo $post_time; ?>
-			</span><br /><br />
-			<?php echo $post_content; ?>
-		</div>
-		<div style="margin-top: 10px;">
-			<span style="font-size: 19px"><?php echo $lang['blog']['reactions']; ?></span>
-			<?php
-				//Then show the reactions.
-				//Check if there are reactions.
-				if (isset($post_reaction_title)) {
-					foreach ($post_reaction_title as $key => $value) {
-					?>
-						<div class="blogpost_reaction">
-							<span class="posttitle">
-								<?php echo $post_reaction_title[$key]; ?>
-							</span>
-							<br />
-							<span class="postinfo">
-								<?php echo $lang['blog']['posted_by']; ?> <span style="font-weight: bold;"><?php echo $post_reaction_name[$key]; ?></span> -  <?php echo $post_reaction_month[$key]; ?>-<?php echo $post_reaction_day[$key]; ?>-<?php echo $post_reaction_year[$key]; ?>, <?php echo $post_reaction_time[$key]; ?>
-							</span>
-							<br />
-							<?php
-								//Change linebreaks in html-breaks.
-								$post_reaction_content_br = str_replace("\n", '<br />', $post_reaction_content[$key]);
-								//Display post.
-								echo $post_reaction_content_br;
-							?>
-						</div>
-					<?php
-				}
-				unset($key);
-			}
-		//Show a form to post new reactions.
-	?>
-		<form method="post" action="" style="margin-top: 5px; margin-bottom: 15px;">
-			<div>
-				<label><?php echo $lang['blog']['new_reaction_title']; ?></label>
-				<br />
-				<input name="title" type="text" />
-				<br />
-				<label><?php echo $lang['contactform']['name']; ?></label>
-				<br />
-				<input name="name" type="text" />
-				<br />
-				<label><?php echo $lang['contactform']['message']; ?></label>
-				<br />
-				<textarea name="message" rows="7" cols="45"></textarea>
-				<br />
-				<input type="submit" name="Submit" value="<?php echo $lang['contactform']['send']; ?>" />
+		<div id="blog_post">
+			<span id="blog_post_info">
+				<?php echo $post['date'].' '.$lang['blog']['at'].' '.$post['time'].' '.$lang['blog']['in'].' '.$post['category']; ?>
+			</span>
+			<div id="blog_post_content">
+				<?php echo $post['content']; ?>
 			</div>
-		</form>
-	</div>
+		</div>
+		<div id="blog_reactions">
+			<p>
+				<?php
+				$number = count(blog_get_reactions($_GET['post']));
 
-<?php
-	//If form is posted...
-	if (isset($_POST['Submit'])) {
-		require_once('data/modules/blog/functions.php');
+				if (!empty($number))
+					echo $number.' '.$lang['blog']['reactions'];
+				else
+					echo $lang['blog']['no_reactions']
+				?>
+			</p>
+			<?php
+			$reactions = blog_get_reactions($_GET['post']);
 
-		//Check if everything has been filled in.
-		if (empty($_POST['title']) || empty($_POST['name']) || empty($_POST['message']))
-			echo '<span style="color: red;">'.$lang['contactform']['fields'].'</span>';
+			foreach ($reactions as $reaction) {
+			?>
+				<div class="blog_reaction" id="reaction<?php echo $reaction['id']; ?>">
+					<p class="blog_reaction_name">
+						<?php
+						if (!empty($reaction['website']))
+							echo '<a href="'.$reaction['website'].'">'.$reaction['name'].'</a>:';
+						else
+							echo $reaction['name'].':';
+						?>
+					</p>
+					<span class="blog_reaction_info">
+						<a href="#reaction<?php echo $reaction['id']; ?>"><?php echo $reaction['date'].' '.$lang['blog']['at'].' '.$reaction['time']; ?></a>
+				</span>
+					<p class="blog_reaction_message"><?php echo $reaction['message']; ?></p>
+				</div>
+			<?php
+			}
+			?>
+			<?php
+			//If form is posted...
+			if (isset($_POST['submit'])) {
+				//Check if everything has been filled in.
+				if (empty($_POST['blog_reaction_name']) || (empty($_POST['blog_reaction_email']) || filter_input(INPUT_POST, 'blog_reaction_email', FILTER_VALIDATE_EMAIL) == false) || empty($_POST['blog_reaction_message']))
+					echo '<p class="error">'.$lang['contactform']['fields'].'</p>';
 
-		//Add reaction.
-		else {
-			blog_save_reaction($_GET['post'], $_POST['title'], $_POST['name'], $_POST['message']);
+				//Add reaction.
+				else {
+					blog_save_reaction($_GET['post'], $_POST['blog_reaction_name'], $_POST['blog_reaction_email'], $_POST['blog_reaction_website'], $_POST['blog_reaction_message']);
 
-			//Redirect user.
-			redirect('?module=blog&page=viewpost&post='.$_GET['post'].'&pageback='.$_GET['pageback'], 0);
-		}
-	}
-
-	//Show back link
-	if (isset($_GET['pageback'])) { ?>
-	<p>
-		<a href="?file=<?php echo $_GET['pageback']; ?>" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
-	</p>
-<?php
-	}
+					//Redirect user.
+					redirect('?file='.CURRENT_PAGE_SEONAME.'&module=blog&page=viewpost&post='.$_GET['post'], 0);
+				}
+			}
+			?>
+			<form id="blog_post_form" method="post" action="">
+				<div>
+					<label for="blog_reaction_name"><?php echo $lang['general']['name']; ?></label>
+					<br />
+					<input name="blog_reaction_name" id="blog_reaction_name" type="text" />
+					<br />
+					<label for="blog_reaction_email"><?php echo $lang['general']['email']; ?></label>
+					<br />
+					<input name="blog_reaction_email" id="blog_reaction_email" type="text" />
+					<br />
+					<label for="blog_reaction_website"><?php echo $lang['general']['website']; ?></label>
+					<br />
+					<input name="blog_reaction_website" id="blog_reaction_website" type="text" value="http://" />
+					<br />
+					<label for="blog_reaction_message"><?php echo $lang['general']['message']; ?></label>
+					<br />
+					<textarea name="blog_reaction_message" id="blog_reaction_message" rows="7" cols="45"></textarea>
+					<br />
+					<input type="submit" name="submit" value="<?php echo $lang['general']['send']; ?>" />
+				</div>
+			</form>
+		</div>
+		<p>
+			<a href="?file=<?php echo CURRENT_PAGE_SEONAME; ?>" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
+		</p>
+	<?php
 }
 ?>
