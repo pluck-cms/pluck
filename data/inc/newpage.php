@@ -29,39 +29,18 @@ unset($module);
 
 //If form is posted...
 if (isset($_POST['save']) || isset($_POST['save_exit'])) {
-	if (get_page_filename($cont5.seo_url($cont1)) != false)
+	if (!isset($cont4))
+		$cont4 = 'yes';
+
+	//Save the page.
+	$seoname = save_page($cont1, $cont2, $cont4, $cont5, null, null, $cont3);
+
+	if (!$seoname)
 		$error = show_error($lang['page']['name_exists'], 2, true);
-
-	else {
-		//Check if we want a sub-page.
-		if (!empty($cont5)) {
-			//We need to make sure that the dir exists, and if not, create it.
-			if (!file_exists('data/settings/pages/'.rtrim($cont5, '/'))) {
-				mkdir('data/settings/pages/'.rtrim($cont5, '/'), 0777);
-				chmod('data/settings/pages/'.rtrim($cont5, '/'), 0777);
-			}
-			$pages = read_dir_contents('data/settings/pages/'.rtrim($cont5, '/'), 'files');
-		}
-
-		else
-			$pages = read_dir_contents('data/settings/pages', 'files');
-
-		//Are there any pages?
-		if ($pages == false)
-			$number = 1;
-		else
-			$number = count($pages) + 1;
-
-		$seo_title = seo_url($cont1);
-		$newfile = $cont5.$number.'.'.$seo_title;
-
-		//Save the page.
-		save_page($newfile, $cont1, $cont2, $cont4, null, null, $cont3);
-	}
 
 	//Redirect the user.
 	if (isset($_POST['save']) && !isset($error)) {
-		redirect('?action=editpage&var1='.$cont5.$seo_title, 0);
+		redirect('?action=editpage&var1='.$seoname, 0);
 		include_once ('data/inc/footer.php');
 		exit;
 	}

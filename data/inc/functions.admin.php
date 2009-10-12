@@ -221,7 +221,7 @@ function show_subpage_select($name, $current_page = null) {
 
 function reorder_pages($patch) {
 	$pages = read_dir_contents($patch, 'files');
-	
+
 	//Only reorder if there are any files.
 	if ($pages) {
 		sort($pages, SORT_NUMERIC);
@@ -359,17 +359,18 @@ function save_theme($theme) {
 /**
  * Save a page with a lot of options.
  *
- * @param string $name The filename of the page (without .php).
  * @param string $title The title.
  * @param string $content The content.
  * @param string $hidden Should it be hidden (yes or no)?
+ * @param string $subpage The sub-page.
  * @param string $description The description.
  * @param string $keywords The keywords.
- * @param array $modules If there are any modules on the page.
+ * @param array  $modules If there are any modules on the page.
+ * @param string $current_seoname If we want to edit a page.
  */
-function save_page($name, $title, $content, $hidden = 'no', $description = null, $keywords = null, $modules = null) {
+function save_page($title, $content, $hidden, $subpage, $description = null, $keywords = null, $modules = null, $current_seoname = null) {
 	//Run a few hooks.
-	run_hook('admin_save_page', array(&$name, &$title, &$content));
+	run_hook('admin_save_page', array(&$title, &$content));
 	run_hook('admin_save_page_meta', array(&$description, &$keywords));
 
 	//Sanitize the inputs.
@@ -378,9 +379,85 @@ function save_page($name, $title, $content, $hidden = 'no', $description = null,
 	$description = sanitize($description);
 	$keywords = sanitize($keywords);
 
-	//Check hidden status.
-	if ($hidden != 'no')
-		$hidden = 'yes';
+	//Do we want to create a new page?
+	if (!isset($current_seoname)) {
+		//Check if a page already exists with the name.
+		if (get_page_filename($subpage.seo_url($title)) != false)
+			return false;
+		
+		//Check if we want a sub-page.
+		if (!empty($subpage)) {
+			//We need to make sure that the dir exists, and if not, create it.
+			if (!file_exists('data/settings/pages/'.rtrim($subpage, '/'))) {
+				mkdir('data/settings/pages/'.rtrim($subpage, '/'), 0777);
+				chmod('data/settings/pages/'.rtrim($subpage, '/'), 0777);
+			}
+			$pages = read_dir_contents('data/settings/pages/'.rtrim($subpage, '/'), 'files');
+		}
+
+		else
+			$pages = read_dir_contents('data/settings/pages', 'files');
+
+		//Are there any pages?
+		if ($pages == false)
+			$number = 1;
+		else
+			$number = count($pages) + 1;
+
+		$seo_title = seo_url($title);
+		$newfile = $subpage.$number.'.'.$seo_title;
+	}
+
+	//Then we want to edit a page.
+	else {
+		$filename = get_page_filename($current_seoname);
+
+		//Is it a sub-page, or do we want to make it one?
+		if (strpos($current_seoname, '/') !== false || !empty($subpage)) {
+			$page_name = explode('/', $subpage);
+			$count = count($page_name);
+			unset($page_name[$count]);
+
+			$dir = get_sub_page_dir($current_seoname);
+			$filename_array = str_replace($dir.'/', '', $filename);
+			$filename_array = explode('.', $filename_array);
+
+			$newfilename = implode('/', $page_name).'/'.$filename_array[0].'.'.seo_url($title);
+			$newdir = get_sub_page_dir($newfilename);
+
+			//We need to make sure that the dir exists, and if not, create it.
+			if (!file_exists('data/settings/pages/'.$newdir)) {
+				mkdir('data/settings/pages/'.$newdir, 0777);
+				chmod('data/settings/pages/'.$newdir, 0777);
+			}
+
+			//If the name isn't the same as before, we have to find the correct number.
+			if ($newfilename.'.php' != $filename) {
+				//If the sub-folder is the same, use the same number as before.
+				if ($dir.'/' == $newdir)
+					$number = $filename_array[0];
+
+				else {
+					$pages = read_dir_contents('data/settings/pages/'.$newdir, 'files');
+
+					if ($pages) {
+						$count = count($pages);
+						$number = $count + 1;
+					}
+					else
+						$number = 1;
+				}
+
+				$newfile = implode('/', $page_name).$number.'.'.seo_url($title);
+			}
+		}
+
+		//If not, just create the new filename.
+		else {
+			$filename_array = explode('.', $filename);
+			$newfile = $filename_array[0].'.'.seo_url($title);
+		}
+	}
 
 	//Save the title, content and hidden status.
 	$data = '<?php'."\n"
@@ -407,6 +484,32 @@ function save_page($name, $title, $content, $hidden = 'no', $description = null,
 	$data .= "\n".'?>';
 
 	//Save the file.
-	save_file('data/settings/pages/'.$name.'.php', $data);
+	save_file('data/settings/pages/'.$newfile.'.php', $data);
+
+	//Do a little cleanup if we are editing a page.
+	if (isset($current_seoname)) {
+		//Check if the title is different from what we started with.
+		if ($newfile.'.php' != $filename) {
+			//If there are sub-pages, rename the folder.
+			if (file_exists('data/settings/pages/'.get_page_seoname($filename)))
+				rename('data/settings/pages/'.get_page_seoname($filename), 'data/settings/pages/'.get_page_seoname($newfile.'.php'));
+
+			//Remove the old file.
+			unlink('data/settings/pages/'.$filename);
+
+			//If there are no files in the old dir, delete it.
+			if (isset($dir) && read_dir_contents('data/settings/pages/'.$dir, 'files') == false)
+				rmdir('data/settings/pages/'.$dir);
+
+			//If there are pages, we need to reorder them.
+			elseif (isset($dir))
+				reorder_pages('data/settings/pages/'.$dir);
+			else
+				reorder_pages('data/settings/pages');
+		}
+	}
+
+	//Return the seoname.
+	return get_page_seoname($newfile.'.php');
 }
 ?>

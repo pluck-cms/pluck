@@ -20,96 +20,27 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 	exit;
 }
 
-//Get the filename.
-$filename = get_page_filename($var1);
-
 //If form is posted...
 if (isset($_POST['save']) || isset($_POST['save_exit'])) {
-	//Is it a sub-page, or do we want to make it one?
-	if (strpos($var1, '/') !== false || !empty($cont5)) {
-		$page_name = explode('/', $cont5);
-		$count = count($page_name);
-		unset($page_name[$count]);
-
-		$dir = get_sub_page_dir($var1);
-		$filename_array = str_replace($dir.'/', '', $filename);
-		$filename_array = explode('.', $filename_array);
-
-		$newfilename = implode('/', $page_name).'/'.$filename_array[0].'.'.seo_url($cont1);
-		$newdir = get_sub_page_dir($newfilename);
-
-		//We need to make sure that the dir exists, and if not, create it.
-		if (!file_exists('data/settings/pages/'.$newdir)) {
-			mkdir('data/settings/pages/'.$newdir, 0777);
-			chmod('data/settings/pages/'.$newdir, 0777);
-		}
-
-		//If the name isn't the same as before, we have to find the correct number.
-		if ($newfilename.'.php' != $filename) {
-			//If the sub-folder is the same, use the same number as before.
-			if ($dir.'/' == $newdir)
-				$number = $filename_array[0];
-
-			else {
-				$pages = read_dir_contents('data/settings/pages/'.$newdir, 'files');
-
-				if ($pages) {
-					$count = count($pages);
-					$number = $count + 1;
-				}
-				else
-					$number = 1;
-			}
-
-			$newfilename = implode('/', $page_name).$number.'.'.seo_url($cont1);
-		}
-	}
-
-	//If not, just create the new filename.
-	else {
-		$filename_array = explode('.', $filename);
-		$newfilename = $filename_array[0].'.'.seo_url($cont1);
-	}
-
 	if (!isset($cont4))
-		$cont4 = 'no';
+		$cont4 = 'yes';
 	if (empty($description))
 		$description = '';
 	if (empty($keywords))
 		$keywords = '';
 
 	//Save the page.
-	save_page($newfilename, $cont1, $cont2, $cont4, $description, $keywords, $cont3);
+	$seoname = save_page($cont1, $cont2, $cont4, $cont5, $description, $keywords, $cont3, $var1);
 
-	//Check if the title is different from what we started with.
-	if ($newfilename.'.php' != $filename) {
-		//If there are sub-pages, rename the folder.
-		if (file_exists('data/settings/pages/'.get_page_seoname($filename)))
-			rename('data/settings/pages/'.get_page_seoname($filename), 'data/settings/pages/'.get_page_seoname($newfilename.'.php'));
-
-		//Remove the old file.
-		unlink('data/settings/pages/'.$filename);
-
-		//If there are no files in the old dir, delete it.
-		if (isset($dir) && read_dir_contents('data/settings/pages/'.$dir, 'files') == false)
-			rmdir('data/settings/pages/'.$dir);
-
-		//If there are pages, we need to reorder them.
-		elseif (isset($dir))
-			reorder_pages('data/settings/pages/'.$dir);
-		else
-			reorder_pages('data/settings/pages');
-
-		//Redirect to the new title only if it is a plain save.
-		if (isset($_POST['save'])) {
-			redirect('?action=editpage&var1='.get_page_seoname($newfilename.'.php'), 0);
-			include_once ('data/inc/footer.php');
-			exit;
-		}
+	//Redirect to the new title only if it is a plain save.
+	if (isset($_POST['save'])) {
+		redirect('?action=editpage&var1='.$seoname, 0);
+		include_once ('data/inc/footer.php');
+		exit;
 	}
 
 	//Redirect the user. only if they are doing a save_exit.
-	if (isset($_POST['save_exit'])) {
+	elseif (isset($_POST['save_exit'])) {
 		redirect('?action=page', 0);
 		include_once ('data/inc/footer.php');
 		exit;
@@ -117,7 +48,7 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 }
 
 //Include page information.
-require_once ('data/settings/pages/'.$filename);
+require_once ('data/settings/pages/'.get_page_filename($var1));
 
 //Load module functions.
 foreach ($module_list as $module) {
