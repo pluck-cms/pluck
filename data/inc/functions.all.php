@@ -97,6 +97,9 @@ function redirect($url, $time) {
  * @return array The directories or files.
  */
 function read_dir_contents($directory, $mode) {
+	if (!is_dir($directory))
+		return false;
+
 	$path = opendir($directory);
 	while (false !== ($file = readdir($path))) {
 		if ($file != '.' && $file != '..') {
