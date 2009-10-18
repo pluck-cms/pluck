@@ -82,7 +82,7 @@ function get_pagetitle() {
 
 //[THEME] FUNCTION TO INCLUDE META-DATA IN THE PAGE
 //---------------------------------
-function theme_meta() {
+function theme_meta($reset_css = false) {
 	//Get page-info (for meta-information)
 	if (defined('CURRENT_PAGE_FILENAME')) {
 		if (file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME))
@@ -98,6 +98,8 @@ function theme_meta() {
 	echo '<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />'."\n";
 	echo '<meta name="generator" content="pluck '.PLUCK_VERSION.'" />'."\n";
 	echo '<title>'.PAGE_TITLE.' - '.SITE_TITLE.'</title>'."\n";
+	if ($reset_css)
+		echo '<link href="data/reset.css" rel="stylesheet" type="text/css" media="screen" />'."\n";
 	echo '<link href="'.$cssfile.'" rel="stylesheet" type="text/css" media="screen" />'."\n";
 	echo '<meta name="language" content="'.LANG.'" />'."\n";
 

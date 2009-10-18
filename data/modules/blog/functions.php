@@ -175,24 +175,23 @@ function blog_get_reaction($post, $id) {
 }
 
 function blog_get_reactions($post) {
-	if (is_dir(BLOG_POSTS_DIR.'/'.$post)) {
-		$files = read_dir_contents(BLOG_POSTS_DIR.'/'.$post, 'files');
+	$files = read_dir_contents(BLOG_POSTS_DIR.'/'.$post, 'files');
 
-		if ($files) {
-			asort($files);
+	if ($files) {
+		asort($files);
 
-			foreach ($files as $reaction) {
-				include BLOG_POSTS_DIR.'/'.$post.'/'.$reaction;
-				$parts = explode('.', $reaction);
-				$reactions[] = blog_get_reaction($post, $parts[0]);
-			}
-			unset($reaction);
-
-			return $reactions;
+		foreach ($files as $reaction) {
+			include BLOG_POSTS_DIR.'/'.$post.'/'.$reaction;
+			$parts = explode('.', $reaction);
+			$reactions[] = blog_get_reaction($post, $parts[0]);
 		}
+		unset($reaction);
+
+		return $reactions;
 	}
 
-	return false;
+	else
+		return false;
 }
 
 /**
@@ -204,10 +203,8 @@ function blog_get_posts() {
 	if ($files) {
 		arsort($files);
 
-		foreach ($files as $post) {
-			include BLOG_POSTS_DIR.'/'.$post;
+		foreach ($files as $post)
 			$posts[] = blog_get_post(blog_get_post_seoname($post));
-		}
 		unset($post);
 
 		return $posts;

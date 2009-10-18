@@ -186,7 +186,7 @@ function show_page_box($file) {
 }
 
 function show_subpage_select($name, $current_page = null) {
-	global $cont5, $lang;
+	global $lang;
 
 	$pages = get_pages();
 	echo '<select name="'.$name.'" id="'.$name.'">';
@@ -206,7 +206,7 @@ function show_subpage_select($name, $current_page = null) {
 				else
 					$indent = null;
 
-				if (get_page_seoname($page) == get_sub_page_dir($current_page) || (isset($cont5) && $cont5 == get_page_seoname($page).'/'))
+				if (get_page_seoname($page) == get_sub_page_dir($current_page) || (isset($_POST[$name]) && $_POST[$name] == get_page_seoname($page).'/'))
 					$selected = ' selected="selected"';
 				else
 					$selected = null;

@@ -107,8 +107,8 @@ function albums_page_admin_editalbum() {
 			//Define some variables
 			list($imageze, $ext) = explode('.', $_FILES['imagefile']['name']);
 			$imageze = seo_url($imageze);
-			$fullimage = MODULE_SETTINGS.'/'.$var1.'/'.$imageze.'.'.$ext;
-			$thumbimage = MODULE_SETTINGS.'/'.$var1.'/thumb/'.$imageze.'.'.$ext;
+			$fullimage = MODULE_SETTINGS.'/'.$var1.'/'.$imageze.'.'.strtolower($ext);
+			$thumbimage = MODULE_SETTINGS.'/'.$var1.'/thumb/'.$imageze.'.'.strtolower($ext);
 
 			//Check if the image name already exists.
 			$images = read_dir_contents(MODULE_SETTINGS.'/'.$var1.'/thumb', 'files');
@@ -128,20 +128,10 @@ function albums_page_admin_editalbum() {
 				$error = show_error('There is already an image with that name.', 1, true);
 				
 			//If we somehow can't copy the image, show an error.
-			elseif (!copy($_FILES['imagefile']['tmp_name'], $fullimage) || !copy ($_FILES['imagefile']['tmp_name'], $thumbimage)) {
+			elseif (!copy($_FILES['imagefile']['tmp_name'], $fullimage) || !copy ($_FILES['imagefile']['tmp_name'], $thumbimage))
 				$error = show_error($lang['general']['upload_failed'], 1, true);
-			}
 
 			else {
-				//If the extension is with capitals, we have to rename it...
-				if ($ext != strtolower($ext)) {
-					$ext = strtolower($ext);
-					rename($fullimage, MODULE_SETTINGS.'/'.$var1.'/'.$imageze.'.'.$ext);
-					rename($thumbimage, MODULE_SETTINGS.'/'.$var1.'/thumb/'.$imageze.'.'.$ext);
-					$fullimage = MODULE_SETTINGS.'/'.$var1.'/'.$imageze.'.'.$ext;
-					$thumbimage = MODULE_SETTINGS.'/'.$var1.'/thumb/'.$imageze.'.'.$ext;
-				}
-
 				//Compress the big image.
 				$image_width = 640;
 				$image = new SmartImage($fullimage);

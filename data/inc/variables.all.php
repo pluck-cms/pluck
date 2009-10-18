@@ -96,6 +96,10 @@ if (isset($_GET['var2']))
 	$var2 = $_GET['var2'];
 if (isset($_GET['var3']))
 	$var3 = $_GET['var3'];
+if (isset($_GET['var4']))
+	$var4 = $_GET['var4'];
+if (isset($_GET['var5']))
+	$var5 = $_GET['var5'];
 
 //Some POST-variables for general use.
 if (isset($_POST['cont1']))
@@ -108,4 +112,14 @@ if (isset($_POST['cont4']))
 	$cont4 = $_POST['cont4'];
 if (isset($_POST['cont5']))
 	$cont5 = $_POST['cont5'];
+if (isset($_POST['cont6']))
+	$cont6 = $_POST['cont6'];
+if (isset($_POST['cont7']))
+	$cont7 = $_POST['cont7'];
+if (isset($_POST['cont8']))
+	$cont8 = $_POST['cont8'];
+if (isset($_POST['cont9']))
+	$cont9 = $_POST['cont9'];
+if (isset($_POST['cont10']))
+	$cont10 = $_POST['cont10'];
 ?>
