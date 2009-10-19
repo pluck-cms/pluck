@@ -180,8 +180,7 @@ else {
 
 		//Save the homepage.
 		if (isset($_POST['save'])) {
-			$pagename = seo_url($cont1);
-			save_page('1.'.$pagename, $cont1, $cont2, 'no');
+			save_page($cont1, $cont2, 'yes', '');
 			redirect('?action=install5', 0);
 			include_once ('data/inc/footer.php');
 			exit;

@@ -29,7 +29,7 @@ function get_pagetitle() {
 	global $lang, $module;
 
 	//Check if we want to get the title for a page, and check whether the page exists.
-	if (!defined('CURRENT_MODULE_PAGE') && defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
+	if (defined('CURRENT_PAGE_FILENAME')) {
 		if (strpos(CURRENT_PAGE_FILENAME, '/') !== false) {
 			$parts = explode('/', CURRENT_PAGE_FILENAME);
 			$count = count($parts);
@@ -59,23 +59,23 @@ function get_pagetitle() {
 			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
 			$page_title = $title;
 		}
+
+		//Get the title if we are looking at a module page
+		if (defined('CURRENT_MODULE_DIR') && module_is_compatible($module) && function_exists($module.'_page_site_list')) {
+			$module_page_site = call_user_func($module.'_page_site_list');
+			foreach ($module_page_site as $module_page) {
+				if ($module_page['func'] == CURRENT_MODULE_PAGE) {
+					$page_title = $module_page['title'].' &middot; '.$page_title;
+					break;
+				}
+			}
+			unset($module_page);
+		}
 	}
 
 	//If page doesn't exist, and we don't want to display a module; display error.
 	elseif (!defined('CURRENT_PAGE_FILENAME') && !isset($module))
 		$page_title = $lang['general']['404'];
-
-	//Get the title if we are looking at a module page
-	elseif (isset($module) && module_is_compatible($module) && function_exists($module.'_page_site_list')) {
-		$module_page_site = call_user_func($module.'_page_site_list');
-		foreach ($module_page_site as $module_page) {
-			if ($module_page['func'] == CURRENT_MODULE_PAGE) {
-				$page_title = $module_page['title'];
-				break;
-			}
-		}
-		unset($module_page);
-	}
 
 	return $page_title;
 }
