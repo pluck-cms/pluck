@@ -78,7 +78,7 @@ function albums_page_site_list() {
 }
 
 function albums_page_site_viewalbum() {
-	global $lang, $lang_albums18;
+	global $lang;
 
 	//Predefined variable
 	$album = $_GET['album'];
@@ -86,7 +86,7 @@ function albums_page_site_viewalbum() {
 		$pageback = $_GET['pageback'];
 
 	if (!file_exists('data/settings/modules/albums/'.$album))
-		echo '<p>'.$lang_albums18.'</p>';
+		echo '<p>'.$lang['albums']['doesnt_exist'].'</p>';
 
 	//If the album exists
 	else {

@@ -25,7 +25,7 @@ define('TEMP', '_temp');
 define('NAME', 'image');
 
 function read_albums($dir) {
-	global $lang, $lang_albums5, $lang_albums6;
+	global $lang;
 	$dirs = read_dir_contents($dir, 'dirs');
 
 	if (!$dirs)
@@ -43,12 +43,12 @@ function read_albums($dir) {
 					<span class="title-page"><?php echo $album_name; ?></span>
 					<span>
 						<a href="?module=albums&amp;page=editalbum&amp;var1=<?php echo $dir; ?>">
-							<img src="data/image/edit.png" title="<?php echo $lang_albums6; ?>" alt="<?php echo $lang_albums6; ?>" />
+							<img src="data/image/edit.png" title="<?php echo $lang['albums']['edit_album']; ?>" alt="<?php echo $lang['albums']['edit_album']; ?>" />
 						</a>
 					</span>
 					<span>
 						<a href="?module=albums&amp;page=deletealbum&amp;var1=<?php echo $dir; ?>">
-							<img src="data/image/delete_from_trash.png"  title="<?php echo $lang_albums5; ?>" alt="<?php echo $lang_albums5; ?>" />
+							<img src="data/image/delete_from_trash.png"  title="<?php echo $lang['albums']['delete_album']; ?>" alt="<?php echo $lang['albums']['delete_album']; ?>" />
 						</a>
 					</span>
 				</div>
@@ -59,7 +59,7 @@ function read_albums($dir) {
 }
 
 function read_albumimages($dir) {
-	global $lang, $lang_albums15, $lang_kop13, $lang_updown5, $var1;
+	global $lang, $var1;
 	$files = read_dir_contents($dir, 'files');
 	if (!$files)
 		echo '<span class="kop4">'.$lang['general']['nothing_yet'].'</span><br />';
@@ -85,22 +85,22 @@ function read_albumimages($dir) {
 						</span>
 						<span>
 							<a href="?module=albums&amp;page=editimage&amp;var1=<?php echo $var1; ?>&amp;var2=<?php echo $fdirname; ?>">
-								<img src="data/image/edit.png" title="<?php echo $lang_albums15; ?>" alt="<?php echo $lang_albums15; ?>" />
+								<img src="data/image/edit.png" title="<?php echo $lang['albums']['edit_image']; ?>" alt="<?php echo $lang['albums']['edit_image']; ?>" />
 							</a>
 						</span>
 						<span>
 							<a href="?module=albums&amp;page=imageup&amp;var1=<?php echo $var1; ?>&amp;var2=<?php echo $fdirname; ?>">
-								<img src="data/image/up.png" title="<?php echo $lang_updown5; ?>" alt="<?php echo $lang_updown5; ?>" />
+								<img src="data/image/up.png" title="<?php echo $lang['albums']['change_order']; ?>" alt="<?php echo $lang['albums']['change_order']; ?>" />
 							</a>
 						</span>
 						<span>
 							<a href="?module=albums&amp;page=imagedown&amp;var1=<?php echo $var1; ?>&amp;var2=<?php echo $fdirname; ?>">
-								<img src="data/image/down.png" title="<?php echo $lang_updown5; ?>" alt="<?php echo $lang_updown5; ?>" />
+								<img src="data/image/down.png" title="<?php echo $lang['albums']['change_order']; ?>" alt="<?php echo $lang['albums']['change_order']; ?>" />
 							</a>
 						</span>
 						<span>
 							<a href="?module=albums&amp;page=deleteimage&amp;var1=<?php echo $var1; ?>&amp;var2=<?php echo $fdirname; ?>">
-								<img src="data/image/delete_from_trash.png" title="<?php echo $lang_kop13; ?>" alt="<?php echo $lang_kop13; ?>" />
+								<img src="data/image/delete_from_trash.png" title="<?php echo $lang['albums']['delete_image']; ?>" alt="<?php echo $lang['albums']['delete_image']; ?>" />
 							</a>
 						</span>
 					</div>

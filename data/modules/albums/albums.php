@@ -1,9 +1,9 @@
 <?php
 function albums_info() {
-	global $lang, $lang_albums7;
+	global $lang;
 	return array(
 		'name'          => $lang['albums']['title'],
-		'intro'         => $lang_albums7,
+		'intro'         => $lang['albums']['descr'],
 		'version'       => '0.2',
 		'author'        => 'pluck development team',
 		'website'       => 'http://www.pluck-cms.org',

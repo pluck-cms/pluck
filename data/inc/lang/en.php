@@ -244,27 +244,26 @@ $lang['changepass']['empty']       = 'Your new password can\'t be empty.';
 $lang['changepass']['changed']     = 'Password has been changed.';
 
 //Albums.
-$lang['albums']['title'] = 'albums';
-$lang['albums']['message'] = 'Here you can manage your albums. Use albums to show your visitors your favourite photos and images. Insert the albums in your page(s) by choosing "insert album" when editing a page.';
-$lang['albums']['edit_albums'] = 'edit albums';
-$lang_albums3 = 'new album';
-$lang_albums4 = 'choose a name for your new album first, then click "save"';
-$lang_albums5 = 'delete album';
-$lang_albums6 = 'edit album';
-$lang_albums7 = 'use albums to show your visitors your favourite photos and images';
-$lang_albums8 = 'Use this page to add, delete and edit images in your album. JPG, PNG and GIF images are supported.';
-$lang_albums9 = 'edit images';
-$lang_albums10 ='new image';
-$lang_albums12 = 'quality (1-100)';
-$lang_albums13 = 'upload a new image here. choose a title and a description, and choose the quality at which the images should be processed. the higher the quality, the higher the filesize.';
-$lang_albums15 = 'edit image';
-$lang_albums17	= 'include album in this page:';
-$lang_albums18 = 'The specified album doesn\'t exist.';
-$lang_albums19 = 'There is already an album with that name.';
-$lang_updown5 = 'change image order';
-$lang_updown6 = 'This image already is on the top, so its rank can\'t be changed.';
-$lang_updown7 = 'This image already is the last one, so its rank can\'t be changed.';
-$lang_kop13 = 'delete image';
+$lang['albums']['title']          = 'albums';
+$lang['albums']['descr']          = 'use albums to show your visitors your favourite photos and images';
+$lang['albums']['message']        = 'Here you can manage your albums. Use albums to show your visitors your favourite photos and images. Insert the albums in your page(s) by choosing "insert album" when editing a page.';
+$lang['albums']['edit_albums']    = 'edit albums';
+$lang['albums']['new_album']      = 'new album';
+$lang['albums']['choose_name']    = 'choose a name for your new album first, then click "save"';
+$lang['albums']['delete_album']   = 'delete album';
+$lang['albums']['edit_album']     = 'edit album';
+$lang['albums']['album_message1'] = 'Use this page to add, delete and edit images in your album. JPG, PNG and GIF images are supported.';
+$lang['albums']['album_message2'] = 'upload a new image here. choose a title and a description, and choose the quality at which the images should be processed. The higher the quality, the higher the filesize.';
+$lang['albums']['edit_images']    = 'edit images';
+$lang['albums']['new_image']      ='new image';
+$lang['albums']['quality']        = 'quality (1-100)';
+$lang['albums']['edit_image']     = 'edit image';
+$lang['albums']['doesnt_exist']   = 'The specified album doesn\'t exist.';
+$lang['albums']['name_exist']     = 'There is already an album with that name.';
+$lang['albums']['change_order']   = 'change image order';
+$lang['albums']['already_top']    = 'This image already is on the top, so its rank can\'t be changed.';
+$lang['albums']['already_last']   = 'This image already is the last one, so its rank can\'t be changed.';
+$lang['albums']['delete_image']   = 'delete image';
 
 //Blog.
 $lang['blog']['title']                  = 'blog';

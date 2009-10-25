@@ -3,7 +3,7 @@ require_once 'data/modules/albums/functions.php';
 require_once 'data/inc/lib/SmartImage.class.php';
 
 function albums_page_admin_list() {
-	global $lang, $lang_albums5, $lang_albums6, $lang_albums15, $lang_kop13, $lang_updown5, $var1, $var2;
+	global $lang, $var1, $var2;
 
 	if (isset($var1))
 		include (MODULE_SETTINGS.'/'.$var1.'.php');
@@ -21,33 +21,33 @@ function albums_page_admin_list() {
 	);
 	$module_page_admin[] = array(
 		'func'  => 'editalbum',
-		'title' => $lang_albums6.' - '.$album_name
+		'title' => $lang['albums']['edit_album'].' - '.$album_name
 	);
 	$module_page_admin[] = array(
 		'func'  => 'deletealbum',
-		'title' => $lang_albums5
+		'title' => $lang['albums']['delete_album']
 	);
 	$module_page_admin[] = array(
 		'func'  => 'editimage',
-		'title' => $lang_albums15.' - '.$album_name.' - '.$name
+		'title' => $lang['albums']['edit_image'].' - '.$album_name.' - '.$name
 	);
 	$module_page_admin[] = array(
 		'func'  => 'deleteimage',
-		'title' => $lang_kop13
+		'title' => $lang['albums']['delete_image']
 	);
 	$module_page_admin[] = array(
 		'func'  => 'imageup',
-		'title' => $lang_updown5
+		'title' => $lang['albums']['change_order']
 	);
 	$module_page_admin[] = array(
 		'func'  => 'imagedown',
-		'title' => $lang_updown5
+		'title' => $lang['albums']['change_order']
 	);
 	return $module_page_admin;
 }
 
 function albums_page_admin_albums() {
-	global $cont1, $lang, $lang_albums3, $lang_albums4, $lang_albums19, $lang_albums16;
+	global $cont1, $lang;
 	?>
 		<p>
 			<strong><?php echo $lang['albums']['message']; ?></strong>
@@ -58,10 +58,10 @@ function albums_page_admin_albums() {
 		read_albums(MODULE_SETTINGS);
 		?>
 			<br /><br />
-			<label class="kop2" for="cont1"><?php echo $lang_albums3; ?></label>
+			<label class="kop2" for="cont1"><?php echo $lang['albums']['new_album']; ?></label>
 			<br />
 			<form method="post" action="">
-				<span class="kop4"><?php echo $lang_albums4; ?></span>
+				<span class="kop4"><?php echo $lang['albums']['choose_name']; ?></span>
 				<br />
 				<input name="cont1" id="cont1" type="text" />
 				<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
@@ -70,7 +70,7 @@ function albums_page_admin_albums() {
 		//When form is submitted.
 		if (isset($_POST['submit'])) {
 			if (!empty($cont1) && file_exists(MODULE_SETTINGS.'/'.seo_url($cont1)))
-				show_error($lang_albums19, 1);
+				show_error($lang['albums']['name_exist'], 1);
 
 			elseif (!empty($cont1)) {
 				//The pretty album name.
@@ -101,7 +101,7 @@ function albums_page_admin_albums() {
 }
 
 function albums_page_admin_editalbum() {
-	global $cont1, $cont2, $cont3, $lang, $lang_albums8, $lang_albums9, $lang_albums10, $lang_albums12, $lang_albums13, $lang_albums17, $var1;
+	global $cont1, $cont2, $cont3, $lang, $var1;
 
 	//Let's process the image...
 	if (isset($_POST['submit'])) {
@@ -211,12 +211,12 @@ function albums_page_admin_editalbum() {
 		//Introduction text.
 		?>
 			<p>
-				<strong><?php echo $lang_albums8; ?></strong>
+				<strong><?php echo $lang['albums']['album_message1']; ?></strong>
 			</p>
 			<p>
-				<span class="kop2"><?php echo $lang_albums10; ?></span>
+				<span class="kop2"><?php echo $lang['albums']['new_image']; ?></span>
 				<br />
-				<span class="kop4"><?php echo $lang_albums13; ?></span>
+				<span class="kop4"><?php echo $lang['albums']['album_message2']; ?></span>
 			</p>
 			<?php
 			if (isset($error))
@@ -236,7 +236,7 @@ function albums_page_admin_editalbum() {
 				<p>
 					<input type="file" name="imagefile" id="imagefile" />
 					<br />
-					<label class="kop4" for="cont3"><?php echo $lang_albums12; ?></label>
+					<label class="kop4" for="cont3"><?php echo $lang['albums']['quality']; ?></label>
 					<input name="cont3" id="cont3" type="text" size="3" value="85" />
 				</p>
 				<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
@@ -245,7 +245,7 @@ function albums_page_admin_editalbum() {
 		<?php
 		//Edit images.
 		?>
-		<span class="kop2"><?php echo $lang_albums9; ?></span>
+		<span class="kop2"><?php echo $lang['albums']['edit_images']; ?></span>
 		<br />
 		<?php
 		read_albumimages(MODULE_SETTINGS.'/'.$var1);
@@ -337,7 +337,7 @@ function albums_page_admin_deleteimage() {
 }
 
 function albums_page_admin_imageup() {
-global $lang, $lang_updown6, $var1, $var2;
+global $lang, $var1, $var2;
 
 //Check if images exist.
 if (isset($var1, $var2) && file_exists('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2))) {
@@ -345,7 +345,7 @@ if (isset($var1, $var2) && file_exists('data/settings/modules/albums/'.$var1.'/'
 
 	//We can't higher the first image, so we have to check.
 	if ($current_parts[0] == 1) {
-		show_error($lang_updown6, 2);
+		show_error($lang['albums']['already_top'], 2);
 		redirect('?module=albums&page=editalbum&var1='.$var1, 2);
 		include_once ('data/inc/footer.php');
 		exit;
@@ -380,7 +380,7 @@ redirect('?module=albums&page=editalbum&var1='.$var1, 0);
 }
 
 function albums_page_admin_imagedown() {
-	global $lang, $lang_updown7, $var1, $var2;
+	global $lang, $var1, $var2;
 
 	//Check if images exist.
 	if (isset($var1, $var2) && file_exists('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2))) {
@@ -398,7 +398,7 @@ function albums_page_admin_imagedown() {
 
 		//We can't lower the last image, so we have to check.
 		if ($number_of_files == $current_parts[0]) {
-			show_error($lang_updown7, 2);
+			show_error($lang['albums']['already_last'], 2);
 			redirect('?module=albums&page=editalbum&var1='.$var1, 2);
 			include_once ('data/inc/footer.php');
 			exit;

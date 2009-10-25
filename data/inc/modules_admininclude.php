@@ -66,7 +66,7 @@ foreach ($module_list as $dir) {
 	elseif (!module_is_compatible($dir) && $module == $dir) {
 		$titelkop = $module_name;
 		include_once ('data/inc/header.php');
-		echo $lang_modules27;
+		echo $lang['modules_manage']['not_compatible'];
 	}
 }
 unset($dir);
