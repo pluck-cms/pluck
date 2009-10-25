@@ -318,7 +318,7 @@ function blog_page_admin_editpost() {
 					$categories = blog_get_categories();
 
 					foreach($categories as $category) {
-						if ($post['category'] == $category['seoname'])
+						if ($post['category_seoname'] == $category['seoname'])
 							echo '<option value="'.$category['seoname'].'" selected="selected">'.$category['title'].'</option>';
 						else
 							echo '<option value="'.$category['seoname'].'">'.$category['title'].'</option>';

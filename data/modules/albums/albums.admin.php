@@ -126,9 +126,8 @@ function albums_page_admin_editalbum() {
 			}
 
 			//Don't do anything, if the name already exists.
-			//TODO: Translate, and maybe make it better.
 			if (isset($name_exist))
-				$error = show_error('There is already an image with that name.', 1, true);
+				$error = show_error($lang['albums']['image_exist'], 1, true);
 				
 			//If we somehow can't copy the image, show an error.
 			elseif (!copy($_FILES['imagefile']['tmp_name'], $fullimage) || !copy ($_FILES['imagefile']['tmp_name'], $thumbimage))

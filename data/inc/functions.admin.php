@@ -48,7 +48,7 @@ function read_imagesinpages($dir) {
 	?>
 		<div class="menudiv">
 			<span>
-				<img src="data/image/image_small.png" alt="" />
+				<img src="data/image/image.png" alt="" />
 			</span>
 			<span>
 				<select id="insert_images">
@@ -79,7 +79,7 @@ function read_pagesinpages() {
 	?>
 		<div class="menudiv">
 			<span>
-				<img src="data/image/page_small.png" alt="" />
+				<img src="data/image/page.png" alt="" />
 			</span>
 			<span>
 				<select id="insert_pages">

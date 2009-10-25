@@ -260,6 +260,7 @@ $lang['albums']['quality']        = 'quality (1-100)';
 $lang['albums']['edit_image']     = 'edit image';
 $lang['albums']['doesnt_exist']   = 'The specified album doesn\'t exist.';
 $lang['albums']['name_exist']     = 'There is already an album with that name.';
+$lang['albums']['image_exist']    = 'There is already an image with that name.';
 $lang['albums']['change_order']   = 'change image order';
 $lang['albums']['already_top']    = 'This image already is on the top, so its rank can\'t be changed.';
 $lang['albums']['already_last']   = 'This image already is the last one, so its rank can\'t be changed.';
