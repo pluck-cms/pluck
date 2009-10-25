@@ -122,7 +122,7 @@ function blog_save_reaction($post, $name, $email, $website, $message, $id = null
 
 	//Have to make sure that the dir exists.
 	if (!is_dir(BLOG_POSTS_DIR.'/'.$post)) {
-		mkdir(BLOG_POSTS_DIR.'/'.$post, 0777);
+		mkdir(BLOG_POSTS_DIR.'/'.$post);
 		chmod(BLOG_POSTS_DIR.'/'.$post, 0777);
 	}
 

@@ -51,14 +51,14 @@ if (isset($_POST['save'])) {
 	//First, check if the settings/modules_inc dir exists.
 	//If not, create the dir.
 	if (!file_exists('data/settings/themes')) {
-		mkdir('data/settings/themes', 0777);
+		mkdir('data/settings/themes');
 		chmod('data/settings/themes', 0777);
 	}
 
 	//Then, check if a dir for the current theme is already available.
 	//If not, create the appropriate dirs.
 	if (!file_exists('data/settings/themes/'.THEME)) {
-		mkdir('data/settings/themes/'.THEME, 0777);
+		mkdir('data/settings/themes/'.THEME);
 		chmod('data/settings/themes/'.THEME, 0777);
 	}
 

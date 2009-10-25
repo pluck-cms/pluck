@@ -59,7 +59,7 @@ function blog_page_admin_list() {
 // Page: admin
 //---------------
 function blog_page_admin_blog() {
-	global $cont1, $lang, $lang_albums14;
+	global $cont1, $lang;
 	?>
 	<p>
 		<strong><?php echo $lang['blog']['message']; ?></strong>
@@ -119,7 +119,7 @@ function blog_page_admin_blog() {
 
 	//If no posts exist, display message.
 	else
-		echo '<span class="kop4">'.$lang_albums14.'</span><br /><br />';
+		echo '<span class="kop4">'.$lang['general']['nothing_yet'].'</span><br /><br />';
 	?>
 	<span class="kop2"><?php echo $lang['blog']['categories']; ?></span>
 	<br />
@@ -152,7 +152,7 @@ function blog_page_admin_blog() {
 
 	//If no categories exist, show a message.
 	else
-		echo '<span class="kop4">'.$lang_albums14.'</span><br /><br />';
+		echo '<span class="kop4">'.$lang['general']['nothing_yet'].'</span><br /><br />';
 
 	//New category.
 	?>
@@ -196,9 +196,9 @@ function blog_page_admin_deletecategory() {
 function blog_page_admin_editreactions() {
 	global $lang, $var1, $page;
 	?>
-	<p>
-		<strong><?php echo $lang['blog']['edit_reactions_message']; ?></strong>
-	</p>
+		<p>
+			<strong><?php echo $lang['blog']['edit_reactions_message']; ?></strong>
+		</p>
 	<?php
 	//Include blog post, if it exists
 	if (file_exists('data/settings/modules/blog/posts/'.$var1)) {
@@ -361,7 +361,7 @@ function blog_page_admin_newpost() {
 	if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 		//Check if 'posts' directory exists, if not; create it.
 		if (!is_dir(BLOG_POSTS_DIR)) {
-			mkdir(BLOG_POSTS_DIR, 0777);
+			mkdir(BLOG_POSTS_DIR);
 			chmod(BLOG_POSTS_DIR, 0777);
 		}
 

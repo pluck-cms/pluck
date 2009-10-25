@@ -92,7 +92,7 @@ $images = read_dir_contents('images', 'files');
 		unset($images);
 	}
 	else
-		echo '<span class="kop4">'.$lang_albums14.'</span>';
+		echo '<span class="kop4">'.$lang['general']['nothing_yet'].'</span>';
 ?>
 <p>
 	<a href="?action=page">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>

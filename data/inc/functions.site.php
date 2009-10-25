@@ -211,8 +211,6 @@ function theme_content() {
 //[THEME] FUNCTION TO INCLUDE MODULES
 //---------------------------------
 function theme_area($place) {
-	//Include needed variables.
-	global $lang_modules27;
 	//If mainspace: include the page-specific modules.
 	if ($place == 'main') {
 		if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME) && !defined('CURRENT_MODULE_DIR')) {

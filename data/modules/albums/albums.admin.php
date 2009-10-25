@@ -1,10 +1,9 @@
 <?php
 require_once 'data/modules/albums/functions.php';
-
 require_once 'data/inc/lib/SmartImage.class.php';
 
 function albums_page_admin_list() {
-	global $lang_albums, $lang_albums5, $lang_albums6, $lang_albums15, $lang_kop13, $lang_updown5, $var1, $var2;
+	global $lang, $lang_albums5, $lang_albums6, $lang_albums15, $lang_kop13, $lang_updown5, $var1, $var2;
 
 	if (isset($var1))
 		include (MODULE_SETTINGS.'/'.$var1.'.php');
@@ -18,7 +17,7 @@ function albums_page_admin_list() {
 
 	$module_page_admin[] = array(
 		'func'  => 'albums',
-		'title' => $lang_albums
+		'title' => $lang['albums']['title']
 	);
 	$module_page_admin[] = array(
 		'func'  => 'editalbum',
@@ -48,12 +47,12 @@ function albums_page_admin_list() {
 }
 
 function albums_page_admin_albums() {
-	global $cont1, $lang, $lang_albums1, $lang_albums2, $lang_albums3, $lang_albums4, $lang_albums19, $lang_albums16;
+	global $cont1, $lang, $lang_albums3, $lang_albums4, $lang_albums19, $lang_albums16;
 	?>
 		<p>
-			<strong><?php echo $lang_albums1; ?></strong>
+			<strong><?php echo $lang['albums']['message']; ?></strong>
 		</p>
-		<span class="kop2"><?php echo $lang_albums2; ?></span>
+		<span class="kop2"><?php echo $lang['albums']['edit_albums']; ?></span>
 		<br />
 		<?php
 		read_albums(MODULE_SETTINGS);
@@ -81,11 +80,15 @@ function albums_page_admin_albums() {
 				$cont1 = seo_url($cont1);
 
 				//Create and chmod directories.
-				mkdir(MODULE_SETTINGS.'/'.$cont1, 0777);
-				mkdir(MODULE_SETTINGS.'/'.$cont1.'/thumb', 0777);
+				mkdir(MODULE_SETTINGS.'/'.$cont1);
+				chmod(MODULE_SETTINGS.'/'.$cont1, 0777);
+				mkdir(MODULE_SETTINGS.'/'.$cont1.'/thumb');
+				chmod(MODULE_SETTINGS.'/'.$cont1.'/thumb', 0777);
+
+				$data['album_name'] = $album_name;
 
 				//Create album file.
-				save_file(MODULE_SETTINGS.'/'.$cont1.'.php','<?php $album_name = \''.$album_name.'\'; ?>');
+				save_file(MODULE_SETTINGS.'/'.$cont1.'.php', $data);
 
 				redirect('?module=albums', 0);
 			}
@@ -98,7 +101,7 @@ function albums_page_admin_albums() {
 }
 
 function albums_page_admin_editalbum() {
-	global $cont1, $cont2, $cont3, $lang, $lang_albums8, $lang_albums9, $lang_albums10, $lang_albums11, $lang_albums12, $lang_albums13, $lang_albums17, $var1;
+	global $cont1, $cont2, $cont3, $lang, $lang_albums8, $lang_albums9, $lang_albums10, $lang_albums12, $lang_albums13, $lang_albums17, $var1;
 
 	//Let's process the image...
 	if (isset($_POST['submit'])) {
@@ -188,10 +191,8 @@ function albums_page_admin_editalbum() {
 				$cont2 = str_replace ("\n",'<br />', $cont2);
 
 				//Compose the data.
-				$data = '<?php'."\n"
-				.'$name = \''.$cont1.'\';'."\n"
-				.'$info = \''.$cont2.'\';'."\n"
-				.'?>';
+				$data['name'] = $cont1;
+				$data['info'] = $cont2;
 
 				//Then save the image information.
 				save_file(MODULE_SETTINGS.'/'.$var1.'/'.$number.'.'.$imageze.'.'.$ext.'.php', $data);
@@ -205,7 +206,7 @@ function albums_page_admin_editalbum() {
 		}
 	}
 	
-	//Check if album exists
+	//Check if album exists.
 	if (file_exists(MODULE_SETTINGS.'/'.$var1)) {
 		//Introduction text.
 		?>
@@ -228,7 +229,7 @@ function albums_page_admin_editalbum() {
 					<input name="cont1" id="cont1" type="text" />
 				</p>
 				<p>
-					<label class="kop2" for="cont2"><?php echo $lang_albums11; ?></label>
+					<label class="kop2" for="cont2"><?php echo $lang['general']['description']; ?></label>
 					<br />
 					<textarea cols="50" rows="5" name="cont2" id="cont2"></textarea>
 				</p>
@@ -242,7 +243,7 @@ function albums_page_admin_editalbum() {
 			</form>
 			<br />
 		<?php
-		//Edit images
+		//Edit images.
 		?>
 		<span class="kop2"><?php echo $lang_albums9; ?></span>
 		<br />
@@ -260,7 +261,7 @@ function albums_page_admin_editalbum() {
 function albums_page_admin_deletealbum() {
 	global $var1;
 
-	//Check if an album was defined, and if the album exists
+	//Check if an album was defined, and if the album exists.
 	if (isset($var1) && file_exists(MODULE_SETTINGS.'/'.$var1)) {
 		recursive_remove_directory(MODULE_SETTINGS.'/'.$var1);
 		unlink(MODULE_SETTINGS.'/'.$var1.'.php');
@@ -270,7 +271,7 @@ function albums_page_admin_deletealbum() {
 }
 
 function albums_page_admin_editimage() {
-	global $cont1, $cont2, $lang, $lang_albums11, $var1, $var2;
+	global $cont1, $cont2, $lang, $var1, $var2;
 
 	//Check if an image was defined, and if the image exists.
 	if (isset($var2) && file_exists('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2))) {
@@ -288,7 +289,7 @@ function albums_page_admin_editimage() {
 				<input name="cont1" id="cont1" type="text" value="<?php echo $name; ?>" />
 			</p>
 			<p>
-				<label class="kop2" for="cont2"><?php echo $lang_albums11; ?></label>
+				<label class="kop2" for="cont2"><?php echo $lang['general']['description']; ?></label>
 				<br />
 				<textarea cols="50" rows="5" name="cont2" id="cont2"><?php echo $info; ?></textarea>
 			</p>
@@ -302,11 +303,9 @@ function albums_page_admin_editimage() {
 			$cont2 = sanitize($cont2);
 			$cont2 = nl2br($cont2);
 
-			//Then save the imageinformation
-			$data = '<?php'."\n"
-			.'$name = \''.$cont1.'\';'."\n"
-			.'$info = \''.$cont2.'\';'."\n"
-			.'?>';
+			//Then save the image information.
+			$data['name'] = $cont1;
+			$data['info'] = $cont2;
 
 			save_file(MODULE_SETTINGS.'/'.$var1.'/'.albums_get_php_filename($var1, $var2), $data);
 

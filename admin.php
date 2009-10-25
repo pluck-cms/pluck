@@ -196,7 +196,6 @@ else {
 
 			//Page:Uninstall module
 			case 'module_delete':
-				$titelkop = $lang_modules10;
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/modules_manage_delete.php');
 				break;

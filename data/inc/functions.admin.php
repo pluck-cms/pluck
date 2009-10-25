@@ -389,7 +389,7 @@ function save_page($title, $content, $hidden, $subpage, $description = null, $ke
 		if (!empty($subpage)) {
 			//We need to make sure that the dir exists, and if not, create it.
 			if (!file_exists('data/settings/pages/'.rtrim($subpage, '/'))) {
-				mkdir('data/settings/pages/'.rtrim($subpage, '/'), 0777);
+				mkdir('data/settings/pages/'.rtrim($subpage, '/'));
 				chmod('data/settings/pages/'.rtrim($subpage, '/'), 0777);
 			}
 			$pages = read_dir_contents('data/settings/pages/'.rtrim($subpage, '/'), 'files');
@@ -427,7 +427,7 @@ function save_page($title, $content, $hidden, $subpage, $description = null, $ke
 
 			//We need to make sure that the dir exists, and if not, create it.
 			if (!file_exists('data/settings/pages/'.$newdir)) {
-				mkdir('data/settings/pages/'.$newdir, 0777);
+				mkdir('data/settings/pages/'.$newdir);
 				chmod('data/settings/pages/'.$newdir, 0777);
 			}
 

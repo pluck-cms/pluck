@@ -77,7 +77,7 @@ if (isset($_POST ['submit'])) {
 				//Make directory for module settings (if it doesn't exist).
 				$dirtocreate = str_replace('.tar.gz', '', $filename);
 				if (!file_exists('data/settings/modules/'.$dirtocreate)) {
-					mkdir('data/settings/modules/'.$dirtocreate, 0777);
+					mkdir('data/settings/modules/'.$dirtocreate);
 					chmod('data/settings/modules/'.$dirtocreate, 0777);
 				}
 

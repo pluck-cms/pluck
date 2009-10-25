@@ -47,7 +47,7 @@ function recursive_remove_directory($directory, $empty = false)	{
 			}
 		}
 		closedir($handle);
-		if ($empty == false) {
+		if (!$empty) {
 			if (!rmdir($directory))
 				return false;
 		}

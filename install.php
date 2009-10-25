@@ -113,13 +113,13 @@ else {
 				save_theme('default');
 
 				//Make some dirs for the trashcan and modulesettings.
-				mkdir('data/trash/pages', 0777);
+				mkdir('data/trash/pages');
 				chmod('data/trash/pages', 0777);
-				mkdir('data/trash/images', 0777);
+				mkdir('data/trash/images');
 				chmod('data/trash/images', 0777);
-				mkdir('data/settings/modules', 0777);
+				mkdir('data/settings/modules');
 				chmod('data/settings/modules', 0777);
-				mkdir('data/settings/pages', 0777);
+				mkdir('data/settings/pages');
 				chmod('data/settings/pages', 0777);
 
 				redirect('?action=install4', 0);

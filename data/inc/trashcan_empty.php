@@ -21,14 +21,10 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 }
 
 //Images
-recursive_remove_directory('data/trash/images');
-mkdir('data/trash/images', 0777);
-chmod('data/trash/images', 0777);
+recursive_remove_directory('data/trash/images', true);
 
 //Pages
-recursive_remove_directory('data/trash/pages');
-mkdir('data/trash/pages', 0777);
-chmod('data/trash/pages', 0777);
+recursive_remove_directory('data/trash/pages', true);
 
 //Redirect
 redirect('?action=trashcan', 0);

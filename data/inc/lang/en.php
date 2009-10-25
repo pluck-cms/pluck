@@ -243,6 +243,29 @@ $lang['changepass']['different']   = 'You entered two different passwords!';
 $lang['changepass']['empty']       = 'Your new password can\'t be empty.';
 $lang['changepass']['changed']     = 'Password has been changed.';
 
+//Albums.
+$lang['albums']['title'] = 'albums';
+$lang['albums']['message'] = 'Here you can manage your albums. Use albums to show your visitors your favourite photos and images. Insert the albums in your page(s) by choosing "insert album" when editing a page.';
+$lang['albums']['edit_albums'] = 'edit albums';
+$lang_albums3 = 'new album';
+$lang_albums4 = 'choose a name for your new album first, then click "save"';
+$lang_albums5 = 'delete album';
+$lang_albums6 = 'edit album';
+$lang_albums7 = 'use albums to show your visitors your favourite photos and images';
+$lang_albums8 = 'Use this page to add, delete and edit images in your album. JPG, PNG and GIF images are supported.';
+$lang_albums9 = 'edit images';
+$lang_albums10 ='new image';
+$lang_albums12 = 'quality (1-100)';
+$lang_albums13 = 'upload a new image here. choose a title and a description, and choose the quality at which the images should be processed. the higher the quality, the higher the filesize.';
+$lang_albums15 = 'edit image';
+$lang_albums17	= 'include album in this page:';
+$lang_albums18 = 'The specified album doesn\'t exist.';
+$lang_albums19 = 'There is already an album with that name.';
+$lang_updown5 = 'change image order';
+$lang_updown6 = 'This image already is on the top, so its rank can\'t be changed.';
+$lang_updown7 = 'This image already is the last one, so its rank can\'t be changed.';
+$lang_kop13 = 'delete image';
+
 //Blog.
 $lang['blog']['title']                  = 'blog';
 $lang['blog']['message']                = 'Here, you can make new posts to add to your blog. Posts will be automatically sorted on date.';
@@ -267,31 +290,6 @@ $lang['blog']['edit_reactions_message'] = 'Here, you can edit the reactions of y
 $lang['blog']['delete_reaction']        = 'delete reaction';
 $lang['blog']['html_not_allowed']       = 'HTML-code is not allowed.';
 $lang['blog']['no_reactions']           = 'no reactions';
-
-//Albums.
-$lang_albums = 'albums';
-$lang_albums1 = 'Here you can manage your albums. Use albums to show your visitors your favourite photos and images. Insert the albums in your page(s) by choosing "insert album" when editing a page.';
-$lang_albums2 = 'edit albums';
-$lang_albums3 = 'new album';
-$lang_albums4 = 'choose a name for your new album first, then click "save"';
-$lang_albums5 = 'delete album';
-$lang_albums6 = 'edit album';
-$lang_albums7 = 'use albums to show your visitors your favourite photos and images';
-$lang_albums8 = 'Use this page to add, delete and edit images in your album. JPG, PNG and GIF images are supported.';
-$lang_albums9 = 'edit images';
-$lang_albums10 ='new image';
-$lang_albums11 = 'description';
-$lang_albums12 = 'quality (1-100)';
-$lang_albums13 = 'upload a new image here. choose a title and a description, and choose the quality at which the images should be processed. the higher the quality, the higher the filesize.';
-$lang_albums14 = 'nothing yet...';
-$lang_albums15 = 'edit image';
-$lang_albums17	= 'include album in this page:';
-$lang_albums18 = 'The specified album doesn\'t exist.';
-$lang_albums19 = 'There is already an album with that name.';
-$lang_updown5 = 'change image order';
-$lang_updown6 = 'This image already is on the top, so its rank can\'t be changed.';
-$lang_updown7 = 'This image already is the last one, so its rank can\'t be changed.';
-$lang_kop13 = "delete image";
 
 //Contact form.
 $lang['contactform']['module_name']  = 'contact form';
