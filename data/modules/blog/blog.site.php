@@ -56,8 +56,16 @@ function blog_theme_main() {
 				<div class="blog_post_content">
 					<?php echo $post['content']; ?>
 				</div>
+				<?php
+				$number = count(blog_get_reactions($post['seoname']));
+
+				if ($number)
+					$more_link = $number.' '.$lang['blog']['reactions'];
+				else
+					$more_link = $lang['blog']['no_reactions']
+				?>
 				<p class="blog_post_more">
-					<a href="?file=<?php echo CURRENT_PAGE_SEONAME; ?>&amp;module=blog&amp;page=viewpost&amp;post=<?php echo $post['seoname']; ?>" title="<?php echo $lang['blog']['no_reactions']; ?>">&raquo; <?php echo $lang['blog']['no_reactions']; ?></a>
+					<a href="?file=<?php echo CURRENT_PAGE_SEONAME; ?>&amp;module=blog&amp;page=viewpost&amp;post=<?php echo $post['seoname']; ?>" title="<?php echo $more_link; ?>">&raquo; <?php echo $more_link; ?></a>
 				</p>
 			</div>
 		<?php
@@ -88,7 +96,7 @@ function blog_page_site_viewpost() {
 				<?php
 				$number = count(blog_get_reactions($_GET['post']));
 
-				if (!$number)
+				if ($number)
 					echo $number.' '.$lang['blog']['reactions'];
 				else
 					echo $lang['blog']['no_reactions']

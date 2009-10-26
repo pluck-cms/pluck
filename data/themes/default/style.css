@@ -1,8 +1,3 @@
-* {
-	margin: 0;
-	padding: 0;
-}
-
 body {
 	font: 13px Arial, Helvetica, sans-serif;
 	color: #1D1D1D;
@@ -64,8 +59,7 @@ textarea, input {
 }
 
 #container {
-	width: 760px;
-	margin: 0 auto;
+	margin: 0 30px;
 }
 
 #header {
@@ -90,11 +84,11 @@ textarea, input {
 	font-size: 20px;
 	line-height: 47px;
 	margin: 0 2px;
-	padding: 0 14px;
 }
 
 #header ul a {
 	text-decoration: none;
+	padding: 11.5px 14px;
 }
 
 #active, #header > ul > li:hover {
@@ -116,10 +110,6 @@ textarea, input {
 	display: block;
 }
 
-#content {
-	width:730px;
-}
-
 #content ul {
 	list-style: none;
 	margin: 0 0 13px 20px;
@@ -132,8 +122,6 @@ textarea, input {
 
 #footer {
 	clear: both;
-	width: 730px;
-	margin-right: 230px;
 	padding: 10px 0 20px 0;
 	text-align: center;
 	font-size: 11px;
@@ -151,8 +139,13 @@ textarea, input {
 	margin-bottom: 5px;
 }
 
-.blog_post_info {
+.blog_post_info, #blog_post_info {
 	font-size: 10px;
+	color: gray;
+}
+
+.blog_post_content, #blog_post_content {
+	margin-top: 5px;
 }
 
 #blog_reactions > p {
@@ -200,4 +193,9 @@ textarea, input {
 
 .albuminfo {
 	font-size: 17pt;
+}
+
+.error {
+	color: red;
+	font-size: 14px;
 }

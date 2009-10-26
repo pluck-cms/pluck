@@ -10,26 +10,6 @@ function contactform_theme_main() {
 	if (isset($_POST['contactform_message']))
 		$message = $_POST['contactform_message'];
 
-	//Then show the contactform.
-	?>
-		<form method="post" action="" id="contactform">
-			<div>
-				<label for="contactform_name"><?php echo $lang['general']['name']; ?></label>
-				<br />
-				<input name="contactform_name" id="contactform_name" type="text" />
-				<br />
-				<label for="contactform_sender"><?php echo $lang['general']['email']; ?></label>
-				<br />
-				<input name="contactform_sender" id="contactform_sender" type="text" />
-				<br />
-				<label for="contactform_message"><?php echo $lang['general']['message']; ?></label>
-				<br />
-				<textarea name="contactform_message" id="contactform_message" rows="7" cols="45"></textarea>
-				<br />
-				<input type="submit" name="submit" value="<?php echo $lang['general']['send']; ?>" />
-			</div>
-		</form>
-	<?php
 	//If the the contactform was submitted.
 	if (isset($_POST['submit'])) {
 		//Check if all fields were filled.
@@ -53,7 +33,29 @@ function contactform_theme_main() {
 		}
 		//If not all fields were filled.
 		else
-			echo '<span class="error">'.$lang['contactform']['fields'].'</span>';
+			echo '<p class="error">'.$lang['contactform']['fields'].'</p>';
 	}
+
+	//Then show the contactform.
+	?>
+		<form method="post" action="" id="contactform">
+			<div>
+				<label for="contactform_name"><?php echo $lang['general']['name']; ?></label>
+				<br />
+				<input name="contactform_name" id="contactform_name" type="text" />
+				<br />
+				<label for="contactform_sender"><?php echo $lang['general']['email']; ?></label>
+				<br />
+				<input name="contactform_sender" id="contactform_sender" type="text" />
+				<br />
+				<label for="contactform_message"><?php echo $lang['general']['message']; ?></label>
+				<br />
+				<textarea name="contactform_message" id="contactform_message" rows="7" cols="45"></textarea>
+				<br />
+				<input type="submit" name="submit" value="<?php echo $lang['general']['send']; ?>" />
+			</div>
+		</form>
+	<?php
+
 }
 ?>
