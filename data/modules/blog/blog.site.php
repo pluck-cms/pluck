@@ -57,10 +57,16 @@ function blog_theme_main() {
 					<?php echo $post['content']; ?>
 				</div>
 				<?php
-				$number = count(blog_get_reactions($post['seoname']));
+				$number = blog_get_reactions($post['seoname']);
 
-				if ($number)
-					$more_link = $number.' '.$lang['blog']['reactions'];
+				if ($number) {
+					$number = count($number);
+
+					if ($number == 1)
+						$more_link = $number.' '.$lang['blog']['reaction'];
+					else
+						$more_link = $number.' '.$lang['blog']['reactions'];
+				}
 				else
 					$more_link = $lang['blog']['no_reactions']
 				?>
@@ -70,6 +76,7 @@ function blog_theme_main() {
 			</div>
 		<?php
 		}
+		unset($post);
 	}
 }
 
@@ -94,10 +101,16 @@ function blog_page_site_viewpost() {
 		<div id="blog_reactions">
 			<p>
 				<?php
-				$number = count(blog_get_reactions($_GET['post']));
+				$number = blog_get_reactions($post['seoname']);
 
-				if ($number)
-					echo $number.' '.$lang['blog']['reactions'];
+				if ($number) {
+					$number = count($number);
+
+					if ($number == 1)
+						echo $number.' '.$lang['blog']['reaction'];
+					else
+						echo $number.' '.$lang['blog']['reactions'];
+				}
 				else
 					echo $lang['blog']['no_reactions']
 				?>

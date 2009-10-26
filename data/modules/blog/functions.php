@@ -194,8 +194,22 @@ function blog_get_reactions($post) {
 }
 
 function blog_reorder_reactions($post) {
-	//TODO: Create the function.
-	return;
+	$reactions = read_dir_contents(BLOG_POSTS_DIR.'/'.$post, 'files');
+
+	//Only reorder if there are any files.
+	if ($reactions) {
+		asort($reactions);
+
+		$number = 1;
+		foreach ($reactions as $reaction) {
+			$parts = explode('.', $reaction);
+			
+			//Only rename the file, if the number isn't correct.
+			if ($parts[0] != $number)
+				rename(BLOG_POSTS_DIR.'/'.$post.'/'.$reaction, BLOG_POSTS_DIR.'/'.$post.'/'.$number.'.php');
+			$number++;
+		}
+	}
 }
 
 /**
