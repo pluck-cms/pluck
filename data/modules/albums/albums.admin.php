@@ -2,7 +2,7 @@
 require_once 'data/modules/albums/functions.php';
 require_once 'data/inc/lib/SmartImage.class.php';
 
-function albums_page_admin_list() {
+function albums_pages_admin() {
 	global $lang, $var1, $var2;
 
 	if (isset($var1))

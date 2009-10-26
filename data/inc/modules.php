@@ -30,7 +30,7 @@ foreach ($module_list as $module) {
 		require_once ('data/modules/'.$module.'/'.$module.'.admin.php');
 
 	//Only show the button if there are admincenter pages for the module, and if the modules is compatible.
-	if (module_is_compatible($module) && function_exists($module.'_page_admin_list')) {
+	if (module_is_compatible($module) && function_exists($module.'_pages_admin')) {
 		$module_info = call_user_func($module.'_info');
 		showmenudiv($module_info['name'], $module_info['intro'], 'data/modules/'.$module.'/'.$module_info['icon'], '?module='.$module);
 	}

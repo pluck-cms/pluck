@@ -61,8 +61,8 @@ function get_pagetitle() {
 		}
 
 		//Get the title if we are looking at a module page
-		if (defined('CURRENT_MODULE_DIR') && module_is_compatible($module) && function_exists($module.'_page_site_list')) {
-			$module_page_site = call_user_func($module.'_page_site_list');
+		if (defined('CURRENT_MODULE_DIR') && module_is_compatible($module) && function_exists($module.'_pages_site')) {
+			$module_page_site = call_user_func($module.'_pages_site');
 			foreach ($module_page_site as $module_page) {
 				if ($module_page['func'] == CURRENT_MODULE_PAGE) {
 					$page_title = $module_page['title'].' &middot; '.$page_title;
@@ -231,7 +231,7 @@ function theme_area($place) {
 
 		//If we are looking at a module page.
 		if (defined('CURRENT_MODULE_DIR')) {
-			$module_page_site = call_user_func(CURRENT_MODULE_DIR.'_page_site_list');
+			$module_page_site = call_user_func(CURRENT_MODULE_DIR.'_pages_site');
 			foreach ($module_page_site as $module_page) {
 				if ($module_page['func'] == CURRENT_MODULE_PAGE)
 					call_user_func(CURRENT_MODULE_DIR.'_page_site_'.$module_page['func']);

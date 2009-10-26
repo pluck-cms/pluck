@@ -22,7 +22,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 
 require_once ('data/modules/blog/functions.php');
 
-function blog_page_admin_list() {
+function blog_pages_admin() {
 	global $lang;
 	$module_page_admin[] = array(
 		'func'  => 'blog',
@@ -42,7 +42,7 @@ function blog_page_admin_list() {
 	);
 	$module_page_admin[] = array(
 		'func'  => 'deletereaction',
-		'title' => $lang['general']['delete']
+		'title' => $lang['blog']['delete_reaction']
 	);
 	$module_page_admin[] = array(
 		'func'  => 'editpost',

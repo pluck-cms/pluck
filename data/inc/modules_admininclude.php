@@ -37,9 +37,9 @@ foreach ($module_list as $dir) {
 		require_once ('data/modules/'.$module.'/'.$module.'.admin.php');
 
 	//Check if module is compatible, otherwise don't include pages.
-	if (module_is_compatible($dir) && function_exists($dir.'_page_admin_list')) {
+	if (module_is_compatible($dir) && function_exists($dir.'_pages_admin')) {
 		$module_info = call_user_func($module.'_info');
-		$module_pages = call_user_func($dir.'_page_admin_list');
+		$module_pages = call_user_func($dir.'_pages_admin');
 
 		//Include startpage of module.
 		if ($module == $dir && !isset($page) && isset($module_pages[0])) {

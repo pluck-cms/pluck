@@ -58,7 +58,7 @@ function albums_theme_meta() {
 	}
 }
 
-function albums_page_site_list() {
+function albums_pages_site() {
 	global $lang;
 
 	if (file_exists(MODULE_SETTINGS.'/'.$_GET['album'].'.php')) {

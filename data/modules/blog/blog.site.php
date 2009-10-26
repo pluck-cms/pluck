@@ -22,7 +22,7 @@ if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIP
 
 require_once ('data/modules/blog/functions.php');
 
-function blog_page_site_list() {
+function blog_pages_site() {
 	include BLOG_POSTS_DIR.'/'.blog_get_post_filename($_GET['post']);
 
 	$module_page_admin[] = array(
