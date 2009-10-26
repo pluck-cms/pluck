@@ -63,7 +63,7 @@ function blog_page_admin_blog() {
 	global $cont1, $lang;
 	?>
 	<p>
-		<strong><?php echo $lang['blog']['message']; ?></strong>
+		<strong><?php echo $lang['blog']['main_message']; ?></strong>
 	</p>
 	<?php showmenudiv($lang['blog']['new_post'], false, 'data/image/newpage.png', '?module=blog&amp;page=newpost', false); ?>
 	<span class="kop2"><?php echo $lang['blog']['posts']; ?></span>

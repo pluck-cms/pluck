@@ -269,7 +269,7 @@ $lang['albums']['delete_image']   = 'delete image';
 
 //Blog.
 $lang['blog']['title']                  = 'blog';
-$lang['blog']['message']                = 'Here, you can make new posts to add to your blog. Posts will be automatically sorted on date.';
+$lang['blog']['main_message']                = 'Here, you can make new posts to add to your blog. Posts will be automatically sorted on date.';
 $lang['blog']['descr']                  = 'use a blog to post news or write articles for your visitors';
 $lang['blog']['categories']             = 'categories';
 $lang['blog']['category']               = 'category';
