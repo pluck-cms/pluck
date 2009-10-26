@@ -88,7 +88,7 @@ function blog_page_site_viewpost() {
 				<?php
 				$number = count(blog_get_reactions($_GET['post']));
 
-				if (!empty($number))
+				if (!$number)
 					echo $number.' '.$lang['blog']['reactions'];
 				else
 					echo $lang['blog']['no_reactions']
@@ -97,30 +97,32 @@ function blog_page_site_viewpost() {
 			<?php
 			$reactions = blog_get_reactions($_GET['post']);
 
-			foreach ($reactions as $reaction) {
-			?>
-				<div class="blog_reaction" id="reaction<?php echo $reaction['id']; ?>">
-					<p class="blog_reaction_name">
-						<?php
-						if (!empty($reaction['website']))
-							echo '<a href="'.$reaction['website'].'">'.$reaction['name'].'</a>:';
-						else
-							echo $reaction['name'].':';
-						?>
-					</p>
-					<span class="blog_reaction_info">
-						<a href="#reaction<?php echo $reaction['id']; ?>"><?php echo $reaction['date'].' '.$lang['blog']['at'].' '.$reaction['time']; ?></a>
-				</span>
-					<p class="blog_reaction_message"><?php echo $reaction['message']; ?></p>
-				</div>
-			<?php
+			if ($reactions) {
+				foreach ($reactions as $reaction) {
+				?>
+					<div class="blog_reaction" id="reaction<?php echo $reaction['id']; ?>">
+						<p class="blog_reaction_name">
+							<?php
+							if (!empty($reaction['website']))
+								echo '<a href="'.$reaction['website'].'">'.$reaction['name'].'</a>:';
+							else
+								echo $reaction['name'].':';
+							?>
+						</p>
+						<span class="blog_reaction_info">
+							<a href="#reaction<?php echo $reaction['id']; ?>"><?php echo $reaction['date'].' '.$lang['blog']['at'].' '.$reaction['time']; ?></a>
+					</span>
+						<p class="blog_reaction_message"><?php echo $reaction['message']; ?></p>
+					</div>
+				<?php
+				}
 			}
 			?>
 			<?php
 			//If form is posted...
 			if (isset($_POST['submit'])) {
 				//Check if everything has been filled in.
-				if (empty($_POST['blog_reaction_name']) || (empty($_POST['blog_reaction_email']) || filter_input(INPUT_POST, 'blog_reaction_email', FILTER_VALIDATE_EMAIL) == false) || empty($_POST['blog_reaction_message']))
+				if (empty($_POST['blog_reaction_name']) || filter_input(INPUT_POST, 'blog_reaction_email', FILTER_VALIDATE_EMAIL) == false || filter_input(INPUT_POST, 'blog_reaction_website', FILTER_VALIDATE_URL) == false || empty($_POST['blog_reaction_message']))
 					echo '<p class="error">'.$lang['contactform']['fields'].'</p>';
 
 				//Add reaction.

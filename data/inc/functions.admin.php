@@ -156,6 +156,11 @@ function show_page_box($file) {
 			<span class="title-page"><?php echo $title; ?></span>
 			<?php run_hook('admin_page_list_before'); ?>
 			<span>
+				<a href="index.php?file=<?php echo $file; ?>" target="_blank">
+					<img src="data/image/website.png" title="<?php echo $lang['page']['view']; ?>" alt="<?php echo $lang['page']['view']; ?>" />
+				</a>
+			</span>
+			<span>
 				<a href="?action=editpage&amp;var1=<?php echo $file; ?>">
 					<img src="data/image/edit.png" title="<?php echo $lang['page']['edit']; ?>" alt="<?php echo $lang['page']['edit']; ?>" />
 				</a>

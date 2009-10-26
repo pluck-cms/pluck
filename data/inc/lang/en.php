@@ -135,6 +135,7 @@ $lang['page']['last']         = 'This page already is the last one, so its rank 
 
 //Newpage and Editpage
 $lang['page']['new']         = 'new page';
+$lang['page']['view']        = 'view page';
 $lang['page']['edit']        = 'edit page';
 $lang['page']['items']       = 'These items are ready to be implemented in this page:';
 $lang['page']['insert_link'] = 'insert link';
@@ -287,7 +288,12 @@ $lang['blog']['posted_by']              = 'posted by';
 $lang['blog']['reactions']              = 'reactions';
 $lang['blog']['edit_reactions']         = 'edit reactions';
 $lang['blog']['edit_reactions_message'] = 'Here, you can edit the reactions of your visitors on the post.';
+$lang['blog']['edit_reaction']          = 'edit reaction';
 $lang['blog']['delete_reaction']        = 'delete reaction';
+$lang['blog']['name']                   = 'name';
+$lang['blog']['email']                  = 'email';
+$lang['blog']['website']                = 'website';
+$lang['blog']['message']                = 'message';
 $lang['blog']['html_not_allowed']       = 'HTML-code is not allowed.';
 $lang['blog']['no_reactions']           = 'no reactions';
 

@@ -56,9 +56,14 @@ foreach ($module_list as $dir) {
 					$titelkop = $module_page['title'];
 					include_once ('data/inc/header.php');
 					call_user_func($dir.'_page_admin_'.$module_page['func']);
+					$module_page_found = true;
 				}
 			}
 			unset($module_page);
+
+			//Go to the modules, if we can't find the page.
+			if (!isset($module_page_found))
+				header('Location: ?action=modules');
 		}
 	}
 

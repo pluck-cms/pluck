@@ -110,6 +110,7 @@ function blog_get_post_seoname($filename) {
  * @param string $post The seoname of the blog post to which the reaction should be added.
  * @param string $name The name of the person posting the reaction.
  * @param string $email The e-mail of the person posting the reaction.
+ * @param string $website The website address of the person posting the reaction.
  * @param string $message The message of the reaction.
  * @param int $id If an existing reaction needs to be edited, the id of the reaction should go here.
  */
@@ -119,6 +120,7 @@ function blog_save_reaction($post, $name, $email, $website, $message, $id = null
 	//Sanitize variables.
 	$name = sanitize($name);
 	$message = sanitize($message);
+	$message = nl2br($message);
 
 	//Have to make sure that the dir exists.
 	if (!is_dir(BLOG_POSTS_DIR.'/'.$post)) {
@@ -126,33 +128,30 @@ function blog_save_reaction($post, $name, $email, $website, $message, $id = null
 		chmod(BLOG_POSTS_DIR.'/'.$post, 0777);
 	}
 
-	if (!empty($id)) {
+	if (!empty($id))
 		include BLOG_POSTS_DIR.'/'.$post.'/'.$id.'.php';
-
-		$number = $id;
-	}
 
 	else {
 		$files = read_dir_contents(BLOG_POSTS_DIR.'/'.$post, 'files');
 
 		if ($files) {
-			$number = count($files);
-			$number++;
+			$id = count($files);
+			$id++;
 		}
 
 		else
-			$number = 1;
+			$id = 1;
 
-		$post_time = time();
+		$reaction_time = time();
 	}
 
 	$data['reaction_name']    = $name;
 	$data['reaction_email']   = $email;
 	$data['reaction_website'] = $website;
 	$data['reaction_message'] = $message;
-	$data['reaction_time']    = $post_time;
+	$data['reaction_time']    = $reaction_time;
 
-	save_file(BLOG_POSTS_DIR.'/'.$post.'/'.$number.'.php', $data);
+	save_file(BLOG_POSTS_DIR.'/'.$post.'/'.$id.'.php', $data);
 }
 
 function blog_get_reaction($post, $id) {
@@ -192,6 +191,11 @@ function blog_get_reactions($post) {
 
 	else
 		return false;
+}
+
+function blog_reorder_reactions($post) {
+	//TODO: Create the function.
+	return;
 }
 
 /**

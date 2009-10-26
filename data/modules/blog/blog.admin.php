@@ -37,8 +37,12 @@ function blog_page_admin_list() {
 		'title' => $lang['blog']['edit_reactions']
 	);
 	$module_page_admin[] = array(
-		'func'  => 'deletereactions',
-		'title' => $lang['blog']['delete_reaction']
+		'func'  => 'editreaction',
+		'title' => $lang['blog']['edit_reaction']
+	);
+	$module_page_admin[] = array(
+		'func'  => 'deletereaction',
+		'title' => $lang['general']['delete']
 	);
 	$module_page_admin[] = array(
 		'func'  => 'editpost',
@@ -55,9 +59,6 @@ function blog_page_admin_list() {
 	return $module_page_admin;
 }
 
-//---------------
-// Page: admin
-//---------------
 function blog_page_admin_blog() {
 	global $cont1, $lang;
 	?>
@@ -177,9 +178,6 @@ function blog_page_admin_blog() {
 <?php
 }
 
-//---------------
-// Page: deletecategory
-//---------------
 function blog_page_admin_deletecategory() {
 	global $var1;
 
@@ -190,96 +188,123 @@ function blog_page_admin_deletecategory() {
 	redirect('?module=blog', 0);
 }
 
-//---------------
-// Page: editreactions
-//---------------
 function blog_page_admin_editreactions() {
-	global $lang, $var1, $page;
+	global $lang, $var1;
 	?>
 		<p>
 			<strong><?php echo $lang['blog']['edit_reactions_message']; ?></strong>
 		</p>
 	<?php
-	//Include blog post, if it exists
-	if (file_exists('data/settings/modules/blog/posts/'.$var1)) {
-		include_once('data/settings/modules/blog/posts/'.$var1);
+	//Include blog post, if it exists.
+	$reactions = blog_get_reactions($var1);
+	if ($reactions) {
+		arsort($reactions);
 
 		//Display reactions
-		if(isset($post_reaction_title)) {
-			foreach($post_reaction_title as $key => $value) {
-				$post_reaction_content[$key] = str_replace('<br />',"\n",$post_reaction_content[$key]);
-				//TODO: The rest of this function is one big mess. Clean it up somehow!
-				?>
-					<div class="menudiv">
-						<table>
-							<tr>
-								<td>
-									<img src="data/modules/blog/images/reactions.png" alt="" border="0">
-								</td>
-								<td style="width: 600px;">
-									<form method="post" action="">
-										<b><?php echo $lang['general']['title']; ?></b><br />
-										<input name="title" type="text" value="<?php echo $post_reaction_title[$key]; ?>" />
-										<br /><br />
-										<textarea name="message" rows="5" cols="65"><?php echo $post_reaction_content[$key]; ?></textarea>
-										<br /><br />
-										<input name="edit_key" type="hidden" value="<?php echo $key; ?>" />
-										<input type="submit" name="Submit" value="<?php echo $lang['general']['save']; ?>" />
-									</form>
-								</td>
-								<td>
-									<a href="?module=blog&page=deletereactions&post=<?php echo $var1; ?>&key=<?php echo $key; ?>">
-										<img src="data/image/delete_from_trash.png" border="0" title="<?php echo $lang['blog']['delete_reaction']; ?>" alt="<?php echo $lang['blog']['delete_reaction']; ?>" />
-									</a>
-								</td>
-							</tr>
-						</table>
-					</div>
-				<?php
-			}
-		unset($key);
-	}
-}
-
-//If form is posted...
-if(isset($_POST['Submit'])) {
-	//Check if everything has been filled in.
-	if(!isset($_POST['title']) || !isset($_POST['message'])) { ?>
-		<span style="color: red;"><?php echo $lang['contactform']['fields']; ?></span>
-		<?php exit;
+		foreach($reactions as $reaction) {
+			?>
+				<div class="menudiv">
+					<span>
+						<img src="data/modules/blog/images/reactions.png" alt="" />
+					</span>
+					<span class="kop2"><?php echo $reaction['id']; ?></span>
+					<span class="title-page"><?php echo $reaction['name']; ?></span>
+					<span>
+						<a href="?module=blog&amp;page=editreaction&amp;var1=<?php echo $var1; ?>&amp;var2=<?php echo $reaction['id']; ?>">
+							<img src="data/image/edit.png" alt="<?php echo $lang['blog']['edit_reaction']; ?>" title="<?php echo $lang['blog']['edit_reaction']; ?>" />
+						</a>
+					</span>
+					<span>
+						<a href="?module=blog&amp;page=deletereaction&amp;var1=<?php echo $var1; ?>&amp;var2=<?php echo $reaction['id']; ?>">
+							<img src="data/image/delete_from_trash.png" alt="<?php echo $lang['blog']['delete_reaction']; ?>" title="<?php echo $lang['blog']['delete_reaction']; ?>" />
+						</a>
+					</span>
+				</div>
+			<?php
+		}
+	unset($key);
 	}
 
-	else {
-		//Include functions.
-		require_once('data/modules/blog/functions.php');
-		//Get information of blog post.
-		include('data/settings/modules/blog/posts/'.$var1);
-		//Save reaction.
-		blog_save_reaction($var1, $_POST['title'], $post_reaction_name[$_POST['edit_key']], $_POST['message'], $_POST['edit_key']);
-		//Redirect.
-		redirect('?module=blog&page=editreactions&var1='.$var1, 0);
+	else
+		redirect('?module=blog', 0)
+	?>
+		<p>
+			<a href="?module=blog">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
+		</p>
+	<?php
+}
+
+function blog_page_admin_editreaction() {
+	global $cont1, $cont2, $cont3, $cont4, $lang, $var1, $var2;
+	?>
+		<p>
+			<strong><?php echo $lang['blog']['edit_reactions_message']; ?></strong>
+		</p>
+	<?php
+	//If form is posted...
+	if (isset($_POST['save'])) {
+		//Check if everything has been filled in.
+		if (empty($cont1))
+			$error['name'] = show_error('', 1, true);
+		if (filter_input(INPUT_POST, $cont2, FILTER_VALIDATE_EMAIL) != false)
+			$error['email'] = show_error('', 1, true);
+		if (filter_input(INPUT_POST, $cont3, FILTER_VALIDATE_URL) != false)
+			$error['website'] = show_error('', 1, true);
+		if (empty($cont4))
+			$error['message'] = show_error('', 1, true);
+
+		if (!isset($error)) {
+			//Save reaction.
+			blog_save_reaction($var1, $cont1, $cont2, $cont3, $cont4, $var2);
+
+			redirect('?module=blog&page=editreactions&var1='.$var1, 0);
+		}
 	}
+
+	//Include blog post, if it exists.
+	$reaction = blog_get_reaction($var1, $var2);
+
+	$reaction['message'] = str_replace('<br />', '', $reaction['message']);
+	?>
+		<form method="post" action="">
+			<img src="data/modules/blog/images/reactions.png" alt="" />
+			<span class="kop2" style="vertical-align: top;"><?php echo $reaction['id']; ?></span>
+			<p>
+				<label class="kop2" for="cont1"><?php echo $lang['blog']['name']; ?></label>
+				<br />
+				<input name="cont1" id="cont1" type="text" value="<?php echo $reaction['name']; ?>" />
+			</p>
+			<p>
+				<label class="kop2" for="cont2"><?php echo $lang['blog']['email']; ?></label>
+				<br />
+				<input name="cont2" id="cont2" type="text" value="<?php echo $reaction['email']; ?>" />
+			</p>
+			<p>
+				<label class="kop2" for="cont3"><?php echo $lang['blog']['website']; ?></label>
+				<br />
+				<input name="cont3" id="cont3" type="text" value="<?php echo $reaction['website']; ?>" />
+			</p>
+			<p>
+				<label class="kop2" for="cont4"><?php echo $lang['blog']['message']; ?></label>
+				<br />
+				<textarea name="cont4" id="cont4" rows="5" cols="50"><?php echo $reaction['message']; ?></textarea>
+			</p>
+			<?php show_common_submits('?module=blog&amp;page=editreactions&amp;var1='.$var1); ?>
+		</form>
+	<?php
 }
-?>
 
-<p>
-	<a href="?module=blog">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
-</p>
+function blog_page_admin_deletereaction() {
+	global $var1, $var2;
 
-<?php
+	if (isset($var1, $var2) && file_exists(BLOG_POSTS_DIR.'/'.$var1.'/'.$var2.'.php')) {
+		unlink(BLOG_POSTS_DIR.'/'.$var1.'/'.$var2.'.php');
+		blog_reorder_reactions($var1);
+	}
+
+	redirect('?module=blog&page=editreactions&var1='.$var1, 0);
 }
 
-//---------------
-// Page: deletereactions
-//---------------
-function blog_page_admin_deletereactions() {
-	//TODO: Make it work!
-	redirect('?module=blog&page=editreactions&var1='.$post, 0);
-}
-
-//---------------
-// Page: editpost
-//---------------
 function blog_page_admin_editpost() {
 	global $lang, $var1, $cont1, $cont2, $cont3;
 
@@ -299,7 +324,10 @@ function blog_page_admin_editpost() {
 	?>
 		<div class="rightmenu">
 			<p><?php echo $lang['page']['items']; ?></p>
-			<?php read_imagesinpages('images'); ?>
+			<?php
+			read_pagesinpages();
+			read_imagesinpages('images');
+			?>
 		</div>
 		<form method="post" action="">
 			<p>
@@ -338,22 +366,21 @@ function blog_page_admin_editpost() {
 	<?php
 }
 
-//---------------
-// Page: deletepost
-//---------------
 function blog_page_admin_deletepost() {
 	global $var1;
 
-	//TODO: Make it work!
+	if (isset($var1) && file_exists(BLOG_POSTS_DIR.'/'.blog_get_post_filename($var1))) {
+		unlink(BLOG_POSTS_DIR.'/'.blog_get_post_filename($var1));
+
+		//If there are reactions, delete them too.
+		if (is_dir(BLOG_POSTS_DIR.'/'.$var1))
+			recursive_remove_directory(BLOG_POSTS_DIR.'/'.$var1);
+	}
 
 	//Redirect.
 	redirect('?module=blog', 0);
 }
 
-
-//---------------
-// Page: newpost
-//---------------
 function blog_page_admin_newpost() {
 	global $lang, $var1, $cont1, $cont2, $cont3;
 
@@ -377,7 +404,10 @@ function blog_page_admin_newpost() {
 	?>
 		<div class="rightmenu">
 			<p><?php echo $lang['page']['items']; ?></p>
-			<?php read_imagesinpages('images'); ?>
+			<?php
+			read_pagesinpages();
+			read_imagesinpages('images');
+			?>
 		</div>
 		<form method="post" action="">
 			<p>
