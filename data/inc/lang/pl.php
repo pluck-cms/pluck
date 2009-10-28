@@ -50,6 +50,11 @@ $lang['general']['not_valid_file'] = 'Instalacja nie powiodła się: wybrany pli
 $lang['general']['none']           = 'brak';
 $lang['general']['description']    = 'opis';
 $lang['general']['nothing_yet']    = 'pusto...';
+$lang['general']['send']           = 'Wyślij';
+$lang['general']['name']           = 'Twoje Imię:';
+$lang['general']['email']          = 'Twój e-mail:';
+$lang['general']['message']        = 'Wiadomość:';
+$lang['general']['website']        = 'Strona www:';
 
 //Login
 $lang['login']['not']         = 'nie zalogowany';
@@ -61,23 +66,23 @@ $lang['login']['incorrect']   = 'Błędne hasło';
 $lang['login']['log_out']     = 'wyloguj się';
 
 //Install
-$lang['install']['not']             = 'nie zainstalowano';
-$lang['install']['not_message']     = 'pluck nie został jeszcze zainstalowany. Proszę czekać...';
-$lang['install']['already']         = 'pluck został już zainstalowany. Proszę czekać...';
-$lang['install']['title']           = 'instalacja';
-$lang['install']['welcome']         = 'Witaj! Zanim rozpoczniesz konfigurację Twojej nowej strony, musisz najpierw zainstalować plucka.';
-$lang['install']['start']           = 'Rozpocznij instalację.';
-$lang['install']['step_1']          = 'krok 1';
-$lang['install']['step_2']          = 'krok 2';
-$lang['install']['step_3']          = 'krok 3';
-$lang['install']['writable']        = 'Sprawdź czy masz prawo zapisu do wyświetlonych plików i katalogów, klikając przycisk "Odśwież". Jeśli ustawiłeś prawa do zapisu, możesz przejść do następnego kroku.';
-$lang['install']['good']            = 'Dobrze';
-$lang['install']['refresh']         = 'Odśwież';
-$lang['install']['proceed']         = 'Kontynuuj...';
-$lang['install']['homepage']        = 'W tym miejscu możesz edytować stronę główną. Wpisz tytuł i edytuj treść.';
-$lang['install']['success']         = 'pluck został zainstalowany poprawnie!';
-$lang['install']['manage']          = 'zarządzaj Twoją stroną';
-$lang['install']['general_info']    = 'Wpisz tutaj ogólne informacje o Tobie i Twojej stronie.';
+$lang['install']['not']			 = 'nie zainstalowano';
+$lang['install']['not_message']	 = 'pluck nie został jeszcze zainstalowany. Proszę czekać...';
+$lang['install']['already']		 = 'pluck został już zainstalowany. Proszę czekać...';
+$lang['install']['title']		 = 'instalacja';
+$lang['install']['welcome']		 = 'Witaj! Zanim rozpoczniesz konfigurację Twojej nowej strony, musisz najpierw zainstalować plucka.';
+$lang['install']['start']		 = 'Rozpocznij instalację.';
+$lang['install']['step_1']		 = 'krok 1';
+$lang['install']['step_2']		 = 'krok 2';
+$lang['install']['step_3']		 = 'krok 3';
+$lang['install']['writable']	 = 'Sprawdź czy masz prawo zapisu do wyświetlonych plików i katalogów, klikając przycisk "Odśwież". Jeśli ustawiłeś prawa do zapisu, możesz przejść do następnego kroku.';
+$lang['install']['good']		 = 'Dobrze';
+$lang['install']['refresh']		 = 'Odśwież';
+$lang['install']['proceed']		 = 'Kontynuuj...';
+$lang['install']['homepage']	 = 'W tym miejscu możesz edytować stronę główną. Wpisz tytuł i edytuj treść.';
+$lang['install']['success']		 = 'pluck został zainstalowany poprawnie!';
+$lang['install']['manage']		 = 'zarządzaj Twoją stroną';
+$lang['install']['general_info'] = 'Wpisz tutaj ogólne informacje o Tobie i Twojej stronie.';
 
 //Update
 $lang['update']['up_to_date'] = 'pluck jest w najnowszej wersji';
@@ -135,6 +140,7 @@ $lang['page']['last']         = 'Ta strona jest już na samym dole, więc nie mo
 
 //Newpage and Editpage
 $lang['page']['new']         = 'nowa strona';
+$lang['page']['view']        = 'podgląd strony';
 $lang['page']['edit']        = 'edytuj stronę';
 $lang['page']['items']       = 'Te obiekty można dołączyć do strony:';
 $lang['page']['insert_link'] = 'wstaw łącze';
@@ -195,7 +201,7 @@ $lang['modules_manage']['uninstall']         = 'odinstaluj moduł';
 $lang['modules_manage']['uninstall_confirm'] = 'Czy jesteś pewien że chcesz odinstalować ten moduł? Wszystkie ustawienia z nim związane będą usunięte.';
 $lang['modules_manage']['version']           = 'wersja';
 $lang['modules_manage']['author']            = 'autor';
-$lang['modules_manage']['website']           = 'strona';
+$lang['modules_manage']['website']           = 'website';
 $lang['modules_manage']['not_compatible']    = 'Ten moduł został wyłączony gdyż nie jest zgodny z Twoją wersją plucka.';
 
 //Modules_addtosite
@@ -243,63 +249,63 @@ $lang['changepass']['different']   = 'Wpisałeś dwa różne hasła!';
 $lang['changepass']['empty']       = 'Twoje nowe hasło nie może być puste.';
 $lang['changepass']['changed']     = 'Hasło zostało zmienione.';
 
-//Blog.
-$lang['blog']['title'] = 'blog';
-$lang['blog']['message'] = 'Tutaj możesz utworzyć nowe wiadomości na blogu. Zostaną one automatycznie posortowane względem daty.';
-$lang['blog']['descr'] = 'użyj bloga do dodawania artykułów i aktualności';
-$lang['blog']['categories'] = 'kategorie';
-$lang['blog']['category'] = 'kategoria';
-$lang['blog']['choose_cat'] = 'Wybierz kategorię...';
-$lang['blog']['no_cat'] = 'brak kategorii';
-$lang['blog']['new_cat'] = 'nowa kategoria';
-$lang['blog']['new_cat_message'] = 'najpierw wpisz nazwę nowej kategorii, wtedy naciśnij przycisk "zapisz"';
-$lang['blog']['delete_cat'] = 'usuń kategorię';
-$lang['blog']['posts']  = 'istniejące artykuły';
-$lang['blog']['new_post'] = 'napisz nowy artykuł';
-$lang['blog']['edit_post'] = 'edytuj artykuł';
-$lang['blog']['delete_post'] = 'usuń artykuł';
-$lang['blog']['posted_in'] = 'opublikowano w';
-$lang['blog']['posted_by'] = 'opublikowane przez';
-$lang['blog']['reactions'] = 'odpowiedzi';
-$lang['blog']['new_reaction_title'] = 'Tytuł:';
-$lang['blog']['edit_reactions'] = 'edytuj odpowiedź';
+//Albums
+$lang['albums']['title']			= 'albumy';
+$lang['albums']['descr']			= 'Używaj albumów aby pokazać gościom Twoje ulubione zdjęcia i obrazki.';
+$lang['albums']['message']			= 'Tutaj możesz zarządzać Twoimi albumami. Używaj ich aby pokazać gościom Twoje ulubione zdjęcia i obrazki. Dodawaj albumy do stron, wybierając opcję "dołącz album" podczas edytowania strony. ';
+$lang['albums']['edit_albums']		= 'edytuj albumy';
+$lang['albums']['new_album']		= 'nowy album';
+$lang['albums']['choose_name']		= 'wpisz nazwę nowego albumu, następnie wybierz "zapisz"';
+$lang['albums']['delete_album']		= 'usuń album';
+$lang['albums']['edit_album']		= 'edytuj album';
+$lang['albums']['album_message1']	= 'Ta strona służy do dodawania, usuwania i edycji albumów. Tylko pliki<b>JPG</b> są akceptowalne.';
+$lang['albums']['album_message2']	= 'Tutaj możesz załadować nowy obrazek. Wybierz jego tytuł, opis i jakość z jaką ma być zapisany. Im wyższa jakość tym większy rozmiar pliku.';
+$lang['albums']['edit_images']		= 'edytuj obrazki';
+$lang['albums']['new_image']		= 'nowy obrazek';
+$lang['albums']['quality']			= 'jakość (1-100)';
+$lang['albums']['edit_image']		= 'edytuj obrazek';
+$lang['albums']['doesnt_exist']		= 'Podany album nie istnieje.';
+$lang['albums']['name_exist']		= 'Album o tej nazwie już istnieje.';
+$lang['albums']['image_exist']		= 'Obraz o tej nazwie już istnieje.';
+$lang['albums']['change_order']		= 'zmień kolejność obrazków';
+$lang['albums']['already_top']		= 'Ten obrazek jest już na samej górze.';
+$lang['albums']['already_last']		= 'Ten obrazek jest już na samym dole.';
+$lang['albums']['delete_image']		= 'skasuj obrazek';
+
+//Blog
+$lang['blog']['title']					= 'blog';
+$lang['blog']['main_message']			= 'Tutaj możesz utworzyć nowe wiadomości na blogu. Zostaną one automatycznie posortowane względem daty.';
+$lang['blog']['descr']					= 'użyj bloga do dodawania artykułów i aktualności';
+$lang['blog']['categories']				= 'kategorie';
+$lang['blog']['category']				= 'kategoria';
+$lang['blog']['choose_cat']				= 'Wybierz kategorię...';
+$lang['blog']['no_cat']					= 'brak kategorii';
+$lang['blog']['new_cat']				= 'nowa kategoria';
+$lang['blog']['new_cat_message']		= 'najpierw wpisz nazwę nowej kategorii, wtedy naciśnij przycisk "zapisz"';
+$lang['blog']['delete_cat']				= 'usuń kategorię';
+$lang['blog']['posts']					= 'istniejące artykuły';
+$lang['blog']['new_post']				= 'napisz nowy artykuł';
+$lang['blog']['edit_post']				= 'edytuj artykuł';
+$lang['blog']['delete_post']			= 'usuń artykuł';
+$lang['blog']['at']                     = 'o';
+$lang['blog']['in']                     = 'w';
+$lang['blog']['posted_by']				= 'opublikowane przez';
+$lang['blog']['reactions']				= 'odpowiedzi';
+$lang['blog']['reaction']               = 'odpowiedź';
+$lang['blog']['edit_reactions']			= 'edytuj odpowiedzi';
 $lang['blog']['edit_reactions_message'] = 'Tutaj możesz edytować odpowiedzi na twój artykuł.';
-$lang['blog']['delete_reaction'] = 'usuń odpowiedź';
-$lang['blog']['html_not_allowed'] = 'Kod HTML jest niedozwolony.';
-$lang['blog']['view_reactions'] = 'przejrzyj lub napisz odpowiedź';
+$lang['blog']['edit_reaction']          = 'edytuj odpowiedź';
+$lang['blog']['delete_reaction']		= 'usuń odpowiedź';
+$lang['blog']['name']                   = 'Imię';
+$lang['blog']['email']                  = 'E-mail';
+$lang['blog']['website']                = 'Strona www';
+$lang['blog']['message']                = 'Wiadomość';
+$lang['blog']['html_not_allowed']		= 'Kod HTML jest niedozwolony.';
+$lang['blog']['no_reactions']           = 'brak odpowiedzi';
 
-//Albums.
-$lang_albums   = 'albumy';
-$lang_albums1  = 'Tutaj możesz zarządzać Twoimi albumami. Używaj ich aby pokazać gościom Twoje ulubione zdjęcia i obrazki. Dodawaj albumy do stron, wybierając opcję "dołącz album" podczas edytowania strony. ';
-$lang_albums2  = 'edytuj albumy';
-$lang_albums3  = 'nowy album';
-$lang_albums4  = 'wpisz nazwę nowego albumu, następnie naciśnij "zapisz"';
-$lang_albums5  = 'usuń album';
-$lang_albums6  = 'edytuj album';
-$lang_albums7  = 'Używaj albumów aby pokazać gościom Twoje ulubione zdjęcia i obrazki.';
-$lang_albums8  = 'Ta strona służy do dodawania, usuwania i edycji albumów. Tylko pliki<b>JPG</b> są akceptowalne.';
-$lang_albums9  = 'edytuj obrazki';
-$lang_albums10 = 'nowy obrazek';
-$lang_albums11 = 'opis';
-$lang_albums12 = 'jakość (1-100)';
-$lang_albums13 = 'Tutaj możesz załadować nowy obrazek. Wybierz jego tytuł, opis i jakość z jaką ma być zapisany. Im wyższa jakość tym większy rozmiar pliku.';
-$lang_albums14 = 'pusto...';
-$lang_albums15 = 'edytuj obrazek';
-$lang_albums17 = 'dołącz album do tej strony:';
-$lang_albums18 = 'Podany album nie istnieje.';
-$lang_albums19 = 'Album o tej nazwie już istnieje.';
-$lang_updown5  = 'zmień kolejność obrazków';
-$lang_updown6  = 'Ten obrazek jest już na samej górze.';
-$lang_updown7 = 'Ten obrazek jest już na samym dole.';
-$lang_kop13 = "skasuj obrazek";
-
-//Contact form.
+//Contact form
 $lang['contactform']['module_name']  = 'formularz kontaktowy';
 $lang['contactform']['module_intro'] = 'poprzez formularz kontaktowy, pozwalasz swoim gościom na wysyłanie Ci wiadomości';
-$lang['contactform']['name']         = 'Twoje Imię:';
-$lang['contactform']['email']        = 'Twój e-mail:';
-$lang['contactform']['message']      = 'Wiadomość:';
-$lang['contactform']['send']         = 'Wyślij';
 $lang['contactform']['fields']       = 'Nie wypełniłeś poprawnie wszystkich pól.';
 $lang['contactform']['email_title']  = 'Wiadomość z formularza kontaktowego';
 $lang['contactform']['been_send']    = 'Wiadomość została wysłana pomyślnie.';
