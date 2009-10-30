@@ -13,12 +13,7 @@
 */
 
 //Make sure the file isn't accessed directly.
-if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
-	//Give out an "Access denied!" error.
-	echo 'Access denied!';
-	//Block all other code.
-	exit;
-}
+defined('IN_PLUCK') or exit('Access denied!');
 
 //Save the theme-data.
 if (isset($_POST['save'], $cont1) && file_exists('data/themes/'.$cont1)) {

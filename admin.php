@@ -12,6 +12,12 @@
  * See docs/COPYING for the complete license.
 */
 
+//First define that we are in pluck.
+define('IN_PLUCK', true);
+
+//Then start session support.
+session_start();
+
 //Include security-enhancements.
 require_once ('data/inc/security.php');
 //Include functions.
@@ -35,7 +41,6 @@ if (!file_exists('data/settings/install.dat')) {
 else {
 
 	//Then check if we are properly logged in.
-	session_start();
 	require_once ('data/settings/token.php');
 	if (!isset($_SESSION[$token]) || ($_SESSION[$token] != 'pluck_loggedin')) {
 		$_SESSION['pluck_before'] = 'admin.php?'.$_SERVER['QUERY_STRING'];

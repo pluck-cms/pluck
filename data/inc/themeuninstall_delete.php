@@ -13,17 +13,11 @@
 */
 
 //Make sure the file isn't accessed directly.
-if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
-	//Give out an "Access denied!" error.
-	echo 'Access denied!';
-	//Block all other code.
-	exit;
-}
+defined('IN_PLUCK') or exit('Access denied!');
 
 //Check if we defined a module to uninstall
-if (isset($var1)) {
+if (isset($var1))
 	recursive_remove_directory('data/themes/'.$var1);
-}
  
 redirect('?action=themeuninstall', 0);
 ?>

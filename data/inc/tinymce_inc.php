@@ -12,17 +12,12 @@
  * See docs/COPYING for the complete license.
 */
 
-//This files checks which language pluck uses, and then returns the right tinymce-line
+//This files checks which language pluck uses, and then returns the right tinymce-line.
 
-//Make sure the file isn't accessed directly
-if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
-	//Give out an "Access denied!" error.
-	echo 'Access denied!';
-	//Block all other code.
-	exit;
-}
+//Make sure the file isn't accessed directly.
+defined('IN_PLUCK') or exit('Access denied!');
 
-//First check out which language we use and which tinymce-language we need
+//First check out which language we use and which tinymce-language we need.
 //---------------
 
 switch ($langpref) {
@@ -97,7 +92,7 @@ switch ($langpref) {
 	break;
 	
 //Norwegian
-//Using Bokmål by default, if you'd rather use Nynorsk, change 'nb' into 'nn'
+//Using Bokmål by default, if you'd rather use Nynorsk, change 'nb' into 'nn'.
 	case 'no.php':
 	$tinymce_lang = 'nb';
 	break;
@@ -161,7 +156,7 @@ switch ($langpref) {
 }
 
 //--------------------------
-//Then return the tinymce-code
+//Then return the tinymce-code.
 ?>
 <script type="text/javascript" src="data/inc/lib/tiny_mce/tiny_mce.js"></script>
 <?php run_hook('tinymce_scripts'); ?>
@@ -172,7 +167,7 @@ tinyMCE.init({
 	editor_selector : "tinymce",
 	entity_encoding : "raw",
 <?php
-//Check if we need to set the direction to rtl
+//Check if we need to set the direction to rtl.
 if (DIRECTION_RTL)
 	echo 'directionality : "rtl",';
 
@@ -181,7 +176,7 @@ $tinymce_lang_line = 'language : "'.$tinymce_lang.'", '."\n".'';
 echo $tinymce_lang_line;
 
 //MS IE7 fix
-//Don't display a comma when XHTML Compatibilty Mode is turned off
+//Don't display a comma when XHTML Compatibilty Mode is turned off.
 if (isset($xhtmlruleset) && $xhtmlruleset == 'true')
 	$comma = ',';
 else
@@ -226,7 +221,7 @@ else
 	theme_advanced_resizing : true,
 	theme_advanced_resize_horizontal : false<?php echo $comma ?>
 <?php
-//Include the Full XHTML Ruleset, when that has been set
+//Include the Full XHTML Ruleset, when that has been set.
 if (isset($xhtmlruleset) && $xhtmlruleset == 'true') {
 ?>
 valid_elements : "" +

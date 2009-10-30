@@ -12,6 +12,9 @@
  * See docs/COPYING for the complete license.
 */
 
+//Make sure the file isn't accessed directly.
+defined('IN_PLUCK') or exit('Access denied!');
+
 //Define which css-file we have to convert
 include_once ('data/settings/themepref.php');
 

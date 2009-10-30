@@ -15,6 +15,12 @@
 //First set the charset: utf-8.
 header('Content-Type:text/html;charset=utf-8');
 
+//Define that we are in pluck.
+define('IN_PLUCK', true);
+
+//Then start session support.
+session_start();
+
 //Check if pluck has been installed. If not, redirect.
 if (!file_exists('data/settings/install.dat')) {
 	header('Location: install.php');
@@ -31,13 +37,13 @@ require_once ('data/inc/functions.site.php');
 require_once ('data/inc/variables.all.php');
 require_once ('data/inc/variables.site.php');
 
+run_hook('site_index');
+
 //Then, if we have a RTL-language and theme hasn't been converted.
 if (DIRECTION_RTL && !file_exists(THEME_DIR.'/style-rtl.css')) {
 	//Convert theme and save CSS.
 	include_once ('data/inc/themes_convert-rtl.php');
 }
-
-run_hook('site_before_redirects');
 
 //Check if a page or module has been specified, if not: redirect to HOME_PAGE.
 if (!defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_MODULE_DIR')) {

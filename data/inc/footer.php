@@ -13,12 +13,7 @@
 */
 
 //Make sure the file isn't accessed directly.
-if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
-	//Give out an "Access denied!" error.
-	echo 'Access denied!';
-	//Block all other code.
-	exit;
-}
+defined('IN_PLUCK') or exit('Access denied!');
 ?>
 <div id="somp"><a href="http://pluck-cms.org" target="_blank">pluck <?php echo PLUCK_VERSION; ?></a> © 2005-2009. <?php echo $lang['general']['copyright']; ?></div>
 </div>

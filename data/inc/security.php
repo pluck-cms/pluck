@@ -14,16 +14,19 @@
  * This is a file that checks for hacking attempts and blocks them.
 */
 
+//Make sure the file isn't accessed directly.
+defined('IN_PLUCK') or exit('Access denied!');
+
 //Error reporting.
 error_reporting(E_ALL|E_STRICT);
 
-//Set timezone.
+//Set default timezone.
 date_default_timezone_set('UTC');
 
 /* Register Globals.
  * If Register Globals are ON, unset injected variables.
  */
-if(isset($_REQUEST)) {
+if (isset($_REQUEST)) {
 	foreach ($_REQUEST as $key => $value) {
 		if (isset($GLOBALS[$key]))
 			unset($GLOBALS[$key]);

@@ -13,12 +13,7 @@
 */
 
 //Make sure the file isn't accessed directly.
-if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
-	//Give out an "Access denied!" error.
-	echo 'Access denied!';
-	//Block all other code.
-	exit;
-}
+defined('IN_PLUCK') or exit('Access denied!');
 
 //Check if chosen language is valid, and then save data.
 if (isset($_POST['save'], $cont1) && $cont1 != '0' && file_exists('data/inc/lang/'.$cont1)) {
