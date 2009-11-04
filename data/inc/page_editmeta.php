@@ -21,14 +21,15 @@ $filename = get_page_filename($var1);
 require ('data/settings/pages/'.$filename);
 
 if (isset($_POST['save']) || isset($_POST['save_exit'])) {
-	//Remove .php from the filename. We add it again in save_page.
-	$filename_cut = preg_replace('/.php$/', '', $filename);
+	$subpage = get_sub_page_dir($var1);
+	if (!$subpage)
+		$subpage = null;
 
 	//Save the page
 	if (isset($module_pageinc))
-		save_page($filename_cut, $title, $content, $hidden, $cont1, $cont2, $module_pageinc);
+		save_page($title, $content, $hidden, $subpage, $cont1, $cont2, $module_pageinc, $var1);
 	else
-		save_page($filename_cut, $title, $content, $hidden, $cont1, $cont2);
+		save_page($title, $content, $hidden, $subpage, $cont1, $cont2, null, $var1);
 
 	//Redirect user only if they hit save and exit.
 	if (isset($_POST['save_exit'])) {
@@ -40,25 +41,22 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	require ('data/settings/pages/'.$filename);
 	
 }
-
-
-//Introduction text
 ?>
 	<p>
 		<strong><?php echo $lang['editmeta']['message']; ?></strong>
 	</p>
 	<form method="post" action="">
 		<p>
-			<span class="kop2"><?php echo $lang['general']['description']; ?></span>
+			<label for="cont1" class="kop2"><?php echo $lang['general']['description']; ?></label>
 			<br />
-			<textarea name="cont1" rows="3" cols="50"><?php if (isset($description)) echo $description; ?></textarea>
+			<textarea id="cont1" name="cont1" rows="3" cols="50"><?php if (isset($description)) echo $description; ?></textarea>
 		</p>
 		<p>
-			<span class="kop2"><?php echo $lang['editmeta']['keywords']; ?></span> (<?php echo $lang['editmeta']['comma']; ?>)
+			<label for="cont2" class="kop2"><?php echo $lang['editmeta']['keywords']; ?></label>
 			<br />
-			<textarea name="cont2" rows="5" cols="50"><?php if (isset($keywords)) echo $keywords; ?></textarea>
+			<span class="kop4"><?php echo $lang['editmeta']['comma']; ?></span>
+			<br />
+			<textarea id="cont2" name="cont2" rows="5" cols="50"><?php if (isset($keywords)) echo $keywords; ?></textarea>
 		</p>
-		<p>
-			<?php show_common_submits('?action=page', true); ?>
-		</p>
+		<?php show_common_submits('?action=page', true); ?>
 	</form>

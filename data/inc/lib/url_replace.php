@@ -1,4 +1,7 @@
 <?php
+//Make sure the file isn't accessed directly.
+defined('IN_PLUCK') or exit('Access denied!');
+
 //From PunBB (http://punbb.informer.com/trac/browser/punbb/trunk/lang/English/url_replace.php)
 $lang_url_replace = array (
 'À' => 'A',
