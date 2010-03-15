@@ -186,7 +186,7 @@ else {
 
 		//Save the homepage.
 		if (isset($_POST['save'])) {
-			save_page($cont1, $cont2, 'yes', '');
+			save_page($cont1, $cont2, 'no', '');
 			redirect('?action=install5', 0);
 			include_once ('data/inc/footer.php');
 			exit;
