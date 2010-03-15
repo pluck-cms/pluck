@@ -146,14 +146,14 @@ else {
 				<br />
 				<span class="kop4"><?php echo $lang['settings']['choose_title'] ?></span>
 				<br />
-				<input name="cont1" id="cont1" type="text" value="<?php if (isset($cont1)) echo htmlentities($cont1); ?>" style="width:30em;" />
+				<input name="cont1" id="cont1" type="text" value="<?php if (isset($cont1)) echo htmlspecialchars($cont1); ?>" style="width:30em;" />
 				<br />
 				<?php if (isset($error['email'])) echo $error['email'].'<br />'; ?>
 				<label class="kop2" for="cont2"><?php echo $lang['settings']['email'] ?></label>
 				<br />
 				<span class="kop4"><?php echo $lang['settings']['email_descr'] ?></span>
 				<br />
-				<input name="cont2" id="cont2"type="text" value="<?php if (isset($cont2)) echo htmlentities($cont2); ?>" />
+				<input name="cont2" id="cont2"type="text" value="<?php if (isset($cont2)) echo htmlspecialchars($cont2); ?>" />
 			</p>
 			<p>
 				<label class="kop2" for="cont3"><?php echo $lang['language']['title']; ?></label>
