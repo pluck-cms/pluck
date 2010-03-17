@@ -41,6 +41,7 @@ else {
 	if (!isset($action)) {
 		$titelkop = $lang['install']['title'];
 		include_once ('data/inc/header2.php');
+
 		//Introduction text.
 		?>
 		<span class="kop2"><?php echo $lang['install']['title']; ?></span>
@@ -51,13 +52,13 @@ else {
 		<?php
 		//Show installation button.
 		?>
-		<a href="?action=install"><?php echo $lang['install']['start']; ?></a>
+		<a href="?action=step1"><?php echo $lang['install']['start']; ?></a>
 		<?php
 		include_once ('data/inc/footer.php');
 	}
 
 	//Installation Step 1: CHMOD.
-	elseif (isset($action) && $action == 'install') {
+	elseif (isset($action) && $action == 'step1') {
 		$titelkop = $lang['install']['title'];
 		include_once ('data/inc/header2.php');
 		?>
@@ -68,18 +69,15 @@ else {
 		</p>
 		<?php
 			//Writable checks.
-			check_writable('images');
-			check_writable('data/modules');
-			check_writable('data/settings');
-			check_writable('data/trash');
-			check_writable('data/themes');
-			check_writable('data/themes/default');
-			check_writable('data/themes/oldstyle');
-			check_writable('data/settings/langpref.php');
+			$checks = array('images', 'data/modules', 'data/trash', 'data/themes', 'data/themes/default', 'data/themes/oldstyle', 'data/settings', 'data/settings/langpref.php');
+
+			foreach ($checks as $check)
+				check_writable($check);
 		?>
-		<a href="javascript:refresh()"><?php echo $lang['install']['refresh']; ?></a>
-		<br /><br />
-		<a href="?action=install2">
+		<p>
+			<a href="javascript:refresh()"><?php echo $lang['install']['refresh']; ?></a>
+		</p>
+		<a href="?action=step2">
 			<strong><?php echo $lang['install']['proceed']; ?></strong>
 		</a>
 		<?php
@@ -87,7 +85,7 @@ else {
 	}
 
 	//Installation Step 2: General Info.
-	elseif (isset($action) && $action == 'install2') {
+	elseif (isset($action) && $action == 'step2') {
 		$titelkop = $lang['install']['title'];
 		include_once ('data/inc/header2.php');
 
@@ -102,7 +100,10 @@ else {
 				$error['email'] = show_error($lang['settings']['email_invalid'], 1, true);
 
 			//Check the passwords.
-			if ($cont4 != $cont5 || empty($cont4))
+			if (empty($cont2))
+				$error['pass'] = show_error($lang['changepass']['empty'], 1, true);
+
+			elseif ($cont4 != $cont5)
 				$error['pass'] = show_error($lang['changepass']['different'], 1, true);
 
 			if (!isset($error)) {
@@ -110,7 +111,7 @@ else {
 				save_language($cont3);
 
 				//Save options.
-				save_options($cont1, $cont2, false);
+				save_options($cont1, $cont2, 'yes');
 
 				//Save password.
 				save_password($cont4);
@@ -118,17 +119,17 @@ else {
 				//Save theme.
 				save_theme('default');
 
-				//Make some dirs for the trashcan and modulesettings.
-				mkdir('data/trash/pages');
-				chmod('data/trash/pages', 0777);
-				mkdir('data/trash/images');
-				chmod('data/trash/images', 0777);
-				mkdir('data/settings/modules');
-				chmod('data/settings/modules', 0777);
-				mkdir('data/settings/pages');
-				chmod('data/settings/pages', 0777);
+				//Make some dirs for the trashcan, modules and pages.
+				$dirs = array('data/trash/pages', 'data/trash/images', 'data/settings/modules', 'data/settings/pages');
 
-				redirect('?action=install4', 0);
+				foreach ($dirs as $dir) {
+					if (!is_dir($dir)) {
+						mkdir($dir);
+						chmod($dir, 0777);
+					}
+				}
+
+				redirect('?action=step3', 0);
 				include_once ('data/inc/footer.php');
 				exit;
 			}
@@ -146,8 +147,9 @@ else {
 				<br />
 				<span class="kop4"><?php echo $lang['settings']['choose_title'] ?></span>
 				<br />
-				<input name="cont1" id="cont1" type="text" value="<?php if (isset($cont1)) echo htmlspecialchars($cont1); ?>" style="width:30em;" />
-				<br />
+				<input name="cont1" id="cont1" type="text" value="<?php if (isset($cont1)) echo htmlspecialchars($cont1); ?>" />
+			</p>
+			<p>
 				<?php if (isset($error['email'])) echo $error['email'].'<br />'; ?>
 				<label class="kop2" for="cont2"><?php echo $lang['settings']['email'] ?></label>
 				<br />
@@ -168,26 +170,27 @@ else {
 				<label class="kop2" for="cont4"><?php echo $lang['login']['password']; ?></label>
 				<br />
 				<input name="cont4" id="cont4" type="password" />
-				<br /><br />
+			</p>
+			<p>
 				<label class="kop2" for="cont5"><?php echo $lang['changepass']['repeat']; ?></label>
 				<br />
 				<input name="cont5" id="cont5" type="password" />
 			</p>
-			<?php show_common_submits('?action=install'); ?>
+			<?php show_common_submits('?action=step1'); ?>
 		</form>
 		<?php
 		include_once ('data/inc/footer.php');
 	}
 
 	//Installation Step 3: Homepage.
-	elseif (isset($action) && $action == 'install4') {
+	elseif (isset($action) && $action == 'step3') {
 		$titelkop = $lang['install']['title'];
 		include_once ('data/inc/header2.php');
 
 		//Save the homepage.
 		if (isset($_POST['save'])) {
 			save_page($cont1, $cont2, 'no', '');
-			redirect('?action=install5', 0);
+			redirect('?action=step4', 0);
 			include_once ('data/inc/footer.php');
 			exit;
 		}
@@ -198,22 +201,24 @@ else {
 			<strong><?php echo $lang['install']['homepage']; ?></strong>
 		</p>
 		<form method="post" action="">
-			<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
-			<br />
-			<input name="cont1" id="cont1" type="text" />
-			<br /><br />
-			<label class="kop2" for="cont2"><?php echo $lang['general']['contents']; ?></label>
-			<br />
-			<textarea name="cont2" id="cont2" class="tinymce" cols="70" rows="20"></textarea>
-			<br />
-			<?php show_common_submits('?action=install3'); ?>
+			<p>
+				<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
+				<br />
+				<input name="cont1" id="cont1" type="text" />
+			</p>
+			<p>
+				<label class="kop2" for="cont2"><?php echo $lang['general']['contents']; ?></label>
+				<br />
+				<textarea name="cont2" id="cont2" class="tinymce" cols="70" rows="20"></textarea>
+			</p>
+			<?php show_common_submits('?action=step3'); ?>
 		</form>
 		<?php
 		include_once ('data/inc/footer.php');
 	}
 
-	//Installation Step 3: Save Installation data.
-	elseif (isset($action) && $action == "install5") {
+	//Installation Step 4: Done.
+	elseif (isset($action) && $action == 'step4') {
 		install_done();
 
 		//Set pagetitle
