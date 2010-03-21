@@ -14,13 +14,12 @@
 
 //Make sure the file isn't accessed directly.
 defined('IN_PLUCK') or exit('Access denied!');
-?>
-<?php
+
 if (isset($_POST['save'])) {
 	//Include old password.
 	require_once ('data/settings/pass.php');
 
-	//MD5-encrypt posted passwords.
+	//SHA512-encrypt posted passwords.
 	if (!empty($cont1))
 		$cont1 = hash('sha512', $cont1);
 
@@ -54,17 +53,14 @@ if (isset($error))
 <form method="post" action="">
 	<p>
 		<label class="kop2" for="cont1"><?php echo $lang['changepass']['old']; ?></label>
-		<br />
 		<input name="cont1" id="cont1" type="password"/>
 	</p>
 	<p>
 		<label class="kop2" for="cont2"><?php echo $lang['changepass']['new']; ?></label>
-		<br />
 		<input name="cont2" id="cont2" type="password" />
 	</p>
 	<p>
 		<label class="kop2" for="cont3"><?php echo $lang['changepass']['repeat']; ?></label>
-		<br />
 		<input name="cont3" id="cont3" type="password" />
 	</p>
 	<?php show_common_submits('?action=options'); ?>

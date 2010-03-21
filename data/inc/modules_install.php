@@ -18,21 +18,18 @@ defined('IN_PLUCK') or exit('Access denied!');
 <p>
 	<strong><?php echo $lang['modules_install']['message']; ?></strong>
 </p>
-<div class="menudiv" style="width: 500px;">
+<div class="menudiv" style="display: inline-block; margin-top: 0;">
 	<span>
 		<img src="data/image/install.png" alt="" />
 	</span>
-	<div style="display: inline-block;">
-		<form method="post" action="" enctype="multipart/form-data">
-			<input type="file" name="sendfile" />
-			<input type="submit" name="submit" value="<?php echo $lang['general']['upload']; ?>" />
-		</form>
-	</div>
+	<form method="post" action="" enctype="multipart/form-data" style="display: inline-block;">
+		<input type="file" name="sendfile" />
+		<input type="submit" name="submit" value="<?php echo $lang['general']['upload']; ?>" />
+	</form>
 </div>
 <p>
 	<a href="?action=managemodules">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 </p>
-
 <?php
 if (isset($_POST ['submit'])) {
 	//If no file has been sent.

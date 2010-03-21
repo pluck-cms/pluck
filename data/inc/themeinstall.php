@@ -15,23 +15,21 @@
 //Make sure the file isn't accessed directly.
 defined('IN_PLUCK') or exit('Access denied!');
 ?>
-	<p>
-		<strong><?php echo $lang['theme_install']['message']; ?></strong>
-	</p>
-	<div class="menudiv" style="width: 500px;">
-		<span>
-			<img src="data/image/install.png" alt="" />
-		</span>
-		<div style="display: inline-block;">
-			<form method="post" action="" enctype="multipart/form-data">
-				<input type="file" name="sendfile" />
-				<input type="submit" name="submit" value="<?php echo $lang['general']['upload']; ?>" />
-			</form>
-		</div>
-	</div>
-	<p>
-		<a href="?action=theme" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
-	</p>
+<p>
+	<strong><?php echo $lang['theme_install']['message']; ?></strong>
+</p>
+<div class="menudiv" style="display: inline-block; margin-top: 0;">
+	<span>
+		<img src="data/image/install.png" alt="" />
+	</span>
+	<form method="post" action="" enctype="multipart/form-data" style="display: inline-block;">
+		<input type="file" name="sendfile" />
+		<input type="submit" name="submit" value="<?php echo $lang['general']['upload']; ?>" />
+	</form>
+</div>
+<p>
+	<a href="?action=theme" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
+</p>
 <?php
 if (isset($_POST['submit'])) {
 	//If no file has been sent.
@@ -69,6 +67,7 @@ if (isset($_POST['submit'])) {
 				unlink($dir.'/'.$filename);
 
 				//Display successmessage.
+				//TODO: Use show_error().
 				?>
 					<div class="menudiv">
 						<span>

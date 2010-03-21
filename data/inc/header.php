@@ -134,7 +134,7 @@ function insert_image_link(dir) {
 		<?php include_once ('data/inc/update_applet.php'); ?>
 	</ul>
 </div>
-<div id="text">
+<div id="content">
 <?php if (isset($titelkop)): ?>
 	<h2><?php echo $titelkop; ?></h2>
 <?php endif; ?>

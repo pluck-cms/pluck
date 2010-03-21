@@ -51,4 +51,4 @@ function refresh() {
 		<li><?php echo $titelkop; ?></li>
 	</ul>
 </div>
-<div id="text">
+<div id="content">

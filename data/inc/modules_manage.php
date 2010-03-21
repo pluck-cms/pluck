@@ -20,10 +20,10 @@ defined('IN_PLUCK') or exit('Access denied!');
 </p>
 <div class="smallmenu">
 	<span class="smallmenu_button">
-		<a class="smallmenu_a" href="?action=module_addtosite" style="background: url('data/image/add_small.png') no-repeat;"><?php echo $lang['modules_manage']['add']; ?></a>
+		<a href="?action=module_addtosite" style="background: url('data/image/add_small.png') no-repeat;"><?php echo $lang['modules_manage']['add']; ?></a>
 	</span>
 	<span class="smallmenu_button">
-		<a class="smallmenu_a" href="?action=installmodule" style="background: url('data/image/install_small.png') no-repeat;"><?php echo $lang['modules_manage']['install']; ?></a>
+		<a href="?action=installmodule" style="background: url('data/image/install_small.png') no-repeat;"><?php echo $lang['modules_manage']['install']; ?></a>
 	</span>
 </div>
 <?php

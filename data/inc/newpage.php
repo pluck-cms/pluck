@@ -63,12 +63,10 @@ if (isset($error))
 <form method="post" action="">
 	<p>
 		<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
-		<br />
 		<input name="cont1" id="cont1" type="text" <?php if (isset($cont1)) echo 'value="'.$cont1.'" '; ?>/>
 	</p>
-	<span class="kop2"><?php echo $lang['general']['contents']; ?></span>
-	<br />
-	<textarea class="tinymce" name="cont2" cols="70" rows="20"><?php if (isset($cont2)) echo $cont2; ?></textarea>
+	<label class="kop2" for="cont2"><?php echo $lang['general']['contents']; ?></label>
+	<textarea class="tinymce" name="cont2" id="cont2" cols="70" rows="20"><?php if (isset($cont2)) echo $cont2; ?></textarea>
 	<div class="menudiv" style="width: 588px; margin-<?php if (DIRECTION_RTL) echo 'right'; else echo 'left'; ?>: 0;">
 		<p class="kop2"><?php echo $lang['modules']['title']; ?></p>
 		<p class="kop4" style="margin-bottom: 5px;"><?php echo $lang['page']['modules']; ?></p>

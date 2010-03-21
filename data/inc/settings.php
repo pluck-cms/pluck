@@ -54,21 +54,18 @@ if (isset($error))
 <form method="post" action="">
 	<p>
 		<label class="kop2" for="cont1"><?php echo $lang['general']['change_title']; ?></label>
-		<br />
 		<span class="kop4"><?php echo $lang['settings']['choose_title']; ?></span>
 		<br />
 		<input name="cont1" id="cont1" type="text" value="<?php echo $sitetitle; ?>" />
 	</p>
 	<p>
 		<label class="kop2" for="cont2"><?php echo $lang['settings']['email']; ?></label>
-		<br />
 		<span class="kop4"><?php echo $lang['settings']['email_descr']; ?></span>
 		<br />
 		<input name="cont2" id="cont2" type="text" value="<?php echo $email; ?>" />
 	</p>
 	<p>
 		<span class="kop2"><?php echo $lang['general']['other_options']; ?></span>
-		<br />
 		<input type="checkbox" name="cont3" id="cont3" value="true" <?php if ($xhtmlruleset == 'true') echo 'checked="checked"'; ?> />
 		<label for="cont3">&nbsp;<?php echo $lang['settings']['xhtml_mode']; ?></label>
 	</p>

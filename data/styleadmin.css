@@ -72,12 +72,11 @@ body {
 	margin-top: 10px;
 }
 
-#text {
-	width: 90%;
-	margin: 30px 0 0 75px;
+#content {
+	margin: 30px 75px 0;
 }
 
-#somp {
+#copyright {
 	border-top: 1px dashed gray;
 	color: gray;
 	font-size: 12px;
@@ -85,11 +84,11 @@ body {
 	padding-top: 5px;
 }
 
-#somp a {
+#copyright a {
 	color: #3766AC;
 }
 
-#somp a:hover {
+#copyright a:hover {
 	color: gray;
 }
 
@@ -160,8 +159,9 @@ h3 {
 
 /* Classes */
 .kop2 {
-	font-size: 20px;
 	color: #3766AC;
+	display: block;
+	font-size: 20px;
 	font-weight: bold;
 }
 
@@ -209,7 +209,6 @@ h3 {
 
 .menudiv span span a {
 	font-size: 23px;
-
 }
 
 .menudiv span .more {
@@ -241,7 +240,7 @@ h3 {
 	margin-left: 10px;
 }
 
-.smallmenu_a {
+.smallmenu_button a {
 	padding-left: 22px;
 }
 

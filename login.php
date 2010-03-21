@@ -74,7 +74,7 @@ else {
 			$login_error = show_error($lang['login']['incorrect'], 1, true);
 	}
 	?>
-		<span class="kop2"><?php echo $lang['login']['password']; ?></span><br />
+		<span class="kop2"><?php echo $lang['login']['password']; ?></span>
 		<form action="" method="post">
 			<input name="cont1" size="25" type="password" />
 			<input type="text" name="bogus" style="display: none;" />

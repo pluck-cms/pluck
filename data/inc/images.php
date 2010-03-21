@@ -20,16 +20,14 @@ defined('IN_PLUCK') or exit('Access denied!');
 <p>
 	<strong><?php echo $lang['images']['message']; ?></strong>
 </p>
-<div class="menudiv">
+<div class="menudiv" style="display: inline-block; margin-top: 0;">
 	<span>
 		<img src="data/image/image.png" alt="" />
 	</span>
-	<div style="display: inline-block;">
-		<form name="form1" method="post" action="" enctype="multipart/form-data">
-			<input type="file" name="imagefile" />
-			<input type="submit" name="submit" value="<?php echo $lang['general']['upload']; ?>" />
-		</form>
-	</div>
+	<form name="form1" method="post" action="" enctype="multipart/form-data" style="display: inline-block;">
+		<input type="file" name="imagefile" />
+		<input type="submit" name="submit" value="<?php echo $lang['general']['upload']; ?>" />
+	</form>
 </div>
 <?php
 if (isset($_POST['submit'])) {
@@ -48,7 +46,7 @@ if (isset($_POST['submit'])) {
 					<br />
 					<strong><?php echo $lang['images']['type']; ?></strong> <?php echo $_FILES['imagefile']['type']; ?>
 					<br />
-					<strong><?php echo $lang['images']['success']; ?></strong>
+					<strong><?php echo $lang['images']['success']; //TODO: Need to show this message another place, and with show_error(). ?></strong>
 				</div>
 			<?php
 		}
@@ -58,7 +56,6 @@ if (isset($_POST['submit'])) {
 //Display list of uploaded pictures.
 ?>
 <span class="kop2"><?php echo $lang['images']['uploaded']; ?></span>
-<br />
 <?php
 //Show the uploaded images
 $images = read_dir_contents('images', 'files');
@@ -89,6 +86,6 @@ $images = read_dir_contents('images', 'files');
 	else
 		echo '<span class="kop4">'.$lang['general']['nothing_yet'].'</span>';
 ?>
-<p>
+<p style="margin-top: 10px;">
 	<a href="?action=page">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 </p>

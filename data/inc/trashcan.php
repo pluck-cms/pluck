@@ -39,7 +39,6 @@ else
 		</span>
 	</div>
 	<span class="kop2"><?php echo $lang['page']['title']; ?></span>
-	<br />
 <?php
 //Read pages in array
 $pages = read_dir_contents('data/trash/pages', 'files');
@@ -83,7 +82,6 @@ else {
 ?>
 	<br /><br />
 	<span class="kop2"><?php echo $lang['general']['images']; ?></span>
-	<br />
 <?php
 //Read images in array
 $images = read_dir_contents('data/trash/images', 'files');
