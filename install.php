@@ -45,7 +45,6 @@ else {
 		//Introduction text.
 		?>
 		<span class="kop2"><?php echo $lang['install']['title']; ?></span>
-		<br />
 		<p>
 			<strong><?php echo $lang['install']['welcome']; ?></strong>
 		</p>
@@ -63,7 +62,6 @@ else {
 		include_once ('data/inc/header2.php');
 		?>
 		<span class="kop2"><?php echo $lang['install']['title']; ?> :: <?php echo $lang['install']['step_1']; ?></span>
-		<br />
 		<p>
 			<strong><?php echo $lang['install']['writable']; ?></strong>
 		</p>
@@ -136,7 +134,6 @@ else {
 		}
 		?>
 		<span class="kop2"><?php echo $lang['install']['title']; ?> :: <?php echo $lang['install']['step_2']; ?></span>
-		<br />
 		<p>
 			<strong><?php echo $lang['install']['general_info']; ?></strong>
 		</p>
@@ -144,7 +141,6 @@ else {
 			<p>
 				<?php if (isset($error['title'])) echo $error['title'].'<br />'; ?>
 				<label class="kop2" for="cont1"><?php echo $lang['general']['title'] ?></label>
-				<br />
 				<span class="kop4"><?php echo $lang['settings']['choose_title'] ?></span>
 				<br />
 				<input name="cont1" id="cont1" type="text" value="<?php if (isset($cont1)) echo htmlspecialchars($cont1); ?>" />
@@ -152,7 +148,6 @@ else {
 			<p>
 				<?php if (isset($error['email'])) echo $error['email'].'<br />'; ?>
 				<label class="kop2" for="cont2"><?php echo $lang['settings']['email'] ?></label>
-				<br />
 				<span class="kop4"><?php echo $lang['settings']['email_descr'] ?></span>
 				<br />
 				<input name="cont2" id="cont2"type="text" value="<?php if (isset($cont2)) echo htmlspecialchars($cont2); ?>" />
@@ -168,12 +163,10 @@ else {
 			<p>
 				<?php if (isset($error['pass'])) echo $error['pass'].'<br />'; ?>
 				<label class="kop2" for="cont4"><?php echo $lang['login']['password']; ?></label>
-				<br />
 				<input name="cont4" id="cont4" type="password" />
 			</p>
 			<p>
 				<label class="kop2" for="cont5"><?php echo $lang['changepass']['repeat']; ?></label>
-				<br />
 				<input name="cont5" id="cont5" type="password" />
 			</p>
 			<?php show_common_submits('?action=step1'); ?>
@@ -196,19 +189,16 @@ else {
 		}
 		?>
 		<span class="kop2"><?php echo $lang['install']['title']; ?> :: <?php echo $lang['install']['step_3']; ?></span>
-		<br />
 		<p>
 			<strong><?php echo $lang['install']['homepage']; ?></strong>
 		</p>
 		<form method="post" action="">
 			<p>
 				<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
-				<br />
 				<input name="cont1" id="cont1" type="text" />
 			</p>
 			<p>
 				<label class="kop2" for="cont2"><?php echo $lang['general']['contents']; ?></label>
-				<br />
 				<textarea name="cont2" id="cont2" class="tinymce" cols="70" rows="20"></textarea>
 			</p>
 			<?php show_common_submits('?action=step3'); ?>
