@@ -67,10 +67,9 @@ else {
 		</p>
 		<?php
 			//Writable checks.
-			$checks = array('images', 'data/modules', 'data/trash', 'data/themes', 'data/themes/default', 'data/themes/oldstyle', 'data/settings', 'data/settings/langpref.php');
-
-			foreach ($checks as $check)
+			foreach (array('images', 'data/modules', 'data/trash', 'data/themes', 'data/themes/default', 'data/themes/oldstyle', 'data/settings', 'data/settings/langpref.php') as $check)
 				check_writable($check);
+			unset($check);
 		?>
 		<p>
 			<a href="javascript:refresh()"><?php echo $lang['install']['refresh']; ?></a>
@@ -118,14 +117,13 @@ else {
 				save_theme('default');
 
 				//Make some dirs for the trashcan, modules and pages.
-				$dirs = array('data/trash/pages', 'data/trash/images', 'data/settings/modules', 'data/settings/pages');
-
-				foreach ($dirs as $dir) {
+				foreach (array('data/trash/pages', 'data/trash/images', 'data/settings/modules', 'data/settings/pages') as $dir) {
 					if (!is_dir($dir)) {
 						mkdir($dir);
 						chmod($dir, 0777);
 					}
 				}
+				unset($dir);
 
 				redirect('?action=step3', 0);
 				include_once ('data/inc/footer.php');
@@ -150,7 +148,7 @@ else {
 				<label class="kop2" for="cont2"><?php echo $lang['settings']['email'] ?></label>
 				<span class="kop4"><?php echo $lang['settings']['email_descr'] ?></span>
 				<br />
-				<input name="cont2" id="cont2"type="text" value="<?php if (isset($cont2)) echo htmlspecialchars($cont2); ?>" />
+				<input name="cont2" id="cont2" type="text" value="<?php if (isset($cont2)) echo htmlspecialchars($cont2); ?>" />
 			</p>
 			<p>
 				<label class="kop2" for="cont3"><?php echo $lang['language']['title']; ?></label>
