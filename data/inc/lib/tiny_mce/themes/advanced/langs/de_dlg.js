@@ -1,6 +1,6 @@
 tinyMCE.addI18n('de.advanced_dlg',{
 about_title:"\u00DCber TinyMCE",
-about_general:"\u00DCber\u2026",
+about_general:"\u00DCber",
 about_help:"Hilfe",
 about_license:"Lizenzbedingungen",
 about_plugins:"Plugins",
@@ -46,6 +46,6 @@ link_target_same:"Im selben Fenster \u00F6ffnen",
 link_target_blank:"Neues Fenster \u00F6ffnen",
 link_titlefield:"Titel",
 link_is_email:"Diese Adresse scheint eine E-Mail-Adresse zu sein. M\u00F6chten Sie das dazu ben\u00F6tigte mailto: voranstellen?",
-link_is_external:"Diese Adresse scheint ein externer Link zu sein. M\u00F6chten Sie das dazu ben\u00F6tigte http:// voranstellen?",
+link_is_external:"Diese Adresse scheint ein externer Link zu sein. M\u00F6chten Sie das dazu ben\u00F6tigte \"http://\" voranstellen?",
 link_list:"Linkliste"
 });

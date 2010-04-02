@@ -58,7 +58,7 @@ nonbreaking_desc:"Gesch\u00FCtztes Leerzeichen einf\u00FCgen"
 },
 iespell:{
 iespell_desc:"Rechtschreibpr\u00FCfung",
-download:"ieSpell konnte nicht gefunden werden. Wollen Sie es installieren?"
+download:"iSpell konnte nicht gefunden werden. Wollen Sie es installieren?"
 },
 advhr:{
 advhr_desc:"Trennlinie"
@@ -90,7 +90,9 @@ desc:"CSS-Styles bearbeiten"
 paste:{
 paste_text_desc:"Als normalen Text einf\u00FCgen",
 paste_word_desc:"Mit Formatierungen (aus Word) einf\u00FCgen",
-selectall_desc:"Alles ausw\u00E4hlen"
+selectall_desc:"Alles ausw\u00E4hlen",
+plaintext_mode_sticky:"Paste is now in plain text mode. Click again to toggle back to regular paste mode. After you paste something you will be returned to regular paste mode.",
+plaintext_mode:"Paste is now in plain text mode. Click again to toggle back to regular paste mode."
 },
 paste_dlg:{
 text_title:"Dr\u00FCcken Sie auf Ihrer Tastatur Strg+V, um den Text einzuf\u00FCgen.",
@@ -121,7 +123,9 @@ cell:"Zelle",
 cellprops_delta_width:"150"
 },
 autosave:{
-unload_msg:"Ihre \u00C4nderungen werden verloren gehen, wenn Sie die Seite verlassen."
+unload_msg:"Ihre \u00C4nderungen werden verloren gehen, wenn Sie die Seite verlassen.",
+restore_content:"Automatisch gespeicherten Content wiederherstellen.",
+warning_message:"Wenn Sie den Content wiederherstellen, gehen die aktuellen Daten im Editor verloren.\n\nSind sie sicher, dass Sie den Content wiederherstellen m\u00F6chten?"
 },
 fullscreen:{
 desc:"Vollbildschirm"
@@ -152,4 +156,16 @@ no_mpell:"Keine Rechtschreibfehler gefunden."
 },
 pagebreak:{
 desc:"Seitenumbruch einf\u00FCgen"
+},
+advlist:{
+types:"Typen",
+def:"Default",
+lower_alpha:"Kleinbuchstaben alpha",
+lower_greek:"Kleinbuchstaben greek",
+lower_roman:"Kleinbuchstaben roman",
+upper_alpha:"Gro\u00DFbuchstaben alpha",
+upper_roman:"Gro\u00DFbuchstaben roman",
+circle:"Kreis",
+disc:"Disk",
+square:"Kasten"
 }}});

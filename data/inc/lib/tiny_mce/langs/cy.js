@@ -90,7 +90,9 @@ desc:"Golygu Arddull CSS"
 paste:{
 paste_text_desc:"Gludo fel Testun Plaen",
 paste_word_desc:"Gludo o Word",
-selectall_desc:"Dewis Pobpeth"
+selectall_desc:"Dewis Pobpeth",
+plaintext_mode_sticky:"Paste is now in plain text mode. Click again to toggle back to regular paste mode. After you paste something you will be returned to regular paste mode.",
+plaintext_mode:"Paste is now in plain text mode. Click again to toggle back to regular paste mode."
 },
 paste_dlg:{
 text_title:"Defnyddiwch CTRL+V ar eich bysellfwrdd i ludo'r testun i fewn i'r ffenest.",
@@ -120,7 +122,9 @@ col:"Colofn",
 cell:"Cell"
 },
 autosave:{
-unload_msg:"Bydd eich newidiadau yn cael eu colli os byddwch yn llywio i ffwrdd o'r tudalen yma."
+unload_msg:"Bydd eich newidiadau yn cael eu colli os byddwch yn llywio i ffwrdd o'r tudalen yma.",
+restore_content:"Restore auto-saved content.",
+warning_message:"If you restore the saved content, you will lose all the content that is currently in the editor.\n\nAre you sure you want to restore the saved content?."
 },
 fullscreen:{
 desc:"Toglu modd sgrin llawn"
@@ -151,4 +155,16 @@ no_mpell:"Dim camsillafiadau wedi'i canfod."
 },
 pagebreak:{
 desc:"Mewnosod toriad tudalen."
+},
+advlist:{
+types:"Types",
+def:"Default",
+lower_alpha:"Lower alpha",
+lower_greek:"Lower greek",
+lower_roman:"Lower roman",
+upper_alpha:"Upper alpha",
+upper_roman:"Upper roman",
+circle:"Circle",
+disc:"Disc",
+square:"Square"
 }}});

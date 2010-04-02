@@ -90,7 +90,9 @@ desc:"CSS Stijl bewerken"
 paste:{
 paste_text_desc:"Als platte tekst plakken",
 paste_word_desc:"Vanuit Word plakken",
-selectall_desc:"Alles selecteren"
+selectall_desc:"Alles selecteren",
+plaintext_mode_sticky:"Paste is now in plain text mode. Click again to toggle back to regular paste mode. After you paste something you will be returned to regular paste mode.",
+plaintext_mode:"Paste is now in plain text mode. Click again to toggle back to regular paste mode."
 },
 paste_dlg:{
 text_title:"Gebruik Ctrl+V om tekst in het venster te plakken.",
@@ -120,7 +122,9 @@ col:"Kolom",
 cell:"Cel"
 },
 autosave:{
-unload_msg:"De wijzigingen zullen verloren gaan als u nu deze pagina verlaat."
+unload_msg:"De wijzigingen zullen verloren gaan als u nu deze pagina verlaat.",
+restore_content:"Restore auto-saved content.",
+warning_message:"If you restore the saved content, you will lose all the content that is currently in the editor.\n\nAre you sure you want to restore the saved content?."
 },
 fullscreen:{
 desc:"Volledig scherm"
@@ -151,4 +155,16 @@ no_mpell:"Geen spelfouten gevonden."
 },
 pagebreak:{
 desc:"Pagina-einde invoegen"
+},
+advlist:{
+types:"Types",
+def:"Default",
+lower_alpha:"Lower alpha",
+lower_greek:"Lower greek",
+lower_roman:"Lower roman",
+upper_alpha:"Upper alpha",
+upper_roman:"Upper roman",
+circle:"Circle",
+disc:"Disc",
+square:"Square"
 }}});

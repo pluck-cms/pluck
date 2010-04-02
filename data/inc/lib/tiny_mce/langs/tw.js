@@ -83,6 +83,8 @@ acronym_desc:"\u9996\u5B57\u7E2E\u5BEB",
 del_desc:"\u522A\u9664",
 ins_desc:"\u63D2\u5165",
 attribs_desc:"\u63D2\u5165/\u7DE8\u8F2F\u5C6C\u6027",
+ins_delta_width:"300",
+ins_delta_height:"200",
 attribs_delta_width:"40",
 attribs_delta_height:"60"
 },
@@ -92,7 +94,9 @@ desc:"\u7DE8\u8F2FCSS\u6A23\u5F0F\u8868"
 paste:{
 paste_text_desc:"\u4EE5\u7D14\u6587\u5B57\u8CBC\u4E0A",
 paste_word_desc:"\u5F9EWord\u8CBC\u4E0A",
-selectall_desc:"\u5168\u9078"
+selectall_desc:"\u5168\u9078",
+plaintext_mode_sticky:"Paste is now in plain text mode. Click again to toggle back to regular paste mode. After you paste something you will be returned to regular paste mode.",
+plaintext_mode:"Paste is now in plain text mode. Click again to toggle back to regular paste mode."
 },
 paste_dlg:{
 text_title:"\u5728\u9375\u76E4\u4E0A\u540C\u6642\u6309\u4E0BCTRL\u548CV\u9375\uFF0C\u4EE5\u8CBC\u4E0A\u6587\u5B57\u5230\u6B64\u8996\u7A97\u3002",
@@ -128,7 +132,9 @@ merge_cells_delta_width:"40",
 merge_cells_delta_height:"40"
 },
 autosave:{
-unload_msg:"\u5982\u679C\u96E2\u958B\u6B64\u9801\u9762\u5C07\u5C0E\u81F4\u6240\u505A\u7684\u66F4\u6539\u5168\u90E8\u4E1F\u5931\u3002"
+unload_msg:"\u5982\u679C\u96E2\u958B\u6B64\u9801\u9762\u5C07\u5C0E\u81F4\u6240\u505A\u7684\u66F4\u6539\u5168\u90E8\u4E1F\u5931\u3002",
+restore_content:"Restore auto-saved content.",
+warning_message:"If you restore the saved content, you will lose all the content that is currently in the editor.\n\nAre you sure you want to restore the saved content?."
 },
 fullscreen:{
 desc:"\u958B\u95DC\u5168\u87A2\u5E55\u6A21\u5F0F"
@@ -159,4 +165,16 @@ no_mpell:"\u672A\u767C\u73FE\u62FC\u5BEB\u932F\u8AA4"
 },
 pagebreak:{
 desc:"\u63D2\u5165\u5206\u9801\u7B26\u865F"
+},
+advlist:{
+types:"Types",
+def:"Default",
+lower_alpha:"Lower alpha",
+lower_greek:"Lower greek",
+lower_roman:"Lower roman",
+upper_alpha:"Upper alpha",
+upper_roman:"Upper roman",
+circle:"Circle",
+disc:"Disc",
+square:"Square"
 }}});
