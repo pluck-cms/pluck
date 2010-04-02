@@ -38,7 +38,7 @@ if (file_exists('data/settings/install.dat')) {
 
 //If we didn't:
 else {
-	if (!isset($action)) {
+	if (!isset($_GET['action'])) {
 		$titelkop = $lang['install']['title'];
 		include_once ('data/inc/header2.php');
 
@@ -57,7 +57,7 @@ else {
 	}
 
 	//Installation Step 1: CHMOD.
-	elseif (isset($action) && $action == 'step1') {
+	elseif (isset($_GET['action']) && $_GET['action'] == 'step1') {
 		$titelkop = $lang['install']['title'];
 		include_once ('data/inc/header2.php');
 		?>
@@ -82,7 +82,7 @@ else {
 	}
 
 	//Installation Step 2: General Info.
-	elseif (isset($action) && $action == 'step2') {
+	elseif (isset($_GET['action']) && $_GET['action'] == 'step2') {
 		$titelkop = $lang['install']['title'];
 		include_once ('data/inc/header2.php');
 
@@ -174,7 +174,7 @@ else {
 	}
 
 	//Installation Step 3: Homepage.
-	elseif (isset($action) && $action == 'step3') {
+	elseif (isset($_GET['action']) && $_GET['action'] == 'step3') {
 		$titelkop = $lang['install']['title'];
 		include_once ('data/inc/header2.php');
 
@@ -206,7 +206,7 @@ else {
 	}
 
 	//Installation Step 4: Done.
-	elseif (isset($action) && $action == 'step4') {
+	elseif (isset($_GET['action']) && $_GET['action'] == 'step4') {
 		install_done();
 
 		//Set pagetitle

@@ -76,14 +76,6 @@ if (file_exists('data/settings/pages')) {
 	unset($homepage);
 }
 
-//GETS
-if (isset($_GET['action']))
-	$action = $_GET['action'];
-if (isset($_GET['module']))
-	$module = $_GET['module'];
-if (isset($_GET['page']))
-	$page = $_GET['page'];
-
 //Some GET-variables for general use.
 if (isset($_GET['var1']))
 	$var1 = $_GET['var1'];

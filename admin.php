@@ -54,8 +54,8 @@ else {
 
 	//Define pages.
 	//------------
-	if (isset($action)) {
-		switch ($action) {
+	if (isset($_GET['action'])) {
+		switch ($_GET['action']) {
 			//Page:Start
 			case 'start':
 				$titelkop = $lang['start']['title'];
@@ -273,7 +273,7 @@ else {
 	}
 
 	//Module pages.
-	elseif (isset($module))
+	elseif (isset($_GET['module']))
 		require_once ('data/inc/modules_admininclude.php');
 
 	//Unknown pages.

@@ -78,5 +78,5 @@ if (defined('CURRENT_MODULE_DIR')) {
 }
 
 //Now, include the page.
-include_once(THEME_DIR.'/theme.php');	
+include_once(THEME_DIR.'/theme.php');
 ?>
