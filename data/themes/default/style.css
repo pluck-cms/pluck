@@ -29,7 +29,7 @@ blockquote, p{
 }
 
 blockquote p {
-		margin: 0;
+	margin: 0;
 }
 
 h1 {
@@ -60,10 +60,6 @@ textarea, input {
 
 #container {
 	margin: 0 30px;
-}
-
-#header {
-	height: 150px;
 }
 
 #header > ul {
@@ -102,12 +98,17 @@ textarea, input {
 	border-top: none;
 	display: none;
 	list-style: none;
-	margin-left: -15px;
+	margin-left: -1px;
 	position: absolute;
 }
 
 #header ul li:hover ul {
 	display: block;
+}
+
+#content {
+	clear: both;
+	padding-top: 20px;
 }
 
 #content ul {

@@ -3,7 +3,6 @@
 <head>
 <?php theme_meta(true); ?>
 </head>
-
 <body>
 <div id="container">
 	<div id="header">
