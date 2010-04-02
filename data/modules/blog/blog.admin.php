@@ -67,7 +67,6 @@ function blog_page_admin_blog() {
 	</p>
 	<?php showmenudiv($lang['blog']['new_post'], false, 'data/image/newpage.png', '?module=blog&amp;page=newpost', false); ?>
 	<span class="kop2"><?php echo $lang['blog']['posts']; ?></span>
-	<br />
 	<?php
 	//Display existing posts.
 	if (blog_get_posts()) {
@@ -123,7 +122,6 @@ function blog_page_admin_blog() {
 		echo '<span class="kop4">'.$lang['general']['nothing_yet'].'</span><br /><br />';
 	?>
 	<span class="kop2"><?php echo $lang['blog']['categories']; ?></span>
-	<br />
 	<?php
 	//If there already are categories.
 	if (blog_get_categories()) {
@@ -159,7 +157,6 @@ function blog_page_admin_blog() {
 	?>
 		<form method="post" action="">
 			<label class="kop2" for="cont1"><?php echo $lang['blog']['new_cat']; ?></label>
-			<br />
 			<span class="kop4"><?php echo $lang['blog']['new_cat_message']; ?></span>
 			<br />
 			<input name="cont1" id="cont1" type="text" />
@@ -386,12 +383,6 @@ function blog_page_admin_newpost() {
 
 	//If form is posted...
 	if (isset($_POST['save']) || isset($_POST['save_exit'])) {
-		//Check if 'posts' directory exists, if not; create it.
-		if (!is_dir(BLOG_POSTS_DIR)) {
-			mkdir(BLOG_POSTS_DIR);
-			chmod(BLOG_POSTS_DIR, 0777);
-		}
-
 		//Save blogpost.
 		$seoname = blog_save_post($cont1, $cont2, $cont3);
 

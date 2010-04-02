@@ -32,6 +32,12 @@ define('BLOG_CATEGORIES_DIR', 'data/settings/modules/blog/categories');
  * @param string $seoname The current seoname of the blog post, if it already exists.
  */
 function blog_save_post($title, $category, $content, $current_seoname = null) {
+	//Check if 'posts' directory exists, if not; create it.
+	if (!is_dir(BLOG_POSTS_DIR)) {
+		mkdir(BLOG_POSTS_DIR);
+		chmod(BLOG_POSTS_DIR, 0777);
+	}
+
 	//Sanitize variables.
 	$title = sanitize($title);
 	$content = sanitize($content, false);
@@ -203,7 +209,7 @@ function blog_reorder_reactions($post) {
 		$number = 1;
 		foreach ($reactions as $reaction) {
 			$parts = explode('.', $reaction);
-			
+
 			//Only rename the file, if the number isn't correct.
 			if ($parts[0] != $number)
 				rename(BLOG_POSTS_DIR.'/'.$post.'/'.$reaction, BLOG_POSTS_DIR.'/'.$post.'/'.$number.'.php');
@@ -258,6 +264,7 @@ function blog_get_categories() {
 	$files = read_dir_contents(BLOG_CATEGORIES_DIR, 'files');
 
 	if ($files) {
+	natcasesort($files);
 		foreach ($files as $category) {
 			include BLOG_CATEGORIES_DIR.'/'.$category;
 			$categories[] = array(
@@ -313,6 +320,12 @@ function blog_category_exists($category) {
  * @param string $category The name of the category that needs to be created.
  */
 function blog_create_category($category) {
+	//Check if 'categories' directory exists, if not; create it.
+	if (!is_dir(BLOG_CATEGORIES_DIR)) {
+		mkdir(BLOG_CATEGORIES_DIR);
+		chmod(BLOG_CATEGORIES_DIR, 0777);
+	}
+
 	$data['category_title'] = sanitize($category);
 
 	save_file(BLOG_CATEGORIES_DIR.'/'.seo_url($category).'.php', $data);
