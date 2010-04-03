@@ -97,7 +97,7 @@ else {
 				$error['email'] = show_error($lang['settings']['email_invalid'], 1, true);
 
 			//Check the passwords.
-			if (empty($cont2))
+			if (empty($cont4))
 				$error['pass'] = show_error($lang['changepass']['empty'], 1, true);
 
 			elseif ($cont4 != $cont5)
