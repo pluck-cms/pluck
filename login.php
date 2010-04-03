@@ -55,9 +55,33 @@ else {
 	if (isset($_POST['submit']) && empty($_POST['bogus'])) {
 		$pass = hash('sha512', $cont1);
 
+		//Create hash from user-IP, for brute-force protection.
+		$loginattempt_file = 'data/settings/loginattempt_'.hash('sha512', $_SERVER['REMOTE_ADDR']).'.php';
+
+		//Check if user has tried to login before.
+		if (file_exists($loginattempt_file)) {
+			require($loginattempt_file);
+			//Determine the amount of seconds that a user will be blocked (300 = 5 minutes).
+			$timestamp = $timestamp + 300;
+
+			//Block access if user has tried 5 times.
+			if (($tries == 5)) {
+				//Check if time hasn't exceeded yet, then block user.
+				if ($timestamp > time())
+					$login_error = show_error($lang['login']['too_many_attempts'], 1, true);
+				//If time has exceeded, unblock user.
+				else
+					unlink($loginattempt_file);
+			}
+		}
+
 		//If password is correct, save session-cookie.
-		if ($pass == $ww) {
+		if (($pass == $ww) && (!isset($login_error))) {
 			$_SESSION[$token] = 'pluck_loggedin';
+
+			//Delete loginattempt file, if it exists.
+			if (file_exists($loginattempt_file))
+				unlink($loginattempt_file);
 
 			//Display success message.
 			show_error($lang['login']['correct'], 3);
@@ -69,9 +93,19 @@ else {
 			exit;
 		}
 
-		//If password is not correct, display error.
-		else
+		//If password is not correct; display error, and store attempt in loginattempt file for brute-force protection.
+		elseif (($pass != $ww) && (!isset($login_error))) {
 			$login_error = show_error($lang['login']['incorrect'], 1, true);
+
+			//If a loginattempt file already exists, update tries variable.
+			if (file_exists($loginattempt_file))
+				$tries++;
+			else
+				$tries = 1;
+
+			//Get current timestamp and save file.
+			save_file ($loginattempt_file, array('tries' => $tries, 'timestamp' => time()));
+		}
 	}
 	?>
 		<span class="kop2"><?php echo $lang['login']['password']; ?></span>

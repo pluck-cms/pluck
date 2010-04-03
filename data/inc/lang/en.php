@@ -52,13 +52,14 @@ $lang['general']['message']        = 'Message:';
 $lang['general']['website']        = 'Website:';
 
 //Login
-$lang['login']['not']         = 'not logged in';
-$lang['login']['not_message'] = 'You are not logged in! A moment, please...';
-$lang['login']['title']       = 'log in';
-$lang['login']['password']    = 'password';
-$lang['login']['correct']     = 'Password correct. Logging you in...';
-$lang['login']['incorrect']   = 'Password incorrect.';
-$lang['login']['log_out']     = 'log out';
+$lang['login']['not']               = 'not logged in';
+$lang['login']['not_message']       = 'You are not logged in! A moment, please...';
+$lang['login']['title']             = 'log in';
+$lang['login']['password']          = 'password';
+$lang['login']['correct']           = 'Password correct. Logging you in...';
+$lang['login']['incorrect']         = 'Password incorrect.';
+$lang['login']['too_many_attempts'] = 'You have exceeded the number of login attempts. Please wait 5 minutes before logging in again.';
+$lang['login']['log_out']           = 'log out';
 
 //Install
 $lang['install']['not']          = 'not installed';
@@ -143,18 +144,18 @@ $lang['page']['modules']     = 'Choose if you want modules displayed on this pag
 $lang['page']['options']     = 'other options related to the page';
 $lang['page']['in_menu']     = 'show page in menu';
 $lang['page']['sub_page']    = 'sub-page of';
-$lang['page']['name_exists'] = 'A page with the same or similar title already exists.<br />Please change the title of this page or the other.';
+$lang['page']['name_exists'] = 'A page with the same title already exists.<br />Please choose a new title.';
 
 //Editmeta
 $lang['editmeta']['title']    = 'edit page information';
-$lang['editmeta']['message']  = 'Here you can fill in some information about this page, to get better results in search engines.';
+$lang['editmeta']['message']  = 'Here you can enter some information about this page, to get better results in search engines.';
 $lang['editmeta']['keywords'] = 'keywords';
 $lang['editmeta']['comma']    = 'seperated by a comma';
 $lang['editmeta']['changing'] = 'Changing page information...';
 
 //Images
 $lang['images']['title']    = 'manage images';
-$lang['images']['message']  = 'Here you can upload your images, which you can put on your webpages later. There are three supported imagetypes: JPG, PNG and GIF.';
+$lang['images']['message']  = 'Here you can upload your images, which you can put on your webpages later. There are three supported file formats: JPG, PNG and GIF.';
 $lang['images']['uploaded'] = 'uploaded images';
 $lang['images']['name']     = 'Name:';
 $lang['images']['size']     = 'Size:';
