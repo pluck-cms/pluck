@@ -93,7 +93,7 @@ else {
 				$error['title'] = show_error($lang['settings']['fill_name'], 1, true);
 
 			//Check the email.
-			if (!filter_input(INPUT_POST, 'cont2', FILTER_VALIDATE_EMAIL))
+			if (!preg_match('/^.+@.+\..{2,4}$/', $cont2))
 				$error['email'] = show_error($lang['settings']['email_invalid'], 1, true);
 
 			//Check the passwords.
