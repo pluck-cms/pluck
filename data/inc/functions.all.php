@@ -197,14 +197,15 @@ function show_error($message, $level, $return = false) {
  * @return string A SEO safe URL.
  */
 function seo_url($url) {
-	//Decode HTML entities
-	//Replace non-alphanumeric characters to dashes. Exceptions: %, _, -
-	//Note that multiple separators are collapsed automatically by the preg_replace.
-	//Convert all characters to lowercase.
-	//Trim spaces on both sides.
-	$slug = rtrim(mb_strtolower(preg_replace('/[^\p{L}\p{N}_]+/u', '-', preg_replace('/\p{Po}/u', '', html_entity_decode($url)))), '-');
+	require ('data/inc/lib/url_replace.php');
+	$url = preg_replace('/( |_)+/', '-', $url);
+	foreach ($lang_url_replace as $old => $new)
+		$url = str_replace($old, $new, $url);
+	$url = preg_replace('/(-)+/', '-', $url);
+	$url = trim($url, '-');
+	$url = strtolower($url);
 
-	return $slug;
+	return $url;
 }
 
 /**
