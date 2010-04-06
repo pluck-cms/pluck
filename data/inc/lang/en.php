@@ -104,12 +104,12 @@ $lang['trashcan']['same_page_name'] = 'The page could not be restored from the t
 
 //Start
 $lang['start']['title']   = 'start';
-$lang['start']['welcome'] = 'Welcome at the administrationcenter of pluck.';
+$lang['start']['welcome'] = 'Welcome to the Administration Centre of Pluck.';
 $lang['start']['manage']  = 'Here you can manage your website. Choose a link in the menu at the top of your screen.';
 $lang['start']['more']    = 'more...';
 $lang['start']['website'] = 'take a look at your website';
 $lang['start']['result']  = 'take a look at the result';
-$lang['start']['people']  = 'all the people who helped developing pluck';
+$lang['start']['people']  = 'all the people who helped develop pluck';
 $lang['start']['help']    = 'need help?';
 $lang['start']['love']    = 'we\'d love to help you';
 
@@ -214,7 +214,7 @@ $lang['modules_install']['success'] = 'The module has been installed successfull
 //Theme
 $lang['theme']['title']  = 'choose theme';
 $lang['theme']['choose'] = 'Here you can choose which of the installed themes you want to use.';
-$lang['theme']['saved']  = 'The themesettings have been saved.';
+$lang['theme']['saved']  = 'The theme settings have been saved.';
 
 //Themeuninstall
 $lang['theme_uninstall']['title']             = 'uninstall theme';

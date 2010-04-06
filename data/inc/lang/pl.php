@@ -57,13 +57,14 @@ $lang['general']['message']        = 'Wiadomość:';
 $lang['general']['website']        = 'Strona www:';
 
 //Login
-$lang['login']['not']         = 'nie zalogowany';
-$lang['login']['not_message'] = 'Nie jesteś zalogowany! Proszę czekać...';
-$lang['login']['title']       = 'zaloguj się';
-$lang['login']['password']    = 'hasło';
-$lang['login']['correct']     = 'Hasło poprawne. Loguję...';
-$lang['login']['incorrect']   = 'Błędne hasło';
-$lang['login']['log_out']     = 'wyloguj się';
+$lang['login']['not']               = 'nie zalogowany';
+$lang['login']['not_message']       = 'Nie jesteś zalogowany! Proszę czekać...';
+$lang['login']['title']             = 'zaloguj się';
+$lang['login']['password']          = 'hasło';
+$lang['login']['correct']           = 'Hasło poprawne. Loguję...';
+$lang['login']['incorrect']         = 'Błędne hasło';
+$lang['login']['too_many_attempts'] = 'Wyczerpałeś limit prób logowania. Poczekaj 5 minut przed kolejną próbą logowania.';
+$lang['login']['log_out']           = 'wyloguj się';
 
 //Install
 $lang['install']['not']			 = 'nie zainstalowano';

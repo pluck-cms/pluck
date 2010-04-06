@@ -15,7 +15,7 @@
 //Make sure the file isn't accessed directly.
 defined('IN_PLUCK') or exit('Access denied!');
 ?>
-<div id="copyright"><a href="http://pluck-cms.org" target="_blank">pluck <?php echo PLUCK_VERSION; ?></a> © 2005-2009. <?php echo $lang['general']['copyright']; ?></div>
+<div id="copyright"><a href="http://pluck-cms.org" target="_blank">pluck <?php echo PLUCK_VERSION; ?></a> © 2005-2010. <?php echo $lang['general']['copyright']; ?></div>
 </div>
 </body>
 </html>

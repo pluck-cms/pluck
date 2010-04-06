@@ -42,12 +42,9 @@ function get_pagetitle() {
 				$count = count($pages);
 				unset($pages[$count -1]);
 			}
+			unset($part);
 
-			$final_title = '';
-			foreach ($titles as $title)
-				$final_title .=  ' &middot; '.$title;
-
-			$page_title = ltrim($final_title, '&middot; ');
+			$page_title = trim(implode(' &middot; ', $titles));
 		}
 
 		else {
