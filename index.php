@@ -76,7 +76,10 @@ if (defined('CURRENT_MODULE_DIR')) {
 		exit;
 	}
 }
+$themefile = 'theme';
+
+run_hook('site_theme', array(&$themefile));
 
 //Now, include the page.
-include_once(THEME_DIR.'/theme.php');
+include_once(THEME_DIR.'/'.$themefile.'.php');
 ?>

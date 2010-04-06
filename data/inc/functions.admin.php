@@ -160,6 +160,7 @@ function show_page_box($file) {
 					<img src="data/image/edit.png" title="<?php echo $lang['page']['edit']; ?>" alt="<?php echo $lang['page']['edit']; ?>" />
 				</a>
 			</span>
+			 <?php run_hook('admin_page_list_inside', array(&$file)); ?>
 			<span>
 				<a href="?action=editmeta&amp;var1=<?php echo $file; ?>">
 					<img src="data/image/siteinformation.png" title="<?php echo $lang['editmeta']['title']; ?>" alt="<?php echo $lang['editmeta']['title']; ?>" />

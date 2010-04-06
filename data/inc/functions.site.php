@@ -80,12 +80,15 @@ function theme_meta($reset_css = false) {
 		if (file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME))
 			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
 	}
-
+	$stylefile = 'style';
+	
+	run_hook('site_theme_css', array(&$stylefile));
+	
 	//Check which CSS-file we need to use (LTR or RTL)
 	if (DIRECTION_RTL)
-		$cssfile = THEME_DIR.'/style-rtl.css';
+		$cssfile = THEME_DIR.'/'.$stylefile.'-rtl.css';
 	else
-		$cssfile = THEME_DIR.'/style.css';
+		$cssfile = THEME_DIR.'/'.$stylefile.'.css';
 
 	echo '<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />'."\n";
 	echo '<meta name="generator" content="pluck '.PLUCK_VERSION.'" />'."\n";
