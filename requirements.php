@@ -18,7 +18,7 @@ header('Content-Type:text/html;charset=utf-8');
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<title>pluck 4.7 requirements check></title>
+<title>pluck 4.7 requirements check</title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link href="data/styleadmin.css" rel="stylesheet" type="text/css" media="screen" />
 <link rel="icon" type="image/vnd.microsoft.icon" href="data/image/favicon.ico" />
@@ -30,6 +30,7 @@ header('Content-Type:text/html;charset=utf-8');
 		<span class="menuitem2">requirements check</span>
 	</div>
 </div>
+<div id="content">
 <div id="text">
 	<?php
 	//1: Check for the the required PHP version.
@@ -110,7 +111,8 @@ header('Content-Type:text/html;charset=utf-8');
 	else
 		echo '<p><strong>All requirements and settings are meet. You can safely <a href="install.php">install pluck now</a>.</strong></p>';
 	?>
-	<div id="somp">pluck © 2005-2009 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck is available under the terms of the GNU General Public License.</div>
+</div>
+<div id="copyright">pluck © 2005-2010 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck is available under the terms of the GNU General Public License.</div>
 </div>
 </body>
 </html>
