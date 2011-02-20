@@ -24,18 +24,22 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	if (empty($keywords))
 		$keywords = '';
 
-	//Save the page.
-	$seoname = save_page($cont1, $cont2, $cont4, $cont5, $description, $keywords, $cont3, $var1);
+	//Save the page, but only if a title has been entered.
+	if (!empty($cont1))
+		$seoname = save_page($cont1, $cont2, $cont4, $cont5, $description, $keywords, $cont3, $var1);
+	//If no title has been chosen, set error.
+	else
+		$error = show_error($lang['page']['no_title'], 1, true);
 
 	//Redirect to the new title only if it is a plain save.
-	if (isset($_POST['save'])) {
+	if (isset($_POST['save']) && !isset($error)) {
 		redirect('?action=editpage&var1='.$seoname, 0);
 		include_once ('data/inc/footer.php');
 		exit;
 	}
 
 	//Redirect the user. only if they are doing a save_exit.
-	elseif (isset($_POST['save_exit'])) {
+	elseif (isset($_POST['save_exit']) && !isset($error)) {
 		redirect('?action=page', 0);
 		include_once ('data/inc/footer.php');
 		exit;
@@ -61,6 +65,10 @@ unset($module);
 	read_imagesinpages('images');
 ?>
 </div>
+<?php
+if (isset($error))
+	echo $error;
+?>
 <form name="page_form" method="post" action="">
 	<p>
 		<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>

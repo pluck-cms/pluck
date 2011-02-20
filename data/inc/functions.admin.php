@@ -385,7 +385,7 @@ function save_page($title, $content, $hidden, $subpage, $description = null, $ke
 		//Check if a page already exists with the name.
 		if (get_page_filename($subpage.seo_url($title)) != false)
 			return false;
-		
+
 		//Check if we want a sub-page.
 		if (!empty($subpage)) {
 			//We need to make sure that the dir exists, and if not, create it.

@@ -27,11 +27,16 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	if (!isset($cont4))
 		$cont4 = 'yes';
 
-	//Save the page.
-	$seoname = save_page($cont1, $cont2, $cont4, $cont5, null, null, $cont3);
+	//Save the page, but only if a title has been entered.
+	if (!empty($cont1)) {
+		$seoname = save_page($cont1, $cont2, $cont4, $cont5, null, null, $cont3);
 
-	if (!$seoname)
-		$error = show_error($lang['page']['name_exists'], 2, true);
+		if (!$seoname)
+			$error = show_error($lang['page']['name_exists'], 2, true);
+	}
+	//If no title has been chosen, set error.
+	else
+		$error = show_error($lang['page']['no_title'], 1, true);
 
 	//Redirect the user.
 	if (isset($_POST['save']) && !isset($error)) {
