@@ -44,6 +44,9 @@ function get_pagetitle() {
 			}
 			unset($part);
 
+			//Reverse array for more logical breadcrumb-order.
+			$titles = array_reverse($titles);
+
 			$page_title = trim(implode(' &middot; ', $titles));
 		}
 
@@ -81,9 +84,9 @@ function theme_meta($reset_css = false) {
 			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
 	}
 	$stylefile = 'style';
-	
+
 	run_hook('site_theme_css', array(&$stylefile));
-	
+
 	//Check which CSS-file we need to use (LTR or RTL)
 	if (DIRECTION_RTL)
 		$cssfile = THEME_DIR.'/'.$stylefile.'-rtl.css';
