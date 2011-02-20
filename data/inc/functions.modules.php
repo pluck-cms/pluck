@@ -115,4 +115,48 @@ function module_insert_after($array, $data, $subject) {
 	else
 		return $array;
 }
+
+/**
+ * Save module settings in configuration file.
+ *
+ * @param string $module The module for which the settings need to be saved.
+ * @param array $settings Settings in array.
+ */
+function module_save_settings($module, $settings) {
+	if(module_is_compatible($module)) {
+		foreach ($settings as $setting => $value) {
+			if(empty($value))
+				$value = 'false';
+			else
+				$value = sanitize($value);
+		}
+		save_file('data/settings/'.$module.'.settings.php', $settings);
+	}
+}
+
+/**
+ * Returns the current value of a module setting.
+ *
+ * @param string $module The module.
+ * @param string $setting The setting from which to obtain the value.
+ */
+function module_get_setting($module, $setting) {
+	if(module_is_compatible($module)) {
+
+		//First retrieve default module settings.
+		$default_settings = call_user_func($module.'_settings_default');
+
+		if (isset($default_settings[$setting])) {
+			//Load default setting
+			$$setting = $default_settings[$setting];
+			//Check if a saved setting is available
+			if(file_exists('data/settings/'.$module.'.settings.php')) {
+				include('data/settings/'.$module.'.settings.php');
+			}
+			return $$setting;
+		}
+		else
+			show_error('Module setting '.$setting.' does not exist in module '.$module, 1);
+	}
+}
 ?>

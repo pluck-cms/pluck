@@ -112,6 +112,13 @@ else {
 				include_once ('data/inc/modules_manage_addtosite.php');
 				break;
 
+			//Page:Module settings
+			case 'modulesettings':
+				$titelkop = $lang['modules_settings']['title'];
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/modules_settings.php');
+				break;
+
 			//Page:Options
 			case 'options':
 				$titelkop = $lang['options']['title'];

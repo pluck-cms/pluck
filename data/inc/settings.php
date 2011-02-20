@@ -37,7 +37,7 @@ if (isset($_POST['save'])) {
 		save_options($cont1, $cont2, $cont3);
 
 		show_error($lang['settings']['changing_settings'], 3);
-		redirect('?action=options', 2);
+		redirect('?action=options', 0);
 		include_once ('data/inc/footer.php');
 		exit;
 	}

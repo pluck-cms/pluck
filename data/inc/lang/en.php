@@ -172,6 +172,7 @@ $lang['options']['title']          = 'options';
 $lang['options']['message']        = 'Here you can configure pluck so it suits your wishes and taste.';
 $lang['options']['settings_descr'] = 'change general settings like the title of your website and your email address';
 $lang['options']['modules_descr']  = 'manage modules and include them in your website';
+$lang['options']['modules_sett_descr']  = 'change module configuration settings';
 $lang['options']['themes_descr']   = 'change the look and feel of your website';
 $lang['options']['lang_descr']     = 'choose the language that will be used by pluck';
 $lang['options']['pass_descr']     = 'it is a good idea to change your password regularly';
@@ -183,7 +184,7 @@ $lang['settings']['choose_title']      = 'choose the title for your website here
 $lang['settings']['email']             = 'email';
 $lang['settings']['email_descr']       = 'your email address will be used to allow your visitors to contact you through an email form';
 $lang['settings']['xhtml_mode']        = 'Turn on the XHTML Compatibility Mode (may be slower)';
-$lang['settings']['changing_settings'] = 'Changing the general settings...';
+$lang['settings']['changing_settings'] = 'Saving settings...';
 $lang['settings']['fill_name']         = 'You have to fill in a name for your website, it can\'t be empty.';
 $lang['settings']['email_invalid']     = 'The emailaddress you entered is invalid!';
 
@@ -199,6 +200,10 @@ $lang['modules_manage']['version']           = 'version';
 $lang['modules_manage']['author']            = 'author';
 $lang['modules_manage']['website']           = 'website';
 $lang['modules_manage']['not_compatible']    = 'This module is not compatible with your version of pluck, and has been disabled.';
+
+//Modules_settings
+$lang['modules_settings']['title']             = 'module settings';
+$lang['modules_settings']['message']           = 'Change the configuration settings of your modules.';
 
 //Modules_addtosite
 $lang['modules_addtosite']['title']        = 'add modules to website';
@@ -298,6 +303,8 @@ $lang['blog']['website']                = 'website';
 $lang['blog']['message']                = 'message';
 $lang['blog']['html_not_allowed']       = 'HTML-code is not allowed.';
 $lang['blog']['no_reactions']           = 'no reactions';
+$lang['blog']['settings_reactions']     = 'Allow visitors to post reactions';
+$lang['blog']['read_more']              = 'read more';
 
 //Contact form.
 $lang['contactform']['module_name']  = 'contact form';

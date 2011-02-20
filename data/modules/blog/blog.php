@@ -13,12 +13,7 @@
 */
 
 //Make sure the file isn't accessed directly.
-if (!strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'admin.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'install.php') && !strpos($_SERVER['SCRIPT_FILENAME'], 'login.php')) {
-	//Give out an "Access denied!" error.
-	echo 'Access denied!';
-	//Block all other code.
-	exit;
-}
+defined('IN_PLUCK') or exit('Access denied!');
 
 function blog_info() {
 	global $lang;
@@ -31,5 +26,31 @@ function blog_info() {
 		'icon'          => 'images/blog.png',
 		'compatibility' => '4.7'
 	);
+}
+
+function blog_settings_default() {
+	return array(
+		'allow_reactions'  => true
+	);
+}
+
+/* <?php if ($xhtmlruleset == 'true') echo 'checked="checked"'; ?> */
+
+function blog_admin_module_settings_beforepost() {
+	global $lang;
+	echo '<p>
+		<span class="kop2">'.$lang['blog']['title'].'</span>
+		<input type="checkbox" name="blog_reactions" id="blog_reactions" value="true" '; if (module_get_setting('blog','allow_reactions') == 'true') { echo 'checked="checked" '; } echo '/>
+		<label for="blog_reactions">&nbsp;'.$lang['blog']['settings_reactions'].'</label>
+	</p>';
+}
+
+function blog_admin_module_settings_afterpost() {
+	//Compose settings array
+	$settings = array(
+		'allow_reactions'  => $_POST['blog_reactions']
+	);
+	//Save settings
+	module_save_settings('blog', $settings);
 }
 ?>

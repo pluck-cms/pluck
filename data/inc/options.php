@@ -20,8 +20,9 @@ defined('IN_PLUCK') or exit('Access denied!');
 	</p>
 <?php
 run_hook('admin_options_before');
-showmenudiv($lang['settings']['title'], $lang['options']['settings_descr'], 'data/image/page.png', '?action=settings');
+showmenudiv($lang['settings']['title'], $lang['options']['settings_descr'], 'data/image/settings.png', '?action=settings');
 showmenudiv($lang['modules_manage']['title'], $lang['options']['modules_descr'], 'data/image/modules.png', '?action=managemodules');
+showmenudiv($lang['modules_settings']['title'], $lang['options']['modules_sett_descr'], 'data/image/settings2.png', '?action=modulesettings');
 showmenudiv($lang['theme']['title'], $lang['options']['themes_descr'], 'data/image/themes.png', '?action=theme');
 showmenudiv($lang['language']['title'], $lang['options']['lang_descr'], 'data/image/language.png', '?action=language');
 showmenudiv($lang['changepass']['title'], $lang['options']['pass_descr'], 'data/image/password.png', '?action=changepass');
