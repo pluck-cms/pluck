@@ -104,7 +104,7 @@ $lang['trashcan']['same_page_name'] = 'The page could not be restored from the t
 
 //Start
 $lang['start']['title']   = 'start';
-$lang['start']['welcome'] = 'Welcome to the Administration Centre of Pluck.';
+$lang['start']['welcome'] = 'Welcome to the administration center of pluck.';
 $lang['start']['manage']  = 'Here you can manage your website. Choose a link in the menu at the top of your screen.';
 $lang['start']['more']    = 'more...';
 $lang['start']['website'] = 'take a look at your website';
@@ -304,8 +304,10 @@ $lang['blog']['website']                = 'website';
 $lang['blog']['message']                = 'message';
 $lang['blog']['html_not_allowed']       = 'HTML-code is not allowed.';
 $lang['blog']['no_reactions']           = 'no reactions';
-$lang['blog']['settings_reactions']     = 'Allow visitors to post reactions';
+$lang['blog']['allow_reactions']        = 'Allow visitors to post reactions.';
 $lang['blog']['read_more']              = 'read more';
+$lang['blog']['truncate_posts']         = 'The number of characters blog posts will be truncated to. Choose 0 to disable truncation.';
+$lang['blog']['truncate_error']         = 'You should choose a numeric value for blog post truncation.';
 
 //Contact form.
 $lang['contactform']['module_name']  = 'contact form';

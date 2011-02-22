@@ -182,7 +182,7 @@ function show_error($message, $level, $return = false) {
 			$class = 'notice';
 	}
 
-	$value = '<span class="'.$class.'">'.$message.'</span>';
+	$value = '<div class="'.$class.'">'.$message.'</div>';
 
 	if ($return == true)
 		return $value;

@@ -54,10 +54,22 @@ function run_hook($name, $par = null) {
 		return;
 	foreach ($module_list as $module) {
 		if (function_exists($module.'_'.$name) && module_is_compatible($module)) {
-			if ($par == null)
-				call_user_func($module.'_'.$name);
-			else
-				call_user_func_array($module.'_'.$name, $par);
+			if ($par == null) {
+				$output = call_user_func($module.'_'.$name);
+				if (!empty($output)) {
+					$function_output[] = $output;
+					unset($output);
+				}
+			}
+			else {
+				$output = call_user_func_array($module.'_'.$name, $par);
+				if (!empty($output)) {
+					$function_output[] = $output;
+					unset($output);
+				}
+			}
+			if (isset($function_output))
+				return $function_output;
 		}
 	}
 	unset($module);
@@ -125,17 +137,14 @@ function module_insert_after($array, $data, $subject) {
 function module_save_settings($module, $settings) {
 	if(module_is_compatible($module)) {
 		foreach ($settings as $setting => $value) {
-			if(empty($value))
-				$value = 'false';
-			else
-				$value = sanitize($value);
+			$value = sanitize($value);
 		}
 		save_file('data/settings/'.$module.'.settings.php', $settings);
 	}
 }
 
 /**
- * Returns the current value of a module setting.
+ * Returns the current value of a module setting. If no setting has been saved, the default value will be returned.
  *
  * @param string $module The module.
  * @param string $setting The setting from which to obtain the value.

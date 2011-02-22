@@ -333,4 +333,22 @@ function blog_date_convert($timestamp) {
 function blog_time_convert($timestamp) {
 	return date('H:i', $timestamp);
 }
+
+/**
+ * Truncates a string to a certain length.
+ * @param string $text
+ * @param int $limit
+ * @param string $ending
+ * @return string
+ */
+function truncate($text, $limit, $ending = '...') {
+	if (strlen($text) > $limit) {
+		$text = strip_tags($text);
+		$text = substr($text, 0, $limit);
+		$text = substr($text, 0, -(strlen(strrchr($text, ' '))));
+		$text = $text.$ending;
+	}
+	
+	return $text;
+}
 ?>

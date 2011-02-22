@@ -49,7 +49,13 @@ function blog_theme_main() {
 					<?php echo $post['date'].' '.$lang['blog']['at'].' '.$post['time'].' '.$lang['blog']['in'].' '.$post['category']; ?>
 				</span>
 				<div class="blog_post_content">
-					<?php echo $post['content']; ?>
+					<?php
+					//Check if we need to truncate
+					if (module_get_setting('blog','truncate_posts') != '0')
+						echo truncate($post['content'], module_get_setting('blog','truncate_posts'));
+					else
+						echo $post['content'];
+					?>
 				</div>
 				<?php
 				//If reactions are enabled, count reactions and display in 'read more'-link
