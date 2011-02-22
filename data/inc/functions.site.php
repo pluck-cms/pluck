@@ -239,7 +239,7 @@ function theme_area($place) {
 	}
 
 	//Include info of theme (to see which modules we should include etc), but only if file exists.
-	elseif (file_exists('data/settings/themes/'.THEME.'/moduleconf.php') && !defined('CURRENT_MODULE_DIR')) {
+	if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php') && !defined('CURRENT_MODULE_DIR')) {
 		include ('data/settings/themes/'.THEME.'/moduleconf.php');
 
 		//Get the array and sort it.
