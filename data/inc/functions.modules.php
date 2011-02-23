@@ -105,6 +105,21 @@ function module_is_compatible($module) {
 		return false;
 }
 
+/**
+ * Checks if a module is included in a page.
+ *
+ * @param string $module The module you want to check.
+ * @param string $page The seoname of the page you want to check.
+ * @return bool
+ */
+function module_is_included_in_page($module, $page_seoname) {
+	include(PAGE_DIR.'/'.get_page_filename($page_seoname));
+	if (strpos($content, '{pluck show_module('.$module))
+		return TRUE;
+	else
+		return FALSE;
+}
+
 function module_insert_at_position($array, $data, $position) {
 	array_splice($array, $position - 1, 0, $data);
 	return $array;

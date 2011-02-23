@@ -45,6 +45,7 @@ if (file_exists('data/settings/options.php'))
 	define('EMAIL', $email);
 define('LANG', str_replace('.php', '', $langpref));
 define('LANG_FILE', $langpref);
+define('PAGE_DIR', 'data/settings/pages');
 if (file_exists('data/settings/themepref.php')) {
 	define('THEME', $themepref);
 	define('THEME_DIR', 'data/themes/'.$themepref);
@@ -56,7 +57,7 @@ else
 
 if (isset($_GET['module'])) {
 	define('MODULE_DIR', 'data/modules/'.$_GET['module']);
-	define('MODULE_SETTINGS', 'data/settings/modules/'.$_GET['module']);
+	define('MODULE_SETTINGS_DIR', 'data/settings/modules/'.$_GET['module']);
 }
 
 if (file_exists('data/settings/pages')) {

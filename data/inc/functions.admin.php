@@ -91,7 +91,7 @@ function show_module_insert_box() {
 						$module_info = call_user_func($module.'_info');
 						if (isset($module_info['categories'])) {
 							foreach ($module_info['categories'] as $category)
-								echo '<option value="'.$module.','.$category['title'].'">&emsp;'.$category['title'].'</option>';
+								echo '<option value="'.$module.','.$category.'">&emsp;'.$category.'</option>';
 						}
 					}
 				}

@@ -254,18 +254,23 @@ function blog_get_post($seoname) {
 
 /**
  * Load categories in an array. Will return FALSE if no categories exist.
+ * If $only_return_title is TRUE, only the title will be returned (seoname will be discarded).
  */
-function blog_get_categories() {
+function blog_get_categories($only_return_title = FALSE) {
 	$files = read_dir_contents(BLOG_CATEGORIES_DIR, 'files');
 
 	if ($files) {
 	natcasesort($files);
 		foreach ($files as $category) {
 			include BLOG_CATEGORIES_DIR.'/'.$category;
-			$categories[] = array(
-				'title'   => $category_title,
-				'seoname' => str_replace('.php', '', $category)
-			);
+			if ($only_return_title == TRUE)
+				$categories[] = $category_title;
+			else {
+				$categories[] = array(
+					'title'   => $category_title,
+					'seoname' => str_replace('.php', '', $category)
+				);
+			}
 		}
 		unset($category);
 

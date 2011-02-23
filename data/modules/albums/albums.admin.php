@@ -1,4 +1,7 @@
 <?php
+//Make sure the file isn't accessed directly.
+defined('IN_PLUCK') or exit('Access denied!');
+
 require_once 'data/modules/albums/functions.php';
 require_once 'data/inc/lib/SmartImage.class.php';
 
@@ -6,12 +9,12 @@ function albums_pages_admin() {
 	global $lang, $var1, $var2;
 
 	if (isset($var1))
-		include (MODULE_SETTINGS.'/'.$var1.'.php');
+		include (ALBUMS_DIR.'/'.$var1.'.php');
 	else
 		$album_name = '';
 
 	if (isset($var2))
-		include (MODULE_SETTINGS.'/'.$var1.'/'.albums_get_php_filename($var1, $var2));
+		include (ALBUMS_DIR.'/'.$var1.'/'.albums_get_php_filename($var1, $var2));
 	else
 		$name = '';
 
@@ -21,7 +24,7 @@ function albums_pages_admin() {
 	);
 	$module_page_admin[] = array(
 		'func'  => 'editalbum',
-		'title' => $lang['albums']['edit_album'].' - '.$album_name
+		'title' => $lang['albums']['edit_album']
 	);
 	$module_page_admin[] = array(
 		'func'  => 'deletealbum',
@@ -29,7 +32,7 @@ function albums_pages_admin() {
 	);
 	$module_page_admin[] = array(
 		'func'  => 'editimage',
-		'title' => $lang['albums']['edit_image'].' - '.$album_name.' - '.$name
+		'title' => $lang['albums']['edit_image']
 	);
 	$module_page_admin[] = array(
 		'func'  => 'deleteimage',
@@ -53,42 +56,39 @@ function albums_page_admin_albums() {
 			<strong><?php echo $lang['albums']['message']; ?></strong>
 		</p>
 		<span class="kop2"><?php echo $lang['albums']['edit_albums']; ?></span>
-		<br />
 		<?php
-		read_albums(MODULE_SETTINGS);
+		read_albums(ALBUMS_DIR);
 		?>
 			<br /><br />
 			<label class="kop2" for="cont1"><?php echo $lang['albums']['new_album']; ?></label>
-			<br />
 			<form method="post" action="">
-				<span class="kop4"><?php echo $lang['albums']['choose_name']; ?></span>
-				<br />
+				<span class="kop4"><?php echo $lang['albums']['choose_name']; ?></span><br />
 				<input name="cont1" id="cont1" type="text" />
 				<input type="submit" name="submit" value="<?php echo $lang['general']['save']; ?>" />
 			</form>
 		<?php
 		//When form is submitted.
 		if (isset($_POST['submit'])) {
-			if (!empty($cont1) && file_exists(MODULE_SETTINGS.'/'.seo_url($cont1)))
+			if (!empty($cont1) && file_exists(ALBUMS_DIR.'/'.seo_url($cont1)))
 				show_error($lang['albums']['name_exist'], 1);
 
 			elseif (!empty($cont1)) {
 				//The pretty album name.
-				$album_name = sanitize($cont1);
+				$cont1 = sanitize($cont1);
 
 				//Make the album url safe to use.
 				$cont1 = seo_url($cont1);
 
 				//Create and chmod directories.
-				mkdir(MODULE_SETTINGS.'/'.$cont1);
-				chmod(MODULE_SETTINGS.'/'.$cont1, 0777);
-				mkdir(MODULE_SETTINGS.'/'.$cont1.'/thumb');
-				chmod(MODULE_SETTINGS.'/'.$cont1.'/thumb', 0777);
+				mkdir(ALBUMS_DIR.'/'.$cont1);
+				chmod(ALBUMS_DIR.'/'.$cont1, 0777);
+				mkdir(ALBUMS_DIR.'/'.$cont1.'/thumb');
+				chmod(ALBUMS_DIR.'/'.$cont1.'/thumb', 0777);
 
 				$data['album_name'] = $album_name;
 
 				//Create album file.
-				save_file(MODULE_SETTINGS.'/'.$cont1.'.php', $data);
+				save_file(ALBUMS_DIR.'/'.$cont1.'.php', $data);
 
 				redirect('?module=albums', 0);
 			}
@@ -110,11 +110,11 @@ function albums_page_admin_editalbum() {
 			//Define some variables
 			list($imageze, $ext) = explode('.', $_FILES['imagefile']['name']);
 			$imageze = seo_url($imageze);
-			$fullimage = MODULE_SETTINGS.'/'.$var1.'/'.$imageze.'.'.strtolower($ext);
-			$thumbimage = MODULE_SETTINGS.'/'.$var1.'/thumb/'.$imageze.'.'.strtolower($ext);
+			$fullimage = ALBUMS_DIR.'/'.$var1.'/'.$imageze.'.'.strtolower($ext);
+			$thumbimage = ALBUMS_DIR.'/'.$var1.'/thumb/'.$imageze.'.'.strtolower($ext);
 
 			//Check if the image name already exists.
-			$images = read_dir_contents(MODULE_SETTINGS.'/'.$var1.'/thumb', 'files');
+			$images = read_dir_contents(ALBUMS_DIR.'/'.$var1.'/thumb', 'files');
 			if ($images) {
 				foreach ($images as $image) {
 					$parts = explode('.', $image);
@@ -177,7 +177,7 @@ function albums_page_admin_editalbum() {
 				chmod($thumbimage, 0777);
 
 				//Find the number.
-				$images = read_dir_contents(MODULE_SETTINGS.'/'.$var1.'/thumb', 'files');
+				$images = read_dir_contents(ALBUMS_DIR.'/'.$var1.'/thumb', 'files');
 
 				if ($images)
 					$number = count($images);
@@ -194,7 +194,7 @@ function albums_page_admin_editalbum() {
 				$data['info'] = $cont2;
 
 				//Then save the image information.
-				save_file(MODULE_SETTINGS.'/'.$var1.'/'.$number.'.'.$imageze.'.'.$ext.'.php', $data);
+				save_file(ALBUMS_DIR.'/'.$var1.'/'.$number.'.'.$imageze.'.'.$ext.'.php', $data);
 			}
 		}
 
@@ -206,7 +206,7 @@ function albums_page_admin_editalbum() {
 	}
 	
 	//Check if album exists.
-	if (file_exists(MODULE_SETTINGS.'/'.$var1)) {
+	if (file_exists(ALBUMS_DIR.'/'.$var1)) {
 		//Introduction text.
 		?>
 			<p>
@@ -214,7 +214,6 @@ function albums_page_admin_editalbum() {
 			</p>
 			<p>
 				<span class="kop2"><?php echo $lang['albums']['new_image']; ?></span>
-				<br />
 				<span class="kop4"><?php echo $lang['albums']['album_message2']; ?></span>
 			</p>
 			<?php
@@ -224,17 +223,14 @@ function albums_page_admin_editalbum() {
 			<form method="post" action="" enctype="multipart/form-data">
 				<p>
 					<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
-					<br />
 					<input name="cont1" id="cont1" type="text" />
 				</p>
 				<p>
 					<label class="kop2" for="cont2"><?php echo $lang['general']['description']; ?></label>
-					<br />
 					<textarea cols="50" rows="5" name="cont2" id="cont2"></textarea>
 				</p>
 				<p>
 					<input type="file" name="imagefile" id="imagefile" />
-					<br />
 					<label class="kop4" for="cont3"><?php echo $lang['albums']['quality']; ?></label>
 					<input name="cont3" id="cont3" type="text" size="3" value="85" />
 				</p>
@@ -245,9 +241,8 @@ function albums_page_admin_editalbum() {
 		//Edit images.
 		?>
 		<span class="kop2"><?php echo $lang['albums']['edit_images']; ?></span>
-		<br />
 		<?php
-		read_albumimages(MODULE_SETTINGS.'/'.$var1);
+		albums_admin_show_images(ALBUMS_DIR.'/'.$var1);
 	}
 	?>
 		<br />
@@ -261,9 +256,9 @@ function albums_page_admin_deletealbum() {
 	global $var1;
 
 	//Check if an album was defined, and if the album exists.
-	if (isset($var1) && file_exists(MODULE_SETTINGS.'/'.$var1)) {
-		recursive_remove_directory(MODULE_SETTINGS.'/'.$var1);
-		unlink(MODULE_SETTINGS.'/'.$var1.'.php');
+	if (isset($var1) && file_exists(ALBUMS_DIR.'/'.$var1)) {
+		recursive_remove_directory(ALBUMS_DIR.'/'.$var1);
+		unlink(ALBUMS_DIR.'/'.$var1.'.php');
 	}
 
 	redirect('?module=albums', 0);
@@ -276,21 +271,15 @@ function albums_page_admin_editimage() {
 	if (isset($var2) && file_exists('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2))) {
 		//Include the image-information.
 		include ('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2));
-
-		//Replace html-breaks by real ones.
-		$info = str_replace('<br />', "\n", $info);
 		?>
-		<br />
 		<form name="form1" method="post" action="">
 			<p>
 				<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
-				<br />
 				<input name="cont1" id="cont1" type="text" value="<?php echo $name; ?>" />
 			</p>
 			<p>
 				<label class="kop2" for="cont2"><?php echo $lang['general']['description']; ?></label>
-				<br />
-				<textarea cols="50" rows="5" name="cont2" id="cont2"><?php echo $info; ?></textarea>
+				<textarea cols="50" rows="5" name="cont2" id="cont2"><?php echo str_replace('<br />', "\n", $info); ?></textarea>
 			</p>
 			<?php show_common_submits('?module=albums&amp;page=editalbum&amp;var1='.$var1); ?>
 		</form>
@@ -306,7 +295,7 @@ function albums_page_admin_editimage() {
 			$data['name'] = $cont1;
 			$data['info'] = $cont2;
 
-			save_file(MODULE_SETTINGS.'/'.$var1.'/'.albums_get_php_filename($var1, $var2), $data);
+			save_file(ALBUMS_DIR.'/'.$var1.'/'.albums_get_php_filename($var1, $var2), $data);
 
 			redirect('?module=albums&page=editalbum&var1='.$var1, 0);
 		}
@@ -350,7 +339,7 @@ if (isset($var1, $var2) && file_exists('data/settings/modules/albums/'.$var1.'/'
 		exit;
 	}
 
-	$files = read_dir_contents(MODULE_SETTINGS.'/'.$var1, 'files');
+	$files = read_dir_contents(ALBUMS_DIR.'/'.$var1, 'files');
 
 	//Now we need to find the name of the other image, so we can switch numbers.
 	foreach ($files as $file) {
@@ -367,8 +356,8 @@ if (isset($var1, $var2) && file_exists('data/settings/modules/albums/'.$var1.'/'
 	$prior_image_new = $current_parts[0].'.'.$prior_parts[1].'.'.$prior_parts[2].'.php';
 
 	//And finaly, rename the files.
-	rename(MODULE_SETTINGS.'/'.$var1.'/'.implode('.', $current_parts), MODULE_SETTINGS.'/'.$var1.'/'.$current_image_new);
-	rename(MODULE_SETTINGS.'/'.$var1.'/'.implode('.', $prior_parts), MODULE_SETTINGS.'/'.$var1.'/'.$prior_image_new);
+	rename(ALBUMS_DIR.'/'.$var1.'/'.implode('.', $current_parts), ALBUMS_DIR.'/'.$var1.'/'.$current_image_new);
+	rename(ALBUMS_DIR.'/'.$var1.'/'.implode('.', $prior_parts), ALBUMS_DIR.'/'.$var1.'/'.$prior_image_new);
 
 	//Show message.
 	show_error($lang['general']['changing_rank'], 3);
@@ -385,7 +374,7 @@ function albums_page_admin_imagedown() {
 	if (isset($var1, $var2) && file_exists('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2))) {
 		$current_parts =  explode('.', albums_get_php_filename($var1, $var2));
 
-		$files = read_dir_contents(MODULE_SETTINGS.'/'.$var1, 'files');
+		$files = read_dir_contents(ALBUMS_DIR.'/'.$var1, 'files');
 		$number_of_files = 0;
 
 		//Count the number of PHP files.
@@ -417,9 +406,9 @@ function albums_page_admin_imagedown() {
 		$current_image_new = $next_parts[0].'.'.$current_parts[1].'.'.$current_parts[2].'.php';
 		$next_image_new = $current_parts[0].'.'.$next_parts[1].'.'.$next_parts[2].'.php';
 
-		//And finaly, rename the files.
-		rename(MODULE_SETTINGS.'/'.$var1.'/'.implode('.', $current_parts), MODULE_SETTINGS.'/'.$var1.'/'.$current_image_new);
-		rename(MODULE_SETTINGS.'/'.$var1.'/'.implode('.', $next_parts), MODULE_SETTINGS.'/'.$var1.'/'.$next_image_new);
+		//And finally, rename the files.
+		rename(ALBUMS_DIR.'/'.$var1.'/'.implode('.', $current_parts), ALBUMS_DIR.'/'.$var1.'/'.$current_image_new);
+		rename(ALBUMS_DIR.'/'.$var1.'/'.implode('.', $next_parts), ALBUMS_DIR.'/'.$var1.'/'.$next_image_new);
 
 		//Show message.
 		show_error($lang['general']['changing_rank'], 3);

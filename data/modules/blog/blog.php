@@ -27,7 +27,7 @@ function blog_info() {
 		'website'       => 'http://www.pluck-cms.org',
 		'icon'          => 'images/blog.png',
 		'compatibility' => '4.7',
-		'categories'    => blog_get_categories()
+		'categories'    => blog_get_categories(TRUE)
 	);
 }
 

@@ -192,6 +192,10 @@ h3 {
 	text-overflow: ellipsis;
 }
 
+.menudiv .title-page .small, .menudiv .title-module .small { 
+	font-size: 14px;
+}
+
 .menudiv .title-module {
 	color: gray;
 }
