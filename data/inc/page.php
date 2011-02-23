@@ -22,7 +22,7 @@ defined('IN_PLUCK') or exit('Access denied!');
 //Run hook.
 run_hook('admin_pages_before');
 //New page button.
-showmenudiv($lang['page']['new'], null, 'data/image/newpage.png', '?action=newpage');
+showmenudiv($lang['page']['new'], null, 'data/image/newpage.png', '?action=editpage');
 //Manage images button.
 showmenudiv($lang['images']['title'], null, 'data/image/image.png', '?action=images');
 

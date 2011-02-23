@@ -76,6 +76,14 @@ function insert_image_link(dir) {
 
 	tinyMCE.execCommand('mceInsertContent', false, '<img src="' + dir + '/' + file + '" alt="" \/>');
 }
+
+function insert_module(dir) {
+	var id = document.getElementById('insert_modules');
+	var module = id.selectedIndex;
+	var code = id.options[module].value;
+
+	tinyMCE.execCommand('mceInsertContent', false, '{pluck show_module(' + code + ')}');
+}
 //-->
 </script>
 <?php run_hook('admin_header_main'); ?>

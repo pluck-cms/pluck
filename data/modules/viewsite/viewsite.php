@@ -24,4 +24,14 @@ function viewsite_admin_menu($links) {
 
 	$links = module_insert_at_position($links, $data, 1);
 }
+
+function viewsite_admin_page_list_before($file) {
+	global $lang; ?>
+	<span>
+		<a href="index.php?file=<?php echo $file; ?>" target="_blank">
+			<img src="data/image/website.png" title="<?php echo $lang['page']['view']; ?>" alt="<?php echo $lang['page']['view']; ?>" />
+		</a>
+	</span>
+<?php
+}
 ?>

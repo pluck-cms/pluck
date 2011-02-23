@@ -31,7 +31,7 @@ function blog_pages_site() {
 //---------------
 // Theme: main
 //---------------
-function blog_theme_main() {
+function blog_theme_main($category = 'all') {
 	global $lang;
 
 	//Display existing posts.
@@ -40,7 +40,9 @@ function blog_theme_main() {
 		$posts = blog_get_posts();
 
 		foreach ($posts as $post) {
-		?>
+			//Only show post if all categories should be shown, or if it's in the given category.
+			if ($category == 'all' || $category == $post['category']) {
+			?>
 			<div class="blog_post">
 				<p class="blog_post_title">
 					<a href="?file=<?php echo CURRENT_PAGE_SEONAME; ?>&amp;module=blog&amp;page=viewpost&amp;post=<?php echo $post['seoname']; ?>" title="<?php echo $post['title']; ?>"><?php echo $post['title']; ?></a>
@@ -81,7 +83,8 @@ function blog_theme_main() {
 					<a href="?file=<?php echo CURRENT_PAGE_SEONAME; ?>&amp;module=blog&amp;page=viewpost&amp;post=<?php echo $post['seoname']; ?>" title="<?php echo $more_link; ?>">&raquo; <?php echo $more_link; ?></a>
 				</p>
 			</div>
-		<?php
+			<?php
+			}
 		}
 		unset($post);
 	}

@@ -259,26 +259,20 @@ function blog_page_admin_editreaction() {
 	$reaction['message'] = str_replace('<br />', '', $reaction['message']);
 	?>
 		<form method="post" action="">
-			<img src="data/modules/blog/images/reactions.png" alt="" />
-			<span class="kop2" style="vertical-align: top;"><?php echo $reaction['id']; ?></span>
 			<p>
 				<label class="kop2" for="cont1"><?php echo $lang['blog']['name']; ?></label>
-				<br />
 				<input name="cont1" id="cont1" type="text" value="<?php echo $reaction['name']; ?>" />
 			</p>
 			<p>
 				<label class="kop2" for="cont2"><?php echo $lang['blog']['email']; ?></label>
-				<br />
 				<input name="cont2" id="cont2" type="text" value="<?php echo $reaction['email']; ?>" />
 			</p>
 			<p>
 				<label class="kop2" for="cont3"><?php echo $lang['blog']['website']; ?></label>
-				<br />
 				<input name="cont3" id="cont3" type="text" value="<?php echo $reaction['website']; ?>" />
 			</p>
 			<p>
 				<label class="kop2" for="cont4"><?php echo $lang['blog']['message']; ?></label>
-				<br />
 				<textarea name="cont4" id="cont4" rows="5" cols="50"><?php echo $reaction['message']; ?></textarea>
 			</p>
 			<?php show_common_submits('?module=blog&amp;page=editreactions&amp;var1='.$var1); ?>
@@ -317,19 +311,17 @@ function blog_page_admin_editpost() {
 		<div class="rightmenu">
 			<p><?php echo $lang['page']['items']; ?></p>
 			<?php
-			read_pagesinpages();
-			read_imagesinpages('images');
+			show_link_insert_box();
+			show_image_insert_box('images');
 			?>
 		</div>
 		<form method="post" action="">
 			<p>
 				<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
-				<br />
 				<input name="cont1" id="cont1" type="text" value="<?php echo $post['title']; ?>" />
 			</p>
 			<p>
 			<label class="kop2" for="cont2"><?php echo $lang['blog']['category']; ?></label>
-			<br />
 			<select name="cont2" id="cont2">
 				<option value=""><?php echo $lang['blog']['choose_cat']; ?></option>
 				<?php
@@ -350,7 +342,6 @@ function blog_page_admin_editpost() {
 			</p>
 			<p>
 				<label class="kop2" for="cont3"><?php echo $lang['general']['contents']; ?></label>
-				<br />
 				<textarea class="tinymce" name="cont3" id="cont3" cols="70" rows="20"><?php echo htmlspecialchars($post['content']); ?></textarea>
 			</p>
 			<?php show_common_submits('?module=blog', true); ?>
@@ -391,19 +382,17 @@ function blog_page_admin_newpost() {
 		<div class="rightmenu">
 			<p><?php echo $lang['page']['items']; ?></p>
 			<?php
-			read_pagesinpages();
-			read_imagesinpages('images');
+			show_link_insert_box();
+			show_image_insert_box('images');
 			?>
 		</div>
 		<form method="post" action="">
 			<p>
 				<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
-				<br />
 				<input name="cont1" id="cont1" type="text" />
 			</p>
 			<p>
 			<label class="kop2" for="cont2"><?php echo $lang['blog']['category']; ?></label>
-			<br />
 			<select name="cont2" id="cont2">
 				<option value=""><?php echo $lang['blog']['choose_cat']; ?></option>
 				<?php
@@ -420,7 +409,6 @@ function blog_page_admin_newpost() {
 			</p>
 			<p>
 				<label class="kop2" for="cont3"><?php echo $lang['general']['contents']; ?></label>
-				<br />
 				<textarea class="tinymce" name="cont3" id="cont3" cols="70" rows="20"></textarea>
 			</p>
 			<?php show_common_submits('?module=blog', true); ?>

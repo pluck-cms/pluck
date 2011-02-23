@@ -56,11 +56,11 @@ function get_pagetitle() {
 		}
 
 		//Get the title if we are looking at a module page
-		if (defined('CURRENT_MODULE_DIR') && module_is_compatible($module) && function_exists($module.'_pages_site')) {
-			$module_page_site = call_user_func($module.'_pages_site');
+		if (defined('CURRENT_MODULE_DIR') && module_is_compatible(CURRENT_MODULE_DIR) && function_exists(CURRENT_MODULE_DIR.'_pages_site')) {
+			$module_page_site = call_user_func(CURRENT_MODULE_DIR.'_pages_site');
 			foreach ($module_page_site as $module_page) {
 				if ($module_page['func'] == CURRENT_MODULE_PAGE) {
-					$page_title = $module_page['title'].' &middot; '.$page_title;
+					$page_title = $page_title.' &middot; '.$module_page['title'];
 					break;
 				}
 			}
@@ -189,14 +189,49 @@ function theme_content() {
 	//Get needed variables
 	global $lang;
 
-	//Get the contents only if we are looking at a normal page
+	//Get the contents only if we are looking at a normal page.
 	if (defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_MODULE_DIR')) {
 		//Check if page exists
 		if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
 			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
 			run_hook('theme_content_before');
 			run_hook('theme_content', array(&$content));
-			echo $content;
+
+			//Check for module tags in content
+			$regex = '/\{pluck (.*?)\}/';
+			if (preg_match($regex, $content)) {
+				//Split content in chunks.
+				$content = preg_split($regex, $content, null, PREG_SPLIT_DELIM_CAPTURE);
+				foreach ($content as $value) {
+					//Check if chunk is a show_module command
+					if (preg_match('/show_module\((.*?)\)/', $value, $matches)) {
+						$module_to_include = $matches[1];
+						unset ($matches);
+
+						//Check if we need to pass a variable to the module.
+						if (strpos($module_to_include, ',')) {
+							$module_to_include = explode(',', $module_to_include);
+							if (module_is_compatible($module_to_include[0]) && function_exists($module_to_include[0].'_theme_main'))
+								call_user_func_array($module_to_include[0].'_theme_main', array(&$module_to_include[1]));
+							unset($module_to_include);
+						}
+						//If we don't need to pass a variable, include module in regular way.
+						else {
+							//Check if module is compatible, and the function exists.
+							if (module_is_compatible($module_to_include) && function_exists($module_to_include.'_theme_main'))
+								call_user_func($module_to_include.'_theme_main');
+							unset($module_to_include);
+						}
+					}
+					//If chunk is not any module command, just display it.
+					else
+						echo $value;
+				}
+			}
+			//No module tags? Display content without any change.
+			else
+				echo $content;
+
 			run_hook('theme_content_after');
 		}
 
@@ -204,31 +239,9 @@ function theme_content() {
 		else
 			echo $lang['general']['not_found'];
 	}
-}
 
-//[THEME] FUNCTION TO INCLUDE MODULES
-//---------------------------------
-function theme_area($place) {
-	//If mainspace: include the page-specific modules.
-	if ($place == 'main') {
-		if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME) && !defined('CURRENT_MODULE_DIR')) {
-			//Include page-information.
-			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
-			//First, check if we want to include any modules.
-			if (isset($module_pageinc)) {
-				//Let's make sure that the modules are dislayed in the right order.
-				natcasesort($module_pageinc);
-				foreach ($module_pageinc as $module_to_include => $order) {
-					//Check if module is compatible, and the function exists.
-					if (module_is_compatible($module_to_include) && function_exists($module_to_include.'_theme_main'))
-							call_user_func($module_to_include.'_theme_main');
-				}
-				unset($module_to_include);
-			}
-		}
-
-		//If we are looking at a module page.
-		if (defined('CURRENT_MODULE_DIR')) {
+	//If we are looking at a module page, call the module function.
+	elseif (defined('CURRENT_PAGE_SEONAME') && defined('CURRENT_MODULE_DIR')) {
 			$module_page_site = call_user_func(CURRENT_MODULE_DIR.'_pages_site');
 			foreach ($module_page_site as $module_page) {
 				if ($module_page['func'] == CURRENT_MODULE_PAGE)
@@ -236,8 +249,11 @@ function theme_area($place) {
 			}
 			unset($module_page);
 		}
-	}
+}
 
+//[THEME] FUNCTION TO INCLUDE SITE-WIDE MODULES
+//---------------------------------
+function theme_area($place) {
 	//Include info of theme (to see which modules we should include etc), but only if file exists.
 	if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php') && !defined('CURRENT_MODULE_DIR')) {
 		include ('data/settings/themes/'.THEME.'/moduleconf.php');

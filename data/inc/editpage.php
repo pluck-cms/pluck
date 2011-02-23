@@ -15,25 +15,36 @@
 //Make sure the file isn't accessed directly.
 defined('IN_PLUCK') or exit('Access denied!');
 
+//Include page information, if we're editing a page.
+if (isset($_GET['page']) && file_exists('data/settings/pages/'.get_page_filename($_GET['page'])))
+	require_once ('data/settings/pages/'.get_page_filename($_GET['page']));
+
 //If form is posted...
 if (isset($_POST['save']) || isset($_POST['save_exit'])) {
-	if (!isset($cont4))
-		$cont4 = 'yes';
-	if (empty($description))
-		$description = '';
-	if (empty($keywords))
-		$keywords = '';
+	if (!isset($_POST['hidden']))
+		$_POST['hidden'] = 'yes';
 
 	//Save the page, but only if a title has been entered.
-	if (!empty($cont1))
-		$seoname = save_page($cont1, $cont2, $cont4, $cont5, $description, $keywords, $cont3, $var1);
+	if (!empty($_POST['title'])) {
+		//If we are editing an existing page, also save description, keywords and pass current seo-name.
+		if (isset($_GET['page'])) {
+			if (!isset($description))
+				$description = false;
+			if (!isset($keywords))
+				$keywords = false;
+			$seoname = save_page($_POST['title'], $_POST['content'], $_POST['hidden'], $_POST['sub_page'], $description, $keywords, $_GET['page']);
+		}
+		//If we are creating a new page, save without those variables.
+		else
+			$seoname = save_page($_POST['title'], $_POST['content'], $_POST['hidden'], $_POST['sub_page']);
+	}
 	//If no title has been chosen, set error.
 	else
 		$error = show_error($lang['page']['no_title'], 1, true);
 
 	//Redirect to the new title only if it is a plain save.
 	if (isset($_POST['save']) && !isset($error)) {
-		redirect('?action=editpage&var1='.$seoname, 0);
+		redirect('?action=editpage&page='.$seoname, 0);
 		include_once ('data/inc/footer.php');
 		exit;
 	}
@@ -45,24 +56,13 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 		exit;
 	}
 }
-
-//Include page information.
-require_once ('data/settings/pages/'.get_page_filename($var1));
-
-//Load module functions.
-foreach ($module_list as $module) {
-	if (file_exists('data/modules/'.$module.'/'.$module.'.site.php'))
-		require_once ('data/modules/'.$module.'/'.$module.'.site.php');
-}
-unset($module);
-
-//Generate the menu on the right.
 ?>
 <div class="rightmenu">
 <p><?php echo $lang['page']['items']; ?></p>
 <?php
-	read_pagesinpages();
-	read_imagesinpages('images');
+	show_module_insert_box();
+	show_link_insert_box();
+	show_image_insert_box('images');
 ?>
 </div>
 <?php
@@ -71,75 +71,26 @@ if (isset($error))
 ?>
 <form name="page_form" method="post" action="">
 	<p>
-		<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
-		<input name="cont1" id="cont1" type="text" value="<?php echo $title; ?>" />
+		<label class="kop2" for="title"><?php echo $lang['general']['title']; ?></label>
+		<input name="title" id="title" type="text" value="<?php if (isset($_GET['page'])) echo $title; ?>" />
 	</p>
-	<label class="kop2" for="cont2"><?php echo $lang['general']['contents']; ?></label>
-	<textarea class="tinymce" name="cont2" id="cont2" cols="70" rows="20"><?php echo htmlspecialchars($content) ?></textarea>
-	<div class="menudiv" style="width: 588px; margin-<?php if (DIRECTION_RTL) echo 'right'; else echo 'left'; ?>: 0;">
-		<p class="kop2"><?php echo $lang['modules']['title']; ?></p>
-		<p class="kop4" style="margin-bottom: 5px;"><?php echo $lang['page']['modules']; ?></p>
-		<table>
-		<?php
-			//First count how many modules we have, and exclude disabled modules.
-			$number_modules = count($module_list);
-			foreach ($module_list as $module) {
-				if (!module_is_compatible($module) || !function_exists($module.'_theme_main'))
-					$number_modules--;
-			}
-			unset($module);
+	<label class="kop2" for="content-form"><?php echo $lang['general']['contents']; ?></label>
+	<textarea class="tinymce" name="content" id="content-form" cols="70" rows="20"><?php if (isset($_GET['page'])) echo htmlspecialchars($content); ?></textarea>
 
-			//Loop through modules, and display them.
-			foreach ($module_list as $module) {
-				//Only show if module is compatible.
-				if (module_is_compatible($module) && function_exists($module.'_theme_main')) {
-					$module_info = call_user_func($module.'_info');
-					?>
-						<tr>
-							<td><?php echo $module_info['name']; ?></td>
-							<td>
-								<select name="cont3[<?php echo $module; ?>]">
-									<option value="0"><?php echo $lang['general']['dont_display']; ?></option>
-									<?php
-										$counting_modules = 1;
-										while ($counting_modules <= $number_modules) {
-											//Check if this is the current setting.
-											//...and select the html-option if needed
-											if (isset($module_pageinc[$module]) && $module_pageinc[$module] == $counting_modules) {
-											?>
-												<option value="<?php echo $counting_modules; ?>" selected="selected"><?php echo $counting_modules; ?></option>
-											<?php
-											}
-
-											//...if this is no the current setting, don't select the html-option.
-											else {
-											?>
-												<option value="<?php echo $counting_modules; ?>"><?php echo $counting_modules; ?></option>
-											<?php
-											}
-
-											//Higher counting_modules.
-											$counting_modules++;
-										}
-									?>
-								</select>
-							</td>
-						</tr>
-					<?php
-				}
-			}
-			unset($module);
-		?>
-		</table>
-	</div>
 	<div class="menudiv" style="width: 588px; margin-<?php if (DIRECTION_RTL) echo 'right'; else echo 'left'; ?>: 0;">
 		<p class="kop2"><?php echo $lang['general']['other_options']; ?></p>
 		<p class="kop4" style="margin-bottom: 5px;"><?php echo $lang['page']['options']; ?></p>
-		<input type="checkbox" name="cont4" id="cont4" <?php if ($hidden == 'no') echo'checked="checked"'; ?> value="no" />
-		<label for="cont4"><?php echo $lang['page']['in_menu']; ?></label>
-		<br />
-		<label for="cont5"><?php echo $lang['page']['sub_page']; ?></label>
-		<?php show_subpage_select('cont5', $var1); ?>
+
+		<input type="checkbox" name="hidden" id="hidden" <?php if (!isset($_GET['page']) || $hidden == 'no') echo'checked="checked"'; ?> value="no" />
+		<label for="hidden"><?php echo $lang['page']['in_menu']; ?></label><br />
+
+		<label for="sub_page"><?php echo $lang['page']['sub_page']; ?></label>
+		<?php
+		if (isset($_GET['page']))
+			show_subpage_select('sub_page', $_GET['page']);
+		else
+			show_subpage_select('sub_page');
+		?>
 	</div>
 	<?php show_common_submits('?action=page', true); ?>
 </form>

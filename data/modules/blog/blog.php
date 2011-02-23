@@ -15,6 +15,8 @@
 //Make sure the file isn't accessed directly.
 defined('IN_PLUCK') or exit('Access denied!');
 
+require_once ('data/modules/blog/functions.php');
+
 function blog_info() {
 	global $lang;
 	return array(
@@ -24,7 +26,8 @@ function blog_info() {
 		'author'        => 'pluck development team',
 		'website'       => 'http://www.pluck-cms.org',
 		'icon'          => 'images/blog.png',
-		'compatibility' => '4.7'
+		'compatibility' => '4.7',
+		'categories'    => blog_get_categories()
 	);
 }
 
@@ -34,8 +37,6 @@ function blog_settings_default() {
 		'truncate_posts'  => '500'
 	);
 }
-
-/* <?php if ($xhtmlruleset == 'true') echo 'checked="checked"'; ?> */
 
 function blog_admin_module_settings_beforepost() {
 	global $lang;

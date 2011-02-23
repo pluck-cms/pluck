@@ -33,9 +33,9 @@ function read_lang_files($not_this_file) {
 	}
 }
 
-//Function: read out the images to let them include in pages
+//Function: show box for inserting images in pages
 //------------
-function read_imagesinpages($dir) {
+function show_image_insert_box($dir) {
 	global $lang;
 
 	$images = read_dir_contents($dir, 'files');
@@ -57,16 +57,57 @@ function read_imagesinpages($dir) {
 					?>
 				</select>
 				<br />
-				<a href="#" onclick="insert_image_link('<?php echo $dir; ?>');return false;"><?php echo $lang['general']['insert']; ?></a>
+				<a href="#" onclick="insert_image_link('<?php echo $dir; ?>');return false;"><?php echo $lang['general']['insert_image']; ?></a>
 			</span>
 		</div>
 	<?php
 	}
 }
 
-//Function: read out the pages to let them be included in pages as link
+
+//Function: show box for inserting modules in pages
 //------------
-function read_pagesinpages() {
+function show_module_insert_box() {
+	global $lang, $module_list;
+
+	//Load module info and site-functions.
+	foreach ($module_list as $module) {
+	if (file_exists('data/modules/'.$module.'/'.$module.'.site.php'))
+		require_once ('data/modules/'.$module.'/'.$module.'.site.php');
+	}
+	unset($module);
+	?>
+	<div class="menudiv">
+		<span>
+			<img src="data/image/modules.png" alt="" />
+		</span>
+		<span>
+			<select id="insert_modules">
+				<?php
+				foreach ($module_list as $module) {
+					if (module_is_compatible($module) && function_exists($module.'_theme_main')) {
+						echo '<option value="'.$module.'">'.$module.'</option>';
+						//Check if we need to display categories for the module
+						$module_info = call_user_func($module.'_info');
+						if (isset($module_info['categories'])) {
+							foreach ($module_info['categories'] as $category)
+								echo '<option value="'.$module.','.$category['title'].'">&emsp;'.$category['title'].'</option>';
+						}
+					}
+				}
+				?>
+			</select>
+			<br />
+			<a href="#" onclick="insert_module();return false;"><?php echo $lang['general']['insert_module']; ?></a>
+		</span>
+	</div>
+	<?php
+}
+
+
+//Function: show box for inserting links in pages
+//------------
+function show_link_insert_box() {
 	global $lang;
 
 	$files = get_pages();
@@ -149,14 +190,9 @@ function show_page_box($file) {
 				<img src="data/image/page.png" alt="" />
 			</span>
 			<span class="title-page"><?php echo $title; ?></span>
-			<?php run_hook('admin_page_list_before'); ?>
+			<?php run_hook('admin_page_list_before', array(&$file)); ?>
 			<span>
-				<a href="index.php?file=<?php echo $file; ?>" target="_blank">
-					<img src="data/image/website.png" title="<?php echo $lang['page']['view']; ?>" alt="<?php echo $lang['page']['view']; ?>" />
-				</a>
-			</span>
-			<span>
-				<a href="?action=editpage&amp;var1=<?php echo $file; ?>">
+				<a href="?action=editpage&amp;page=<?php echo $file; ?>">
 					<img src="data/image/edit.png" title="<?php echo $lang['page']['edit']; ?>" alt="<?php echo $lang['page']['edit']; ?>" />
 				</a>
 			</span>
@@ -366,10 +402,9 @@ function save_theme($theme) {
  * @param string $subpage The sub-page.
  * @param string $description The description.
  * @param string $keywords The keywords.
- * @param array  $modules If there are any modules on the page.
  * @param string $current_seoname If we want to edit a page.
  */
-function save_page($title, $content, $hidden, $subpage, $description = null, $keywords = null, $modules = null, $current_seoname = null) {
+function save_page($title, $content, $hidden, $subpage, $description = null, $keywords = null, $current_seoname = null) {
 	//Run a few hooks.
 	run_hook('admin_save_page', array(&$title, &$content));
 	run_hook('admin_save_page_meta', array(&$description, &$keywords));
@@ -471,16 +506,6 @@ function save_page($title, $content, $hidden, $subpage, $description = null, $ke
 		$data .= "\n".'$description = \''.$description.'\';';
 	if ($keywords != null)
 		$data .= "\n".'$keywords = \''.$keywords.'\';';
-
-	//Check if there are modules we want to save.
-	if (is_array($modules)) {
-		foreach ($modules as $modulename => $order) {
-			//Only save it if we want to display the module.
-			if ($order != 0)
-				$data .= "\n".'$module_pageinc[\''.$modulename.'\'] = '.$order.';';
-		}
-		unset($modulename);
-	}
 
 	$data .= "\n".'?>';
 

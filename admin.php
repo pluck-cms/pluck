@@ -77,11 +77,14 @@ else {
 				include_once ('data/inc/page.php');
 				break;
 
-			//Page:New Page
-			case 'newpage':
-				$titelkop = $lang['page']['new'];
+			//Page:Editpage
+			case 'editpage':
+				if (isset($_GET['page']))
+					$titelkop = $lang['page']['edit'];
+				else
+					$titelkop = $lang['page']['new'];
 				include_once ('data/inc/header.php');
-				include_once ('data/inc/newpage.php');
+				include_once ('data/inc/editpage.php');
 				break;
 
 			//Page:Manage Images
@@ -248,13 +251,6 @@ else {
 				$titelkop = $lang['editmeta']['title'];
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/page_editmeta.php');
-				break;
-
-			//Page:Editpage
-			case 'editpage':
-				$titelkop = $lang['page']['edit'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/editpage.php');
 				break;
 
 			//Page:Pageup

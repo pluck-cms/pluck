@@ -18,7 +18,7 @@
 defined('IN_PLUCK') or exit('Access denied!');
 
 //Error reporting.
-error_reporting(E_ALL|E_STRICT);
+error_reporting(E_ALL|E_STRICT|E_NOTICE);
 
 //Set default timezone.
 date_default_timezone_set('UTC');
