@@ -409,12 +409,6 @@ function save_page($title, $content, $hidden, $subpage, $description = null, $ke
 	run_hook('admin_save_page', array(&$title, &$content));
 	run_hook('admin_save_page_meta', array(&$description, &$keywords));
 
-	//Sanitize the inputs.
-	$title = sanitize($title);
-	$content = sanitize($content, false);
-	$description = sanitize($description);
-	$keywords = sanitize($keywords);
-
 	//Do we want to create a new page?
 	if (!isset($current_seoname)) {
 		//Check if a page already exists with the name.
@@ -497,15 +491,15 @@ function save_page($title, $content, $hidden, $subpage, $description = null, $ke
 
 	//Save the title, content and hidden status.
 	$data = '<?php'."\n"
-	.'$title = \''.$title.'\';'."\n"
-	.'$content = \''.$content.'\';'."\n"
+	.'$title = \''.sanitize($title).'\';'."\n"
+	.'$content = \''.sanitize($content, false).'\';'."\n"
 	.'$hidden = \''.$hidden.'\';';
 
 	//Save the description and keywords, if any.
 	if ($description != null)
-		$data .= "\n".'$description = \''.$description.'\';';
+		$data .= "\n".'$description = \''.sanitize($description).'\';';
 	if ($keywords != null)
-		$data .= "\n".'$keywords = \''.$keywords.'\';';
+		$data .= "\n".'$keywords = \''.sanitize($keywords).'\';';
 
 	$data .= "\n".'?>';
 

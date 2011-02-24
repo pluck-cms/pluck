@@ -56,11 +56,11 @@ else {
 		$pass = hash('sha512', $cont1);
 
 		//Create hash from user-IP, for brute-force protection.
-		$loginattempt_file = 'data/settings/loginattempt_'.hash('sha512', $_SERVER['REMOTE_ADDR']).'.php';
+		define('LOGIN_ATTEMPT_FILE', 'data/settings/loginattempt_'.hash('sha512', $_SERVER['REMOTE_ADDR']).'.php');
 
 		//Check if user has tried to login before.
-		if (file_exists($loginattempt_file)) {
-			require($loginattempt_file);
+		if (file_exists(LOGIN_ATTEMPT_FILE)) {
+			require(LOGIN_ATTEMPT_FILE);
 			//Determine the amount of seconds that a user will be blocked (300 = 5 minutes).
 			$timestamp = $timestamp + 300;
 
@@ -71,7 +71,7 @@ else {
 					$login_error = show_error($lang['login']['too_many_attempts'], 1, true);
 				//If time has exceeded, unblock user.
 				else
-					unlink($loginattempt_file);
+					unlink(LOGIN_ATTEMPT_FILE);
 			}
 		}
 
@@ -80,8 +80,8 @@ else {
 			$_SESSION[$token] = 'pluck_loggedin';
 
 			//Delete loginattempt file, if it exists.
-			if (file_exists($loginattempt_file))
-				unlink($loginattempt_file);
+			if (file_exists(LOGIN_ATTEMPT_FILE))
+				unlink(LOGIN_ATTEMPT_FILE);
 
 			//Display success message.
 			show_error($lang['login']['correct'], 3);
@@ -98,13 +98,13 @@ else {
 			$login_error = show_error($lang['login']['incorrect'], 1, true);
 
 			//If a loginattempt file already exists, update tries variable.
-			if (file_exists($loginattempt_file))
+			if (file_exists(LOGIN_ATTEMPT_FILE))
 				$tries++;
 			else
 				$tries = 1;
 
 			//Get current timestamp and save file.
-			save_file ($loginattempt_file, array('tries' => $tries, 'timestamp' => time()));
+			save_file (LOGIN_ATTEMPT_FILE, array('tries' => $tries, 'timestamp' => time()));
 		}
 	}
 	?>

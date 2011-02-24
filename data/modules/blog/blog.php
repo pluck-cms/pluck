@@ -40,17 +40,15 @@ function blog_settings_default() {
 
 function blog_admin_module_settings_beforepost() {
 	global $lang;
-	echo '<table>
-			<tr>
-				<td><span class="kop2">'.$lang['blog']['title'].'</span></td>
-			</tr>
+	echo '<span class="kop2">'.$lang['blog']['title'].'</span>
+		<table>
 			<tr>
 				<td><input type="checkbox" name="allow_reactions" id="allow_reactions" value="true" '; if (module_get_setting('blog','allow_reactions') == 'true') { echo 'checked="checked" '; } echo '/></td>
-				<td><label for="allow_reactions">&nbsp;'.$lang['blog']['allow_reactions'].'</label></td>
+				<td><label for="allow_reactions">&emsp;'.$lang['blog']['allow_reactions'].'</label></td>
 			</tr>
 			<tr>
 				<td><input name="truncate_posts" id="truncate_posts" type="text" size="2" value="'.module_get_setting('blog','truncate_posts').'" /></td>
-				<td><label for="truncate_posts">&nbsp;'.$lang['blog']['truncate_posts'].'</label></td>
+				<td><label for="truncate_posts">&emsp;'.$lang['blog']['truncate_posts'].'</label></td>
 			</tr>
 	</table><br />';
 }

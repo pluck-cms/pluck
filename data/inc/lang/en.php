@@ -274,6 +274,9 @@ $lang['albums']['change_order']   = 'change image order';
 $lang['albums']['already_top']    = 'This image already is on the top, so its rank can\'t be changed.';
 $lang['albums']['already_last']   = 'This image already is the last one, so its rank can\'t be changed.';
 $lang['albums']['delete_image']   = 'delete image';
+$lang['albums']['image_width']    = 'The width in pixels the images will be resized to. Choose 0 to disable automatic resizing.';
+$lang['albums']['thumb_width']    = 'The width in pixels the thumbnails will be resized to. Cannot be disabled.';
+$lang['albums']['settings_error'] = 'The width of the resized images should be numeric.';
 
 //Blog.
 $lang['blog']['title']                  = 'blog';

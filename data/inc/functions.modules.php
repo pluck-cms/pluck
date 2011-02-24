@@ -152,7 +152,7 @@ function module_insert_after($array, $data, $subject) {
 function module_save_settings($module, $settings) {
 	if(module_is_compatible($module)) {
 		foreach ($settings as $setting => $value) {
-			$value = sanitize($value);
+			$settings[$setting] = sanitize($value);
 		}
 		save_file('data/settings/'.$module.'.settings.php', $settings);
 	}
@@ -180,7 +180,7 @@ function module_get_setting($module, $setting) {
 			return $$setting;
 		}
 		else
-			show_error('Module setting '.$setting.' does not exist in module '.$module, 1);
+			show_error('Module setting '.$setting.' does not exist in module '.$module.'.', 1);
 	}
 }
 ?>

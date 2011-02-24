@@ -7,8 +7,8 @@ require_once 'data/modules/albums/functions.php';
 function albums_pages_site() {
 	global $lang;
 
-	if (file_exists('data/settings/modules/albums/'.$_GET['album'].'.php')) {
-		include('data/settings/modules/albums/'.$_GET['album'].'.php');
+	if (file_exists(ALBUMS_DIR.'/'.$_GET['album'].'.php')) {
+		include(ALBUMS_DIR.'/'.$_GET['album'].'.php');
 		$module_page_site[] = array(
 			'func'  => 'viewalbum',
 			'title' => $album_name
@@ -26,17 +26,17 @@ function albums_pages_site() {
 function albums_theme_main($category = 'all') {
 	//Only show category listing if category = all
 	if($category == 'all') {
-		//Don't show something that isn't there.
-		if (count(glob('data/settings/modules/albums/*/*')) > 1) {
+		$albums = albums_get_albums();
+		if ($albums != FALSE) {
 			//Open the module-folder
-			$albums = read_dir_contents('data/settings/modules/albums', 'dirs');
+			$albums = read_dir_contents(ALBUMS_DIR, 'dirs');
 
 			//Loop through dirs.
 			foreach ($albums as $album) {
-				include ('data/settings/modules/albums/'.$album.'.php');
+				include (ALBUMS_DIR.'/'.$album.'.php');
 
 				//Find the first image.
-				$files = read_dir_contents('data/settings/modules/albums/'.$album, 'files');
+				$files = read_dir_contents(ALBUMS_DIR.'/'.$album, 'files');
 				//Only display album if it contains images.
 				if (!empty($files)) {
 					natcasesort($files);
@@ -81,8 +81,8 @@ function albums_theme_meta() {
 	//Only insert LyteBox when we're viewing an album
 	if ((defined('CURRENT_MODULE_DIR') && CURRENT_MODULE_DIR == 'albums') || (defined('CURRENT_PAGE_SEONAME') && module_is_included_in_page('albums', CURRENT_PAGE_SEONAME))) {
 	?>
-		<script type="text/javascript" src="data/inc/lib/lytebox/lytebox.js"></script>
-		<link rel="stylesheet" href="data/inc/lib/lytebox/lytebox.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="data/modules/albums/lib/lytebox/lytebox.js"></script>
+		<link rel="stylesheet" href="data/modules/albums/lib/lytebox/lytebox.css" type="text/css" media="screen" />
 	<?php
 	}
 }

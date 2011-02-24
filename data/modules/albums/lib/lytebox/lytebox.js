@@ -27,7 +27,7 @@ String.prototype.trim = function () { return this.replace(/^\s+|\s+$/g, ''); }
 
 function LyteBox() {
 	/*** Start Global Configuration ***/
-		this.theme				= 'grey';	// themes: grey (default), red, green, blue, gold
+		this.theme			= 'grey';	// themes: grey (default), red, green, blue, gold
 		this.hideFlash			= true;		// controls whether or not Flash objects should be hidden
 		this.outerBorder		= true;		// controls whether to show the outer grey (or theme) border
 		this.resizeSpeed		= 2;		// controls the speed of the image resizing (1=slowest and 10=fastest)

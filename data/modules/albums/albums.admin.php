@@ -8,16 +8,6 @@ require_once 'data/inc/lib/SmartImage.class.php';
 function albums_pages_admin() {
 	global $lang, $var1, $var2;
 
-	if (isset($var1))
-		include (ALBUMS_DIR.'/'.$var1.'.php');
-	else
-		$album_name = '';
-
-	if (isset($var2))
-		include (ALBUMS_DIR.'/'.$var1.'/'.albums_get_php_filename($var1, $var2));
-	else
-		$name = '';
-
 	$module_page_admin[] = array(
 		'func'  => 'albums',
 		'title' => $lang['albums']['title']
@@ -57,7 +47,7 @@ function albums_page_admin_albums() {
 		</p>
 		<span class="kop2"><?php echo $lang['albums']['edit_albums']; ?></span>
 		<?php
-		read_albums(ALBUMS_DIR);
+		albums_admin_show_albums(ALBUMS_DIR);
 		?>
 			<br /><br />
 			<label class="kop2" for="cont1"><?php echo $lang['albums']['new_album']; ?></label>
@@ -73,9 +63,10 @@ function albums_page_admin_albums() {
 				show_error($lang['albums']['name_exist'], 1);
 
 			elseif (!empty($cont1)) {
-				//The pretty album name.
-				$cont1 = sanitize($cont1);
-
+				//Sanitize album name and list it in array for saving.
+				$album_name = sanitize($cont1);
+				$data['album_name'] = $album_name;
+				
 				//Make the album url safe to use.
 				$cont1 = seo_url($cont1);
 
@@ -84,8 +75,6 @@ function albums_page_admin_albums() {
 				chmod(ALBUMS_DIR.'/'.$cont1, 0777);
 				mkdir(ALBUMS_DIR.'/'.$cont1.'/thumb');
 				chmod(ALBUMS_DIR.'/'.$cont1.'/thumb', 0777);
-
-				$data['album_name'] = $album_name;
 
 				//Create album file.
 				save_file(ALBUMS_DIR.'/'.$cont1.'.php', $data);
@@ -108,17 +97,17 @@ function albums_page_admin_editalbum() {
 		//If file is jpeg, pjpeg, png or gif: Accept.
 		if (in_array($_FILES['imagefile']['type'], array('image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'))) {
 			//Define some variables
-			list($imageze, $ext) = explode('.', $_FILES['imagefile']['name']);
-			$imageze = seo_url($imageze);
-			$fullimage = ALBUMS_DIR.'/'.$var1.'/'.$imageze.'.'.strtolower($ext);
-			$thumbimage = ALBUMS_DIR.'/'.$var1.'/thumb/'.$imageze.'.'.strtolower($ext);
+			list($image_filename, $ext) = explode('.', $_FILES['imagefile']['name']);
+			$image_filename = seo_url($image_filename);
+			$fullimage = ALBUMS_DIR.'/'.$var1.'/'.$image_filename.'.'.strtolower($ext);
+			$thumbimage = ALBUMS_DIR.'/'.$var1.'/thumb/'.$image_filename.'.'.strtolower($ext);
 
 			//Check if the image name already exists.
 			$images = read_dir_contents(ALBUMS_DIR.'/'.$var1.'/thumb', 'files');
 			if ($images) {
 				foreach ($images as $image) {
 					$parts = explode('.', $image);
-					if ($parts[0] == $imageze) {
+					if ($parts[0] == $image_filename) {
 						$name_exist = true;
 						break;
 					}
@@ -130,47 +119,51 @@ function albums_page_admin_editalbum() {
 				$error = show_error($lang['albums']['image_exist'], 1, true);
 				
 			//If we somehow can't copy the image, show an error.
-			elseif (!copy($_FILES['imagefile']['tmp_name'], $fullimage) || !copy ($_FILES['imagefile']['tmp_name'], $thumbimage))
+			elseif (!copy($_FILES['imagefile']['tmp_name'], $fullimage) || !copy($_FILES['imagefile']['tmp_name'], $thumbimage))
 				$error = show_error($lang['general']['upload_failed'], 1, true);
 
 			else {
 				//Compress the big image.
-				$image_width = 640;
+				$image_width = module_get_setting('albums','resize_image_width');
 				$image = new SmartImage($fullimage);
-				list($width, $height) = getimagesize($fullimage);
-				$imgratio = $width / $height;
-
-				if ($imgratio > 1) {
-					$newwidth = $image_width;
-					$newheight = $image_width / $imgratio;
+				//Only resize if resize_image_width is not disabled (or set to 1, which would produce errors).
+				if ($image_width != '0' && $image_width != '1') {
+					list($width, $height) = getimagesize($fullimage);
+					$imgratio = $width / $height;
+					if ($imgratio > 1) {
+						$newwidth = $image_width;
+						$newheight = $image_width / $imgratio;
+					}
+					else {
+						$newheight = $image_width;
+						$newwidth = $image_width * $imgratio;
+					}
+					$image->resize($newwidth, $newheight);
 				}
-
-				else {
-					$newheight = $image_width;
-					$newwidth = $image_width * $imgratio;
-				}
-
-				$image->resize($newwidth, $newheight);
 				$image->saveImage($fullimage, $cont3);
 				$image->close();
 				chmod($fullimage, 0777);
 
 				//Then make a thumb from the image.
-				$thumb_width = 200;
+				$thumb_width = module_get_setting('albums','resize_thumb_width');
+				//If resize_thumb_width is set to 0 or 1, we need to grab the default width (otherwise it would produce errors).
+				if ($thumb_width == '0' || $thumb_width == '1') {
+					$albums_default_settings = albums_settings_default();
+					$thumb_width = $albums_default_settings['resize_thumb_width'];
+				}
+
+				//Resize thumb.
 				$thumb = new SmartImage($thumbimage);
 				list($width, $height) = getimagesize($thumbimage);
 				$imgratio = $width / $height;
-
 				if ($imgratio > 1) {
 					$newwidth = $thumb_width;
 					$newheight = $thumb_width / $imgratio;
 				}
-
 				else {
 					$newheight = $thumb_width;
 					$newwidth = $thumb_width * $imgratio;
 				}
-
 				$thumb->resize($newwidth, $newheight);
 				$thumb->saveImage($thumbimage, $cont3);
 				$thumb->close();
@@ -194,7 +187,7 @@ function albums_page_admin_editalbum() {
 				$data['info'] = $cont2;
 
 				//Then save the image information.
-				save_file(ALBUMS_DIR.'/'.$var1.'/'.$number.'.'.$imageze.'.'.$ext.'.php', $data);
+				save_file(ALBUMS_DIR.'/'.$var1.'/'.$number.'.'.$image_filename.'.'.$ext.'.php', $data);
 			}
 		}
 
@@ -242,7 +235,7 @@ function albums_page_admin_editalbum() {
 		?>
 		<span class="kop2"><?php echo $lang['albums']['edit_images']; ?></span>
 		<?php
-		albums_admin_show_images(ALBUMS_DIR.'/'.$var1);
+		albums_admin_show_images($var1);
 	}
 	?>
 		<br />
@@ -268,9 +261,9 @@ function albums_page_admin_editimage() {
 	global $cont1, $cont2, $lang, $var1, $var2;
 
 	//Check if an image was defined, and if the image exists.
-	if (isset($var2) && file_exists('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2))) {
+	if (isset($var2) && file_exists(ALBUMS_DIR.'/'.$var1.'/'.albums_get_php_filename($var1, $var2))) {
 		//Include the image-information.
-		include ('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2));
+		include (ALBUMS_DIR.'/'.$var1.'/'.albums_get_php_filename($var1, $var2));
 		?>
 		<form name="form1" method="post" action="">
 			<p>
@@ -306,16 +299,16 @@ function albums_page_admin_deleteimage() {
 	global $var1, $var2;
 
 	//Check if an image was defined, and if the image exists.
-	if (isset($var1, $var2) && file_exists('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2))) {
+	if (isset($var1, $var2) && file_exists(ALBUMS_DIR.'/'.$var1.'/'.albums_get_php_filename($var1, $var2))) {
 		//Find the extension of the image before we delete anything.
 		$parts =  explode('.', albums_get_php_filename($var1, $var2));
 
 		//First, delete the php file.
-		unlink('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2));
+		unlink(ALBUMS_DIR.'/'.$var1.'/'.albums_get_php_filename($var1, $var2));
 
 		//And then delete the image and the thumb.
-		unlink('data/settings/modules/albums/'.$var1.'/'.$parts[1].'.'.$parts[2]);
-		unlink('data/settings/modules/albums/'.$var1.'/thumb/'.$parts[1].'.'.$parts[2]);
+		unlink(ALBUMS_DIR.'/'.$var1.'/'.$parts[1].'.'.$parts[2]);
+		unlink(ALBUMS_DIR.'/'.$var1.'/thumb/'.$parts[1].'.'.$parts[2]);
 
 		//Finally, reorder the images.
 		albums_reorder_images($var1);
@@ -328,7 +321,7 @@ function albums_page_admin_imageup() {
 global $lang, $var1, $var2;
 
 //Check if images exist.
-if (isset($var1, $var2) && file_exists('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2))) {
+if (isset($var1, $var2) && file_exists(ALBUMS_DIR.'/'.$var1.'/'.albums_get_php_filename($var1, $var2))) {
 	$current_parts =  explode('.', albums_get_php_filename($var1, $var2));
 
 	//We can't higher the first image, so we have to check.
@@ -371,7 +364,7 @@ function albums_page_admin_imagedown() {
 	global $lang, $var1, $var2;
 
 	//Check if images exist.
-	if (isset($var1, $var2) && file_exists('data/settings/modules/albums/'.$var1.'/'.albums_get_php_filename($var1, $var2))) {
+	if (isset($var1, $var2) && file_exists(ALBUMS_DIR.'/'.$var1.'/'.albums_get_php_filename($var1, $var2))) {
 		$current_parts =  explode('.', albums_get_php_filename($var1, $var2));
 
 		$files = read_dir_contents(ALBUMS_DIR.'/'.$var1, 'files');
