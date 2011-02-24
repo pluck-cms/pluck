@@ -22,7 +22,7 @@ function blog_info() {
 	return array(
 		'name'          => $lang['blog']['title'],
 		'intro'         => $lang['blog']['descr'],
-		'version'       => '0.1',
+		'version'       => '0.2',
 		'author'        => $lang['general']['pluck_dev_team'],
 		'website'       => 'http://www.pluck-cms.org',
 		'icon'          => 'images/blog.png',
@@ -34,7 +34,8 @@ function blog_info() {
 function blog_settings_default() {
 	return array(
 		'allow_reactions'  => true,
-		'truncate_posts'  => '500'
+		'truncate_posts'  => '500',
+		'posts_per_page'  => '15'
 	);
 }
 
@@ -50,6 +51,10 @@ function blog_admin_module_settings_beforepost() {
 				<td><input name="truncate_posts" id="truncate_posts" type="text" size="2" value="'.module_get_setting('blog','truncate_posts').'" /></td>
 				<td><label for="truncate_posts">&emsp;'.$lang['blog']['truncate_posts'].'</label></td>
 			</tr>
+			<tr>
+				<td><input name="posts_per_page" id="posts_per_page" type="text" size="2" value="'.module_get_setting('blog','posts_per_page').'" /></td>
+				<td><label for="posts_per_page">&emsp;'.$lang['blog']['posts_per_page'].'</label></td>
+			</tr>
 	</table><br />';
 }
 
@@ -57,15 +62,18 @@ function blog_admin_module_settings_afterpost() {
 	global $lang;
 
 	//truncate_posts should be numeric.
-	if (!is_numeric($_POST['truncate_posts'])) {
-		return show_error($lang['blog']['truncate_error'], 1, true);
-	}
+	if (!is_numeric($_POST['truncate_posts']) || !is_numeric($_POST['posts_per_page']))
+		return show_error($lang['blog']['numeric_error'], 1, true);
+
+	if (empty($_POST['posts_per_page']))
+		return show_error($lang['blog']['posts_per_page_error'], 1, true);
 
 	else {
 		//Compose settings array
 		$settings = array(
 			'allow_reactions'  => $_POST['allow_reactions'],
-			'truncate_posts'  => $_POST['truncate_posts']
+			'truncate_posts'  => $_POST['truncate_posts'],
+			'posts_per_page'  => $_POST['posts_per_page']
 		);
 		//Save settings
 		module_save_settings('blog', $settings);

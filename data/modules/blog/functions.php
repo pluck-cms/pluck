@@ -178,7 +178,8 @@ function blog_get_reactions($post) {
 	$files = read_dir_contents(BLOG_POSTS_DIR.'/'.$post, 'files');
 
 	if ($files) {
-		asort($files);
+		natcasesort($files);
+		$files = array_reverse($files);
 
 		foreach ($files as $reaction) {
 			include BLOG_POSTS_DIR.'/'.$post.'/'.$reaction;
@@ -199,7 +200,7 @@ function blog_reorder_reactions($post) {
 
 	//Only reorder if there are any files.
 	if ($reactions) {
-		asort($reactions);
+		natcasesort($reactions);
 
 		$number = 1;
 		foreach ($reactions as $reaction) {
@@ -220,7 +221,8 @@ function blog_get_posts() {
 	$files = read_dir_contents(BLOG_POSTS_DIR, 'files');
 
 	if ($files) {
-		arsort($files);
+		natcasesort($files);
+		$files = array_reverse($files);
 
 		foreach ($files as $post)
 			$posts[] = blog_get_post(blog_get_post_seoname($post));
@@ -254,7 +256,8 @@ function blog_get_post($seoname) {
 
 /**
  * Load categories in an array. Will return FALSE if no categories exist.
- * If $only_return_title is TRUE, only the title will be returned (seoname will be discarded).
+ * @param bool $only_return_title If set to TRUE, only the title will be returned (seoname will be discarded).
+ * @return mixed
  */
 function blog_get_categories($only_return_title = FALSE) {
 	$files = read_dir_contents(BLOG_CATEGORIES_DIR, 'files');
@@ -281,6 +284,11 @@ function blog_get_categories($only_return_title = FALSE) {
 		return false;
 }
 
+/**
+ * Returns the title of a blog category.
+ *
+ * @param string $seoname The SEO-friendly title of the category.
+ */
 function blog_get_category_title($seoname) {
 	global $lang;
 
@@ -299,6 +307,7 @@ function blog_get_category_title($seoname) {
  * Checks whether a blog category exists. Returns TRUE or FALSE.
  *
  * @param string $category The category to check for.
+ * @return string
  */
 function blog_category_exists($category) {
 	if (blog_get_categories()) {
@@ -355,5 +364,62 @@ function truncate($text, $limit, $ending = '...') {
 	}
 	
 	return $text;
+}
+
+/**
+ * Counts the number of pages we need for pagination of all blog posts.
+ * @param mixed $category Optional, if we need a number of pages for posts in one category.
+ */
+function blog_count_pages($category = false) {
+	if(!$category) {
+		$number_posts = count(blog_get_posts());
+	}
+	else {
+		$posts = blog_get_posts();
+		$number_posts = 0;
+		foreach($posts as $post) {
+			if ($post['category'] == $category) $number_posts++;
+		}
+	}
+	$number_pages = ceil($number_posts/module_get_setting('blog','posts_per_page'));
+	return $number_pages;
+}
+
+/**
+ * Shows page list for post pagination on website.
+ * @param string $current_page The number of the current posts-page.
+ * @param mixed $category Optional, if we need a page list for one category.
+ */
+function blog_show_page_no_list($current_page, $category = false) {
+	//Get the number of pages we need.
+	if (isset($category))
+		$number_pages = blog_count_pages($category);
+	else
+		$number_pages = blog_count_pages();
+
+	$page = 1;
+	while ($page <= $number_pages) {
+		if ($page != $current_page) {
+			if ($page == 1) {
+				echo '<a href="?file='.CURRENT_PAGE_SEONAME.'">'.$page.'</a> ';
+				if ($current_page > $page+3)
+					echo '&#133; ';
+			}
+			elseif ($page == $number_pages) {
+				if ($current_page < $page-3)
+					echo '&#133; ';
+				echo '<a href="?file='.CURRENT_PAGE_SEONAME.'&p='.$page.'">'.$page.'</a> ';
+			}
+			else {
+				if ((!($page < $current_page-2) && !($page > $current_page+2)))
+					echo '<a href="?file='.CURRENT_PAGE_SEONAME.'&p='.$page.'">'.$page.'</a> ';
+			}
+		}
+		else
+			echo $page.' ';
+
+		$page++;
+	}
+	unset($page);
 }
 ?>

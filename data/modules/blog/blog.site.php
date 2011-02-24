@@ -28,9 +28,6 @@ function blog_pages_site() {
 	return $module_page_admin;
 }
 
-//---------------
-// Theme: main
-//---------------
 function blog_theme_main($category = 'all') {
 	global $lang;
 
@@ -39,60 +36,78 @@ function blog_theme_main($category = 'all') {
 		//Load posts in array.
 		$posts = blog_get_posts();
 
+		//Get page number
+		if(!isset($_GET['p']))
+			$page_no = 1;
+		else
+			$page_no = $_GET['p'];
+
+		//Count posts.
+		$post_number = 0;
+
 		foreach ($posts as $post) {
 			//Only show post if all categories should be shown, or if it's in the given category.
 			if ($category == 'all' || $category == $post['category']) {
-			?>
-			<div class="blog_post">
-				<p class="blog_post_title">
-					<a href="?file=<?php echo CURRENT_PAGE_SEONAME; ?>&amp;module=blog&amp;page=viewpost&amp;post=<?php echo $post['seoname']; ?>" title="<?php echo $post['title']; ?>"><?php echo $post['title']; ?></a>
-				</p>
-				<span class="blog_post_info">
-					<?php echo $post['date'].' '.$lang['blog']['at'].' '.$post['time'].' '.$lang['blog']['in'].' '.$post['category']; ?>
-				</span>
-				<div class="blog_post_content">
+
+				//Only display post if it's supposed to be on this page.
+				if(($post_number >= ($page_no-1)*module_get_setting('blog','posts_per_page')) && ($post_number < $page_no*module_get_setting('blog','posts_per_page'))) {
+				?>
+				<div class="blog_post">
+					<p class="blog_post_title">
+						<a href="?file=<?php echo CURRENT_PAGE_SEONAME; ?>&amp;module=blog&amp;page=viewpost&amp;post=<?php echo $post['seoname']; ?>" title="<?php echo $post['title']; ?>"><?php echo $post['title']; ?></a>
+					</p>
+					<span class="blog_post_info">
+						<?php echo $post['date'].' '.$lang['blog']['at'].' '.$post['time'].' '.$lang['blog']['in'].' '.$post['category']; ?>
+					</span>
+					<div class="blog_post_content">
+						<?php
+						//Check if we need to truncate
+						if (module_get_setting('blog','truncate_posts') != '0')
+							echo truncate($post['content'], module_get_setting('blog','truncate_posts'));
+						else
+							echo $post['content'];
+						?>
+					</div>
 					<?php
-					//Check if we need to truncate
-					if (module_get_setting('blog','truncate_posts') != '0')
-						echo truncate($post['content'], module_get_setting('blog','truncate_posts'));
+					//If reactions are enabled, count reactions and display in 'read more'-link
+					if (module_get_setting('blog','allow_reactions') == 'true') {
+						$number = blog_get_reactions($post['seoname']);
+
+						if ($number) {
+							$number = count($number);
+
+							if ($number == 1)
+								$more_link = $number.' '.$lang['blog']['reaction'];
+							else
+								$more_link = $number.' '.$lang['blog']['reactions'];
+						}
+						else
+							$more_link = $lang['blog']['no_reactions'];
+					}
+					//If reactions are disabled, display regular 'read more'-link
 					else
-						echo $post['content'];
+						$more_link = $lang['blog']['read_more'];
 					?>
+					<p class="blog_post_more">
+						<a href="?file=<?php echo CURRENT_PAGE_SEONAME; ?>&amp;module=blog&amp;page=viewpost&amp;post=<?php echo $post['seoname']; ?>" title="<?php echo $more_link; ?>">&raquo; <?php echo $more_link; ?></a>
+					</p>
 				</div>
 				<?php
-				//If reactions are enabled, count reactions and display in 'read more'-link
-				if (module_get_setting('blog','allow_reactions') == 'true') {
-					$number = blog_get_reactions($post['seoname']);
-
-					if ($number) {
-						$number = count($number);
-
-						if ($number == 1)
-							$more_link = $number.' '.$lang['blog']['reaction'];
-						else
-							$more_link = $number.' '.$lang['blog']['reactions'];
-					}
-					else
-						$more_link = $lang['blog']['no_reactions'];
 				}
-				//If reactions are disabled, display regular 'read more'-link
-				else
-					$more_link = $lang['blog']['read_more'];
-				?>
-				<p class="blog_post_more">
-					<a href="?file=<?php echo CURRENT_PAGE_SEONAME; ?>&amp;module=blog&amp;page=viewpost&amp;post=<?php echo $post['seoname']; ?>" title="<?php echo $more_link; ?>">&raquo; <?php echo $more_link; ?></a>
-				</p>
-			</div>
-			<?php
+				$post_number++;
 			}
 		}
 		unset($post);
+	//Show page numbers
+	echo '<p>'.$lang['blog']['pages'].' ';
+	if($category == 'all')
+		blog_show_page_no_list($page_no);
+	else
+		blog_show_page_no_list($page_no, $category);
+	echo '</p>';
 	}
 }
 
-//---------------
-// Page: viewpost
-//---------------
 function blog_page_site_viewpost() {
 	//Global language variables.
 	global $lang;
@@ -199,7 +214,7 @@ function blog_page_site_viewpost() {
 		?>
 
 		<p>
-			<a href="?file=<?php echo CURRENT_PAGE_SEONAME; ?>" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
+			<a href="javascript: history.go(-1)" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 		</p>
 	<?php
 }

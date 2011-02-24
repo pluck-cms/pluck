@@ -23,6 +23,7 @@ define('NAME', 'image');
 /**
  * Loads albums in an array. Will return FALSE if no albums exist.
  * @param bool $only_return_title If set to TRUE, only the title will be returned (seoname will be discarded).
+ * @return mixed
  */
 function albums_get_albums($only_return_title = FALSE) {
 	$files = read_dir_contents(ALBUMS_DIR, 'files');

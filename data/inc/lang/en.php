@@ -311,7 +311,10 @@ $lang['blog']['no_reactions']           = 'no reactions';
 $lang['blog']['allow_reactions']        = 'Allow visitors to post reactions.';
 $lang['blog']['read_more']              = 'read more';
 $lang['blog']['truncate_posts']         = 'The number of characters blog posts will be truncated to. Choose 0 to disable truncation.';
-$lang['blog']['truncate_error']         = 'You should choose a numeric value for blog post truncation.';
+$lang['blog']['numeric_error']          = 'You should choose a numeric value for post truncation and/or posts per page.';
+$lang['blog']['posts_per_page']         = 'The number of posts that will be displayed per page.';
+$lang['blog']['posts_per_page_error']   = 'The number of posts per page cannot be zero!';
+$lang['blog']['pages']                  = 'Pages:';
 
 //Contact form.
 $lang['contactform']['module_name']  = 'contact form';
