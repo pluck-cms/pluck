@@ -10,7 +10,7 @@ function albums_info() {
 		'name'          => $lang['albums']['title'],
 		'intro'         => $lang['albums']['descr'],
 		'version'       => '0.2',
-		'author'        => 'pluck development team',
+		'author'        => $lang['general']['pluck_dev_team'],
 		'website'       => 'http://www.pluck-cms.org',
 		'icon'          => 'images/albums.png',
 		'compatibility' => '4.7',

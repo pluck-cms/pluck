@@ -34,7 +34,7 @@ if (isset($_POST['save'])) {
 			$cont3 = 'false';
 
 		//Then, save the settings.
-		save_options($cont1, $cont2, $cont3);
+		save_options($cont1, $cont2);
 
 		show_error($lang['settings']['changing_settings'], 3);
 		redirect('?action=options', 0);
@@ -63,11 +63,6 @@ if (isset($error))
 		<span class="kop4"><?php echo $lang['settings']['email_descr']; ?></span>
 		<br />
 		<input name="cont2" id="cont2" type="text" value="<?php echo $email; ?>" />
-	</p>
-	<p>
-		<span class="kop2"><?php echo $lang['general']['other_options']; ?></span>
-		<input type="checkbox" name="cont3" id="cont3" value="true" <?php if ($xhtmlruleset == 'true') echo 'checked="checked"'; ?> />
-		<label for="cont3">&nbsp;<?php echo $lang['settings']['xhtml_mode']; ?></label>
 	</p>
 	<?php show_common_submits('?action=options'); ?>
 </form>

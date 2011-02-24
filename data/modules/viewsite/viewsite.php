@@ -5,8 +5,8 @@ function viewsite_info() {
 		'name'          => $lang['viewsite']['module_name'],
 		'intro'         => $lang['viewsite']['module_intro'],
 		'version'       => '0.1',
-		'author'        => 'pluck development team',
-		'website'       => 'http://pluck-cms.org',
+		'author'        => $lang['general']['pluck_dev_team'],
+		'website'       => 'http://www.pluck-cms.org',
 		'icon'          => '../../image/website.png',
 		'compatibility' => '4.7'
 	);

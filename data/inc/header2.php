@@ -32,8 +32,10 @@ else {
 }
 
 //Include TinyMCE, but not on the login page.
-if (!strpos($_SERVER['SCRIPT_FILENAME'], 'login.php'))
-	require_once ('data/inc/tinymce_inc.php');
+if (!strpos($_SERVER['SCRIPT_FILENAME'], 'login.php') && file_exists('data/modules/tinymce')) {
+	require_once ('data/modules/tinymce/tinymce.php');
+	tinymce_display_code();
+}
 ?>
 <link rel="icon" type="image/vnd.microsoft.icon" href="data/image/favicon.ico" />
 <meta name="robots" content="noindex" />

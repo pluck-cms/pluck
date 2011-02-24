@@ -89,7 +89,7 @@ function show_module_insert_box() {
 						echo '<option value="'.$module.'">'.$module.'</option>';
 						//Check if we need to display categories for the module
 						$module_info = call_user_func($module.'_info');
-						if (isset($module_info['categories'])) {
+						if (isset($module_info['categories']) && is_array($module_info['categories'])) {
 							foreach ($module_info['categories'] as $category)
 								echo '<option value="'.$module.','.$category.'">&emsp;'.$category.'</option>';
 						}
@@ -370,13 +370,12 @@ function save_password($password) {
 
 //Function: save the options.
 //-------------------
-function save_options($title, $email, $xhtml) {
+function save_options($title, $email) {
 	$title = sanitize($title);
 	$email = sanitize($email);
 	$data = '<?php'."\n"
 	.'$sitetitle = \''.$title.'\';'."\n"
 	.'$email = \''.$email.'\';'."\n"
-	.'$xhtmlruleset = \''.$xhtml.'\';'."\n"
 	.'?>';
 	save_file('data/settings/options.php', $data);
 }
@@ -384,7 +383,7 @@ function save_options($title, $email, $xhtml) {
 //Function: save the prefered language.
 //-------------------
 function save_language($language) {
-	save_file('data/settings/langpref.php', array('langpref' => $language));
+	save_file('data/settings/langpref.php', array('langpref' => $language), FALSE);
 }
 
 //Function: save theme.

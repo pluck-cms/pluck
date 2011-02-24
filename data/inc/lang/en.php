@@ -52,6 +52,7 @@ $lang['general']['name']           = 'Name:';
 $lang['general']['email']          = 'Email:';
 $lang['general']['message']        = 'Message:';
 $lang['general']['website']        = 'Website:';
+$lang['general']['pluck_dev_team'] = 'pluck development team';
 
 //Login
 $lang['login']['not']               = 'not logged in';
@@ -185,7 +186,6 @@ $lang['settings']['message']           = 'Change general settings like the title
 $lang['settings']['choose_title']      = 'choose the title for your website here';
 $lang['settings']['email']             = 'email';
 $lang['settings']['email_descr']       = 'your email address will be used to allow your visitors to contact you through an email form';
-$lang['settings']['xhtml_mode']        = 'Turn on the XHTML Compatibility Mode (may be slower)';
 $lang['settings']['changing_settings'] = 'Saving settings...';
 $lang['settings']['fill_name']         = 'You have to fill in a name for your website, it can\'t be empty.';
 $lang['settings']['email_invalid']     = 'The emailaddress you entered is invalid!';
@@ -325,4 +325,8 @@ $lang['contactform']['not_send']     = 'Your message could not be send, an error
 $lang['viewsite']['module_name']  = 'view site link';
 $lang['viewsite']['module_intro'] = 'Created to show the new hooks. Adds a direct link to the site in the admin menu.';
 $lang['viewsite']['message']      = 'view site';
+
+//View site link
+$lang['tinymce']['module_name']  = 'tinymce';
+$lang['tinymce']['module_intro'] = 'Adds the TinyMCE-editor to pluck. TinyMCE has been developed by <a href="http://tinymce.moxiecode.com/" target="_blank">Moxiecode</a>.';
 ?>

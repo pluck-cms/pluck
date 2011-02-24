@@ -16,7 +16,7 @@
 defined('IN_PLUCK') or exit('Access denied!');
 
 //First set character encoding
-header("Content-Type:text/html;charset=utf-8");
+header('Content-Type:text/html;charset=utf-8');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo LANG; ?>" lang="<?php echo LANG; ?>">
@@ -29,9 +29,6 @@ if (DIRECTION_RTL)
 	echo '<link href="data/styleadmin-rtl.css" rel="stylesheet" type="text/css" media="screen" />';
 else
 	echo '<link href="data/styleadmin.css" rel="stylesheet" type="text/css" media="screen" />';
-
-//Include TinyMCE.
-require_once ('data/inc/tinymce_inc.php');
 ?>
 <link rel="icon" type="image/vnd.microsoft.icon" href="data/image/favicon.ico" />
 <meta name="robots" content="noindex" />
@@ -53,40 +50,9 @@ function kadabra(zap) {
 function confirmation(message) {
 	return confirm(message);
 }
-
-function insert_page_link() {
-	var id = document.getElementById('insert_pages');
-	var page = id.selectedIndex;
-	var file = id.options[page].value;
-	var title = id.options[page].text;
-
-	//Remove indent space.
-	//@fixme Not the best way to do it, but it works.
-	title = escape(title);
-	title = title.replace(/%u2003/g, '');
-	title = unescape(title);
-
-	tinyMCE.execCommand('mceInsertContent', false, '<a href="index.php?file=' + file + '" title="' + title + '">' + title + '<\/a>');
-}
-
-function insert_image_link(dir) {
-	var id = document.getElementById('insert_images');
-	var image = id.selectedIndex;
-	var file = id.options[image].text;
-
-	tinyMCE.execCommand('mceInsertContent', false, '<img src="' + dir + '/' + file + '" alt="" \/>');
-}
-
-function insert_module(dir) {
-	var id = document.getElementById('insert_modules');
-	var module = id.selectedIndex;
-	var code = id.options[module].value;
-
-	tinyMCE.execCommand('mceInsertContent', false, '{pluck show_module(' + code + ')}');
-}
 //-->
 </script>
-<?php run_hook('admin_header_main'); ?>
+<?php run_hook('admin_head_main'); ?>
 </head>
 <body>
 <div id="menuheader">

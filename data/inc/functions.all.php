@@ -119,8 +119,8 @@ function read_dir_contents($directory, $mode) {
  * Universal function for saving files.
  *
  * @param string $file Full patch to the file.
- * @param mixed $content The page content. If it's an array, it will create the structure for you.
- * @param int $chmod With leading zero!
+ * @param mixed $content The data to save. If it's an array, it will create the structure for you.
+ * @param int $chmod With leading zero! If set to FALSE, no chmod operation is performed.
  */
 function save_file($file, $content, $chmod = 0777) {
 	$data = fopen($file, 'w');
@@ -140,7 +140,8 @@ function save_file($file, $content, $chmod = 0777) {
 		fputs($data, $content);
 
 	fclose($data);
-	chmod($file, $chmod);
+	if ($chmod != FALSE)
+		chmod($file, $chmod);
 }
 
 /**

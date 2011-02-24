@@ -23,7 +23,7 @@ function blog_info() {
 		'name'          => $lang['blog']['title'],
 		'intro'         => $lang['blog']['descr'],
 		'version'       => '0.1',
-		'author'        => 'pluck development team',
+		'author'        => $lang['general']['pluck_dev_team'],
 		'website'       => 'http://www.pluck-cms.org',
 		'icon'          => 'images/blog.png',
 		'compatibility' => '4.7',
