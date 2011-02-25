@@ -22,14 +22,13 @@ Translators website	http://www.pluck.ekyo.pl
 //Name of the language (in English!)
 $language = 'Polish';
 
-
 //----------------
 //Translation data
 
 //General
 $lang['general']['404']            = '404: nie znaleziono';
 $lang['general']['not_found']      = 'Tej strony nie odnaleziono.';
-$lang['general']['copyright']      = 'pluck © 2005-2009 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck został udostępniony na warunkach GNU General Public License.';
+$lang['general']['copyright']      = 'pluck © 2005-2011 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck został udostępniony na warunkach GNU General Public License.';
 $lang['general']['save']           = 'Zapisz';
 $lang['general']['save_exit']      = 'Zapisz i wyjdź';
 $lang['general']['cancel']         = 'Anuluj';
@@ -42,6 +41,8 @@ $lang['general']['upload_failed']  = 'Ładowanie zakończyło się niepowodzenie
 $lang['general']['admin_center']   = 'centrum administracyjne';
 $lang['general']['changing_rank']  = 'zmień kolejność stron';
 $lang['general']['insert']         = 'wstaw';
+$lang['general']['insert_module']  = 'wstaw moduł';
+$lang['general']['insert_image']   = 'wstaw obraz';
 $lang['general']['dont_display']   = 'Nie wyświetlaj';
 $lang['general']['upload']         = 'Przesyłanie';
 $lang['general']['change_title']   = 'zmień tytuł';
@@ -55,6 +56,7 @@ $lang['general']['name']           = 'Twoje Imię:';
 $lang['general']['email']          = 'Twój e-mail:';
 $lang['general']['message']        = 'Wiadomość:';
 $lang['general']['website']        = 'Strona www:';
+$lang['general']['pluck_dev_team'] = 'pluck development team';
 
 //Login
 $lang['login']['not']               = 'nie zalogowany';
@@ -177,6 +179,7 @@ $lang['options']['title']          = 'opcje';
 $lang['options']['message']        = 'Tutaj możesz skonfigurować plucka tak, aby sprostał Twoim wymaganiom i gustom';
 $lang['options']['settings_descr'] = 'Zmień ustawienia globalne jak tytuł strony lub Twój adres e-mail.';
 $lang['options']['modules_descr']  = 'zarządzaj modułami i dołącz je do swojej strony';
+$lang['options']['modules_sett_descr']  = 'zmień ustawienia modułów';
 $lang['options']['themes_descr']   = 'zmień wizerunek Twojej strony';
 $lang['options']['lang_descr']     = 'wybierz język którego będzie używał pluck';
 $lang['options']['pass_descr']     = 'regularna zmiana hasła to bardzo dobry pomysł';
@@ -187,7 +190,6 @@ $lang['settings']['message']           = 'zmień ustawienia globalne jak tytuł 
 $lang['settings']['choose_title']      = 'wprowadź tytuł dla Twojej strony';
 $lang['settings']['email']             = 'e-mail';
 $lang['settings']['email_descr']       = 'Twój adres e-mail posłuży do kontaktu z Tobą poprzez formularz kontaktowy.';
-$lang['settings']['xhtml_mode']        = 'Włącz kompatybilność XHTML (może działać wolniej)';
 $lang['settings']['changing_settings'] = 'Zmieniam ustawienia globalne...';
 $lang['settings']['fill_name']         = 'Musisz wprowadzić nazwę strony, to pole nie może być puste.';
 $lang['settings']['email_invalid']     = 'Adres e-mail który podałeś nie jest prawidłowy!';
@@ -204,6 +206,10 @@ $lang['modules_manage']['version']           = 'wersja';
 $lang['modules_manage']['author']            = 'autor';
 $lang['modules_manage']['website']           = 'website';
 $lang['modules_manage']['not_compatible']    = 'Ten moduł został wyłączony gdyż nie jest zgodny z Twoją wersją plucka.';
+
+//Modules_settings
+$lang['modules_settings']['title']             = 'ustawienia modułów';
+$lang['modules_settings']['message']           = 'Zmień ustawienia dostępnych modułów.';
 
 //Modules_addtosite
 $lang['modules_addtosite']['title']        = 'dodaj do strony moduły';
@@ -272,6 +278,9 @@ $lang['albums']['change_order']		= 'zmień kolejność obrazków';
 $lang['albums']['already_top']		= 'Ten obrazek jest już na samej górze.';
 $lang['albums']['already_last']		= 'Ten obrazek jest już na samym dole.';
 $lang['albums']['delete_image']		= 'skasuj obrazek';
+$lang['albums']['image_width']		= 'Długość w pikselach do jakich zostanie zdjęcie przeskalowane. Ustaw 0 by wyłączyć automatyczne skalowanie.';
+$lang['albums']['thumb_width']		= 'Długość w pikselach do jakich zostanie miniatura przeskalowana. Nie można tej opcji wyłączyć.';
+$lang['albums']['settings_error']	= 'Długość przeskalowanej grafiki musi być liczbą.';
 
 //Blog
 $lang['blog']['title']					= 'blog';
@@ -303,6 +312,13 @@ $lang['blog']['website']                = 'Strona www';
 $lang['blog']['message']                = 'Wiadomość';
 $lang['blog']['html_not_allowed']		= 'Kod HTML jest niedozwolony.';
 $lang['blog']['no_reactions']           = 'brak odpowiedzi';
+$lang['blog']['allow_reactions']        = 'Pozwól odwiedzającym wpisywać odpowiedzi.';
+$lang['blog']['read_more']              = 'czytaj dalej';
+$lang['blog']['truncate_posts']         = 'Wielkość do jakiej wiadomość będzie zmniejszana. Ustaw 0 by wyłączyć automatyczne skracanie wiadomości.';
+$lang['blog']['numeric_error']          = 'Musisz podać liczbę w polu zmniejszania i/lub ilości wiadomości na stronie.';
+$lang['blog']['posts_per_page']         = 'Liczba wiadomości wyświetlanych na jednej stronie.';
+$lang['blog']['posts_per_page_error']   = 'Liczba wiadomości wyświetlanych na jednej stronie nie może być ustawiona na zero!';
+$lang['blog']['pages']                  = 'Strony:';
 
 //Contact form
 $lang['contactform']['module_name']  = 'formularz kontaktowy';
@@ -316,4 +332,8 @@ $lang['contactform']['not_send']     = 'Twoja wiadomość nie mogła być wysła
 $lang['viewsite']['module_name']  = 'łącze do strony';
 $lang['viewsite']['module_intro'] = 'Stworzono by pokazać możliwości "haków". Dodaje bezpośredni link do strony w menu adnina.';
 $lang['viewsite']['message']      = 'Podgąd';
+
+//TinyMCE
+$lang['tinymce']['module_name']  = 'tinymce';
+$lang['tinymce']['module_intro'] = 'Dodaj edytor TinyMCE do plucka. TinyMCE jest rozwijany przez <a href="http://tinymce.moxiecode.com/" target="_blank">Moxiecode</a>.';
 ?>

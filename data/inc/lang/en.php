@@ -329,7 +329,7 @@ $lang['viewsite']['module_name']  = 'view site link';
 $lang['viewsite']['module_intro'] = 'Created to show the new hooks. Adds a direct link to the site in the admin menu.';
 $lang['viewsite']['message']      = 'view site';
 
-//View site link
+//TinyMCE
 $lang['tinymce']['module_name']  = 'tinymce';
 $lang['tinymce']['module_intro'] = 'Adds the TinyMCE-editor to pluck. TinyMCE has been developed by <a href="http://tinymce.moxiecode.com/" target="_blank">Moxiecode</a>.';
 ?>
