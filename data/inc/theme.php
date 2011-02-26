@@ -50,28 +50,16 @@ if (isset($_POST['save'], $cont1) && file_exists('data/themes/'.$cont1)) {
 	<p>
 		<select name="cont1">
 			<?php
-			$dirs = read_dir_contents('data/themes', 'dirs');
-			if ($dirs) {
-				natcasesort($dirs);
-				foreach ($dirs as $dir) {
-					if (file_exists('data/themes/'.$dir.'/info.php')) {
-						include_once ('data/themes/'.$dir.'/info.php');
-						//If theme is current theme, select it
-						if ($themedir == THEME) {
-						?>
-							<option value="<?php echo $themedir; ?>" selected="selected"><?php echo $themename; ?></option>
-						<?php
-						}
-						//Otherwise, don't select it
-						else {
-						?>
-							<option value="<?php echo $themedir; ?>"><?php echo $themename; ?></option>
-						<?php
-						}
+			$themes = get_themes();
+				if($themes) {
+					foreach ($themes as $theme) {
+						if ($theme['dir'] == THEME)
+							echo'<option value="'.$theme['dir'].'" selected="selected">'.$theme['title'].'</option>';
+						else
+							echo '<option value="'.$theme['dir'].'">'.$theme['title'].'</option>';
 					}
 				}
-				unset($dir);
-			}
+				unset($theme);
 			?>
 		</select>
 	</p>

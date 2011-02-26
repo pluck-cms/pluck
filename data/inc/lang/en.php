@@ -332,4 +332,9 @@ $lang['viewsite']['message']      = 'view site';
 //TinyMCE
 $lang['tinymce']['module_name']  = 'tinymce';
 $lang['tinymce']['module_intro'] = 'Adds the TinyMCE-editor to pluck. TinyMCE has been developed by <a href="http://tinymce.moxiecode.com/" target="_blank">Moxiecode</a>.';
+
+//Multitheme
+$lang['multitheme']['module_name']  = 'multi theme';
+$lang['multitheme']['module_intro'] = 'Allows the user to choose different themes for each page.';
+$lang['multitheme']['page_edit'] = 'use theme';
 ?>

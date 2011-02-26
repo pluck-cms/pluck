@@ -76,10 +76,15 @@ if (defined('CURRENT_MODULE_DIR')) {
 		exit;
 	}
 }
-$themefile = 'theme';
 
-run_hook('site_theme', array(&$themefile));
+//Allow modules to manipulate theme
+$page_theme = THEME;
+run_hook('site_theme', array(&$page_theme));
+
+//Allow modules to manipulate theme-filename
+$page_theme_file = 'theme';
+run_hook('site_theme_file', array(&$page_theme_file));
 
 //Now, include the page.
-include_once(THEME_DIR.'/'.$themefile.'.php');
+include_once('data/themes/'.$page_theme.'/'.$page_theme_file.'.php');
 ?>

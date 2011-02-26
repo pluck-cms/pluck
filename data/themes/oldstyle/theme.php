@@ -9,7 +9,7 @@
 	<div class="header">
 		<div class="headerkop"><?php theme_sitetitle(); ?></div>
 		<div class="menu">
-			<?php theme_menu('<a href="#file">#title</a> || '); ?>
+			<?php theme_menu('ul', 'li', 'active', 0); ?>
 		</div>
 	</div>
 

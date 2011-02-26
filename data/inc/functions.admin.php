@@ -401,12 +401,14 @@ function save_theme($theme) {
  * @param string $subpage The sub-page.
  * @param string $description The description.
  * @param string $keywords The keywords.
+ * @param array $module_additional_data Additional data supplied by modules.
  * @param string $current_seoname If we want to edit a page.
  */
-function save_page($title, $content, $hidden, $subpage, $description = null, $keywords = null, $current_seoname = null) {
+function save_page($title, $content, $hidden, $subpage, $description = null, $keywords = null, $module_additional_data = null, $current_seoname = null) {
 	//Run a few hooks.
 	run_hook('admin_save_page', array(&$title, &$content));
 	run_hook('admin_save_page_meta', array(&$description, &$keywords));
+	run_hook('admin_save_page_module_additional_data', array(&$module_additional_data));
 
 	//Do we want to create a new page?
 	if (!isset($current_seoname)) {
@@ -499,6 +501,13 @@ function save_page($title, $content, $hidden, $subpage, $description = null, $ke
 		$data .= "\n".'$description = \''.sanitize($description).'\';';
 	if ($keywords != null)
 		$data .= "\n".'$keywords = \''.sanitize($keywords).'\';';
+
+	//If modules have supplied additional data, save it.
+	if ($module_additional_data != null && is_array($module_additional_data)) {
+		foreach ($module_additional_data as $var => $value) {
+			$data .= "\n".'$'.$var.' = \''.$value.'\';';
+		}
+	}
 
 	$data .= "\n".'?>';
 

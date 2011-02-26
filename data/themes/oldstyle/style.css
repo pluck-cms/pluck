@@ -1,4 +1,4 @@
-body	
+body
 		{
 		 background-color: #E3E3E3;
 		 font-family: Trebuchet MS;
@@ -13,6 +13,17 @@ a:hover { color: #CCCCCC; text-decoration: underline }
 .menu a:visited { color: white; text-decoration: underline }
 .menu a:active { color: white; text-decoration: underline }
 .menu a:hover { color: #CCCCCC; text-decoration: underline }
+
+.menu ul{
+	display: inline;
+	margin: 0px;
+	padding: 0px
+}
+
+.menu li {
+	display: inline;
+	margin-right: 15px;
+}
 
 .head
 		{
@@ -39,7 +50,7 @@ a:hover { color: #CCCCCC; text-decoration: underline }
 		margin-left: 35px;
 		width: 580px;
 		}
-		
+
 .menu
 		{
 		font-size: 15px;
@@ -49,7 +60,7 @@ a:hover { color: #CCCCCC; text-decoration: underline }
 		margin-left: 35px;
 		width: 600px;
 		}
-		
+
 .content
 		{
 		 width: 633px;
@@ -58,7 +69,7 @@ a:hover { color: #CCCCCC; text-decoration: underline }
 		 margin-left: 2%;
 		 margin-bottom: 10px;
 		}
-		
+
 .kop	{
 		 font-size: 25px;
 		 color: #DD0B0B;
@@ -66,14 +77,14 @@ a:hover { color: #CCCCCC; text-decoration: underline }
 		 padding-right: 20px;
 		 padding-left: 20px;
 		}
-		
+
 .txt	{
 		 font-size: 14px;
 		 padding-bottom: 20px;
 		 padding-right: 20px;
 		 padding-left: 20px;
 		}
-		  
+
 .footer {
 		 width: 100%;
 		 border-top: 1px dotted gray;
@@ -91,7 +102,7 @@ input {
 	padding: 1pt;
 	margin: 5px;
    }
-        
+
 textarea {
 	font-family:Arial, Helvetica, sans-serif;
 	font-size: 10pt;

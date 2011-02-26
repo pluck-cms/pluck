@@ -21,6 +21,10 @@ if (isset($_GET['page']) && file_exists('data/settings/pages/'.get_page_filename
 
 //If form is posted...
 if (isset($_POST['save']) || isset($_POST['save_exit'])) {
+	//Allow modules to add data to page
+	$module_additional_data = null;
+	run_hook('admin_save_page_afterpost', array(&$module_additional_data));
+
 	if (!isset($_POST['hidden']))
 		$_POST['hidden'] = 'yes';
 
@@ -32,11 +36,11 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 				$description = false;
 			if (!isset($keywords))
 				$keywords = false;
-			$seoname = save_page($_POST['title'], $_POST['content'], $_POST['hidden'], $_POST['sub_page'], $description, $keywords, $_GET['page']);
+			$seoname = save_page($_POST['title'], $_POST['content'], $_POST['hidden'], $_POST['sub_page'], $description, $keywords, $module_additional_data, $_GET['page']);
 		}
 		//If we are creating a new page, save without those variables.
 		else
-			$seoname = save_page($_POST['title'], $_POST['content'], $_POST['hidden'], $_POST['sub_page']);
+			$seoname = save_page($_POST['title'], $_POST['content'], $_POST['hidden'], $_POST['sub_page'], null, null, $module_additional_data);
 	}
 	//If no title has been chosen, set error.
 	else
@@ -81,16 +85,19 @@ if (isset($error))
 		<p class="kop2"><?php echo $lang['general']['other_options']; ?></p>
 		<p class="kop4" style="margin-bottom: 5px;"><?php echo $lang['page']['options']; ?></p>
 
-		<input type="checkbox" name="hidden" id="hidden" <?php if (!isset($_GET['page']) || $hidden == 'no') echo'checked="checked"'; ?> value="no" />
-		<label for="hidden"><?php echo $lang['page']['in_menu']; ?></label><br />
+		<table>
+			<tr>
+				<td><label for="hidden"><?php echo $lang['page']['in_menu']; ?></label><br /></td>
+				<td><input type="checkbox" name="hidden" id="hidden" <?php if (!isset($_GET['page']) || $hidden == 'no') echo'checked="checked"'; ?> value="no" /></td>
+			</tr>
 
-		<label for="sub_page"><?php echo $lang['page']['sub_page']; ?></label>
-		<?php
-		if (isset($_GET['page']))
-			show_subpage_select('sub_page', $_GET['page']);
-		else
-			show_subpage_select('sub_page');
-		?>
+			<tr>
+				<td><label for="sub_page"><?php echo $lang['page']['sub_page']; ?></label></td>
+				<td> <?php if (isset($_GET['page'])) show_subpage_select('sub_page', $_GET['page']); else show_subpage_select('sub_page'); ?></td>
+			</tr>
+
+			<?php run_hook('admin_save_page_beforepost'); ?>
+			</table>
 	</div>
 	<?php show_common_submits('?action=page', true); ?>
 </form>

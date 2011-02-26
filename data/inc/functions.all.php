@@ -51,6 +51,30 @@ function recursive_remove_directory($directory, $empty = false)	{
 }
 
 /**
+ * Returns all themes in an array.
+ *
+ * @return array Themes, including title and dir.
+ */
+function get_themes() {
+	$dirs = read_dir_contents('data/themes', 'dirs');
+	if ($dirs) {
+		natcasesort($dirs);
+		foreach ($dirs as $dir) {
+			if (file_exists('data/themes/'.$dir.'/info.php')) {
+				include_once ('data/themes/'.$dir.'/info.php');
+				$themes[] = array(
+					'title'   => $themename,
+					'dir' => $dir
+				);
+			}
+		}
+		return $themes;
+	}
+	else
+		return false;
+}
+
+/**
  * Get the site title from the options, and return it.
  *
  * @global string $sitetitle
