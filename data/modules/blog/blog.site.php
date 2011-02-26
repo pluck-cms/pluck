@@ -37,10 +37,10 @@ function blog_theme_main($category = 'all') {
 		$posts = blog_get_posts();
 
 		//Get page number
-		if(!isset($_GET['p']))
-			$page_no = 1;
-		else
+		if (isset($_GET['p']) && is_int($_GET['p']))
 			$page_no = $_GET['p'];
+		else
+			$page_no = 1;
 
 		//Count posts.
 		$post_number = 0;
@@ -50,7 +50,7 @@ function blog_theme_main($category = 'all') {
 			if ($category == 'all' || $category == $post['category']) {
 
 				//Only display post if it's supposed to be on this page.
-				if(($post_number >= ($page_no-1)*module_get_setting('blog','posts_per_page')) && ($post_number < $page_no*module_get_setting('blog','posts_per_page'))) {
+				if (($post_number >= ($page_no-1)*module_get_setting('blog','posts_per_page')) && ($post_number < $page_no*module_get_setting('blog','posts_per_page'))) {
 				?>
 				<div class="blog_post">
 					<p class="blog_post_title">
@@ -100,7 +100,7 @@ function blog_theme_main($category = 'all') {
 		unset($post);
 	//Show page numbers
 	echo '<p>'.$lang['blog']['pages'].' ';
-	if($category == 'all')
+	if ($category == 'all')
 		blog_show_page_no_list($page_no);
 	else
 		blog_show_page_no_list($page_no, $category);

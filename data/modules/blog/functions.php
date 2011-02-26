@@ -211,6 +211,7 @@ function blog_reorder_reactions($post) {
 				rename(BLOG_POSTS_DIR.'/'.$post.'/'.$reaction, BLOG_POSTS_DIR.'/'.$post.'/'.$number.'.php');
 			$number++;
 		}
+		unset($reaction);
 	}
 }
 
@@ -371,15 +372,17 @@ function truncate($text, $limit, $ending = '...') {
  * @param mixed $category Optional, if we need a number of pages for posts in one category.
  */
 function blog_count_pages($category = false) {
-	if(!$category) {
+	if (!$category) {
 		$number_posts = count(blog_get_posts());
 	}
 	else {
 		$posts = blog_get_posts();
 		$number_posts = 0;
-		foreach($posts as $post) {
-			if ($post['category'] == $category) $number_posts++;
+		foreach ($posts as $post) {
+			if ($post['category'] == $category)
+				$number_posts++;
 		}
+		unset($post);
 	}
 	$number_pages = ceil($number_posts/module_get_setting('blog','posts_per_page'));
 	return $number_pages;

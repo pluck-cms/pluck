@@ -239,7 +239,7 @@ $lang['theme_install']['too_big']       = 'The theme file is too big; 1MB is the
 //Language
 $lang['language']['title']  = 'language settings';
 $lang['language']['choose'] = 'Choose the language that will be used by pluck.';
-$lang['language']['saved']  = 'The languagesettings have been saved.';
+$lang['language']['saved']  = 'The language settings have been saved.';
 
 //Changepass
 $lang['changepass']['title']       = 'change password';
