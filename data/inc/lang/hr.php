@@ -47,7 +47,6 @@ $lang['install']['good'] = 'Dobro';
 $lang_install9 = 'Krivo';
 $lang['install']['refresh'] = 'Osvježi';
 $lang['install']['proceed'] = 'Započni...';
-$lang['settings']['choose_title'] = 'Odaberite naziv Vaše nove stranice.';
 $lang['general']['save'] = 'Spremi';
 $lang['general']['cancel'] = 'Odustani';
 $lang_install15 = 'Morate dodati naziv!';

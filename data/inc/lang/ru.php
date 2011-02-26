@@ -47,7 +47,6 @@ $lang['install']['good'] = 'Хорошо';
 $lang_install9 = 'Плохо';
 $lang['install']['refresh'] = 'Обновить';
 $lang['install']['proceed'] = 'Продолжить...';
-$lang['settings']['choose_title'] = 'Напишите название сайта';
 $lang['general']['save'] = 'Сохранить';
 $lang['general']['cancel'] = 'Отменить';
 $lang_install15 = 'Вам необходимо написать название!';

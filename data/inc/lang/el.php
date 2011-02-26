@@ -47,7 +47,6 @@ $lang['install']['good'] = 'Εντάξει';
 $lang_install9 = 'Λάθος';
 $lang['install']['refresh'] = 'Ανανέωση';
 $lang['install']['proceed'] = 'Συνέχεια...';
-$lang['settings']['choose_title'] = 'Πληκτρολογήστε τον τίτλο της ιστοσελίδας σας εδώ.';
 $lang['general']['save'] = 'Αποθήκευση';
 $lang['general']['cancel'] = 'Άκυρο';
 $lang_install15 = 'Πρέπει να δώσετε τίτλο!';

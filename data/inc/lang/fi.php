@@ -1,5 +1,5 @@
-<?php 
-/* 
+<?php
+/*
 This is a pluck language file. You can find pluck at http://www.pluck-cms.org/.
 If you want to help us, please start a new translation on http://www.pluck-cms.org/dev/translate/
 The translation will be included in the next release of pluck.
@@ -181,7 +181,6 @@ $lang['options']['pass_descr']     = 'on suositeltavaa muuttaa salasanaa säänn
 //Settings
 $lang['settings']['title']             = 'yleiset asetukset';
 $lang['settings']['message']           = 'Muuta yleisiä asetuksia, kuten esimerkiksi sivustosi otsikkoa ja sähköpostiasi';
-$lang['settings']['choose_title']      = 'valitse sivullesi otsikko täällä';
 $lang['settings']['email']             = 'sähköposti';
 $lang['settings']['email_descr']       = 'sähköpostiasi käytetään, jotta vierailijat voivat ottaa sinuun yhteyttä lomakkeen avulla.';
 $lang['settings']['xhtml_mode']        = 'Käynnistä XHTML Yhteensopivuus tila (saattaa olla hidas)';

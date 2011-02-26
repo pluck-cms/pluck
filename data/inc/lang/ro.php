@@ -54,7 +54,6 @@ $lang['install']['good'] = 'Corect';
 $lang_install9 = 'Greșit';
 $lang['install']['refresh'] = 'Reîncarcă';
 $lang['install']['proceed'] = 'Continuă...';
-$lang['settings']['choose_title'] = 'Alegeți numele siteului.';
 $lang['general']['save'] = 'Salvează';
 $lang['general']['cancel'] = 'Anulează';
 $lang_install15 = 'Trebuie să introduceți un titlu!';

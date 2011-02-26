@@ -47,7 +47,6 @@ $lang['install']['good'] = 'Der';
 $lang_install9 = 'Neder';
 $lang['install']['refresh'] = 'Atjaunot';
 $lang['install']['proceed'] = 'Darāmies...';
-$lang['settings']['choose_title'] = 'Izvēlieties jaunās mājas lapas nosaukumu šeit.';
 $lang['general']['save'] = 'Saglabāt';
 $lang['general']['cancel'] = 'Atcelt';
 $lang_install15 = 'Jums ir jāievada lapas nosaukums!';

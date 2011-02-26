@@ -47,7 +47,6 @@ $lang['install']['good'] = 'İyi';
 $lang_install9 = 'Hatalı';
 $lang['install']['refresh'] = 'Tazele';
 $lang['install']['proceed'] = 'Uygula...';
-$lang['settings']['choose_title'] = 'Yeni web siteniz için buraya bir başlık yazın.';
 $lang['general']['save'] = 'Kaydet';
 $lang['general']['cancel'] = 'İptal';
 $lang_install15 = 'Bir başlık girmelisiniz!';

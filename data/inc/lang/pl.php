@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
 This is a pluck language file. You can find pluck at http://www.pluck-cms.org/.
 If you want to help us, please start a new translation on http://www.pluck-cms.org/dev/translate/
@@ -187,7 +187,6 @@ $lang['options']['pass_descr']     = 'regularna zmiana hasła to bardzo dobry po
 //Settings
 $lang['settings']['title']             = 'ustawienia globalne';
 $lang['settings']['message']           = 'zmień ustawienia globalne jak tytuł strony lub Twój adres e-mail';
-$lang['settings']['choose_title']      = 'wprowadź tytuł dla Twojej strony';
 $lang['settings']['email']             = 'e-mail';
 $lang['settings']['email_descr']       = 'Twój adres e-mail posłuży do kontaktu z Tobą poprzez formularz kontaktowy.';
 $lang['settings']['changing_settings'] = 'Zmieniam ustawienia globalne...';

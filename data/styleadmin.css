@@ -116,21 +116,21 @@ input:focus, textarea:focus {
 }
 
 a.cancel {
-	background-image: url(image/error_small.png);
+	background-image: url(image/button_cancel.png);
 }
 
 input[type="submit"].save {
-	background-image: url(image/document_save.png);
+	background-image: url(image/button_document_save.png);
 }
 
 input[type="submit"] {
-	background-image: url(image/update-no_small.png);
+	background-image: url(image/button_save.png);
 }
 
 input[type="submit"], a.cancel {
 	cursor: pointer;
 	background-repeat: no-repeat;
-	background-position: 3px center;
+	background-position: left center;
 	padding-left: 22px;
 }
 
@@ -192,7 +192,7 @@ h3 {
 	text-overflow: ellipsis;
 }
 
-.menudiv .title-page .small, .menudiv .title-module .small { 
+.menudiv .title-page .small, .menudiv .title-module .small {
 	font-size: 14px;
 }
 
@@ -263,7 +263,7 @@ h3 {
 	border-color: #FBC2C4;
 	background-image: url(image/error_1.png);
 	background-repeat: no-repeat;
-	background-position: 8px center;
+	background-position: 1% center;
 }
 
 .notice {
@@ -272,7 +272,7 @@ h3 {
 	border-color: #FFD324;
 	background-image: url(image/error_2.png);
 	background-repeat: no-repeat;
-	background-position: 8px center;
+	background-position: 1% center;
 }
 
 .success {
@@ -281,5 +281,5 @@ h3 {
 	border-color: #C6D880;
 	background-image: url(image/error_3.png);
 	background-repeat: no-repeat;
-	background-position: 8px center;
+	background-position: 1% center;
 }

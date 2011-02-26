@@ -46,7 +46,6 @@ $lang['install']['good'] = 'Godt';
 $lang_install9 = 'Falsk';
 $lang['install']['refresh'] = 'Opdater';
 $lang['install']['proceed'] = 'Fortsæt...';
-$lang['settings']['choose_title'] = 'Vælg titlen til din nye hjemmeside her.';
 $lang['general']['save'] = 'Gem';
 $lang['general']['cancel'] = 'Annuller';
 $lang_install15 = 'Du bliver nådsaget til at give den en titel!';

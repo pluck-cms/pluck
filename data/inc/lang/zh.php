@@ -53,7 +53,6 @@ $lang['install']['good'] = '正確';
 $lang_install9 = '有誤';
 $lang['install']['refresh'] = '更新';
 $lang['install']['proceed'] = '繼續...';
-$lang['settings']['choose_title'] = '在此選擇新網頁的標題';
 $lang['general']['save'] = '儲存';
 $lang['general']['cancel'] = '取消';
 $lang_install15 = '你須有一標題！';

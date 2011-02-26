@@ -47,7 +47,6 @@ $lang['install']['good'] = 'Gerai';
 $lang_install9 = 'Klaida';
 $lang['install']['refresh'] = 'Atnaujinti';
 $lang['install']['proceed'] = 'Tęsti...';
-$lang['settings']['choose_title'] = 'Iveskite savo naujo tinklapio antraštę.';
 $lang['general']['save'] = 'Išsaugoti';
 $lang['general']['cancel'] = 'Atšaukti';
 $lang_install15 = 'Jus turite įvesti antrašte!';

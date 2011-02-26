@@ -47,7 +47,6 @@ $lang['install']['good'] = 'خوب';
 $lang_install9 = 'غلط';
 $lang['install']['refresh'] = 'بارگذاری مجدد';
 $lang['install']['proceed'] = 'در حال بارگذاری ...';
-$lang['settings']['choose_title'] = 'موضوع سایت خود را انتخاب نمایید.';
 $lang['general']['save'] = 'ذخیره';
 $lang['general']['cancel'] = 'لغو';
 $lang_install15 = 'عنوان را انتخاب نمایید !';

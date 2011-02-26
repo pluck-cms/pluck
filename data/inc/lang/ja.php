@@ -42,7 +42,6 @@ $lang['install']['step_1'] = 'ステップ 1';
 $lang['install']['step_2'] = 'ステップ 2';
 $lang['install']['step_3'] = 'ステップ 3';
 $lang['install']['writable'] = '\'Refresh\'というボタンをクリックして表示されているファイルまたはディレクトリが書き込み可能になっているか確認する。 それらのファイルが書き込み可能な場合, 次のステップに進んでください.';
-$lang['settings']['choose_title'] = '新しいウェブサイトのタイトルをここに記入してください';
 $lang['general']['save'] = '保存';
 $lang['general']['cancel'] = 'キャンセル';
 $lang_install15 = 'タイトルを入れてください!';

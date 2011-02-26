@@ -179,7 +179,7 @@ function show_page_box($file) {
 	else
 		$margin = 0;
 
-	//We have to chech for RTL.
+	//We have to check for RTL.
 	if (DIRECTION_RTL)
 		$direction = 'right';
 	else

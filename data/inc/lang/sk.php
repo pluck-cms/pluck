@@ -47,7 +47,6 @@ $lang['install']['good'] = 'Dobré';
 $lang_install9 = 'Zlé';
 $lang['install']['refresh'] = 'Obnoviť';
 $lang['install']['proceed'] = 'pokračovať...';
-$lang['settings']['choose_title'] = 'Zadajte názov Vašej stránky.';
 $lang['general']['save'] = 'Uložiť';
 $lang['general']['cancel'] = 'Zrušiť';
 $lang_install15 = 'Musíte to dať do názvu!';

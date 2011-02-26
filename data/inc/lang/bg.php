@@ -47,7 +47,6 @@ $lang['install']['good'] = 'Добре';
 $lang_install9 = 'Грешка';
 $lang['install']['refresh'] = 'Обнови';
 $lang['install']['proceed'] = 'Продължи...';
-$lang['settings']['choose_title'] = 'Изберете заглавие за вашият сайт от тук.';
 $lang['general']['save'] = 'Запази';
 $lang['general']['cancel'] = 'Откажи';
 $lang_install15 = 'Вие трябва да зададете заглавие!';

@@ -47,7 +47,6 @@ $lang['install']['good'] = 'Gut';
 $lang_install9 = 'Falsch';
 $lang['install']['refresh'] = 'Aktualisieren';
 $lang['install']['proceed'] = 'Weiter...';
-$lang['settings']['choose_title'] = 'Wählen Sie hier einen Titel für Ihre neue Website.';
 $lang['general']['save'] = 'Speichern';
 $lang['general']['cancel'] = 'Abbrechen';
 $lang_install15 = 'Sie müssen einen Titel eingeben!';

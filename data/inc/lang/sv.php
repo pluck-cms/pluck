@@ -47,7 +47,6 @@ $lang['install']['good'] = 'Bra';
 $lang_install9 = 'Falsk';
 $lang['install']['refresh'] = 'Uppdatera';
 $lang['install']['proceed'] = 'Fortsätt...';
-$lang['settings']['choose_title'] = 'Välj en titel för din hemsida.';
 $lang['general']['save'] = 'Spara';
 $lang['general']['cancel'] = 'Avbryt';
 $lang_install15 = 'Du måste ange en titel!';
