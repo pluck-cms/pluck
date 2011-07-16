@@ -172,7 +172,7 @@ function save_file($file, $content, $chmod = 0777) {
  * Sanitize a variable, to make it ready for saving in a file.
  *
  * @param string $var The variable to sanitize.
- * @param boolean $html Should it convert HTML too?
+ * @param boolean $html Should it convert HTML too? Defaults to true.
  * @return string The sanitized variable.
  */
 function sanitize($var, $html = true) {
@@ -228,6 +228,10 @@ function seo_url($url) {
 		$url = str_replace($old, $new, $url);
 	$url = str_replace('<', '', $url);
 	$url = str_replace('>', '', $url);
+	$url = str_replace('/', '', $url);
+	$url = str_replace('\\', '', $url);
+	$url = str_replace('&', '', $url);
+	$url = str_replace('=', '', $url);
 	$url = preg_replace('/(-)+/', '-', $url);
 	$url = trim($url, '-');
 	$url = strtolower($url);

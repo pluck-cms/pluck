@@ -300,10 +300,14 @@ function blog_page_admin_editpost() {
 		$seoname = blog_save_post($cont1, $cont2, $cont3, $var1);
 
 		//Redirect user.
-		if (isset($_POST['save']))
+		if (isset($_POST['save'])) {
 			redirect('?module=blog&page=editpost&var1='.$seoname, 0);
-		else
+			exit;
+		}
+		else {
 			redirect('?module=blog', 0);
+			exit;
+		}
 	}
 
 	$post = blog_get_post($var1);

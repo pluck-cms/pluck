@@ -33,11 +33,12 @@ function blog_save_post($title, $category, $content, $current_seoname = null) {
 		chmod(BLOG_POSTS_DIR, 0777);
 	}
 
-	//Sanitize variables.
-	$title = sanitize($title);
-	$content = sanitize($content, false);
-
+	//Create seo-filename
 	$seoname = seo_url($title);
+
+	//Sanitize variables.
+	$title = sanitize($title, true);
+	$content = sanitize($content, false);
 
 	if (!empty($current_seoname)) {
 		$current_filename = blog_get_post_filename($current_seoname);
@@ -363,7 +364,7 @@ function truncate($text, $limit, $ending = '...') {
 		$text = substr($text, 0, -(strlen(strrchr($text, ' '))));
 		$text = $text.$ending;
 	}
-	
+
 	return $text;
 }
 
