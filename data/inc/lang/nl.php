@@ -242,7 +242,7 @@ $lang['blog']['allow_reactions'] = 'Bezoekers toestaan reacties te plaatsen.';
 $lang['blog']['read_more'] = 'lees meer';
 $lang['blog']['truncate_posts'] = 'Het aantal tekens waarnaar uw blogposts ingekort worden. Kies 0 om inkorten uit te schakelen.';
 $lang['blog']['numeric_error'] = 'Gebruik alleen getallen voor post-inkorting en/of posts per pagina.';
-$lang['blog']['posts_per_page'] = 'Het aantal posts per pagina.';
+$lang['blog']['posts_per_page'] = 'Het aantal posts dat per pagina weergegeven zal worden.';
 $lang['blog']['posts_per_page_error'] = 'Het aantal posts per pagina kan niet 0 zijn!';
 $lang['blog']['pages'] = 'Pagina\'s:';
 $lang['contactform']['module_name'] = 'contactformulier';
@@ -256,5 +256,8 @@ $lang['viewsite']['module_intro'] = 'Gemaakt om de hooks te laten zien aan modul
 $lang['viewsite']['message'] = 'bekijk site';
 $lang['tinymce']['module_name'] = 'tinymce';
 $lang['tinymce']['module_intro'] = 'Voegt de TinyMCE-editor toe aan pluck. TinyMCE wordt ontwikkeld door <a href="http://tinymce.moxiecode.com/" target="_blank">Moxiecode</a>.';
+$lang['multitheme']['module_name'] = 'multi thema';
+$lang['multitheme']['module_intro'] = 'Hiermee kunnen gebruikers per pagina een verschillend thema kiezen.';
+$lang['multitheme']['page_edit'] = 'gebruik thema';
 
 ?>
