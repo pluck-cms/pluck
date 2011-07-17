@@ -2,17 +2,17 @@
 $language = 'Turkish';
 $lang['general']['404'] = '404: bulunamadı';
 $lang['general']['not_found'] = 'Böyle bir sayfa bulunamadı.';
-$lang['general']['copyright'] = 'pluck © 2005-2008 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck, GNU Kamu Lisansı ile dağıtılmaktadır.';
+$lang['general']['copyright'] = 'pluck is available under the terms of the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>.';
 $lang['general']['save'] = 'Kaydet';
-$lang['general']['save_exit'] = 'Save and Exit';
+$lang['general']['save_exit'] = 'Kaydet ve Çık';
 $lang['general']['cancel'] = 'İptal';
 $lang['general']['other_options'] = 'diğer seçenekler';
 $lang['general']['title'] = 'başlık';
 $lang['general']['contents'] = 'içerik';
 $lang['general']['choose'] = 'Seç...';
 $lang['general']['back'] = 'geri';
-$lang['general']['upload_failed'] = 'Yükleme hatalı.';
-$lang['general']['admin_center'] = 'yönetimmerkezi';
+$lang['general']['upload_failed'] = 'Yükleme başarısız.';
+$lang['general']['admin_center'] = 'yönetim merkezi';
 $lang['general']['changing_rank'] = 'Sıra değiştiriliyor...';
 $lang['general']['insert'] = 'ekle';
 $lang['general']['insert_module'] = 'insert module';
@@ -253,11 +253,11 @@ $lang['contactform']['been_send'] = 'Mesajınız gönderildi.';
 $lang['contactform']['not_send'] = 'Mesajınız gönderilemiyor, bir hata oluştu.';
 $lang['viewsite']['module_name'] = 'view site link';
 $lang['viewsite']['module_intro'] = 'Created to show the hooks to module developers. Adds a direct link to the site in the admin menu.';
-$lang['viewsite']['message'] = 'view site';
+$lang['viewsite']['message'] = 'siteye bak';
 $lang['tinymce']['module_name'] = 'tinymce';
 $lang['tinymce']['module_intro'] = 'Adds the TinyMCE-editor to pluck. TinyMCE has been developed by <a href="http://tinymce.moxiecode.com/" target="_blank">Moxiecode</a>.';
-$lang['multitheme']['module_name'] = 'multi theme';
-$lang['multitheme']['module_intro'] = 'Allows the user to choose different themes for each page.';
-$lang['multitheme']['page_edit'] = 'use theme';
+$lang['multitheme']['module_name'] = 'çoklu tema';
+$lang['multitheme']['module_intro'] = 'Kullanıcıların her sayfa için farklı tema kullanabilmesine izin ver.';
+$lang['multitheme']['page_edit'] = 'temayı kullan';
 
 ?>

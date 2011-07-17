@@ -2,7 +2,7 @@
 $language = 'Russian';
 $lang['general']['404'] = '404: не найдена';
 $lang['general']['not_found'] = 'Страница не найдена.';
-$lang['general']['copyright'] = 'pluck © 2005-2007 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck is available under the terms of the GNU General Public License.';
+$lang['general']['copyright'] = 'pluck is available under the terms of the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>.';
 $lang['general']['save'] = 'Сохранить';
 $lang['general']['save_exit'] = 'Save and Exit';
 $lang['general']['cancel'] = 'Отменить';

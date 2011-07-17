@@ -2,7 +2,7 @@
 $language = 'German';
 $lang['general']['404'] = '404: nicht gefunden';
 $lang['general']['not_found'] = 'Diese Seite konnten nicht gefunden werden.';
-$lang['general']['copyright'] = 'pluck © 2005-2008 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck steht unter der GNU General Public Licenz zur Verfügung.';
+$lang['general']['copyright'] = 'pluck is available under the terms of the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>.';
 $lang['general']['save'] = 'Speichern';
 $lang['general']['save_exit'] = 'Save and Exit';
 $lang['general']['cancel'] = 'Abbrechen';

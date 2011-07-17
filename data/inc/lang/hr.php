@@ -2,7 +2,7 @@
 $language = 'Croatian';
 $lang['general']['404'] = '404: nije pronađeno';
 $lang['general']['not_found'] = 'Stranicu nije moguče pronaći.';
-$lang['general']['copyright'] = 'pluck © 2005-2008 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck je dostupan unutar uvjeta propisanih od GNU General Public License.';
+$lang['general']['copyright'] = 'pluck is available under the terms of the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>.';
 $lang['general']['save'] = 'Spremi';
 $lang['general']['save_exit'] = 'Save and Exit';
 $lang['general']['cancel'] = 'Odustani';

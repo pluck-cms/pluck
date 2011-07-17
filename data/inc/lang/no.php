@@ -2,7 +2,7 @@
 $language = 'Norwegian';
 $lang['general']['404'] = '404: siden ble ikke funnet';
 $lang['general']['not_found'] = 'Denne siden ble ikke funnet.';
-$lang['general']['copyright'] = 'pluck © 2005-2007 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck hører under GNU General Public Lisensavtalen.';
+$lang['general']['copyright'] = 'pluck is available under the terms of the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>.';
 $lang['general']['save'] = 'Lagre';
 $lang['general']['save_exit'] = 'Save and Exit';
 $lang['general']['cancel'] = 'Avbryt';

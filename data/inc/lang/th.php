@@ -2,7 +2,7 @@
 $language = 'Thai';
 $lang['general']['404'] = '404: ไม่พบข้อมูล';
 $lang['general']['not_found'] = 'ไม่พบหน้าที่เรียกใช้';
-$lang['general']['copyright'] = 'pluck © 2005-2007 <a href="http://www.somp.nl" target="_blank">somp</a>. พลั๊คอยู่ภายใต้ของตกลงของ GNU General Public License.';
+$lang['general']['copyright'] = 'pluck is available under the terms of the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>.';
 $lang['general']['save'] = 'บันทึก';
 $lang['general']['save_exit'] = 'Save and Exit';
 $lang['general']['cancel'] = 'ยกเลิก';

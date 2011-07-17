@@ -3,7 +3,7 @@ $language = 'Persian';
 $direction = 'rtl';
 $lang['general']['404'] = '404 : یافت نشده است.';
 $lang['general']['not_found'] = 'این صفحه قابل دسترسی نمی باشد.';
-$lang['general']['copyright'] = 'پلوک © 2005-2008 <a href="http://www.somp.nl" target="_blank"> سومپ</a>.تمامی حق و حقوق این برنامه محفوض می باشد.';
+$lang['general']['copyright'] = 'pluck is available under the terms of the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>.';
 $lang['general']['save'] = 'ذخیره';
 $lang['general']['save_exit'] = 'Save and Exit';
 $lang['general']['cancel'] = 'لغو';

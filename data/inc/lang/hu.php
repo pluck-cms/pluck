@@ -2,7 +2,7 @@
 $language = 'Hungarian';
 $lang['general']['404'] = '404: nem található';
 $lang['general']['not_found'] = 'Ilyen oldal nincs.';
-$lang['general']['copyright'] = 'pluck © 2005-2007 <a href="http://www.somp.nl" target="_blank">somp</a>. a pluck GNU General Public License alatt lett kiadva.';
+$lang['general']['copyright'] = 'pluck is available under the terms of the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>.';
 $lang['general']['save'] = 'Ment';
 $lang['general']['save_exit'] = 'Save and Exit';
 $lang['general']['cancel'] = 'Mégse';

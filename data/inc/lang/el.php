@@ -2,7 +2,7 @@
 $language = 'Greek';
 $lang['general']['404'] = '404: δεν βρέθηκε';
 $lang['general']['not_found'] = 'Η σελίδα που ζητήσατε δεν βρέθηκε.';
-$lang['general']['copyright'] = 'pluck © 2005-2008 <a href="http://www.somp.nl" target="_blank">somp</a>. Το pluck διανέμεται κάτω από τους όρους της άδειας GNU General Public License.';
+$lang['general']['copyright'] = 'pluck is available under the terms of the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>.';
 $lang['general']['save'] = 'Αποθήκευση';
 $lang['general']['save_exit'] = 'Save and Exit';
 $lang['general']['cancel'] = 'Άκυρο';

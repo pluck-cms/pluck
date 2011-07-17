@@ -2,7 +2,7 @@
 $language = 'Romanian';
 $lang['general']['404'] = '404: negăsit.';
 $lang['general']['not_found'] = 'Această pagină nu a putut fi găsită.';
-$lang['general']['copyright'] = 'pluck © 2005-2008 <a href="http://www.somp.nl" target="_blank">somp</a>. Pluck este disponibil sub termenii licenței GNU General Public License.';
+$lang['general']['copyright'] = 'pluck is available under the terms of the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>.';
 $lang['general']['save'] = 'Salvează';
 $lang['general']['save_exit'] = 'Save and Exit';
 $lang['general']['cancel'] = 'Anulează';

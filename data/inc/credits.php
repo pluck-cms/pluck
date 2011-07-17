@@ -52,7 +52,7 @@ if ($langpref == 'bg.php')
 elseif ($langpref == 'cn.php')
 	$translator = '';
 elseif ($langpref == 'ct.php')
-	$translator = 'Cesc';
+	$translator = 'Cesc Llopart';
 elseif ($langpref == 'da.php')
 	$translator = 'Thomas Andresen<br />Lone Hansen';
 elseif ($langpref == 'de.php')
@@ -60,7 +60,7 @@ elseif ($langpref == 'de.php')
 elseif ($langpref == 'el.php')
 	$translator = 'swiss_blade';
 elseif ($langpref == 'es.php')
-	$translator = 'Cesc';
+	$translator = 'Cesc Llopart';
 elseif ($langpref == 'fa.php')
 	$translator = 'heam';
 elseif ($langpref == 'fi.php')
@@ -104,7 +104,7 @@ elseif ($langpref == 'sv.php')
 elseif ($langpref == 'th.php')
 	$translator = 'meandev';
 elseif ($langpref == 'tr.php')
-	$translator = 'seqizz';
+	$translator = 'G&#252;rkan G&#252;r';
 elseif ($langpref == 'zh.php')
 	$translator = '';
 

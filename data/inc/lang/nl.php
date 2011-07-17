@@ -2,7 +2,7 @@
 $language = 'Dutch';
 $lang['general']['404'] = '404: niet gevonden';
 $lang['general']['not_found'] = 'Deze pagina kan niet worden gevonden, en is waarschijnlijk verplaatst of verwijderd.';
-$lang['general']['copyright'] = 'pluck © 2005-2009 <a href="http://www.somp.nl" target="_blank">somp</a>. pluck is beschikbaar onder de GNU General Public License.';
+$lang['general']['copyright'] = 'pluck is available under the terms of the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>.';
 $lang['general']['save'] = 'Opslaan';
 $lang['general']['save_exit'] = 'Opslaan en Terug';
 $lang['general']['cancel'] = 'Annuleren';
