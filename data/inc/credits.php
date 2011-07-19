@@ -50,91 +50,91 @@ switch($langpref) {
 	case 'bg.php':
 		$translator = 'smartx';
 		break;
-	case 'cn.php';
+	case 'cn.php':
 		$translator = '';
 		break;
-	case 'ct.php';
+	case 'ct.php':
 		$translator = 'Cesc Llopart';
 		break;
-	case 'da.php';
+	case 'da.php':
 		$translator = 'Thomas Andresen<br />Lone Hansen';
 		break;
-	case 'de.php';
+	case 'de.php':
 		$translator = 'Max Effenberger<br />Dennis Sewberath<br />stoffal';
 		break;
-	case 'el.php';
+	case 'el.php':
 		$translator = 'swiss_blade';
 		break;
-	case 'es.php';
+	case 'es.php':
 		$translator = 'Cesc Llopart';
 		break;
-	case 'fa.php';
+	case 'fa.php':
 		$translator = 'heam';
 		break;
-	case 'fi.php';
+	case 'fi.php':
 		$translator = 'maxtuska';
 		break;
-	case 'fr.php';
+	case 'fr.php':
 		$translator = 'zigzagbe<br />Dominique Heimler';
 		break;
-	case 'he.php';
+	case 'he.php':
 		$translator = 'Erez Wolf';
 		break;
-	case 'hr.php';
+	case 'hr.php':
 		$translator = 'atghoust';
 		break;
-	case 'hu.php';
+	case 'hu.php':
 		$translator = 'Wix';
 		break;
-	case 'it.php';
+	case 'it.php':
 		$translator = 'Skc';
 		break;
-	case 'ja.php';
+	case 'ja.php':
 		$translator = 'Shi-no';
 		break;
-	case 'lt.php';
+	case 'lt.php':
 		$translator = 'Mindaugas Salamachinas';
 		break;
-	case 'lv.php';
+	case 'lv.php':
 		$translator = 'Munky';
 		break;
-	case 'nl.php';
+	case 'nl.php':
 		$translator = 'Sander Thijsen';
 		break;
-	case 'no.php';
+	case 'no.php':
 		$translator = 'John Erik Kristensen';
 		break;
-	case 'pl.php';
+	case 'pl.php':
 		$translator = 'Leszek Soltys<br />Bogumił Cieniek';
 		break;
-	case 'pt.php';
+	case 'pt.php':
 		$translator = 'Marco Paulo Ferreira<br />Hélio Carrasqueira';
 		break;
-	case 'pt_br.php';
+	case 'pt_br.php':
 		$translator = 'Gilnei Moraes<br />Henrique Gogó<br />sarkioja';
 		break;
-	case 'ro.php';
+	case 'ro.php':
 		$translator = 'Adi Roiban';
 		break;
-	case 'ru.php';
+	case 'ru.php':
 		$translator = 'Tkachev Vasily';
 		break;
-	case 'sk.php';
+	case 'sk.php':
 		$translator = 'greppi';
 		break;
-	case 'sl.php';
+	case 'sl.php':
 		$translator = 'Evelina';
 		break;
-	case 'sv.php';
+	case 'sv.php':
 		$translator = 'Carl Jansson';
 		break;
-	case 'th.php';
+	case 'th.php':
 		$translator = 'meandev';
 		break;
-	case 'tr.php';
+	case 'tr.php':
 		$translator = 'G&#252;rkan G&#252;r';
 		break;
-	case 'zh.php';
+	case 'zh.php':
 		$translator = '';
 		break;
 }
