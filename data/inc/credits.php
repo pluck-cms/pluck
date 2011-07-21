@@ -48,12 +48,9 @@ defined('IN_PLUCK') or exit('Access denied!');
 //First determine who's the translator
 switch($langpref) {
 	case 'bg.php':
-		$translator = 'smartx';
+		$translator = 'Aleksander Dimov';
 		break;
-	case 'cn.php':
-		$translator = '';
-		break;
-	case 'ct.php':
+	case 'ca.php':
 		$translator = 'Cesc Llopart';
 		break;
 	case 'da.php':
@@ -132,9 +129,12 @@ switch($langpref) {
 		$translator = 'meandev';
 		break;
 	case 'tr.php':
-		$translator = 'G&#252;rkan G&#252;r';
+		$translator = 'Gürkan Gür';
 		break;
-	case 'zh.php':
+	case 'zh-cn.php':
+		$translator = '';
+		break;
+	case 'zh-tw.php':
 		$translator = '';
 		break;
 }
