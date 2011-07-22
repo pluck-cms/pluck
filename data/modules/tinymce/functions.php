@@ -36,12 +36,12 @@ function tinymce_display_code() { ?>
 		?>
 		theme : "advanced",
 		width : "600px",
-		plugins : "table,media,safari<?php run_hook('tinymce_plugins'); ?>",
+		plugins : "table,media,paste,safari<?php run_hook('tinymce_plugins'); ?>",
 		<?php run_hook('tinymce_options'); ?>
 		<?php
 		$buttons = array(
-			'bold', 'italic', 'underline', 'strikethrough',
-			'separator', 'justifyleft', 'justifycenter', 'justifyright',
+			'bold', 'italic', 'underline', 'strikethrough', 
+			'separator', 'justifyleft', 'justifycenter', 'justifyright', 'justifyfull',
 			'separator', 'formatselect', 'fontsizeselect'
 		);
 		run_hook('tinymce_buttons1', array(&$buttons));
@@ -50,12 +50,12 @@ function tinymce_display_code() { ?>
 		theme_advanced_buttons1 : "<?php foreach ($buttons as $key => $button) {echo $button; if (($number - 1) != $key) echo ',';}?>",
 		<?php
 		$buttons = array(
-			'cut', 'copy', 'paste' ,'separator',
-			'undo', 'redo', 'separator', 'bullist',
-			'numlist', 'outdent', 'indent', 'separator',
-			'link', 'unlink', 'anchor', 'image',
-			'media', 'separator', 'table', 'forecolor',
-			'backcolor', 'separator', 'code', 'cleanup'
+			'cut', 'copy', 'paste', 'pastetext', 'pasteword',
+			'separator', 'undo', 'redo',
+			'separator', 'bullist', 'numlist', 'outdent', 'indent',
+			'separator', 'link', 'unlink', 'anchor', 'image', 'media',
+			'separator', 'table', 'hr', 'forecolor', 'backcolor',
+			'separator', 'code', 'cleanup'
 		);
 		run_hook('tinymce_buttons2', array(&$buttons));
 		$number = count($buttons);
