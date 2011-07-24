@@ -246,13 +246,6 @@ else {
 				include_once ('data/inc/deletepage.php');
 				break;
 
-			//Page:Editmeta
-			case 'editmeta':
-				$titelkop = $lang['editmeta']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/page_editmeta.php');
-				break;
-
 			//Page:Pageup
 			case 'pageup':
 				$titelkop = $lang['page']['change_order'];

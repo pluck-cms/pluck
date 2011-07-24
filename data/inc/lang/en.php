@@ -151,7 +151,7 @@ $lang['page']['no_title']    = 'Please choose a title for your page.';
 
 //Editmeta
 $lang['editmeta']['title']    = 'edit page information';
-$lang['editmeta']['message']  = 'Here you can enter some information about this page, to get better results in search engines.';
+$lang['editmeta']['descr']  = 'enter information about this page here, to get better results in search engines. not required.';
 $lang['editmeta']['keywords'] = 'keywords';
 $lang['editmeta']['comma']    = 'seperated by a comma';
 $lang['editmeta']['changing'] = 'Changing page information...';

@@ -116,6 +116,10 @@ input:focus, textarea:focus {
 	border-color: #3766AC;
 }
 
+input.white, textarea.white {
+	background-color: white;
+}
+
 a.cancel {
 	background-image: url(image/button_cancel.png);
 }

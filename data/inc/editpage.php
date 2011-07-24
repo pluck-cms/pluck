@@ -30,17 +30,13 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 
 	//Save the page, but only if a title has been entered.
 	if (!empty($_POST['title'])) {
-		//If we are editing an existing page, also save description, keywords and pass current seo-name.
+		//If we are editing an existing page, pass current seo-name.
 		if (isset($_GET['page'])) {
-			if (!isset($description))
-				$description = false;
-			if (!isset($keywords))
-				$keywords = false;
-			$seoname = save_page($_POST['title'], $_POST['content'], $_POST['hidden'], $_POST['sub_page'], $description, $keywords, $module_additional_data, $_GET['page']);
+			$seoname = save_page($_POST['title'], $_POST['content'], $_POST['hidden'], $_POST['sub_page'], $_POST['description'], $_POST['keywords'], $module_additional_data, $_GET['page']);
 		}
-		//If we are creating a new page, save without those variables.
+		//If we are creating a new page, don't pass seo-name.
 		else
-			$seoname = save_page($_POST['title'], $_POST['content'], $_POST['hidden'], $_POST['sub_page'], null, null, $module_additional_data);
+			$seoname = save_page($_POST['title'], $_POST['content'], $_POST['hidden'], $_POST['sub_page'], $_POST['description'], $_POST['keywords'], $module_additional_data);
 	}
 	//If no title has been chosen, set error.
 	else
@@ -81,11 +77,31 @@ if (isset($error))
 	<label class="kop2" for="content-form"><?php echo $lang['general']['contents']; ?></label>
 	<textarea class="<?php if(defined('WYSIWYG_TEXTAREA_CLASS')) echo WYSIWYG_TEXTAREA_CLASS; ?>" name="content" id="content-form" cols="70" rows="20"><?php if (isset($_GET['page'])) echo htmlspecialchars($content); ?></textarea>
 
+
 	<div class="menudiv" style="width: 588px; margin-<?php if (DIRECTION_RTL) echo 'right'; else echo 'left'; ?>: 0;">
-		<p class="kop2"><?php echo $lang['general']['other_options']; ?></p>
+		<p><a href="#" class="kop2" onclick="return kadabra('meta-options');"><?php echo $lang['editmeta']['title']; ?></a></p>
+		<p class="kop4" style="margin-bottom: 5px;"><?php echo $lang['editmeta']['descr']; ?></p>
+
+		<div id="meta-options" style="display: none;">
+			<label for="description"><?php echo $lang['general']['description']; ?></label></tr>
+			<br />
+			<textarea id="description" name="description" rows="2" cols="40" class="white"><?php if (isset($description)) echo $description; ?></textarea>
+			<br />
+
+			<label for="keywords"><?php echo $lang['editmeta']['keywords']; ?></label>
+			<br />
+			<span class="kop4"><?php echo $lang['editmeta']['comma']; ?></span>
+			<br />
+			<textarea id="keywords" name="keywords" rows="1" cols="40" class="white"><?php if (isset($keywords)) echo $keywords; ?></textarea>
+		</div>
+	</div>
+
+	<div class="menudiv" style="width: 588px; margin-<?php if (DIRECTION_RTL) echo 'right'; else echo 'left'; ?>: 0;">
+		<p><a href="#" class="kop2" onclick="return kadabra('other-options');"><?php echo $lang['general']['other_options']; ?></a></p>
 		<p class="kop4" style="margin-bottom: 5px;"><?php echo $lang['page']['options']; ?></p>
 
-		<table>
+		<div id="other-options" style="display: block;">
+			<table>
 			<tr>
 				<td><label for="hidden"><?php echo $lang['page']['in_menu']; ?></label><br /></td>
 				<td><input type="checkbox" name="hidden" id="hidden" <?php if (!isset($_GET['page']) || $hidden == 'no') echo'checked="checked"'; ?> value="no" /></td>
@@ -98,6 +114,7 @@ if (isset($error))
 
 			<?php run_hook('admin_save_page_beforepost'); ?>
 			</table>
+		</div>
 	</div>
 	<?php show_common_submits('?action=page', true); ?>
 </form>

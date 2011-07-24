@@ -13,7 +13,7 @@ function multitheme_info() {
 }
 
 function multitheme_admin_save_page_beforepost() {
-	global $lang, $page_theme;
+	global $lang, $p_theme;
 
 	echo '<tr>';
 	echo '<td><label for="theme">'.$lang['multitheme']['page_edit'].' </label></td>';
@@ -21,8 +21,8 @@ function multitheme_admin_save_page_beforepost() {
 	$themes = get_themes();
 	if($themes) {
 		foreach ($themes as $theme) {
-			if (isset($page_theme)) {
-				if ($theme['dir'] == $page_theme)
+			if (isset($p_theme)) {
+				if ($theme['dir'] == $p_theme)
 					echo'<option value="'.$theme['dir'].'" selected="selected">'.$theme['title'].'</option>';
 				else
 					echo '<option value="'.$theme['dir'].'">'.$theme['title'].'</option>';

@@ -137,35 +137,34 @@ else {
 		</p>
 		<form method="post" action="">
 			<p>
-				<?php if (isset($error['title'])) echo $error['title'].'<br />'; ?>
 				<label class="kop2" for="cont1"><?php echo $lang['general']['title'] ?></label>
 				<span class="kop4"><?php echo $lang['settings']['choose_title'] ?></span>
 				<br />
 				<input name="cont1" id="cont1" type="text" value="<?php if (isset($cont1)) echo htmlspecialchars($cont1); ?>" />
+				<?php if (isset($error['title'])) echo $error['title']; ?>
 			</p>
 			<p>
-				<?php if (isset($error['email'])) echo $error['email'].'<br />'; ?>
 				<label class="kop2" for="cont2"><?php echo $lang['settings']['email'] ?></label>
 				<span class="kop4"><?php echo $lang['settings']['email_descr'] ?></span>
 				<br />
 				<input name="cont2" id="cont2" type="text" value="<?php if (isset($cont2)) echo htmlspecialchars($cont2); ?>" />
+				<?php if (isset($error['email'])) echo $error['email']; ?>
 			</p>
 			<p>
 				<label class="kop2" for="cont3"><?php echo $lang['language']['title']; ?></label>
-				<br />
 				<select name="cont3" id="cont3">
 					<option selected="selected" value="en.php">English</option>
 					<?php read_lang_files('en.php'); ?>
 				</select>
 			</p>
 			<p>
-				<?php if (isset($error['pass'])) echo $error['pass'].'<br />'; ?>
 				<label class="kop2" for="cont4"><?php echo $lang['login']['password']; ?></label>
 				<input name="cont4" id="cont4" type="password" />
 			</p>
 			<p>
 				<label class="kop2" for="cont5"><?php echo $lang['changepass']['repeat']; ?></label>
 				<input name="cont5" id="cont5" type="password" />
+				<?php if (isset($error['pass'])) echo $error['pass']; ?>
 			</p>
 			<?php show_common_submits('?action=step1'); ?>
 		</form>

@@ -198,11 +198,6 @@ function show_page_box($file) {
 			</span>
 			 <?php run_hook('admin_page_list_inside', array(&$file)); ?>
 			<span>
-				<a href="?action=editmeta&amp;var1=<?php echo $file; ?>">
-					<img src="data/image/siteinformation.png" title="<?php echo $lang['editmeta']['title']; ?>" alt="<?php echo $lang['editmeta']['title']; ?>" />
-				</a>
-			</span>
-			<span>
 				<a href="?action=pageup&amp;var1=<?php echo $file; ?>">
 					<img src="data/image/up.png" title="<?php echo $lang['page']['change_order']; ?>" alt="<?php echo $lang['page']['change_order']; ?>" />
 				</a>
