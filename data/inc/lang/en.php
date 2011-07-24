@@ -1,18 +1,19 @@
 <?php
 /*
-This is a pluck language file. You can find pluck at http://www.pluck-cms.org/.
-If you want to help us, please start a new translation on http://www.pluck-cms.org/dev/translate/
-The translation will be included in the next release of pluck.
+ * This file is part of pluck, the easy content management system
+ * Copyright (c) pluck team
+ * http://www.pluck-cms.org
 
-Note: if you translate, please note the use of capitals: use them sparely.
+ * Pluck is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
 
-pluck is licensed under the GNU General Public License, and thus open source.
-This language file is also licensed under the GPL.
-See docs/COPYING for the full license text.
-
-------------------------------------------------
-Language		English
-------------------------------------------------
+ * See docs/COPYING for the complete license.
+ *
+ * This is a pluck language file.
+ * If your language is not yet available for pluck, you can start a new
+ * translation by translating this file and sending it to translations@pluck-cms.org
 */
 
 //Name of the language.

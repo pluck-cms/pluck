@@ -1,7 +1,7 @@
 <?php
 /* 
  * This file is part of pluck, the easy content management system
- * Copyright (c) somp (www.somp.nl)
+ * Copyright (c) pluck team
  * http://www.pluck-cms.org
 
  * Pluck is free software: you can redistribute it and/or modify
