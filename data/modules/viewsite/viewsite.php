@@ -44,7 +44,7 @@ function viewsite_admin_menu($links) {
 function viewsite_admin_page_list_before($file) {
 	global $lang; ?>
 	<span>
-		<a href="index.php?file=<?php echo $file; ?>" target="_blank">
+		<a href="index.php<?php echo SEO_URL_LINK.$file; ?>" target="_blank">
 			<img src="data/image/website.png" title="<?php echo $lang['page']['view']; ?>" alt="<?php echo $lang['page']['view']; ?>" />
 		</a>
 	</span>

@@ -71,9 +71,15 @@ if (file_exists('data/settings/pages')) {
 	//FIXME: Is there a better way to do this?
 	else
 		$homepage = '404';
-
+	
+	$seo_url_link = '?file=';
+	run_hook('seo_url_link', array(&$seo_url_link));
+	define('SEO_URL_LINK', $seo_url_link);
+	unset($seo_url_link);
+	
+	$homepage = SEO_URL_LINK.$homepage;
 	run_hook('const_home_page', array(&$homepage));
-	define('HOME_PAGE', '?file='.$homepage);
+	define('HOME_PAGE', $homepage);
 	unset($homepage);
 }
 
