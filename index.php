@@ -77,6 +77,10 @@ if (defined('CURRENT_MODULE_DIR')) {
 	}
 }
 
+//If link is broken - redirect to 404 error page
+if(!get_page_filename($_GET['file']) && $_GET['file'] != '404')
+	redirect(SEO_URL_LINK.'404',0);
+
 //Allow modules to manipulate theme
 $page_theme = THEME;
 run_hook('site_theme', array(&$page_theme));

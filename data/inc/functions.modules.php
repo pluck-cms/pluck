@@ -113,9 +113,13 @@ function module_is_compatible($module) {
  * @return bool
  */
 function module_is_included_in_page($module, $page_seoname) {
-	include(PAGE_DIR.'/'.get_page_filename($page_seoname));
-	if (strpos($content, '{pluck show_module('.$module))
-		return TRUE;
+	if (is_file(PAGE_DIR.'/'.get_page_filename($page_seoname))) {
+		include(PAGE_DIR.'/'.get_page_filename($page_seoname));
+		if (strpos($content, '{pluck show_module('.$module))
+			return TRUE;
+		else
+			return FALSE;
+	}
 	else
 		return FALSE;
 }
