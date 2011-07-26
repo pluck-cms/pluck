@@ -226,12 +226,8 @@ function seo_url($url) {
 	$url = preg_replace('/( |_)+/', '-', $url);
 	foreach ($lang_url_replace as $old => $new)
 		$url = str_replace($old, $new, $url);
-	$url = str_replace('<', '', $url);
-	$url = str_replace('>', '', $url);
-	$url = str_replace('/', '', $url);
-	$url = str_replace('\\', '', $url);
-	$url = str_replace('&', '', $url);
-	$url = str_replace('=', '', $url);
+	$url = str_replace(array('<', '>', '/', '\\', '&', '=', '"', ':', '?', '|', '*'), '', $url);
+	$url = str_replace('.', '_', $url);
 	$url = preg_replace('/(-)+/', '-', $url);
 	$url = trim($url, '-');
 	$url = strtolower($url);
