@@ -6,328 +6,203 @@ if(!file_exists('admin.php')) {
 	exit;
 }
 
-//Include functions
-require ('data/inc/functions.all.php');
-require ('data/inc/functions.admin.php');
-//Show title
-echo "<h3>Pluck update</h3>";
+//First, define that we are in pluck.
+define('IN_PLUCK', true);
+
+//Then start session support.
+session_start();
+
+//Include security-enhancements.
+require_once ('data/inc/security.php');
+//Include functions.
+require_once ('data/inc/functions.modules.php');
+require_once ('data/inc/functions.all.php');
+require_once ('data/inc/functions.admin.php');
+//Include Translation data.
+require_once ('data/inc/variables.all.php');
+
+//Include header
+$titelkop = 'update helper';
+include_once ('data/inc/header2.php');
 
 //----------------
 //Startpage
 //Show the different options for upgrading
 //----------------
 
-if(!isset($_GET['step'])) {
-echo "<p>Welcome to the pluck upgrading script. This script will help you upgrade your pluck to the newest version,
-<b>4.6</b>. This script only supports upgrading your pluck installation if you use pluck 4.3, 4.4 or 4.5.x.
-Any older versions are not tested, but may work.</p>
+if(!isset($_GET['step'])) { ?>
+	<p>Welcome to the pluck upgrading script. This script will help you upgrade your pluck to the newest version,
+	<b><?php echo PLUCK_VERSION; ?></b>. This script only supports upgrading your pluck installation if you use pluck 4.6.x. Updating from any older version is not supported.</p>
 
-<p><b>We strongly recommend creating a complete backup of your pluck installation before proceeding with the upgrade procedure.</b></p>
+	<p><b>We strongly recommend creating a complete backup of your pluck installation before proceeding with the upgrade procedure.</b></p>
 
-<a href=\"?step=2\"><b>Proceed...</b></a>";
+	<a href="?step=1"><b>Proceed...</b></a>
+<?php }
+
+//----------------
+//Step 1
+//Convert password to new SHA512 hash
+//----------------
+
+if((isset($_GET['step'])) && ($_GET['step']) == '1') { ?>
+	<p>To start the upgrade procedure, please enter the password of your pluck installation below.</p>
+
+	<form action="" method="post">
+		<input name="cont1" size="25" type="password" />
+		<input type="submit" name="submit" value="Proceed" />
+	</form>
+
+<?php
+	if (isset($_POST['submit'])) {
+		//Include old MD5-hashed password
+		require_once ('data/settings/pass.php');
+		//If entered password is valid, safe it in new SHA512 hash
+		if ($ww == md5($cont1)) {
+			save_password($cont1);
+			redirect('?step=2', 0);
+		}
+		//If it's invalid, show error
+		else
+			show_error('The password you entered is invalid.', 1);
+	}
 }
-
-elseif(isset($_GET['step'])) {
-$step = $_GET['step'];
 
 //----------------
 //Step 2
-//Make files writable
+//Convert pages, blog (posts, comments & categories) and albums
 //----------------
 
-if($step == '2') {
-	echo "<p>Now, make sure all following files are writable. Refresh the page if you want to update the status.
-	Proceed if all files have the right permissions.</p><table>";
+if((isset($_GET['step'])) && ($_GET['step']) == '2') { ?>
 
-	check_writable('images');
-	check_writable('data/modules');
-	check_writable('data/settings');
-	check_writable('data/trash');
-	check_writable('data/themes');
-	check_writable('data/themes/default');
-	check_writable('data/themes/green');
-	check_writable('data/themes/oldstyle');
-	check_writable('data/settings/langpref.php');
-	check_writable('data/settings/themepref.php');
+	<p>The updater is now converting all the files to the new formats...</p>
 
-	echo '</table><p>All files have right permissions? Ok! Now, choose the pluck version you was using before starting this upgrade procedure.
-	Click on the correct version to start the upgrade procedure.</p>
-	<ul>
-		<li><a href="?step=3">version 4.3 or 4.4</a></li>
-		<li><a href="?step=4">version 4.5 or 4.5.x (eg, 4.5.1, 4.5.2 etc.)</a></li>
-	</ul>';
-}
-
-//----------------
-//Step 3
-//Optional, for upgrade from 4.3 or 4.4
-//Rearrange files for pluck 4.5 compatibility
-//----------------
-
-elseif($step == '3') {
-	echo 'Rearranging files for compatibility with pluck 4.5...<br />';
-
-	//title.dat file
-	copy("data/title.dat", "data/settings/title.dat");
-	//install.dat file
-	copy("data/install.dat", "data/settings/install.dat");
-	//options.php file
-	copy("data/options.php", "data/settings/options.php");
-	//pass.php file
-	copy("data/pass.php", "data/settings/pass.php");
-	//langpref.php file
-	unlink("data/settings/langpref.php");
-	copy("data/inc/lang/langpref.php", "data/settings/langpref.php");
-
-	//make needed folders
-	if(!file_exists('data/trash/pages')) {
-		mkdir('data/trash/pages', 0777);
-		chmod('data/trash/pages', 0777);
-	}
-	if(!file_exists('data/trash/images')) {
-		mkdir('data/trash/images', 0777);
-		chmod('data/trash/images', 0777);
-	}
-
-	echo '<p>We just did a file reorganization, to make your pluck installation compatible
-	with the directory structure of pluck 4.5. We can now proceed to the next step.<br />
-	<a href="?step=4"><b>Proceed...</b></a></p>';
-}
-
-/*----------------
-STEP 4
-Upgrade files to pluck 4.6 structure
- - move pages to data/settings/page
- - read out blogposts and transfer to new location
- - tell the user how to transfer albums
- - convert password to md5
- - add site title to data/settings/options.php
-----------------*/
-elseif ($step == '4') {
-	//First, create needed folders
-	if (!file_exists('data/settings/modules')) {
-		mkdir('data/settings/modules', 0777);
-		chmod('data/settings/modules', 0777);
-	}
-	if (!file_exists('data/settings/pages')) {
-		mkdir('data/settings/pages', 0777);
-		chmod('data/settings/pages', 0777);
-	}
-	if (!file_exists('data/settings/modules/albums')) {
-		mkdir('data/settings/modules/albums', 0777);
-		chmod('data/settings/modules/albums', 0777);
-	}
-	if (!file_exists('data/settings/modules/blog')) {
-		mkdir('data/settings/modules/blog', 0777);
-		chmod('data/settings/modules/blog', 0777);
-	}
-	if (!file_exists('data/settings/modules/blog/posts')) {
-		mkdir('data/settings/modules/blog/posts', 0777);
-		chmod('data/settings/modules/blog/posts', 0777);
-	}
-
-	//Then, copy all pages to new location
-	$pages = read_dir_contents('data/content','files');
-	if(isset($pages)) {
+	<?php
+	//----------------
+	//Pages
+	//----------------
+	$pages = read_dir_contents('data/settings/pages', 'files');
+	if ($pages) {
+		natcasesort($pages);
+		//Move all pages to data/settings (otherwise, page numbers will be messed up
 		foreach ($pages as $page) {
-			copy('data/content/'.$page,'data/settings/pages/'.$page);
-			unlink('data/content/'.$page);
-			echo 'Transferred page "'.$page.'"...<br />';
+			rename('data/settings/pages/'.$page, 'data/settings/'.$page);
 		}
-		unset($page);
+		//Save all pages in new format
+		foreach ($pages as $page) {
+			include_once ('data/settings/'.$page);
+			if (save_page($title, $content, $hidden, null))
+				unlink('data/settings/'.$page);
+			else
+				show_error('Could not convert page '.$page.' to the new format.', 1);
+		}
+	}
+	unset($pages);
+
+
+	//----------------
+	//Blog
+	//----------------
+	//Check if we need to convert the blog
+	if(file_exists('data/settings/modules/blog/post_index.dat')) {
+		$handle = fopen('data/settings/modules/blog/post_index.dat', 'r');
+		//Make array of posts
+		while(!feof($handle)) {
+			$file = fgets($handle, 4096);
+			//Filter out line breaks
+			$file = str_replace ("\n",'', $file);
+			//Check if post exists
+			if(file_exists('data/settings/modules/blog/posts/'.$file)) {
+				$posts[] = $file;
+			}
+		}
+		//Move all pages to data/settings (otherwise, page numbers will be messed up
+		foreach ($posts as $post) {
+			rename('data/settings/modules/blog/posts/'.$post, 'data/settings/modules/blog/'.$post);
+		}
+		//Include blog functions
+		include_once ('data/modules/blog/functions.php');
+		//Save all posts in new format
+		foreach ($posts as $post) {
+			//Get post information
+			include_once ('data/settings/modules/blog/'.$post);
+
+			//Get hour and minute from post_time
+			list($hour, $minute) = explode(':', $post_time);
+			//Save blog post
+			$post_seoname = blog_save_post($post_title, $post_category, $post_content, null, mktime($hour, $minute, '00', $post_month, $post_day, $post_year));
+
+			//Check if there are reactions
+			if (isset($post_reaction_title)) {
+				foreach ($post_reaction_title as $index => $title) {
+					//Get hour and minute from post_reaction_time
+					list($hour, $minute) = explode(':', $post_reaction_time[$index]);
+					blog_save_reaction($post_seoname, $post_reaction_name[$index], 'unknown', 'unknown', $post_reaction_content[$index], null, mktime($hour, $minute, '00', $post_reaction_month[$index], $post_reaction_day[$index], $post_reaction_year[$index]));
+				}
+			}
+			unset($post_reaction_title);
+
+			//Delete post file
+			unlink('data/settings/modules/blog/'.$post);
+		}
+		unset($posts);
+		//Delete post index
+		unlink('data/settings/modules/blog/post_index.dat');
 	}
 
-	//Convert blog posts
-	$blog_categories = read_dir_contents('data/blog','dirs');
-	if(isset($blog_categories)) {
-		foreach ($blog_categories as $blog_category) {
-			$blog_posts = read_dir_contents('data/blog/'.$blog_category.'/posts','files');
-			foreach ($blog_posts as $blog_post) {
-				//Include the blog post information
-				include('data/blog/'.$blog_category.'/posts/'.$blog_post);
+	//Then check if there are categories to convert
+	if(file_exists('data/settings/modules/blog/categories.dat')) {
+		//Load them
+		$categories = file_get_contents('data/settings/modules/blog/categories.dat');
 
-				//Extract time variables
-				list($date, $time) = split(', ', $postdate);
-				list($month, $day, $year) = split('[/.-]', $date);
+		//Then in an array
+		$categories = explode(',',$categories);
 
-				//Generate new filename
-				$newfile = strtolower($title);
-				$newfile = str_replace('.','',$newfile);
-				$newfile = str_replace(',','',$newfile);
-				$newfile = str_replace('?','',$newfile);
-				$newfile = str_replace(':','',$newfile);
-				$newfile = str_replace('<','',$newfile);
-				$newfile = str_replace('>','',$newfile);
-				$newfile = str_replace('=','',$newfile);
-				$newfile = str_replace('"','',$newfile);
-				$newfile = str_replace('\'','',$newfile);
-				$newfile = str_replace('/','',$newfile);
-				$newfile = str_replace("\\",'',$newfile);
-				$newfile = str_replace('  ','-',$newfile);
-				$newfile = str_replace(' ','-',$newfile);
+		//Create categories
+		foreach ($categories as $category)
+			blog_create_category($category);
 
-				//Make sure chosen filename doesn't exist
-				if(file_exists('data/settings/modules/blog/posts/'.$newfile.'.php')) {
-					$newfile = $newfile.'-new';
-				}
+		//Delete categories file
+		unlink('data/settings/modules/blog/categories.dat');
+	}
 
-				//Strip slashes from post
-				$title = stripslashes($title);
-				$title = str_replace("\"", "\\\"", $title);
-				$blog_category = stripslashes($blog_category);
-				$blog_category = str_replace("\"", "\\\"", $blog_category);
-				$content = stripslashes($content);
-				$content = str_replace("\"", "\\\"", $content);
+	//----------------
+	//Albums
+	//----------------
+	//Check if there are albums to convert
+	if (file_exists('data/settings/modules/albums')) {
+		$albums = read_dir_contents('data/settings/modules/albums', 'dirs');
+		if (isset($albums)) {
+			foreach ($albums as $album) {
+				//Save album file
+				$data['album_name'] = $album;
+				save_file('data/settings/modules/albums/'.$album.'.php', $data);
 
-				//Save post
-				$file = fopen('data/settings/modules/blog/posts/'.$newfile.'.php', 'w');
-				fputs($file, '<?php'."\n"
-				.'$post_title = "'.$title.'";'."\n"
-				.'$post_category = "'.$blog_category.'";'."\n"
-				.'$post_content = "'.$content.'";'."\n"
-				.'$post_day = "'.$day.'";'."\n"
-				.'$post_month = "'.$month.'";'."\n"
-				.'$post_year = "'.$year.'";'."\n"
-				.'$post_time = "'.$time.'";'."\n");
-
-				//See if we have comments, and save those too
-				$blog_post_wext = str_replace('.php','',$blog_post);
-				//Read out reactions
-				$reactions = read_dir_contents('data/blog/'.$blog_category.'/reactions/'.$blog_post_wext,'files');
-
-				if(isset($reactions)) {
-					//Sort array, and reverse it
-					natcasesort($reactions);
-					$reactions = array_reverse($reactions);
-					//Set key to zero
-					$key = 0;
-
-					foreach ($reactions as $reaction) {
-						//Include reaction
-						include('data/blog/'.$blog_category.'/reactions/'.$blog_post_wext.'/'.$reaction);
-
-						//Extract time variables
-						list($date, $time) = split(', ', $postdate);
-						list($month, $day, $year) = split('[/.-]', $date);
-
-						//Strip slashes from reaction
-						$title = stripslashes($title);
-						$title = str_replace("\"", "\\\"", $title);
-						$name = stripslashes($name);
-						$name = str_replace("\"", "\\\"", $name);
-						$message = stripslashes($message);
-						$message = str_replace("\"", "\\\"", $message);
-
-						//Save reaction
-						fputs($file, '$post_reaction_title['.$key.'] = "'.$title.'";'."\n"
-						.'$post_reaction_name['.$key.'] = "'.$name.'";'."\n"
-						.'$post_reaction_content['.$key.'] = "'.$message.'";'."\n"
-						.'$post_reaction_day['.$key.'] = "'.$day.'";'."\n"
-						.'$post_reaction_month['.$key.'] = "'.$month.'";'."\n"
-						.'$post_reaction_year['.$key.'] = "'.$year.'";'."\n"
-						.'$post_reaction_time['.$key.'] = "'.$time.'";'."\n");
-
-						//Higher the key
-						$key++;
+				//Convert images
+				$images = read_dir_contents('data/settings/modules/albums/'.$album, 'files');
+				if (isset($images)) {
+					natcasesort($images);
+					$count = 1;
+					foreach ($images as $image) {
+						//Get image file extension (.jpg or .jpeg)
+						if (file_exists('data/settings/modules/albums/'.$album.'/'.str_replace('.php', '', $image).'.jpg'))
+							$ext = '.jpg';
+						if (file_exists('data/settings/modules/albums/'.$album.'/'.str_replace('.php', '', $image).'.jpeg'))
+							$ext = '.jpeg';
+						if(strpos($image, '.php')) {
+							rename('data/settings/modules/albums/'.$album.'/'.$image, 'data/settings/modules/albums/'.$album.'/'.$count.'.'.str_replace('.php', '', $image).$ext.'.php');
+							$count++;
+						}
 					}
-					unset($reaction);
-				}
-				//Finish file, chmod it etc.
-				fputs($file, '?>');
-				fclose($file);
-				chmod('data/settings/modules/blog/posts/'.$newfile.'.php', 0777);
-			}
-			unset($blog_post);
-		}
-		unset($blog_category);
-
-		//Now, create array with all new posts
-		$new_posts = read_dir_contents('data/settings/modules/blog/posts','files');
-		//And put those in a new array, sorted on time
-		foreach ($new_posts as $new_post) {
-			include('data/settings/modules/blog/posts/'.$new_post);
-			$time = $post_year.'-'.$post_month.'-'.$post_day.'-'.$post_time;
-			$unix_time = strtotime($time);
-			$time_array[$new_post] = $unix_time;
-		}
-		unset($new_post);
-
-		//Now, sort the new array
-		asort($time_array);
-
-		//Create the post_index.dat file
-		foreach ($time_array as $newfile => $timestamp) {
-			if(file_exists('data/settings/modules/blog/post_index.dat')) {
-				$contents = file_get_contents('data/settings/modules/blog/post_index.dat');
-				$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
-				if(!empty($contents)) {
-					fputs($file,$newfile."\n".$contents);
-				}
-				else {
-					fputs($file,$newfile);
 				}
 			}
-			else {
-				$file = fopen('data/settings/modules/blog/post_index.dat', 'w');
-				fputs($file,$newfile);
-			}
-			fclose($file);
-			unset($file);
-			chmod('data/settings/modules/blog/post_index.dat',0777);
-
-			//Show message
-			echo 'Transferred blog post "'.$newfile.'"...<br />';
 		}
-		unset($newfile);
 	}
 
-	//Save title in new file
-	//First, get title
-	$sitetitle_old = file_get_contents('data/settings/title.dat');
-	//Get other options
-	require('data/settings/options.php');
-	//And save them
-	save_options($sitetitle_old,$email,$xhtmlruleset);
+//Done, display message
+echo '<p>The updater is now done converting all files to the new formats. If no error messages have shown up above, you can assume the update was successfull. If any errors have appeared above, please tell us about it in a <a href="https://bugs.launchpad.net/pluck-cms" target="_blank">bug report</a>.</p>';
 
-	//Convert pass to MD5
-	//Include password
-	require('data/settings/pass.php');
-	//Save it again, now MD5'ed
-	save_password($ww);
-
-	echo '<p>Your pages and blog posts have just been transferred. If you have any albums in your pluck installation, please go to <a href="?step=5">step 5</a>. Otherwise, directly go to <a href="?step=6">step 6</a>.</p>';
+echo '<a href="index.php"><b>Go to your website</b></a>';
 }
 
-/*----------------
-STEP 5
-Upgrade files to pluck 4.6 structure
- - tell the user how to transfer albums
-----------------*/
-elseif($step == '5') {
-echo '<p>Now, you need to move your albums manually. First, download all folders in the <b>data/albums</b> dir onto your hardrive, using a FTP-application. Then, upload all these directories into the <b>data/settings/modules/albums</b> directory.</p>
-
-<p>Done moving the albums? <a href="?step=6"><b>Proceed...</b></a></p>';
-}
-
-/*----------------
-STEP 6
-Upgrade has been finished
-----------------*/
-elseif($step == '6') {
-	echo '<p>Done! Don\'t forget to <b>delete this file (update.php)</b> using your FTP-application. Then, you can <a href="login.php">login</a>.</p>
-
-	<p>Some old files of your old pluck installation may still exist. If you wish, you can safely remove these files to free up disk space. You can for example use a FTP-application for doing this. The files are:</p>
-	
-	<ul>
-		<li>data/content (entire directory)</li>
-		<li>data/albums (entire directory)</li>
-		<li>data/blog (entire directory)</li>
-		<li>data/stats (entire directory)</li>
-		<li>data/tinymce (entire directory)</li>
-		<li>data/lightbox (entire directory)</li>
-		<li>data/inc/themes (entire directory)</li>
-		<li>data/settings/title.dat</li>
-	</ul>';
-}
-}
+include_once ('data/inc/footer.php');
 ?>

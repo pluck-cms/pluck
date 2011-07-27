@@ -25,8 +25,9 @@ define('BLOG_CATEGORIES_DIR', 'data/settings/modules/blog/categories');
  * @param string $category The category of the blog post.
  * @param string $content The contents of the blog post (the post itself).
  * @param string $seoname The current seoname of the blog post, if it already exists.
+ * @param string $force_time Force a time different then current time (Unix timestamp). Not required.
  */
-function blog_save_post($title, $category, $content, $current_seoname = null) {
+function blog_save_post($title, $category, $content, $current_seoname = null, $force_time = null) {
 	//Check if 'posts' directory exists, if not; create it.
 	if (!is_dir(BLOG_POSTS_DIR)) {
 		mkdir(BLOG_POSTS_DIR);
@@ -67,7 +68,10 @@ function blog_save_post($title, $category, $content, $current_seoname = null) {
 		else
 			$number = 1;
 
-		$post_time = time();
+		if (empty($force_time))
+			$post_time = time();
+		else
+			$post_time = $force_time;
 	}
 
 	//Save information.
@@ -115,8 +119,9 @@ function blog_get_post_seoname($filename) {
  * @param string $website The website address of the person posting the reaction.
  * @param string $message The message of the reaction.
  * @param int $id If an existing reaction needs to be edited, the id of the reaction should go here.
+ * @param string $force_time Force a time different then current time (Unix timestamp). Not required.
  */
-function blog_save_reaction($post, $name, $email, $website, $message, $id = null) {
+function blog_save_reaction($post, $name, $email, $website, $message, $id = null, $force_time = null) {
 	global $lang;
 
 	//Sanitize variables.
@@ -144,7 +149,11 @@ function blog_save_reaction($post, $name, $email, $website, $message, $id = null
 		else
 			$id = 1;
 
-		$reaction_time = time();
+
+		if (empty($force_time))
+			$reaction_time = time();
+		else
+			$reaction_time = $force_time;
 	}
 
 	$data['reaction_name']    = $name;

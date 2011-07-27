@@ -12,6 +12,7 @@ pluck 4.7 beta
  - [blog] Included option to truncate posts
  - [blog] Included pagination for blog posts
  - [blog] Included option to disable visitor commenting
+ - [blog] Included option to choose time and date format
  - [multitheme] New module, allowing the user to choose different themes for each page.
  - [tinymce] Moved TinyMCE to a module
 
