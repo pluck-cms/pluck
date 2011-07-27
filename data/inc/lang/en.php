@@ -316,8 +316,8 @@ $lang['blog']['numeric_error']          = 'You should choose a numeric value for
 $lang['blog']['posts_per_page']         = 'The number of posts that will be displayed per page.';
 $lang['blog']['posts_per_page_error']   = 'The number of posts per page cannot be zero!';
 $lang['blog']['pages']                  = 'Pages:';
-$lang['blog']['post_date']				= 'Date format.';
-$lang['blog']['post_time']				= 'Time format.';
+$lang['blog']['post_date']				= 'Choose date format.';
+$lang['blog']['post_time']				= 'Choose time format.';
 
 //Contact form.
 $lang['contactform']['module_name']  = 'contact form';
