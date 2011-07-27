@@ -50,7 +50,7 @@ if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
 		exit;
 	}
 
-	//Fin the prior page filename.
+	//Find the prior page filename.
 	foreach ($pages as $number => $page) {
 		if ($prior_page_number == $number + 1)
 			$prior_page_filename = $page;

@@ -36,20 +36,26 @@ if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
 
 	//Find current page number, and the next page number and filename.
 	foreach ($pages as $number => $page) {
-		if ($current_page_filename == $page)
-			$current_page_number = $number + 1;
-		elseif (isset($current_page_number)) {
-			$next_page_number = $number + 1;
-			$next_page_filename = $page;
+		if ($current_page_filename == $page) {
+			$current_page_number = $number - 1;
+			$next_page_number = $number;
 		}
+		elseif (isset($current_page_number))
+			$not_last_page = true;
 	}
 
 	//Check if the page isn't already the last one.
-	if (!isset($next_page_number)) {
+	if (!isset($not_last_page)) {
 		show_error($lang['page']['last'], 2);
 		redirect('?action=page', 2);
 		include_once('data/inc/footer.php');
 		exit;
+	}
+
+	//Find the next page filename.
+	foreach ($pages as $number => $page) {
+		if ($next_page_number == $number - 1)
+			$next_page_filename = $page;
 	}
 
 	//Split the filenames, so we can switch numbers.
