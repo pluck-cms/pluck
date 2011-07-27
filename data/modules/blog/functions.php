@@ -405,18 +405,18 @@ function blog_show_page_no_list($current_page, $category = false) {
 	while ($page <= $number_pages) {
 		if ($page != $current_page) {
 			if ($page == 1) {
-				echo '<a href="'.SEO_URL_LINK.CURRENT_PAGE_SEONAME.'">'.$page.'</a> ';
+				echo '<a href="'.PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.'">'.$page.'</a> ';
 				if ($current_page > $page+3)
 					echo '&#133; ';
 			}
 			elseif ($page == $number_pages) {
 				if ($current_page < $page-3)
 					echo '&#133; ';
-				echo '<a href="'.SEO_URL_LINK.CURRENT_PAGE_SEONAME.'&p='.$page.'">'.$page.'</a> ';
+				echo '<a href="'.PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.'&p='.$page.'">'.$page.'</a> ';
 			}
 			else {
 				if ((!($page < $current_page-2) && !($page > $current_page+2)))
-					echo '<a href="'.SEO_URL_LINK.CURRENT_PAGE_SEONAME.'&p='.$page.'">'.$page.'</a> ';
+					echo '<a href="'.PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.'&p='.$page.'">'.$page.'</a> ';
 			}
 		}
 		else

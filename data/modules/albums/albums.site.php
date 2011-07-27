@@ -67,13 +67,13 @@ function albums_theme_main($category = 'all') {
 						<table>
 							<tr>
 								<td>
-									<a href="<?php echo SEO_URL_LINK.CURRENT_PAGE_SEONAME; ?>&amp;module=albums&amp;page=viewalbum&amp;album=<?php echo $album; ?>" title="album <?php echo $album_name; ?>">
+									<a href="<?php echo PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME; ?>&amp;module=albums&amp;page=viewalbum&amp;album=<?php echo $album; ?>" title="album <?php echo $album_name; ?>">
 										<img alt="<?php echo $album_name; ?>" title="<?php echo $album_name; ?>" src="data/modules/albums/albums_getimage.php?image=<?php echo $album; ?>/thumb/<?php echo $first_image; ?>" />
 									</a>
 								</td>
 								<td>
 									<span class="albuminfo">
-										<a href="<?php echo SEO_URL_LINK.CURRENT_PAGE_SEONAME; ?>&amp;module=albums&amp;page=viewalbum&amp;album=<?php echo $album; ?>" title="album <?php echo $album_name; ?>"><?php echo $album_name; ?></a>
+										<a href="<?php echo PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME; ?>&amp;module=albums&amp;page=viewalbum&amp;album=<?php echo $album; ?>" title="album <?php echo $album_name; ?>"><?php echo $album_name; ?></a>
 									</span>
 								</td>
 							</tr>
@@ -106,7 +106,7 @@ function albums_page_site_viewalbum() {
 	albums_site_show_images($_GET['album']);
 	?>
 		<p>
-			<a href="<?php echo SEO_URL_LINK.CURRENT_PAGE_SEONAME; ?>" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
+			<a href="<?php echo PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME; ?>" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 		</p>
 	<?php
 }

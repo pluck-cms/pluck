@@ -77,9 +77,9 @@ if (defined('CURRENT_MODULE_DIR')) {
 	}
 }
 
-//If link is broken - redirect to 404 error page
-if(!get_page_filename($_GET['file']) && $_GET['file'] != '404')
-	redirect(SEO_URL_LINK.'404',0);
+//If a page has been requested that does not exist, return 404 header.
+if(!get_page_filename($_GET['file']))
+	header('HTTP/1.0 404 Not Found');
 
 //Allow modules to manipulate theme
 $page_theme = THEME;
@@ -89,6 +89,6 @@ run_hook('site_theme', array(&$page_theme));
 $page_theme_file = 'theme';
 run_hook('site_theme_file', array(&$page_theme_file));
 
-//Now, include the page.
+//Now, include the theme
 include_once('data/themes/'.$page_theme.'/'.$page_theme_file.'.php');
 ?>

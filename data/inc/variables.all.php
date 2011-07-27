@@ -60,8 +60,8 @@ if (isset($_GET['module'])) {
 	define('MODULE_SETTINGS_DIR', 'data/settings/modules/'.$_GET['module']);
 }
 
-if (file_exists('data/settings/pages')) {
-	$homepage = read_dir_contents('data/settings/pages', 'files');
+if (file_exists(PAGE_DIR)) {
+	$homepage = read_dir_contents(PAGE_DIR, 'files');
 
 	if ($homepage != false) {
 		sort($homepage, SORT_NUMERIC);
@@ -72,12 +72,12 @@ if (file_exists('data/settings/pages')) {
 	else
 		$homepage = '404';
 	
-	$seo_url_link = '?file=';
-	run_hook('seo_url_link', array(&$seo_url_link));
-	define('SEO_URL_LINK', $seo_url_link);
-	unset($seo_url_link);
-	
-	$homepage = SEO_URL_LINK.$homepage;
+	$page_url_prefix = '?file=';
+	run_hook('page_url_prefix', array(&$page_url_prefix));
+	define('PAGE_URL_PREFIX', $page_url_prefix);
+	unset($page_url_prefix);
+
+	$homepage = PAGE_URL_PREFIX.$homepage;
 	run_hook('const_home_page', array(&$homepage));
 	define('HOME_PAGE', $homepage);
 	unset($homepage);

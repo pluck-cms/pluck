@@ -166,7 +166,7 @@ function theme_menu_data($block, $inline, $active_id, $level, $dir) {
 				else
 					echo '<'.$inline.'>';
 
-				echo '<a href="'.SEO_URL_LINK.$file.'" title="'.$title.'">'.$title.'</a>';
+				echo '<a href="'.PAGE_URL_PREFIX.$file.'" title="'.$title.'">'.$title.'</a>';
 
 				preg_match_all('|\/|', $file, $page_level);
 				$page_level = count($page_level[0]);
