@@ -343,11 +343,11 @@ function blog_create_category($category) {
 }
 
 function blog_date_convert($timestamp) {
-	return date('j/m-y', $timestamp);
+	return date(module_get_setting('blog','post_date'), $timestamp);
 }
 
 function blog_time_convert($timestamp) {
-	return date('H:i', $timestamp);
+	return date(module_get_setting('blog','post_time'), $timestamp);
 }
 
 /**

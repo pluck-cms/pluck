@@ -33,9 +33,11 @@ function blog_info() {
 
 function blog_settings_default() {
 	return array(
-		'allow_reactions'  => true,
-		'truncate_posts'  => '500',
-		'posts_per_page'  => '15'
+		'allow_reactions'	=> true,
+		'truncate_posts'	=> '500',
+		'posts_per_page'	=> '15',
+		'post_date'	=> 'd/m/Y',
+		'post_time'	=> 'G:i'
 	);
 }
 
@@ -55,6 +57,35 @@ function blog_admin_module_settings_beforepost() {
 				<td><input name="posts_per_page" id="posts_per_page" type="text" size="2" value="'.module_get_setting('blog','posts_per_page').'" /></td>
 				<td><label for="posts_per_page">&emsp;'.$lang['blog']['posts_per_page'].'</label></td>
 			</tr>
+			<tr>
+				<td>
+					<select name="post_date" id="post_date" />
+						<option value="d/m/Y">'.date('d/m/Y').'</option>
+						<option value="m/d/Y">'.date('m/d/Y').'</option>
+						<option value="Y/m/d">'.date('Y/m/d').'</option>
+						<option value="d.m.Y">'.date('d.m.Y').'</option>
+						<option value="d.m.y">'.date('d.m.y').'</option>
+						<option value="Y-m-d">'.date('Y-m-d').'</option>
+						<option value="D M Y">'.date('D M Y').'</option>
+						<option value="d M Y">'.date('d M Y').'</option>
+						<option value="F j, Y">'.date('F j, Y').'</option>
+					</select>
+				</td>
+				<td><label for="post_date">&emsp;'.$lang['blog']['post_date'].'</label></td>
+			</tr>
+			<tr>
+				<td>
+					<select name="post_time" id="post_time" />
+						<option value="G:i">'.date('G:i').'</option>
+						<option value="H:i:s">'.date('H:i:s').'</option>
+						<option value="g:i a">'.date('g:i a').'</option>
+						<option value="g:i A">'.date('g:i A').'</option>
+						<option value="g:i:s a">'.date('g:i:s a').'</option>
+						<option value="g:i:s A">'.date('g:i:s A').'</option>
+					</select>
+				</td>
+				<td><label for="post_time">&emsp;'.$lang['blog']['post_time'].'</label></td>
+			</tr>
 	</table><br />';
 }
 
@@ -71,9 +102,11 @@ function blog_admin_module_settings_afterpost() {
 	else {
 		//Compose settings array
 		$settings = array(
-			'allow_reactions'  => $_POST['allow_reactions'],
-			'truncate_posts'  => $_POST['truncate_posts'],
-			'posts_per_page'  => $_POST['posts_per_page']
+			'allow_reactions' => $_POST['allow_reactions'],
+			'truncate_posts' => $_POST['truncate_posts'],
+			'posts_per_page' => $_POST['posts_per_page'],
+			'post_date' => $_POST['post_date'],
+			'post_time' => $_POST['post_time']
 		);
 		//Save settings
 		module_save_settings('blog', $settings);
