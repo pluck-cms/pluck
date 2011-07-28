@@ -123,25 +123,45 @@ function theme_meta($reset_css = false) {
 	run_hook('theme_meta');
 }
 
-//[THEME] FUNCTION TO SHOW SITE TITLE
-//---------------------------------
+/**
+ * Display site title. For use in themes.
+ */
 function theme_sitetitle() {
 	echo SITE_TITLE;
 }
 
-//[THEME] FUNCTION TO SHOW THE MENU
-//---------------------------------
+/**
+ * Display a page menu. For use in themes.
+ *
+ * @param string $block The HTML block-level element for the menu. Usually "<ul>".
+ * @param string $inline The HTML inline-level element for the menu. Usually "<li>".
+ * @param string $active_id HTML id given to inline element if the menu-link is the link of the currently viewed page. Defaults to null.
+ * @param string $level Defines which page levels should be displayed. By default shows only top pages ($level = 0). When set to 1, also displays subpages, when set to 2 also displays subsubpages, etc.
+ * @param string $only_subpages If set to true, will display only subpages of the current top page. Defaults to false.
+ */
 function theme_menu($block, $inline, $active_id = null, $level = 0, $only_subpages = false) {
-	if ($only_subpages)
-		$dir = 'data/settings/pages/'.CURRENT_PAGE_SEONAME;
+	if ($only_subpages) {
+		$parents = get_page_parents(CURRENT_PAGE_SEONAME);
+		if ($parents)
+			$parent_page = $parents[0];
+		else
+			$parent_page = CURRENT_PAGE_SEONAME;
+		unset($parents);
+
+		$dir = PAGE_DIR.'/'.$parent_page;
+	}
+
 	else
-		$dir = 'data/settings/pages';
+		$dir = PAGE_DIR;
 
 	theme_menu_data($block, $inline, $active_id, $level, $dir);
 }
 
+/**
+ * Generates page menu. Only for internal use. For themes, use theme_menu().
+ */
 function theme_menu_data($block, $inline, $active_id, $level, $dir) {
-	//if there is no sub-pages, just return.
+	//If specified directory does not exist, just return.
 	if (!is_dir($dir))
 		return;
 
@@ -159,13 +179,25 @@ function theme_menu_data($block, $inline, $active_id, $level, $dir) {
 			$file = get_page_seoname($dir.'/'.$file);
 			//Only display in menu if page isn't hidden by user.
 			if (isset($hidden) && $hidden == 'no') {
-				//Check if we need to show an active link.
-				if (defined('CURRENT_PAGE_SEONAME') && CURRENT_PAGE_SEONAME == $file && $active_id)
+				//Get parents of the currently displayed page
+				$parents = get_page_parents(CURRENT_PAGE_SEONAME);
+				//Strip parents from $file, but only if it's a sub page
+				if (strpos($file, '/') !== false && file_exists(PAGE_DIR.'/'.get_page_filename($file))) {
+					$file_levels = preg_split('|\/|', $file);
+					$file_stripped = $file_levels[count($file_levels)-1];
+				}
+				else
+					$file_stripped = $file;
+				//Show an active inline for all parents of currently displayed page.
+				if ($active_id && (CURRENT_PAGE_SEONAME == $file || ($parents && array_search($file_stripped, $parents) !== false)))
 					echo '<'.$inline.' id="'.$active_id.'">';
-
+				//For other pages, show a normal inline.
 				else
 					echo '<'.$inline.'>';
 
+				//Unset parents array
+				unset($parents);
+				//Display link
 				echo '<a href="'.PAGE_URL_PREFIX.$file.'" title="'.$title.'">'.$title.'</a>';
 
 				preg_match_all('|\/|', $file, $page_level);
@@ -175,7 +207,7 @@ function theme_menu_data($block, $inline, $active_id, $level, $dir) {
 					theme_menu_data($block, $inline, $active_id, $level, 'data/settings/pages/'.$file);
 
 				echo '</'.$inline.'>';
-	    	}
+			}
 		}
 		unset($file);
 
@@ -183,14 +215,16 @@ function theme_menu_data($block, $inline, $active_id, $level, $dir) {
 	}
 }
 
-//[THEME] FUNCTION TO SHOW PAGE TITLE
-//---------------------------------
+/**
+ * Display page title. For use in themes.
+ */
 function theme_pagetitle() {
 	echo PAGE_TITLE;
 }
 
-//[THEME] FUNCTION TO SHOW PAGE CONTENTS
-//---------------------------------
+/**
+ * Displays page content. For use in themes.
+ */
 function theme_content() {
 	//Get needed variables
 	global $lang;
@@ -257,8 +291,11 @@ function theme_content() {
 		}
 }
 
-//[THEME] FUNCTION TO INCLUDE SITE-WIDE MODULES
-//---------------------------------
+/**
+ * Defines area in which modules can be inserted through the administration center. For use in themes.
+ * 
+ * @param string $place Name of the area. For example "footer", or "header".
+ */
 function theme_area($place) {
 	//Include info of theme (to see which modules we should include etc), but only if file exists.
 	if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php') && !defined('CURRENT_MODULE_DIR')) {

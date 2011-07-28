@@ -14,15 +14,19 @@
 	</div>
 
 	<div class="content">
-		<div class="kop"><?php theme_pagetitle(); ?></div><br />
+		<div class="submenu">
+				<?php theme_menu('ul', 'li', 'active', 1, true); ?>
+		</div>
+		<div class="kop"><?php theme_pagetitle(); ?></div>
 		<div class="txt">
 			<?php theme_content(); ?>
-			<?php theme_area("main"); ?>
-			<div class="footer">
-				<?php theme_area("footer"); ?>
-				>> <a href="login.php">admin</a>
-				<br />powered by <a href="http://www.pluck-cms.org">pluck</a>
-			</div>
+			<?php theme_area('main'); ?>
+		</div>
+		<div style="clear: both;"> </div>
+		<div class="footer">
+			<?php theme_area('footer'); ?>
+			>> <a href="login.php">admin</a>
+			<br />powered by <a href="http://www.pluck-cms.org">pluck</a>
 		</div>
 	</div>
 </div>

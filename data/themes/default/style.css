@@ -1,7 +1,7 @@
 body {
 	font: 13px Arial, Helvetica, sans-serif;
 	color: #1D1D1D;
-	background: #FAFEEB url('img/bghtml.jpg') top repeat-x;
+	background: #fcfef6 url('img/bghtml.jpg') top repeat-x;
 }
 
 a {
@@ -18,8 +18,8 @@ a:hover {
 blockquote {
 	background-color: white;
 	color: #333;
-	border: 1px solid #95CB42;
-	border-left: 5px solid #95CB42;
+	border: 1px solid #578fb5;
+	border-left: 5px solid #578fb5;
 	padding: 7px;
 }
 
@@ -44,7 +44,7 @@ h1 {
 h2 {
 	font-size: 24px;
 	font-weight: normal;
-	color: #5B7900;
+	color: #4b7a9b;
 	padding-bottom: 8px;
 }
 
@@ -53,13 +53,13 @@ textarea, input {
 	color: black;
 	background-color: white;
 	border: 1px solid black;
-	border-left: 5px solid #95CB42;
+	border-left: 5px solid #578fb5;
 	padding: 1pt;
 	margin: 5px;
 }
 
 #container {
-	margin: 0 30px;
+	margin: 0 10%;
 }
 
 #header > ul {
@@ -88,13 +88,13 @@ textarea, input {
 }
 
 #active, #header > ul > li:hover {
-	border-color: #5B7900 !important;
-	background-color: #FAFEEB;
+	border-color: #0f71b5 !important;
+	background-color: #fcfef6;
 }
 
 #header ul ul {
-	background-color: #FAFEEB;
-	border: 1px solid #5B7900;
+	background-color: #fcfef6;
+	border: 1px solid #0f71b5;
 	border-top: none;
 	display: none;
 	list-style: none;
@@ -127,7 +127,7 @@ textarea, input {
 	text-align: center;
 	font-size: 11px;
 	color: #666;
-	border-top: 1px solid #95CB42;
+	border-top: 1px solid #578fb5;
 }
 
 /* Blog */
@@ -150,12 +150,12 @@ textarea, input {
 }
 
 #blog_reactions > p {
-	color: #5B7900;
+	color: #0f71b5;
 	font-size: 17px;
 }
 
 .blog_reaction {
-	border-left: 5px solid #95CB42;
+	border-left: 5px solid #578fb5;
 	padding-left: 10px;
 	margin-left: 5px;
 	width: 370px;
@@ -186,8 +186,8 @@ textarea, input {
 /* Albums */
 .album {
 	background-color: white;
-	border: 1px solid #95CB42;
-	border-left: 5px solid #95CB42;
+	border: 1px solid #578fb5;
+	border-left: 5px solid #578fb5;
 	padding: 7px;
 	margin: 15px auto;
 }

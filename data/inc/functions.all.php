@@ -334,12 +334,12 @@ function get_page_filename($seoname) {
 /**
  * Get the sub-page directory of a page.
  *
- * @param <type> $page The page seoname
- * @return <type> The sub-page directory
+ * @param string $page The page seoname
+ * @return string The sub-page directory
  */
 function get_sub_page_dir($page) {
 	//Don't do anything if it's not a sub-page.
-	if (strpos($page, '/') !== false && file_exists('data/settings/pages/'.get_page_filename($page))) {
+	if (strpos($page, '/') !== false && file_exists(PAGE_DIR.'/'.get_page_filename($page))) {
 		$page = explode('/', $page);
 		$count = count($page);
 		unset($page[$count -1]);
@@ -348,5 +348,22 @@ function get_sub_page_dir($page) {
 	}
 
 	return false;
+}
+
+
+/**
+ * Get the parents of a page. NOTE: does not check if pages actually exist.
+ *
+ * @param string $seoname The seoname of the page.
+ * @return array Seonames of parents, in an array. If $seoname doesn't have parents (if it is a top page), return FALSE.
+ */
+function get_page_parents($seoname) {
+	if (strpos($seoname, '/') !== false && file_exists(PAGE_DIR.'/'.get_page_filename($seoname))) {
+		$parents = preg_split('|\/|', $seoname);
+		unset($parents[count($parents)-1]);
+		return $parents;
+	}
+	else
+		return false;
 }
 ?>
