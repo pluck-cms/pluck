@@ -201,6 +201,8 @@ if((isset($_GET['step'])) && ($_GET['step']) == '2') { ?>
 //Done, display message
 echo '<p>The updater is now done converting all files to the new formats. If no error messages have shown up above, you can assume the update was successfull. If any errors have appeared above, please tell us about it in a <a href="https://bugs.launchpad.net/pluck-cms" target="_blank">bug report</a>.</p>';
 
+echo '<p><b>Please delete this file (update.php) before proceeding.</b></p>';
+
 echo '<a href="index.php"><b>Go to your website</b></a>';
 }
 

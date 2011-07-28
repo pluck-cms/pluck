@@ -6,13 +6,16 @@ pluck 4.7 beta
  - Added requirements check, to check server configuration before install
  - Added possibility to remove themes
  - Changed language variables into one language array
+ - Add brute force protection to login page
  - Lots of optimizations and small bug fixes
  - [albums] Included SmartImage class for better image handling
  - [albums] Included option to choose resize dimensions, or disable disable automatic resizing
+ - [albums] Added possibility to choose which album should be added to a page
  - [blog] Included option to truncate posts
  - [blog] Included pagination for blog posts
  - [blog] Included option to disable visitor commenting
  - [blog] Included option to choose time and date format
+ - [blog] Added possibility to choose which blog category should be added to a page
  - [multitheme] New module, allowing the user to choose different themes for each page.
  - [tinymce] Moved TinyMCE to a module
 

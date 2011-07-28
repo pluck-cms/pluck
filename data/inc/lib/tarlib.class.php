@@ -11,6 +11,11 @@
  * @author  Christopher Smith <chris@jalakai.co.uk>
  */
 
+ /**
+ * NOTE: this class has been adapted by the pluck development team for use in pluck cms.
+ * All changes released under the GPL.
+ * http://www.pluck-cms.org
+ */
 
 /**
  * Those constants represent the compression method to use.
@@ -862,7 +867,7 @@ $p_add, $p_rem);
 
         if ($p_to != "./" && $p_to != "/")
         {
-          while($p_to{-1}=="/") $p_to = substr($p_to,0,-1);
+          while($p_to{0}=="/") $p_to = substr($p_to,0,-1);
 
           if($headers['filename']{0} == "/")
             $headers['filename'] = $p_to.$headers['filename'];

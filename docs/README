@@ -1,41 +1,26 @@
-pluck 4.6 readme
+pluck 4.7 readme
 ================
 
 Introduction
 ---------------
-Thank you for choosing pluck, a small and simle content management system. With pluck, you can manage your website without any knowledge of HTML or another kind of webprogramminglanguage.
-With pluck, you can:
-- insert images in your pages
-- write posts in your blog
-- show your favourite photos and images to the world by using the album-option
-- keep in touch with your visitors by including emailforms on your page(s)
-- change site information, for better results with searchengines
-- download and install new themes to give your website a total new look
-- edit your website in your own language (for the languages that pluck has to offer, take a look below)
-- enjoy the completely W3C XHTML-compatible output (when using one of the default installed themes)
-... and everything in an easy-to-use, intuitive and good-looking administrationcenter!
+Pluck is your small and simple content management system, written in php. With pluck, you can easily manage your own website without knowledge of programming languages.
 
-Languages
----------------
-To see a list of the available languages, read the file "THANKS".
-Thanks to the translators for making pluck available in other languages!
+Pluck focuses on ease of use and enables everyone to manage his own website. This makes pluck an excellent choice for every small website. Licensed under the GPL, pluck is completely open source.
 
 Requirements
 ---------------
-- php 5.2.0 or newer
-- the ability to change the rights of files/directories (chmod, only needed on *NIX systems)
-- an Apache webserver
-- server running Linux or Windows
-... no database needed!
+ - Apache webserver, running on Linux or Windows
+ - PHP 5.2.0 or newer (PHP 4 is not supported anymore)
+ - PHP safe-mode OFF
+ - register_globals in php.ini should be off, for safety reasons. You can contact your webhost if you are unsure.
+ - The PHP-module php-gd
+ - The PHP-module php-zlib
+ - The PHP-module curl
+ - The ability to change permissions for files and directories (on Linux)
 
 Installation
 ---------------
-After you've unpacked the tar.gz-file, you can upload everything to your webserver. Then, browse to install.php, this page will
-help you with installing pluck. After installing, don't forget to delete the file update.php!
-
-Update
----------------
-For more information on howto update to pluck 4.5, please visit http://www.pluck-cms.org/wiki/index.php?title=Update/4.5
+Please read http://www.pluck-cms.org/docs/docs:install for more information on installing pluck.
 
 How can I edit my site?
 -------------------------
@@ -44,12 +29,12 @@ Don't forget to log out after you've finished editing your website.
 
 Need help?
 ---------------
-Browse to www.pluck-cms.org, and open a topic on the forums!
+Browse to http://www.pluck-cms.org/forum and open a topic on the forums!
 
 License
 ----------
-pluck is available under the terms of the GNU General Public License 3 (GPL). This means that everyone may modify and reproduce pluck, 
-commercial purposes included. But, you have to release the (altered) product under the same license. Please read "COPYING" for the full license.
+Pluck is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. See COPYING for the complete license.
 
-_______________________________________________________________
-pluck 4.6 Copyright somp, 2008 (www.somp.nl)
+Stay up-to-date
+----------
+Want to stay up-to-date? Subscribe to our mailinglist at http://www.pluck-cms.org/cgi-bin/dada/mail.cgi/list/announce
