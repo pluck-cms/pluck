@@ -15,8 +15,11 @@
 //Make sure the file isn't accessed directly.
 defined('IN_PLUCK') or exit('Access denied!');
 
-//Function: read the available languages.
-//-------------------
+/**
+ * Outputs HTML option-elements for use in form for language selection. Not suited for use in modules.
+ *
+ * @param string $not_this_file Language file to exclude from form.
+ */
 function read_lang_files($not_this_file) {
 	$files = read_dir_contents('data/inc/lang', 'files');
 	if ($files) {
@@ -33,8 +36,9 @@ function read_lang_files($not_this_file) {
 	}
 }
 
-//Function: show box for inserting images in pages
-//------------
+/**
+ * Shows a menu for inserting images in TinyMCE.
+ */
 function show_image_insert_box($dir) {
 	global $lang;
 
@@ -64,9 +68,9 @@ function show_image_insert_box($dir) {
 	}
 }
 
-
-//Function: show box for inserting modules in pages
-//------------
+/**
+ * Shows a menu for inserting module inclusion code in TinyMCE.
+ */
 function show_module_insert_box() {
 	global $lang, $module_list;
 
@@ -100,13 +104,15 @@ function show_module_insert_box() {
 			<br />
 			<a href="#" onclick="insert_module();return false;"><?php echo $lang['general']['insert_module']; ?></a>
 		</span>
-	</div>
+	</div>/**
+ * Shows a menu for inserting links to pages in TinyMCE.
+ */
 	<?php
 }
 
-
-//Function: show box for inserting links in pages
-//------------
+/**
+ * Shows a menu for inserting links to pages in TinyMCE.
+ */
 function show_link_insert_box() {
 	global $lang;
 
@@ -146,7 +152,13 @@ function show_link_insert_box() {
 	}
 }
 
-function get_pages($patch = 'data/settings/pages', &$pages = null) {
+/**
+ * Returns array with all pages.
+ *
+ * @param string $patch Directory where pages are located. Set to PAGE_DIR by default.
+ * @return array All pages in an array.
+ */
+function get_pages($patch = PAGE_DIR, &$pages = null) {
 	$files = read_dir_contents($patch, 'files');
 	if ($files) {
 		sort($files, SORT_NUMERIC);
@@ -166,6 +178,11 @@ function get_pages($patch = 'data/settings/pages', &$pages = null) {
 	return false;
 }
 
+/**
+ * Shows a page box for a page. Not suited for use in modules.
+ *
+ * @param string $file Full filename of the page (no seoname).
+ */
 function show_page_box($file) {
 	global $lang;
 
@@ -217,6 +234,12 @@ function show_page_box($file) {
 	<?php
 }
 
+/**
+ * Shows a subpage selection form. Used for saving pages.
+ *
+ * @param string $name HTML name given to select-element.
+ * @param string $current_page Seoname of page that needs to be selected. Defaults to null.
+ */
 function show_subpage_select($name, $current_page = null) {
 	global $lang;
 
@@ -251,6 +274,11 @@ function show_subpage_select($name, $current_page = null) {
 	echo '</select>';
 }
 
+/**
+ * Reorders pages, to ensure there are no gaps in page numbering.
+ *
+ * @param string $patch Complete directory in which pages should be reordered.
+ */
 function reorder_pages($patch) {
 	$pages = read_dir_contents($patch, 'files');
 
@@ -267,6 +295,12 @@ function reorder_pages($patch) {
 	}
 }
 
+/**
+ * Shows common submit buttons for forms. By default shows a 'Save'-button and a 'Cancel'-button.
+ *
+ * @param string $url The URL to which the 'Cancel'-button redirects.
+ * @param bool $exit If set to true, adds a 'Save and Exit'-button, with name="save_exit". Defaults to false.
+ */
 function show_common_submits($url, $exit = false) {
 	global $lang;
 	?>
@@ -278,8 +312,16 @@ function show_common_submits($url, $exit = false) {
 	<?php
 }
 
-//Function: display a menudiv.
-//-------------------
+/**
+ * Generates and echoes HTML-code for a menu div. For use in admin center.
+ * 
+ * @param string $title Title of the menu item.
+ * @param string $text Descriptive text of menu item.
+ * @param string $image Image of menu item.
+ * @param string $url URL for link.
+ * @param bool $blank If set to true, opens the link in a new page or tab. Defaults to false.
+ * @param string $more Optionally show more information in menu div. Defaults to null.
+ */
 function showmenudiv($title, $text, $image, $url, $blank = false, $more = null) {
 ?>
 	<div class="menudiv">
@@ -300,6 +342,11 @@ function showmenudiv($title, $text, $image, $url, $blank = false, $more = null) 
 <?php
 }
 
+/**
+ * Counts number of items in trash can (pages and images).
+ *
+ * @return integer The number of items in trash can.
+ */
 function count_trashcan() {
 	//Pages
 	$count_pages_array = glob('data/trash/pages/*.*');
@@ -319,10 +366,11 @@ function count_trashcan() {
 	return $count_pages + $count_images;
 }
 
-/*INSTALL FUNCTIONS*/
-
-//Function: check if files are writable.
-//-------------------
+/**
+ * Checks specified file for permission to write and echoes status. For use in installer.
+ *
+ * @param string $file The file to check.
+ */
 function check_writable($file) {
 	//Translation data.
 	global $lang;
@@ -346,16 +394,18 @@ function check_writable($file) {
 	}
 }
 
-//Function: write the install file.
-//-------------------
+/**
+ * Saves an empty file ('data/settings/install.dat') to indicate that pluck has been sucessfully installed. For use in installer.
+ */
 function install_done() {
 	save_file('data/settings/install.dat', '');
 }
 
-/*SAVE FUNCTIONS*/
-
-//Function: save the login password.
-//-------------------
+/**
+ * Hashes and saves login password.
+ *
+ * @param string $password The password (plain text).
+ */
 function save_password($password) {
 	//MD5-hash password
 	$password = hash('sha512', $password);
@@ -363,8 +413,12 @@ function save_password($password) {
 	save_file('data/settings/pass.php', array('ww' => $password));
 }
 
-//Function: save the options.
-//-------------------
+/**
+ * Saves general options (site title and email address).
+ *
+ * @param string $title The site title.
+ * @param string $email The email address.
+ */
 function save_options($title, $email) {
 	$title = sanitize($title);
 	$email = sanitize($email);
@@ -375,14 +429,20 @@ function save_options($title, $email) {
 	save_file('data/settings/options.php', $data);
 }
 
-//Function: save the prefered language.
-//-------------------
+/**
+ * Saves language setting.
+ *
+ * @param string $language The language file that should be used (for example 'en.php').
+ */
 function save_language($language) {
 	save_file('data/settings/langpref.php', array('langpref' => $language), FALSE);
 }
 
-//Function: save theme.
-//-------------------
+/**
+ * Saves theme setting.
+ *
+ * @param string $theme The theme dir that should be used (for example 'default').
+ */
 function save_theme($theme) {
 	save_file('data/settings/themepref.php', array('themepref' => $theme));
 }
@@ -392,14 +452,15 @@ function save_theme($theme) {
  *
  * @param string $title The title.
  * @param string $content The content.
- * @param string $hidden Should it be hidden (yes or no)?
- * @param string $subpage The sub-page.
- * @param string $description The description.
- * @param string $keywords The keywords.
- * @param array $module_additional_data Additional data supplied by modules.
- * @param string $current_seoname If we want to edit a page.
+ * @param string $hidden Should it be hidden ('yes' or 'no')?
+ * @param string $subpage Specifies the parent page, if the saved page should be a sub page. Default to null.
+ * @param string $description Description of the page. Defaults to null.
+ * @param string $keywords Keywords of the page. Defaults to null.
+ * @param array $module_additional_data Additional data variable, can be edited by modules through hooks (admin_save_page_module_additional_data). Defaults to null.
+ * @param string $current_seoname Current seoname of the page, if we are editing a page. Defaults to null.
+ * @return string Seoname of the saved page.
  */
-function save_page($title, $content, $hidden, $subpage, $description = null, $keywords = null, $module_additional_data = null, $current_seoname = null) {
+function save_page($title, $content, $hidden, $subpage = null, $description = null, $keywords = null, $module_additional_data = null, $current_seoname = null) {
 	//Run a few hooks.
 	run_hook('admin_save_page', array(&$title, &$content));
 	run_hook('admin_save_page_meta', array(&$description, &$keywords));

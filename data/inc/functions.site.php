@@ -75,8 +75,11 @@ function get_pagetitle() {
 	return $page_title;
 }
 
-//[THEME] FUNCTION TO INCLUDE META-DATA IN THE PAGE
-//---------------------------------
+/**
+ * Display data for in <head>. For use in themes.
+ *
+ * @param bool $reset_css If set to true, includes reset CSS-file provided by pluck. Defaults to false.
+ */
 function theme_meta($reset_css = false) {
 	//Get page-info (for meta-information)
 	if (defined('CURRENT_PAGE_FILENAME')) {
@@ -133,11 +136,11 @@ function theme_sitetitle() {
 /**
  * Display a page menu. For use in themes.
  *
- * @param string $block The HTML block-level element for the menu. Usually "<ul>".
- * @param string $inline The HTML inline-level element for the menu. Usually "<li>".
+ * @param string $block The HTML block-level element for the menu. Usually "ul".
+ * @param string $inline The HTML inline-level element for the menu. Usually "li".
  * @param string $active_id HTML id given to inline element if the menu-link is the link of the currently viewed page. Defaults to null.
- * @param string $level Defines which page levels should be displayed. By default shows only top pages ($level = 0). When set to 1, also displays subpages, when set to 2 also displays subsubpages, etc.
- * @param string $only_subpages If set to true, will display only subpages of the current top page. Defaults to false.
+ * @param integer $level Defines which page levels should be displayed. By default shows only top pages ($level = 0). When set to 1, also displays subpages, when set to 2 also displays subsubpages, etc.
+ * @param bool $only_subpages If set to true, will display only subpages of the current top page. Defaults to false.
  */
 function theme_menu($block, $inline, $active_id = null, $level = 0, $only_subpages = false) {
 	if ($only_subpages) {

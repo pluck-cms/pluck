@@ -77,7 +77,6 @@ function get_themes() {
 /**
  * Get the site title from the options, and return it.
  *
- * @global string $sitetitle
  * @return string The site title.
  */
 function get_sitetitle() {
@@ -111,8 +110,8 @@ function redirect($url, $time) {
 /**
  * Read files or directories in a directory, and return the names in an array.
  *
- * @param  string $directory The directory where the files are in.
- * @param  string $mode Should it read dirs or files?
+ * @param string $directory The directory where the files are in.
+ * @param string $mode Set to 'dirs' or 'files', to return directories or files respectively.
  * @return array The directories or files.
  */
 function read_dir_contents($directory, $mode) {
@@ -332,10 +331,10 @@ function get_page_filename($seoname) {
 }
 
 /**
- * Get the sub-page directory of a page.
+ * Get the parent directory a sub page is located in.
  *
- * @param string $page The page seoname
- * @return string The sub-page directory
+ * @param string $page The page seoname.
+ * @return string The parent directory (full location, eg. 'home/about/pricing').
  */
 function get_sub_page_dir($page) {
 	//Don't do anything if it's not a sub-page.
@@ -349,7 +348,6 @@ function get_sub_page_dir($page) {
 
 	return false;
 }
-
 
 /**
  * Get the parents of a page. NOTE: does not check if pages actually exist.

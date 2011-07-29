@@ -1,4 +1,6 @@
 <?php
+//Make sure the file isn't accessed directly.
+defined('IN_PLUCK') or exit('Access denied!');
 /**
  * TAR format class - Creates TAR archives
  *
