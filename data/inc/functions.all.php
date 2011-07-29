@@ -10,6 +10,8 @@
  * (at your option) any later version.
 
  * See docs/COPYING for the complete license.
+ *
+ * @package all
 */
 
 //Make sure the file isn't accessed directly.
@@ -18,6 +20,8 @@ defined('IN_PLUCK') or exit('Access denied!');
 /**
  * Recursively delete an entire directory.
  *
+ * @since 4.6
+ * @package all
  * @param string $directory The dir you want to remove.
  * @param bool $empty Should the dir remain empty?
  * @return bool
@@ -53,6 +57,8 @@ function recursive_remove_directory($directory, $empty = false)	{
 /**
  * Returns all themes in an array.
  *
+ * @since 4.7
+ * @package all
  * @return array Themes, including title and dir.
  */
 function get_themes() {
@@ -77,6 +83,8 @@ function get_themes() {
 /**
  * Get the site title from the options, and return it.
  *
+ * @since 4.6
+ * @package all
  * @return string The site title.
  */
 function get_sitetitle() {
@@ -89,6 +97,8 @@ function get_sitetitle() {
 /**
  * Redirect the user to a given address after a number of seconds.
  *
+ * @since 4.6
+ * @package all
  * @param string $url The redirect address.
  * @param integer $time The number of seconds before the redirect.
  */
@@ -110,6 +120,8 @@ function redirect($url, $time) {
 /**
  * Read files or directories in a directory, and return the names in an array.
  *
+ * @since 4.6
+ * @package all
  * @param string $directory The directory where the files are in.
  * @param string $mode Set to 'dirs' or 'files', to return directories or files respectively.
  * @return array The directories or files.
@@ -141,6 +153,8 @@ function read_dir_contents($directory, $mode) {
 /**
  * Universal function for saving files.
  *
+ * @since 4.7
+ * @package all
  * @param string $file Full patch to the file.
  * @param mixed $content The data to save. If it's an array, it will create the structure for you.
  * @param int $chmod With leading zero! If set to FALSE, no chmod operation is performed.
@@ -170,6 +184,8 @@ function save_file($file, $content, $chmod = 0777) {
 /**
  * Sanitize a variable, to make it ready for saving in a file.
  *
+ * @since 4.7
+ * @package all
  * @param string $var The variable to sanitize.
  * @param boolean $html Should it convert HTML too? Defaults to true.
  * @return string The sanitized variable.
@@ -186,6 +202,8 @@ function sanitize($var, $html = true) {
 /**
  * Displays or returns an error, notice or success message.
  *
+ * @since 4.7
+ * @package all
  * @param string $message The message to display.
  * @param integer $level <b>1:</b> error, <b>2:</b> notice and <b>3:</b> success.
  * @param bool $return Should it return the error?
@@ -217,6 +235,8 @@ function show_error($message, $level, $return = false) {
 /**
  * Convert a given string to a SEO safe URL.
  *
+ * @since 4.7
+ * @package all
  * @param string $url String to convert to a SEO URL.
  * @return string A SEO safe URL.
  */
@@ -237,6 +257,8 @@ function seo_url($url) {
 /**
  * Get the seoname of a page.
  *
+ * @since 4.7
+ * @package all
  * @param string $filename The filename
  * @return string The seoname
  */
@@ -282,6 +304,8 @@ function get_page_seoname($filename) {
 /**
  * Get the filename of a page.
  *
+ * @since 4.7
+ * @package all
  * @param string $seoname The seoname
  * @return string The filename
  */
@@ -333,6 +357,8 @@ function get_page_filename($seoname) {
 /**
  * Get the parent directory a sub page is located in.
  *
+ * @since 4.7
+ * @package all
  * @param string $page The page seoname.
  * @return string The parent directory (full location, eg. 'home/about/pricing').
  */
@@ -352,6 +378,8 @@ function get_sub_page_dir($page) {
 /**
  * Get the parents of a page. NOTE: does not check if pages actually exist.
  *
+ * @since 4.7
+ * @package all
  * @param string $seoname The seoname of the page.
  * @return array Seonames of parents, in an array. If $seoname doesn't have parents (if it is a top page), return FALSE.
  */

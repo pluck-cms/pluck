@@ -10,6 +10,8 @@
  * (at your option) any later version.
 
  * See docs/COPYING for the complete license.
+ *
+ * @package all
 */
 
 //Make sure the file isn't accessed directly.
@@ -45,6 +47,8 @@ natcasesort($module_list);
 /**
  * Run a module hook. Can also filter strings.
  *
+ * @since 4.7
+ * @package all
  * @param string $name Name of the hook.
  * @param array $par The strings to filter, if it's a filter hook.
  */
@@ -78,6 +82,8 @@ function run_hook($name, $par = null) {
 /**
  * Check if module is compatible with the current version of pluck.
  *
+ * @since 4.6
+ * @package all
  * @param string $module The module you want to check.
  * @return bool
  */
@@ -108,6 +114,8 @@ function module_is_compatible($module) {
 /**
  * Checks if a module is included in a page.
  *
+ * @since 4.7
+ * @package all
  * @param string $module The module you want to check.
  * @param string $page The seoname of the page you want to check.
  * @return bool
@@ -150,6 +158,8 @@ function module_insert_after($array, $data, $subject) {
 /**
  * Save module settings in configuration file.
  *
+ * @since 4.7
+ * @package all
  * @param string $module The module for which the settings need to be saved.
  * @param array $settings Settings in array.
  */
@@ -165,6 +175,8 @@ function module_save_settings($module, $settings) {
 /**
  * Returns the current value of a module setting. If no setting has been saved, the default value will be returned.
  *
+ * @since 4.7
+ * @package all
  * @param string $module The module.
  * @param string $setting The setting from which to obtain the value.
  */

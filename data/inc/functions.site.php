@@ -10,6 +10,8 @@
  * (at your option) any later version.
 
  * See docs/COPYING for the complete license.
+ *
+ * @package site
 */
 
 //Make sure the file isn't accessed directly.
@@ -18,6 +20,8 @@ defined('IN_PLUCK') or exit('Access denied!');
 /**
  * Get the page title.
  *
+ * @since 4.6
+ * @package site
  * @return string The page title.
  */
 function get_pagetitle() {
@@ -78,6 +82,8 @@ function get_pagetitle() {
 /**
  * Display data for in <head>. For use in themes.
  *
+ * @since 4.6
+ * @package site
  * @param bool $reset_css If set to true, includes reset CSS-file provided by pluck. Defaults to false.
  */
 function theme_meta($reset_css = false) {
@@ -128,6 +134,9 @@ function theme_meta($reset_css = false) {
 
 /**
  * Display site title. For use in themes.
+ *
+ * @since 4.6
+ * @package site
  */
 function theme_sitetitle() {
 	echo SITE_TITLE;
@@ -136,6 +145,8 @@ function theme_sitetitle() {
 /**
  * Display a page menu. For use in themes.
  *
+ * @since 4.7
+ * @package site
  * @param string $block The HTML block-level element for the menu. Usually "ul".
  * @param string $inline The HTML inline-level element for the menu. Usually "li".
  * @param string $active_id HTML id given to inline element if the menu-link is the link of the currently viewed page. Defaults to null.
@@ -162,6 +173,9 @@ function theme_menu($block, $inline, $active_id = null, $level = 0, $only_subpag
 
 /**
  * Generates page menu. Only for internal use. For themes, use theme_menu().
+ *
+ * @since 4.7
+ * @package site
  */
 function theme_menu_data($block, $inline, $active_id, $level, $dir) {
 	//If specified directory does not exist, just return.
@@ -220,6 +234,9 @@ function theme_menu_data($block, $inline, $active_id, $level, $dir) {
 
 /**
  * Display page title. For use in themes.
+ *
+ * @since 4.6
+ * @package site
  */
 function theme_pagetitle() {
 	echo PAGE_TITLE;
@@ -227,6 +244,9 @@ function theme_pagetitle() {
 
 /**
  * Displays page content. For use in themes.
+ *
+ * @since 4.6
+ * @package site
  */
 function theme_content() {
 	//Get needed variables
@@ -296,7 +316,9 @@ function theme_content() {
 
 /**
  * Defines area in which modules can be inserted through the administration center. For use in themes.
- * 
+ *
+ * @since 4.7
+ * @package site
  * @param string $place Name of the area. For example "footer", or "header".
  */
 function theme_area($place) {

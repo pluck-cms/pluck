@@ -18,6 +18,8 @@ defined('IN_PLUCK') or exit('Access denied!');
 /**
  * Outputs HTML option-elements for use in form for language selection. Not suited for use in modules.
  *
+ * @since 4.6
+ * @package admin
  * @param string $not_this_file Language file to exclude from form.
  */
 function read_lang_files($not_this_file) {
@@ -38,6 +40,9 @@ function read_lang_files($not_this_file) {
 
 /**
  * Shows a menu for inserting images in TinyMCE.
+ *
+ * @since 4.6
+ * @package admin
  */
 function show_image_insert_box($dir) {
 	global $lang;
@@ -70,6 +75,9 @@ function show_image_insert_box($dir) {
 
 /**
  * Shows a menu for inserting module inclusion code in TinyMCE.
+ *
+ * @since 4.7
+ * @package admin
  */
 function show_module_insert_box() {
 	global $lang, $module_list;
@@ -104,14 +112,15 @@ function show_module_insert_box() {
 			<br />
 			<a href="#" onclick="insert_module();return false;"><?php echo $lang['general']['insert_module']; ?></a>
 		</span>
-	</div>/**
- * Shows a menu for inserting links to pages in TinyMCE.
- */
+	</div>
 	<?php
 }
 
 /**
  * Shows a menu for inserting links to pages in TinyMCE.
+ *
+ * @since 4.6
+ * @package admin
  */
 function show_link_insert_box() {
 	global $lang;
@@ -155,6 +164,8 @@ function show_link_insert_box() {
 /**
  * Returns array with all pages.
  *
+ * @since 4.7
+ * @package admin
  * @param string $patch Directory where pages are located. Set to PAGE_DIR by default.
  * @return array All pages in an array.
  */
@@ -181,6 +192,8 @@ function get_pages($patch = PAGE_DIR, &$pages = null) {
 /**
  * Shows a page box for a page. Not suited for use in modules.
  *
+ * @since 4.6
+ * @package admin
  * @param string $file Full filename of the page (no seoname).
  */
 function show_page_box($file) {
@@ -237,6 +250,8 @@ function show_page_box($file) {
 /**
  * Shows a subpage selection form. Used for saving pages.
  *
+ * @since 4.7
+ * @package admin
  * @param string $name HTML name given to select-element.
  * @param string $current_page Seoname of page that needs to be selected. Defaults to null.
  */
@@ -277,6 +292,8 @@ function show_subpage_select($name, $current_page = null) {
 /**
  * Reorders pages, to ensure there are no gaps in page numbering.
  *
+ * @since 4.7
+ * @package admin
  * @param string $patch Complete directory in which pages should be reordered.
  */
 function reorder_pages($patch) {
@@ -298,6 +315,8 @@ function reorder_pages($patch) {
 /**
  * Shows common submit buttons for forms. By default shows a 'Save'-button and a 'Cancel'-button.
  *
+ * @since 4.7
+ * @package admin
  * @param string $url The URL to which the 'Cancel'-button redirects.
  * @param bool $exit If set to true, adds a 'Save and Exit'-button, with name="save_exit". Defaults to false.
  */
@@ -314,7 +333,9 @@ function show_common_submits($url, $exit = false) {
 
 /**
  * Generates and echoes HTML-code for a menu div. For use in admin center.
- * 
+ *
+ * @since 4.6
+ * @package admin
  * @param string $title Title of the menu item.
  * @param string $text Descriptive text of menu item.
  * @param string $image Image of menu item.
@@ -345,6 +366,8 @@ function showmenudiv($title, $text, $image, $url, $blank = false, $more = null) 
 /**
  * Counts number of items in trash can (pages and images).
  *
+ * @since 4.6
+ * @package admin
  * @return integer The number of items in trash can.
  */
 function count_trashcan() {
@@ -369,6 +392,8 @@ function count_trashcan() {
 /**
  * Checks specified file for permission to write and echoes status. For use in installer.
  *
+ * @since 4.6
+ * @package admin
  * @param string $file The file to check.
  */
 function check_writable($file) {
@@ -396,6 +421,9 @@ function check_writable($file) {
 
 /**
  * Saves an empty file ('data/settings/install.dat') to indicate that pluck has been sucessfully installed. For use in installer.
+ *
+ * @since 4.6
+ * @package admin
  */
 function install_done() {
 	save_file('data/settings/install.dat', '');
@@ -404,6 +432,8 @@ function install_done() {
 /**
  * Hashes and saves login password.
  *
+ * @since 4.6
+ * @package admin
  * @param string $password The password (plain text).
  */
 function save_password($password) {
@@ -416,6 +446,8 @@ function save_password($password) {
 /**
  * Saves general options (site title and email address).
  *
+ * @since 4.7
+ * @package admin
  * @param string $title The site title.
  * @param string $email The email address.
  */
@@ -432,6 +464,8 @@ function save_options($title, $email) {
 /**
  * Saves language setting.
  *
+ * @since 4.6
+ * @package admin
  * @param string $language The language file that should be used (for example 'en.php').
  */
 function save_language($language) {
@@ -441,6 +475,8 @@ function save_language($language) {
 /**
  * Saves theme setting.
  *
+ * @since 4.6
+ * @package admin
  * @param string $theme The theme dir that should be used (for example 'default').
  */
 function save_theme($theme) {
@@ -450,6 +486,8 @@ function save_theme($theme) {
 /**
  * Save a page with a lot of options.
  *
+ * @since 4.7
+ * @package admin
  * @param string $title The title.
  * @param string $content The content.
  * @param string $hidden Should it be hidden ('yes' or 'no')?
