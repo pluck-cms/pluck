@@ -247,7 +247,7 @@ function blog_get_posts() {
 }
 
 function blog_get_post($seoname) {
-	if (file_exists(BLOG_POSTS_DIR.'/'.blog_get_post_filename($seoname))) {
+	if (!empty($seoname) && (blog_get_post_filename($seoname))) {
 		include BLOG_POSTS_DIR.'/'.blog_get_post_filename($seoname);
 
 		return array(

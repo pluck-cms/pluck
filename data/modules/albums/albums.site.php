@@ -104,10 +104,13 @@ function albums_page_site_viewalbum() {
 	global $lang;
 
 	albums_site_show_images($_GET['album']);
+
+	if (defined('CURRENT_PAGE_SEONAME')) {
 	?>
 		<p>
 			<a href="<?php echo PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME; ?>" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 		</p>
 	<?php
+	}
 }
 ?>

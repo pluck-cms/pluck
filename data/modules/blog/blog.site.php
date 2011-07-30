@@ -18,12 +18,24 @@ defined('IN_PLUCK') or exit('Access denied!');
 require_once ('data/modules/blog/functions.php');
 
 function blog_pages_site() {
-	include BLOG_POSTS_DIR.'/'.blog_get_post_filename($_GET['post']);
+	global $lang;
 
-	$module_page_admin[] = array(
-		'func'  => 'viewpost',
-		'title' => $post_title
-	);
+	//Only get post title if post exists
+	if(isset($_GET['post']) && blog_get_post($_GET['post'])) {
+		include BLOG_POSTS_DIR.'/'.blog_get_post_filename($_GET['post']);
+		$module_page_admin[] = array(
+			'func'  => 'viewpost',
+			'title' => $post_title
+		);
+	}
+
+	//If post doesn't exist, make post title 404 error
+	else {
+		$module_page_admin[] = array(
+				'func'  => 'viewpost',
+				'title' => $lang['general']['404']
+			);
+	}
 
 	return $module_page_admin;
 }
@@ -113,8 +125,9 @@ function blog_page_site_viewpost() {
 	global $lang;
 
 	//Load blog post.
-	$post = blog_get_post($_GET['post']);
-	?>
+	if(isset($_GET['post']) && blog_get_post($_GET['post'])) {
+		$post = blog_get_post($_GET['post']);
+		?>
 		<div id="blog_post">
 			<span id="blog_post_info">
 				<?php echo $post['date'].' '.$lang['blog']['at'].' '.$post['time'].' '.$lang['blog']['in'].' '.$post['category']; ?>
@@ -211,10 +224,16 @@ function blog_page_site_viewpost() {
 		<?php
 		//End of commenting check.
 		}
-		?>
+	}
 
-		<p>
-			<a href="javascript: history.go(-1)" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
-		</p>
+	//If blog post doesn't exist, show 404 error.
+	else
+		echo $lang['general']['not_found'];
+	?>
+
+	<p>
+		<a href="javascript: history.go(-1)" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
+	</p>
 	<?php
 }
+?>

@@ -55,7 +55,7 @@ if (!defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_MODULE_DIR')) {
 if (defined('CURRENT_MODULE_DIR')) {
 	//Check if the module exists.
 	if (file_exists('data/modules/'.CURRENT_MODULE_DIR)) {
-		//And check if we also specified a page (if not, redirect).
+		//And check if we also specified a module page (if not, redirect).
 		if (defined('CURRENT_MODULE_DIR') && !defined('CURRENT_MODULE_PAGE')) {
 			header('Location: '.HOME_PAGE);
 			exit;
@@ -78,8 +78,9 @@ if (defined('CURRENT_MODULE_DIR')) {
 }
 
 //If a page has been requested that does not exist, return 404 header.
-if(!get_page_filename($_GET['file']))
+if (defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_PAGE_FILENAME')) {
 	header('HTTP/1.0 404 Not Found');
+}
 
 //Allow modules to manipulate theme
 $page_theme = THEME;
