@@ -7,7 +7,7 @@ pluck 4.7 beta
  - Added possibility to remove themes
  - Changed language variables into one language array
  - Add brute force protection to login page
- - Lots of optimizations and small bug fixes
+ - Lots of optimizations and bug fixes
  - [albums] Included SmartImage class for better image handling
  - [albums] Included option to choose resize dimensions, or disable disable automatic resizing
  - [albums] Added possibility to choose which album should be added to a page

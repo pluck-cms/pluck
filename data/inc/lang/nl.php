@@ -2,7 +2,7 @@
 $language = 'Dutch';
 $lang['general']['404'] = '404: niet gevonden';
 $lang['general']['not_found'] = 'Deze pagina kan niet worden gevonden, en is waarschijnlijk verplaatst of verwijderd.';
-$lang['general']['copyright'] = 'pluck is available under the terms of the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>.';
+$lang['general']['copyright'] = 'pluck is beschikbaar onder de voorwaarden van de <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>.';
 $lang['general']['save'] = 'Opslaan';
 $lang['general']['save_exit'] = 'Opslaan en Terug';
 $lang['general']['cancel'] = 'Annuleren';
@@ -111,7 +111,7 @@ $lang['page']['sub_page'] = 'sub-pagina van';
 $lang['page']['name_exists'] = 'Een pagina met dezelfde naam bestaat al.<br />Kies een nieuwe naam.';
 $lang['page']['no_title'] = 'Kies een naam voor uw pagina.';
 $lang['editmeta']['title'] = 'pagina-informatie aanpassen';
-$lang['editmeta']['message'] = 'Hier kunt u informatie invullen over de pagina, voor betere resultaten in zoekmachine\'s.';
+$lang['editmeta']['descr'] = 'geef hier informatie over deze pagina op, voor betere resultaten in zoekmachines (optioneel).';
 $lang['editmeta']['keywords'] = 'sleutelwoorden';
 $lang['editmeta']['comma'] = 'gescheiden door een komma';
 $lang['editmeta']['changing'] = 'Pagina-informatie aan het veranderen...';
@@ -245,6 +245,8 @@ $lang['blog']['numeric_error'] = 'Gebruik alleen getallen voor post-inkorting en
 $lang['blog']['posts_per_page'] = 'Het aantal posts dat per pagina weergegeven zal worden.';
 $lang['blog']['posts_per_page_error'] = 'Het aantal posts per pagina kan niet 0 zijn!';
 $lang['blog']['pages'] = 'Pagina\'s:';
+$lang['blog']['post_date'] = 'Kies een datumformaat.';
+$lang['blog']['post_time'] = 'Kies een tijdformaat.';
 $lang['contactform']['module_name'] = 'contactformulier';
 $lang['contactform']['module_intro'] = 'bezoekers kunnen een contactformulier gebruiken om u een berichtje te sturen';
 $lang['contactform']['fields'] = 'U heeft niet alle velden correct ingevuld.';

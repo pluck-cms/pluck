@@ -192,6 +192,10 @@ textarea, input {
 	margin: 15px auto;
 }
 
+.album td {
+	vertical-align: middle;
+}
+
 .albuminfo {
 	font-size: 17pt;
 }
