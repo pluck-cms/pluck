@@ -77,7 +77,7 @@ function get_pagetitle() {
 	}
 
 	//If page doesn't exist, and we don't want to display a module; display error.
-	if (defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_PAGE_FILENAME'))
+	if (!defined('CURRENT_PAGE_SEONAME') || !defined('CURRENT_PAGE_FILENAME'))
 		$page_title = $lang['general']['404'];
 
 	return $page_title;

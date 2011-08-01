@@ -196,6 +196,10 @@ textarea, input {
 	vertical-align: middle;
 }
 
+.album td + td {
+	padding-left:10px;
+}
+
 .albuminfo {
 	font-size: 17pt;
 }
