@@ -1,3 +1,7 @@
+pluck 4.7
+----------------------------------------
+ - Fix multiple path disclosure vulnerabilities (http://www.htbridge.ch/advisory/path_disclosure_in_pluck_cms.html and http://www.htbridge.ch/advisory/path_disclosure_in_pluck_cms_1.html)
+
 pluck 4.7 beta
 ----------------------------------------
  - Added SEO-urls

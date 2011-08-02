@@ -35,11 +35,12 @@ if (isset($_REQUEST)) {
 }
 
 /* Cross Site Scripting, Remote File Inclusion, etc.
- * Check for strange characters in $_GET keys.
- * All keys with or "/" or ".." or ":" or "<" or ">" or "=" are blocked, so that it's virtually impossible to inject any HTML-code, or external websites.
+ * First check if $_GET keys are not array(s).
+ * Then check for strange characters in $_GET keys.
+ * All keys with or "/" or ".." or ":" or "<" or ">" or "&" or "=" or '"' or "?" or "*" are blocked, so that it's virtually impossible to inject any HTML-code, or external websites.
  */
 foreach ($_GET as $get_key => $get_value) {
-	if (preg_match('|[\\\]+|', $get_value) || strpos($get_value, '..') !== false || strpos($get_value, '<') !== false || strpos($get_value, '>') !== false || strpos($get_value, '=') !== false)
+	if (is_array($get_value) || (preg_match('|[\\\]+|', $get_value) || strpos($get_value, '..') !== false || strpos($get_value, ':') !== false || strpos($get_value, '<') !== false || strpos($get_value, '>') !== false || strpos($get_value, '&') !== false || strpos($get_value, '=') !== false || strpos($get_value, '"') !== false || strpos($get_value, '?') !== false || strpos($get_value, '*') !== false))
 		die ('A hacking attempt has been detected. For security reasons, we\'re blocking any code execution.');
 }
 unset($get_key);
