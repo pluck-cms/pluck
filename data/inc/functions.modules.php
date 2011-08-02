@@ -117,13 +117,13 @@ function module_is_compatible($module) {
  * @since 4.7
  * @package all
  * @param string $module The module you want to check.
- * @param string $page The seoname of the page you want to check.
+ * @param string $page_seoname The seoname of the page you want to check.
  * @return bool
  */
 function module_is_included_in_page($module, $page_seoname) {
 	if (is_file(PAGE_DIR.'/'.get_page_filename($page_seoname))) {
 		include(PAGE_DIR.'/'.get_page_filename($page_seoname));
-		if (strpos($content, '{pluck show_module('.$module))
+		if (strpos($content, '{pluck show_module('.$module) !== FALSE)
 			return TRUE;
 		else
 			return FALSE;

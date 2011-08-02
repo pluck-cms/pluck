@@ -194,7 +194,10 @@ function blog_page_site_viewpost() {
 						blog_save_reaction($_GET['post'], $_POST['blog_reaction_name'], $_POST['blog_reaction_email'], $_POST['blog_reaction_website'], $_POST['blog_reaction_message']);
 
 						//Redirect user.
-						redirect(PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.'&module=blog&page=viewpost&post='.$_GET['post'], 0);
+							if(defined('CURRENT_PAGE_SEONAME'))
+								redirect(PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.'&module=blog&page=viewpost&post='.$_GET['post'], 0);
+							else
+								redirect('?module=blog&page=viewpost&post='.$_GET['post'], 0);
 					}
 				}
 				?>

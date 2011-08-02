@@ -66,10 +66,15 @@ function get_pagetitle() {
 		if (!empty($module_page_site)) {
 			foreach ($module_page_site as $module_page) {
 				if ($module_page['func'] == CURRENT_MODULE_PAGE) {
-					if (defined('CURRENT_PAGE_FILENAME'))
+					//If an existing page has been requested, and the module is included in that page, add module title to the title.
+					if (defined('CURRENT_PAGE_FILENAME') && defined('CURRENT_PAGE_SEONAME') && module_is_included_in_page(CURRENT_MODULE_DIR, CURRENT_PAGE_SEONAME))
 						$page_title = $page_title.' &middot; '.$module_page['title'];
-					else
+					//If no page has been requested, display only module title.
+					elseif (!defined('CURRENT_PAGE_SEONAME'))
 						$page_title = $module_page['title'];
+					//In all other cases, display 404 not found error.
+					else
+						$page_title = $lang['general']['404'];
 				}
 			}
 			unset($module_page);
@@ -77,7 +82,7 @@ function get_pagetitle() {
 	}
 
 	//If page doesn't exist, and we don't want to display a module; display error.
-	if (!defined('CURRENT_PAGE_SEONAME') || !defined('CURRENT_PAGE_FILENAME'))
+	if (defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_PAGE_FILENAME'))
 		$page_title = $lang['general']['404'];
 
 	return $page_title;
@@ -316,8 +321,8 @@ function theme_content() {
 
 	//If we are looking at a module page, call the module function.
 	elseif (defined('CURRENT_MODULE_DIR') && defined('CURRENT_MODULE_PAGE')) {
-		//If a page has been defined, check if it exists
-		if (defined('CURRENT_PAGE_FILENAME') || !defined('CURRENT_PAGE_SEONAME')) {
+		//Only execute module if an existing page has been set in which the module has been included, or if no page has been set.
+		if ((defined('CURRENT_PAGE_FILENAME') && defined('CURRENT_PAGE_SEONAME') && module_is_included_in_page(CURRENT_MODULE_DIR, CURRENT_PAGE_SEONAME)) || !defined('CURRENT_PAGE_SEONAME')) {
 			$module_page_site = call_user_func(CURRENT_MODULE_DIR.'_pages_site');
 			if (!empty($module_page_site)) {
 				foreach ($module_page_site as $module_page) {
@@ -342,7 +347,7 @@ function theme_content() {
  */
 function theme_area($place) {
 	//Include info of theme (to see which modules we should include etc), but only if file exists.
-	if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php') && !defined('CURRENT_MODULE_DIR')) {
+	if (file_exists('data/settings/themes/'.THEME.'/moduleconf.php')) {
 		include ('data/settings/themes/'.THEME.'/moduleconf.php');
 
 		//Get the array and sort it.
