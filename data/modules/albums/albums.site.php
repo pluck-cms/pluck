@@ -67,13 +67,13 @@ function albums_theme_main($category = 'all') {
 						<table>
 							<tr>
 								<td>
-									<a href="<?php echo PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME; ?>&amp;module=albums&amp;page=viewalbum&amp;album=<?php echo $album; ?>" title="album <?php echo $album_name; ?>">
-										<img alt="<?php echo $album_name; ?>" title="<?php echo $album_name; ?>" src="data/modules/albums/albums_getimage.php?image=<?php echo $album; ?>/thumb/<?php echo $first_image; ?>" />
+									<a href="<?php echo PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.ALBUM_URL_PREFIX.$album; ?>" title="album <?php echo $album_name; ?>">
+										<img alt="<?php echo $album_name; ?>" title="<?php echo $album_name; ?>" src="<?php echo SITE_URL; ?>/data/modules/albums/albums_getimage.php?image=<?php echo $album; ?>/thumb/<?php echo $first_image; ?>" />
 									</a>
 								</td>
 								<td>
 									<span class="albuminfo">
-										<a href="<?php echo PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME; ?>&amp;module=albums&amp;page=viewalbum&amp;album=<?php echo $album; ?>" title="album <?php echo $album_name; ?>"><?php echo $album_name; ?></a>
+										<a href="<?php echo PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.ALBUM_URL_PREFIX.$album; ?>" title="album <?php echo $album_name; ?>"><?php echo $album_name; ?></a>
 									</span>
 								</td>
 							</tr>
@@ -94,8 +94,8 @@ function albums_theme_meta() {
 	//Only insert LyteBox when we're viewing an album
 	if ((defined('CURRENT_MODULE_DIR') && CURRENT_MODULE_DIR == 'albums') || (defined('CURRENT_PAGE_SEONAME') && module_is_included_in_page('albums', CURRENT_PAGE_SEONAME))) {
 	?>
-		<script type="text/javascript" src="data/modules/albums/lib/lytebox/lytebox.js"></script>
-		<link rel="stylesheet" href="data/modules/albums/lib/lytebox/lytebox.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="<?php echo SITE_URL; ?>/data/modules/albums/lib/lytebox/lytebox.js"></script>
+		<link rel="stylesheet" href="<?php echo SITE_URL; ?>/data/modules/albums/lib/lytebox/lytebox.css" type="text/css" media="screen" />
 	<?php
 	}
 }

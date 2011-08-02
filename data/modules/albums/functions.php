@@ -188,8 +188,8 @@ function albums_site_show_images($album) {
 					<table>
 						<tr>
 							<td>
-								<a href="data/modules/albums/albums_getimage.php?image=<?php echo $album; ?>/<?php echo $image['filename_image']; ?>" rel="lytebox[album]" title="<?php echo $image['title']; ?>">
-									<img src="data/modules/albums/albums_getimage.php?image=<?php echo $album; ?>/thumb/<?php echo $image['filename_image']; ?>" alt="<?php echo $image['title']; ?>" title="<?php echo $image['title']; ?>" />
+								<a href="<?php echo SITE_URL; ?>/data/modules/albums/albums_getimage.php?image=<?php echo $album; ?>/<?php echo $image['filename_image']; ?>" rel="lytebox[album]" title="<?php echo $image['title']; ?>">
+									<img src="<?php echo SITE_URL; ?>/data/modules/albums/albums_getimage.php?image=<?php echo $album; ?>/thumb/<?php echo $image['filename_image']; ?>" alt="<?php echo $image['title']; ?>" title="<?php echo $image['title']; ?>" />
 								</a>
 							</td>
 							<td>

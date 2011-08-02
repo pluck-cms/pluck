@@ -38,4 +38,14 @@ if (isset($_GET['page']))
 
 //Page title.
 define('PAGE_TITLE', get_pagetitle());
+
+$blog_url_prefix = '&amp;module=blog&amp;page=viewpost&amp;post=';
+run_hook('blog_url_prefix', array(&$blog_url_prefix));
+define('BLOG_URL_PREFIX', $blog_url_prefix);
+unset($blog_url_prefix);
+
+$album_url_prefix = '&amp;module=albums&amp;page=viewalbum&amp;album=';
+run_hook('album_url_prefix', array(&$blog_url_prefix));
+define('ALBUM_URL_PREFIX', $blog_url_prefix);
+unset($album_url_prefix);
 ?>

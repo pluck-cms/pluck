@@ -46,6 +46,9 @@ if (file_exists('data/settings/options.php'))
 define('LANG', str_replace('.php', '', $langpref));
 define('LANG_FILE', $langpref);
 define('PAGE_DIR', 'data/settings/pages');
+//If somehow PAGE_DIR is deleted or missing - create it!
+if (!PAGE_DIR)
+	mkdir(PAGE_DIR);
 if (file_exists('data/settings/themepref.php')) {
 	define('THEME', $themepref);
 	define('THEME_DIR', 'data/themes/'.$themepref);
