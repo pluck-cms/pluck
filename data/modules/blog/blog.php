@@ -112,4 +112,10 @@ function blog_admin_module_settings_afterpost() {
 		module_save_settings('blog', $settings);
 	}
 }
+
+//Add hook for SEO capabilities.
+$blog_url_prefix = '&amp;module=blog&amp;page=viewpost&amp;post=';
+run_hook('blog_url_prefix', array(&$blog_url_prefix));
+define('BLOG_URL_PREFIX', $blog_url_prefix);
+unset($blog_url_prefix);
 ?>

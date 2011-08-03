@@ -17,6 +17,13 @@
 //Make sure the file isn't accessed directly.
 defined('IN_PLUCK') or exit('Access denied!');
 
+/*
+ * Version constant
+ * This constant is defined here to allow for hooks to be added inside modules.
+ * For other constants, see variables.all.php and variables.site.php
+ */
+define('PLUCK_VERSION', '4.7 beta');
+
 //Error reporting.
 error_reporting(E_ALL|E_STRICT|E_NOTICE);
 

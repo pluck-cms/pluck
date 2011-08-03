@@ -10,8 +10,6 @@
  * (at your option) any later version.
 
  * See docs/COPYING for the complete license.
- *
- * @package site
 */
 
 //Make sure the file isn't accessed directly.
@@ -85,6 +83,9 @@ function get_pagetitle() {
 	if (defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_PAGE_FILENAME'))
 		$page_title = $lang['general']['404'];
 
+	if (!defined('CURRENT_PAGE_SEONAME') || !defined('CURRENT_PAGE_FILENAME'))
+		$page_title = $lang['general']['404'];
+
 	return $page_title;
 }
 
@@ -113,15 +114,15 @@ function theme_meta($reset_css = false) {
 
 	//Check which CSS-file we need to use (LTR or RTL)
 	if (DIRECTION_RTL)
-		$cssfile = 'data/themes/'.$page_theme.'/'.$stylefile.'-rtl.css';
+		$cssfile = SITE_URL.'/data/themes/'.$page_theme.'/'.$stylefile.'-rtl.css';
 	else
-		$cssfile = 'data/themes/'.$page_theme.'/'.$stylefile.'.css';
+		$cssfile = SITE_URL.'/data/themes/'.$page_theme.'/'.$stylefile.'.css';
 
 	echo '<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />'."\n";
 	echo '<meta name="generator" content="pluck '.PLUCK_VERSION.'" />'."\n";
 	echo '<title>'.PAGE_TITLE.' - '.SITE_TITLE.'</title>'."\n";
 	if ($reset_css)
-		echo '<link href="data/reset.css" rel="stylesheet" type="text/css" media="screen" />'."\n";
+		echo '<link href="'.SITE_URL.'/data/reset.css" rel="stylesheet" type="text/css" media="screen" />'."\n";
 	echo '<link href="'.$cssfile.'" rel="stylesheet" type="text/css" media="screen" />'."\n";
 	echo '<meta name="language" content="'.LANG.'" />'."\n";
 

@@ -10,8 +10,6 @@
  * (at your option) any later version.
 
  * See docs/COPYING for the complete license.
- *
- * @package all
 */
 
 //Make sure the file isn't accessed directly.

@@ -71,4 +71,10 @@ function albums_admin_module_settings_afterpost() {
 		module_save_settings('albums', $settings);
 	}
 }
+
+//Add hook for SEO capabilities.
+$album_url_prefix = '&amp;module=albums&amp;page=viewalbum&amp;album=';
+run_hook('album_url_prefix', array(&$album_url_prefix));
+define('ALBUM_URL_PREFIX', $album_url_prefix);
+unset($album_url_prefix);
 ?>
