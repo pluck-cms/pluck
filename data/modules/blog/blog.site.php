@@ -195,11 +195,11 @@ function blog_page_site_viewpost() {
 
 						//Redirect user.
 							if (defined('CURRENT_PAGE_SEONAME') && PAGE_URL_PREFIX == '?file=')
-								redirect(PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.BLOG_URL_PREFIX.$_GET['post'], 0);
+								redirect(SITE_URL.'/'.PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.BLOG_URL_PREFIX.$_GET['post'], 0);
 							elseif (defined('CURRENT_PAGE_SEONAME'))
-								redirect(CURRENT_PAGE_SEONAME.BLOG_URL_PREFIX.$_GET['post'], 0);
+								redirect(SITE_URL.'/'.CURRENT_PAGE_SEONAME.BLOG_URL_PREFIX.$_GET['post'], 0);
 							else
-								redirect(BLOG_URL_PREFIX.$_GET['post'], 0);
+								redirect(SITE_URL.'/'.BLOG_URL_PREFIX.$_GET['post'], 0);
 					}
 				}
 				?>

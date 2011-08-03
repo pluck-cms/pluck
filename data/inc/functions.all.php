@@ -101,7 +101,10 @@ function get_sitetitle() {
  * @param integer $time The number of seconds before the redirect.
  */
 function redirect($url, $time) {
-	//First, urlencode the entire url.
+	//Replace &amp; with &.
+	$url = str_replace('&amp;', '&', $url);
+
+	//Then, urlencode the entire url.
 	$url = urlencode($url);
 
 	//Then undo that for ? chars.
@@ -110,6 +113,10 @@ function redirect($url, $time) {
 	$url = str_replace('%3D', '=', $url);
 	//And undo that for & chars.
 	$url = str_replace('%26', '&', $url);
+	//And undo that for / chars.
+	$url = str_replace('%2F', '/', $url);
+	//And undo that for : chars.
+	$url = str_replace('%3A', ':', $url);
 
 	//Finally generate the metatag for redirecting
 	echo '<meta http-equiv="refresh" content="'.$time.'; url='.$url.'" />';
