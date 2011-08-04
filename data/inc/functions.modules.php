@@ -26,21 +26,27 @@ while (false !== ($dir = readdir($path))) {
 }
 closedir($path);
 
+//Build array of modules.
 foreach ($modules as $module) {
+	$module_list[] = $module;
+}
+unset($module);
+unset($modules);
+
+//Sort the modules.
+natcasesort($module_list);
+
+//Then include necessary module files for each module.
+foreach ($module_list as $module) {
 	if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
 		require_once ('data/modules/'.$module.'/'.$module.'.php');
 
 		//If we are on the index.php, include the needed functions.
 		if (strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') !== false && file_exists('data/modules/'.$module.'/'.$module.'.site.php'))
 				require_once ('data/modules/'.$module.'/'.$module.'.site.php');
-
-		$module_list[] = $module;
 	}
 }
 unset($module);
-
-//Sort the modules.
-natcasesort($module_list);
 
 /**
  * Run a module hook. Can also filter strings.
