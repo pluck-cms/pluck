@@ -18,7 +18,7 @@ defined('IN_PLUCK') or exit('Access denied!');
 	</div>
 	<div id="footer">
 		<?php theme_area('footer'); ?>
-		<a href="login.php">admin</a> | powered by <a href="http://www.pluck-cms.org">pluck</a>
+		<a href="<?php echo SITE_URL; ?>/login.php">admin</a> | powered by <a href="http://www.pluck-cms.org">pluck</a>
 	</div>
 </div>
 </body>
