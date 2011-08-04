@@ -16,7 +16,7 @@
 defined('IN_PLUCK') or exit('Access denied!');
 
 //Check if file exists.
-if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
+if (file_exists(PAGE_DIR.'/'.get_page_filename($var1))) {
 	$current_page_filename = get_page_filename($var1);
 
 	if (strpos($current_page_filename, '/') !== false) {
@@ -31,7 +31,7 @@ if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
 	else
 		$patch = '';
 
-	$pages = read_dir_contents('data/settings/pages'.$patch, 'files');
+	$pages = read_dir_contents(PAGE_DIR.$patch, 'files');
 	sort($pages, SORT_NUMERIC);
 
 	//Find current page number, and the prior page number.
@@ -68,8 +68,8 @@ if (file_exists('data/settings/pages/'.get_page_filename($var1))) {
 		$patch = ltrim($patch, '/').'/';
 
 	//And rename the files.
-	rename('data/settings/pages/'.$patch.$current_page_filename, 'data/settings/pages/'.$patch.$current_page_filename_new);
-	rename('data/settings/pages/'.$patch.$prior_page_filename, 'data/settings/pages/'.$patch.$prior_page_filename_new);
+	rename(PAGE_DIR.'/'.$patch.$current_page_filename, PAGE_DIR.'/'.$patch.$current_page_filename_new);
+	rename(PAGE_DIR.'/'.$patch.$prior_page_filename, PAGE_DIR.'/'.$patch.$prior_page_filename_new);
 
 	//Display message.
 	show_error($lang['general']['changing_rank'], 3);

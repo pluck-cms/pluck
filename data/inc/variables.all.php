@@ -44,7 +44,13 @@ if (file_exists('data/settings/options.php'))
 	define('EMAIL', $email);
 define('LANG', str_replace('.php', '', $langpref));
 define('LANG_FILE', $langpref);
-define('PAGE_DIR', 'data/settings/pages');
+
+//Set PAGE_DIR variable and allow modules to change it through a hook.
+$page_dir = 'data/settings/pages';
+run_hook('const_page_dir', array(&$page_dir));
+define('PAGE_DIR', $page_dir);
+unset($page_dir);
+
 if (file_exists('data/settings/themepref.php')) {
 	define('THEME', $themepref);
 	define('THEME_DIR', 'data/themes/'.$themepref);

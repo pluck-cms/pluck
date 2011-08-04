@@ -16,8 +16,8 @@
 defined('IN_PLUCK') or exit('Access denied!');
 
 //Include page information, if we're editing a page.
-if (isset($_GET['page']) && file_exists('data/settings/pages/'.get_page_filename($_GET['page'])))
-	require_once ('data/settings/pages/'.get_page_filename($_GET['page']));
+if (isset($_GET['page']) && file_exists(PAGE_DIR.'/'.get_page_filename($_GET['page'])))
+	require_once (PAGE_DIR.'/'.get_page_filename($_GET['page']));
 
 //If form is posted...
 if (isset($_POST['save']) || isset($_POST['save_exit'])) {
@@ -63,6 +63,7 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	show_module_insert_box();
 	show_link_insert_box();
 	show_image_insert_box('images');
+	run_hook('admin_save_page_sidebar');
 ?>
 </div>
 <?php

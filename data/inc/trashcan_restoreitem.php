@@ -25,14 +25,14 @@ if ($var2 == 'page' && file_exists('data/trash/pages/'.$var1.'.php')) {
 	}
 
 	else {
-		$pages = read_dir_contents('data/settings/pages', 'files');
+		$pages = read_dir_contents(PAGE_DIR, 'files');
 
 		if ($pages == false)
 			$next_number = 1;
 		else
 			$next_number = count($pages) + 1;
 
-		rename('data/trash/pages/'.$var1.'.php', 'data/settings/pages/'.$next_number.'.'.$var1.'.php');
+		rename('data/trash/pages/'.$var1.'.php', PAGE_DIR.'/'.$next_number.'.'.$var1.'.php');
 
 		//Redirect.
 		show_error($lang['trashcan']['restoring'], 3);

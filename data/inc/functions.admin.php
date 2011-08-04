@@ -136,7 +136,7 @@ function show_link_insert_box() {
 				<select id="insert_pages">
 					<?php
 					foreach ($files as $file) {
-							require 'data/settings/pages/'.$file;
+							require PAGE_DIR.'/'.$file;
 							$file = get_page_seoname($file);
 
 							preg_match_all('|\/|', $file, $indent);
@@ -175,13 +175,13 @@ function get_pages($patch = PAGE_DIR, &$pages = null) {
 		sort($files, SORT_NUMERIC);
 		foreach ($files as $file) {
 			$pages[] = $patch.'/'.$file;
-			if (file_exists('data/settings/pages/'.get_page_seoname($patch.'/'.$file)))
-				get_pages('data/settings/pages/'.get_page_seoname($patch.'/'.$file), $pages);
+			if (file_exists(PAGE_DIR.'/'.get_page_seoname($patch.'/'.$file)))
+				get_pages(PAGE_DIR.'/'.get_page_seoname($patch.'/'.$file), $pages);
 		}
 		unset($file);
 
 		foreach ($pages as $key => $page)
-			$pages[$key] = str_replace('data/settings/pages/', '', $page);
+			$pages[$key] = str_replace(PAGE_DIR.'/', '', $page);
 
 		return $pages;
 	}
@@ -199,7 +199,7 @@ function get_pages($patch = PAGE_DIR, &$pages = null) {
 function show_page_box($file) {
 	global $lang;
 
-	include_once ('data/settings/pages/'.$file);
+	include_once (PAGE_DIR.'/'.$file);
 	$file = get_page_seoname($file);
 
 	//Find the margin.
@@ -266,7 +266,7 @@ function show_subpage_select($name, $current_page = null) {
 		foreach ($pages as $page) {
 			//You should not be able to add a page as a sub-page of itself.
 			if (is_null($current_page) || (strpos($page, get_page_filename($current_page)) === false && strpos(get_page_seoname($page), $current_page.'/') === false)) {
-				include ('data/settings/pages/'.$page);
+				include (PAGE_DIR.'/'.$page);
 
 				preg_match_all('|\/|', $page, $indent);
 				$indent = count($indent[0]);
@@ -513,15 +513,15 @@ function save_page($title, $content, $hidden, $subpage = null, $description = nu
 		//Check if we want a sub-page.
 		if (!empty($subpage)) {
 			//We need to make sure that the dir exists, and if not, create it.
-			if (!file_exists('data/settings/pages/'.rtrim($subpage, '/'))) {
-				mkdir('data/settings/pages/'.rtrim($subpage, '/'));
-				chmod('data/settings/pages/'.rtrim($subpage, '/'), 0777);
+			if (!file_exists(PAGE_DIR.'/'.rtrim($subpage, '/'))) {
+				mkdir(PAGE_DIR.'/'.rtrim($subpage, '/'));
+				chmod(PAGE_DIR.'/'.rtrim($subpage, '/'), 0777);
 			}
-			$pages = read_dir_contents('data/settings/pages/'.rtrim($subpage, '/'), 'files');
+			$pages = read_dir_contents(PAGE_DIR.'/'.rtrim($subpage, '/'), 'files');
 		}
 
 		else
-			$pages = read_dir_contents('data/settings/pages', 'files');
+			$pages = read_dir_contents(PAGE_DIR, 'files');
 
 		//Are there any pages?
 		if ($pages == false)
@@ -551,9 +551,9 @@ function save_page($title, $content, $hidden, $subpage = null, $description = nu
 			$newdir = get_sub_page_dir($newfilename);
 
 			//We need to make sure that the dir exists, and if not, create it.
-			if (!file_exists('data/settings/pages/'.$newdir)) {
-				mkdir('data/settings/pages/'.$newdir);
-				chmod('data/settings/pages/'.$newdir, 0777);
+			if (!file_exists(PAGE_DIR.'/'.$newdir)) {
+				mkdir(PAGE_DIR.'/'.$newdir);
+				chmod(PAGE_DIR.'/'.$newdir, 0777);
 			}
 
 			//If the name isn't the same as before, we have to find the correct number.
@@ -563,7 +563,7 @@ function save_page($title, $content, $hidden, $subpage = null, $description = nu
 					$number = $filename_array[0];
 
 				else {
-					$pages = read_dir_contents('data/settings/pages/'.$newdir, 'files');
+					$pages = read_dir_contents(PAGE_DIR.'/'.$newdir, 'files');
 
 					if ($pages) {
 						$count = count($pages);
@@ -606,28 +606,28 @@ function save_page($title, $content, $hidden, $subpage = null, $description = nu
 	$data .= "\n".'?>';
 
 	//Save the file.
-	save_file('data/settings/pages/'.$newfile.'.php', $data);
+	save_file(PAGE_DIR.'/'.$newfile.'.php', $data);
 
 	//Do a little cleanup if we are editing a page.
 	if (isset($current_seoname)) {
 		//Check if the title is different from what we started with.
 		if ($newfile.'.php' != $filename) {
 			//If there are sub-pages, rename the folder.
-			if (file_exists('data/settings/pages/'.get_page_seoname($filename)))
-				rename('data/settings/pages/'.get_page_seoname($filename), 'data/settings/pages/'.get_page_seoname($newfile.'.php'));
+			if (file_exists(PAGE_DIR.'/'.get_page_seoname($filename)))
+				rename(PAGE_DIR.'/'.get_page_seoname($filename), PAGE_DIR.'/'.get_page_seoname($newfile.'.php'));
 
 			//Remove the old file.
-			unlink('data/settings/pages/'.$filename);
+			unlink(PAGE_DIR.'/'.$filename);
 
 			//If there are no files in the old dir, delete it.
-			if (isset($dir) && read_dir_contents('data/settings/pages/'.$dir, 'files') == false)
-				rmdir('data/settings/pages/'.$dir);
+			if (isset($dir) && read_dir_contents(PAGE_DIR.'/'.$dir, 'files') == false)
+				rmdir(PAGE_DIR.'/'.$dir);
 
 			//If there are pages, we need to reorder them.
 			elseif (isset($dir))
-				reorder_pages('data/settings/pages/'.$dir);
+				reorder_pages(PAGE_DIR.'/'.$dir);
 			else
-				reorder_pages('data/settings/pages');
+				reorder_pages(PAGE_DIR);
 		}
 	}
 

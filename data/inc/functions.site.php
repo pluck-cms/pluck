@@ -33,12 +33,12 @@ function get_pagetitle() {
 			unset($parts[$count -1]);
 
 			$pages = $parts;
-			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
+			include (PAGE_DIR.'/'.CURRENT_PAGE_FILENAME);
 			$titles[] = $title;
 
 			foreach ($parts as $part) {
 				$page = implode('/', $pages);
-				include ('data/settings/pages/'.get_page_filename($page));
+				include (PAGE_DIR.'/'.get_page_filename($page));
 				$titles[] = $title;
 				$pages = explode('/', $page);
 				$count = count($pages);
@@ -53,7 +53,7 @@ function get_pagetitle() {
 		}
 
 		else {
-			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
+			include (PAGE_DIR.'/'.CURRENT_PAGE_FILENAME);
 			$page_title = $title;
 		}
 	}
@@ -88,8 +88,8 @@ function get_pagetitle() {
 function theme_meta($reset_css = false) {
 	//Get page-info (for meta-information)
 	if (defined('CURRENT_PAGE_FILENAME')) {
-		if (file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME))
-			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
+		if (file_exists(PAGE_DIR.'/'.CURRENT_PAGE_FILENAME))
+			include (PAGE_DIR.'/'.CURRENT_PAGE_FILENAME);
 	}
 	$stylefile = 'style';
 
@@ -116,7 +116,7 @@ function theme_meta($reset_css = false) {
 	echo '<meta name="language" content="'.LANG.'" />'."\n";
 
 	//If we are not looking at a module: include metatag information
-	if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
+	if (defined('CURRENT_PAGE_FILENAME')) {
 		echo '<meta name="title" content="'.PAGE_TITLE.'" />'."\n";
 		if (isset($keywords) && !empty($keywords))
 			echo '<meta name="keywords" content="'.$keywords.'" />'."\n";
@@ -221,8 +221,8 @@ function theme_menu_data($block, $inline, $active_id, $level, $dir) {
 				preg_match_all('|\/|', $file, $page_level);
 				$page_level = count($page_level[0]);
 
-				if ($level > $page_level && is_dir('data/settings/pages/'.$file))
-					theme_menu_data($block, $inline, $active_id, $level, 'data/settings/pages/'.$file);
+				if ($level > $page_level && is_dir(PAGE_DIR.'/'.$file))
+					theme_menu_data($block, $inline, $active_id, $level, PAGE_DIR.'/'.$file);
 
 				echo '</'.$inline.'>';
 			}
@@ -257,7 +257,7 @@ function theme_content() {
 	if (defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_MODULE_DIR')) {
 		//Check if page exists
 		if (defined('CURRENT_PAGE_FILENAME')) {
-			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
+			include (PAGE_DIR.'/'.CURRENT_PAGE_FILENAME);
 			run_hook('theme_content_before');
 			run_hook('theme_content', array(&$content));
 

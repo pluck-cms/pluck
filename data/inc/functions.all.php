@@ -268,8 +268,8 @@ function seo_url($url) {
  * @return string The seoname
  */
 function get_page_seoname($filename) {
-	//Remove "data/settings/pages/" from the patch, if it exist.
-	$filename = str_replace('data/settings/pages/', '', $filename);
+	//Remove PAGE_DIR from the patch, if it exist.
+	$filename = str_replace(PAGE_DIR.'/', '', $filename);
 
 	if (strpos($filename, '/') !== false) {
 		//Split the page name, and count how many matches there are.
@@ -284,8 +284,8 @@ function get_page_seoname($filename) {
 		$patch = implode('/', $matches);
 
 		//Run through the pages in the folder, if it exists.
-		if (file_exists('data/settings/pages/'.$patch)) {
-			$pages = read_dir_contents('data/settings/pages/'.$patch, 'files');
+		if (file_exists(PAGE_DIR.'/'.$patch)) {
+			$pages = read_dir_contents(PAGE_DIR.'/'.$patch, 'files');
 			if ($pages != false) {
 				foreach ($pages as $filename) {
 					//Is there a page with the name?
@@ -299,7 +299,7 @@ function get_page_seoname($filename) {
 		}
 	}
 
-	elseif (file_exists('data/settings/pages/'.$filename)) {
+	elseif (file_exists(PAGE_DIR.'/'.$filename)) {
 		$seoname = explode('.', $filename);
 		return $seoname[1];
 	}
@@ -315,11 +315,11 @@ function get_page_seoname($filename) {
  * @return string The filename
  */
 function get_page_filename($seoname) {
-	//Remove "data/settings/pages/" from the patch, if it exist.
-	$seoname = str_replace('data/settings/pages/', '', $seoname);
+	//Remove PAGE_DIR from the patch, if it exist.
+	$seoname = str_replace(PAGE_DIR.'/', '', $seoname);
 
 	//Read the pages.
-	$pages = read_dir_contents('data/settings/pages', 'files');
+	$pages = read_dir_contents(PAGE_DIR, 'files');
 
 	//Are there any pages?
 	if ($pages != false) {
@@ -337,8 +337,8 @@ function get_page_filename($seoname) {
 			$patch = implode('/', $matches);
 
 			//Run thought the pages in the sub-folder, if it exists.
-			if (file_exists('data/settings/pages/'.$patch)) {
-				$pages = read_dir_contents('data/settings/pages/'.$patch, 'files');
+			if (file_exists(PAGE_DIR.'/'.$patch)) {
+				$pages = read_dir_contents(PAGE_DIR.'/'.$patch, 'files');
 				if ($pages != false) {
 					foreach ($pages as $filename) {
 						if (strpos($filename, '.'.$page.'.'))

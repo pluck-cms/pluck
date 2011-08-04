@@ -117,7 +117,7 @@ else {
 				save_theme('default');
 
 				//Make some dirs for the trashcan, modules and pages.
-				foreach (array('data/trash/pages', 'data/trash/images', 'data/settings/modules', 'data/settings/pages') as $dir) {
+				foreach (array('data/trash/pages', 'data/trash/images', 'data/settings/modules', PAGE_DIR) as $dir) {
 					if (!is_dir($dir)) {
 						mkdir($dir);
 						chmod($dir, 0777);
