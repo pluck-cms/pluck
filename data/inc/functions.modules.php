@@ -21,17 +21,10 @@ $path = opendir('data/modules');
 while (false !== ($dir = readdir($path))) {
 	if ($dir != '.' && $dir != '..') {
 		if (is_dir('data/modules/'.$dir))
-			$modules[] = $dir;
+			$module_list[] = $dir;
 	}
 }
 closedir($path);
-
-//Build array of modules.
-foreach ($modules as $module) {
-	$module_list[] = $module;
-}
-unset($module);
-unset($modules);
 
 //Sort the modules.
 natcasesort($module_list);
@@ -43,7 +36,7 @@ foreach ($module_list as $module) {
 
 		//If we are on the index.php, include the needed functions.
 		if (strpos($_SERVER['SCRIPT_FILENAME'], 'index.php') !== false && file_exists('data/modules/'.$module.'/'.$module.'.site.php'))
-				require_once ('data/modules/'.$module.'/'.$module.'.site.php');
+			require_once ('data/modules/'.$module.'/'.$module.'.site.php');
 	}
 }
 unset($module);
@@ -61,23 +54,26 @@ function run_hook($name, $par = null) {
 	if (!isset($name))
 		return;
 	foreach ($module_list as $module) {
-		if (function_exists($module.'_'.$name) && module_is_compatible($module)) {
-			if ($par == null) {
-				$output = call_user_func($module.'_'.$name);
-				if (!empty($output)) {
-					$function_output[] = $output;
-					unset($output);
+		if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
+			require_once ('data/modules/'.$module.'/'.$module.'.php');
+			if (function_exists($module.'_'.$name) && module_is_compatible($module)) {
+				if ($par == null) {
+					$output = call_user_func($module.'_'.$name);
+					if (!empty($output)) {
+						$function_output[] = $output;
+						unset($output);
+					}
 				}
-			}
-			else {
-				$output = call_user_func_array($module.'_'.$name, $par);
-				if (!empty($output)) {
-					$function_output[] = $output;
-					unset($output);
+				else {
+					$output = call_user_func_array($module.'_'.$name, $par);
+					if (!empty($output)) {
+						$function_output[] = $output;
+						unset($output);
+					}
 				}
+				if (isset($function_output))
+					return $function_output;
 			}
-			if (isset($function_output))
-				return $function_output;
 		}
 	}
 	unset($module);

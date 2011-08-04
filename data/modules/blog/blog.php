@@ -67,7 +67,7 @@ function blog_admin_module_settings_beforepost() {
 								echo ' selected="selected"';
 							echo '>'.date($option).'</option>'."\n";
 						}
-						unset($date_options);
+						unset($option);
 					echo '</select>
 				</td>
 				<td><label for="post_date">&emsp;'.$lang['blog']['post_date'].'</label></td>
@@ -82,7 +82,7 @@ function blog_admin_module_settings_beforepost() {
 								echo ' selected="selected"';
 							echo '>'.date($option).'</option>'."\n";
 						}
-						unset($time_options);
+						unset($option);
 					echo '</select>
 				</td>
 				<td><label for="post_time">&emsp;'.$lang['blog']['post_time'].'</label></td>

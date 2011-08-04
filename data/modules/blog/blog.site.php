@@ -49,7 +49,7 @@ function blog_theme_main($category = 'all') {
 		$posts = blog_get_posts();
 
 		//Get page number
-		if (isset($_GET['p']) && is_int($_GET['p']))
+		if (isset($_GET['p']) && is_numeric($_GET['p']))
 			$page_no = $_GET['p'];
 		else
 			$page_no = 1;
