@@ -190,7 +190,6 @@ function blog_page_admin_editreactions() {
 	//Include blog post, if it exists.
 	$reactions = blog_get_reactions($var1);
 	if ($reactions) {
-		arsort($reactions);
 
 		//Display reactions
 		foreach($reactions as $reaction) {
@@ -237,13 +236,13 @@ function blog_page_admin_editreaction() {
 	if (isset($_POST['save'])) {
 		//Check if everything has been filled in.
 		if (empty($cont1))
-			$error['name'] = show_error('', 1, true);
-		if (filter_input(INPUT_POST, $cont2, FILTER_VALIDATE_EMAIL) != false)
-			$error['email'] = show_error('', 1, true);
-		if (filter_input(INPUT_POST, $cont3, FILTER_VALIDATE_URL) != false)
-			$error['website'] = show_error('', 1, true);
+			$error = show_error($lang['contactform']['fields'], 1, true);
+		if (filter_input(INPUT_POST, 'cont2', FILTER_VALIDATE_EMAIL) == false)
+			$error = show_error($lang['contactform']['fields'], 1, true);
+		if (($_POST['cont3'] != 'http://' && !empty($_POST['cont3'])) && filter_input(INPUT_POST, 'cont3', FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED) == false)
+			$error = show_error($lang['contactform']['fields'], 1, true);
 		if (empty($cont4))
-			$error['message'] = show_error('', 1, true);
+			$error = show_error($lang['contactform']['fields'], 1, true);
 
 		if (!isset($error)) {
 			//Save reaction.
@@ -251,6 +250,8 @@ function blog_page_admin_editreaction() {
 
 			redirect('?module=blog&page=editreactions&var1='.$var1, 0);
 		}
+		else
+			echo $error;
 	}
 
 	//Include blog post, if it exists.
@@ -269,7 +270,7 @@ function blog_page_admin_editreaction() {
 			</p>
 			<p>
 				<label class="kop2" for="cont3"><?php echo $lang['blog']['website']; ?></label>
-				<input name="cont3" id="cont3" type="text" value="<?php echo $reaction['website']; ?>" />
+				<input name="cont3" id="cont3" type="text" value="<?php if (isset($reaction['website'])) echo $reaction['website']; ?>" />
 			</p>
 			<p>
 				<label class="kop2" for="cont4"><?php echo $lang['blog']['message']; ?></label>

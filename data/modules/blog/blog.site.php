@@ -167,7 +167,7 @@ function blog_page_site_viewpost() {
 						<div class="blog_reaction" id="reaction<?php echo $reaction['id']; ?>">
 							<p class="blog_reaction_name">
 								<?php
-								if (!empty($reaction['website']))
+								if (isset($reaction['website']))
 									echo '<a href="'.$reaction['website'].'">'.$reaction['name'].'</a>:';
 								else
 									echo $reaction['name'].':';
@@ -186,7 +186,7 @@ function blog_page_site_viewpost() {
 				//If form is posted...
 				if (isset($_POST['submit'])) {
 					//Check if everything has been filled in.
-					if (empty($_POST['blog_reaction_name']) || filter_input(INPUT_POST, 'blog_reaction_email', FILTER_VALIDATE_EMAIL) == false || filter_input(INPUT_POST, 'blog_reaction_website', FILTER_VALIDATE_URL) == false || empty($_POST['blog_reaction_message']))
+					if (empty($_POST['blog_reaction_name']) || filter_input(INPUT_POST, 'blog_reaction_email', FILTER_VALIDATE_EMAIL) == false || (($_POST['blog_reaction_website'] != 'http://' && !empty($_POST['blog_reaction_website'])) && filter_input(INPUT_POST, 'blog_reaction_website', FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED) == false) || empty($_POST['blog_reaction_message']))
 						echo '<p class="error">'.$lang['contactform']['fields'].'</p>';
 
 					//Add reaction.

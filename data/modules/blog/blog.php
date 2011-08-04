@@ -59,30 +59,31 @@ function blog_admin_module_settings_beforepost() {
 			</tr>
 			<tr>
 				<td>
-					<select name="post_date" id="post_date" />
-						<option value="d/m/Y">'.date('d/m/Y').'</option>
-						<option value="m/d/Y">'.date('m/d/Y').'</option>
-						<option value="Y/m/d">'.date('Y/m/d').'</option>
-						<option value="d.m.Y">'.date('d.m.Y').'</option>
-						<option value="d.m.y">'.date('d.m.y').'</option>
-						<option value="Y-m-d">'.date('Y-m-d').'</option>
-						<option value="D M Y">'.date('D M Y').'</option>
-						<option value="d M Y">'.date('d M Y').'</option>
-						<option value="F j, Y">'.date('F j, Y').'</option>
-					</select>
+					<select name="post_date" id="post_date" />';
+						$date_options = array ('d/m/Y','d-m-Y','d.m.Y','m/d/Y','m-d-Y','m.d.Y','Y/m/d','d-m-y','F j, Y');
+						foreach ($date_options as $option) {
+							echo '<option value="'.$option.'"';
+							if(module_get_setting('blog', 'post_date') == $option)
+								echo ' selected="selected"';
+							echo '>'.date($option).'</option>'."\n";
+						}
+						unset($date_options);
+					echo '</select>
 				</td>
 				<td><label for="post_date">&emsp;'.$lang['blog']['post_date'].'</label></td>
 			</tr>
 			<tr>
 				<td>
-					<select name="post_time" id="post_time" />
-						<option value="G:i">'.date('G:i').'</option>
-						<option value="H:i:s">'.date('H:i:s').'</option>
-						<option value="g:i a">'.date('g:i a').'</option>
-						<option value="g:i A">'.date('g:i A').'</option>
-						<option value="g:i:s a">'.date('g:i:s a').'</option>
-						<option value="g:i:s A">'.date('g:i:s A').'</option>
-					</select>
+					<select name="post_time" id="post_time" />';
+						$time_options = array ('G:i','H:i:s','g:i a','g:i A','g:i:s a','g:i:s A');
+						foreach ($time_options as $option) {
+							echo '<option value="'.$option.'"';
+							if(module_get_setting('blog', 'post_time') == $option)
+								echo ' selected="selected"';
+							echo '>'.date($option).'</option>'."\n";
+						}
+						unset($time_options);
+					echo '</select>
 				</td>
 				<td><label for="post_time">&emsp;'.$lang['blog']['post_time'].'</label></td>
 			</tr>

@@ -158,7 +158,8 @@ function blog_save_reaction($post, $name, $email, $website, $message, $id = null
 
 	$data['reaction_name']    = $name;
 	$data['reaction_email']   = $email;
-	$data['reaction_website'] = $website;
+	if ($website != 'http://' && !empty($website))
+		$data['reaction_website'] = $website;
 	$data['reaction_message'] = $message;
 	$data['reaction_time']    = $reaction_time;
 
@@ -169,15 +170,17 @@ function blog_get_reaction($post, $id) {
 	if (file_exists(BLOG_POSTS_DIR.'/'.$post.'/'.$id.'.php')) {
 		include BLOG_POSTS_DIR.'/'.$post.'/'.$id.'.php';
 
-		return array(
-			'id'      => $id,
-			'name'    => $reaction_name,
-			'email'   => $reaction_email,
-			'website' => $reaction_website,
-			'message' => $reaction_message,
-			'date'    => blog_date_convert($reaction_time),
-			'time'    => blog_time_convert($reaction_time)
-		);
+		$reaction['id'] = $id;
+		$reaction['name'] = $reaction_name;
+		$reaction['email'] = $reaction_email;
+		if (isset($reaction_website))
+			$reaction['website'] = $reaction_website;
+		$reaction['message'] = $reaction_message;
+		$reaction['date'] = blog_date_convert($reaction_time);
+		$reaction['time'] = blog_time_convert($reaction_time);
+		
+		return $reaction;
+		unset($reaction);
 	}
 
 	else
