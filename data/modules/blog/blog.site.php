@@ -194,12 +194,7 @@ function blog_page_site_viewpost() {
 						blog_save_reaction($_GET['post'], $_POST['blog_reaction_name'], $_POST['blog_reaction_email'], $_POST['blog_reaction_website'], $_POST['blog_reaction_message']);
 
 						//Redirect user.
-							if (defined('CURRENT_PAGE_SEONAME') && PAGE_URL_PREFIX == '?file=')
-								redirect(SITE_URL.'/'.PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.BLOG_URL_PREFIX.$_GET['post'], 0);
-							elseif (defined('CURRENT_PAGE_SEONAME'))
-								redirect(SITE_URL.'/'.CURRENT_PAGE_SEONAME.BLOG_URL_PREFIX.$_GET['post'], 0);
-							else
-								redirect(SITE_URL.'/'.BLOG_URL_PREFIX.$_GET['post'], 0);
+							redirect(PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.BLOG_URL_PREFIX.$_GET['post'], 0);
 					}
 				}
 				?>

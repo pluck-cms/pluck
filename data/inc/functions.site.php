@@ -58,32 +58,21 @@ function get_pagetitle() {
 		}
 	}
 
-	//Get the title if we are looking at a module page
-	if (defined('CURRENT_MODULE_DIR') && defined('CURRENT_MODULE_PAGE') && module_is_compatible(CURRENT_MODULE_DIR) && function_exists(CURRENT_MODULE_DIR.'_pages_site')) {
+	//Get the title if we are looking at a module page.
+	if (defined('CURRENT_PAGE_FILENAME') && defined('CURRENT_MODULE_DIR')) {
 		$module_page_site = call_user_func(CURRENT_MODULE_DIR.'_pages_site');
 		if (!empty($module_page_site)) {
 			foreach ($module_page_site as $module_page) {
 				if ($module_page['func'] == CURRENT_MODULE_PAGE) {
-					//If an existing page has been requested, and the module is included in that page, add module title to the title.
-					if (defined('CURRENT_PAGE_FILENAME') && defined('CURRENT_PAGE_SEONAME') && module_is_included_in_page(CURRENT_MODULE_DIR, CURRENT_PAGE_SEONAME))
-						$page_title = $page_title.' &middot; '.$module_page['title'];
-					//If no page has been requested, display only module title.
-					elseif (!defined('CURRENT_PAGE_SEONAME'))
-						$page_title = $module_page['title'];
-					//In all other cases, display 404 not found error.
-					else
-						$page_title = $lang['general']['404'];
+					$page_title = $page_title.' &middot; '.$module_page['title'];
 				}
 			}
 			unset($module_page);
 		}
 	}
 
-	//If page doesn't exist, and we don't want to display a module; display error.
-	if (defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_PAGE_FILENAME'))
-		$page_title = $lang['general']['404'];
-
-	if (!defined('CURRENT_PAGE_SEONAME') || !defined('CURRENT_PAGE_FILENAME'))
+	//If page doesn't exist, display error.
+	elseif (!defined('CURRENT_PAGE_FILENAME'))
 		$page_title = $lang['general']['404'];
 
 	return $page_title;
@@ -207,29 +196,24 @@ function theme_menu_data($block, $inline, $active_id, $level, $dir) {
 			//Only display in menu if page isn't hidden by user.
 			if (isset($hidden) && $hidden == 'no') {
 
-				//Check if we need to mark the link as active, but only check if there is a page set
-				if (defined('CURRENT_PAGE_SEONAME')) {
-					//Get parents of the currently displayed page
-					$parents = get_page_parents(CURRENT_PAGE_SEONAME);
-					//Strip parents from $file, but only if it's a sub page
-					if (strpos($file, '/') !== false && file_exists(PAGE_DIR.'/'.get_page_filename($file))) {
-						$file_levels = preg_split('|\/|', $file);
-						$file_stripped = $file_levels[count($file_levels)-1];
-					}
-					else
-						$file_stripped = $file;
-					//Show an active inline for current page and all parents of currently displayed page.
-					if ($active_id && (CURRENT_PAGE_SEONAME == $file || ($parents && array_search($file_stripped, $parents) !== false)))
-						echo '<'.$inline.' id="'.$active_id.'">';
-					//For other pages, show a normal inline.
-					else
-						echo '<'.$inline.'>';
-					//Unset parents array
-					unset($parents);
+				//Get parents of the currently displayed page
+				$parents = get_page_parents(CURRENT_PAGE_SEONAME);
+				//Strip parents from $file, but only if it's a sub page
+				if (strpos($file, '/') !== false && file_exists(PAGE_DIR.'/'.get_page_filename($file))) {
+					$file_levels = preg_split('|\/|', $file);
+					$file_stripped = $file_levels[count($file_levels)-1];
 				}
-				//If no page has been set (we are looking at a module only), also display normal inline.
+				else
+					$file_stripped = $file;
+
+				//Show an active inline for current page and all parents of currently displayed page.
+				if ($active_id && (CURRENT_PAGE_SEONAME == $file || ($parents && array_search($file_stripped, $parents) !== false)))
+					echo '<'.$inline.' id="'.$active_id.'">';
+				//For other pages, show a normal inline.
 				else
 					echo '<'.$inline.'>';
+				//Unset parents array
+				unset($parents);
 
 				//Display link
 				echo '<a href="'.PAGE_URL_PREFIX.$file.'" title="'.$title.'">'.$title.'</a>';
@@ -272,7 +256,7 @@ function theme_content() {
 	//Get the contents only if we are looking at a normal page.
 	if (defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_MODULE_DIR')) {
 		//Check if page exists
-		if (defined('CURRENT_PAGE_FILENAME') && file_exists('data/settings/pages/'.CURRENT_PAGE_FILENAME)) {
+		if (defined('CURRENT_PAGE_FILENAME')) {
 			include ('data/settings/pages/'.CURRENT_PAGE_FILENAME);
 			run_hook('theme_content_before');
 			run_hook('theme_content', array(&$content));
@@ -315,28 +299,26 @@ function theme_content() {
 			run_hook('theme_content_after');
 		}
 
-		//If page doesn't exist, show error message
+		//If page doesn't exist, show error message.
 		else
 			echo $lang['general']['not_found'];
 	}
 
 	//If we are looking at a module page, call the module function.
-	elseif (defined('CURRENT_MODULE_DIR') && defined('CURRENT_MODULE_PAGE')) {
-		//Only execute module if an existing page has been set in which the module has been included, or if no page has been set.
-		if ((defined('CURRENT_PAGE_FILENAME') && defined('CURRENT_PAGE_SEONAME') && module_is_included_in_page(CURRENT_MODULE_DIR, CURRENT_PAGE_SEONAME)) || !defined('CURRENT_PAGE_SEONAME')) {
-			$module_page_site = call_user_func(CURRENT_MODULE_DIR.'_pages_site');
-			if (!empty($module_page_site)) {
-				foreach ($module_page_site as $module_page) {
-					if ($module_page['func'] == CURRENT_MODULE_PAGE)
-						call_user_func(CURRENT_MODULE_DIR.'_page_site_'.$module_page['func']);
-				}
-				unset($module_page);
+	elseif (defined('CURRENT_PAGE_SEONAME') && defined('CURRENT_MODULE_DIR')) {
+		$module_page_site = call_user_func(CURRENT_MODULE_DIR.'_pages_site');
+		if (!empty($module_page_site)) {
+			foreach ($module_page_site as $module_page) {
+				if ($module_page['func'] == CURRENT_MODULE_PAGE)
+					call_user_func(CURRENT_MODULE_DIR.'_page_site_'.$module_page['func']);
 			}
+			unset($module_page);
 		}
-		//If page doesn't exist, show error message
-		else
-			echo $lang['general']['not_found'];
 	}
+
+	//If we want to execute module in page which doesn't have the module included, show 404 error.
+	else
+		echo $lang['general']['not_found'];
 }
 
 /**
