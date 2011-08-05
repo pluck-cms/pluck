@@ -53,7 +53,7 @@ function tinymce_admin_head_main() {
 	title = title.replace(/%u2003/g, '');
 	title = unescape(title);
 
-	tinyMCE.execCommand('mceInsertContent', false, '<a href="index.php?file=' + file + '" title="' + title + '">' + title + '<\/a>');
+	tinyMCE.execCommand('mceInsertContent', false, '<a href="?file=' + file + '" title="' + title + '">' + title + '<\/a>');
 	}
 
 	function insert_image_link(dir) {
