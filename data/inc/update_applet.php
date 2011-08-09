@@ -32,7 +32,7 @@ if (!file_exists('data/settings/update_lastcheck.php') || (file_exists('data/set
 	if (extension_loaded('curl')) {
 		$geturl = curl_init();
 		$timeout = 10;
-		curl_setopt ($geturl, CURLOPT_URL, 'http://www.pluck-cms.org/update.php?version='.PLUCK_VERSION);
+		curl_setopt ($geturl, CURLOPT_URL, 'http://www.pluck-cms.org/update.php?version='.urlencode(PLUCK_VERSION));
 		curl_setopt ($geturl, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt ($geturl, CURLOPT_CONNECTTIMEOUT, $timeout);
 		$update_available = curl_exec($geturl);
@@ -52,7 +52,7 @@ if (!file_exists('data/settings/update_lastcheck.php') || (file_exists('data/set
 }
 
 //If update-file exists and we already checked for updates today, use old updatecheck result.
-elseif (file_exists('data/settings/update_lastcheck.php') && $lastcheck == $dayofyear)
+else
 	$update_available = $lastupdatestatus;
 
 //Then determine which icon we need to show... and show it.

@@ -17,6 +17,7 @@ Requirements
  - The PHP-module php-zlib
  - The PHP-module curl
  - The ability to change permissions for files and directories (on Linux)
+ - No database is needed
 
 Installation
 ---------------

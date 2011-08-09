@@ -200,7 +200,7 @@ function albums_page_admin_editalbum() {
 				$data['info'] = $cont2;
 
 				//Then save the image information.
-				save_file(ALBUMS_DIR.'/'.$var1.'/'.$number.'.'.$image_filename.'.'.$ext.'.php', $data);
+				save_file(ALBUMS_DIR.'/'.$var1.'/'.$number.'.'.$image_filename.'.'.strtolower($ext).'.php', $data);
 			}
 		}
 

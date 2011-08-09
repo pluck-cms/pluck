@@ -1,5 +1,6 @@
 pluck 4.7
 ----------------------------------------
+ - Some small adjustments to allow website URLs to be rewritten using mod_rewrite
  - Fix multiple path disclosure vulnerabilities (http://www.htbridge.ch/advisory/path_disclosure_in_pluck_cms.html and http://www.htbridge.ch/advisory/path_disclosure_in_pluck_cms_1.html)
 
 pluck 4.7 beta

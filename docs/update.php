@@ -80,23 +80,24 @@ if((isset($_GET['step'])) && ($_GET['step']) == '2') { ?>
 	//----------------
 	//Pages
 	//----------------
-	$pages = read_dir_contents('data/settings/pages', 'files');
-	if ($pages) {
-		natcasesort($pages);
-		//Move all pages to data/settings (otherwise, page numbers will be messed up
-		foreach ($pages as $page) {
-			rename('data/settings/pages/'.$page, 'data/settings/'.$page);
-		}
-		//Save all pages in new format
-		foreach ($pages as $page) {
-			include_once ('data/settings/'.$page);
-			if (save_page($title, $content, $hidden, null))
-				unlink('data/settings/'.$page);
-			else
-				show_error('Could not convert page '.$page.' to the new format.', 1);
+	if (is_dir('data/settings/pages')) {
+		$pages = read_dir_contents('data/settings/pages', 'files');
+		if ($pages != FALSE) {
+			natcasesort($pages);
+			//Move all pages to data/settings (otherwise, page numbers will be messed up
+			foreach ($pages as $page) {
+				rename('data/settings/pages/'.$page, 'data/settings/'.$page);
+			}
+			//Save all pages in new format
+			foreach ($pages as $page) {
+				include_once ('data/settings/'.$page);
+				if (save_page($title, $content, $hidden, null))
+					unlink('data/settings/'.$page);
+				else
+					show_error('Could not convert page '.$page.' to the new format.', 1);
+			}
 		}
 	}
-	unset($pages);
 
 
 	//----------------
@@ -115,7 +116,9 @@ if((isset($_GET['step'])) && ($_GET['step']) == '2') { ?>
 				$posts[] = $file;
 			}
 		}
-		//Move all pages to data/settings (otherwise, page numbers will be messed up
+		//Reverse array
+		$posts = array_reverse($posts);
+		//Move all posts to data/settings/modules/blog
 		foreach ($posts as $post) {
 			rename('data/settings/modules/blog/posts/'.$post, 'data/settings/modules/blog/'.$post);
 		}
@@ -171,7 +174,7 @@ if((isset($_GET['step'])) && ($_GET['step']) == '2') { ?>
 	//Check if there are albums to convert
 	if (file_exists('data/settings/modules/albums')) {
 		$albums = read_dir_contents('data/settings/modules/albums', 'dirs');
-		if (isset($albums)) {
+		if ($albums != FALSE) {
 			foreach ($albums as $album) {
 				//Save album file
 				$data['album_name'] = $album;
