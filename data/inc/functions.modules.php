@@ -164,7 +164,7 @@ function module_insert_after($array, $data, $subject) {
  * @param array $settings Settings in array.
  */
 function module_save_settings($module, $settings) {
-	if(module_is_compatible($module)) {
+	if (module_is_compatible($module)) {
 		foreach ($settings as $setting => $value) {
 			$settings[$setting] = sanitize($value);
 		}
@@ -181,7 +181,7 @@ function module_save_settings($module, $settings) {
  * @param string $setting The setting from which to obtain the value.
  */
 function module_get_setting($module, $setting) {
-	if(module_is_compatible($module)) {
+	if (module_is_compatible($module)) {
 
 		//First retrieve default module settings.
 		$default_settings = call_user_func($module.'_settings_default');
@@ -190,7 +190,7 @@ function module_get_setting($module, $setting) {
 			//Load default setting
 			$$setting = $default_settings[$setting];
 			//Check if a saved setting is available
-			if(file_exists('data/settings/'.$module.'.settings.php')) {
+			if (file_exists('data/settings/'.$module.'.settings.php')) {
 				include('data/settings/'.$module.'.settings.php');
 			}
 			return $$setting;

@@ -76,7 +76,7 @@ if (isset($error))
 		<input name="title" id="title" type="text" value="<?php if (isset($_GET['page'])) echo $title; ?>" />
 	</p>
 	<label class="kop2" for="content-form"><?php echo $lang['general']['contents']; ?></label>
-	<textarea class="<?php if(defined('WYSIWYG_TEXTAREA_CLASS')) echo WYSIWYG_TEXTAREA_CLASS; ?>" name="content" id="content-form" cols="70" rows="20"><?php if (isset($_GET['page'])) echo htmlspecialchars($content); ?></textarea>
+	<textarea class="<?php if (defined('WYSIWYG_TEXTAREA_CLASS')) echo WYSIWYG_TEXTAREA_CLASS; ?>" name="content" id="content-form" cols="70" rows="20"><?php if (isset($_GET['page'])) echo htmlspecialchars($content); ?></textarea>
 
 
 	<div class="menudiv" style="width: 588px; margin-<?php if (DIRECTION_RTL) echo 'right'; else echo 'left'; ?>: 0;">

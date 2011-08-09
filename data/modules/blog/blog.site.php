@@ -21,7 +21,7 @@ function blog_pages_site() {
 	global $lang;
 
 	//Only get post title if post exists
-	if(isset($_GET['post']) && blog_get_post($_GET['post'])) {
+	if (isset($_GET['post']) && blog_get_post($_GET['post'])) {
 		include BLOG_POSTS_DIR.'/'.blog_get_post_filename($_GET['post']);
 		$module_page_admin[] = array(
 			'func'  => 'viewpost',
@@ -125,7 +125,7 @@ function blog_page_site_viewpost() {
 	global $lang;
 
 	//Load blog post.
-	if(isset($_GET['post']) && blog_get_post($_GET['post'])) {
+	if (isset($_GET['post']) && blog_get_post($_GET['post'])) {
 		$post = blog_get_post($_GET['post']);
 		?>
 		<div id="blog_post">

@@ -38,7 +38,7 @@ function albums_pages_site() {
 
 function albums_theme_main($category = 'all') {
 	//Only show category listing if category = all
-	if($category == 'all') {
+	if ($category == 'all') {
 		$albums = albums_get_albums();
 		if ($albums != FALSE) {
 			//Open the module-folder

@@ -35,7 +35,7 @@ function multitheme_admin_save_page_beforepost() {
 	echo '<td><label for="theme">'.$lang['multitheme']['page_edit'].' </label></td>';
 	echo '<td><select name="theme" id="theme">';
 	$themes = get_themes();
-	if($themes) {
+	if ($themes) {
 		foreach ($themes as $theme) {
 			if (isset($p_theme)) {
 				if ($theme['dir'] == $p_theme)

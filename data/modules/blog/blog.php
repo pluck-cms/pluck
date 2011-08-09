@@ -63,7 +63,7 @@ function blog_admin_module_settings_beforepost() {
 						$date_options = array ('d/m/Y','d-m-Y','d.m.Y','m/d/Y','m-d-Y','m.d.Y','Y/m/d','d-m-y','F j, Y');
 						foreach ($date_options as $option) {
 							echo '<option value="'.$option.'"';
-							if(module_get_setting('blog', 'post_date') == $option)
+							if (module_get_setting('blog', 'post_date') == $option)
 								echo ' selected="selected"';
 							echo '>'.date($option).'</option>'."\n";
 						}
@@ -78,7 +78,7 @@ function blog_admin_module_settings_beforepost() {
 						$time_options = array ('G:i','H:i:s','g:i a','g:i A','g:i:s a','g:i:s A');
 						foreach ($time_options as $option) {
 							echo '<option value="'.$option.'"';
-							if(module_get_setting('blog', 'post_time') == $option)
+							if (module_get_setting('blog', 'post_time') == $option)
 								echo ' selected="selected"';
 							echo '>'.date($option).'</option>'."\n";
 						}

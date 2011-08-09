@@ -29,7 +29,7 @@ function tinymce_display_code() { ?>
 		if (DIRECTION_RTL)
 			echo 'directionality : "rtl",'."\n";
 		//Set the language
-		if(file_exists(TINYMCE_DIR.'/langs/'.LANG.'.js'))
+		if (file_exists(TINYMCE_DIR.'/langs/'.LANG.'.js'))
 			echo 'language : "'.LANG.'",'."\n";
 		else
 			echo 'language : "en",'."\n";

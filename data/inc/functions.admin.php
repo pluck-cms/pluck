@@ -103,7 +103,7 @@ function show_module_insert_box() {
 						$module_info = call_user_func($module.'_info');
 						if (isset($module_info['categories']) && is_array($module_info['categories'])) {
 							foreach ($module_info['categories'] as $category)
-								echo '<option value="'.$module.','.$category.'">&emsp;'.$category.'</option>';
+								echo '<option value="'.$module.','.$category.'">&nbsp;'.$category.'</option>';
 						}
 					}
 				}
@@ -143,7 +143,7 @@ function show_link_insert_box() {
 							$indent = count($indent[0]);
 
 							if (!empty($indent))
-								$indent = str_repeat('&emsp;', $indent);
+								$indent = str_repeat('&nbsp;', $indent);
 							else
 								$indent = null;
 							?>
@@ -272,7 +272,7 @@ function show_subpage_select($name, $current_page = null) {
 				$indent = count($indent[0]);
 
 				if (!empty($indent))
-					$indent = str_repeat('&emsp;', $indent);
+					$indent = str_repeat('&nbsp;', $indent);
 				else
 					$indent = null;
 
@@ -353,11 +353,11 @@ function showmenudiv($title, $text, $image, $url, $blank = false, $more = null) 
 			<span>
 				<a href="<?php echo $url; ?>" <?php if ($blank == true) echo 'target="_blank"'; ?>><?php echo $title; ?></a>
 			</span>
-			<?php if($more != null): ?>
+			<?php if ($more != null): ?>
 				<span class="more"><?php echo $more; ?></span>
 			<?php endif; ?>
 			<br />
-			<?php if($text != null) echo $text; ?>
+			<?php if ($text != null) echo $text; ?>
 		</span>
 	</div>
 <?php

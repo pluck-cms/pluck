@@ -1,6 +1,6 @@
 <?php
 //First, check if file has been put in the right directory
-if(!file_exists('admin.php')) {
+if (!file_exists('admin.php')) {
 	echo 'At the moment, this file is situated in the <i>docs</i> directory. To perform an update, please
 	move this file to the root directory of pluck first.';
 	exit;
@@ -30,7 +30,7 @@ include_once ('data/inc/header2.php');
 //Show the different options for upgrading
 //----------------
 
-if(!isset($_GET['step'])) { ?>
+if (!isset($_GET['step'])) { ?>
 	<p>Welcome to the pluck upgrading script. This script will help you upgrade your pluck to the newest version,
 	<b><?php echo PLUCK_VERSION; ?></b>. This script only supports upgrading your pluck installation if you use pluck 4.6.x. Updating from any older version is not supported.</p>
 
@@ -44,7 +44,7 @@ if(!isset($_GET['step'])) { ?>
 //Convert password to new SHA512 hash
 //----------------
 
-if((isset($_GET['step'])) && ($_GET['step']) == '1') { ?>
+if ((isset($_GET['step'])) && ($_GET['step']) == '1') { ?>
 	<p>To start the upgrade procedure, please enter the password of your pluck installation below.</p>
 
 	<form action="" method="post">
@@ -72,7 +72,7 @@ if((isset($_GET['step'])) && ($_GET['step']) == '1') { ?>
 //Convert pages, blog (posts, comments & categories) and albums
 //----------------
 
-if((isset($_GET['step'])) && ($_GET['step']) == '2') { ?>
+if ((isset($_GET['step'])) && ($_GET['step']) == '2') { ?>
 
 	<p>The updater is now converting all the files to the new formats...</p>
 
@@ -104,7 +104,7 @@ if((isset($_GET['step'])) && ($_GET['step']) == '2') { ?>
 	//Blog
 	//----------------
 	//Check if we need to convert the blog
-	if(file_exists('data/settings/modules/blog/post_index.dat')) {
+	if (file_exists('data/settings/modules/blog/post_index.dat')) {
 		$handle = fopen('data/settings/modules/blog/post_index.dat', 'r');
 		//Make array of posts
 		while(!feof($handle)) {
@@ -112,7 +112,7 @@ if((isset($_GET['step'])) && ($_GET['step']) == '2') { ?>
 			//Filter out line breaks
 			$file = str_replace ("\n",'', $file);
 			//Check if post exists
-			if(file_exists('data/settings/modules/blog/posts/'.$file)) {
+			if (file_exists('data/settings/modules/blog/posts/'.$file)) {
 				$posts[] = $file;
 			}
 		}
@@ -153,7 +153,7 @@ if((isset($_GET['step'])) && ($_GET['step']) == '2') { ?>
 	}
 
 	//Then check if there are categories to convert
-	if(file_exists('data/settings/modules/blog/categories.dat')) {
+	if (file_exists('data/settings/modules/blog/categories.dat')) {
 		//Load them
 		$categories = file_get_contents('data/settings/modules/blog/categories.dat');
 
@@ -191,7 +191,7 @@ if((isset($_GET['step'])) && ($_GET['step']) == '2') { ?>
 							$ext = '.jpg';
 						if (file_exists('data/settings/modules/albums/'.$album.'/'.str_replace('.php', '', $image).'.jpeg'))
 							$ext = '.jpeg';
-						if(strpos($image, '.php')) {
+						if (strpos($image, '.php')) {
 							rename('data/settings/modules/albums/'.$album.'/'.$image, 'data/settings/modules/albums/'.$album.'/'.$count.'.'.str_replace('.php', '', $image).$ext.'.php');
 							$count++;
 						}

@@ -193,7 +193,7 @@ function albums_page_admin_editalbum() {
 				//Sanitize data.
 				$cont1 = sanitize($cont1);
 				$cont2 = sanitize($cont2);
-				$cont2 = str_replace ("\n",'<br />', $cont2);
+				$cont2 = nl2br($cont2);
 
 				//Compose the data.
 				$data['name'] = $cont1;

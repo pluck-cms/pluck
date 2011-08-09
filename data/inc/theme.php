@@ -51,7 +51,7 @@ if (isset($_POST['save'], $cont1) && file_exists('data/themes/'.$cont1)) {
 		<select name="cont1">
 			<?php
 			$themes = get_themes();
-				if($themes) {
+				if ($themes) {
 					foreach ($themes as $theme) {
 						if ($theme['dir'] == THEME)
 							echo'<option value="'.$theme['dir'].'" selected="selected">'.$theme['title'].'</option>';

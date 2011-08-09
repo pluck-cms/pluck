@@ -19,7 +19,7 @@ if (isset($_POST['save'])) {
 	//Run hook and fetch errors (if any).
 	$errors = run_hook('admin_module_settings_afterpost');
 
-	if(!isset($errors)) {
+	if (!isset($errors)) {
 		show_error($lang['settings']['changing_settings'], 3);
 		redirect('?action=options', 0);
 	}
