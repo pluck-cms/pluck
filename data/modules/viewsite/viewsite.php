@@ -32,7 +32,7 @@ function viewsite_admin_menu($links) {
 	global $lang;
 	
 	$data[] = array(
-		'href' => 'index.php'.HOME_PAGE,
+		'href' => 'index.php',
 		'img'  => 'data/modules/viewsite/images/viewsite.png',
 		'text' => $lang['viewsite']['message'],
 		'target' => '_blank'
