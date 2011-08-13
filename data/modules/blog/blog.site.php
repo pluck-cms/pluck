@@ -40,7 +40,7 @@ function blog_pages_site() {
 	return $module_page_admin;
 }
 
-function blog_theme_main($category = 'all') {
+function blog_theme_main($area = null, $category = 'all') {
 	global $lang;
 
 	//Display existing posts.
