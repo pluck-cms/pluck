@@ -343,7 +343,7 @@ function theme_area($place) {
 				if ($area == $place) {
 					//Check if module is compatible, and the function exists.
 					if (module_is_compatible($module) && function_exists($module.'_theme_main'))
-							call_user_func($module.'_theme_main');
+							call_user_func_array($module.'_theme_main', array(&$place));
 				}
 			}
 		}
