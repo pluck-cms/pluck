@@ -40,7 +40,7 @@ function blog_pages_site() {
 	return $module_page_admin;
 }
 
-function blog_theme_main($area = null, $category = 'all') {
+function blog_theme_main($area, $category) {
 	global $lang;
 
 	//Display existing posts.
@@ -59,7 +59,7 @@ function blog_theme_main($area = null, $category = 'all') {
 
 		foreach ($posts as $post) {
 			//Only show post if all categories should be shown, or if it's in the given category.
-			if ($category == 'all' || $category == $post['category']) {
+			if ($category == null || $category == $post['category']) {
 
 				//Only display post if it's supposed to be on this page.
 				if (($post_number >= ($page_no-1)*module_get_setting('blog','posts_per_page')) && ($post_number < $page_no*module_get_setting('blog','posts_per_page'))) {
@@ -112,7 +112,7 @@ function blog_theme_main($area = null, $category = 'all') {
 		unset($post);
 	//Show page numbers
 	echo '<p>'.$lang['blog']['pages'].' ';
-	if ($category == 'all')
+	if ($category == null)
 		blog_show_page_no_list($page_no);
 	else
 		blog_show_page_no_list($page_no, $category);

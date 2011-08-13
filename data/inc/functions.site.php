@@ -283,7 +283,7 @@ function theme_content() {
 						else {
 							//Check if module is compatible, and the function exists.
 							if (module_is_compatible($module_to_include) && function_exists($module_to_include.'_theme_main'))
-								call_user_func($module_to_include.'_theme_main');
+								call_user_func_array($module_to_include.'_theme_main', array(null, null));
 							unset($module_to_include);
 						}
 					}
@@ -343,7 +343,7 @@ function theme_area($place) {
 				if ($area == $place) {
 					//Check if module is compatible, and the function exists.
 					if (module_is_compatible($module) && function_exists($module.'_theme_main'))
-							call_user_func_array($module.'_theme_main', array(&$place));
+							call_user_func_array($module.'_theme_main', array(&$place, null));
 				}
 			}
 		}

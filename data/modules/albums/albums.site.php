@@ -36,9 +36,9 @@ function albums_pages_site() {
 	return $module_page_site;
 }
 
-function albums_theme_main($area = null, $category = 'all') {
-	//Only show category listing if category = all
-	if ($category == 'all') {
+function albums_theme_main($area, $category) {
+	//Only show category listing if category = null
+	if ($category == null) {
 		$albums = albums_get_albums();
 		if ($albums != FALSE) {
 			//Open the module-folder
