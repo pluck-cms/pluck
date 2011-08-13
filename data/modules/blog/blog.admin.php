@@ -297,21 +297,29 @@ function blog_page_admin_editpost() {
 
 	//If form is posted...
 	if (isset($_POST['save']) || isset($_POST['save_exit'])) {
-		//Save blogpost.
-		$seoname = blog_save_post($cont1, $cont2, $cont3, $var1);
+		if (seo_url($cont1)) {
+			//Save blogpost.
+			$seoname = blog_save_post($cont1, $cont2, $cont3, $var1);
 
-		//Redirect user.
-		if (isset($_POST['save'])) {
-			redirect('?module=blog&page=editpost&var1='.$seoname, 0);
-			exit;
+			//Redirect user.
+			if (isset($_POST['save'])) {
+				redirect('?module=blog&page=editpost&var1='.$seoname, 0);
+				exit;
+			}
+			else {
+				redirect('?module=blog', 0);
+				exit;
+			}
 		}
-		else {
-			redirect('?module=blog', 0);
-			exit;
-		}
+		else
+			$error = show_error($lang['page']['no_title'], 1, true);
 	}
 
 	$post = blog_get_post($var1);
+	?>
+	<?php
+	if (isset($error))
+		echo $error;
 	?>
 		<div class="rightmenu">
 			<p><?php echo $lang['page']['items']; ?></p>
@@ -374,15 +382,23 @@ function blog_page_admin_newpost() {
 
 	//If form is posted...
 	if (isset($_POST['save']) || isset($_POST['save_exit'])) {
-		//Save blogpost.
-		$seoname = blog_save_post($cont1, $cont2, $cont3);
+		if (seo_url($cont1)) {
+			//Save blogpost.
+			$seoname = blog_save_post($cont1, $cont2, $cont3);
 
-		//Redirect user.
-		if (isset($_POST['save']))
-			redirect('?module=blog&page=editpost&var1='.$seoname, 0);
+			//Redirect user.
+			if (isset($_POST['save']))
+				redirect('?module=blog&page=editpost&var1='.$seoname, 0);
+			else
+				redirect('?module=blog', 0);
+		}
 		else
-			redirect('?module=blog', 0);
+			$error = show_error($lang['page']['no_title'], 1, true);
 	}
+	?>
+	<?php
+	if (isset($error))
+		echo $error;
 	?>
 		<div class="rightmenu">
 			<p><?php echo $lang['page']['items']; ?></p>

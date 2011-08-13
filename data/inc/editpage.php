@@ -57,6 +57,10 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	}
 }
 ?>
+<?php
+if (isset($error))
+	echo $error;
+?>
 <div class="rightmenu">
 <p><?php echo $lang['page']['items']; ?></p>
 <?php
@@ -66,10 +70,6 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	run_hook('admin_save_page_sidebar');
 ?>
 </div>
-<?php
-if (isset($error))
-	echo $error;
-?>
 <form name="page_form" method="post" action="">
 	<p>
 		<label class="kop2" for="title"><?php echo $lang['general']['title']; ?></label>
