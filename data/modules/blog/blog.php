@@ -103,7 +103,7 @@ function blog_admin_module_settings_afterpost() {
 	else {
 		//Compose settings array
 		$settings = array(
-			'allow_reactions' => $_POST['allow_reactions'],
+			'allow_reactions' => (isset($_POST['allow_reactions'])) ? 'true' : 'false',
 			'truncate_posts' => $_POST['truncate_posts'],
 			'posts_per_page' => $_POST['posts_per_page'],
 			'post_date' => $_POST['post_date'],
