@@ -32,7 +32,7 @@ function viewsite_admin_menu($links) {
 	global $lang;
 	
 	$data[] = array(
-		'href' => 'index.php',
+		'href' => SITE_URL,
 		'img'  => 'data/modules/viewsite/images/viewsite.png',
 		'text' => $lang['viewsite']['message'],
 		'target' => '_blank'
@@ -44,7 +44,7 @@ function viewsite_admin_menu($links) {
 function viewsite_admin_page_list_before($file) {
 	global $lang; ?>
 	<span>
-		<a href="index.php<?php echo PAGE_URL_PREFIX.$file; ?>" target="_blank">
+		<a href="<?php echo SITE_URL.'/'.PAGE_URL_PREFIX.$file; ?>" target="_blank">
 			<img src="data/image/website.png" title="<?php echo $lang['page']['view']; ?>" alt="<?php echo $lang['page']['view']; ?>" />
 		</a>
 	</span>

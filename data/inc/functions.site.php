@@ -276,7 +276,7 @@ function theme_content() {
 						if (strpos($module_to_include, ',')) {
 							$module_to_include = explode(',', $module_to_include);
 							if (module_is_compatible($module_to_include[0]) && function_exists($module_to_include[0].'_theme_main'))
-								call_user_func_array($module_to_include[0].'_theme_main', array(null, &$module_to_include[1]));
+								call_user_func_array($module_to_include[0].'_theme_main', array(null, $module_to_include[1]));
 							unset($module_to_include);
 						}
 						//If we don't need to pass a variable, include module in regular way.
@@ -343,7 +343,7 @@ function theme_area($place) {
 				if ($area == $place) {
 					//Check if module is compatible, and the function exists.
 					if (module_is_compatible($module) && function_exists($module.'_theme_main'))
-							call_user_func_array($module.'_theme_main', array(&$place, null));
+							call_user_func_array($module.'_theme_main', array($place, null));
 				}
 			}
 		}
