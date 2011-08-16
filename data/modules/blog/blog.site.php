@@ -181,8 +181,6 @@ function blog_page_site_viewpost() {
 					<?php
 					}
 				}
-				?>
-				<?php
 				//If form is posted...
 				if (isset($_POST['submit'])) {
 					//Check if everything has been filled in.
@@ -230,7 +228,6 @@ function blog_page_site_viewpost() {
 	else
 		echo $lang['general']['not_found'];
 	?>
-
 	<p>
 		<a href="javascript: history.go(-1)" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 	</p>

@@ -324,9 +324,7 @@ function blog_get_category_title($seoname) {
  * @return string
  */
 function blog_category_exists($category) {
-	if (blog_get_categories()) {
-		$files = blog_get_categories();
-
+	if ($files = blog_get_categories()) {
 		foreach ($files as $file) {
 			if ($file['seoname'] == $category)
 				return true;

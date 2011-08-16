@@ -395,8 +395,7 @@ function blog_page_admin_newpost() {
 		else
 			$error = show_error($lang['page']['no_title'], 1, true);
 	}
-	?>
-	<?php
+
 	if (isset($error))
 		echo $error;
 	?>
@@ -418,9 +417,7 @@ function blog_page_admin_newpost() {
 				<option value=""><?php echo $lang['blog']['choose_cat']; ?></option>
 				<?php
 				//If there are categories.
-				if (blog_get_categories()) {
-					$categories = blog_get_categories();
-
+				if ($categories = blog_get_categories()) {
 					foreach($categories as $category)
 						echo '<option value="'.$category['seoname'].'">'.$category['title'].'</option>';
 					unset($key);
