@@ -41,15 +41,12 @@ function albums_theme_main($area, $category) {
 	if ($category == null) {
 		$albums = albums_get_albums();
 		if ($albums != FALSE) {
-			//Open the module-folder
-			$albums = read_dir_contents(ALBUMS_DIR, 'dirs');
-
 			//Loop through dirs.
 			foreach ($albums as $album) {
-				include (ALBUMS_DIR.'/'.$album.'.php');
+				include (ALBUMS_DIR.'/'.$album['seoname'].'.php');
 
 				//Find the first image.
-				$files = read_dir_contents(ALBUMS_DIR.'/'.$album, 'files');
+				$files = read_dir_contents(ALBUMS_DIR.'/'.$album['seoname'], 'files');
 				//Only display album if it contains images.
 				if (!empty($files)) {
 					natcasesort($files);
@@ -67,13 +64,13 @@ function albums_theme_main($area, $category) {
 						<table>
 							<tr>
 								<td>
-									<a href="<?php echo PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.ALBUM_URL_PREFIX.$album; ?>" title="album <?php echo $album_name; ?>">
-										<img alt="<?php echo $album_name; ?>" title="<?php echo $album_name; ?>" src="<?php echo SITE_URL; ?>/data/modules/albums/albums_getimage.php?image=<?php echo $album; ?>/thumb/<?php echo $first_image; ?>" />
+									<a href="<?php echo PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.ALBUM_URL_PREFIX.$album['seoname']; ?>" title="album <?php echo $album['title']; ?>">
+										<img alt="<?php echo $album['title']; ?>" title="<?php echo $album['title']; ?>" src="<?php echo SITE_URL; ?>/data/modules/albums/albums_getimage.php?image=<?php echo $album['seoname']; ?>/thumb/<?php echo $first_image; ?>" />
 									</a>
 								</td>
 								<td>
 									<span class="albuminfo">
-										<a href="<?php echo PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.ALBUM_URL_PREFIX.$album; ?>" title="album <?php echo $album_name; ?>"><?php echo $album_name; ?></a>
+										<a href="<?php echo PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.ALBUM_URL_PREFIX.$album['seoname']; ?>" title="<?php echo $album['title']; ?>"><?php echo $album['title']; ?></a>
 									</span>
 								</td>
 							</tr>
