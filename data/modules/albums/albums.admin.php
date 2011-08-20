@@ -285,7 +285,7 @@ function albums_page_admin_editimage() {
 			</p>
 			<p>
 				<label class="kop2" for="cont2"><?php echo $lang['general']['description']; ?></label>
-				<textarea cols="50" rows="5" name="cont2" id="cont2"><?php echo str_replace('<br />', "\n", $info); ?></textarea>
+				<textarea cols="50" rows="5" name="cont2" id="cont2"><?php echo str_replace('<br />', '', $info); ?></textarea>
 			</p>
 			<?php show_common_submits('?module=albums&amp;page=editalbum&amp;var1='.$var1); ?>
 		</form>

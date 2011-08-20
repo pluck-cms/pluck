@@ -22,10 +22,12 @@ defined('IN_PLUCK') or exit('Access denied!');
  * This constant is defined here to allow for hooks to be added inside modules.
  * For other constants, see variables.all.php and variables.site.php
  */
-define('PLUCK_VERSION', '4.7 beta');
+define('PLUCK_VERSION', '4.7'); //Release revision = r390
 
-//Error reporting.
-error_reporting(E_ALL|E_STRICT|E_NOTICE);
+//Error reporting
+error_reporting(E_ALL|E_STRICT);
+//Error reporting (dev)
+//error_reporting(E_ALL|E_STRICT|E_NOTICE);
 
 //Set default timezone.
 date_default_timezone_set('UTC');
