@@ -114,7 +114,7 @@ switch($langpref) {
 		$translator = 'Adi Roiban';
 		break;
 	case 'ru.php':
-		$translator = 'Tkachev Vasily';
+		$translator = 'Tkachev Vasily<br />Sergey Shutov';
 		break;
 	case 'sk.php':
 		$translator = 'greppi';
