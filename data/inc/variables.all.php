@@ -37,8 +37,15 @@ if (file_exists('data/settings/options.php'))
 if (file_exists('data/settings/themepref.php'))
 	require_once ('data/settings/themepref.php');
 
-//Some constants.
-define('SITE_URL', 'http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']));
+//Site URL constant
+$protocol = 'http';
+if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && $_SERVER['HTTPS'] != 'off')
+	$protocol .= 's';
+$directory = dirname($_SERVER['PHP_SELF']);
+if(substr($directory, -1) == '/')
+	$directory = substr($directory, 0, strlen($directory) - 1);
+define('SITE_URL', $protocol.'://'.$_SERVER['HTTP_HOST'].$directory);
+//More constants
 define('SITE_TITLE', get_sitetitle());
 if (file_exists('data/settings/options.php'))
 	define('EMAIL', $email);
@@ -76,7 +83,7 @@ if (file_exists(PAGE_DIR)) {
 	//FIXME: Is there a better way to do this?
 	else
 		$homepage = '404';
-	
+
 	$page_url_prefix = '?file=';
 	run_hook('page_url_prefix', array(&$page_url_prefix));
 	define('PAGE_URL_PREFIX', $page_url_prefix);
