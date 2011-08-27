@@ -316,16 +316,16 @@ $lang['blog']['numeric_error']          = 'You should choose a numeric value for
 $lang['blog']['posts_per_page']         = 'The number of posts that will be displayed per page.';
 $lang['blog']['posts_per_page_error']   = 'The number of posts per page cannot be zero!';
 $lang['blog']['pages']                  = 'Pages:';
-$lang['blog']['post_date']				= 'Choose date format.';
-$lang['blog']['post_time']				= 'Choose time format.';
+$lang['blog']['post_date']              = 'Choose date format.';
+$lang['blog']['post_time']              = 'Choose time format.';
 
 //Contact form.
 $lang['contactform']['module_name']  = 'contact form';
 $lang['contactform']['module_intro'] = 'with a contact form, you can allow your visitors to send you a message';
 $lang['contactform']['fields']       = 'You didn\'t fill in all fields correctly.';
 $lang['contactform']['email_title']  = 'Message from your website from';
-$lang['contactform']['been_send']    = 'Your message has been send succesfully.';
-$lang['contactform']['not_send']     = 'Your message could not be send, an error occurred.';
+$lang['contactform']['been_send']    = 'Your message was sent succesfully.';
+$lang['contactform']['not_send']     = 'Your message could not be sent. Please try again.';
 
 //View site link
 $lang['viewsite']['module_name']  = 'view site link';

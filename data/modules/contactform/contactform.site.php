@@ -30,22 +30,33 @@ function contactform_theme_main() {
 	if (isset($_POST['submit'])) {
 		//Check if all fields were filled.
 		if ($name && $sender && $message) {
-			//TODO: We need a better way to check for spam.
-
-			//Sanitize the fields.
-			$name = sanitize($name);
-			$sender = sanitize($sender);
-			$message = sanitize($message);
-
-			//Change enters in their html-equivalents.
-			$message = nl2br($message);
+			//Sanitize the fields and set extra headers.
+			//N.B. strstr would be neater, but needs PHP >= 5.3 for $before_needle param
+			if(strpos($name, "\r\n"))
+				$name = substr($name, 0, strpos($name, "\r\n"));
+			if(strpos($sender, "\r\n"))
+				$sender = substr($sender, 0, strpos($sender, "\r\n"));
+			//Set email headers.
+			$extra_headers = 'From: =?utf-8?B?'.base64_encode($name).'?= <'.$sender.'>'."\r\n";
+			$extra_headers .= "X-Originating-IP: [".$_SERVER['REMOTE_ADDR']."]\r\n";
+			$extra_headers .= "MIME-Version: 1.0\r\n";
+			$extra_headers .= "Content-type: text/plain; charset=utf-8\r\n";
+			$extra_headers .= "Content-Transfer-Encoding: 8bit\r\n";
+			//Check if we can set envelope sender.
+			if(isset($_SERVER['SERVER_ADMIN'])) {
+				$mail_user = $_SERVER['SERVER_ADMIN'];
+				$extra_headers .= "Sender: $mail_user\r\n";
+				$sendmail_params = "-f$mail_user";
+			}
+			else
+				$sendmail_params = NULL;
 
 			//Now we're going to send our email.
-			if (mail(EMAIL, $lang['contactform']['email_title'].$name, '<html><body>'.$message.'</body></html>', 'From: '.$sender."\n".'Content-type: text/html; charset=utf-8'))
-				echo $lang['contactform']['been_send'];
-			//If email couldn't be send.
+			if (mail(EMAIL, '=?utf-8?B?'.base64_encode($lang['contactform']['email_title'].' '.$name).'?=', $message, $extra_headers, $sendmail_params))
+				echo '<p class="error">'.$lang['contactform']['been_send'].'</p>';
+			//If email couldn't be sent.
 			else
-				echo $lang['contactform']['not_send'];
+				echo '<p class="error">'.$lang['contactform']['not_send'].'</p>';
 		}
 		//If not all fields were filled.
 		else
@@ -72,6 +83,5 @@ function contactform_theme_main() {
 			</div>
 		</form>
 	<?php
-
 }
 ?>
