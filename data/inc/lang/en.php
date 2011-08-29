@@ -152,7 +152,7 @@ $lang['page']['no_title']    = 'Please choose a title for your page.';
 
 //Editmeta
 $lang['editmeta']['title']    = 'edit page information';
-$lang['editmeta']['descr']  = 'enter information about this page here, to get better results in search engines. not required.';
+$lang['editmeta']['descr']    = 'enter information about this page here, to get better results in search engines. not required.';
 $lang['editmeta']['keywords'] = 'keywords';
 $lang['editmeta']['comma']    = 'seperated by a comma';
 $lang['editmeta']['changing'] = 'Changing page information...';
@@ -165,21 +165,21 @@ $lang['images']['name']     = 'Name:';
 $lang['images']['size']     = 'Size:';
 $lang['images']['type']     = 'Type:';
 $lang['images']['bytes']    = 'bytes';
-$lang['images']['success']  = 'Upload successfull!';
+$lang['images']['success']  = 'Upload successful!';
 
 //Modules
 $lang['modules']['title']   = 'modules';
 $lang['modules']['message'] = 'Pluck has a variety of modules available, which you can use to extend your website with dynamic content.';
 
 //Options
-$lang['options']['title']          = 'options';
-$lang['options']['message']        = 'Here you can configure pluck so it suits your wishes and taste.';
-$lang['options']['settings_descr'] = 'change general settings like the title of your website and your email address';
-$lang['options']['modules_descr']  = 'manage modules and include them in your website';
+$lang['options']['title']               = 'options';
+$lang['options']['message']             = 'Here you can configure pluck so it suits your wishes and taste.';
+$lang['options']['settings_descr']      = 'change general settings like the title of your website and your email address';
+$lang['options']['modules_descr']       = 'manage modules and include them in your website';
 $lang['options']['modules_sett_descr']  = 'change module configuration settings';
-$lang['options']['themes_descr']   = 'change the look and feel of your website';
-$lang['options']['lang_descr']     = 'choose the language that will be used by pluck';
-$lang['options']['pass_descr']     = 'it is a good idea to change your password regularly';
+$lang['options']['themes_descr']        = 'change the look and feel of your website';
+$lang['options']['lang_descr']          = 'choose the language that will be used by pluck';
+$lang['options']['pass_descr']          = 'it is a good idea to change your password regularly';
 
 //Settings
 $lang['settings']['title']             = 'general settings';
@@ -189,7 +189,7 @@ $lang['settings']['email']             = 'email';
 $lang['settings']['email_descr']       = 'your email address will be used to allow your visitors to contact you through an email form';
 $lang['settings']['changing_settings'] = 'Saving settings...';
 $lang['settings']['fill_name']         = 'You have to fill in a name for your website, it can\'t be empty.';
-$lang['settings']['email_invalid']     = 'The emailaddress you entered is invalid!';
+$lang['settings']['email_invalid']     = 'The email address you entered is invalid!';
 
 //Modules_manage
 $lang['modules_manage']['title']             = 'manage modules';
@@ -216,7 +216,7 @@ $lang['modules_addtosite']['choose_order'] = 'Choose in which order the modules 
 //Installmodule
 $lang['modules_install']['title']   = 'install modules';
 $lang['modules_install']['message'] = 'Here you can install new modules. Please make sure you have downloaded a module first.';
-$lang['modules_install']['too_big'] = 'The module-file is too big; 2MB is the limit.';
+$lang['modules_install']['too_big'] = 'The module file is too big; 2MB is the limit.';
 $lang['modules_install']['success'] = 'The module has been installed successfully.';
 
 //Theme
@@ -244,7 +244,7 @@ $lang['language']['saved']  = 'The language settings have been saved.';
 
 //Changepass
 $lang['changepass']['title']       = 'change password';
-$lang['changepass']['message']     = 'Here you can change the password you use to login to the <i>pluck</i> administrationcenter. It\'s a good idea to change your password regularly.';
+$lang['changepass']['message']     = 'Here you can change the password you use to login to the <i>pluck</i> administration center. It\'s a good idea to change your password regularly.';
 $lang['changepass']['old']         = 'old password';
 $lang['changepass']['new']         = 'new password';
 $lang['changepass']['repeat']      = 'repeat new password';
@@ -263,9 +263,9 @@ $lang['albums']['choose_name']    = 'choose a name for your new album first, the
 $lang['albums']['delete_album']   = 'delete album';
 $lang['albums']['edit_album']     = 'edit album';
 $lang['albums']['album_message1'] = 'Use this page to add, delete and edit images in your album. JPG, PNG and GIF images are supported.';
-$lang['albums']['album_message2'] = 'upload a new image here. choose a title and a description, and choose the quality at which the images should be processed. The higher the quality, the higher the filesize.';
+$lang['albums']['album_message2'] = 'upload a new image here. choose a title and a description, and choose the quality at which the image should be processed. The higher the quality, the bigger the file.';
 $lang['albums']['edit_images']    = 'edit images';
-$lang['albums']['new_image']      ='new image';
+$lang['albums']['new_image']      = 'new image';
 $lang['albums']['quality']        = 'quality (1-100)';
 $lang['albums']['edit_image']     = 'edit image';
 $lang['albums']['doesnt_exist']   = 'The specified album doesn\'t exist.';
@@ -281,7 +281,7 @@ $lang['albums']['settings_error'] = 'The width of the resized images should be n
 
 //Blog.
 $lang['blog']['title']                  = 'blog';
-$lang['blog']['main_message']           = 'Here, you can make new posts to add to your blog. Posts will be automatically sorted on date.';
+$lang['blog']['main_message']           = 'Here, you can make new posts to add to your blog. Posts will be automatically sorted by date.';
 $lang['blog']['descr']                  = 'use a blog to post news or write articles for your visitors';
 $lang['blog']['categories']             = 'categories';
 $lang['blog']['category']               = 'category';
@@ -300,7 +300,7 @@ $lang['blog']['posted_by']              = 'posted by';
 $lang['blog']['reactions']              = 'reactions';
 $lang['blog']['reaction']               = 'reaction';
 $lang['blog']['edit_reactions']         = 'edit reactions';
-$lang['blog']['edit_reactions_message'] = 'Here, you can edit the reactions of your visitors on the post.';
+$lang['blog']['edit_reactions_message'] = 'Here, you can edit the reactions of your visitors to the post.';
 $lang['blog']['edit_reaction']          = 'edit reaction';
 $lang['blog']['delete_reaction']        = 'delete reaction';
 $lang['blog']['name']                   = 'name';
@@ -311,7 +311,7 @@ $lang['blog']['html_not_allowed']       = 'HTML-code is not allowed.';
 $lang['blog']['no_reactions']           = 'no reactions';
 $lang['blog']['allow_reactions']        = 'Allow visitors to post reactions.';
 $lang['blog']['read_more']              = 'read more';
-$lang['blog']['truncate_posts']         = 'The number of characters blog posts will be truncated to. Choose 0 to disable truncation.';
+$lang['blog']['truncate_posts']         = 'The number of characters to which blog posts will be truncated. Choose 0 to disable truncation.';
 $lang['blog']['numeric_error']          = 'You should choose a numeric value for post truncation and/or posts per page.';
 $lang['blog']['posts_per_page']         = 'The number of posts that will be displayed per page.';
 $lang['blog']['posts_per_page_error']   = 'The number of posts per page cannot be zero!';
@@ -324,8 +324,8 @@ $lang['contactform']['module_name']  = 'contact form';
 $lang['contactform']['module_intro'] = 'with a contact form, you can allow your visitors to send you a message';
 $lang['contactform']['fields']       = 'You didn\'t fill in all fields correctly.';
 $lang['contactform']['email_title']  = 'Message from your website from';
-$lang['contactform']['been_send']    = 'Your message was sent succesfully.';
-$lang['contactform']['not_send']     = 'Your message could not be sent. Please try again.';
+$lang['contactform']['been_send']    = 'Your message has been sent succesfully.';
+$lang['contactform']['not_send']     = 'Your message could not be sent, an error occurred.';
 
 //View site link
 $lang['viewsite']['module_name']  = 'view site link';
@@ -339,5 +339,5 @@ $lang['tinymce']['module_intro'] = 'Adds the TinyMCE-editor to pluck. TinyMCE ha
 //Multitheme
 $lang['multitheme']['module_name']  = 'multi theme';
 $lang['multitheme']['module_intro'] = 'Allows the user to choose different themes for each page.';
-$lang['multitheme']['page_edit'] = 'use theme';
+$lang['multitheme']['page_edit']    = 'use theme';
 ?>
