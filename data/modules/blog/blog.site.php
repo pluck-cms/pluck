@@ -76,8 +76,10 @@ function blog_theme_main($area, $category) {
 						//Check if we need to truncate
 						if (module_get_setting('blog','truncate_posts') != '0')
 							echo truncate($post['content'], module_get_setting('blog','truncate_posts'));
-						else
+						else {
+							run_hook('theme_content', array(&$post['content']));
 							echo $post['content'];
+						}
 						?>
 					</div>
 					<?php
@@ -133,7 +135,10 @@ function blog_page_site_viewpost() {
 				<?php echo $post['date'].' '.$lang['blog']['at'].' '.$post['time'].' '.$lang['blog']['in'].' '.$post['category']; ?>
 			</span>
 			<div id="blog_post_content">
-				<?php echo $post['content']; ?>
+			<?php
+				run_hook('theme_content', array(&$post['content']));
+				echo $post['content'];
+			?>
 			</div>
 		</div>
 

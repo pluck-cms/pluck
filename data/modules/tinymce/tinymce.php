@@ -51,8 +51,9 @@ function tinymce_admin_head_main() {
 	//@fixme Not the best way to do it, but it works.
 	title = escape(title);
 	title = title.replace(/%u2003/g, '');
+	title = title.replace(/%A0/g, '');
 	title = unescape(title);
-
+	
 	tinyMCE.execCommand('mceInsertContent', false, '<a href="?file=' + file + '" title="' + title + '">' + title + '<\/a>');
 	}
 
