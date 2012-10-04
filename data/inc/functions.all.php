@@ -196,6 +196,7 @@ function save_file($file, $content, $chmod = 0777) {
  * @return string The sanitized variable.
  */
 function sanitize($var, $html = true) {
+	$var = str_replace('\\', '\\\\', $var);
 	$var = str_replace('\'', '\\\'', $var);
 
 	if ($html == true)
