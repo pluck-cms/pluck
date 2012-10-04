@@ -40,10 +40,8 @@ if (file_exists('data/settings/themepref.php'))
 //Site URL constant
 $protocol = 'http';
 if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && $_SERVER['HTTPS'] != 'off')
-	$protocol .= 's';
-$directory = dirname($_SERVER['PHP_SELF']);
-if(substr($directory, -1) == '/')
-	$directory = substr($directory, 0, strlen($directory) - 1);
+ $protocol .= 's';
+$directory = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 define('SITE_URL', $protocol.'://'.$_SERVER['HTTP_HOST'].$directory);
 //More constants
 define('SITE_TITLE', get_sitetitle());
