@@ -53,7 +53,7 @@ function tinymce_admin_head_main() {
 	title = title.replace(/%u2003/g, '');
 	title = title.replace(/%A0/g, '');
 	title = unescape(title);
-	
+
 	tinyMCE.execCommand('mceInsertContent', false, '<a href="?file=' + file + '" title="' + title + '">' + title + '<\/a>');
 	}
 
@@ -70,7 +70,7 @@ function tinymce_admin_head_main() {
 	var module = id.selectedIndex;
 	var code = id.options[module].value;
 
-	tinyMCE.execCommand('mceInsertContent', false, '{pluck show_module(' + code + ')}');
+	tinyMCE.execCommand('mceInsertContent', false, '<div class="module_' + code.replace(' ', '_') + '">{pluck show_module(' + code + ')}</div>');
 	}
 	</script>
 	<?php
