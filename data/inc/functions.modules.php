@@ -60,23 +60,18 @@ function run_hook($name, $par = null) {
 				if ($par == null) {
 					$output = call_user_func($module.'_'.$name);
 					if (!empty($output)) {
-						$function_output[] = $output;
-						unset($output);
+						return array($output);
 					}
 				}
 				else {
 					$output = call_user_func_array($module.'_'.$name, $par);
 					if (!empty($output)) {
-						$function_output[] = $output;
-						unset($output);
+						return array($output);
 					}
 				}
-				if (isset($function_output))
-					return $function_output;
 			}
 		}
 	}
-	unset($module);
 }
 
 /**

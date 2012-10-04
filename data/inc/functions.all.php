@@ -269,41 +269,21 @@ function seo_url($url) {
  * @return string The seoname
  */
 function get_page_seoname($filename) {
-	//Remove PAGE_DIR from the patch, if it exist.
-	$filename = str_replace(PAGE_DIR.'/', '', $filename);
+	//Remove PAGE_DIR from the filename, if present.
+	if (strpos($filename, PAGE_DIR.'/') === 0) $filename = substr($filename, strlen(PAGE_DIR) + 1);
 
-	if (strpos($filename, '/') !== false) {
-		//Split the page name, and count how many matches there are.
-		$matches = explode('/', $filename);
-		$count = count($matches);
-
-		//The last match is the page we want to find.
-		$page = $matches[$count - 1];
-
-		//Remove the last match, so we can find the file patch.
-		unset($matches[$count - 1]);
-		$patch = implode('/', $matches);
-
-		//Run through the pages in the folder, if it exists.
-		if (file_exists(PAGE_DIR.'/'.$patch)) {
-			$pages = read_dir_contents(PAGE_DIR.'/'.$patch, 'files');
-			if ($pages != false) {
-				foreach ($pages as $filename) {
-					//Is there a page with the name?
-					if ($filename == $page) {
-						$seoname = explode('.', $filename);
-						return $patch.'/'.$seoname[1];
-					}
-				}
-				unset($filename);
+	if (file_exists(PAGE_DIR . '/' . $filename)) {
+		$seoname = explode('.', basename($filename));
+		if (isset($seoname[1])) {
+			$pos = strrpos($filename, '/');
+			if ($pos !== false) {
+				return substr($filename, 0, $pos) . '/' . $seoname[1];
+			} else {
+				return $seoname[1];
 			}
 		}
 	}
 
-	elseif (file_exists(PAGE_DIR.'/'.$filename)) {
-		$seoname = explode('.', $filename);
-		return $seoname[1];
-	}
 	return false;
 }
 
@@ -316,47 +296,27 @@ function get_page_seoname($filename) {
  * @return string The filename
  */
 function get_page_filename($seoname) {
-	//Remove PAGE_DIR from the patch, if it exist.
-	$seoname = str_replace(PAGE_DIR.'/', '', $seoname);
+	//Remove PAGE_DIR from the seoname, if present.
+	if (strpos($seoname, PAGE_DIR.'/') === 0) $seoname = substr($seoname, strlen(PAGE_DIR) + 1);
 
+	$path = '';
+	$pos = strrpos($seoname, '/');
+	if ($pos !== false) {
+		$path = substr($seoname, 0, $pos);
+	}
 	//Read the pages.
-	$pages = read_dir_contents(PAGE_DIR, 'files');
+	$pages = read_dir_contents(PAGE_DIR . '/' . $path, 'files');
 
 	//Are there any pages?
 	if ($pages != false) {
-		//Is it a sub page?
-		if (strpos($seoname, '/') !== false) {
-			//Split the page name, and count how many matches there are.
-			$matches = explode('/', $seoname);
-			$count = count($matches);
-
-			//The last match is the page we want to find.
-			$page = $matches[$count - 1];
-
-			//Remove the last match, so we can find the file patch.
-			unset($matches[$count - 1]);
-			$patch = implode('/', $matches);
-
-			//Run thought the pages in the sub-folder, if it exists.
-			if (file_exists(PAGE_DIR.'/'.$patch)) {
-				$pages = read_dir_contents(PAGE_DIR.'/'.$patch, 'files');
-				if ($pages != false) {
-					foreach ($pages as $filename) {
-						if (strpos($filename, '.'.$page.'.'))
-							return $patch.'/'.$filename;
-					}
-				}
-			}
-		}
-
-		//Or just a normal one?
-		else {
-			foreach ($pages as $filename) {
-				if (strpos($filename, '.'.$seoname.'.'))
-					return $filename;
+		$page = basename($seoname);
+		foreach ($pages as $filename) {
+			if (strpos($filename, '.' . $page . '.')) {
+				return ($path != '' ? $path . '/' : '') . $filename;
 			}
 		}
 	}
+
 	return false;
 }
 
@@ -370,12 +330,9 @@ function get_page_filename($seoname) {
  */
 function get_sub_page_dir($page) {
 	//Don't do anything if it's not a sub-page.
-	if (strpos($page, '/') !== false && file_exists(PAGE_DIR.'/'.get_page_filename($page))) {
-		$page = explode('/', $page);
-		$count = count($page);
-		unset($page[$count -1]);
-		$page = implode('/', $page);
-		return $page;
+	$pos = strrpos($page, '/');
+	if ($pos !== false && file_exists(PAGE_DIR.'/'.get_page_filename($page))) {
+		return substr($page, 0, $pos);
 	}
 
 	return false;

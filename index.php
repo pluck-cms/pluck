@@ -55,9 +55,9 @@ if (!defined('CURRENT_PAGE_SEONAME')) {
 if (defined('CURRENT_MODULE_DIR')) {
 	//Check if the module exists.
 	if (file_exists('data/modules/'.CURRENT_MODULE_DIR)) {
-		//And check if we also specified a module page (if not, redirect).
+		//And check if we also specified a module page (if not, fail).
 		if (!defined('CURRENT_MODULE_PAGE')) {
-			header('Location: '.HOME_PAGE);
+			header('HTTP/1.0 404 Not Found');
 			exit;
 		}
 
@@ -65,18 +65,18 @@ if (defined('CURRENT_MODULE_DIR')) {
 		//1. Check if module page exists.
 		//2. Check if module has been included in current page.
 		//3. Check if module is compatible.
-		//Otherwise, redirect.
+		//Otherwise, fail.
 		elseif (defined('CURRENT_MODULE_PAGE')) {
 			if (!function_exists(CURRENT_MODULE_DIR.'_page_site_'.CURRENT_MODULE_PAGE) || !module_is_included_in_page(CURRENT_MODULE_DIR, CURRENT_PAGE_SEONAME) || !module_is_compatible(CURRENT_MODULE_DIR)) {
-				header('Location: '.HOME_PAGE);
+				header('HTTP/1.0 404 Not Found');
 				exit;
 			}
 		}
 	}
 
-	//If module doesn't exist, also redirect.
+	//If module doesn't exist, also fail.
 	else {
-		header('Location: '.HOME_PAGE);
+		header('HTTP/1.0 404 Not Found');
 		exit;
 	}
 }
