@@ -113,11 +113,9 @@ function theme_meta($reset_css = false) {
 	if ($reset_css)
 		echo '<link href="'.SITE_URL.'/data/reset.css" rel="stylesheet" type="text/css" media="screen" />'."\n";
 	echo '<link href="'.$cssfile.'" rel="stylesheet" type="text/css" media="screen" />'."\n";
-	echo '<meta name="language" content="'.LANG.'" />'."\n";
 
 	//If we are not looking at a module: include metatag information
 	if (defined('CURRENT_PAGE_FILENAME')) {
-		echo '<meta name="title" content="'.PAGE_TITLE.'" />'."\n";
 		if (isset($keywords) && !empty($keywords))
 			echo '<meta name="keywords" content="'.$keywords.'" />'."\n";
 		if (isset($description) && !empty($description))
