@@ -15,6 +15,21 @@
 //Make sure the file isn't accessed directly.
 defined('IN_PLUCK') or exit('Access denied!');
 
+//Site base directory (/var/www/pluck)
+define('SITE_DIR', str_replace('\\', '/', rtrim(realpath(rtrim(dirname(__FILE__), '/\\') . '/../..'), '/\\')));
+//Site base URL (/pluck)
+define('SITE_URL', str_replace('\\', '/', substr(SITE_DIR, strlen(rtrim(realpath($_SERVER['DOCUMENT_ROOT']), '/\\')))));
+//Site URI scheme (http)
+if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && $_SERVER['HTTPS'] != 'off') {
+	define('SITE_SCHEME', 'https');
+} else {
+	define('SITE_SCHEME', 'http');
+}
+//Site host (www.site.com)
+define('SITE_HOST', strtolower($_SERVER['HTTP_HOST']));
+//Site base URI (http://www.site.com/pluck)
+define('SITE_URI', SITE_SCHEME . '://' . SITE_HOST . SITE_URL);
+
 //Include Translation data.
 require_once ('data/settings/langpref.php');
 require_once ('data/inc/lang/en.php');
@@ -37,12 +52,6 @@ if (file_exists('data/settings/options.php'))
 if (file_exists('data/settings/themepref.php'))
 	require_once ('data/settings/themepref.php');
 
-//Site URL constant
-$protocol = 'http';
-if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && $_SERVER['HTTPS'] != 'off')
- $protocol .= 's';
-$directory = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-define('SITE_URL', $protocol.'://'.$_SERVER['HTTP_HOST'].$directory);
 //More constants
 define('SITE_TITLE', get_sitetitle());
 if (file_exists('data/settings/options.php'))
