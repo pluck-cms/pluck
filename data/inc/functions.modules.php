@@ -118,7 +118,7 @@ function module_is_compatible($module) {
 function module_is_included_in_page($module, $page_seoname) {
 	if (is_file(PAGE_DIR.'/'.get_page_filename($page_seoname))) {
 		include(PAGE_DIR.'/'.get_page_filename($page_seoname));
-		if (strpos($content, '{pluck show_module('.$module) !== FALSE)
+		if (strpos($content, '{pluck show_module('.$module.')}') !== FALSE)
 			return TRUE;
 		else
 			return FALSE;
