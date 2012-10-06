@@ -17,6 +17,7 @@ defined('IN_PLUCK') or exit('Access denied!');
 
 //Load all the modules, so we can use hooks.
 //This has to be done before including other functions files.
+$module_list = array();
 $path = opendir('data/modules');
 while (false !== ($dir = readdir($path))) {
 	if ($dir != '.' && $dir != '..') {
@@ -42,36 +43,34 @@ foreach ($module_list as $module) {
 unset($module);
 
 /**
- * Run a module hook. Can also filter strings.
+ * Run a module hook. Parameters are passed by reference.
+ *
+ * Hooks should be declared with the reference sign for parameters.
+ * e.g. function mymodule_the_hook(&$parameter)
+ *
+ * The hook must be called with the parameters inside $par passed by reference.
+ * e.g. run_hook('the_hook', array(&$parameter));
  *
  * @since 4.7
  * @package all
  * @param string $name Name of the hook.
- * @param array $par The strings to filter, if it's a filter hook.
+ * @param array $par The parameters for the hook.
  */
 function run_hook($name, $par = null) {
 	global $module_list;
-	if (!isset($name))
-		return;
+	if (empty($name)) return false;
+
 	foreach ($module_list as $module) {
-		if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
-			require_once ('data/modules/'.$module.'/'.$module.'.php');
-			if (function_exists($module.'_'.$name) && module_is_compatible($module)) {
-				if ($par == null) {
-					$output = call_user_func($module.'_'.$name);
-					if (!empty($output)) {
-						return array($output);
-					}
-				}
-				else {
-					$output = call_user_func_array($module.'_'.$name, $par);
-					if (!empty($output)) {
-						return array($output);
-					}
-				}
+		if (function_exists($module.'_'.$name) && module_is_compatible($module)) {
+			if (!isset($par)) {
+				call_user_func($module.'_'.$name);
+			} else {
+				call_user_func_array($module.'_'.$name, $par);
 			}
 		}
 	}
+
+	return true;
 }
 
 /**
@@ -84,26 +83,24 @@ function run_hook($name, $par = null) {
  */
 function module_is_compatible($module) {
 	//Include module information.
-	if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
+	if (function_exists($module.'_info')) {
+		//NOTE: If pluck is an alpha, beta or dev version, it will always be compatible.
+		if (preg_match('/(alpha|beta|dev)/', PLUCK_VERSION)) return true;
+
 		$module_info = call_user_func($module.'_info');
 		if (isset($module_info['compatibility'])) {
-			if (strpos($module_info['compatibility'], ','))
-				$version_compat = explode(',', $module_info['compatibility']);
-			else
-				$version_compat[0] = $module_info['compatibility'];
+			$version_compat = explode(',', $module_info['compatibility']);
 
-			//Now check if we have a compatible version. NOTE: If pluck is an alpha or beta version, it will always be compatible.
-			foreach ($version_compat as $number => $version) {
-				if (preg_match('/'.$version.'/', PLUCK_VERSION) || preg_match('/(alpha|beta)/', PLUCK_VERSION)) {
+			//Now check if we have a compatible version.
+			foreach ($version_compat as $version) {
+				if (preg_match('/^'.$version.'/', PLUCK_VERSION)) {
 					return true;
 				}
 			}
-			unset($number);
 		}
 	}
 
-	else
-		return false;
+	return false;
 }
 
 /**
@@ -116,15 +113,17 @@ function module_is_compatible($module) {
  * @return bool
  */
 function module_is_included_in_page($module, $page_seoname) {
-	if (is_file(PAGE_DIR.'/'.get_page_filename($page_seoname))) {
-		include(PAGE_DIR.'/'.get_page_filename($page_seoname));
-		if (strpos($content, '{pluck show_module('.$module.')}') !== FALSE)
-			return TRUE;
-		else
-			return FALSE;
+	$page_filename = get_page_filename($page_seoname);
+
+	if (is_file(PAGE_DIR.'/'.$page_filename)) {
+		$content = '';
+		include(PAGE_DIR.'/'.$page_filename);
+		if (strpos($content, '{pluck show_module('.$module.')}') !== false) {
+			return true;
+		}
 	}
-	else
-		return FALSE;
+
+	return false;
 }
 
 function module_insert_at_position($array, $data, $position) {
@@ -189,9 +188,9 @@ function module_get_setting($module, $setting) {
 				include('data/settings/'.$module.'.settings.php');
 			}
 			return $$setting;
+		} else {
+			trigger_error('Module setting '.$setting.' does not exist in module '.$module.'.', E_USER_WARNING);
 		}
-		else
-			show_error('Module setting '.$setting.' does not exist in module '.$module.'.', 1);
 	}
 }
 ?>
