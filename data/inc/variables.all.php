@@ -96,7 +96,7 @@ if (file_exists(PAGE_DIR)) {
 	define('PAGE_URL_PREFIX', $page_url_prefix);
 	unset($page_url_prefix);
 
-	$homepage = PAGE_URL_PREFIX.$homepage;
+	$homepage = SITE_URI.'/'.PAGE_URL_PREFIX.$homepage;
 	run_hook('const_home_page', array(&$homepage));
 	define('HOME_PAGE', $homepage);
 	unset($homepage);

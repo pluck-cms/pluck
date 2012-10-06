@@ -59,7 +59,7 @@ function get_pagetitle() {
 	}
 
 	//Get the title if we are looking at a module page.
-	if (defined('CURRENT_PAGE_FILENAME') && defined('CURRENT_MODULE_DIR')) {
+	if (defined('CURRENT_PAGE_FILENAME') && defined('CURRENT_MODULE_DIR') && function_exists(CURRENT_MODULE_DIR.'_pages_site')) {
 		$module_page_site = call_user_func(CURRENT_MODULE_DIR.'_pages_site');
 		if (!empty($module_page_site)) {
 			foreach ($module_page_site as $module_page) {
@@ -251,8 +251,13 @@ function theme_content() {
 	//Get needed variables
 	global $lang;
 
+	//Show "not found" error message if something was missing
+	if (defined('CURRENT_NOTFOUND')) {
+		echo $lang['general']['not_found'];
+	}
+
 	//Get the contents only if we are looking at a normal page.
-	if (defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_MODULE_DIR')) {
+	elseif (defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_MODULE_DIR')) {
 		//Check if page exists
 		if (defined('CURRENT_PAGE_FILENAME')) {
 			include (PAGE_DIR.'/'.CURRENT_PAGE_FILENAME);
