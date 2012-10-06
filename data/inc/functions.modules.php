@@ -61,11 +61,14 @@ function run_hook($name, $par = null) {
 	if (empty($name)) return false;
 
 	foreach ($module_list as $module) {
-		if (function_exists($module.'_'.$name) && module_is_compatible($module)) {
-			if (!isset($par)) {
-				call_user_func($module.'_'.$name);
-			} else {
-				call_user_func_array($module.'_'.$name, $par);
+		if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
+			require_once ('data/modules/'.$module.'/'.$module.'.php');
+			if (function_exists($module.'_'.$name) && module_is_compatible($module)) {
+				if (!isset($par)) {
+					call_user_func($module.'_'.$name);
+				} else {
+					call_user_func_array($module.'_'.$name, $par);
+				}
 			}
 		}
 	}
