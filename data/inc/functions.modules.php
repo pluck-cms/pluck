@@ -118,7 +118,7 @@ function module_is_included_in_page($module, $page_seoname) {
 	if (is_file(PAGE_DIR.'/'.$page_filename)) {
 		$content = '';
 		include(PAGE_DIR.'/'.$page_filename);
-		if (strpos($content, '{pluck show_module('.$module.')}') !== false) {
+		if (preg_match('/\{pluck show_module\('.$module.'(,[^)]*)?\)\}/', $content)) {
 			return true;
 		}
 	}
