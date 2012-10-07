@@ -58,7 +58,7 @@ if (defined('CURRENT_MODULE_DIR')) {
 		//And check if we also specified a module page (if not, fail).
 		if (!defined('CURRENT_MODULE_PAGE')) {
 			header('HTTP/1.0 404 Not Found');
-			define('CURRENT_NOTFOUND', true);
+			if (!defined('CURRENT_NOTFOUND')) define('CURRENT_NOTFOUND', true);
 		}
 
 		//If a module page has been set, check if we can display it.
@@ -69,7 +69,7 @@ if (defined('CURRENT_MODULE_DIR')) {
 		elseif (defined('CURRENT_MODULE_PAGE')) {
 			if (!function_exists(CURRENT_MODULE_DIR.'_page_site_'.CURRENT_MODULE_PAGE) || !module_is_included_in_page(CURRENT_MODULE_DIR, CURRENT_PAGE_SEONAME) || !module_is_compatible(CURRENT_MODULE_DIR)) {
 				header('HTTP/1.0 404 Not Found');
-				define('CURRENT_NOTFOUND', true);
+				if (!defined('CURRENT_NOTFOUND')) define('CURRENT_NOTFOUND', true);
 			}
 		}
 	}
@@ -77,14 +77,14 @@ if (defined('CURRENT_MODULE_DIR')) {
 	//If module doesn't exist, also fail.
 	else {
 		header('HTTP/1.0 404 Not Found');
-		define('CURRENT_NOTFOUND', true);
+		if (!defined('CURRENT_NOTFOUND')) define('CURRENT_NOTFOUND', true);
 	}
 }
 
 //If a page has been requested that does not exist, return 404 header.
 if (defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_PAGE_FILENAME')) {
 	header('HTTP/1.0 404 Not Found');
-	define('CURRENT_NOTFOUND', true);
+	if (!defined('CURRENT_NOTFOUND')) define('CURRENT_NOTFOUND', true);
 }
 
 //Allow modules to manipulate theme
