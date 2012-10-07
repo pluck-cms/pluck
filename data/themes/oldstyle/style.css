@@ -45,7 +45,7 @@ a:hover {
 	text-decoration: underline;
 }
 
-.menu li#active a {
+.menu li.active a {
 	color: black;
 	text-decoration: underline;
 }

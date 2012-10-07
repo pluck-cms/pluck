@@ -204,9 +204,12 @@ function theme_menu_data($block, $inline, $active_id, $level, $dir) {
 				else
 					$file_stripped = $file;
 
-				//Show an active inline for current page and all parents of currently displayed page.
-				if ($active_id && (CURRENT_PAGE_SEONAME == $file || ($parents && array_search($file_stripped, $parents) !== false)))
-					echo '<'.$inline.' id="'.$active_id.'">';
+				//Show an active inline for current page...
+				if ($active_id && (CURRENT_PAGE_SEONAME == $file))
+					echo '<'.$inline.' class="'.$active_id.'" id="'.$active_id.'">';
+				//... and all parents of currently displayed page.
+				elseif ($parents && array_search($file_stripped, $parents) !== false)
+					echo '<'.$inline.' class="'.$active_id.'">';
 				//For other pages, show a normal inline.
 				else
 					echo '<'.$inline.'>';
