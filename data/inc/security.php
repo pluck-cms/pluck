@@ -24,10 +24,9 @@ defined('IN_PLUCK') or exit('Access denied!');
  */
 define('PLUCK_VERSION', '4.7.1 dev'); //Release revision = n/a
 
-//Error reporting
-//error_reporting(E_ALL|E_STRICT);
-//Error reporting (dev)
-error_reporting(E_ALL|E_STRICT|E_NOTICE);
+//Error reporting default is (E_ALL ^ E_NOTICE) - but use server configuration for production environment
+//Uncomment next line for development (shows every possible error)
+error_reporting(-1);
 
 //Set default timezone.
 date_default_timezone_set('UTC');
