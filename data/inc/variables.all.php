@@ -29,6 +29,8 @@ if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && $_SERVER['HTTPS'] != 'off') 
 define('SITE_HOST', strtolower($_SERVER['HTTP_HOST']));
 //Site base URI (http://www.site.com/pluck)
 define('SITE_URI', SITE_SCHEME . '://' . SITE_HOST . SITE_URL);
+//The script handling the request (index.php or admin.php)
+define('SITE_SCRIPT', substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], '/') + 1));
 
 //Include Translation data.
 require_once ('data/settings/langpref.php');

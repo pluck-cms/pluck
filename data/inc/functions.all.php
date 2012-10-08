@@ -248,13 +248,13 @@ function show_error($message, $level, $return = false) {
  */
 function seo_url($url) {
 	require ('data/inc/lib/url_replace.php');
-	$url = preg_replace('/( |_)+/', '-', $url);
-	foreach ($lang_url_replace as $old => $new)
-		$url = str_replace($old, $new, $url);
-	$url = str_replace(array('<', '>', '/', '\\', '&', '=', '"', ':', '?', '|', '*'), '', $url);
-	$url = str_replace('.', '_', $url);
-	$url = preg_replace('/(-)+/', '-', $url);
+	//replace some non-ASCII international characters with their ASCII substitute
+	$url = strtr($url, $lang_url_replace);
+	//replace all sequences of characters that would have to be urlencoded (incl. "-" and ".") to a single "-"
+	$url = preg_replace('/[^0-9A-Za-z_]+/', '-', $url);
+	//remove "-" from the beginning and end of the string
 	$url = trim($url, '-');
+	//only use lower case
 	$url = strtolower($url);
 
 	return $url;

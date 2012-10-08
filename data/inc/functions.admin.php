@@ -504,12 +504,12 @@ function save_page($title, $content, $hidden, $subpage = null, $description = nu
 	run_hook('admin_save_page_meta', array(&$description, &$keywords));
 	run_hook('admin_save_page_module_additional_data', array(&$module_additional_data));
 
+	//Check if a page already exists with the name.
+	if ((!isset($current_seoname) || $current_seoname != $subpage.seo_url($title)) && get_page_filename($subpage.seo_url($title)) != false)
+		return false;
+
 	//Do we want to create a new page?
 	if (!isset($current_seoname)) {
-		//Check if a page already exists with the name.
-		if (get_page_filename($subpage.seo_url($title)) != false)
-			return false;
-
 		//Check if we want a sub-page.
 		if (!empty($subpage)) {
 			//We need to make sure that the dir exists, and if not, create it.

@@ -43,15 +43,16 @@ if (isset($_REQUEST)) {
 }
 
 /* Cross Site Scripting, Remote File Inclusion, etc.
- * First check if $_GET keys are not array(s).
- * Then check for strange characters in $_GET keys.
- * All keys with or "/" or ".." or ":" or "<" or ">" or "&" or "=" or '"' or "?" or "*" are blocked, so that it's virtually impossible to inject any HTML-code, or external websites.
+ * First check if $_GET values are arrays.
+ * Then check for strange characters in $_GET values.
+ * All values with ".." or "\" or ":" or "<" or ">" or "&" or "=" or '"' or "?" or "*" are blocked, so that it's virtually impossible to inject any HTML-code, or external websites.
+ * TODO: This is just a quick and dirty fix for the actual problem!
  */
-foreach ($_GET as $get_key => $get_value) {
-	if (is_array($get_value) || (preg_match('|[\\\]+|', $get_value) || strpos($get_value, '..') !== false || strpos($get_value, ':') !== false || strpos($get_value, '<') !== false || strpos($get_value, '>') !== false || strpos($get_value, '&') !== false || strpos($get_value, '=') !== false || strpos($get_value, '"') !== false || strpos($get_value, '?') !== false || strpos($get_value, '*') !== false))
+foreach ($_GET as $get_value) {
+	if (is_array($get_value) || preg_match('/\.\.|[\\\\:<>&="?*]/', $get_value))
 		die ('A hacking attempt has been detected. For security reasons, we\'re blocking any code execution.');
 }
-unset($get_key);
+unset($get_value);
 
 /*
  * Undo magic quotes; http://php.net/manual/en/security.magicquotes.disabling.php.
