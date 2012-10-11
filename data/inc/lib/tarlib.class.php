@@ -281,7 +281,7 @@ class TarLib
       $fp = @fopen($archive,'rb');
       if(!$fp) return -4;
 
-      while(!foef($fp)) echo fread($fp,2048);
+      while(!feof($fp)) echo fread($fp,2048);
     }
     else
     {

@@ -87,7 +87,7 @@ if (isset($error))
 		<p class="kop4" style="margin-bottom: 5px;"><?php echo $lang['editmeta']['descr']; ?></p>
 
 		<div id="meta-options" style="display: none;">
-			<label for="description"><?php echo $lang['general']['description']; ?></label></tr>
+			<label for="description"><?php echo $lang['general']['description']; ?></label>
 			<br />
 			<textarea id="description" name="description" rows="2" cols="40" class="white"><?php if (isset($description)) echo $description; ?></textarea>
 			<br />
