@@ -22,11 +22,11 @@ defined('IN_PLUCK') or exit('Access denied!');
  * This constant is defined here to allow for hooks to be added inside modules.
  * For other constants, see variables.all.php and variables.site.php
  */
-define('PLUCK_VERSION', '4.7.1 dev'); //Release revision = n/a
+define('PLUCK_VERSION', '4.7.1');
 
 //Error reporting default is (E_ALL ^ E_NOTICE) - but use server configuration for production environment
 //Uncomment next line for development (shows every possible error)
-error_reporting(-1);
+//error_reporting(-1);
 
 //Set default timezone.
 date_default_timezone_set('UTC');
@@ -59,7 +59,7 @@ unset($get_value);
  */
 ini_set('magic_quotes_sybase', 0);
 ini_set('magic_quotes_runtime', 0);
-if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc() === 1) {
+if (function_exists('get_magic_quotes_gpc') && @get_magic_quotes_gpc() === 1) {
 	function stripslashes_deep($value) {
 		$value = is_array($value) ? array_map('stripslashes_deep', $value) : stripslashes($value);
 		return $value;
