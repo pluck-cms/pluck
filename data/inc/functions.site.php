@@ -111,8 +111,8 @@ function theme_meta($reset_css = false) {
 	echo '<meta name="generator" content="pluck '.PLUCK_VERSION.'" />'."\n";
 	echo '<title>'.PAGE_TITLE.' - '.SITE_TITLE.'</title>'."\n";
 	if ($reset_css)
-		echo '<link href="'.SITE_URL.'/data/reset.css" rel="stylesheet" type="text/css" media="screen" />'."\n";
-	echo '<link href="'.$cssfile.'" rel="stylesheet" type="text/css" media="screen" />'."\n";
+		echo '<link href="'.SITE_URL.'/data/reset.css" rel="stylesheet" type="text/css" />'."\n";
+	echo '<link href="'.$cssfile.'" rel="stylesheet" type="text/css" />'."\n";
 
 	//If we are not looking at a module: include metatag information
 	if (defined('CURRENT_PAGE_FILENAME')) {
