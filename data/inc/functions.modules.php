@@ -60,20 +60,22 @@ function run_hook($name, $par = null) {
 	global $module_list;
 	if (empty($name)) return false;
 
+	$messages = array();
 	foreach ($module_list as $module) {
 		if (file_exists('data/modules/'.$module.'/'.$module.'.php')) {
 			require_once ('data/modules/'.$module.'/'.$module.'.php');
 			if (function_exists($module.'_'.$name) && module_is_compatible($module)) {
 				if (!isset($par)) {
-					call_user_func($module.'_'.$name);
+					$message = call_user_func($module.'_'.$name);
 				} else {
-					call_user_func_array($module.'_'.$name, $par);
+					$message = call_user_func_array($module.'_'.$name, $par);
 				}
+				if (isset($message)) $messages[$module] = $message;
 			}
 		}
 	}
 
-	return true;
+	return $messages;
 }
 
 /**
