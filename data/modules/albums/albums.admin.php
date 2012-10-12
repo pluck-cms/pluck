@@ -390,9 +390,9 @@ function albums_page_admin_imagedown() {
 
 		//Count the number of PHP files.
 		foreach ($files as $file) {
-		    $file_parts = explode('.', $file);
-		    if (isset($file_parts[3]))
-			$number_of_files++;
+			$file_parts = explode('.', $file);
+			if (isset($file_parts[3]))
+				$number_of_files++;
 		}
 
 		//We can't lower the last image, so we have to check.
@@ -405,11 +405,11 @@ function albums_page_admin_imagedown() {
 
 		//Now we need to find the name of the other image, so we can switch numbers.
 		foreach ($files as $file) {
-		    $file_parts = explode('.', $file);
-		    if ($current_parts[0] + 1 == $file_parts[0]) {
-			$next_parts = $file_parts;
-			break;
-		    }
+			$file_parts = explode('.', $file);
+			if ($current_parts[0] + 1 == $file_parts[0]) {
+				$next_parts = $file_parts;
+				break;
+			}
 		}
 		unset($file);
 
