@@ -87,8 +87,8 @@ textarea, input {
 	padding: 11.5px 14px;
 }
 
-#active, #header > ul > li:hover {
-	border-color: #0f71b5 !important;
+#header > ul > li.active, #header > ul > li:hover {
+	border-color: #0f71b5;
 	background-color: #fcfef6;
 }
 

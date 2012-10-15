@@ -66,7 +66,7 @@ function blog_theme_main($area, $category) {
 				?>
 				<div class="blog_post">
 					<p class="blog_post_title">
-						<a href="<?php echo PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.BLOG_URL_PREFIX.$post['seoname']; ?>" title="<?php echo $post['title']; ?>"><?php echo $post['title']; ?></a>
+						<a href="<?php echo SITE_URL.'/'.PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.BLOG_URL_PREFIX.$post['seoname']; ?>" title="<?php echo $post['title']; ?>"><?php echo $post['title']; ?></a>
 					</p>
 					<span class="blog_post_info">
 						<?php echo $post['date'].' '.$lang['blog']['at'].' '.$post['time'].' '.$lang['blog']['in'].' '.$post['category']; ?>
@@ -103,7 +103,7 @@ function blog_theme_main($area, $category) {
 						$more_link = $lang['blog']['read_more'];
 					?>
 					<p class="blog_post_more">
-						<a href="<?php echo PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.BLOG_URL_PREFIX.$post['seoname']; ?>" title="<?php echo $more_link; ?>">&raquo; <?php echo $more_link; ?></a>
+						<a href="<?php echo SITE_URL.'/'.PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.BLOG_URL_PREFIX.$post['seoname']; ?>" title="<?php echo $more_link; ?>">&raquo; <?php echo $more_link; ?></a>
 					</p>
 				</div>
 				<?php
@@ -197,7 +197,7 @@ function blog_page_site_viewpost() {
 						blog_save_reaction($_GET['post'], $_POST['blog_reaction_name'], $_POST['blog_reaction_email'], $_POST['blog_reaction_website'], $_POST['blog_reaction_message']);
 
 						//Redirect user.
-							redirect(PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.BLOG_URL_PREFIX.$_GET['post'], 0);
+							redirect(SITE_URI.'/'.PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.BLOG_URL_PREFIX.$_GET['post'], 0);
 					}
 				}
 				?>

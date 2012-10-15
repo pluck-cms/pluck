@@ -65,7 +65,7 @@ function contactform_theme_main() {
 
 	//Then show the contactform.
 	?>
-		<form method="post" action="" id="contactform">
+		<form method="post" action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" id="contactform">
 			<div>
 				<label for="contactform_name"><?php echo $lang['general']['name']; ?></label>
 				<br />

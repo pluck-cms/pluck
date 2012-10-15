@@ -47,7 +47,7 @@ if (DIRECTION_RTL && !file_exists(THEME_DIR.'/style-rtl.css')) {
 
 //Check if a page or module has been specified, if not: redirect to HOME_PAGE.
 if (!defined('CURRENT_PAGE_SEONAME')) {
-	header('Location: '.HOME_PAGE);
+	header('Location: '.HOME_PAGE, true, 302);
 	exit;
 }
 
@@ -55,35 +55,37 @@ if (!defined('CURRENT_PAGE_SEONAME')) {
 if (defined('CURRENT_MODULE_DIR')) {
 	//Check if the module exists.
 	if (file_exists('data/modules/'.CURRENT_MODULE_DIR)) {
-		//And check if we also specified a module page (if not, redirect).
+		//And check if we also specified a module page (if not, fail).
 		if (!defined('CURRENT_MODULE_PAGE')) {
-			header('Location: '.HOME_PAGE);
-			exit;
+			header('HTTP/1.0 404 Not Found');
+			if (!defined('CURRENT_NOTFOUND')) define('CURRENT_NOTFOUND', true);
 		}
 
 		//If a module page has been set, check if we can display it.
 		//1. Check if module page exists.
 		//2. Check if module has been included in current page.
 		//3. Check if module is compatible.
-		//Otherwise, redirect.
+		//Otherwise, fail.
 		elseif (defined('CURRENT_MODULE_PAGE')) {
 			if (!function_exists(CURRENT_MODULE_DIR.'_page_site_'.CURRENT_MODULE_PAGE) || !module_is_included_in_page(CURRENT_MODULE_DIR, CURRENT_PAGE_SEONAME) || !module_is_compatible(CURRENT_MODULE_DIR)) {
-				header('Location: '.HOME_PAGE);
-				exit;
+				header('HTTP/1.0 404 Not Found');
+				if (!defined('CURRENT_NOTFOUND')) define('CURRENT_NOTFOUND', true);
 			}
 		}
 	}
 
-	//If module doesn't exist, also redirect.
+	//If module doesn't exist, also fail.
 	else {
-		header('Location: '.HOME_PAGE);
-		exit;
+		header('HTTP/1.0 404 Not Found');
+		if (!defined('CURRENT_NOTFOUND')) define('CURRENT_NOTFOUND', true);
 	}
 }
 
 //If a page has been requested that does not exist, return 404 header.
-if (defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_PAGE_FILENAME'))
+if (defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_PAGE_FILENAME')) {
 	header('HTTP/1.0 404 Not Found');
+	if (!defined('CURRENT_NOTFOUND')) define('CURRENT_NOTFOUND', true);
+}
 
 //Allow modules to manipulate theme
 $page_theme = THEME;

@@ -178,7 +178,7 @@ function blog_get_reaction($post, $id) {
 		$reaction['message'] = $reaction_message;
 		$reaction['date'] = blog_date_convert($reaction_time);
 		$reaction['time'] = blog_time_convert($reaction_time);
-		
+
 		return $reaction;
 		unset($reaction);
 	}
@@ -411,22 +411,23 @@ function blog_show_page_no_list($current_page, $category = false) {
 	else
 		$number_pages = blog_count_pages();
 
+	$param = strpos(PAGE_URL_PREFIX, '?') === false ? '?p=' : '&p=';
 	$page = 1;
 	while ($page <= $number_pages) {
 		if ($page != $current_page) {
 			if ($page == 1) {
-				echo '<a href="'.PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.'">'.$page.'</a> ';
+				echo '<a href="'.SITE_URL.'/'.PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.'">'.$page.'</a> ';
 				if ($current_page > $page+3)
 					echo '&#133; ';
 			}
 			elseif ($page == $number_pages) {
 				if ($current_page < $page-3)
 					echo '&#133; ';
-				echo '<a href="'.PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.'&p='.$page.'">'.$page.'</a> ';
+				echo '<a href="'.SITE_URL.'/'.PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.$param.$page.'">'.$page.'</a> ';
 			}
 			else {
 				if ((!($page < $current_page-2) && !($page > $current_page+2)))
-					echo '<a href="'.PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.'&p='.$page.'">'.$page.'</a> ';
+					echo '<a href="'.SITE_URL.'/'.PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.$param.$page.'">'.$page.'</a> ';
 			}
 		}
 		else

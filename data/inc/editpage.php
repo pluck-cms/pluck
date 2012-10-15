@@ -37,6 +37,9 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 		//If we are creating a new page, don't pass seo-name.
 		else
 			$seoname = save_page($_POST['title'], $_POST['content'], $_POST['hidden'], $_POST['sub_page'], $_POST['description'], $_POST['keywords'], $module_additional_data);
+		if (empty($seoname)) {
+			$error = show_error($lang['page']['name_exists'], 1, true);
+		}
 	}
 	//If no title has been chosen, set error.
 	else
@@ -44,14 +47,14 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 
 	//Redirect to the new title only if it is a plain save.
 	if (isset($_POST['save']) && !isset($error)) {
-		redirect('?action=editpage&page='.$seoname, 0);
+		redirect(SITE_URI.'/'.SITE_SCRIPT.'?action=editpage&page='.$seoname, 0);
 		include_once ('data/inc/footer.php');
 		exit;
 	}
 
 	//Redirect the user. only if they are doing a save_exit.
 	elseif (isset($_POST['save_exit']) && !isset($error)) {
-		redirect('?action=page', 0);
+		redirect(SITE_URI.'/'.SITE_SCRIPT.'?action=page', 0);
 		include_once ('data/inc/footer.php');
 		exit;
 	}
@@ -84,7 +87,7 @@ if (isset($error))
 		<p class="kop4" style="margin-bottom: 5px;"><?php echo $lang['editmeta']['descr']; ?></p>
 
 		<div id="meta-options" style="display: none;">
-			<label for="description"><?php echo $lang['general']['description']; ?></label></tr>
+			<label for="description"><?php echo $lang['general']['description']; ?></label>
 			<br />
 			<textarea id="description" name="description" rows="2" cols="40" class="white"><?php if (isset($description)) echo $description; ?></textarea>
 			<br />

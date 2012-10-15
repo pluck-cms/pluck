@@ -64,13 +64,13 @@ function albums_theme_main($area, $category) {
 						<table>
 							<tr>
 								<td>
-									<a href="<?php echo PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.ALBUM_URL_PREFIX.$album['seoname']; ?>" title="album <?php echo $album['title']; ?>">
+									<a href="<?php echo SITE_URL.'/'.PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.ALBUM_URL_PREFIX.$album['seoname']; ?>" title="album <?php echo $album['title']; ?>">
 										<img alt="<?php echo $album['title']; ?>" title="<?php echo $album['title']; ?>" src="<?php echo SITE_URL; ?>/data/modules/albums/albums_getimage.php?image=<?php echo $album['seoname']; ?>/thumb/<?php echo $first_image; ?>" />
 									</a>
 								</td>
 								<td>
 									<span class="albuminfo">
-										<a href="<?php echo PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.ALBUM_URL_PREFIX.$album['seoname']; ?>" title="<?php echo $album['title']; ?>"><?php echo $album['title']; ?></a>
+										<a href="<?php echo SITE_URL.'/'.PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME.ALBUM_URL_PREFIX.$album['seoname']; ?>" title="<?php echo $album['title']; ?>"><?php echo $album['title']; ?></a>
 									</span>
 								</td>
 							</tr>
@@ -103,7 +103,7 @@ function albums_page_site_viewalbum() {
 	albums_site_show_images($_GET['album']);
 	?>
 	<p>
-		<a href="<?php echo PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME; ?>" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
+		<a href="<?php echo SITE_URL.'/'.PAGE_URL_PREFIX.CURRENT_PAGE_SEONAME; ?>" title="<?php echo $lang['general']['back']; ?>">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 	</p>
 	<?php
 }

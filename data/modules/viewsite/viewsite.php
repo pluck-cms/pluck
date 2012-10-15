@@ -30,9 +30,9 @@ function viewsite_info() {
 
 function viewsite_admin_menu($links) {
 	global $lang;
-	
+
 	$data[] = array(
-		'href' => SITE_URL,
+		'href' => SITE_URL.'/',
 		'img'  => 'data/modules/viewsite/images/viewsite.png',
 		'text' => $lang['viewsite']['message'],
 		'target' => '_blank'

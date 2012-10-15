@@ -59,7 +59,7 @@ function get_pagetitle() {
 	}
 
 	//Get the title if we are looking at a module page.
-	if (defined('CURRENT_PAGE_FILENAME') && defined('CURRENT_MODULE_DIR')) {
+	if (defined('CURRENT_PAGE_FILENAME') && defined('CURRENT_MODULE_DIR') && function_exists(CURRENT_MODULE_DIR.'_pages_site')) {
 		$module_page_site = call_user_func(CURRENT_MODULE_DIR.'_pages_site');
 		if (!empty($module_page_site)) {
 			foreach ($module_page_site as $module_page) {
@@ -111,13 +111,11 @@ function theme_meta($reset_css = false) {
 	echo '<meta name="generator" content="pluck '.PLUCK_VERSION.'" />'."\n";
 	echo '<title>'.PAGE_TITLE.' - '.SITE_TITLE.'</title>'."\n";
 	if ($reset_css)
-		echo '<link href="'.SITE_URL.'/data/reset.css" rel="stylesheet" type="text/css" media="screen" />'."\n";
-	echo '<link href="'.$cssfile.'" rel="stylesheet" type="text/css" media="screen" />'."\n";
-	echo '<meta name="language" content="'.LANG.'" />'."\n";
+		echo '<link href="'.SITE_URL.'/data/reset.css" rel="stylesheet" type="text/css" />'."\n";
+	echo '<link href="'.$cssfile.'" rel="stylesheet" type="text/css" />'."\n";
 
 	//If we are not looking at a module: include metatag information
 	if (defined('CURRENT_PAGE_FILENAME')) {
-		echo '<meta name="title" content="'.PAGE_TITLE.'" />'."\n";
 		if (isset($keywords) && !empty($keywords))
 			echo '<meta name="keywords" content="'.$keywords.'" />'."\n";
 		if (isset($description) && !empty($description))
@@ -206,9 +204,12 @@ function theme_menu_data($block, $inline, $active_id, $level, $dir) {
 				else
 					$file_stripped = $file;
 
-				//Show an active inline for current page and all parents of currently displayed page.
-				if ($active_id && (CURRENT_PAGE_SEONAME == $file || ($parents && array_search($file_stripped, $parents) !== false)))
-					echo '<'.$inline.' id="'.$active_id.'">';
+				//Show an active inline for current page...
+				if ($active_id && CURRENT_PAGE_SEONAME == $file)
+					echo '<'.$inline.' class="'.$active_id.'" id="'.$active_id.'">';
+				//... and all parents of currently displayed page.
+				elseif ($active_id && $parents && array_search($file_stripped, $parents) !== false)
+					echo '<'.$inline.' class="'.$active_id.'">';
 				//For other pages, show a normal inline.
 				else
 					echo '<'.$inline.'>';
@@ -216,7 +217,7 @@ function theme_menu_data($block, $inline, $active_id, $level, $dir) {
 				unset($parents);
 
 				//Display link
-				echo '<a href="'.PAGE_URL_PREFIX.$file.'" title="'.$title.'">'.$title.'</a>';
+				echo '<a href="'.SITE_URL.'/'.PAGE_URL_PREFIX.$file.'" title="'.$title.'">'.$title.'</a>';
 
 				preg_match_all('|\/|', $file, $page_level);
 				$page_level = count($page_level[0]);
@@ -253,8 +254,13 @@ function theme_content() {
 	//Get needed variables
 	global $lang;
 
+	//Show "not found" error message if something was missing
+	if (defined('CURRENT_NOTFOUND')) {
+		echo $lang['general']['not_found'];
+	}
+
 	//Get the contents only if we are looking at a normal page.
-	if (defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_MODULE_DIR')) {
+	elseif (defined('CURRENT_PAGE_SEONAME') && !defined('CURRENT_MODULE_DIR')) {
 		//Check if page exists
 		if (defined('CURRENT_PAGE_FILENAME')) {
 			include (PAGE_DIR.'/'.CURRENT_PAGE_FILENAME);
