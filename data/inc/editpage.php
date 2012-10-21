@@ -28,22 +28,23 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	if (!isset($_POST['hidden']))
 		$_POST['hidden'] = 'yes';
 
-	//Save the page, but only if a title has been entered.
-	if (!empty($_POST['title'])) {
+	//Save the page, but only if a title has been entered and it's seo url is not empty.
+	if (!empty($_POST['title']) && seo_url($_POST['title'])) {
 		//If we are editing an existing page, pass current seo-name.
 		if (isset($_GET['page'])) {
 			$seoname = save_page($_POST['title'], $_POST['content'], $_POST['hidden'], $_POST['sub_page'], $_POST['description'], $_POST['keywords'], $module_additional_data, $_GET['page']);
-		}
+		} else {
 		//If we are creating a new page, don't pass seo-name.
-		else
 			$seoname = save_page($_POST['title'], $_POST['content'], $_POST['hidden'], $_POST['sub_page'], $_POST['description'], $_POST['keywords'], $module_additional_data);
+		}
+		//If seoname is false, a file already exists with the same name
 		if (empty($seoname)) {
 			$error = show_error($lang['page']['name_exists'], 1, true);
 		}
-	}
-	//If no title has been chosen, set error.
-	else
+	} else {
+	//If no title has been chosen or the seo url for the title is empty, set error.
 		$error = show_error($lang['page']['no_title'], 1, true);
+	}
 
 	//Redirect to the new title only if it is a plain save.
 	if (isset($_POST['save']) && !isset($error)) {

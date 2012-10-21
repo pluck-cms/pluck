@@ -175,7 +175,7 @@ function get_pages($patch = PAGE_DIR, &$pages = null) {
 		sort($files, SORT_NUMERIC);
 		foreach ($files as $file) {
 			$pages[] = $patch.'/'.$file;
-			if (file_exists(PAGE_DIR.'/'.get_page_seoname($patch.'/'.$file)))
+			if (is_dir(PAGE_DIR.'/'.get_page_seoname($patch.'/'.$file)))
 				get_pages(PAGE_DIR.'/'.get_page_seoname($patch.'/'.$file), $pages);
 		}
 		unset($file);
@@ -504,6 +504,9 @@ function save_page($title, $content, $hidden, $subpage = null, $description = nu
 	run_hook('admin_save_page_meta', array(&$description, &$keywords));
 	run_hook('admin_save_page_module_additional_data', array(&$module_additional_data));
 
+	//Check if the seo url of the title is empty.
+	if (!seo_url($title))
+		return false;
 	//Check if a page already exists with the name.
 	if ((!isset($current_seoname) || $current_seoname != $subpage.seo_url($title)) && get_page_filename($subpage.seo_url($title)) != false)
 		return false;
