@@ -8,7 +8,7 @@ pluck 4.7.1
  - Removed unnecessary meta data in header. Remove screen media attribute for CSS files.
  - Fixed SITE_URL constant problmes and added new constants SITE_DIR, SITE_SCRIPT, SITE_SCHEME, SITE_URI.
  - Fixed security issue. Sanitize() not escaping backslash. Allowed execution of arbitrary PHP code.
- - [tinymce] Update to version 3.5.7
+ - [tinymce] Update to version 3.5.10
 
 pluck 4.7
 ----------------------------------------
