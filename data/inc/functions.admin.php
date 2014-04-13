@@ -413,7 +413,7 @@ function check_writable($file) {
 		<span>
 			<img src="data/image/error.png" width="15" height="15" alt="<?php echo $lang['install']['false']; ?>" />
 		</span>
-		<span>&nbsp;/<?php echo $file; ?></span>
+		<span>chmod 777 <?php echo $file; ?></span>
 		<br />
 	<?php
 	}
