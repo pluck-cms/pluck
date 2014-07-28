@@ -32,6 +32,12 @@ if ($var2 == 'image' && file_exists('data/trash/images/'.$var1)) {
 <?php
 }
 ?>
+if ($var2 == 'file' && file_exists('data/trash/files/'.$var1)) {
+?>
+	<a href="data/trash/files/<?php echo $var1; ?>" alt="" />Download</a>
+<?php
+}
+?>
 <p>
 	<a href="?action=trashcan">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 </p>

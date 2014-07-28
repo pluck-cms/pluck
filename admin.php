@@ -94,6 +94,13 @@ else {
 				include_once ('data/inc/images.php');
 				break;
 
+			//Page:Manage Images
+			case 'files':
+				$titelkop = $lang['files']['title'];
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/files.php');
+				break;
+
 			//Page:Modules
 			case 'modules':
 				$titelkop = $lang['modules']['title'];
@@ -238,6 +245,12 @@ else {
 			case 'deleteimage':
 				include_once ('data/inc/header.php');
 				include_once ('data/inc/deleteimage.php');
+				break;
+
+			//Page:Deletefile
+			case 'deletefile':
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/deletefile.php');
 				break;
 
 			//Page:Deletepage

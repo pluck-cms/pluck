@@ -74,6 +74,41 @@ function show_image_insert_box($dir) {
 }
 
 /**
+ * Shows a menu for inserting files in TinyMCE.
+ *
+ * @since 4.7
+ * @package admin
+ */
+function show_file_insert_box($dir) {
+	global $lang;
+
+	$files = read_dir_contents($dir, 'files');
+	if ($files) {
+	?>
+		<div class="menudiv">
+			<span>
+				<img src="data/image/file.png" alt="" />
+			</span>
+			<span>
+				<select id="insert_files">
+					<?php
+					natcasesort($files);
+					foreach ($files as $file) {
+					?>
+						<option><?php echo $file; ?></option>
+					<?php
+					}
+					?>
+				</select>
+				<br />
+				<a href="#" onclick="insert_file_link('<?php echo $dir; ?>');return false;"><?php echo $lang['general']['insert_file']; ?></a>
+			</span>
+		</div>
+	<?php
+	}
+}
+
+/**
  * Shows a menu for inserting module inclusion code in TinyMCE.
  *
  * @since 4.7

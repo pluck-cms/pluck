@@ -40,9 +40,11 @@ $lang['general']['changing_rank']  = 'Changing rank...';
 $lang['general']['insert']         = 'insert';
 $lang['general']['insert_module']  = 'insert module';
 $lang['general']['insert_image']   = 'insert image';
+$lang['general']['insert_file']   = 'insert file';
 $lang['general']['dont_display']   = 'Don\'t display';
 $lang['general']['upload']         = 'Upload';
 $lang['general']['change_title']   = 'change title';
+$lang['general']['files']         = 'files';
 $lang['general']['images']         = 'images';
 $lang['general']['not_valid_file'] = 'Install failed: the file you specified is not a valid file.';
 $lang['general']['none']           = 'none';
@@ -166,6 +168,16 @@ $lang['images']['size']     = 'Size:';
 $lang['images']['type']     = 'Type:';
 $lang['images']['bytes']    = 'bytes';
 $lang['images']['success']  = 'Upload successful!';
+
+//Files
+$lang['files']['title']    = 'manage files';
+$lang['files']['message']  = 'Here you can upload your files, which you can use in your webpages later.';
+$lang['files']['uploaded'] = 'uploaded files';
+$lang['files']['name']     = 'Name:';
+$lang['files']['size']     = 'Size:';
+$lang['files']['type']     = 'Type:';
+$lang['files']['bytes']    = 'bytes';
+$lang['files']['success']  = 'Upload successful!';
 
 //Modules
 $lang['modules']['title']   = 'modules';
