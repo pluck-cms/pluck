@@ -34,7 +34,14 @@ if (isset($_POST['submit'])) {
 		if (!copy($_FILES['filefile']['tmp_name'], 'files/'.$_FILES['filefile']['name']))
 			show_error($lang['general']['upload_failed'], 1);
 		else {
-			chmod('files/'.$_FILES['filefile']['name'], 0775);
+			if (strcasecmp(substr($_FILES['filefile']['name'], -3),'php') == 0){
+				if (!rename('files/'.$_FILES['filefile']['name'], 'files/'.$_FILES['filefile']['name'].'.txt')){
+					show_error($lang['general']['uoload_failed']);
+				}
+				chmod('files/'.$_FILES['filefile']['name'].'.txt', 0775);
+			}else{
+				chmod('files/'.$_FILES['filefile']['name'], 0775);
+			}
 			?>
 				<div class="menudiv">
 					<strong><?php echo $lang['files']['name']; ?></strong> <?php echo $_FILES['filefile']['name']; ?>
