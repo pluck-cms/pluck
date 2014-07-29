@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {
 		else {
 			if (strcasecmp(substr($_FILES['filefile']['name'], -3),'php') == 0){
 				if (!rename('files/'.$_FILES['filefile']['name'], 'files/'.$_FILES['filefile']['name'].'.txt')){
-					show_error($lang['general']['uoload_failed']);
+					show_error($lang['general']['upload_failed'], 1);
 				}
 				chmod('files/'.$_FILES['filefile']['name'].'.txt', 0775);
 			}else{
