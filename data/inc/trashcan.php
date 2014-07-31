@@ -120,3 +120,43 @@ else {
 	unset($image);
 }
 ?>
+	<br /><br />
+	<span class="kop2"><?php echo $lang['general']['files']; ?></span>
+<?php
+//Read files in array
+$files = read_dir_contents('data/trash/files', 'files');
+
+if ($files == false)
+	echo '<span class="kop4">'.$lang['general']['nothing_yet'].'</span>';
+
+else {
+	foreach ($files as $file) {
+	?>
+		<div class="menudiv">
+			<span>
+				<img src="data/image/file.png" alt="" />
+			</span>
+			<span style="width: 350px;">
+				<span style="font-size: 17pt;"><?php echo $file; ?></span>
+			</span>
+			<span>
+				<a href="?action=trash_viewitem&amp;var1=<?php echo $file; ?>&amp;var2=file">
+					<img src="data/image/view.png" alt="<?php echo $lang['trashcan']['view_item']; ?>" title="<?php echo $lang['trashcan']['view_item']; ?>" />
+				</a>
+			</span>
+			<span>
+				<a href="?action=trash_restoreitem&amp;var1=<?php echo $file; ?>&amp;var2=file">
+					<img src="data/image/restore.png" title="<?php echo $lang['trashcan']['restore_item']; ?>" alt="<?php echo $lang['trashcan']['restore_item']; ?>" />
+				</a>
+			</span>
+			<span>
+				<a href="?action=trash_deleteitem&amp;var1=<?php echo $file; ?>&amp;var2=file">
+					<img src="data/image/delete_from_trash.png" title="<?php echo $lang['trashcan']['delete_item']; ?>" alt="<?php echo $lang['trashcan']['delete_item']; ?>" />
+				</a>
+			</span>
+		</div>
+	<?php
+	}
+	unset($file);
+}
+?>

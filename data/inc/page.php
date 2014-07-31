@@ -25,6 +25,8 @@ run_hook('admin_pages_before');
 showmenudiv($lang['page']['new'], null, 'data/image/newpage.png', '?action=editpage');
 //Manage images button.
 showmenudiv($lang['images']['title'], null, 'data/image/image.png', '?action=images');
+//Manage files button.
+showmenudiv($lang['files']['title'], null, 'data/image/file.png', '?action=files');
 
 //Show pages.
 $pages = get_pages();
