@@ -56,6 +56,21 @@ function tinymce_admin_head_main() {
 
 	tinyMCE.execCommand('mceInsertContent', false, '<a href="?file=' + file + '" title="' + title + '">' + title + '<\/a>');
 	}
+	function insert_file_link(dir) {
+	var id = document.getElementById('insert_files');
+	var sel_opt = id.selectedIndex;
+	var file = id.options[sel_opt].value;
+	var title = id.options[sel_opt].text;
+
+	//Remove indent space.
+	//@fixme Not the best way to do it, but it works.
+	title = escape(title);
+	title = title.replace(/%u2003/g, '');
+	title = title.replace(/%A0/g, '');
+	title = unescape(title);
+
+	tinyMCE.execCommand('mceInsertContent', false, '<a href="' + dir + '/' + file + '" title="' + title + '">' + title + '<\/a>');
+	}
 
 	function insert_image_link(dir) {
 	var id = document.getElementById('insert_images');
