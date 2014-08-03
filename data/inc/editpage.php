@@ -71,6 +71,7 @@ if (isset($error))
 	show_module_insert_box();
 	show_link_insert_box();
 	show_image_insert_box('images');
+	show_file_insert_box('files');
 	run_hook('admin_save_page_sidebar');
 ?>
 </div>

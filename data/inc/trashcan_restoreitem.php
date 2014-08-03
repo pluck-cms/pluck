@@ -40,6 +40,28 @@ if ($var2 == 'page' && file_exists('data/trash/pages/'.$var1.'.php')) {
 	}
 }
 
+//If we want to restore an file.
+elseif ($var2 == 'file' && file_exists('data/trash/files/'.$var1)) {
+	//First check if there isn't an image with the same name.
+	if (!file_exists('files/'.$var1)) {
+		copy('data/trash/files/'.$var1, 'files/'.$var1);
+		chmod('files/'.$var1, 0777);
+		unlink('data/trash/files/'.$var1);
+	}
+
+	//If there already is an image with the same name.
+	else {
+		list($filename, $extension) = explode('.', $var1);
+		$filename = $filename.'_copy';
+		copy('data/trash/files/'.$var1, 'files/'.$filename.'.'.$extension);
+		chmod('files/'.$filename.'.'.$extension, 0777);
+		unlink('data/trash/files/'.$var1);
+	}
+
+	//Redirect.
+	show_error($lang['trashcan']['restoring'], 3);
+	redirect('?action=trashcan', 1);
+}
 //If we want to restore an image.
 elseif ($var2 == 'image' && file_exists('data/trash/images/'.$var1)) {
 	//First check if there isn't an image with the same name.
