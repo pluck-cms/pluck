@@ -7,7 +7,7 @@ Pluck is a small and simple content management system (CMS), written in PHP. Wit
 
 Features
 
-Pluck is packed with some nice features, from which we've listed the most important ones on this page. To try everything live, take a look at our demo.
+Pluck is packed with some nice features, from which we've listed the most important ones on this page. To try everything live, take a look at our demo http://pluck-cms.org/?file=demo
 
     create an unlimited amount of pages
     create your own blog
