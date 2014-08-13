@@ -27,12 +27,10 @@ function read_lang_files($not_this_file) {
 	if ($files) {
 		natcasesort($files);
 		foreach ($files as $file) {
-			if ($file != $not_this_file) {
-				include ('data/inc/lang/'.$file);
-				?>
-					<option value='<?php echo $file; ?>'><?php echo $language; ?></option>
-				<?php
-			}
+			include ('data/inc/lang/'.$file);
+			?>
+				<option value='<?php echo $file; ?>' <?php echo ($file == $not_this_file) ? 'selected' : ''; ?>><?php echo $language; ?></option>
+			<?php
 		}
 		unset($file);
 	}

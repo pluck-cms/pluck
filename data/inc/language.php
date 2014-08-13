@@ -16,7 +16,7 @@
 defined('IN_PLUCK') or exit('Access denied!');
 
 //Check if chosen language is valid, and then save data.
-if (isset($_POST['save'], $cont1) && $cont1 != '0' && file_exists('data/inc/lang/'.$cont1)) {
+if (isset($_POST['save'], $cont1) && $cont1 != '0' && file_exists('data/inc/lang/'.$cont1) && $cont1 != $langpref) {
 	save_language($cont1);
 
 	//Redirect user.
