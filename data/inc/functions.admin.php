@@ -419,9 +419,16 @@ function count_trashcan() {
 		$count_images = count($count_images_array);
 	else
 		$count_images = null;
+	
+	//files
+	$count_files_array = glob('data/trash/files/*.*');
+	if (isset($count_files_array) && !empty($count_files_array))
+		$count_files = count($count_files_array);
+	else
+		$count_files = null;
 
 	//Combine all numbers...;
-	return $count_pages + $count_images;
+	return $count_pages + $count_images + $count_files;
 }
 
 /**
