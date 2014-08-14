@@ -155,6 +155,8 @@ if ($langpref != 'en.php') {
 	<br />
 	<a href="http://maxg.info" target="_blank">Maxg</a>, <?php echo $lang['credits']['maxgtar']; ?>
 	<br />
+	<a href="https://plus.google.com/+MdShahadatHossainKhan/posts" target="_blank">Md. Shahadat Hossain Khan</a>, Unzip PHP Class
+	<br />
 	<a href="http://www.dolem.com/lytebox" target="_blank">Markus F. Hay</a>, <?php echo $lang['credits']['lytebox']; ?>
 	<br />
 	<a href="http://www.gnome.org" target="_blank">Gnome</a> &amp; <a href="http://tango.freedesktop.org" target="_blank">Tango</a> projects, <?php echo $lang['credits']['tango']; ?>

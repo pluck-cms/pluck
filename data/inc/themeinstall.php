@@ -42,8 +42,8 @@ if (isset($_POST['submit'])) {
 		$maxfilesize = 1000000; //Max size of file.
 		$filename = $_FILES['sendfile']['name']; //Determine filename.
 
-		//Check if we're dealing with a file with tar.gz in filename.
-		if (!strpos($filename, '.tar.gz'))
+		//Check if we're dealing with a file with tar.gz or zip in filename.
+		if (!strpos($filename, '.tar.gz') && !strpos($filename, '.zip'))
 			show_error($lang['general']['not_valid_file'], 1);
 
 		else {
@@ -54,32 +54,43 @@ if (isset($_POST['submit'])) {
 			else {
 				//Save theme-file.
 				copy($_FILES['sendfile']['tmp_name'], $dir.'/'.$filename) or die ($lang['general']['upload_failed']);
+				if (strpos($filename, '.tar.gz')) {
+					//Then load the library for extracting the tar.gz-file.
+					require_once ('data/inc/lib/tarlib.class.php');
 
-				//Then load the library for extracting the tar.gz-file.
-				require_once ('data/inc/lib/tarlib.class.php');
+					//Load the tarfile.
+					$tar = new TarLib($dir.'/'.$filename);
 
-				//Load the tarfile.
-				$tar = new TarLib($dir.'/'.$filename);
+					//And extract it.
+					$tar->Extract(FULL_ARCHIVE, $dir);
+					//After extraction: delete the tar.gz-file.
+					unlink($dir.'/'.$filename);
+				}
+				else { //if not tar.gz then this file must be zip
+					//Then load the library for extracting the zip-file.
+					require_once ('data/inc/lib/unzip.class.php');
 
-				//And extract it.
-				$tar->Extract(FULL_ARCHIVE, $dir);
-				//After extraction: delete the tar.gz-file.
-				unlink($dir.'/'.$filename);
-
-				//Display successmessage.
-				//TODO: Use show_error().
-				?>
-					<div class="menudiv">
-						<span>
-							<img src="data/image/install.png" alt="" />
-						</span>
-						<span>
-							<span class="kop3"><?php echo $lang['theme_install']['success']; ?></span>
-							<br />
-							<?php echo $lang['theme_install']['return']; ?>
-						</span>
-					</div>
-				<?php
+					//Load the zipfile.
+					$zip=new UnZIP($dir.'/'.$filename);
+					//And extract it.
+					$zip->extract();
+					//After extraction: delete the zip-file.
+					unlink($dir.'/'.$filename);
+				}
+					//Display successmessage.
+					//TODO: Use show_error().
+					?>
+						<div class="menudiv">
+							<span>
+								<img src="data/image/install.png" alt="" />
+							</span>
+							<span>
+								<span class="kop3"><?php echo $lang['theme_install']['success']; ?></span>
+								<br />
+								<?php echo $lang['theme_install']['return']; ?>
+							</span>
+						</div>
+					<?php
 			}
 		}
 	}
