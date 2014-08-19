@@ -15,6 +15,8 @@
 //Make sure the file isn't accessed directly.
 defined('IN_PLUCK') or exit('Access denied!');
 
+run_hook('admin_editpage_before');
+
 //Include page information, if we're editing a page.
 if (isset($_GET['page']) && file_exists(PAGE_DIR.'/'.get_page_filename($_GET['page'])))
 	require_once (PAGE_DIR.'/'.get_page_filename($_GET['page']));

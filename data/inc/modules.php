@@ -18,6 +18,9 @@ defined('IN_PLUCK') or exit('Access denied!');
 <p>
 	<strong><?php echo $lang['modules']['message']; ?></strong>
 </p>
+<?php 
+run_hook('admin_modules_before');
+?>
 <div class="smallmenu">
 	<span class="smallmenu_button">
 		<a href="?action=module_addtosite" style="background: url('data/image/add_small.png') no-repeat;"><?php echo $lang['modules_manage']['add']; ?></a>
