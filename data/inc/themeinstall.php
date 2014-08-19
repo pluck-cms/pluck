@@ -74,8 +74,17 @@ if (isset($_POST['submit'])) {
 					$zip=new UnZIP($dir.'/'.$filename);
 					//And extract it.
 					$zip->extract();
+
 					//After extraction: delete the zip-file.
 					unlink($dir.'/'.$filename);
+
+					//If there is a subdirectory like: theme/theme
+					$theme = str_replace('.zip', '', $filename);
+					if (is_dir('data/themes/'.$theme.'/'.$theme) && file_exists('data/themes/'.$theme.'/'.$theme.'/info.php')) {
+						rename('data/themes/'.$theme, 'data/themes/_157#93_');
+						rename('data/themes/_157#93_/'.$theme, 'data/themes/'.$theme);
+						rmdir('data/themes/_157#93_');
+					}
 				}
 					//Display successmessage.
 					//TODO: Use show_error().
