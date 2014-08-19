@@ -38,6 +38,17 @@ if (file_exists('data/settings/install.dat')) {
 
 //If we didn't:
 else {
+
+//Select language depending on browser settings
+$langcode = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '';
+$langcode = (!empty($langcode)) ? explode(';', $langcode) : $langcode;
+$langcode = (!empty($langcode['0'])) ? explode(',', $langcode['0']) : $langcode;
+$langcode = (!empty($langcode['0'])) ? explode('-', $langcode['0']) : $langcode;
+if ($langcode['0'].'.php' != $langpref && is_file('data/inc/lang/'.$langcode['0'].'.php')) {
+	$langpref = $langcode['0'].'.php';
+	require_once ('data/inc/lang/'.$langpref);
+}
+
 	if (!isset($_GET['action'])) {
 		$titelkop = $lang['install']['title'];
 		include_once ('data/inc/header2.php');
@@ -118,10 +129,8 @@ else {
 
 				//Make some dirs for the trashcan, modules and pages.
 				foreach (array('data/trash/pages', 'data/trash/images', 'data/trash/files', 'data/settings/modules', PAGE_DIR) as $dir) {
-					if (!is_dir($dir)) {
-						mkdir($dir);
+					if (!is_dir($dir)) mkdir($dir);
 						chmod($dir, 0777);
-					}
 				}
 				unset($dir);
 
@@ -153,8 +162,7 @@ else {
 			<p>
 				<label class="kop2" for="cont3"><?php echo $lang['language']['title']; ?></label>
 				<select name="cont3" id="cont3">
-					<option selected="selected" value="en.php">English</option>
-					<?php read_lang_files('en.php'); ?>
+					<?php read_lang_files($langpref); ?>
 				</select>
 			</p>
 			<p>
