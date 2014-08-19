@@ -334,4 +334,8 @@ $lang['tinymce']['module_intro']	= 'Dodaj edytor TinyMCE do plucka. TinyMCE jest
 $lang['multitheme']['module_name']	= 'multi theme';
 $lang['multitheme']['module_intro']	= 'Pozwala używać różnych skórek dla każdej strony.';
 $lang['multitheme']['page_edit']	= 'użyk skórki';
+
+//Writable check
+$lang['writable']['title']     = 'Sprawdź czy możesz zapisywać';
+$lang['writable']['check']     = 'Sprawdź czy wyświetlone pliki i katalogi są zapisywalne. Możesz także "Odświeżyć" stronę.';
 ?>

@@ -78,7 +78,7 @@ if ($langcode['0'].'.php' != $langpref && is_file('data/inc/lang/'.$langcode['0'
 		</p>
 		<?php
 			//Writable checks.
-			foreach (array('images', 'data/modules', 'data/trash', 'data/themes', 'data/themes/default', 'data/themes/oldstyle', 'data/settings', 'data/settings/langpref.php') as $check)
+			foreach (array('images', 'files', 'data/modules', 'data/trash', 'data/themes', 'data/themes/default', 'data/themes/oldstyle', 'data/settings', 'data/settings/langpref.php') as $check)
 				check_writable($check);
 			unset($check);
 		?>

@@ -278,6 +278,14 @@ else {
 				header('Location: ?action=start');
 				exit;
 				break;
+
+			//Page:Writable
+			case 'writable':
+				$titelkop = $lang['writable']['title'];
+				include_once ('data/inc/header.php');
+				include_once ('data/inc/writable.php');
+				break;
+			
 		}
 	}
 

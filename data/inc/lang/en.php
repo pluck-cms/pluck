@@ -352,4 +352,8 @@ $lang['tinymce']['module_intro'] = 'Adds the TinyMCE-editor to pluck. TinyMCE ha
 $lang['multitheme']['module_name']  = 'multi theme';
 $lang['multitheme']['module_intro'] = 'Allows the user to choose different themes for each page.';
 $lang['multitheme']['page_edit']    = 'use theme';
+
+//Writable check
+$lang['writable']['title']     = 'Check writable options';
+$lang['writable']['check']     = 'Check if the displayed files and directories are writable. You can also "Refresh" the page.';
 ?>
