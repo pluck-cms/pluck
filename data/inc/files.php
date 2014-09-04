@@ -20,6 +20,7 @@ defined('IN_PLUCK') or exit('Access denied!');
 <p>
 	<strong><?php echo $lang['files']['message']; ?></strong>
 </p>
+<?php run_hook('admin_images_before'); ?>
 <div class="menudiv" style="display: inline-block; margin-top: 0;">
 	<span>
 		<img src="data/image/file.png" alt="" />
