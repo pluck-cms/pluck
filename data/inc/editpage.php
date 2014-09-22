@@ -32,12 +32,17 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 
 	//Save the page, but only if a title has been entered and it's seo url is not empty.
 	if (!empty($_POST['title']) && seo_url($_POST['title'])) {
+		if (!empty($_POST['seo_name']) && $_POST['seo_name'] != seo_url($_POST['title'])) {
+			$title = array('title' => $_POST['title'], 'seo_name' => $_POST['seo_name']);
+		}
+		else
+			$title = $_POST['title'];
 		//If we are editing an existing page, pass current seo-name.
 		if (isset($_GET['page'])) {
-			$seoname = save_page($_POST['title'], $_POST['content'], $_POST['hidden'], $_POST['sub_page'], $_POST['description'], $_POST['keywords'], $module_additional_data, $_GET['page']);
+			$seoname = save_page($title, $_POST['content'], $_POST['hidden'], $_POST['sub_page'], $_POST['description'], $_POST['keywords'], $module_additional_data, $_GET['page']);
 		} else {
 		//If we are creating a new page, don't pass seo-name.
-			$seoname = save_page($_POST['title'], $_POST['content'], $_POST['hidden'], $_POST['sub_page'], $_POST['description'], $_POST['keywords'], $module_additional_data);
+			$seoname = save_page($title, $_POST['content'], $_POST['hidden'], $_POST['sub_page'], $_POST['description'], $_POST['keywords'], $module_additional_data);
 		}
 		//If seoname is false, a file already exists with the same name
 		if (empty($seoname)) {
@@ -82,6 +87,11 @@ if (isset($error))
 		<label class="kop2" for="title"><?php echo $lang['general']['title']; ?></label>
 		<input name="title" id="title" type="text" value="<?php if (isset($_GET['page'])) echo $title; ?>" />
 	</p>
+	<p><a href="#" class="kop2" onclick="return kadabra('seo-name');"><?php echo 'Change seo name'; ?></a></p>
+	<div id="seo-name" style="display: none;">
+		<input name="seo_name" id="seo_name" type="text" value="<?php if (isset($_GET['page'])) echo $_GET['page']; ?>" />
+	</div>
+	
 	<label class="kop2" for="content-form"><?php echo $lang['general']['contents']; ?></label>
 	<textarea class="<?php if (defined('WYSIWYG_TEXTAREA_CLASS')) echo WYSIWYG_TEXTAREA_CLASS; ?>" name="content" id="content-form" cols="70" rows="20"><?php if (isset($_GET['page'])) echo htmlspecialchars($content); ?></textarea>
 

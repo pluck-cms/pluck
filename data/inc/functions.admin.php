@@ -528,7 +528,7 @@ function save_theme($theme) {
  *
  * @since 4.7
  * @package admin
- * @param string $title The title.
+ * @param mixed $title if string - The title, if array title => The title, seo_name => The seo_name.
  * @param string $content The content.
  * @param string $hidden Should it be hidden ('yes' or 'no')?
  * @param string $subpage Specifies the parent page, if the saved page should be a sub page. Default to null.
@@ -543,12 +543,27 @@ function save_page($title, $content, $hidden, $subpage = null, $description = nu
 	run_hook('admin_save_page', array(&$title, &$content));
 	run_hook('admin_save_page_meta', array(&$description, &$keywords));
 	run_hook('admin_save_page_module_additional_data', array(&$module_additional_data));
-
-	//Check if the seo url of the title is empty.
-	if (!seo_url($title))
+	
+	//Configure title and seo_name
+	if (is_array($title)) {
+		if (!empty($title['seo_name'])) {
+			$seo_title = $title['seo_name'];
+			$title = $title['title'];
+		}
+		else {
+			$seo_title = seo_url($title['title']);
+			$title = $title['title'];
+		}
+	}
+	else
+		$seo_title = seo_url($title);
+	
+	//Check if the seo url  is empty.
+	if (empty($seo_title))
 		return false;
+
 	//Check if a page already exists with the name.
-	if ((!isset($current_seoname) || $current_seoname != $subpage.seo_url($title)) && get_page_filename($subpage.seo_url($title)) != false)
+	if ((!isset($current_seoname) || $current_seoname != $subpage.$seo_title) && get_page_filename($subpage.$seo_title) != false)
 		return false;
 
 	//Do we want to create a new page?
@@ -572,13 +587,12 @@ function save_page($title, $content, $hidden, $subpage = null, $description = nu
 		else
 			$number = count($pages) + 1;
 
-		$seo_title = seo_url($title);
 		$newfile = $subpage.$number.'.'.$seo_title;
 	}
 
 	//Then we want to edit a page.
 	else {
-		$filename = get_page_filename($current_seoname);
+		$filename = get_page_filename($current_seoname); //the old file name
 
 		//Is it a sub-page, or do we want to make it one?
 		if (strpos($current_seoname, '/') !== false || !empty($subpage)) {
@@ -590,7 +604,7 @@ function save_page($title, $content, $hidden, $subpage = null, $description = nu
 			$filename_array = str_replace($dir.'/', '', $filename);
 			$filename_array = explode('.', $filename_array);
 
-			$newfilename = implode('/', $page_name).'/'.$filename_array[0].'.'.seo_url($title);
+			$newfilename = implode('/', $page_name).'/'.$filename_array[0].'.'.$seo_title;
 			$newdir = get_sub_page_dir($newfilename);
 
 			//We need to make sure that the dir exists, and if not, create it.
@@ -616,14 +630,14 @@ function save_page($title, $content, $hidden, $subpage = null, $description = nu
 						$number = 1;
 				}
 
-				$newfile = implode('/', $page_name).$number.'.'.seo_url($title);
+				$newfile = implode('/', $page_name).$number.'.'.$seo_title;
 			}
 		}
 
 		//If not, just create the new filename.
 		else {
 			$filename_array = explode('.', $filename);
-			$newfile = $filename_array[0].'.'.seo_url($title);
+			$newfile = $filename_array[0].'.'.$seo_title;
 		}
 	}
 
