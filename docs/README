@@ -3,7 +3,7 @@ pluck 4.7.1 readme
 
 Introduction
 ---------------
-Pluck is your small and simple content management system, written in php. With pluck, you can easily manage your own website without knowledge of programming languages.
+Pluck is your small and simple content management system, written in PHP. With pluck, you can easily manage your own website without knowledge of programming languages.
 
 Pluck focuses on ease of use and enables everyone to manage his own website. This makes pluck an excellent choice for every small website. Licensed under the GPL, pluck is completely open source.
 
@@ -21,7 +21,7 @@ Requirements
 
 Installation
 ---------------
-Please read http://www.pluck-cms.org/docs/docs:install for more information on installing pluck.
+Please read https://github.com/pluck-cms/pluck/wiki/Installation-guide for more information on installing pluck.
 
 How can I edit my site?
 -------------------------
@@ -30,7 +30,7 @@ Don't forget to log out after you've finished editing your website.
 
 Need help?
 ---------------
-Browse to http://www.pluck-cms.org/forum and open a topic on the forums!
+Browse to http://www.phphelp.com/forum/pluck-cms/ and open a topic on the forums!
 
 License
 ----------

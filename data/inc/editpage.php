@@ -33,7 +33,7 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	//Save the page, but only if a title has been entered and it's seo url is not empty.
 	if (!empty($_POST['title']) && seo_url($_POST['title'])) {
 		if (!empty($_POST['seo_name']) && $_POST['seo_name'] != seo_url($_POST['title'])) {
-			$title = array('title' => $_POST['title'], 'seo_name' => $_POST['seo_name']);
+			$title = array('title' => $_POST['title'], 'seo_name' => trim(str_replace(array('\\', '/', ':', '*', '?', '"', '<', '>', '|'), '', $_POST['seo_name'])));
 		}
 		else
 			$title = $_POST['title'];
