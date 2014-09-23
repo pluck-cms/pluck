@@ -121,6 +121,21 @@ function show_module_insert_box() {
 		require_once ('data/modules/'.$module.'/'.$module.'.site.php');
 	}
 	unset($module);
+
+	$module_data = null;
+	
+	foreach ($module_list as $module) {
+		if (module_is_compatible($module) && function_exists($module.'_theme_main')) {
+				$module_data .= '<option value="'.$module.'">'.$module.'</option>';
+				//Check if we need to display categories for the module
+				$module_info = call_user_func($module.'_info');
+				if (isset($module_info['categories']) && is_array($module_info['categories'])) {
+					foreach ($module_info['categories'] as $category)
+						$module_data .= '<option value="'.$module.','.$category.'">&nbsp;&nbsp;&nbsp;'.$category.'</option>';
+				}
+		}
+	}
+	if (isset($module_data)) {
 	?>
 	<div class="menudiv">
 		<span>
@@ -128,25 +143,16 @@ function show_module_insert_box() {
 		</span>
 		<span>
 			<select id="insert_modules">
-				<?php
-				foreach ($module_list as $module) {
-					if (module_is_compatible($module) && function_exists($module.'_theme_main')) {
-						echo '<option value="'.$module.'">'.$module.'</option>';
-						//Check if we need to display categories for the module
-						$module_info = call_user_func($module.'_info');
-						if (isset($module_info['categories']) && is_array($module_info['categories'])) {
-							foreach ($module_info['categories'] as $category)
-								echo '<option value="'.$module.','.$category.'">&nbsp;&nbsp;&nbsp;'.$category.'</option>';
-						}
-					}
-				}
-				?>
+			<?php
+				echo $module_data;
+			?>
 			</select>
 			<br />
 			<a href="#" onclick="insert_module();return false;"><?php echo $lang['general']['insert_module']; ?></a>
 		</span>
 	</div>
 	<?php
+	}
 }
 
 /**
