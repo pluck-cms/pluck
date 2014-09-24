@@ -87,7 +87,7 @@ if (isset($error))
 		<label class="kop2" for="title"><?php echo $lang['general']['title']; ?></label>
 		<input name="title" id="title" type="text" value="<?php if (isset($_GET['page'])) echo $title; ?>" />
 	</p>
-	<p><a href="#" class="kop2" onclick="return kadabra('seo-name');"><?php echo 'Change seo name'; ?></a></p>
+	<p><a href="#" class="kop2" onclick="return kadabra('seo-name');"><?php echo $lang['page']['seo_urls']; ?></a></p>
 	<div id="seo-name" style="display: none;">
 		<input name="seo_name" id="seo_name" type="text" value="<?php if (isset($_GET['page'])) echo $_GET['page']; ?>" />
 	</div>

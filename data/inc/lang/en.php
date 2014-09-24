@@ -151,6 +151,7 @@ $lang['page']['in_menu']     = 'show page in menu';
 $lang['page']['sub_page']    = 'sub-page of';
 $lang['page']['name_exists'] = 'A page with the same title already exists.<br />Please choose a new title.';
 $lang['page']['no_title']    = 'Please choose a title for your page.';
+$lang['page']['seo_urls']    = 'friendly URLs';
 
 //Editmeta
 $lang['editmeta']['title']    = 'edit page information';

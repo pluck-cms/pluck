@@ -116,11 +116,12 @@ $lang['credits']['tango']	= 'za stworzenie wspaniałych ikon używanych w centru
 $lang['credits']['slik']	= 'za stworzenie ikon "Silk", również używanych w plucku';
 
 //Page
-$lang['page']['title']	= 'strony';
+$lang['page']['title']		= 'strony';
 $lang['page']['message']	= 'Tutaj możesz zarządzać, edytować i kasować swoje strony.';
 $lang['page']['change_order']	= 'zmień kolejność stron';
-$lang['page']['top']	= 'Ta strona jest już na samej górze, więc nie można zmienić jej położenia';
-$lang['page']['last']	= 'Ta strona jest już na samym dole, więc nie można zmienić jej położenia';
+$lang['page']['top']		= 'Ta strona jest już na samej górze, więc nie można zmienić jej położenia';
+$lang['page']['last']		= 'Ta strona jest już na samym dole, więc nie można zmienić jej położenia';
+$lang['page']['seo_urls']	= 'Bezpośredni odnośnik';
 
 //Newpage and Editpage
 $lang['page']['new']	= 'nowa strona';
