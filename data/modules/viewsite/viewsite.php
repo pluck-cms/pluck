@@ -28,7 +28,7 @@ function viewsite_info() {
 	);
 }
 
-function viewsite_admin_menu($links) {
+function viewsite_admin_menu(&$links) {
 	global $lang;
 
 	$data[] = array(
