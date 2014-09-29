@@ -111,6 +111,12 @@ button, input, textarea, a.cancel {
 	border: 1px solid gray;
 	color: gray;
 	padding: 2px;
+	padding: 2px 8px;
+	border-radius:1.1em;
+}
+
+select {
+	border-radius:1.1em;
 }
 
 input:focus, textarea:focus {
