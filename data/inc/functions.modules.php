@@ -131,11 +131,31 @@ function module_is_included_in_page($module, $page_seoname) {
 	return false;
 }
 
+/**
+ * Join two arrays at specific position.
+ *
+ * @since 4.7
+ * @package all
+ * @param array $array Main array.
+ * @param array $data An array witch will be inserted into $array.
+ * @param number $position Position where we want to insert $data into $array.
+ * @return array
+ */
 function module_insert_at_position($array, $data, $position) {
 	array_splice($array, $position - 1, 0, $data);
 	return $array;
 }
 
+/**
+ * Join two arrays before subject.
+ *
+ * @since 4.7
+ * @package all
+ * @param array $array Main array.
+ * @param array $data An array witch will be inserted into $array.
+ * @param string $subject Subject before witch $data will be inserted into $array.
+ * @return array
+ */
 function module_insert_before($array, $data, $subject) {
 	$search = array_search($subject, $array);
 
@@ -145,6 +165,16 @@ function module_insert_before($array, $data, $subject) {
 		return $array;
 }
 
+/**
+ * Join two arrays after subject.
+ *
+ * @since 4.7
+ * @package all
+ * @param array $array Main array.
+ * @param array $data An array witch will be inserted into $array.
+ * @param string $subject Subject after witch $data will be inserted into $array.
+ * @return array
+ */
 function module_insert_after($array, $data, $subject) {
 	$search = array_search($subject, $array);
 

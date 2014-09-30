@@ -41,6 +41,7 @@ function read_lang_files($not_this_file) {
  *
  * @since 4.6
  * @package admin
+ * @param string $dir Directory where images are stored in.
  */
 function show_image_insert_box($dir) {
 	global $lang;
@@ -61,6 +62,7 @@ function show_image_insert_box($dir) {
 						<option><?php echo $image; ?></option>
 					<?php
 					}
+					unset($image);
 					?>
 				</select>
 				<br />
@@ -74,8 +76,9 @@ function show_image_insert_box($dir) {
 /**
  * Shows a menu for inserting files in TinyMCE.
  *
- * @since 4.7
+ * @since 4.7.2
  * @package admin
+  * @param string $dir Directory where files are stored in.
  */
 function show_file_insert_box($dir) {
 	global $lang;
@@ -96,6 +99,7 @@ function show_file_insert_box($dir) {
 						<option><?php echo $file; ?></option>
 					<?php
 					}
+					unset($file);
 					?>
 				</select>
 				<br />
@@ -699,7 +703,7 @@ function save_page($title, $content, $hidden, $subpage = null, $description = nu
 }
 
 /**
- * Creating admin menu.
+ * Showing an admin menu.
  *
  * @since 4.7.2
  * @package admin

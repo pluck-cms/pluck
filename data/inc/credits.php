@@ -30,6 +30,8 @@ defined('IN_PLUCK') or exit('Access denied!');
 	<a href="http://www.ekyo.pl" target="_blank">Bogumił Cieniek</a>
 	<br />
 	<a href="http://www.somp.nl" target="_blank">Sander Thijsen</a>
+	<br />
+	<a href="http://billcreswell.com/" target="_blank">Bill Creswell</a>
 
 </p>
 <p>
