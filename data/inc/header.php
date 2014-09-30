@@ -82,7 +82,7 @@ function confirmation(message) {
 				),
 				array(
 					'href' => 'http://www.phphelp.com/forum/pluck-cms/',
-					'img'  => 'data/image/hulp.png',
+					'img'  => 'data/image/help.png',
 					'text' => $lang['start']['help']
 				)
 			)

@@ -28,5 +28,5 @@ defined('IN_PLUCK') or exit('Access denied!');
 showmenudiv($lang['start']['website'], $lang['start']['result'], 'data/image/website.png', 'index.php', true);
 showmenudiv($lang['credits']['title'], $lang['start']['people'], 'data/image/credits.png', '?action=credits');
 showmenudiv($lang['writable']['title'], $lang['writable']['title'], 'data/image/update-no.png', '?action=writable');
-showmenudiv($lang['start']['help'], $lang['start']['love'], 'data/image/hulp.png', 'http://www.phphelp.com/forum/pluck-cms/', true);
+showmenudiv($lang['start']['help'], $lang['start']['love'], 'data/image/help.png', 'http://www.phphelp.com/forum/pluck-cms/', true);
 ?>
