@@ -697,4 +697,35 @@ function save_page($title, $content, $hidden, $subpage = null, $description = nu
 	//Return the seoname.
 	return get_page_seoname($newfile.'.php');
 }
+
+/**
+ * Creating admin menu.
+ *
+ * @since 4.7.2
+ * @package admin
+ * @param array $links The array with links parameters.
+ */
+function show_admin_menu($links) {
+	foreach ($links as $link) {
+		?>
+			<li>
+				<a href="<?php echo $link['href']; ?>" title="<?php echo $link['text']; ?>" <?php if (isset($link['target'])) echo 'target="'.$link['target'].'"'; ?>>
+					<img src="<?php echo $link['img']; ?>" alt="" />
+					<?php echo $link['text']; ?>
+				</a>
+			<?php
+			if(isset($link['submenu'])) {
+				?>
+				<ul class="submenu">
+					<?php show_admin_menu($link['submenu']); ?>
+				</ul>
+			<?php
+			}
+			?>
+			</li>
+			<?php
+	}
+	unset ($link);
+
+}
 ?>

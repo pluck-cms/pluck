@@ -26,7 +26,7 @@ body {
 	height: 100px;
 }
 
-#menu li {
+#menu > li {
 	display: block;
 	width: auto;
 	color: #B6B6B6;
@@ -67,6 +67,38 @@ body {
 	float: left;
 	margin: 10px 25px 10px 0;
 	border-bottom-right-radius:1.1em;
+}
+
+.submenu {
+	display:none;
+	list-style: none;
+	margin-left: -1px;
+	position: absolute;
+	border-top:1px solid #CCCCCC;
+}
+
+#menu li:hover .submenu {
+	display: block;
+}
+
+ul.submenu  li {
+	min-width: 200px;
+	color: #B6B6B6;
+	font-size: 12px;
+	text-align: right;
+	text-decoration: none;
+	position: relative;
+	background-color:#fff;
+}
+
+ul.submenu li a {
+	padding:20px 9px 0 !important;
+	height:32px !important;
+}
+
+ul.submenu li:hover {
+	background-image: url(image/back_hover.jpg);
+	color: #3766AC;
 }
 
 #statusbox li {

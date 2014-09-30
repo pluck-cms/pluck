@@ -63,13 +63,54 @@ function confirmation(message) {
 		array(
 			'href' => '?action=start',
 			'img'  => 'data/image/menu/start.png',
-			'text' => $lang['start']['title']
+			'text' => $lang['start']['title'],
+			'submenu' => array(
+				array(
+					'href' => 'index.php',
+					'img'  => 'data/image/website.png',
+					'text' => $lang['start']['website']
+					),
+				array(
+					'href' => '?action=credits',
+					'img'  => 'data/image/credits.png',
+					'text' => $lang['credits']['title']
+				),
+				array(
+					'href' => '?action=writable',
+					'img'  => 'data/image/update-no.png',
+					'text' => $lang['writable']['title']
+				),
+				array(
+					'href' => 'http://www.phphelp.com/forum/pluck-cms/',
+					'img'  => 'data/image/hulp.png',
+					'text' => $lang['start']['help']
+				)
+			)
 		),
+
 		array(
 			'href' => '?action=page',
 			'img'  => 'data/image/menu/pages.png',
-			'text' => $lang['page']['title']
+			'text' => $lang['page']['title'],
+			'submenu' => array(
+				array(
+					'href' => '?action=editpage',
+					'img'  => 'data/image/newpage.png',
+					'text' => $lang['page']['new']
+					),
+				array(
+					'href' => '?action=images',
+					'img'  => 'data/image/image.png',
+					'text' => $lang['images']['title']
+				),
+				array(
+					'href' => '?action=files',
+					'img'  => 'data/image/file.png',
+					'text' => $lang['files']['title']
+				)
+			)
 		),
+
 		array(
 			'href' => '?action=modules',
 			'img'  => 'data/image/menu/modules.png',
@@ -78,8 +119,41 @@ function confirmation(message) {
 		array(
 			'href' => '?action=options',
 			'img'  => 'data/image/menu/options.png',
-			'text' => $lang['options']['title']
+			'text' => $lang['options']['title'],
+			'submenu' => array(
+				array(
+					'href' => '?action=settings',
+					'img'  => 'data/image/settings.png',
+					'text' => $lang['settings']['title']
+					),
+				array(
+					'href' => '?action=managemodules',
+					'img'  => 'data/image/modules.png',
+					'text' => $lang['modules_manage']['title']
+				),
+				array(
+					'href' => '?action=modulesettings',
+					'img'  => 'data/image/settings2.png',
+					'text' => $lang['modules_settings']['title']
+				),
+				array(
+					'href' => '?action=theme',
+					'img'  => 'data/image/themes.png',
+					'text' => $lang['theme']['title']
+				),
+				array(
+					'href' => '?action=language',
+					'img'  => 'data/image/language.png',
+					'text' => $lang['language']['title']
+				),
+				array(
+					'href' => '?action=changepass',
+					'img'  => 'data/image/password.png',
+					'text' => $lang['changepass']['title']
+				)
+			)
 		),
+
 		array(
 			'href' => '?action=logout',
 			'img'  => 'data/image/menu/logout.png',
@@ -87,20 +161,10 @@ function confirmation(message) {
 		)
 	);
 	run_hook('admin_menu', array(&$links));
+
 	?>
 	<ul id="menu">
-		<?php
-		foreach ($links as $link) {
-			?>
-				<li>
-					<a href="<?php echo $link['href']; ?>" title="<?php echo $link['text']; ?>" <?php if (isset($link['target'])) echo 'target="'.$link['target'].'"'; ?>>
-						<img src="<?php echo $link['img']; ?>" alt="" />
-						<?php echo $link['text']; ?>
-					</a>
-				</li>
-			<?php
-		}
-		?>
+		<?php show_admin_menu($links); ?>
 	</ul>
 	<?php run_hook('admin_menu_after'); ?>
 	<ul id="statusbox">
