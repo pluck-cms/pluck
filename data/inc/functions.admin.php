@@ -732,4 +732,36 @@ function show_admin_menu($links) {
 	unset ($link);
 
 }
+
+/**
+ * Checking if there is an update version available
+ *
+ * @since 4.7.2
+ * @package admin
+ * @param string $version The available version.
+ * @return string yes, urgent, no, error
+ */
+function check_update_version($version) {
+	switch(substr_count($version, '.')) {
+		case '0':
+			$version .= '.0.0';
+			break;
+		case '1':
+			$version .= '.0';
+			break;
+	}
+	list($v1, $v2, $v3) = explode('.', $version);
+	list($p1, $p2, $p3) = explode('.', PLUCK_VERSION);
+	
+	if ($v1 > $p1 || $v2 > $p2)
+		return 'urgent';
+	elseif ($v3 > $p3)
+		return 'yes';
+	else
+		return 'no';
+	
+	// If there are no other posibility return error
+	return 'error';
+	
+}
 ?>

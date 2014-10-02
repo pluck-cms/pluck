@@ -30,13 +30,38 @@ if (!file_exists('data/settings/update_lastcheck.php') || (file_exists('data/set
 	//Iniate CURL to fetch update-info,
 	//but only if CURL-extension is loaded.
 	if (extension_loaded('curl')) {
+		// Set up url for checking version 
+		// TODO: Add options in settings for checking pre-release
+		// For normal release
+		$url = 'https://github.com/pluck-cms/pluck/releases/latest';
+		// Also for pre-release
+		//$url = 'https://github.com/pluck-cms/pluck/releases';
+
+		// Initialize session and set URL.
 		$geturl = curl_init();
-		$timeout = 10;
-		curl_setopt ($geturl, CURLOPT_URL, 'http://www.pluck-cms.org/update.php?version='.urlencode(PLUCK_VERSION));
-		curl_setopt ($geturl, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt ($geturl, CURLOPT_CONNECTTIMEOUT, $timeout);
-		$update_available = curl_exec($geturl);
+		curl_setopt($geturl, CURLOPT_URL, $url);
+		// Dont check ssl certifical
+		curl_setopt($geturl, CURLOPT_SSL_VERIFYPEER, false);
+		// Go redirect
+		curl_setopt($geturl, CURLOPT_FOLLOWLOCATION, true);
+		// Return data
+		curl_setopt($geturl, CURLOPT_RETURNTRANSFER, true);
+			
+		// Get the response and close the channel.
+		$response = curl_exec($geturl);
 		curl_close($geturl);
+
+		// Find latest release
+		preg_match('/\<span class\=\"css-truncate-target\"\>(.*)\<\/span\>/', $response, $match);
+
+		// Current latest release string
+		$update_available = strip_tags($match[0]);
+		
+		// Remove v char if we are using normal releases
+		$update_available = str_replace('v', '', $update_available);
+		
+		// Unset data
+		unset($match, $response);
 	}
 
 	//If CURL isn't loaded, save an error-status.
@@ -56,17 +81,21 @@ else
 	$update_available = $lastupdatestatus;
 
 //Then determine which icon we need to show... and show it.
-if ($update_available == 'yes')
-	$update_note = '<a href="http://www.pluck-cms.org/" target="_blank"><img src="data/image/update-available.png" alt="" /> '.$lang['update']['available'].'</a>';
-
-elseif ($update_available == 'urgent')
-	$update_note = '<a href="http://www.pluck-cms.org/" target="_blank"><img src="data/image/update-available-urgent.png" alt="" /> '.$lang['update']['urgent'].'</a>';
-
-elseif ($update_available == 'error')
-	$update_note = '<img src="data/image/error.png" alt="" /> '.$lang['update']['failed'];
-
-else
-	$update_note = '<img src="data/image/update-no.png" alt="" /> '.$lang['update']['up_to_date'];
+switch(check_update_version($update_available)) {
+	case 'yes':
+		$update_note = '<a href="http://www.pluck-cms.org/" target="_blank"><img src="data/image/update-available.png" alt="" /> '.$lang['update']['available'].'</a>';
+		break;
+	case 'urgent':
+		$update_note = '<a href="http://www.pluck-cms.org/" target="_blank"><img src="data/image/update-available-urgent.png" alt="" /> '.$lang['update']['urgent'].'</a>';
+		break;
+	case 'error':
+		$update_note = '<img src="data/image/error.png" alt="" /> '.$lang['update']['failed'];
+		break;
+	case 'no':
+		$update_note = '<img src="data/image/update-no.png" alt="" /> '.$lang['update']['up_to_date'];
+		break;
+}
+	
 ?>
 <li>
 	<?php echo $update_note; ?>
