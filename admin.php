@@ -54,27 +54,18 @@ else {
 
 	//Define pages.
 	//------------
-	if (isset($_GET['action'])) {
+	if (isset($_GET['action']) && in_array($_GET['action'], array('start', 'credits', 'page', 'editpage', 'images', 'files', 'modules', 'managemodules', 'module_addtosite', 'modulesettings', 'options', 'settings', 'language', 'theme', 'changepass', 'themeinstall', 'themeuninstall', 'theme_delete', 'installmodule', 'trashcan', 'trashcan_empty', 'logout', 'module_delete', 'trash_deleteitem', 'trash_restoreitem', 'trash_viewitem', 'deleteimage', 'deletefile', 'deletepage', 'pageup', 'pagedown', 'writable'))) {
 		switch ($_GET['action']) {
-			//Page:Start
-			case 'start':
-				$titelkop = $lang['start']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/start.php');
-				break;
 
-			//Page:Credits
-			case 'credits':
-				$titelkop = $lang['credits']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/credits.php');
-				break;
-
-			//Page:Pages
-			case 'page':
-				$titelkop = $lang['page']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/page.php');
+			//Page:Logout
+			case 'logout':
+				//Destroy current session. First get token.
+				unset($_SESSION[$token]);
+				unset($token);
+				$titelkop = $lang['login']['log_out'];
+				// We will not use logout.php file
+				//$file_to_include = 'logout.php';
+				redirect('index.php', 0);
 				break;
 
 			//Page:Editpage
@@ -83,209 +74,96 @@ else {
 					$titelkop = $lang['page']['edit'];
 				else
 					$titelkop = $lang['page']['new'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/editpage.php');
+				$file_to_include = 'editpage.php';
 				break;
 
-			//Page:Manage Images
-			case 'images':
-				$titelkop = $lang['images']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/images.php');
-				break;
-
-			//Page:Manage Images
-			case 'files':
-				$titelkop = $lang['files']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/files.php');
-				break;
-
-			//Page:Modules
-			case 'modules':
-				$titelkop = $lang['modules']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/modules.php');
-				break;
-
+			//Additional cases
 			//Page:Manage Modules
 			case 'managemodules':
 				$titelkop = $lang['modules_manage']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/modules_manage.php');
+				$file_to_include = 'modules_manage.php';
 				break;
 
 			//Page:Module Add To Site
 			case 'module_addtosite':
 				$titelkop = $lang['modules_addtosite']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/modules_manage_addtosite.php');
+				$file_to_include = 'modules_manage_addtosite.php';
 				break;
 
 			//Page:Module settings
 			case 'modulesettings':
 				$titelkop = $lang['modules_settings']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/modules_settings.php');
-				break;
-
-			//Page:Options
-			case 'options':
-				$titelkop = $lang['options']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/options.php');
-				break;
-
-			//Page:Options:Settings
-			case 'settings':
-				$titelkop = $lang['settings']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/settings.php');
-				break;
-
-			//Page:Options:Language
-			case 'language':
-				$titelkop = $lang['language']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/language.php');
-				break;
-
-			//Page:Options:Theme
-			case 'theme':
-				$titelkop = $lang['theme']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/theme.php');
-				break;
-
-			//Page:Options:Changepass
-			case 'changepass':
-				$titelkop = $lang['changepass']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/changepass.php');
+				$file_to_include = 'modules_settings.php';
 				break;
 
 			//Page:Options:Themeinstall
 			case 'themeinstall':
 				$titelkop = $lang['theme_install']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/themeinstall.php');
+				$file_to_include = 'themeinstall.php';
 				break;
 
 			//Page:Options:Themeinstall
 			case 'themeuninstall':
 				$titelkop = $lang['theme_uninstall']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/themeuninstall.php');
+				$file_to_include = 'themeuninstall.php';
 				break;
 
 			//Page:Options:Theme_Delete
 			case 'theme_delete':
 				$titelkop = $lang['theme_uninstall']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/themeuninstall_delete.php');
+				$file_to_include = 'themeuninstall_delete.php';
 				break;
 
 			//Page:Options:Moduleinstall
 			case 'installmodule':
 				$titelkop = $lang['modules_install']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/modules_install.php');
-				break;
-
-			//Page:Trashcan
-			case 'trashcan':
-				$titelkop = $lang['trashcan']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/trashcan.php');
+				$file_to_include = 'modules_install.php';
 				break;
 
 			//Page:Empty Trashcan
 			case 'trashcan_empty':
 				$titelkop = $lang['trashcan']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/trashcan_empty.php');
-				break;
-
-			//Page:Logout
-			case 'logout':
-				$titelkop = $lang['login']['log_out'];
-				//Destroy current session. First get token.
-				unset($_SESSION[$token]);
-				unset($token);
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/logout.php');
+				$file_to_include = 'trashcan_empty.php';
 				break;
 
 			//Page:Uninstall module
 			case 'module_delete':
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/modules_manage_delete.php');
+				$file_to_include = 'modules_manage_delete.php';
 				break;
 
 			//Page:Trash_deleteitem
 			case 'trash_deleteitem':
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/trashcan_deleteitem.php');
+				$file_to_include = 'trashcan_deleteitem.php';
 				break;
 
 			//Page:Trash_restoreitem
 			case 'trash_restoreitem':
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/trashcan_restoreitem.php');
+				$file_to_include = 'trashcan_restoreitem.php';
 				break;
 
 			//Page:Trash_viewitem
 			case 'trash_viewitem':
 				$titelkop = $lang['trashcan']['view_item'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/trashcan_viewitem.php');
+				$file_to_include = 'trashcan_viewitem.php';
 				break;
-
-			//Page:Deleteimage
-			case 'deleteimage':
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/deleteimage.php');
-				break;
-
-			//Page:Deletefile
-			case 'deletefile':
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/deletefile.php');
-				break;
-
-			//Page:Deletepage
-			case 'deletepage':
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/deletepage.php');
-				break;
-
+			
 			//Page:Pageup
 			case 'pageup':
 				$titelkop = $lang['page']['change_order'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/pageup.php');
+				$file_to_include = 'pageup.php';
 				break;
 
 			//Page:Pagdown
 			case 'pagedown':
 				$titelkop = $lang['page']['change_order'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/pagedown.php');
+				$file_to_include = 'pagedown.php';
 				break;
 
-			//Unknown page => Redirect
-			default:
-				header('Location: ?action=start');
-				exit;
+			//Main case, we are still in in_array function
+			case $_GET['action']:
+				$titelkop = $lang[$_GET['action']]['title'];
+				$file_to_include = $_GET['action'].'.php';
 				break;
-
-			//Page:Writable
-			case 'writable':
-				$titelkop = $lang['writable']['title'];
-				include_once ('data/inc/header.php');
-				include_once ('data/inc/writable.php');
-				break;
-			
 		}
 	}
 
@@ -298,8 +176,11 @@ else {
 		header('Location: ?action=start');
 		exit;
 	}
-
-	//Include footer.
+	
+	// Include files
+	include_once ('data/inc/header.php');
+	if (isset($file_to_include) && file_exists('data/inc/'.$file_to_include))
+		include_once ('data/inc/'.$file_to_include);
 	include_once ('data/inc/footer.php');
 }
 ?>
