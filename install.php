@@ -204,7 +204,7 @@ if ($langcode['0'].'.php' != $langpref && is_file('data/inc/lang/'.$langcode['0'
 			</p>
 			<p>
 				<label class="kop2" for="cont2"><?php echo $lang['general']['contents']; ?></label>
-				<textarea name="cont2" id="cont2" class="tinymce" cols="70" rows="20"></textarea>
+				<textarea name="cont2" id="content-form" class="tinymce" cols="70" rows="20"></textarea>
 			</p>
 			<?php show_common_submits('?action=step3'); ?>
 		</form>
