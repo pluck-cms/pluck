@@ -107,16 +107,8 @@ function redirect($url, $time) {
 	//Then, urlencode the entire url.
 	$url = urlencode($url);
 
-	//Then undo that for ? chars.
-	$url = str_replace('%3F', '?', $url);
-	//And undo that for = chars.
-	$url = str_replace('%3D', '=', $url);
-	//And undo that for & chars.
-	$url = str_replace('%26', '&', $url);
-	//And undo that for / chars.
-	$url = str_replace('%2F', '/', $url);
-	//And undo that for : chars.
-	$url = str_replace('%3A', ':', $url);
+	//Then undo that for ?, =, &, / and : chars
+	$url = str_replace(array('%3F', '%3D', '%26', '%2F', '%3A'), array('?', '=', '&', '/', ':'), $url);
 
 	//Finally generate the metatag for redirecting
 	echo '<meta http-equiv="refresh" content="'.$time.'; url='.$url.'" />';
