@@ -113,7 +113,7 @@ $lang['start']['title']   = 'start';
 $lang['start']['welcome'] = 'Welcome to the administration center of pluck.';
 $lang['start']['manage']  = 'Here you can manage your website. Choose a link in the menu at the top of your screen.';
 $lang['start']['more']    = 'more...';
-$lang['start']['website'] = 'take a look at your website';
+$lang['start']['website'] = 'view your website';
 $lang['start']['result']  = 'take a look at the result';
 $lang['start']['people']  = 'all the people who helped develop pluck';
 $lang['start']['help']    = 'need help?';
@@ -267,6 +267,5 @@ $lang['changepass']['empty']       = 'Your new password can\'t be empty.';
 $lang['changepass']['changed']     = 'Password has been changed.';
 
 //Writable check
-$lang['writable']['title']     = 'Check writable options';
+$lang['writable']['title']     = 'check writable options';
 $lang['writable']['check']     = 'Check if the displayed files and directories are writable. You can also "Refresh" the page.';
-?>
