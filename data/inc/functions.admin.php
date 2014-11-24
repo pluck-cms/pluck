@@ -654,6 +654,7 @@ function save_page($title, $content, $hidden, $subpage = null, $description = nu
 	//Save the title, content and hidden status.
 	$data = '<?php'."\n"
 	.'$title = \''.sanitize($title).'\';'."\n"
+	.'$seoname = \''.sanitize($seo_title).'\';'."\n"
 	.'$content = \''.sanitize($content, false).'\';'."\n"
 	.'$hidden = \''.$hidden.'\';';
 
