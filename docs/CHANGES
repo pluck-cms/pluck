@@ -1,3 +1,22 @@
+pluck 4.7.3
+----------------------------------------
+ - Security release
+
+pluck 4.7.2
+----------------------------------------
+ - Update Check point to latest release on GitHub
+ - New functions documentation
+ - Drop down admin menu, and border-radius
+ - Allow to change seo name for all pages
+ - Language files cleanup
+ - Tinymce update
+ - More hooks
+ - New help link to PHPHELP forum
+ - Zip class for themes and modules installation
+ - Writable check in admin page
+ - Installation improvement
+ - Pluck-CMS is now in Github
+	
 pluck 4.7.1
 ----------------------------------------
  - Use class attribute on active parent menu items in the tree instead of id attribute.
