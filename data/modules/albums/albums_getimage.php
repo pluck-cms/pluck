@@ -11,6 +11,12 @@
 
  * See docs/COPYING for the complete license.
 */
+//Run security
+foreach ($_GET as $get_value) {
+	if (is_array($get_value) || preg_match('/\.\.|[\\\\:<>&="?*]/', $get_value))
+		die ('A hacking attempt has been detected. For security reasons, we\'re blocking any code execution.');
+}
+unset($get_value);
 
 //Define variable
 $image = $_GET['image'];
