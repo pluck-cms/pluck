@@ -55,13 +55,13 @@ function multitheme_admin_save_page_beforepost() {
 	echo '</tr>';
 }
 
-function multitheme_admin_save_page_afterpost($module_additional_data) {
+function multitheme_admin_save_page_afterpost(&$module_additional_data) {
 	if (isset($_POST['theme']) && $_POST['theme'] != THEME) {
 		$module_additional_data['p_theme'] = sanitize($_POST['theme']);
 	}
 }
 
-function multitheme_site_theme($page_theme) {
+function multitheme_site_theme(&$page_theme) {
 	if (defined('CURRENT_PAGE_FILENAME') && file_exists(PAGE_DIR.'/'.CURRENT_PAGE_FILENAME)) {
 		include (PAGE_DIR.'/'.CURRENT_PAGE_FILENAME);
 		if (isset($p_theme) && $p_theme != THEME && file_exists('data/themes/'.$p_theme))
