@@ -155,9 +155,9 @@ $lang['page']['seo_urls']    = 'friendly URLs';
 
 //Editmeta
 $lang['editmeta']['title']    = 'edit page information';
-$lang['editmeta']['descr']    = 'enter information about this page here, to get better results in search engines. not required.';
+$lang['editmeta']['descr']    = 'enter information about this page here, to get better results in search engines. Not required.';
 $lang['editmeta']['keywords'] = 'keywords';
-$lang['editmeta']['comma']    = 'seperated by a comma';
+$lang['editmeta']['comma']    = 'separated by a comma';
 $lang['editmeta']['changing'] = 'Changing page information...';
 
 //Images
