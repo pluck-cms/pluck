@@ -19,28 +19,28 @@ define('IN_PLUCK', true);
 session_start();
 
 //Include security-enhancements.
-require_once ('data/inc/security.php');
+require_once 'data/inc/security.php';
 //Include functions.
-require_once ('data/inc/functions.modules.php');
-require_once ('data/inc/functions.all.php');
+require_once 'data/inc/functions.modules.php';
+require_once 'data/inc/functions.all.php';
 //Include variables.
-require_once ('data/inc/variables.all.php');
+require_once 'data/inc/variables.all.php';
 
 //Check if we've installed pluck.
 if (!file_exists('data/settings/install.dat')) {
 	$titelkop = $lang['install']['not'];
-	include_once ('data/inc/header2.php');
+	include_once 'data/inc/header2.php';
 	redirect('install.php', 3);
 	show_error($lang['install']['not_message'], 1);
-	include_once('data/inc/footer.php');
+	include_once 'data/inc/footer.php';
 }
 
 //If pluck is installed:
 else {
-	require_once ('data/settings/pass.php');
+	require_once 'data/settings/pass.php';
 
 	//Check if we're already logged in. First, get the token.
-	require_once ('data/settings/token.php');
+	require_once 'data/settings/token.php';
 
 	if (isset($_SESSION[$token]) && ($_SESSION[$token] == 'pluck_loggedin')) {
 		header('Location: admin.php');
@@ -49,7 +49,7 @@ else {
 
 	//Include header-file.
 	$titelkop = $lang['login']['title'];
-	include_once ('data/inc/header2.php');
+	include_once 'data/inc/header2.php';
 
 	//If password has been sent, and the bogus input is empty, MD5-encrypt password.
 	if (isset($_POST['submit']) && empty($_POST['bogus'])) {
@@ -89,7 +89,7 @@ else {
 				redirect($_SESSION['pluck_before'], 1);
 			else
 				redirect('admin.php?action=start', 1);
-			include_once ('data/inc/footer.php');
+			include_once 'data/inc/footer.php';
 			exit;
 		}
 
@@ -118,6 +118,6 @@ else {
 	if (isset($login_error))
 		echo $login_error;
 
-	include_once ('data/inc/footer.php');
+	include_once 'data/inc/footer.php';
 }
 ?>
