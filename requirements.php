@@ -19,27 +19,27 @@ define('IN_PLUCK', true);
 session_start();
 
 //Include security-enhancements.
-require_once ('data/inc/security.php');
+require_once 'data/inc/security.php';
 //Include functions.
-require_once ('data/inc/functions.modules.php');
-require_once ('data/inc/functions.all.php');
-require_once ('data/inc/functions.admin.php');
+require_once 'data/inc/functions.modules.php';
+require_once 'data/inc/functions.all.php';
+require_once 'data/inc/functions.admin.php';
 //Include Translation data.
-require_once ('data/inc/variables.all.php');
+require_once 'data/inc/variables.all.php';
 
 //Only allow a requirements check if pluck is not yet installed.
 if (file_exists('data/settings/install.dat')) {
 	$titelkop = 'requirements check';
-	include_once ('data/inc/header2.php');
+	include_once 'data/inc/header2.php';
 	redirect('login.php', 3);
 	show_error($lang['install']['already'], 2);
-	include_once ('data/inc/footer.php');
+	include_once 'data/inc/footer.php';
 	exit;
 }
 
 //Include header
 $titelkop = 'requirements check';
-include_once ('data/inc/header2.php');
+include_once 'data/inc/header2.php';
 
 //1: Check for the the required PHP version.
 if (version_compare(PHP_VERSION, '5.2.0') !== 1) {
@@ -117,5 +117,5 @@ if (isset($messages)) {
 else
 	echo '<p><strong>All requirements and settings are met. You can safely <a href="install.php">install pluck now</a>.</strong></p>';
 
-include_once ('data/inc/footer.php');
+include_once 'data/inc/footer.php';
 ?>
