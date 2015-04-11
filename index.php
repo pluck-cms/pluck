@@ -28,14 +28,14 @@ if (!file_exists('data/settings/install.dat')) {
 }
 
 //Include security-enhancements.
-require_once ('data/inc/security.php');
+require_once 'data/inc/security.php';
 //Include functions.
-require_once ('data/inc/functions.modules.php');
-require_once ('data/inc/functions.all.php');
-require_once ('data/inc/functions.site.php');
+require_once 'data/inc/functions.modules.php';
+require_once 'data/inc/functions.all.php';
+require_once 'data/inc/functions.site.php';
 //Include variables.
-require_once ('data/inc/variables.all.php');
-require_once ('data/inc/variables.site.php');
+require_once 'data/inc/variables.all.php';
+require_once 'data/inc/variables.site.php';
 
 run_hook('site_index');
 
