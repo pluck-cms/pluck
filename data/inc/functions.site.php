@@ -217,7 +217,7 @@ function theme_menu_data($block, $inline, $active_id, $level, $dir) {
 				unset($parents);
 
 				//Display link
-				echo '<a href="'.SITE_URL.'/'.PAGE_URL_PREFIX.$file.'" title="'.$title.'">'.$title.'</a>';
+				echo '<a href="'.SITE_URL.'/'.PAGE_URL_PREFIX.$file.'" >'.$title.'</a>';
 
 				preg_match_all('|\/|', $file, $page_level);
 				$page_level = count($page_level[0]);
