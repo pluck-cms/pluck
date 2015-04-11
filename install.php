@@ -21,19 +21,19 @@ session_start();
 //Include security-enhancements.
 require_once ('data/inc/security.php');
 //Include functions.
-require_once ('data/inc/functions.modules.php');
-require_once ('data/inc/functions.all.php');
-require_once ('data/inc/functions.admin.php');
+require_once 'data/inc/functions.modules.php';
+require_once 'data/inc/functions.all.php';
+require_once 'data/inc/functions.admin.php';
 //Include Translation data.
-require_once ('data/inc/variables.all.php');
+require_once 'data/inc/variables.all.php';
 
 //Check if we've installed pluck.
 if (file_exists('data/settings/install.dat')) {
 	$titelkop = $lang['install']['title'];
-	include_once ('data/inc/header2.php');
+	include_once 'data/inc/header2.php';
 	redirect('login.php', 3);
 	show_error($lang['install']['already'], 2);
-	include_once ('data/inc/footer.php');
+	include_once 'data/inc/footer.php';
 }
 
 //If we didn't:
@@ -51,7 +51,7 @@ if ($langcode['0'].'.php' != $langpref && is_file('data/inc/lang/'.$langcode['0'
 
 	if (!isset($_GET['action'])) {
 		$titelkop = $lang['install']['title'];
-		include_once ('data/inc/header2.php');
+		include_once 'data/inc/header2.php';
 
 		//Introduction text.
 		?>
@@ -89,13 +89,13 @@ if ($langcode['0'].'.php' != $langpref && is_file('data/inc/lang/'.$langcode['0'
 			<strong><?php echo $lang['install']['proceed']; ?></strong>
 		</a>
 		<?php
-		include_once ('data/inc/footer.php');
+		include_once 'data/inc/footer.php';
 	}
 
 	//Installation Step 2: General Info.
 	elseif (isset($_GET['action']) && $_GET['action'] == 'step2') {
 		$titelkop = $lang['install']['title'];
-		include_once ('data/inc/header2.php');
+		include_once 'data/inc/header2.php';
 
 		if (isset($_POST['save'])) {
 			//Check sitetitle.
@@ -135,7 +135,7 @@ if ($langcode['0'].'.php' != $langpref && is_file('data/inc/lang/'.$langcode['0'
 				unset($dir);
 
 				redirect('?action=step3', 0);
-				include_once ('data/inc/footer.php');
+				include_once 'data/inc/footer.php';
 				exit;
 			}
 		}
@@ -177,7 +177,7 @@ if ($langcode['0'].'.php' != $langpref && is_file('data/inc/lang/'.$langcode['0'
 			<?php show_common_submits('?action=step1'); ?>
 		</form>
 		<?php
-		include_once ('data/inc/footer.php');
+		include_once 'data/inc/footer.php';
 	}
 
 	//Installation Step 3: Homepage.
@@ -209,7 +209,7 @@ if ($langcode['0'].'.php' != $langpref && is_file('data/inc/lang/'.$langcode['0'
 			<?php show_common_submits('?action=step3'); ?>
 		</form>
 		<?php
-		include_once ('data/inc/footer.php');
+		include_once 'data/inc/footer.php';
 	}
 
 	//Installation Step 4: Done.
@@ -227,7 +227,7 @@ if ($langcode['0'].'.php' != $langpref && is_file('data/inc/lang/'.$langcode['0'
 		showmenudiv($lang['start']['website'], $lang['start']['result'], 'data/image/website.png', 'index.php');
 		showmenudiv($lang['general']['admin_center'], $lang['install']['manage'], 'data/image/password.png', 'login.php');
 
-		include_once ('data/inc/footer.php');
+		include_once 'data/inc/footer.php';
 	}
 }
 ?>
