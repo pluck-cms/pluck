@@ -1,4 +1,5 @@
 <?php
+//Albums.
 $lang['albums']['title'] = 'Alben';
 $lang['albums']['descr'] = 'Mit einem Album, können Sie Ihren Besuchern ganz einfach Photos und Grafiken präsentieren.';
 $lang['albums']['message'] = 'Hier können Sie Ihre Alben verwalten. Nutzen Sie Alben, um Ihren Besuchern Fotos oder Grafiken zu präsentieren. Um ein Album in eine Seite zu integrieren, wählen Sie beim Bearbeiten einfach "Album einfügen".';
@@ -23,6 +24,8 @@ $lang['albums']['delete_image'] = 'Bild löschen';
 $lang['albums']['image_width'] = 'Die Breite in Pixel, auf die das Bild angepasst wird. Wählen Sie 0 um eine automatische Anpassung zu verhindern.';
 $lang['albums']['thumb_width'] = 'Die Breite in Pixel, auf die das Vorschaubild verkleinert wird. Kann nicht abgestellt werden.';
 $lang['albums']['settings_error'] = 'Die Breite des angepassten Bildes sollte numerisch sein.';
+
+//Blog.
 $lang['blog']['title'] = 'Blog';
 $lang['blog']['main_message'] = 'Hier können Sie neue Artikel anlegen und dieser Kategorie hinzufügen. Ihre Artikel werden automatisch nach datum sortiert.';
 $lang['blog']['descr'] = 'Nutzen Sie den Blog um Neuigkeiten und kurze Artikel zu veröffentlichen';
@@ -59,19 +62,30 @@ $lang['blog']['numeric_error'] = 'Sie sollten einen numerischen Wert für Kürzu
 $lang['blog']['posts_per_page'] = 'Die Anzahl der angezeigten Artikel je Seite.';
 $lang['blog']['posts_per_page_error'] = 'Die Anzahl der angezeigten Artikel kann nicht 0 sein!';
 $lang['blog']['pages'] = 'Seiten:';
+
+//Contact form.
 $lang['contactform']['module_name'] = 'Kontakt-Formular';
 $lang['contactform']['module_intro'] = 'Mit dem Kontakt-Formular ermöglichen Sie Ihren Besuchern, Ihnen Nachrichten zu schicken.';
 $lang['contactform']['fields'] = 'Sie haben nicht alle Eingabefelder korrekt ausgefüllt.';
 $lang['contactform']['email_title'] = 'Eine Nachricht zu Ihrer Webseite von';
 $lang['contactform']['been_send'] = 'Ihre Nachricht wurde erfolgreich verschickt.';
 $lang['contactform']['not_send'] = 'Ihre Nachricht konnte nicht verschickt werden, weil ein Fehler aufgetreten ist.';
+
+//View site link
 $lang['viewsite']['module_name'] = 'Seite anzeigen Verknüpfung';
 $lang['viewsite']['module_intro'] = 'Erstellt um Entwicklern Modul-Haken zu demonstrieren. Fügt einen direkten Link zur Seite im Admin-Menü hinzu.';
 $lang['viewsite']['message'] = 'Seite anzeigen';
+
+//TinyMCE
 $lang['tinymce']['module_name'] = 'tinymce';
 $lang['tinymce']['module_intro'] = 'Fügt den TinyMCE-Editor zu pluck hinzu. TinyMCE wurde entwickelt von <a href="http://tinymce.moxiecode.com/" target="_blank">Moxiecode</a>.';
+
+//Multitheme
 $lang['multitheme']['module_name'] = 'Multi-Schema';
 $lang['multitheme']['module_intro'] = 'Erlaubt das Auswählen unterschiedlicher Farb-Schemen für jede Seite.';
 $lang['multitheme']['page_edit'] = 'Farb-Schema benutzen';
 
+//Writable check
+$lang['writable']['title']     = 'Schreibzugriffe prüfen';
+$lang['writable']['check']     = 'Prüfen Sie, ob die angezeigten Dateien und Verzeichnisse schreibbar sind. Sie können diese Seite auch neu laden.';
 ?>
