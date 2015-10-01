@@ -23,12 +23,12 @@ Pluck has also been developed with web designers and developers in mind. Just a 
     The flexible module system enables you to integrate your own functionality with ease.
 
 ## Want to Help?
-    ### Everybody
-    Use Pluck
-    Write blog post
-    Follow the [@PluckCMSTeam](https://twitter.com/PluckCMSTeam) on Twitter
+### Everybody
+- Use Pluck
+- Write blog post
+- Follow the [@PluckCMSTeam](https://twitter.com/PluckCMSTeam) on Twitter
     
-    ### Developers - Here are some hints for getting started:
-    [Read Pluck Wiki Page](https://github.com/pluck-cms/pluck/wiki)
-    Check out the [Issues list](https://github.com/pluck-cms/pluck/issues) (or add your own issues and ideas)
-    [Beginners Guide to Contributing to a GitHUB Project](http://akrabat.com/the-beginners-guide-to-contributing-to-a-github-project/)
+### Developers - Here are some hints for getting started:
+- [Read Pluck Wiki Page](https://github.com/pluck-cms/pluck/wiki)
+- Check out the [Issues list](https://github.com/pluck-cms/pluck/issues) (or add your own issues and ideas)
+- [Beginners Guide to Contributing to a GitHUB Project](http://akrabat.com/the-beginners-guide-to-contributing-to-a-github-project/)
