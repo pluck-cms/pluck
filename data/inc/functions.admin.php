@@ -44,33 +44,7 @@ function read_lang_files($not_this_file) {
  * @param string $dir Directory where images are stored in.
  */
 function show_image_insert_box($dir) {
-	global $lang;
-
-	$images = read_dir_contents($dir, 'files');
-	if ($images) {
-	?>
-		<div class="menudiv">
-			<span>
-				<img src="data/image/image.png" alt="" />
-			</span>
-			<span>
-				<select id="insert_images">
-					<?php
-					natcasesort($images);
-					foreach ($images as $image) {
-					?>
-						<option><?php echo $image; ?></option>
-					<?php
-					}
-					unset($image);
-					?>
-				</select>
-				<br />
-				<a href="#" onclick="insert_image_link('<?php echo $dir; ?>');return false;"><?php echo $lang['general']['insert_image']; ?></a>
-			</span>
-		</div>
-	<?php
-	}
+	echo "";
 }
 
 /**
@@ -81,34 +55,7 @@ function show_image_insert_box($dir) {
   * @param string $dir Directory where files are stored in.
  */
 function show_file_insert_box($dir) {
-	global $lang;
-
-	$files = read_dir_contents($dir, 'files');
-	if ($files) {
-	?>
-		<div class="menudiv">
-			<span>
-				<img src="data/image/file.png" alt="" />
-			</span>
-			<span>
-				<select id="insert_files">
-					<?php
-					natcasesort($files);
-					foreach ($files as $file) {
-					?>
-						<option><?php echo $file; ?></option>
-					<?php
-					}
-					unset($file);
-					?>
-				</select>
-				<br />
-				<a href="#" onclick="insert_file_link('<?php echo $dir; ?>');return false;"><?php echo $lang['general']['insert_file']; ?></a>
-			</span>
-		</div>
-	<?php
-	}
-}
+echo "";}
 
 /**
  * Shows a menu for inserting module inclusion code in TinyMCE.
@@ -117,46 +64,7 @@ function show_file_insert_box($dir) {
  * @package admin
  */
 function show_module_insert_box() {
-	global $lang, $module_list;
-
-	//Load module info and site-functions.
-	foreach ($module_list as $module) {
-	if (file_exists('data/modules/'.$module.'/'.$module.'.site.php'))
-		require_once ('data/modules/'.$module.'/'.$module.'.site.php');
-	}
-	unset($module);
-
-	$module_data = null;
-	
-	foreach ($module_list as $module) {
-		if (module_is_compatible($module) && function_exists($module.'_theme_main')) {
-				$module_data .= '<option value="'.$module.'">'.$module.'</option>';
-				//Check if we need to display categories for the module
-				$module_info = call_user_func($module.'_info');
-				if (isset($module_info['categories']) && is_array($module_info['categories'])) {
-					foreach ($module_info['categories'] as $category)
-						$module_data .= '<option value="'.$module.','.$category.'">&nbsp;&nbsp;&nbsp;'.$category.'</option>';
-				}
-		}
-	}
-	if (isset($module_data)) {
-	?>
-	<div class="menudiv">
-		<span>
-			<img src="data/image/modules.png" alt="" />
-		</span>
-		<span>
-			<select id="insert_modules">
-			<?php
-				echo $module_data;
-			?>
-			</select>
-			<br />
-			<a href="#" onclick="insert_module();return false;"><?php echo $lang['general']['insert_module']; ?></a>
-		</span>
-	</div>
-	<?php
-	}
+ echo "";
 }
 
 /**
@@ -166,42 +74,7 @@ function show_module_insert_box() {
  * @package admin
  */
 function show_link_insert_box() {
-	global $lang;
-
-	$files = get_pages();
-	if ($files) {
-	?>
-		<div class="menudiv">
-			<span>
-				<img src="data/image/page.png" alt="" />
-			</span>
-			<span>
-				<select id="insert_pages">
-					<?php
-					foreach ($files as $file) {
-							require PAGE_DIR.'/'.$file;
-							$file = get_page_seoname($file);
-
-							preg_match_all('|\/|', $file, $indent);
-							$indent = count($indent[0]);
-
-							if (!empty($indent))
-								$indent = str_repeat('&nbsp;&nbsp;&nbsp;', $indent);
-							else
-								$indent = null;
-							?>
-								<option value="<?php echo $file; ?>"><?php echo $indent.$title; ?></option>
-							<?php
-					}
-					unset($file);
-					?>
-				</select>
-				<br />
-				<a href="#" onclick="insert_page_link(); return false;"><?php echo $lang['page']['insert_link']; ?></a>
-			</span>
-		</div>
-	<?php
-	}
+ echo "";
 }
 
 /**
@@ -242,7 +115,7 @@ function get_pages($patch = PAGE_DIR, &$pages = null) {
 function show_page_box($file) {
 	global $lang;
 
-	include_once (PAGE_DIR.'/'.$file);
+	include (PAGE_DIR.'/'.$file);
 	$file = get_page_seoname($file);
 
 	//Find the margin.

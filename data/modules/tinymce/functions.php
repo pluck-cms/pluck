@@ -15,66 +15,134 @@
 //Make sure the file isn't accessed directly.
 defined('IN_PLUCK') or exit('Access denied!');
 
-function tinymce_display_code() { ?>
-	<script type="text/javascript" src="<?php echo TINYMCE_DIR; ?>/tiny_mce.js"></script>
+function tinymce_display_code() {
+	global $lang, $module_list; ?>
+	<script type="text/javascript" src="<?php echo TINYMCE_DIR; ?>/tinymce.min.js"></script>
 	<?php run_hook('tinymce_scripts'); ?>
 	<script type="text/javascript">
-	//<![CDATA[
-	tinyMCE.init({
-		mode : "textareas",
-		editor_selector : "tinymce",
-		entity_encoding : "raw",
-		<?php
-		//Check if we need to set the direction to rtl.
-		if (DIRECTION_RTL)
-			echo 'directionality : "rtl",'."\n";
-		//Set the language
-		if (file_exists(TINYMCE_DIR.'/langs/'.LANG.'.js'))
-			echo 'language : "'.LANG.'",'."\n";
-		else
-			echo 'language : "en",'."\n";
-		?>
-		theme : "advanced",
-		width : "600px",
-		plugins : "table,media,paste,safari<?php run_hook('tinymce_plugins'); ?>",
-		<?php run_hook('tinymce_options'); ?>
-		<?php
-		$buttons = array(
-			'bold', 'italic', 'underline', 'strikethrough', 
-			'separator', 'justifyleft', 'justifycenter', 'justifyright', 'justifyfull',
-			'separator', 'formatselect', 'fontsizeselect'
-		);
-		run_hook('tinymce_buttons1', array(&$buttons));
-		$number = count($buttons);
-		?>
-		theme_advanced_buttons1 : "<?php foreach ($buttons as $key => $button) {echo $button; if (($number - 1) != $key) echo ',';}?>",
-		<?php
-		$buttons = array(
-			'cut', 'copy', 'paste', 'pastetext', 'pasteword',
-			'separator', 'undo', 'redo',
-			'separator', 'bullist', 'numlist', 'outdent', 'indent',
-			'separator', 'link', 'unlink', 'anchor', 'image', 'media',
-			'separator', 'table', 'hr', 'forecolor', 'backcolor',
-			'separator', 'code', 'cleanup'
-		);
-		run_hook('tinymce_buttons2', array(&$buttons));
-		$number = count($buttons);
-		?>
-		theme_advanced_buttons2 : "<?php foreach ($buttons as $key => $button) {echo $button; if (($number - 1) != $key) echo ',';}?>",
-		<?php
-		$buttons = array();
-		run_hook('tinymce_buttons3', array(&$buttons));
-		$number = count($buttons);
-		?>
-		theme_advanced_buttons3 : "<?php foreach ($buttons as $key => $button) {echo $button; if (($number - 1) != $key) echo ',';}?>",
-		theme_advanced_toolbar_location : "top",
-		theme_advanced_toolbar_align : "left",
-		theme_advanced_path_location : "bottom",
-		theme_advanced_resizing : true,
-		theme_advanced_resize_horizontal : false
-	})
-	//]]>
-	</script>
+		tinymce.init({
+  			selector: 'textarea',
+			height: 600,
+			menubar:false,
+			setup: function(editor) {
+				editor.addButton('mybutton', {
+					type: 'menubutton',
+					text: 'Pluck Actions',
+					icon: false,
+					menu: [<?php if (!isset($_GET['module']) || $_GET['module'] != 'blog'){
+					?>{
+						text: '<?php echo $lang['general']['insert_module']; ?>',
+						menu: [<?php
+							foreach ($module_list as $module) {
+							if (file_exists('data/modules/'.$module.'/'.$module.'.site.php'))
+								require_once ('data/modules/'.$module.'/'.$module.'.site.php');
+							}
+							unset($module);	
+							foreach ($module_list as $module) {
+								if (module_is_compatible($module) && function_exists($module.'_theme_main')) { ?>
+									{
+										text: '<?php echo $module; ?>',
+										onclick: function() {
+											editor.insertContent('<div class="module_<?php echo str_replace(' ', '_',$module);  ?>">{pluck show_module(<?php echo $module; ?>)}</div>');
+										}
+
+										<?php //Check if we need to display categories for the module
+										$module_info = call_user_func($module.'_info');
+										if (isset($module_info['categories']) && is_array($module_info['categories'])) { ?>
+										menu[
+										<?php 
+											foreach ($module_info['categories'] as $category){ ?>
+												{
+													text: <?php echo $category; ?>,
+													onclick: function() {
+														editor.insertContent('<div class="module_<?php $hulp = $module.','.$category; echo str_replace(' ', '_', $hulp);  ?>">{pluck show_module(<?php echo $module.','.$category; ?>)}</div>');
+													}
+												},
+											<?php } ?> {}]
+									<?php } ?>
+									 }, <?php 
+									
+								}
+							} ?> 
+						,{}]        
+					}, <?php } ?>{
+					text: '<?php echo $lang['general']['insert_image']; ?>',
+//load images here
+				<?php 
+					$images = read_dir_contents('images', 'files');
+					if ($images) {
+					?>
+					menu: [
+						<?php
+						natcasesort($images);
+						foreach ($images as $image) { ?>
+						{
+
+							text: '<?php echo $image; ?>',
+							onclick: function() {
+								editor.insertContent('<img src="images/<?php echo $image;?>" alt="" \/>');
+							}
+						},
+					<?php }
+						?>{}]<?php        
+					}
+					unset($image);
+?>
+//end load
+}, {
+					text: '<?php echo $lang['general']['insert_page']; ?>',
+//load pages here
+				<?php 	
+				$pages = get_pages();
+				if ($pages) { ?>
+					menu: [ <?php
+					foreach ($pages as $page) {
+						require PAGE_DIR.'/'.$page;
+						$page = get_page_seoname($page);
+						preg_match_all('|\/|', $page, $indent);
+						?>{
+							text: '<?php echo $title; ?>',
+							onclick: function() {
+								editor.insertContent('<a href="?file=<?php echo $page; ?>" title="<?php echo $title; ?>"><?php echo $title; ?><\/a>');
+							}
+						},
+						<?php
+					}
+					unset($page);
+				}?>{}]
+//end load
+}, {
+					text: '<?php echo $lang['general']['insert_file']; ?>',
+//load files here
+				<?php 	
+				$files = read_dir_contents('files', 'files');
+				if ($files) { ?>
+					menu: [ <?php
+					foreach ($files as $file) {
+						?>{
+							text: '<?php echo $file; ?>',
+							onclick: function() {
+								editor.insertContent('<a href="files/<?php echo $file; ?>" title="<?php echo $file; ?>"><?php echo $file; ?><\/a>');
+							}
+						},
+						<?php
+					}
+					unset($file);
+				}?>{}]
+//end load
+}]
+});
+},
+plugins: [
+"advlist autolink autosave link image lists charmap print preview hr anchor pagebreak",
+"searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+"table contextmenu directionality emoticons template textcolor paste fullpage textcolor colorpicker textpattern"
+],
+toolbar1: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect mybutton",
+toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | insertdatetime preview | forecolor backcolor",
+toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl"
+
+});	</script>
 	<?php
 }
 ?>

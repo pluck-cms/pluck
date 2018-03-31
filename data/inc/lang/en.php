@@ -41,6 +41,7 @@ $lang['general']['insert']			= 'insert';
 $lang['general']['insert_module']	= 'insert module';
 $lang['general']['insert_image']	= 'insert image';
 $lang['general']['insert_file']		= 'insert file';
+$lang['general']['insert_page']		= 'insert page';
 $lang['general']['dont_display']	= 'Don\'t display';
 $lang['general']['upload']			= 'Upload';
 $lang['general']['change_title']	= 'change title';
