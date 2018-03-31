@@ -206,6 +206,20 @@ function sanitize($var, $html = true) {
 }
 
 /**
+ * PreventXSS from a URL, to make it ready for saving in a file.
+ *
+ * @since 4.7.5
+ * @package all
+ * @param string $var The url to sanitize.
+ * @return string The sanitized variable.
+ */
+function preventXSS($var) {
+	$var = str_replace('\'', '', $var);
+
+	return $var;
+}
+
+/**
  * Displays or returns an error, notice or success message.
  *
  * @since 4.7

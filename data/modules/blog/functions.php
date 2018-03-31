@@ -128,6 +128,8 @@ function blog_save_reaction($post, $name, $email, $website, $message, $id = null
 	$name = sanitize($name);
 	$message = sanitize($message);
 	$message = nl2br($message);
+	$website = preventXSS($website);
+	$email = preventXSS($email);
 
 	//Have to make sure that the dir exists.
 	if (!is_dir(BLOG_POSTS_DIR.'/'.$post)) {
