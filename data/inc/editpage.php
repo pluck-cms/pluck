@@ -19,7 +19,7 @@ run_hook('admin_editpage_before');
 
 //Include page information, if we're editing a page.
 if (isset($_GET['page']) && file_exists(PAGE_DIR.'/'.get_page_filename($_GET['page'])))
-	require_once (PAGE_DIR.'/'.get_page_filename($_GET['page']));
+	require (PAGE_DIR.'/'.get_page_filename($_GET['page']));
 
 //If form is posted...
 if (isset($_POST['save']) || isset($_POST['save_exit'])) {
@@ -72,16 +72,6 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 if (isset($error))
 	echo $error;
 ?>
-<div class="rightmenu">
-<p><?php echo $lang['page']['items']; ?></p>
-<?php
-	show_module_insert_box();
-	show_link_insert_box();
-	show_image_insert_box('images');
-	show_file_insert_box('files');
-	run_hook('admin_save_page_sidebar');
-?>
-</div>
 <form name="page_form" method="post" action="">
 	<p>
 		<label class="kop2" for="title"><?php echo $lang['general']['title']; ?></label>

@@ -321,13 +321,6 @@ function blog_page_admin_editpost() {
 	if (isset($error))
 		echo $error;
 	?>
-		<div class="rightmenu">
-			<p><?php echo $lang['page']['items']; ?></p>
-			<?php
-			show_link_insert_box();
-			show_image_insert_box('images');
-			?>
-		</div>
 		<form method="post" action="">
 			<p>
 				<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
@@ -399,13 +392,6 @@ function blog_page_admin_newpost() {
 	if (isset($error))
 		echo $error;
 	?>
-		<div class="rightmenu">
-			<p><?php echo $lang['page']['items']; ?></p>
-			<?php
-			show_link_insert_box();
-			show_image_insert_box('images');
-			?>
-		</div>
 		<form method="post" action="">
 			<p>
 				<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
