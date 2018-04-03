@@ -34,7 +34,7 @@ class SmartImage {
    * @param boolean $big
 	 * @return SmartImage
 	 */
-	public function SmartImage($src, $bigImageSize=false) {
+	public function __construct($src, $bigImageSize=false) {
     // In case of very big images (more than 1Mb)
     if ($bigImageSize)
       $this->setMemoryForBigImage($src);
