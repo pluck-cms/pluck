@@ -41,21 +41,21 @@ function tinymce_display_code() {
 							foreach ($module_list as $module) {
 								if (module_is_compatible($module) && function_exists($module.'_theme_main')) { ?>
 									{
-										text: '<?php echo $module; ?>',
+										text: '<?php echo sanitize($module); ?>',
 										onclick: function() {
 											editor.insertContent('<div class="module_<?php echo str_replace(' ', '_',$module);  ?>">{pluck show_module(<?php echo $module; ?>)}</div>');
-										}
+										},
 
 										<?php //Check if we need to display categories for the module
 										$module_info = call_user_func($module.'_info');
 										if (isset($module_info['categories']) && is_array($module_info['categories'])) { ?>
-										menu[
+										menu:[
 										<?php 
 											foreach ($module_info['categories'] as $category){ ?>
 												{
-													text: <?php echo $category; ?>,
+													text: '<?php echo sanitize($category); ?>',
 													onclick: function() {
-														editor.insertContent('<div class="module_<?php $hulp = $module.','.$category; echo str_replace(' ', '_', $hulp);  ?>">{pluck show_module(<?php echo $module.','.$category; ?>)}</div>');
+														editor.insertContent('<div class="module_<?php $hulp = sanitize($module.','.$category); echo str_replace(' ', '_', $hulp);  ?>">{pluck show_module(<?php echo sanitize($module.','.$category); ?>)}</div>');
 													}
 												},
 											<?php } ?> {}]
@@ -78,9 +78,9 @@ function tinymce_display_code() {
 						foreach ($images as $image) { ?>
 						{
 
-							text: '<?php echo $image; ?>',
+							text: '<?php echo sanitize($image); ?>',
 							onclick: function() {
-								editor.insertContent('<img src="images/<?php echo $image;?>" alt="" \/>');
+								editor.insertContent('<img src="images/<?php echo str_replace('\'', '%27', $image);?>" alt="" \/>');
 							}
 						},
 					<?php }
@@ -101,9 +101,9 @@ function tinymce_display_code() {
 						$page = get_page_seoname($page);
 						preg_match_all('|\/|', $page, $indent);
 						?>{
-							text: '<?php echo $title; ?>',
+							text: '<?php echo sanitize($title); ?>',
 							onclick: function() {
-								editor.insertContent('<a href="?file=<?php echo $page; ?>" title="<?php echo $title; ?>"><?php echo $title; ?><\/a>');
+								editor.insertContent('<a href="?file=<?php echo str_replace('\'', '%27', $page); ?>" title="<?php echo sanitize($title); ?>"><?php echo sanitize($title); ?><\/a>');
 							}
 						},
 						<?php
@@ -120,9 +120,9 @@ function tinymce_display_code() {
 					menu: [ <?php
 					foreach ($files as $file) {
 						?>{
-							text: '<?php echo $file; ?>',
+							text: '<?php echo sanitize($file); ?>',
 							onclick: function() {
-								editor.insertContent('<a href="files/<?php echo $file; ?>" title="<?php echo $file; ?>"><?php echo $file; ?><\/a>');
+								editor.insertContent('<a href="files/<?php echo sanitize($file); ?>" title="<?php echo sanitize($file); ?>"><?php echo sanitize($file); ?><\/a>');
 							}
 						},
 						<?php
