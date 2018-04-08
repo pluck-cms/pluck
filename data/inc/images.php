@@ -34,9 +34,13 @@ defined('IN_PLUCK') or exit('Access denied!');
 if (isset($_POST['submit'])) {
 	//Check if the file is JPG, PNG or GIF.
 	if (in_array($_FILES['imagefile']['type'], array('image/pjpeg', 'image/jpeg','image/png', 'image/gif'))) {
+		/* fix issue 44. Thanks to Klaus.  */
+        $imagewhitelist = array('jfif', '.png', '.jpg', '.gif', 'jpeg');  
+        if (!in_array(strtolower(substr($_FILES['imagefile']['name'], -4)), $imagewhitelist))
+			show_error($lang['general']['upload_failed'], 1);
+		/* end of fix issue 44. Thanks to Klaus.  */
 		if (!copy($_FILES['imagefile']['tmp_name'], 'images/'.$_FILES['imagefile']['name']))
 			show_error($lang['general']['upload_failed'], 1);
-
 		else {
 			chmod('images/'.$_FILES['imagefile']['name'], 0666);
 			?>
