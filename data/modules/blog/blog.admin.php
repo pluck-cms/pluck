@@ -44,6 +44,10 @@ function blog_pages_admin() {
 		'title' => $lang['blog']['edit_post']
 	);
 	$module_page_admin[] = array(
+		'func'  => 'clonepost',
+		'title' => $lang['blog']['clone_post']
+	);
+	$module_page_admin[] = array(
 		'func'  => 'deletepost',
 		'title' => $lang['blog']['delete_post']
 	);
@@ -78,6 +82,11 @@ function blog_page_admin_blog() {
 				<span>
 					<a href="?module=blog&amp;page=editpost&amp;var1=<?php echo $post['seoname']; ?>">
 						<img src="data/image/edit.png" title="<?php echo $lang['blog']['edit_post']; ?>" alt="<?php echo $lang['blog']['edit_post']; ?>" />
+					</a>
+				</span>
+				<span>
+					<a href="?module=blog&amp;page=clonepost&amp;var1=<?php echo $post['seoname']; ?>">
+						<img src="data/image/clone.png" title="<?php echo $lang['blog']['clone_post']; ?>" alt="<?php echo $lang['blog']['clone_post']; ?>" />
 					</a>
 				</span>
 				<?php
@@ -354,6 +363,65 @@ function blog_page_admin_editpost() {
 		</form>
 	<?php
 }
+
+function blog_page_admin_clonepost() {
+	global $lang, $var1, $cont1, $cont2, $cont3;
+	//If form is posted...
+	if (isset($_POST['save']) || isset($_POST['save_exit'])) {
+		if (seo_url($cont1)) {
+			//Save blogpost.
+			$seoname = blog_save_post($cont1, $cont2, $cont3);
+
+			//Redirect user.
+			if (isset($_POST['save']))
+				redirect('?module=blog&page=editpost&var1='.$seoname, 0);
+			else
+				redirect('?module=blog', 0);
+		}
+		else
+			$error = show_error($lang['page']['no_title'], 1, true);
+	}
+	
+	$post = blog_get_post($var1);
+	?>
+	<?php
+	if (isset($error))
+		echo $error;
+	?>
+		<form method="post" action="">
+			<p>
+				<label class="kop2" for="cont1"><?php echo $lang['general']['title']; ?></label>
+				<input name="cont1" id="cont1" type="text" value="<?php echo $post['title']; ?> - Clone" />
+			</p>
+			<p>
+			<label class="kop2" for="cont2"><?php echo $lang['blog']['category']; ?></label>
+			<select name="cont2" id="cont2">
+				<option value=""><?php echo $lang['blog']['choose_cat']; ?></option>
+				<?php
+				//If there are categories.
+				if (blog_get_categories()) {
+					$categories = blog_get_categories();
+
+					foreach($categories as $category) {
+						if ($post['category_seoname'] == $category['seoname'])
+							echo '<option value="'.$category['seoname'].'" selected="selected">'.$category['title'].'</option>';
+						else
+							echo '<option value="'.$category['seoname'].'">'.$category['title'].'</option>';
+					}
+					unset($key);
+				}
+				?>
+			</select>
+			</p>
+			<p>
+				<label class="kop2" for="cont3"><?php echo $lang['general']['contents']; ?></label>
+				<textarea class="<?php if (defined('WYSIWYG_TEXTAREA_CLASS')) echo WYSIWYG_TEXTAREA_CLASS; ?>" name="cont3" id="cont3" cols="70" rows="20"><?php echo htmlspecialchars($post['content']); ?></textarea>
+			</p>
+			<?php show_common_submits('?module=blog', true); ?>
+		</form>
+	<?php
+}
+
 
 function blog_page_admin_deletepost() {
 	global $var1;

@@ -12,6 +12,7 @@ $lang['blog']['delete_cat']             = 'delete category';
 $lang['blog']['posts']                  = 'existing posts';
 $lang['blog']['new_post']               = 'write new post';
 $lang['blog']['edit_post']              = 'edit post';
+$lang['blog']['clone_post']             = 'clone post';
 $lang['blog']['delete_post']            = 'delete post';
 $lang['blog']['at']                     = 'at';
 $lang['blog']['in']                     = 'in';
