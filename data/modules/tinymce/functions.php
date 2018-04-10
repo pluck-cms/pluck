@@ -21,7 +21,7 @@ function tinymce_display_code() {
 	<?php run_hook('tinymce_scripts'); ?>
 	<script type="text/javascript">
 		tinymce.init({
-  			selector: 'textarea',
+  			selector: 'textarea:not(.mceNoEditor)',
 			height: 600,
 			menubar:false,
 			setup: function(editor) {
