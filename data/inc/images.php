@@ -39,17 +39,17 @@ if (isset($_POST['submit'])) {
         if (!in_array(strtolower(substr($_FILES['imagefile']['name'], -4)), $imagewhitelist))
 			show_error($lang['general']['upload_failed'], 1);
 		/* end of fix issue 44. Thanks to Klaus.  */
-		if (!copy($_FILES['imagefile']['tmp_name'], 'images/'.$_FILES['imagefile']['name']))
+		if (!copy($_FILES['imagefile']['tmp_name'], 'images/'.latinOnlyInput($_FILES['imagefile']['name'])))
 			show_error($lang['general']['upload_failed'], 1);
 		else {
 			chmod('images/'.$_FILES['imagefile']['name'], 0666);
 			?>
 				<div class="menudiv">
-					<strong><?php echo $lang['images']['name']; ?></strong> <?php echo $_FILES['imagefile']['name']; ?>
+					<strong><?php echo $lang['images']['name']; ?></strong> <?php echo latinOnlyInput($_FILES['imagefile']['name']); ?>
 					<br />
-					<strong><?php echo $lang['images']['size']; ?></strong> <?php echo $_FILES['imagefile']['size'].' '.$lang['images']['bytes']; ?>
+					<strong><?php echo $lang['images']['size']; ?></strong> <?php echo latinOnlyInput($_FILES['imagefile']['size']).' '.$lang['images']['bytes']; ?>
 					<br />
-					<strong><?php echo $lang['images']['type']; ?></strong> <?php echo $_FILES['imagefile']['type']; ?>
+					<strong><?php echo $lang['images']['type']; ?></strong> <?php echo latinOnlyInput($_FILES['imagefile']['type']); ?>
 					<br />
 					<strong><?php echo $lang['images']['success']; //TODO: Need to show this message another place, and with show_error(). ?></strong>
 				</div>
@@ -67,6 +67,7 @@ $images = read_dir_contents('images', 'files');
 	if ($images) {
 		natcasesort($images);
 		foreach ($images as $image) {
+			if (!($image == '.htaccess')){
 		?>
 			<div class="menudiv">
 				<span>
@@ -85,6 +86,7 @@ $images = read_dir_contents('images', 'files');
 				</span>
 			</div>
 			<?php
+			}
 		}
 		unset($images);
 	}

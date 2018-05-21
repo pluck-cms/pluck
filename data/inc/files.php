@@ -32,24 +32,27 @@ defined('IN_PLUCK') or exit('Access denied!');
 </div>
 <?php
 if (isset($_POST['submit'])) {
-		if (!copy($_FILES['filefile']['tmp_name'], 'files/'.$_FILES['filefile']['name']))
+		if (!copy($_FILES['filefile']['tmp_name'], 'files/'.latinOnlyInput(latinOnlyInput($_FILES['filefile']['name']))))
 			show_error($lang['general']['upload_failed'], 1);
 		else {
-			if (strcasecmp(substr($_FILES['filefile']['name'], -3),'php') == 0){
-				if (!rename('files/'.$_FILES['filefile']['name'], 'files/'.$_FILES['filefile']['name'].'.txt')){
+			$lastfour = strtolower(substr(latinOnlyInput($_FILES['filefile']['name']), -4));
+			$lastfive = strtolower(substr(latinOnlyInput($_FILES['filefile']['name']), -5));
+			$blockedExtentions = array('.php','php3','php4','php5','php6','php7','phtml');
+			if (in_array($lastfour, $blockedExtentions) or in_array($lastfive, $blockedExtentions) ){
+				if (!rename('files/'.latinOnlyInput($_FILES['filefile']['name']), 'files/'.latinOnlyInput($_FILES['filefile']['name']).'.txt')){
 					show_error($lang['general']['upload_failed'], 1);
 				}
-				chmod('files/'.$_FILES['filefile']['name'].'.txt', 0775);
+				chmod('files/'.latinOnlyInput($_FILES['filefile']['name']).'.txt', 0775);
 			}else{
-				chmod('files/'.$_FILES['filefile']['name'], 0775);
+				chmod('files/'.latinOnlyInput($_FILES['filefile']['name']), 0775);
 			}
 			?>
 				<div class="menudiv">
-					<strong><?php echo $lang['files']['name']; ?></strong> <?php echo $_FILES['filefile']['name']; ?>
+					<strong><?php echo $lang['files']['name']; ?></strong> <?php echo latinOnlyInput($_FILES['filefile']['name']); ?>
 					<br />
-					<strong><?php echo $lang['files']['size']; ?></strong> <?php echo $_FILES['filefile']['size'].' '.$lang['images']['bytes']; ?>
+					<strong><?php echo $lang['files']['size']; ?></strong> <?php echo latinOnlyInput($_FILES['filefile']['size']).' '.$lang['images']['bytes']; ?>
 					<br />
-					<strong><?php echo $lang['files']['type']; ?></strong> <?php echo $_FILES['filefile']['type']; ?>
+					<strong><?php echo $lang['files']['type']; ?></strong> <?php echo latinOnlyInput($_FILES['filefile']['type']); ?>
 					<br />
 					<strong><?php echo $lang['files']['success']; //TODO: Need to show this message another place, and with show_error(). ?></strong>
 				</div>
@@ -66,6 +69,7 @@ $files = read_dir_contents('files', 'files');
 	if ($files) {
 		natcasesort($files);
 		foreach ($files as $file) {
+			if (!($file == '.htaccess')){
 		?>
 			<div class="menudiv">
 				<span>
@@ -84,6 +88,7 @@ $files = read_dir_contents('files', 'files');
 				</span>
 			</div>
 			<?php
+			}
 		}
 		unset($files);
 	}

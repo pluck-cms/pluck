@@ -215,9 +215,27 @@ function sanitize($var, $html = true) {
  */
 function preventXSS($var) {
 	$var = str_replace('\'', '', $var);
+	$var = htmlspecialchars($var, ENT_COMPAT, 'UTF-8', false);
 
 	return $var;
 }
+
+/**
+ * latinOnlyInput from a URL, to make it ready for saving in a file.
+ *
+ * @since 4.7.5
+ * @package all
+ * @param string $var Variable 
+ * @return string The sanitized variable.
+ * 
+ * Added as bugfix for XSS and backdoor file upload found by s7acktrac3
+ */
+function latinOnlyInput($var) {
+	$var = str_replace(chr(0), '', $var);
+	$var = preg_replace("/[^a-zA-Z0-9.\ -_]+/", "", $var);;
+	return $var;
+}
+
 
 /**
  * Displays or returns an error, notice or success message.
