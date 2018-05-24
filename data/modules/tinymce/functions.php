@@ -118,7 +118,8 @@ function tinymce_display_code() {
 				$files = read_dir_contents('files', 'files');
 				if ($files) { ?>
 					menu: [ <?php
-					foreach ($files as $file) {
+						natcasesort($files);
+						foreach ($files as $file) {
 						?>{
 							text: '<?php echo sanitize($file); ?>',
 							onclick: function() {
