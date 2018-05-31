@@ -38,7 +38,7 @@ if (isset($_POST['submit'])) {
         $imagewhitelist = array('jfif', '.png', '.jpg', '.gif', 'jpeg');  
         if (!in_array(strtolower(substr($_FILES['imagefile']['name'], -4)), $imagewhitelist)){
 			show_error($lang['general']['upload_failed'], 1);
-			/* end of fix issue 44. Thanks to Klaus.  */
+		}else{	/* end of fix issue 44. Thanks to Klaus.  */
 			if (!copy($_FILES['imagefile']['tmp_name'], 'images/'.latinOnlyInput($_FILES['imagefile']['name'])))
 				show_error($lang['general']['upload_failed'], 1);
 			else {
