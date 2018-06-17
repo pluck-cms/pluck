@@ -93,14 +93,14 @@ if (isset($error))
 		<div id="meta-options" style="display: none;">
 			<label for="description"><?php echo $lang['general']['description']; ?></label>
 			<br />
-			<textarea id="description" name="description" rows="2" cols="40" class="white"><?php if (isset($description)) echo $description; ?></textarea>
+			<textarea id="description" name="description" rows="2" cols="40" class="white mceNoEditor"><?php if (isset($description)) echo $description; ?></textarea>
 			<br />
 
 			<label for="keywords"><?php echo $lang['editmeta']['keywords']; ?></label>
 			<br />
 			<span class="kop4"><?php echo $lang['editmeta']['comma']; ?></span>
 			<br />
-			<textarea id="keywords" name="keywords" rows="1" cols="40" class="white"><?php if (isset($keywords)) echo $keywords; ?></textarea>
+			<textarea id="keywords" name="keywords" rows="1" cols="40" class="white mceNoEditor"><?php if (isset($keywords)) echo $keywords; ?></textarea>
 		</div>
 	</div>
 
