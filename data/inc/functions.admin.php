@@ -441,9 +441,12 @@ function save_page($title, $content, $hidden, $subpage = null, $description = nu
 	else
 		$seo_title = seo_url($title);
 	
-	//Check if the seo url  is empty.
-	if (empty($seo_title))
-		return false;
+	//fix for issue #27 if non latin text is used as the title, the filename is replaced with the date to prevent breaking Pluck.
+	// The SEO Name is no longer SEO and not a representation of the Title, but translating UNICODE to Latin in pluck is not doable
+	$seo_title = latinOnlyInput($seo_title);
+	if (empty($seo_title)) {
+		$seo_title = date("YmdHis");
+	}
 
 	//Check if a page already exists with the name.
 	if ((!isset($current_seoname) || $current_seoname != $subpage.$seo_title) && get_page_filename($subpage.$seo_title) != false)
