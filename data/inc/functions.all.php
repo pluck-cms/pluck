@@ -198,6 +198,8 @@ function save_file($file, $content, $chmod = 0777) {
 function sanitize($var, $html = true) {
 	$var = str_replace('\\', '\\\\', $var);
 	$var = str_replace('\'', '\\\'', $var);
+	$var = str_replace('<', '', $var);
+	$var = str_replace('>', '', $var);
 
 	if ($html == true)
 		$var = htmlspecialchars($var, ENT_COMPAT, 'UTF-8', false);
@@ -215,6 +217,8 @@ function sanitize($var, $html = true) {
  */
 function preventXSS($var) {
 	$var = str_replace('\'', '', $var);
+	$var = str_replace('<', '', $var);
+	$var = str_replace('>', '', $var);
 	$var = htmlspecialchars($var, ENT_COMPAT, 'UTF-8', false);
 
 	return $var;
