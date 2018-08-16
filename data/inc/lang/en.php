@@ -132,7 +132,7 @@ $lang['credits']['tinymce']        = 'for making the excellent TinyMCE-editor us
 $lang['credits']['maxgtar']        = 'for making MaxgTar, used in the automatic theme and module installer';
 $lang['credits']['lytebox']        = 'for developing LyteBox, used in pluck to serve the images in your albums with flair';
 $lang['credits']['tango']          = 'for designing the wonderful icons used in the pluck administration center';
-$lang['credits']['slik']           = 'for designing the "Silk" icons, also used in pluck';
+$lang['credits']['captcha']           = 'for Captcha implementation';
 
 //Page
 $lang['page']['title']        = 'pages';
