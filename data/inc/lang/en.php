@@ -204,6 +204,9 @@ $lang['settings']['email_descr']       = 'your email address will be used to all
 $lang['settings']['changing_settings'] = 'Saving settings...';
 $lang['settings']['fill_name']         = 'You have to fill in a name for your website, it can\'t be empty.';
 $lang['settings']['email_invalid']     = 'The email address you entered is invalid!';
+$lang['settings']['captcha']   = "Enter the verification code";
+$lang['settings']['notvalid']  = "Verification code not entered correctly";
+
 
 //Modules_manage
 $lang['modules_manage']['title']             = 'manage modules';
