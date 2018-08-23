@@ -531,7 +531,7 @@ function save_page($title, $content, $hidden, $subpage = null, $description = nu
 	$data = '<?php'."\n"
 	.'$title = \''.sanitize($title).'\';'."\n"
 	.'$seoname = \''.sanitize($seo_title).'\';'."\n"
-	.'$content = \''.sanitize($content, false).'\';'."\n"
+	.'$content = \''.sanitizePageContent($content, false).'\';'."\n"
 	.'$hidden = \''.$hidden.'\';';
 
 	//Save the description and keywords, if any.

@@ -206,6 +206,24 @@ function sanitize($var, $html = true) {
 
 	return $var;
 }
+/**
+ * Sanitize a variable, to make it ready for saving in a file.
+ *
+ * @since 4.7
+ * @package all
+ * @param string $var The variable to sanitize.
+ * @param boolean $html Should it convert HTML too? Defaults to true.
+ * @return string The sanitized variable.
+ */
+function sanitizePageContent($var, $html = true) {
+	$var = str_replace('\\', '\\\\', $var);
+	$var = str_replace('\'', '\\\'', $var);
+
+	if ($html == true)
+		$var = htmlspecialchars($var, ENT_COMPAT, 'UTF-8', false);
+
+	return $var;
+}
 
 /**
  * PreventXSS from a URL, to make it ready for saving in a file.
