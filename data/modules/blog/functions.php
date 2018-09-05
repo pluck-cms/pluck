@@ -39,7 +39,7 @@ function blog_save_post($title, $category, $content, $current_seoname = null, $f
 
 	//Sanitize variables.
 	$title = sanitize($title, true);
-	$content = sanitize($content, false);
+	$content = sanitizePageContent($content, false);
 
 	if (!empty($current_seoname)) {
 		$current_filename = blog_get_post_filename($current_seoname);
