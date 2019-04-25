@@ -38,7 +38,7 @@ if (isset($_POST['submit'])) {
 			$lastfour = strtolower(substr(latinOnlyInput($_FILES['filefile']['name']), -4));
 			$lastfive = strtolower(substr(latinOnlyInput($_FILES['filefile']['name']), -5));
 			$blockedExtentions = array('.php','php3','php4','php5','php6','php7','phtml');
-			if (in_array($lastfour, $blockedExtentions) or in_array($lastfive, $blockedExtentions) ){
+			if (in_array($lastfour, $blockedExtentions) or in_array($lastfive, $blockedExtentions)  or in_array($lastfive, '.htaccess') ){
 				if (!rename('files/'.latinOnlyInput($_FILES['filefile']['name']), 'files/'.latinOnlyInput($_FILES['filefile']['name']).'.txt')){
 					show_error($lang['general']['upload_failed'], 1);
 				}
