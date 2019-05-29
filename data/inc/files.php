@@ -35,10 +35,11 @@ if (isset($_POST['submit'])) {
 		if (!copy($_FILES['filefile']['tmp_name'], 'files/'.latinOnlyInput(latinOnlyInput($_FILES['filefile']['name']))))
 			show_error($lang['general']['upload_failed'], 1);
 		else {
-			$lastfour = strtolower(substr(latinOnlyInput($_FILES['filefile']['name']), -4));
-			$lastfive = strtolower(substr(latinOnlyInput($_FILES['filefile']['name']), -5));
+			$filenamestr = strtolower(latinOnlyInput($_FILES['filefile']['name']));
+			$lastfour = substr($filenamestr, -4);
+			$lastfive = substr($filenamestr, -5);
 			$blockedExtentions = array('.php','php3','php4','php5','php6','php7','phtml');
-			if (in_array($lastfour, $blockedExtentions) or in_array($lastfive, $blockedExtentions)  or in_array($lastfive, '.htaccess') ){
+			if (in_array($lastfour, $blockedExtentions) or in_array($lastfive, $blockedExtentions)  or (strpos($filenamestr, '.htaccess') > 0) ){
 				if (!rename('files/'.latinOnlyInput($_FILES['filefile']['name']), 'files/'.latinOnlyInput($_FILES['filefile']['name']).'.txt')){
 					show_error($lang['general']['upload_failed'], 1);
 				}
