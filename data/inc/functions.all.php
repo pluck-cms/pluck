@@ -254,7 +254,7 @@ function preventXSS($var) {
  */
 function latinOnlyInput($var) {
 	$var = str_replace(chr(0), '', $var);
-	$var = preg_replace("/[^a-zA-Z0-9.\ -_]+/", "", $var);;
+	$var = preg_replace("/[^a-zA-Z0-9.\ \-_]+/", "", $var);;
 	return $var;
 }
 
