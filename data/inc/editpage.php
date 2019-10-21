@@ -28,7 +28,9 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 	run_hook('admin_save_page_afterpost', array(&$module_additional_data));
 
 	if (!isset($_POST['hidden']))
-		$_POST['hidden'] = 'yes';
+		$hiddenposted = 'yes';
+	else
+		$hiddenposted = 'no';
 
 	//Save the page, but only if a title has been entered and it's seo url is not empty.
 	if (!empty($_POST['title']) && seo_url($_POST['title'])) {
@@ -39,10 +41,10 @@ if (isset($_POST['save']) || isset($_POST['save_exit'])) {
 			$title = $_POST['title'];
 		//If we are editing an existing page, pass current seo-name.
 		if (isset($_GET['page'])) {
-			$seoname = latinOnlyInput(save_page($title, $_POST['content'], $_POST['hidden'], $_POST['sub_page'], $_POST['description'], $_POST['keywords'], $module_additional_data, $_GET['page']));
+			$seoname = latinOnlyInput(save_page($title, $_POST['content'], $hiddenposted, $_POST['sub_page'], $_POST['description'], $_POST['keywords'], $module_additional_data, $_GET['page']));
 		} else {
 		//If we are creating a new page, don't pass seo-name.
-			$seoname = latinOnlyInput(save_page($title, $_POST['content'], $_POST['hidden'], $_POST['sub_page'], $_POST['description'], $_POST['keywords'], $module_additional_data));
+			$seoname = latinOnlyInput(save_page($title, $_POST['content'], $hiddenposted, $_POST['sub_page'], $_POST['description'], $_POST['keywords'], $module_additional_data));
 		}
 		//If seoname is false, a file already exists with the same name
 		if (empty($seoname)) {
