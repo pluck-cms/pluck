@@ -176,3 +176,7 @@ function confirmation(message) {
 <?php if (isset($titelkop)): ?>
 	<h2><?php echo $titelkop; ?></h2>
 <?php endif; ?>
+<?php 
+if (version_compare(PHP_VERSION, '7.0.0', '<')) {
+    show_error("You PHP version is to low and your installation might be at risk", 1);
+}
