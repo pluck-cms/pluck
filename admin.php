@@ -54,7 +54,7 @@ else {
 
 	//Define pages.
 	//------------
-	if (isset($_GET['action'])) {
+	if (isset($_GET['action']) && requestedByTheSameDomain() ) {
 		switch ($_GET['action']) {
 			//Page:Start
 			case 'start':
@@ -292,7 +292,14 @@ else {
 	//Module pages.
 	elseif (isset($_GET['module']))
 		require_once ('data/inc/modules_admininclude.php');
+	
+	//Request originating not from same server
+	elseif (!requestedByTheSameDomain()) {
+		$titelkop = $lang['start']['title'];
+		include_once ('data/inc/header.php');
+		include_once ('data/inc/start.php');
 
+	}
 	//Unknown pages.
 	else {
 		header('Location: ?action=start');

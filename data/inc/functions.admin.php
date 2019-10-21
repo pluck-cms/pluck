@@ -641,4 +641,18 @@ function check_update_version($version) {
 	return 'error';
 	
 }
-?>
+
+/**
+ * Checking if the request originates from the originating server
+ *
+ * @since 4.7.10
+ * @package admin
+ * @return boolean true / false
+ */
+
+function requestedByTheSameDomain() {
+    $myDomain       = $_SERVER['SCRIPT_URI'];
+    $requestsSource = $_SERVER['HTTP_REFERER'];
+
+    return parse_url($myDomain, PHP_URL_HOST) === parse_url($requestsSource, PHP_URL_HOST);
+}
