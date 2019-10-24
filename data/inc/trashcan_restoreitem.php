@@ -53,7 +53,7 @@ elseif ($var2 == 'file' && file_exists('data/trash/files/'.$var1)) {
 	else {
 		$filename = 'copyof_'.$var1;
 		copy('data/trash/files/'.$var1, 'files/'.$filename);
-		chmod('files/'.$filename.'.'.$extension, 0777);
+		chmod('files/'.$filename, 0777);
 		unlink('data/trash/files/'.$var1);
 	}
 
@@ -73,7 +73,7 @@ elseif ($var2 == 'image' && file_exists('data/trash/images/'.$var1)) {
 	else {
 		$filename = 'copyof_'.$var1;
 		copy('data/trash/images/'.$var1, 'images/'.$filename);
-		chmod('images/'.$filename.'.'.$extension, 0777);
+		chmod('images/'.$filename, 0777);
 		unlink('data/trash/images/'.$var1);
 	}
 
