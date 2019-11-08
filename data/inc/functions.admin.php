@@ -663,10 +663,10 @@ function requestedByTheSameDomain() {
 	} else {
 		$requestsSource = $null;
 	}
-
 	if ($mydomain != $null and $requestsSource != $null ){
 		return parse_url($myDomain, PHP_URL_HOST) === parse_url($requestsSource, PHP_URL_HOST);
 	} else {
 		show_error("Be carefull with clicking links, they might compromise your website. Your installation is not secured with measures to protect it.", 1);
+		return $true;
 	}
 }
