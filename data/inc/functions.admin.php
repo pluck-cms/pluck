@@ -651,8 +651,22 @@ function check_update_version($version) {
  */
 
 function requestedByTheSameDomain() {
-    $myDomain       = $_SERVER['SCRIPT_URI'];
-    $requestsSource = $_SERVER['HTTP_REFERER'];
+	if(isset($_SERVER['SCRIPT_URI'])){
+		$myDomain   = $_SERVER['SCRIPT_URI'];
+	} elseif(isset($_SERVER['SCRIPT_URI'])){
+		$myDomain	= $_SERVER['SCRIPT_URI'];
+	} else {
+		$myDomain = $null;
+	}
+	if(isset($_SERVER['HTTP_REFERER'])){
+	$requestsSource = $_SERVER['HTTP_REFERER'];
+	} else {
+		$requestsSource = $null;
+	}
 
-    return parse_url($myDomain, PHP_URL_HOST) === parse_url($requestsSource, PHP_URL_HOST);
+	if ($mydomain != $null and $requestsSource != $null ){
+		return parse_url($myDomain, PHP_URL_HOST) === parse_url($requestsSource, PHP_URL_HOST);
+	} else {
+		show_error("Be carefull with clicking links, they might compromise your website. Your installation is not secured with measures to protect it.", 1);
+	}
 }
