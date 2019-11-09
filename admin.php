@@ -53,8 +53,9 @@ else {
 	}
 
 	//Define pages.
+	$isCSRF = requestedByTheSameDomain();
 	//------------
-	if (isset($_GET['action']) && requestedByTheSameDomain() ) {
+	if (isset($_GET['action']) && $isCSRF ) {
 		switch ($_GET['action']) {
 			//Page:Start
 			case 'start':
@@ -294,12 +295,14 @@ else {
 		require_once ('data/inc/modules_admininclude.php');
 	
 	//Request originating not from same server
-	elseif (!requestedByTheSameDomain()) {
+	elseif (!$isCSRF) {
 		$titelkop = $lang['start']['title'];
 		include_once ('data/inc/header.php');
 		include_once ('data/inc/start.php');
 
 	}
+
+	
 	//Unknown pages.
 	else {
 		header('Location: ?action=start');
