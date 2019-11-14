@@ -52,7 +52,7 @@ if (!file_exists('data/settings/update_lastcheck.php') || (file_exists('data/set
 		curl_close($geturl);
 
 		// Find latest release
-		preg_match('/\<span class\=\"css-truncate-target\"\>(.*)\<\/span\>/', $response, $match);
+		preg_match('/\<span class\=\"css-truncate-target\" style\=\"max-width: 125px\"\>(.*)\<\/span\>/', $response, $match);
 
 		// Current latest release string
 		$update_available = strip_tags($match[0]);
