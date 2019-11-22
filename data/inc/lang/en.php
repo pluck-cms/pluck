@@ -132,7 +132,7 @@ $lang['credits']['tinymce']        = 'for making the excellent TinyMCE-editor us
 $lang['credits']['maxgtar']        = 'for making MaxgTar, used in the automatic theme and module installer';
 $lang['credits']['lytebox']        = 'for developing LyteBox, used in pluck to serve the images in your albums with flair';
 $lang['credits']['tango']          = 'for designing the wonderful icons used in the pluck administration center';
-$lang['credits']['captcha']           = 'for Captcha implementation';
+$lang['credits']['captcha']        = 'for Captcha implementation';
 
 //Page
 $lang['page']['title']        = 'pages';
@@ -204,9 +204,8 @@ $lang['settings']['email_descr']       = 'your email address will be used to all
 $lang['settings']['changing_settings'] = 'Saving settings...';
 $lang['settings']['fill_name']         = 'You have to fill in a name for your website, it can\'t be empty.';
 $lang['settings']['email_invalid']     = 'The email address you entered is invalid!';
-$lang['settings']['captcha']   = "Enter the verification code";
-$lang['settings']['notvalid']  = "Verification code not entered correctly";
-
+$lang['settings']['captcha']           = "Enter the verification code";
+$lang['settings']['notvalid']          = "Verification code not entered correctly";
 
 //Modules_manage
 $lang['modules_manage']['title']             = 'manage modules';

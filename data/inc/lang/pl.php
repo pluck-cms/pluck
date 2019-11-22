@@ -5,9 +5,9 @@ $language	= 'Polish';
 //Translation data.
 
 //General
-$lang['general']['404']	= '404: nie znaleziono';
-$lang['general']['not_found']	= 'Tej strony nie odnaleziono.';
-$lang['general']['copyright']	= 'Pluck został udostępniony na warunkach <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>.';
+$lang['general']['404']				= '404: nie znaleziono';
+$lang['general']['not_found']		= 'Tej strony nie odnaleziono.';
+$lang['general']['copyright']		= 'Pluck został udostępniony na warunkach <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>.';
 $lang['general']['save']			= 'Zapisz';
 $lang['general']['save_exit']		= 'Zapisz i wyjdź';
 $lang['general']['cancel']			= 'Anuluj';
@@ -23,6 +23,7 @@ $lang['general']['insert']			= 'wstaw';
 $lang['general']['insert_module']	= 'wstaw moduł';
 $lang['general']['insert_image']	= 'wstaw obraz';
 $lang['general']['insert_file']   	= 'wstaw plik';
+$lang['general']['insert_page']		= 'wstaw stronę';
 $lang['general']['dont_display']	= 'Nie wyświetlaj';
 $lang['general']['upload']			= 'Przesyłanie';
 $lang['general']['change_title']	= 'zmień tytuł';
@@ -40,14 +41,14 @@ $lang['general']['website']			= 'Strona www:';
 $lang['general']['pluck_dev_team']	= 'Zespół programistów plucka';
 
 //Login
-$lang['login']['not']	= 'nie zalogowany';
-$lang['login']['not_message']	= 'Nie jesteś zalogowany! Proszę czekać...';
-$lang['login']['title']	= 'zaloguj się';
-$lang['login']['password']	= 'hasło';
-$lang['login']['correct']	= 'Hasło poprawne. Loguję...';
-$lang['login']['incorrect']	= 'Błędne hasło';
+$lang['login']['not']				= 'nie zalogowany';
+$lang['login']['not_message']		= 'Nie jesteś zalogowany! Proszę czekać...';
+$lang['login']['title']				= 'zaloguj się';
+$lang['login']['password']			= 'hasło';
+$lang['login']['correct']			= 'Hasło poprawne. Loguję...';
+$lang['login']['incorrect']			= 'Błędne hasło';
 $lang['login']['too_many_attempts']	= 'Wyczerpałeś limit prób logowania. Poczekaj 5 minut przed kolejną próbą logowania.';
-$lang['login']['log_out']	= 'wyloguj się';
+$lang['login']['log_out']			= 'wyloguj się';
 
 //Install
 $lang['install']['not']	= 'nie zainstalowano';
@@ -113,7 +114,7 @@ $lang['credits']['tinymce']	= 'za stworzenie wspaniałego edytora TinyMCE używa
 $lang['credits']['maxgtar']	= 'za stworzenie MaxgTar, używanego do obsługi spakowanych skórek i instalacji modułów';
 $lang['credits']['lytebox']	= 'za rozwój for LyteBox, używanego w plucku do zarządzania sprytnie grafikami';
 $lang['credits']['tango']	= 'za stworzenie wspaniałych ikon używanych w centrum administracji plucka';
-$lang['credits']['slik']	= 'za stworzenie ikon "Silk", również używanych w plucku';
+$lang['credits']['captcha'] = 'za implementację Captcha';
 
 //Page
 $lang['page']['title']		= 'strony';
@@ -121,7 +122,6 @@ $lang['page']['message']	= 'Tutaj możesz zarządzać, edytować i kasować swoj
 $lang['page']['change_order']	= 'zmień kolejność stron';
 $lang['page']['top']		= 'Ta strona jest już na samej górze, więc nie można zmienić jej położenia';
 $lang['page']['last']		= 'Ta strona jest już na samym dole, więc nie można zmienić jej położenia';
-$lang['page']['seo_urls']	= 'Bezpośredni odnośnik';
 
 //Newpage and Editpage
 $lang['page']['new']	= 'nowa strona';
@@ -134,6 +134,7 @@ $lang['page']['in_menu']	= 'pokaż stronę w menu';
 $lang['page']['sub_page']	= 'podstrona strony';
 $lang['page']['name_exists']	= 'Strona o tej samej lub podobnej nazwie już istnieje.<br />Zmień tytuł tej lub tamtej strony.';
 $lang['page']['no_title']	= 'Wpisz tytuł strony.';
+$lang['page']['seo_urls']	= 'Bezpośredni odnośnik';
 
 //Editmeta
 $lang['editmeta']['title']	= 'edytuj informacje o stronie';
@@ -185,6 +186,8 @@ $lang['settings']['email_descr']	= 'Twój adres e-mail posłuży do kontaktu z T
 $lang['settings']['changing_settings']	= 'Zmieniam ustawienia globalne...';
 $lang['settings']['fill_name']	= 'Musisz wprowadzić nazwę strony, to pole nie może być puste.';
 $lang['settings']['email_invalid']	= 'Adres e-mail który podałeś nie jest prawidłowy!';
+$lang['settings']['captcha']   = "Wpisz kod weryfikacyjny";
+$lang['settings']['notvalid']  = "Kod weryfikacyjny wprowadzony błędnie";
 
 //Modules_manage
 $lang['modules_manage']['title']	= 'zarządzanie modułami';
@@ -215,9 +218,9 @@ $lang['modules_install']['too_big']	= 'Plik modułu jest za duży; limit to 2MB.
 $lang['modules_install']['success']	= 'Moduł został zainstalowany pomyślnie.';
 
 //Theme
-$lang['theme']['title']	= 'wybierz skórkę';
+$lang['theme']['title']		= 'wybierz skórkę';
 $lang['theme']['choose']	= 'Wybierz która z zainstalowanych skórek ma zostać użyta.';
-$lang['theme']['saved']	= 'Ustawienia skórki zostały zapisane.';
+$lang['theme']['saved']		= 'Ustawienia skórki zostały zapisane.';
 
 //Themeuninstall
 $lang['theme_uninstall']['title']	= 'odinstaluj skórkę';
