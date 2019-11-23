@@ -27,7 +27,7 @@ $lang['general']['insert_page']		= 'wstaw stronę';
 $lang['general']['dont_display']	= 'Nie wyświetlaj';
 $lang['general']['upload']			= 'Przesyłanie';
 $lang['general']['change_title']	= 'zmień tytuł';
-$lang['general']['files']         	= 'pliki';
+$lang['general']['files']			= 'pliki';
 $lang['general']['images']			= 'obrazki';
 $lang['general']['not_valid_file']	= 'Instalacja nie powiodła się: wybrany plik nie jest rozpoznawany.';
 $lang['general']['none']			= 'brak';
@@ -38,7 +38,7 @@ $lang['general']['name']			= 'Twoje Imię:';
 $lang['general']['email']			= 'Twój e-mail:';
 $lang['general']['message']			= 'Wiadomość:';
 $lang['general']['website']			= 'Strona www:';
-$lang['general']['pluck_dev_team']	= 'Zespół programistów plucka';
+$lang['general']['pluck_dev_team']	= 'Zespół programistów Plucka';
 
 //Login
 $lang['login']['not']				= 'nie zalogowany';
@@ -51,11 +51,11 @@ $lang['login']['too_many_attempts']	= 'Wyczerpałeś limit prób logowania. Pocz
 $lang['login']['log_out']			= 'wyloguj się';
 
 //Install
-$lang['install']['not']	= 'nie zainstalowano';
-$lang['install']['not_message']	= 'pluck nie został jeszcze zainstalowany. Proszę czekać...';
-$lang['install']['already']	= 'pluck został już zainstalowany. Proszę czekać...';
+$lang['install']['not']		= 'nie zainstalowano';
+$lang['install']['not_message']	= 'Pluck nie został jeszcze zainstalowany. Proszę czekać...';
+$lang['install']['already']	= 'Pluck został już zainstalowany. Proszę czekać...';
 $lang['install']['title']	= 'instalacja';
-$lang['install']['welcome']	= 'Witaj! Zanim rozpoczniesz konfigurację Twojej nowej strony, musisz najpierw zainstalować plucka.';
+$lang['install']['welcome']	= 'Witaj! Zanim rozpoczniesz konfigurację Twojej nowej strony, musisz najpierw zainstalować Plucka.';
 $lang['install']['start']	= 'Rozpocznij instalację.';
 $lang['install']['step_1']	= 'krok 1';
 $lang['install']['step_2']	= 'krok 2';
@@ -65,55 +65,55 @@ $lang['install']['good']	= 'Dobrze';
 $lang['install']['refresh']	= 'Odśwież';
 $lang['install']['proceed']	= 'Kontynuuj...';
 $lang['install']['homepage']	= 'W tym miejscu możesz edytować stronę główną. Wpisz tytuł i edytuj treść.';
-$lang['install']['success']	= 'pluck został zainstalowany poprawnie!';
+$lang['install']['success']	= 'Pluck został zainstalowany poprawnie!';
 $lang['install']['manage']	= 'zarządzaj Twoją stroną';
 $lang['install']['general_info']	= 'Wpisz tutaj ogólne informacje o Tobie i Twojej stronie.';
 
 //Update
-$lang['update']['up_to_date']	= 'pluck jest w najnowszej wersji';
+$lang['update']['up_to_date']	= 'Pluck jest w najnowszej wersji';
 $lang['update']['available']	= 'dostępna jest nowa wersja';
 $lang['update']['urgent']	= '<strong>pilne</strong> - dostępna jest nowa wersja';
 $lang['update']['failed']	= 'sprawdzanie aktualizacji nie powiodło się';
 
 //Trashcan
-$lang['trashcan']['title']	= 'kosz';
+$lang['trashcan']['title']			= 'kosz';
 $lang['trashcan']['items_in_trash']	= 'obiekty w koszu';
 $lang['trashcan']['move_to_trash']	= 'przenieś do kosza';
 $lang['trashcan']['moving_item']	= 'Przenoszę do kosza...';
-$lang['trashcan']['same_name']	= 'Nie można przenieść do kosza: w koszu znajduję się już obiekt o takiej samej nazwie.';
-$lang['trashcan']['message']	= 'Tutaj znajdują się usunięte obiekty. Możesz je przywrócić lub trwale usunąć.';
-$lang['trashcan']['empty']	= 'opróżnij kosz';
+$lang['trashcan']['same_name']		= 'Nie można przenieść do kosza: w koszu znajduję się już obiekt o takiej samej nazwie.';
+$lang['trashcan']['message']		= 'Tutaj znajdują się usunięte obiekty. Możesz je przywrócić lub trwale usunąć.';
+$lang['trashcan']['empty']			= 'opróżnij kosz';
 $lang['trashcan']['empty_confirm']	= 'Jesteś pewien że chcesz opróżnić kosz? Wszystkie zgromadzone w nim obiekty będą trwale usunięte.';
-$lang['trashcan']['view_item']	= 'podgląd';
+$lang['trashcan']['view_item']		= 'podgląd';
 $lang['trashcan']['delete_item']	= 'usuń trwale z kosza';
-$lang['trashcan']['deleting']	= 'Usuwanie obiektu z kosza...';
+$lang['trashcan']['deleting']		= 'Usuwanie obiektu z kosza...';
 $lang['trashcan']['restore_item']	= 'przywróć obiekt';
-$lang['trashcan']['restoring']	= 'Przywracanie obiektu z kosza...';
+$lang['trashcan']['restoring']		= 'Przywracanie obiektu z kosza...';
 $lang['trashcan']['same_page_name']	= 'Nie można przywrócić strony: strona o tej nazwie już istnieje.';
 
 //Start
-$lang['start']['title']	= 'start';
-$lang['start']['welcome']	= 'Witaj w centrum administracyjnym plucka.';
+$lang['start']['title']		= 'start';
+$lang['start']['welcome']	= 'Witaj w centrum administracyjnym Plucka.';
 $lang['start']['manage']	= 'Tutaj możesz zarządzać Twoją stroną. Wybierz link z menu na górze ekranu.';
-$lang['start']['more']	= 'więcej...';
+$lang['start']['more']		= 'więcej...';
 $lang['start']['website']	= 'podgląd strony';
 $lang['start']['result']	= 'sprawdź jak wygląda Twoja strona';
-$lang['start']['people']	= 'wszyscy, którzy pomogli przy tworzeniu plucka';
-$lang['start']['help']	= 'potrzebujesz pomocy?';
-$lang['start']['love']	= 'z przyjemnością Ci pomożemy';
+$lang['start']['people']	= 'wszyscy, którzy pomogli przy tworzeniu Plucka';
+$lang['start']['help']		= 'potrzebujesz pomocy?';
+$lang['start']['love']		= 'z przyjemnością Ci pomożemy';
 
 //Credits
 $lang['credits']['title']	= 'zasłużeni';
-$lang['credits']['message']	= 'Podziękowania dla następujących osób, za pomoc w tworzeniu plucka.';
+$lang['credits']['message']	= 'Podziękowania dla następujących osób, za pomoc w tworzeniu Plucka.';
 $lang['credits']['project_leader']	= 'lider projektu';
 $lang['credits']['developers']	= 'główni projektanci';
 $lang['credits']['contributions']	= 'współpracownicy';
 $lang['credits']['translation']	= 'tłumaczenie';
 $lang['credits']['more']	= 'więcej podziękowań';
-$lang['credits']['tinymce']	= 'za stworzenie wspaniałego edytora TinyMCE używanego w plucku';
+$lang['credits']['tinymce']	= 'za stworzenie wspaniałego edytora TinyMCE używanego w Plucku';
 $lang['credits']['maxgtar']	= 'za stworzenie MaxgTar, używanego do obsługi spakowanych skórek i instalacji modułów';
-$lang['credits']['lytebox']	= 'za rozwój for LyteBox, używanego w plucku do zarządzania sprytnie grafikami';
-$lang['credits']['tango']	= 'za stworzenie wspaniałych ikon używanych w centrum administracji plucka';
+$lang['credits']['lytebox']	= 'za rozwój for LyteBox, używanego w Plucku do zarządzania sprytnie grafikami';
+$lang['credits']['tango']	= 'za stworzenie wspaniałych ikon używanych w centrum administracji Plucka';
 $lang['credits']['captcha'] = 'za implementację Captcha';
 
 //Page
@@ -169,12 +169,12 @@ $lang['modules']['message']	= 'Pluck ma dostępnych wiele modułów, które mog�
 
 //Options
 $lang['options']['title']	= 'opcje';
-$lang['options']['message']	= 'Tutaj możesz skonfigurować plucka tak, aby sprostał Twoim wymaganiom i gustom';
+$lang['options']['message']	= 'Tutaj możesz skonfigurować Pluck tak, aby sprostał Twojemu gustowi i wymaganiom';
 $lang['options']['settings_descr']	= 'Zmień ustawienia globalne jak tytuł strony lub Twój adres e-mail.';
 $lang['options']['modules_descr']	= 'zarządzaj modułami i dołącz je do swojej strony';
 $lang['options']['modules_sett_descr']	= 'zmień ustawienia modułów';
 $lang['options']['themes_descr']	= 'zmień wizerunek Twojej strony';
-$lang['options']['lang_descr']	= 'wybierz język którego będzie używał pluck';
+$lang['options']['lang_descr']	= 'wybierz język którego będzie używał Pluck';
 $lang['options']['pass_descr']	= 'regularna zmiana hasła to bardzo dobry pomysł';
 
 //Settings
@@ -192,7 +192,7 @@ $lang['settings']['notvalid']  = "Kod weryfikacyjny wprowadzony błędnie";
 //Modules_manage
 $lang['modules_manage']['title']	= 'zarządzanie modułami';
 $lang['modules_manage']['message']	= 'Tutaj możesz zmienić ustawienia zainstalowanych modułów, usuwać nieużywane, lub szukać nowych do zwiększenia użyteczności strony. Możesz także dodać moduły do strony przez wybranie <i>Dodaj do strony moduł</i>.';
-$lang['modules_manage']['add']	= 'Dodaj do strony moduły...';
+$lang['modules_manage']['add']	= 'Dodaj moduły do strony...';
 $lang['modules_manage']['install']	= 'Zainstaluj moduł...';
 $lang['modules_manage']['information']	= 'informacja o module';
 $lang['modules_manage']['uninstall']	= 'odinstaluj moduł';
@@ -200,7 +200,7 @@ $lang['modules_manage']['uninstall_confirm']	= 'Czy jesteś pewien że chcesz od
 $lang['modules_manage']['version']	= 'wersja';
 $lang['modules_manage']['author']	= 'autor';
 $lang['modules_manage']['website']	= 'strona www';
-$lang['modules_manage']['not_compatible']	= 'Ten moduł został wyłączony gdyż nie jest zgodny z Twoją wersją plucka.';
+$lang['modules_manage']['not_compatible']	= 'Ten moduł został wyłączony gdyż nie jest zgodny z Twoją wersją Plucka.';
 
 //Modules_settings
 $lang['modules_settings']['title']	= 'ustawienia modułów';
@@ -237,12 +237,12 @@ $lang['theme_install']['too_big']	= 'Plik ze skórką jest za duży; limit wynos
 
 //Language
 $lang['language']['title']	= 'ustawienia języków';
-$lang['language']['choose']	= 'Wybierz język którego będzie używał pluck.';
+$lang['language']['choose']	= 'Wybierz język którego będzie używał Pluck.';
 $lang['language']['saved']	= 'Ustawienia językowe zostały zapisane.';
 
 //Changepass
 $lang['changepass']['title']	= 'zmień hasło';
-$lang['changepass']['message']	= 'Tutaj możesz zmienić hasło, którego używasz do logowania się do <i>plucka</i>. Regularna zmiana hasła to bardzo dobry pomysł.';
+$lang['changepass']['message']	= 'Tutaj możesz zmienić hasło, którego używasz do logowania się do <i>Plucka</i>. Regularna zmiana hasła to bardzo dobry pomysł.';
 $lang['changepass']['old']	= 'stare hasło';
 $lang['changepass']['new']	= 'nowe hasło';
 $lang['changepass']['repeat']	= 'powtórz hasło';
