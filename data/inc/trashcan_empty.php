@@ -21,6 +21,8 @@ recursive_remove_directory('data/trash/images', true);
 //Pages
 recursive_remove_directory('data/trash/pages', true);
 
+recursive_remove_directory('data/trash/files', true);
+
 //Redirect
 redirect('?action=trashcan', 0);
 ?>
