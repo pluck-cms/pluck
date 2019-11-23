@@ -163,5 +163,5 @@ if ($langpref != 'en.php') {
 	<br />
 	<a href="http://www.gnome.org" target="_blank">Gnome</a> &amp; <a href="http://tango.freedesktop.org" target="_blank">Tango</a> projects, <?php echo $lang['credits']['tango']; ?>
 	<br />
-	<a href="https://github.com/yasirmturk/simple-php-captcha" target="_blank">Simple PHP Captcha</a>, <?php echo $lang['credits']['captcha']; ?> */
+	<a href="https://github.com/yasirmturk/simple-php-captcha" target="_blank">Simple PHP Captcha</a>, <?php echo $lang['credits']['captcha']; ?>
 </p>
