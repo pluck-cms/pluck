@@ -77,7 +77,9 @@ if (isset($error))
 				<?php	
 					//include_once 'simple-php-captcha/simple-php-captcha.php';
 
-					session_start();
+					if (session_status() == PHP_SESSION_NONE) {
+						session_start();
+					}
 					include("lib/simple-php-captcha/simple-php-captcha.php");
 					$_SESSION['captcha'] = simple_php_captcha();
 					echo "<img src='".$_SESSION['captcha']['image_src']."' />";
