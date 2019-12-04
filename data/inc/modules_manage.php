@@ -43,7 +43,7 @@ foreach($module_list as $module) {
 					//If module has been disabled, show warning
 					if (!module_is_compatible($module)) {
 					?>
-						<span style="color: red;"><?php echo $lang['modules_manage']['not_compatible']; ?></span>
+						<span style="color: red;"><?php echo $module . ' - '. $lang['modules_manage']['not_compatible']; ?></span>
 					<?php
 					}
 				?>
