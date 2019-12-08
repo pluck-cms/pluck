@@ -30,11 +30,15 @@ defined('IN_PLUCK') or exit('Access denied!');
 //Display modules
 foreach($module_list as $module) {
 	$module_info = call_user_func($module.'_info');
+	if (!isset($module_info['icon']))
+			$module_info['icon'] = 'data/image/credits.png';
+		else
+			$module_info['icon'] = 'data/modules/'.$module.'/'.$module_info['icon'];
 	?>
 	<div class="menudiv">
 		<div>
 			<span>
-				<img src="data/modules/<?php echo $module; ?>/<?php echo $module_info['icon']; ?>" alt="" />
+				<img src="<?php echo $module_info['icon']; ?>" alt="" />
 			</span>
 			<span>
 				<span class="title-module"><?php echo $module_info['name']; ?></span>
