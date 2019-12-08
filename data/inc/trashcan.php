@@ -35,7 +35,10 @@ else
 		<span>
 			<?php echo $trashcan_items.' '.$lang['trashcan']['items_in_trash']; ?>
 			<br />
-			<a href="?action=trashcan_empty" onclick="return confirm('<?php echo $lang['trashcan']['empty_confirm']; ?>');"><?php echo $lang['trashcan']['empty']; ?></a>
+			<?php if ($trashcan_items) { ?>
+				<a href="?action=trashcan_empty" onclick="return confirm('<?php echo $lang['trashcan']['empty_confirm']; ?>');"><?php echo $lang['trashcan']['empty']; ?></a>
+			<?php }
+			else echo $lang['trashcan']['empty']; ?>
 		</span>
 	</div>
 	<span class="kop2"><?php echo $lang['page']['title']; ?></span>
