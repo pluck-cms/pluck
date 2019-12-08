@@ -35,7 +35,11 @@ foreach ($module_list as $module) {
 	//Only show the button if there are admincenter pages for the module, and if the modules is compatible.
 	if (module_is_compatible($module) && function_exists($module.'_pages_admin')) {
 		$module_info = call_user_func($module.'_info');
-		showmenudiv($module_info['name'], $module_info['intro'], 'data/modules/'.$module.'/'.$module_info['icon'], '?module='.$module);
+		if (!isset($module_info['icon']))
+			$module_info['icon'] = 'data/image/credits.png';
+		else
+			$module_info['icon'] = 'data/modules/'.$module.'/'.$module_info['icon'];
+		showmenudiv($module_info['name'], $module_info['intro'], $module_info['icon'], '?module='.$module);
 	}
 }
 unset($module);
