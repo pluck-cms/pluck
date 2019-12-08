@@ -25,13 +25,13 @@ defined('IN_PLUCK') or exit('Access denied!');
 </p>
 <p>
 	<span class="kop2"><?php echo $lang['credits']['developers']; ?></span>
-	<a href="http://spirit55555.dk" target="_blank">Anders Jørgensen</a>
+	<a href="https://spirit55555.dk/" target="_blank">Anders Jørgensen</a>
 	<br />
-	<a href="http://www.ekyo.pl" target="_blank">Bogumił Cieniek</a>
+	<a href="https://github.com/ekyo-pl" target="_blank">Bogumił Cieniek</a>
 	<br />
 	<a href="http://www.somp.nl" target="_blank">Sander Thijsen</a>
 	<br />
-	<a href="http://billcreswell.com/" target="_blank">Bill Creswell</a>
+	<a href="http://billcreswell.com" target="_blank">Bill Creswell</a>
 
 </p>
 <p>
@@ -153,13 +153,13 @@ if ($langpref != 'en.php') {
 ?>
 <p>
 	<span class="kop2"><?php echo $lang['credits']['more']; ?></span>
-	<a href="http://tinymce.moxiecode.com" target="_blank">MoxieCode</a>, <?php echo $lang['credits']['tinymce']; ?>
+	<a href="https://www.tiny.cloud/ target="_blank">MoxieCode</a>, <?php echo $lang['credits']['tinymce']; ?>
 	<br />
 	<a href="http://maxg.info" target="_blank">Maxg</a>, <?php echo $lang['credits']['maxgtar']; ?>
 	<br />
 	<a href="https://plus.google.com/+MdShahadatHossainKhan/posts" target="_blank">Md. Shahadat Hossain Khan</a>, Unzip PHP Class
 	<br />
-	<a href="http://www.dolem.com/lytebox" target="_blank">Markus F. Hay</a>, <?php echo $lang['credits']['lytebox']; ?>
+	<a href="https://github.com/tnederveld/Lytebox" target="_blank">Markus F. Hay</a>, <?php echo $lang['credits']['lytebox']; ?>
 	<br />
 	<a href="http://www.gnome.org" target="_blank">Gnome</a> &amp; <a href="http://tango.freedesktop.org" target="_blank">Tango</a> projects, <?php echo $lang['credits']['tango']; ?>
 	<br />
