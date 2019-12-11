@@ -197,7 +197,7 @@ function albums_page_admin_editalbum() {
 
 				//Sanitize data.
 				$cont1 = sanitize($cont1);
-				$cont2 = sanitize($cont2);
+				$cont2 = sanitizePageContent($cont2);
 				$cont2 = nl2br($cont2);
 
 				//Compose the data.
@@ -299,7 +299,7 @@ function albums_page_admin_editimage() {
 		if (isset($_POST['save'])) {
 			//Sanitize data.
 			$cont1 = sanitize($cont1);
-			$cont2 = sanitize($cont2);
+			$cont2 = sanitizePageContent($cont2);
 			$cont2 = nl2br($cont2);
 
 			//Then save the image information.

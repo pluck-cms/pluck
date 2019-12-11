@@ -140,7 +140,7 @@ function albums_admin_show_images($album) {
 					<span class="title-page">
 						<span class="kop3"><?php echo $image['title']; ?></span>
 						<br />
-						<span class="small"><?php echo $image['info']; ?></span>
+						<span class="small"><?php echo trim(strip_tags(htmlspecialchars_decode($image['info']))); ?></span>
 					</span>
 					<span>
 						<a href="?module=albums&amp;page=editimage&amp;var1=<?php echo $var1; ?>&amp;var2=<?php echo $image['seoname']; ?>">
@@ -195,7 +195,7 @@ function albums_site_show_images($album) {
 							<td>
 								<span class="albuminfo"><?php echo $image['title']; ?></span>
 								<br />
-								<i><?php echo $image['info']; ?></i>
+								<i><?php echo htmlspecialchars_decode($image['info']); ?></i>
 							</td>
 						</tr>
 					</table>
