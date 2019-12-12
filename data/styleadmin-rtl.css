@@ -37,6 +37,7 @@ body {
 	color: gray;
 	position: relative;
 	bottom: 8px;
+	z-index: 1;
 }
 
 #menu a {
