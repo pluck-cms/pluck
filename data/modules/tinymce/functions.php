@@ -19,11 +19,18 @@ function tinymce_display_code() {
 	global $lang, $module_list; ?>
 	<script type="text/javascript" src="<?php echo TINYMCE_DIR; ?>/tinymce.min.js"></script>
 	<?php run_hook('tinymce_scripts'); ?>
+	<?php if (file_exists(TINYMCE_DIR.'/langs/'.LANG.'.js')) {
+		$language = LANG;
+	}
+	else
+		$language = 'en';
+	?>
 	<script type="text/javascript">
 		tinymce.init({
   			selector: 'textarea:not(.mceNoEditor)',
 			height: 600,
 			menubar:false,
+			language: <?php echo '\''.$language.'\''?>,
 			setup: function(editor) {
 				editor.addButton('mybutton', {
 					type: 'menubutton',
