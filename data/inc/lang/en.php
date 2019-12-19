@@ -108,7 +108,7 @@ $lang['trashcan']['deleting']       = 'Deleting item from trashcan...';
 $lang['trashcan']['restore_item']   = 'restore item';
 $lang['trashcan']['restoring']      = 'Restoring item from trashcan...';
 $lang['trashcan']['same_page_name'] = 'The page could not be restored from the trashcan: there is already a page with the same name.';
-
+$lang['trashcan']['notallowed']     = 'Deletion of this file is not allowed';
 //Start
 $lang['start']['title']   = 'start';
 $lang['start']['welcome'] = 'Welcome to the administration center of pluck.';
