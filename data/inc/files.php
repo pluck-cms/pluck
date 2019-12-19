@@ -33,7 +33,7 @@ defined('IN_PLUCK') or exit('Access denied!');
 <?php
 if (isset($_POST['submit'])) {
 	$filenamestr = strtolower(latinOnlyInput($_FILES['filefile']['name']));
-	if ($filenamestr == '.htaccess'){
+	if ($filenamestr == '.htaccess' or strtolower(substr($filenamestr, 0, 9)) == '.htaccess'){
 		show_error($lang['general']['upload_failed'], 1);
 	} else {
 		if (!copy($_FILES['filefile']['tmp_name'], 'files/'.latinOnlyInput(latinOnlyInput($_FILES['filefile']['name']))))
