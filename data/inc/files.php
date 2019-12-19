@@ -32,14 +32,17 @@ defined('IN_PLUCK') or exit('Access denied!');
 </div>
 <?php
 if (isset($_POST['submit'])) {
+	$filenamestr = strtolower(latinOnlyInput($_FILES['filefile']['name']));
+	if ($filenamestr == '.htaccess'){
+		show_error($lang['general']['upload_failed'], 1);
+	} else {
 		if (!copy($_FILES['filefile']['tmp_name'], 'files/'.latinOnlyInput(latinOnlyInput($_FILES['filefile']['name']))))
 			show_error($lang['general']['upload_failed'], 1);
 		else {
-			$filenamestr = strtolower(latinOnlyInput($_FILES['filefile']['name']));
 			$lastfour = substr($filenamestr, -4);
 			$lastfive = substr($filenamestr, -5);
 			$blockedExtentions = array('.php','php3','php4','php5','php6','php7','phtml','.phtm','.pht','.ph3','.ph4','.ph5','.asp','.cgi');
-			if (in_array($lastfour, $blockedExtentions) or in_array($lastfive, $blockedExtentions)  || ($filenamestr == '.htaccess') ){
+			if (in_array($lastfour, $blockedExtentions) or in_array($lastfive, $blockedExtentions) ){
 				if (!rename('files/'.latinOnlyInput($_FILES['filefile']['name']), 'files/'.latinOnlyInput($_FILES['filefile']['name']).'.txt')){
 					show_error($lang['general']['upload_failed'], 1);
 				}
@@ -58,7 +61,8 @@ if (isset($_POST['submit'])) {
 					<strong><?php echo $lang['files']['success']; //TODO: Need to show this message another place, and with show_error(). ?></strong>
 				</div>
 			<?php
-		}
+			}
+	}
 }
 
 //Display list of uploaded pictures.
