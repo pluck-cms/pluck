@@ -630,6 +630,8 @@ function check_update_version($version) {
 	list($v1, $v2, $v3) = explode('.', $version);
 	list($p1, $p2, $p3) = explode('.', PLUCK_VERSION);
 	
+	$p3 = str_replace(' dev', '', $p3);
+	
 	if ($v1 > $p1 || $v2 > $p2)
 		return 'urgent';
 	elseif ($v3 > $p3)
