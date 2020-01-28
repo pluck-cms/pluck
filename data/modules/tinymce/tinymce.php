@@ -28,7 +28,7 @@ function tinymce_info() {
 	return array(
 		'name'          => $lang['tinymce']['module_name'],
 		'intro'         => $lang['tinymce']['module_intro'],
-		'version'       => '5.1.4',
+		'version'       => '4.9.8',
 		'author'        => $lang['general']['pluck_dev_team'],
 		'website'       => 'http://www.pluck-cms.org',
 		'icon'          => 'images/tinymce.png',
