@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
 		else {
 			$lastfour = substr($filenamestr, -4);
 			$lastfive = substr($filenamestr, -5);
-			$blockedExtentions = array('.php','php3','php4','php5','php6','php7','phtml','.phtm','.pht','.ph3','.ph4','.ph5','.asp','.cgi');
+			$blockedExtentions = array('.php','php3','php4','php5','php6','php7','phtml','.phtm','.pht','.ph3','.ph4','.ph5','.asp','.cgi','.phar');
 			if (in_array($lastfour, $blockedExtentions) or in_array($lastfive, $blockedExtentions) ){
 				if (!rename('files/'.latinOnlyInput($_FILES['filefile']['name']), 'files/'.latinOnlyInput($_FILES['filefile']['name']).'.txt')){
 					show_error($lang['general']['upload_failed'], 1);
