@@ -18,7 +18,7 @@ defined('IN_PLUCK') or exit('Access denied!');
 //Check if image exists.
 if (file_exists('files/'.$var1)) {
 
-	if ($var1 == ".htaccess"){
+	if (strtolower($var1) == ".htaccess"){
 		show_error($lang['trashcan']['notallowed'], 1);
 	} else {
 		//First check if there isn't an item with the same name in the trashcan.
@@ -40,4 +40,3 @@ if (file_exists('files/'.$var1)) {
 		}
 	}
 }
-?>

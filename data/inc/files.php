@@ -36,32 +36,27 @@ if (isset($_POST['submit'])) {
 	if ($filenamestr == '.htaccess' or strtolower(substr($filenamestr, 0, 9)) == '.htaccess'){
 		show_error($lang['general']['upload_failed'], 1);
 	} else {
-		if (!copy($_FILES['filefile']['tmp_name'], 'files/'.latinOnlyInput(latinOnlyInput($_FILES['filefile']['name']))))
+		$lastfour = substr($filenamestr, -4);
+		$lastfive = substr($filenamestr, -5);
+		$blockedExtentions = array('.php','php3','php4','php5','php6','php7','phtml','.phtm','.pht','.ph3','.ph4','.ph5','.asp','.cgi','.phar');
+		if (in_array($lastfour, $blockedExtentions) or in_array($lastfive, $blockedExtentions) ){
+			$filenamestr = $filenamestr.'.txt';
+		}
+		if (!copy($_FILES['filefile']['tmp_name'], 'files/'.$filenamestr)){
 			show_error($lang['general']['upload_failed'], 1);
-		else {
-			$lastfour = substr($filenamestr, -4);
-			$lastfive = substr($filenamestr, -5);
-			$blockedExtentions = array('.php','php3','php4','php5','php6','php7','phtml','.phtm','.pht','.ph3','.ph4','.ph5','.asp','.cgi','.phar');
-			if (in_array($lastfour, $blockedExtentions) or in_array($lastfive, $blockedExtentions) ){
-				if (!rename('files/'.latinOnlyInput($_FILES['filefile']['name']), 'files/'.latinOnlyInput($_FILES['filefile']['name']).'.txt')){
-					show_error($lang['general']['upload_failed'], 1);
-				}
-				chmod('files/'.latinOnlyInput($_FILES['filefile']['name']).'.txt', 0775);
-			}else{
-				chmod('files/'.latinOnlyInput($_FILES['filefile']['name']), 0775);
-			}
+		} else {
+			chmod('files/'.$filenamestr, 0775);
+			show_error($lang['files']['success'], 3);
 			?>
-				<div class="menudiv">
-					<strong><?php echo $lang['files']['name']; ?></strong> <?php echo latinOnlyInput($_FILES['filefile']['name']); ?>
-					<br />
-					<strong><?php echo $lang['files']['size']; ?></strong> <?php echo latinOnlyInput($_FILES['filefile']['size']).' '.$lang['images']['bytes']; ?>
-					<br />
-					<strong><?php echo $lang['files']['type']; ?></strong> <?php echo latinOnlyInput($_FILES['filefile']['type']); ?>
-					<br />
-					<strong><?php echo $lang['files']['success']; //TODO: Need to show this message another place, and with show_error(). ?></strong>
-				</div>
+			<div class="menudiv">
+				<strong><?php echo $lang['files']['name']; ?></strong> <?php echo $filenamestr; ?>
+				<br />
+				<strong><?php echo $lang['files']['size']; ?></strong> <?php echo latinOnlyInput($_FILES['filefile']['size']).' '.$lang['images']['bytes']; ?>
+				<br />
+				<strong><?php echo $lang['files']['type']; ?></strong> <?php echo latinOnlyInput($_FILES['filefile']['type']); ?>
+			</div>
 			<?php
-			}
+		}
 	}
 }
 
