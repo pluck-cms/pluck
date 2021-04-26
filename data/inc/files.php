@@ -21,11 +21,11 @@ defined('IN_PLUCK') or exit('Access denied!');
 	<strong><?php echo $lang['files']['message']; ?></strong>
 </p>
 <?php run_hook('admin_images_before'); ?>
-<div class="menudiv" style="display: inline-block; margin-top: 0;">
+<div class="menudiv displayinlineblock margintop0" >
 	<span>
 		<img src="data/image/file.png" alt="" />
 	</span>
-	<form name="form1" method="post" action="" enctype="multipart/form-data" style="display: inline-block;">
+	<form name="form1" method="post" action="" enctype="multipart/form-data" class="displayinlineblock">
 		<input type="file" name="filefile" />
 		<input type="submit" name="submit" value="<?php echo $lang['general']['upload']; ?>" />
 	</form>
@@ -99,6 +99,6 @@ $files = read_dir_contents('files', 'files');
 	else
 		echo '<span class="kop4">'.$lang['general']['nothing_yet'].'</span>';
 ?>
-<p style="margin-top: 10px;">
+<p class="margintop10">
 	<a href="?action=page">&lt;&lt;&lt; <?php echo $lang['general']['back']; ?></a>
 </p>

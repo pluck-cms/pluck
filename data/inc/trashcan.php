@@ -59,8 +59,8 @@ else {
 				<span>
 					<img src="data/image/page.png" alt="" />
 				</span>
-				<span style="width: 350px;">
-					<span style="font-size: 17pt;"><?php echo $title; ?></span>
+				<span class="width350px">
+					<span class="fontsize17"><?php echo $title; ?></span>
 				</span>
 				<span>
 					<a href="?action=trash_viewitem&amp;var1=<?php echo $page; ?>&amp;var2=page">
@@ -99,8 +99,8 @@ else {
 			<span>
 				<img src="data/image/image.png" alt="" />
 			</span>
-			<span style="width: 350px;">
-				<span style="font-size: 17pt;"><?php echo $image; ?></span>
+			<span class="width350px">
+				<span class="fontsize17"><?php echo $image; ?></span>
 			</span>
 			<span>
 				<a href="?action=trash_viewitem&amp;var1=<?php echo $image; ?>&amp;var2=image">
@@ -139,8 +139,8 @@ else {
 			<span>
 				<img src="data/image/file.png" alt="" />
 			</span>
-			<span style="width: 350px;">
-				<span style="font-size: 17pt;"><?php echo $file; ?></span>
+			<span class="width350px">
+				<span class="fontsize17"><?php echo $file; ?></span>
 			</span>
 			<span>
 				<a href="?action=trash_viewitem&amp;var1=<?php echo $file; ?>&amp;var2=file">

@@ -107,7 +107,7 @@ function blog_page_admin_blog() {
 				</span>
 				<br />
 				<span>
-					<span style="font-size: 12px; font-style: italic">
+					<span class="font12italic">
 						<?php
 						//Show post date and category.
 						echo $post['date'].' '.$lang['blog']['at'].' '.$post['time'];

@@ -131,7 +131,7 @@ function show_page_box($file) {
 	else
 		$direction = 'left'
 	?>
-		<div class="menudiv" <?php if ($margin != 0) echo 'style="margin-'.$direction.': '.$margin.'px;"'; ?>>
+		<div class="menudiv <?php if ($margin != 0) echo "margin".$direction.$margin; ?>">
 			<span>
 				<img src="data/image/page.png" alt="" />
 			</span>

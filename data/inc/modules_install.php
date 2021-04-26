@@ -18,11 +18,11 @@ defined('IN_PLUCK') or exit('Access denied!');
 <p>
 	<strong><?php echo $lang['modules_install']['message']; ?></strong>
 </p>
-<div class="menudiv" style="display: inline-block; margin-top: 0;">
+<div class="menudiv displayinlineblock margintop0 ">
 	<span>
 		<img src="data/image/install.png" alt="" />
 	</span>
-	<form method="post" action="" enctype="multipart/form-data" style="display: inline-block;">
+	<form method="post" action="" enctype="multipart/form-data"  class="displayinlineblock">
 		<input type="file" name="sendfile" />
 		<input type="submit" name="submit" value="<?php echo $lang['general']['upload']; ?>" />
 	</form>

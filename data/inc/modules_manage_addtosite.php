@@ -91,14 +91,14 @@ if (isset($_POST['save'])) {
 <?php
 	foreach ($module_space as $index => $position) {
 	?>
-		<div class="menudiv" style="margin: 10px;">
+		<div class="menudiv margin10">
 		<table>
 			<tr>
 				<td>
 					<img src="data/image/page.png" alt="" />
 				</td>
 				<td>
-					<span style="font-size: 17pt; color: gray;"><?php echo $position; ?></span>
+					<span class="font17gray"><?php echo $position; ?></span>
 					<br />
 					<strong><?php echo $lang['modules_addtosite']['choose_order']; ?></strong>
 					<table>

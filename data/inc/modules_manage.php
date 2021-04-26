@@ -20,10 +20,10 @@ defined('IN_PLUCK') or exit('Access denied!');
 </p>
 <div class="smallmenu">
 	<span class="smallmenu_button">
-		<a href="?action=module_addtosite" style="background: url('data/image/add_small.png') no-repeat;"><?php echo $lang['modules_manage']['add']; ?></a>
+		<a href="?action=module_addtosite" class="background-add_small"><?php echo $lang['modules_manage']['add']; ?></a>
 	</span>
 	<span class="smallmenu_button">
-		<a href="?action=installmodule" style="background: url('data/image/install_small.png') no-repeat;"><?php echo $lang['modules_manage']['install']; ?></a>
+		<a href="?action=installmodule" class="background-install_small" ><?php echo $lang['modules_manage']['install']; ?></a>
 	</span>
 </div>
 <?php
@@ -47,7 +47,7 @@ foreach($module_list as $module) {
 					//If module has been disabled, show warning
 					if (!module_is_compatible($module)) {
 					?>
-						<span style="color: red;"><?php echo $module . ' - '. $lang['modules_manage']['not_compatible']; ?></span>
+						<span class="colorred"><?php echo $module . ' - '. $lang['modules_manage']['not_compatible']; ?></span>
 					<?php
 					}
 				?>

@@ -18,7 +18,7 @@ defined('IN_PLUCK') or exit('Access denied!');
 if ($var2 == 'page' && file_exists('data/trash/pages/'.$var1.'.php')) {
 	include ('data/trash/pages/'.$var1.'.php');
 	?>
-		<div class="menudiv" style="padding: 15px; margin: 25px;">
+		<div class="menudiv" class="padding15margin25">
 			<span class="kop2"><?php echo $title; ?></span>
 			<br />
 			<?php echo $content; ?>

@@ -80,7 +80,7 @@ if (isset($error))
 		<input name="title" id="title" type="text" value="<?php if (isset($_GET['page'])) echo $title; ?>" />
 	</p>
 	<p><a href="#" class="kop2" onclick="return kadabra('seo-name');"><?php echo $lang['page']['seo_urls']; ?></a></p>
-	<div id="seo-name" style="display: none;">
+	<div id="seo-name"  class="displaynone">
 		<input name="seo_name" id="seo_name" type="text" value="<?php if (isset($_GET['page'])) if (isset($seoname)) echo $seoname; else echo $title; ?>" />
 	</div>
 	
@@ -88,11 +88,11 @@ if (isset($error))
 	<textarea class="<?php if (defined('WYSIWYG_TEXTAREA_CLASS')) echo WYSIWYG_TEXTAREA_CLASS; ?>" name="content" id="content-form" cols="70" rows="20"><?php if (isset($_GET['page'])) echo htmlspecialchars($content); ?></textarea>
 
 
-	<div class="menudiv" style="width: 588px; margin-<?php if (DIRECTION_RTL) echo 'right'; else echo 'left'; ?>: 0;">
+	<div class="menudiv">
 		<p><a href="#" class="kop2" onclick="return kadabra('meta-options');"><?php echo $lang['editmeta']['title']; ?></a></p>
-		<p class="kop4" style="margin-bottom: 5px;"><?php echo $lang['editmeta']['descr']; ?></p>
+		<p class="kop4" ><?php echo $lang['editmeta']['descr']; ?></p>
 
-		<div id="meta-options" style="display: none;">
+		<div id="meta-options"  class="displaynone">
 			<label for="description"><?php echo $lang['general']['description']; ?></label>
 			<br />
 			<textarea id="description" name="description" rows="2" cols="40" class="white mceNoEditor"><?php if (isset($description)) echo $description; ?></textarea>
@@ -106,11 +106,11 @@ if (isset($error))
 		</div>
 	</div>
 
-	<div class="menudiv" style="width: 588px; margin-<?php if (DIRECTION_RTL) echo 'right'; else echo 'left'; ?>: 0;">
+	<div class="menudiv">
 		<p><a href="#" class="kop2" onclick="return kadabra('other-options');"><?php echo $lang['general']['other_options']; ?></a></p>
-		<p class="kop4" style="margin-bottom: 5px;"><?php echo $lang['page']['options']; ?></p>
+		<p class="kop4" ><?php echo $lang['page']['options']; ?></p>
 
-		<div id="other-options" style="display: block;">
+		<div id="other-options"  class="displayblock">
 			<table>
 			<tr>
 				<td><label for="hidden"><?php echo $lang['page']['in_menu']; ?></label><br /></td>

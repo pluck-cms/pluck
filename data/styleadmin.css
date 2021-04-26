@@ -2,6 +2,120 @@
 
 @import "reset.css";
 
+/* issue 102 */
+.background-add_small{
+    background: url('data/image/add_small.png') no-repeat;
+}
+.background-install_small{
+    background: url('data/image/install_small.png') no-repeat;
+}
+.font17gray{
+    font-size: 17pt; 
+    color: gray;
+}
+.fontsize17{
+    font-size: 17pt;
+}
+.font12italic{
+    font-size: 12px; 
+    font-style: italic
+}
+.colorred{
+    color:red;
+}
+.displaynone {
+    display: none;
+}
+.displayblock {
+    display: block;
+}
+.displayinlineblock {
+    display: inline-block;
+}
+.padding15margin25{
+    padding: 15px; 
+    margin: 25px;
+}
+.width350px{
+    width: 350px;
+}
+.margin10{
+    margin: 10px;
+}
+.margintop0{
+    margin-top: 0;
+}
+.margintop10{
+    margin-top: 10;
+}
+.marginleft0{
+    margin-left : 0px;
+}
+.marginleft10{
+    margin-left : 10px;
+}
+.marginleft20{
+    margin-left : 20px;
+}
+.marginleft30{
+    margin-left : 30px;
+}
+.marginleft40{
+    margin-left : 40px;
+}
+.marginleft50{
+    margin-left : 50px;
+}
+.marginleft60{
+    margin-left : 60px;
+}
+.marginleft70{
+    margin-left : 70px;
+}
+.marginleft80{
+    margin-left : 80px;
+}
+.marginleft90{
+    margin-left : 90px;
+}
+.marginleft100{
+    margin-left : 100px;
+}
+.marginright0{
+    margin-right : 0px;
+}
+.marginright10{
+    margin-right : 10px;
+}
+.marginright20{
+    margin-right : 20px;
+}
+.marginright30{
+    margin-right : 30px;
+}
+.marginright40{
+    margin-right : 40px;
+}
+.marginright50{
+    margin-right : 50px;
+}
+.marginright60{
+    margin-right : 60px;
+}
+.marginright70{
+    margin-right : 70px;
+}
+.marginright80{
+    margin-right : 80px;
+}
+.marginright90{
+    margin-right : 90px;
+}
+.marginright100{
+    margin-right : 100px;
+}
+/* end issue 102*/
+
 body {
     background-color: white;
     font-family: 'DejaVu Sans', 'Bitstream Vera Sans', Verdana, sans-serif;
@@ -225,6 +339,7 @@ h3 {
 
 .kop4 {
     font-size: 12px;
+    margin-bottom: 5px;
 }
 
 .menudiv {
@@ -233,6 +348,8 @@ h3 {
     padding: 5px;
     margin: 10px;
     border-radius:3px;
+    width: 588px;
+    margin-left: 0;
 }
 
 .menudiv .title-page, .menudiv .title-module {
