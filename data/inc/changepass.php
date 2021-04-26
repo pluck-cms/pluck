@@ -37,7 +37,10 @@ if (isset($_POST['save'])) {
 	else {
 			save_password($cont2);
 			show_error($lang['changepass']['changed'], 3);
-			redirect('?action=options', 2);
+			//destroy session as per issue 99
+			unset($_SESSION[$token]);
+			unset($token);
+			redirect('login.php', 2);
 			include_once ('data/inc/footer.php');
 			exit;
 	}
