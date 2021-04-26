@@ -282,7 +282,14 @@ class UnZIP {
 					}
 					if(isset($f_possible_files) && is_array($f_possible_files) && count($f_possible_files)>0){
 						$this->log[]='found file in zip file. write attemp begin...';
-						foreach($f_possible_files as $flinf) $this->write($flinf['entry'], $flinf['target']);
+						foreach($f_possible_files as $flinf) {
+							// fix for issue #100
+						        //Prevent Zip traversal attacks
+								if (strpos($flinf['target'], '../') !== false || strpos($flinf['target'], '..\\') !== false) {
+									trigger_error('Sorry! ZIP Slip detected.', E_USER_ERROR);
+								}
+							$this->write($flinf['entry'], $flinf['target']);
+						}
 					}
 					zip_close($zf);
 					$this->log[]='zip file read complete.';
