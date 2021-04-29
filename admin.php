@@ -27,6 +27,7 @@ require_once ('data/inc/functions.admin.php');
 //Include variables.
 require_once ('data/inc/variables.all.php');
 
+
 //First check if we've installed pluck.
 if (!file_exists('data/settings/install.dat')) {
 	$titelkop = $lang['install']['not'];
@@ -36,12 +37,32 @@ if (!file_exists('data/settings/install.dat')) {
 	include_once ('data/inc/footer.php');
 	exit;
 }
-
 //If pluck has been installed, proceed.
 else {
+	require_once ('data/settings/token.php');
+
+	//implement session expiration issue #99
+	if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 7200)) {
+		// last request was more than 2 hours ago
+		unset($_SESSION[$token]);
+		unset($token);
+		session_unset();     // unset $_SESSION variable for the run-time 
+		session_destroy();   // destroy session data in storage
+		redirect('login.php', 0);
+		exit;
+	}
+	$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+
+	// prevent session fixation issue #99
+	if (!isset($_SESSION['CREATED'])) {
+		$_SESSION['CREATED'] = time();
+	} else if (time() - $_SESSION['CREATED'] > 1800) {
+		// session started more than 30 minutes ago
+		session_regenerate_id(true);    // change session ID for the current session and invalidate old session ID
+		$_SESSION['CREATED'] = time();  // update creation time
+	}
 
 	//Then check if we are properly logged in.
-	require_once ('data/settings/token.php');
 	if (!isset($_SESSION[$token]) || ($_SESSION[$token] != 'pluck_loggedin')) {
 		$_SESSION['pluck_before'] = 'admin.php?'.$_SERVER['QUERY_STRING'];
 		$titelkop = $lang['login']['not'];
