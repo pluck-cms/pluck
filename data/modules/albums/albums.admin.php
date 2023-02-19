@@ -104,6 +104,7 @@ function albums_page_admin_albums() {
 
 function albums_page_admin_editalbum() {
 	global $cont1, $cont2, $cont3, $lang, $var1;
+	$imagewhitelist = array('jfif', 'png', 'jpg', 'gif', 'jpeg');  
 
 	//Let's process the image...
 	if (isset($_POST['submit'])) {
@@ -135,11 +136,15 @@ function albums_page_admin_editalbum() {
 			//Don't do anything, if the name already exists.
 			if (isset($name_exist))
 				$error = show_error($lang['albums']['image_exist'], 1, true);
-				
+			
+			elseif (!in_array(strtolower($ext), $imagewhitelist)){
+				$error = show_error($lang['general']['upload_failed'], 1, true));
+
 			//If we somehow can't copy the image, show an error.
 			elseif (!copy($_FILES['imagefile']['tmp_name'], $fullimage) || !copy($_FILES['imagefile']['tmp_name'], $thumbimage))
 				$error = show_error($lang['general']['upload_failed'], 1, true);
 
+		
 			else {
 				//Compress the big image.
 				$image_width = module_get_setting('albums','resize_image_width');
