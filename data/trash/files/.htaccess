@@ -1,0 +1,11 @@
+<FilesMatch \.php$>
+    SetHandler None
+</FilesMatch>
+
+<FilesMatch \.phtml>
+    SetHandler None
+</FilesMatch>
+
+Options -ExecCGI
+
+php_flag engine off
