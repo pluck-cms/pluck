@@ -40,79 +40,79 @@
     width: 350px;
 }
 .margin10{
-    margin: 10px;
+    margin: 10px !important;
 }
 .margintop0{
-    margin-top: 0;
+    margin-top: 0 !important;
 }
 .margintop10{
-    margin-top: 10;
+    margin-top: 10 !important;
 }
 .marginleft0{
-    margin-left : 0px;
+    margin-left : 0px !important;
 }
 .marginleft10{
-    margin-left : 10px;
+    margin-left : 10px !important;
 }
 .marginleft20{
-    margin-left : 20px;
+    margin-left : 20px !important;
 }
 .marginleft30{
-    margin-left : 30px;
+    margin-left : 30px !important;
 }
 .marginleft40{
-    margin-left : 40px;
+    margin-left : 40px !important;
 }
 .marginleft50{
-    margin-left : 50px;
+    margin-left : 50px !important;
 }
 .marginleft60{
-    margin-left : 60px;
+    margin-left : 60px !important;
 }
 .marginleft70{
-    margin-left : 70px;
+    margin-left : 70px !important;
 }
 .marginleft80{
-    margin-left : 80px;
+    margin-left : 80px !important;
 }
 .marginleft90{
-    margin-left : 90px;
+    margin-left : 90px !important;
 }
 .marginleft100{
-    margin-left : 100px;
+    margin-left : 100px !important;
 }
 .marginright0{
-    margin-right : 0px;
+    margin-right : 0px !important;
 }
 .marginright10{
-    margin-right : 10px;
+    margin-right : 10px !important;
 }
 .marginright20{
-    margin-right : 20px;
+    margin-right : 20px !important;
 }
 .marginright30{
-    margin-right : 30px;
+    margin-right : 30px !important;
 }
 .marginright40{
-    margin-right : 40px;
+    margin-right : 40px !important;
 }
 .marginright50{
-    margin-right : 50px;
+    margin-right : 50px !important;
 }
 .marginright60{
-    margin-right : 60px;
+    margin-right : 60px !important;
 }
 .marginright70{
-    margin-right : 70px;
+    margin-right : 70px !important;
 }
 .marginright80{
-    margin-right : 80px;
+    margin-right : 80px !important;
 }
 .marginright90{
-    margin-right : 90px;
+    margin-right : 90px !important;
 }
 .marginright100{
-    margin-right : 100px;
+    margin-right : 100px !important;
 }
 /* end issue 102*/
 
