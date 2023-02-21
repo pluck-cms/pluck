@@ -137,8 +137,8 @@ function albums_page_admin_editalbum() {
 			if (isset($name_exist))
 				$error = show_error($lang['albums']['image_exist'], 1, true);
 			
-			elseif (!in_array(strtolower($ext), $imagewhitelist)){
-				$error = show_error($lang['general']['upload_failed'], 1, true));
+			elseif (!in_array(strtolower($ext), $imagewhitelist))
+				$error = show_error($lang['general']['upload_failed'], 1, true);
 
 			//If we somehow can't copy the image, show an error.
 			elseif (!copy($_FILES['imagefile']['tmp_name'], $fullimage) || !copy($_FILES['imagefile']['tmp_name'], $thumbimage))
