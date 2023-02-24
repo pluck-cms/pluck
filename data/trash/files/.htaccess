@@ -10,4 +10,11 @@ AddHandler default-handler
 
 Options -ExecCGI
 
-php_flag engine off
+# mod_php check for PHP 7.x
+<IfModule mod_php7.c>
+	php_flag engine off
+</IfModule>
+# mod_php check for PHP 8.x
+<IfModule mod_php.c>
+	php_flag engine off
+</IfModule>
