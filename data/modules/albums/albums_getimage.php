@@ -41,14 +41,41 @@ elseif (strpos($image, 'thumb') !== false) {
 	}
 }
 
+//check if the requested file has the correct extention:
+	$imagewhitelist = array('jfif', '.png', '.jpg', '.gif', 'jpeg');  
+	if (!in_array(strtolower(substr($image, -4)), $imagewhitelist)){
+		die('An attempt to access a none image file is detected. For security reasons, we\'re blocking any code execution.');
+	}
+
+
 //...if no hacking attempts found:
 //Check if file exists.
 if (file_exists('../../settings/modules/albums/'.$image)) {
 	//Generate the image, make sure it doesn't end up in the visitors buffer.
+	$imgext =  str_replace('.', '', strtolower(substr($image, -4)));
+	$headertext = '';
+	switch($imgext)  {
+		case 'gif': 	
+			$headertext = 'Content-Type: image/gif';
+			break;
+		case 'jfif':
+			$headertext = 'Content-Type: image/jfif';
+			break;
+		case 'png':
+			$headertext = 'Content-Type: image/png';
+			break;
+		case 'jpg':
+			$headertext = 'Content-Type: image/jpeg';
+			break;
+		case 'jpeg':
+			$headertext = 'Content-Type: image/jpeg';
+			break;
+		}
+	
 	header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 	header('Expires: Thu, 19 Nov 1981 08:52:00 GMT');
 	header('Pragma: no-cache');
-	header('Content-Type: image/jpeg');
+	header($headertext);
 	echo readfile('../../settings/modules/albums/'.$image);
 }
 
