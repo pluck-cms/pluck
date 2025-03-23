@@ -61,8 +61,6 @@ if (!file_exists('data/settings/update_lastcheck.php') || (file_exists('data/set
 		// Get the last segment
 		$lastupdatestatus = end($segments);
 
-		echo $lastupdatestatus; // Output: resource
-
 		curl_close($geturl);
 	}
 
