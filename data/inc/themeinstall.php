@@ -55,16 +55,21 @@ if (isset($_POST['submit'])) {
 				//Save theme-file.
 				copy($_FILES['sendfile']['tmp_name'], $dir.'/'.$filename) or die ($lang['general']['upload_failed']);
 				if (strpos($filename, '.tar.gz')) {
-					//Then load the library for extracting the tar.gz-file.
-					require_once ('data/inc/lib/tarlib.class.php');
+					// Create a new PharData object
+					$phar = new PharData($dir."/".$filename);
 
-					//Load the tarfile.
-					$tar = new TarLib($dir.'/'.$filename);
+					// Extract the contents to the specified directory
+					$phar->decompress(); // This will create a .tar file
 
-					//And extract it.
-					$tar->Extract(FULL_ARCHIVE, $dir);
-					//After extraction: delete the tar.gz-file.
+					// Create a new PharData object for the .tar file
+					$tarFile = str_replace('.gz', '', $filename);
+					$pharTar = new PharData($dir."/".$tarFile);
+
+					// Extract the contents of the .tar file
+					$pharTar->extractTo($dir);
+
 					unlink($dir.'/'.$filename);
+					unlink($dir.'/'.$tarFile);
 				}
 				else { //if not tar.gz then this file must be zip
 					//Then load the library for extracting the zip-file.
