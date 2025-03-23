@@ -49,19 +49,21 @@ if (!file_exists('data/settings/update_lastcheck.php') || (file_exists('data/set
 			
 		// Get the response and close the channel.
 		$response = curl_exec($geturl);
+		
+		$finalurl = curl_getinfo($geturl, CURLINFO_EFFECTIVE_URL);
+
+		// Parse the URL to get the path
+		$path = parse_url($finalurl, PHP_URL_PATH);
+
+		// Split the path into segments
+		$segments = explode('/', rtrim($path, '/'));
+
+		// Get the last segment
+		$lastupdatestatus = end($segments);
+
+		echo $lastupdatestatus; // Output: resource
+
 		curl_close($geturl);
-
-		// Find latest release
-		preg_match('/\<span class\=\"css-truncate-target\" style\=\"max-width: 125px\"\>(.*)\<\/span\>/', $response, $match);
-
-		// Current latest release string
-		$update_available = strip_tags($match[0]);
-		
-		// Remove v char if we are using normal releases
-		$update_available = str_replace('v', '', $update_available);
-		
-		// Unset data
-		unset($match, $response);
 	}
 
 	//If CURL isn't loaded, save an error-status.
