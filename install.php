@@ -187,6 +187,9 @@ if ($langcode['0'].'.php' != $langpref && is_file('data/inc/lang/'.$langcode['0'
 
 		//Save the homepage.
 		if (isset($_POST['save'])) {
+			//sanitize the input
+			$cont1 = trim(str_replace(array('\\', '/', '.', ':', '*', '?', '"', '<', '>', '|'), '', $cont1));
+			$cont2 = trim(str_replace(array('<', '>'), '', $cont2));
 			save_page($cont1, $cont2, 'no', '');
 			redirect('?action=step4', 0);
 			include_once ('data/inc/footer.php');
