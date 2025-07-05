@@ -93,7 +93,7 @@ if (ini_get('register_globals') === 1) {
 }
 
 //7: Check for magic_quotes_gpc.
-if (get_magic_quotes_gpc() === 1) {
+if (version_compare(PHP_VERSION, '8.0.0', '<') and get_magic_quotes_gpc() === 1) {
 	$messages[] = array(
 		'text'  => '<strong>magic_quotes_gpc</strong> is turned on. pluck does not use MySQL, so it should be turned off for performance reasons.',
 		'class' => 2
