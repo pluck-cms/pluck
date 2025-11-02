@@ -66,6 +66,7 @@ if (isset($_POST['save'])) {
 		//Exclude the submit-button variable, and the modules that we don't want to show.
 		if ($variabletosplice != 'submit' && $display_order != 0) {
 			list($areaname, $modulename) = explode('|', $variabletosplice);
+			if ($areaname == "save" && $modulename == "" && $display_order == $lang['general']['save']) continue;
 			//Save the data.
 			fputs($file, "\n".'$space[\''.$areaname.'\'][\''.$modulename.'\'] = '.$display_order.';');
 		}
