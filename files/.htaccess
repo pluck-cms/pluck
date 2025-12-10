@@ -1,4 +1,4 @@
-AddHandler default-handler
+SetHandler default-handler
 <FilesMatch \.php$>
     SetHandler None
 </FilesMatch>
