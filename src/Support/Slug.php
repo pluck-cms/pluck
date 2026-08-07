@@ -31,29 +31,48 @@ final class Slug
 		'æ'=>'ae','œ'=>'oe','ĳ'=>'ij',
 	];
 
+	/**
+	 * The fold table, for bin/slug to show and for anybody adding a language.
+	 *
+	 * @return array<string,string>
+	 */
+	public static function foldMap(): array
+	{
+		return self::FOLD;
+	}
+
 	public static function make(string $title, string $fallback = 'page'): string
 	{
 		$slug = trim($title);
 
-		if (function_exists('transliterator_transliterate')) {
+		/*
+		 * The map first, the transliterator after — and the order is the point.
+		 *
+		 * A slug is an address. If the same title produces a different address on
+		 * a server with ICU than on one without, then moving a site changes its
+		 * URLs, and every link anybody made to it breaks. That is a worse fault
+		 * than a character coming out wrong, because it is silent and it happens
+		 * during a migration when nobody is looking at slugs.
+		 *
+		 * So the characters Pluck has decided to guarantee are folded by a table
+		 * that is the same on every machine, and ICU is asked only about what is
+		 * left. Latin sites are then deterministic; Greek, Cyrillic and the rest
+		 * still transliterate where ICU is present, which no table could do.
+		 *
+		 * The other way round — ICU first, table as a safety net — gives the same
+		 * answer on this machine and a different one on somebody else's, which is
+		 * exactly the report that led here.
+		 */
+		$slug = strtr(mb_strtolower($slug, 'UTF-8'), self::FOLD);
+
+		// Anything still outside ASCII: a script no table covers, or a Latin
+		// letter nobody has added to FOLD yet.
+		if (preg_match('/[^\x00-\x7F]/', $slug) === 1 && function_exists('transliterator_transliterate')) {
 			$converted = transliterator_transliterate('Any-Latin; Latin-ASCII; Lower()', $slug);
 			if (is_string($converted) && $converted !== '') {
 				$slug = $converted;
 			}
 		}
-
-		/*
-		 * The map runs either way, not only as a fallback.
-		 *
-		 * Latin-ASCII depends on the ICU the server was built against, and older
-		 * ones leave characters alone that newer ones fold — Polish ł is the one
-		 * that gets reported, because a site whose pages are named in Polish hits
-		 * it on the first page. Whatever the transliterator did or did not do, the
-		 * map has the last word.
-		 *
-		 * Costs one strtr over a string that is already short.
-		 */
-		$slug = strtr(mb_strtolower($slug, 'UTF-8'), self::FOLD);
 
 		$slug = mb_strtolower($slug, 'UTF-8');
 		$slug = preg_replace('/[\'"\x{2018}\x{2019}\x{201C}\x{201D}]/u', '', $slug) ?? $slug;

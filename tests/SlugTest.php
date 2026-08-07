@@ -10,6 +10,7 @@ final class SlugTest extends TestCase
 	public function run(): void
 	{
 		$this->group('letters other alphabets fold to', fn () => $this->folding());
+		$this->group('the same address on every server', fn () => $this->deterministic());
 		$this->assertSame('about-us', Slug::make('About Us'), 'spaces become dashes, case is lowered');
 		$this->assertSame('a-b', Slug::make('a  ---  b'), 'runs of separators collapse');
 		$this->assertSame('cafe', Slug::make('Café'), 'accents are folded, with or without intl');
@@ -56,6 +57,38 @@ final class SlugTest extends TestCase
 			1,
 			preg_match('/^[a-z0-9-]+$/', Slug::make('Łódź — Zażółć!')),
 			'and an address is only characters an address may hold',
+		);
+	}
+
+	/**
+	 * A Latin title gives the same address with ICU and without it.
+	 *
+	 * A slug is an address. If two servers disagree about one, then moving a site
+	 * changes its URLs and every link anybody made to it breaks — silently, during
+	 * a migration, when nobody is looking at slugs. That is worse than a character
+	 * coming out wrong.
+	 *
+	 * So the table runs first and ICU is asked only about what is left. Asserted
+	 * on the order, because this machine has ICU and cannot be made not to have it
+	 * inside one process.
+	 */
+	private function deterministic(): void
+	{
+		$source = (string) file_get_contents(dirname(__DIR__) . '/src/Support/Slug.php');
+
+		$fold = strpos($source, 'strtr(mb_strtolower');
+		$icu = strpos($source, 'transliterator_transliterate(');
+
+		$this->assertTrue($fold !== false && $icu !== false, 'both stages are there');
+		$this->assertTrue(
+			$fold < $icu,
+			'the table folds before the transliterator is asked, so a Latin title does not depend on ICU',
+		);
+
+		// And ICU is only asked when something is left for it.
+		$this->assertTrue(
+			str_contains($source, "preg_match('/[^\\x00-\\x7F]/'"),
+			'and only when the string still has something outside ASCII in it',
 		);
 	}
 }

@@ -1,0 +1,48 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+
+/**
+ * What happens to a title on its way to becoming an address.
+ *
+ *   php bin/slug "Łódź"
+ *
+ * Prints each stage separately, with the bytes, so a character that goes missing
+ * names the stage that dropped it. Written because a report of "ł disappears"
+ * could not be reproduced on the machine it was reported to, and guessing at
+ * somebody else's ICU is not a diagnosis.
+ */
+
+require dirname(__DIR__) . '/src/autoload.php';
+
+use Pluck\Support\Slug;
+
+$word = $argv[1] ?? 'Łódź';
+
+printf("PHP            %s on %s\n", PHP_VERSION, PHP_OS_FAMILY);
+printf("intl           %s\n", extension_loaded('intl') ? 'loaded' : 'not loaded');
+printf("ICU            %s\n", defined('INTL_ICU_VERSION') ? INTL_ICU_VERSION : '(none)');
+printf("mbstring       %s\n", extension_loaded('mbstring') ? 'loaded' : 'not loaded');
+printf("internal enc   %s\n\n", mb_internal_encoding());
+
+printf("input          %-24s %s\n", $word, bin2hex($word));
+printf("valid utf-8    %s\n\n", mb_check_encoding($word, 'UTF-8') ? 'yes' : 'NO — this is the fault');
+
+$lower = mb_strtolower($word, 'UTF-8');
+printf("lowered        %-24s %s\n", $lower, bin2hex($lower));
+
+$folded = strtr($lower, Slug::foldMap());
+printf("folded         %-24s %s\n", $folded, bin2hex($folded));
+
+$left = preg_match('/[^\x00-\x7F]/', $folded) === 1;
+printf("still non-ascii %s\n", $left ? 'yes, so the transliterator is asked' : 'no, the transliterator is skipped');
+
+if ($left && function_exists('transliterator_transliterate')) {
+	$out = transliterator_transliterate('Any-Latin; Latin-ASCII; Lower()', $folded);
+	printf("transliterated %-24s %s\n", var_export($out, true), is_string($out) ? bin2hex($out) : '-');
+}
+
+$stripped = preg_replace('/[^\p{L}\p{N}]+/u', '-', $folded);
+printf("stripped       %s%s\n", var_export($stripped, true), $stripped === null ? '   <- preg_replace returned NULL: the string is not valid UTF-8 here' : '');
+
+printf("\nSlug::make()   %s\n", Slug::make($word));

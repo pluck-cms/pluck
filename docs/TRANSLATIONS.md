@@ -155,6 +155,32 @@ Send a new one as a pull request against `pluck5.0`. Run `php bin/lang <code>`
 first: if it says 100%, it is complete, and if it does not, say which parts you
 left.
 
+## Addresses from titles
+
+`Support\Slug::make()` turns a page title into an address, and the order it does
+things in is deliberate.
+
+The fold table runs first. Then, only if something outside ASCII is left, the ICU
+transliterator is asked — which handles Greek, Cyrillic, Chinese and everything
+else no table could cover.
+
+That order exists because **a slug is an address**. If the same title gives a
+different address on a server with ICU than on one without, moving a site changes
+its URLs and every link anybody made to it breaks. Silently, during a migration,
+when nobody is looking at slugs. Doing it the other way round gives the right
+answer on the machine you tested and a different one on somebody else's.
+
+To add a language's letters, add them to `Slug::FOLD`. That is the extension
+point, and it is one flat table on purpose.
+
+If a character goes missing, do not guess:
+
+```sh
+php bin/slug "Łódź"
+```
+
+It prints every stage with the bytes, so the stage that dropped it names itself.
+
 ## Key naming
 
 Prefix by area, dot-separated, lowercase with underscores:
