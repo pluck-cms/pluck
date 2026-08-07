@@ -126,6 +126,15 @@ function reportLeaks(string $viewDir): bool
 				// are class names, and a tool that reports the same two lines
 				// forever is a tool nobody reads.
 				"/\\?\\s*'([a-z]{2,12})'\\s*:\\s*'([a-z]{2,12})'/",
+				/*
+				 * A sentence sitting after a closing PHP tag.
+				 *
+				 * Neither between tags nor inside an attribute, so it was in none
+				 * of the patterns above — and it reached a real screen: an upload
+				 * hint trailed ". Images, PDF, audio, video, zip and Office
+				 * documents." in every language, in English.
+				 */
+				'/\\?>\\s*([A-Za-z.,][A-Za-z ,.\'-]{8,})/',
 			];
 
 			/*
