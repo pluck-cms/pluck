@@ -47,7 +47,19 @@ class MediaLibrary
 		'svg' => ['image/svg+xml'],
 	];
 
-	public const IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'];
+	/*
+	 * What counts as a picture.
+	 *
+	 * SVG is on it and was not, which is the sort of gap that only shows once
+	 * something else starts using the list: the media picker splits pictures from
+	 * files by this, while the editor's insert decided the same question with its
+	 * own regex in JavaScript — one that did include svg. So an SVG appeared under
+	 * files and was inserted as an image.
+	 *
+	 * One list, and the browser is told what is on it rather than keeping a
+	 * second copy.
+	 */
+	public const IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg'];
 
 	/** Setting holding name => sha256, so a duplicate is recognised without rereading the folder. */
 	public const REGISTER = 'media_hashes';

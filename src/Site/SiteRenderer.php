@@ -162,11 +162,9 @@ final class SiteRenderer
 			title: $this->translator?->get('site.page_not_found') ?? 'Page not found',
 			data: [
 				'page' => null,
-				'content' => new Raw('<p>' . htmlspecialchars(
-					$this->translator?->get('site.page_not_found_body') ?? '',
-					ENT_QUOTES | ENT_SUBSTITUTE,
-					'UTF-8',
-				) . '</p>'),
+				'content' => new Raw(
+					'<p>' . Escaper::html($this->translator?->get('site.page_not_found_body') ?? '') . '</p>',
+				),
 				'description' => '',
 				'keywords' => '',
 				'requestedPath' => $requestedPath,

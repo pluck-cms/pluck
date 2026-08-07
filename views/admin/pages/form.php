@@ -89,7 +89,7 @@ use Pluck\Admin\Controller;
 <?php if (($media['images'] ?? []) !== []): ?>
 			<div class="insert-media">
 				<label for="insert-media"><?= $view->t('page.label.insert_image') ?></label>
-				<select id="insert-media">
+				<select id="insert-media" data-image-extensions="<?= e(implode(',', \Pluck\Media\MediaLibrary::IMAGE_EXTENSIONS)) ?>">
 <?php foreach ($media['images'] as $group => $names): ?>
 				<optgroup label="<?= $group !== '' ? e($group) : e($view->t('page.label.uploaded')) ?>">
 <?php foreach ($names as $name): ?>
@@ -218,6 +218,10 @@ use Pluck\Admin\Controller;
 	is already there, cannot be cancelled halfway without losing the rest, and
 	cannot hold a checkbox at all.
 -->
+<!-- The tags a paste may keep, so the editor does not carry its own copy of a
+     list that lives in the sanitiser. -->
+<div hidden data-allowed-tags="<?= e(implode(',', \Pluck\Security\Sanitizer::allowedTags())) ?>"></div>
+
 <dialog class="dialog" id="table-dialog">
 	<div class="dialog__body">
 		<h2><?= $view->t('page.table.title') ?></h2>

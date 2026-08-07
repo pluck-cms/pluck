@@ -141,6 +141,17 @@ final class AdminScreenTest extends TestCase
 		$storage = DriverFactory::make(DriverFactory::FLAT_FILE, $root . '/data');
 		$storage->install();
 		$storage->setSetting('site_title', 'Screens');
+
+		/*
+		 * A theme that is not there.
+		 *
+		 * Every fresh install stored 'plain' — a theme renamed long ago whose name
+		 * this line did not follow. Harmless on the site, which falls back, and
+		 * fatal in the page editor's preview, which loaded a theme by name. So the
+		 * fixture stores a missing theme on purpose: a screen must survive an
+		 * install whose theme setting points at nothing.
+		 */
+		$storage->setSetting('theme', 'a-theme-that-was-deleted');
 		$storage->savePage(new Page(path: 'about', title: 'About', content: '<p>Hello</p>'));
 		$storage->saveUser(User::create('tester', 'a-decent-long-password', Role::Owner));
 

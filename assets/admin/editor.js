@@ -759,13 +759,27 @@
 	 * So paste is cleaned here, to the same shape the allow-list accepts, and
 	 * what you see is what will be kept.
 	 */
-	var KEEP = {
-		P: 1, BR: 1, STRONG: 1, B: 1, EM: 1, I: 1, U: 1, S: 1,
-		H1: 1, H2: 1, H3: 1, H4: 1, H5: 1, H6: 1,
-		UL: 1, OL: 1, LI: 1, BLOCKQUOTE: 1, PRE: 1, CODE: 1,
-		A: 1, IMG: 1, FIGURE: 1, FIGCAPTION: 1,
-		TABLE: 1, THEAD: 1, TBODY: 1, TR: 1, TH: 1, TD: 1
-	};
+	/*
+	 * What a paste may keep.
+	 *
+	 * Read from the page rather than written here. It used to be its own list and
+	 * it had drifted from the sanitiser's — hr, sub, sup, mark, q and the
+	 * definition list were dropped on paste even though a save keeps them, so the
+	 * page changed appearance in the direction nobody expects.
+	 */
+	var KEEP = (function () {
+		var source = document.querySelector('[data-allowed-tags]');
+		var names = (source && source.getAttribute('data-allowed-tags') || '').split(',');
+		var map = {};
+
+		names.forEach(function (name) {
+			if (name) {
+				map[name.trim().toUpperCase()] = 1;
+			}
+		});
+
+		return map;
+	})();
 
 	var KEEP_ATTRIBUTES = { A: ['href', 'title'], IMG: ['src', 'alt', 'width', 'height'] };
 

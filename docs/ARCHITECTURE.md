@@ -224,6 +224,34 @@ like magic.
 
 With JavaScript off none of it happens and the textarea is the editor.
 
+## One rule, one place
+
+Three faults in three days had the same shape: a rule implemented twice, and the
+copy without the fallback or the table won because it ran first.
+
+- The browser folded a title into an address with its own regex. It dropped
+  Polish `ł`, filled the field in, and the server used that answer instead of
+  `Slug::make()`.
+- The page preview loaded a theme by name instead of asking `ThemeRepository`,
+  so it died on installs where the site rendered perfectly.
+- The stylesheet editor did the same thing a third time, and would have offered
+  to edit a file in a directory that was not there.
+
+An audit found two more, both cross-language and both already drifted: the
+editor's list of image extensions included `svg` where the media picker's did
+not, and its paste allow-list had lost `hr`, `sub`, `sup`, `mark`, `q` and the
+definition list. Neither list is written twice now — the server hands them over
+in a data attribute.
+
+`CsrfSurfaceTest` asserts that only the settings screen reads the theme setting
+directly, and `SlugTest` that the browser folds nothing. The general rule: if
+JavaScript is about to decide something the server already decides, ask the
+server.
+
+`Failure.php` is the one deliberate exception. It runs before Pluck is known to
+work, so reaching for `Escaper` there is how an error handler becomes a second
+error.
+
 ## Test payloads
 
 Several tests need something malicious to prove it is refused: an archive with a

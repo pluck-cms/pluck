@@ -194,7 +194,17 @@ document.addEventListener('click', function (event) {
 		// A module marker is already exactly what belongs in the text.
 		snippet = name;
 	} else {
-		var isImage = /\.(jpe?g|png|gif|webp|avif|svg)$/i.test(name);
+		/*
+		 * The server says what a picture is.
+		 *
+		 * This used to be its own regex, and it had drifted: it included svg while
+		 * the list the media picker groups by did not, so an SVG sat under files
+		 * and was inserted as an image. One list, handed over in an attribute.
+		 */
+		var picker = document.getElementById('insert-media');
+		var kinds = (picker && picker.getAttribute('data-image-extensions') || '').split(',');
+		var extension = (name.split('.').pop() || '').toLowerCase();
+		var isImage = kinds.indexOf(extension) !== -1;
 		snippet = isImage
 			? '<img src="media/' + encodeURIComponent(name) + '" alt="">'
 			: '<a href="media/' + encodeURIComponent(name) + '">' + name + '</a>';

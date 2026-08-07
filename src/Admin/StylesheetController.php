@@ -5,6 +5,7 @@ namespace Pluck\Admin;
 
 use Pluck\Model\Role;
 use Pluck\Support\Path;
+use Pluck\Theme\ThemeRepository;
 use Throwable;
 
 /**
@@ -114,12 +115,22 @@ final class StylesheetController extends Controller
 
 	// ---- where the file is ----------------------------------------------
 
+	/**
+	 * The theme in use, resolved the way the site resolves it.
+	 *
+	 * This read the setting and cleaned the name itself, which is a third copy of
+	 * a rule that lives in ThemeRepository — and it had the same consequence as
+	 * the second one: on an install whose stored theme is missing, it offered to
+	 * edit a stylesheet in a directory that is not there.
+	 *
+	 * active() falls back to a theme that loads, and a loaded Theme knows its own
+	 * name, so nothing has to be sanitised back into one.
+	 */
 	private function themeName(): string
 	{
-		$theme = (string) $this->c->storage->getSetting('theme', 'default');
-
-		// Rebuilt from what is stored rather than trusted: this becomes a path.
-		return preg_replace('/[^a-z0-9._-]/i', '', $theme) ?: 'default';
+		return (new ThemeRepository($this->c->app->rootDir . '/themes'))
+			->active($this->c->storage)
+			->name;
 	}
 
 	/**

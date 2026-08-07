@@ -7,6 +7,7 @@ use Pluck\Security\Sanitizer;
 use Throwable;
 use Pluck\Security\Escaper;
 use Pluck\Theme\Theme;
+use Pluck\Theme\ThemeRepository;
 use Pluck\Site\Urls;
 use Pluck\Site\SiteRenderer;
 
@@ -207,10 +208,12 @@ final class PageController extends Controller
 
 		try {
 			$renderer = new SiteRenderer(
-				Theme::load(
-					$this->c->app->rootDir . '/themes',
-					(string) $this->c->storage->getSetting('theme', 'default'),
-				),
+				// The same resolution the site uses, not Theme::load directly.
+				// ThemeRepository::active() falls back when the stored theme is
+				// missing; loading by name throws, so the preview died on any
+				// install whose theme setting named something that is not there —
+				// while the site itself rendered perfectly well.
+				(new ThemeRepository($this->c->app->rootDir . '/themes'))->active($this->c->storage),
 				$this->c->storage,
 				// Derived the same way the front controller derives it — the admin
 				// runs from the same directory — so the theme's stylesheet and the

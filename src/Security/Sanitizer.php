@@ -18,6 +18,21 @@ use DOMNode;
 final class Sanitizer
 {
 	/** @var array<string,list<string>> tag => allowed attributes */
+	/**
+	 * The tags this accepts, for anything that has to agree with it.
+	 *
+	 * The editor cleans pasted markup to the same shape so a page does not change
+	 * appearance on save, and it kept its own list — which had drifted: it dropped
+	 * hr, sub, sup, mark, q and the definition list, all of which survive a save
+	 * perfectly well. One list, read from here.
+	 *
+	 * @return list<string>
+	 */
+	public static function allowedTags(): array
+	{
+		return array_keys(self::ALLOWED);
+	}
+
 	private const ALLOWED = [
 		'p' => ['class'], 'br' => [], 'hr' => [],
 		'h1' => ['id', 'class'], 'h2' => ['id', 'class'], 'h3' => ['id', 'class'],

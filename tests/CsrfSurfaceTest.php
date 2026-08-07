@@ -82,6 +82,63 @@ final class CsrfSurfaceTest extends TestCase
 	 * TestCase::webshell() assembles the same bytes at run time, so the tests are
 	 * exactly as strong and the pattern is not in the file.
 	 */
+	/**
+	 * Everything picks a theme the way the site picks one.
+	 *
+	 * ThemeRepository::active() falls back when the stored theme is missing —
+	 * which matters, because a theme is the part of an install somebody edits over
+	 * FTP at eleven at night, and a typo should cost them their design for a
+	 * moment rather than their website.
+	 *
+	 * Theme::load() by name throws instead. The page editor's preview used it, so
+	 * it died on any install whose theme setting named something absent — which
+	 * was every fresh install, because the installer stored 'plain', a theme
+	 * renamed long ago whose name that line never followed. The site rendered
+	 * perfectly the whole time.
+	 *
+	 * Asserted on the source: AdminScreenTest opens GET routes and the preview is
+	 * a POST, so nothing there exercises it. Second best, and said out loud.
+	 */
+	private function themeIsResolvedOnce(): void
+	{
+		/*
+		 * Nowhere reads the theme setting for itself.
+		 *
+		 * Three places had grown their own version: the site (correct), the page
+		 * preview (threw on a missing theme), and the stylesheet editor (offered
+		 * to edit a file in a directory that was not there). All three were the
+		 * same rule, and the two copies were the two that broke.
+		 */
+		$offenders = [];
+
+		foreach (['src/Admin', 'src/Site'] as $directory) {
+			foreach (glob(dirname(__DIR__) . '/' . $directory . '/*.php') ?: [] as $file) {
+				$source = (string) file_get_contents($file);
+
+				if (str_contains($source, "getSetting('theme'") || str_contains($source, 'Theme::load(')) {
+					$offenders[] = basename($file);
+				}
+			}
+		}
+
+		// SettingsController shows the stored name in a dropdown, which is the one
+		// legitimate reason to read it raw: it is editing the setting, not using it.
+		$this->assertSame(
+			['SettingsController.php'],
+			$offenders,
+			'only the screen that edits the setting reads it directly',
+		);
+
+		// The installer names one that exists.
+		$installer = (string) file_get_contents(dirname(__DIR__) . '/src/Install/Installer.php');
+		preg_match("/setSetting\('theme', '([a-z0-9-]+)'\)/", $installer, $m);
+
+		$this->assertTrue(
+			is_dir(dirname(__DIR__) . '/themes/' . ($m[1] ?? 'nothing')),
+			'a fresh install stores the name of a theme that is there',
+		);
+	}
+
 	private function noLiteralShells(): void
 	{
 		$root = dirname(__DIR__);
@@ -238,6 +295,7 @@ final class CsrfSurfaceTest extends TestCase
 		$this->adminIsNotCached();
 		$this->saveAndClose();
 		$this->noLiteralShells();
+		$this->themeIsResolvedOnce();
 
 		// Core routes only. Module routes go into the same table at runtime and are
 		// covered by the same assertions below; they are left out of the reviewed

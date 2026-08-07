@@ -42,7 +42,11 @@ final class Installer
 		$storage->transaction(function () use ($storage, $input): void {
 			$storage->setSetting('site_title', $input['site_title']);
 			$storage->setSetting('site_description', '');
-			$storage->setSetting('theme', 'plain');
+			// 'plain' was a theme that got renamed and this line did not follow.
+			// Every fresh install has been storing the name of a theme that is not
+			// there — harmless on the site, which falls back, and fatal anywhere
+			// that loads a theme by name.
+			$storage->setSetting('theme', 'default');
 			$storage->setSetting('search_enabled', false);
 			$storage->setSetting('updates_check_enabled', true);
 			$storage->setSetting('updates_channel', 'stable');

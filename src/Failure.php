@@ -91,6 +91,15 @@ final class Failure
 	 * and actionable. Naming a class or a line number helps an attacker map the
 	 * install and helps the site owner not at all.
 	 */
+	/*
+	 * Escaper is deliberately not used in this file.
+	 *
+	 * Failure runs before Pluck is known to work — that is its whole job — and
+	 * reaching for a class is how an error handler becomes a second error. The
+	 * duplication is one function call, and it is the only place in the codebase
+	 * where writing htmlspecialchars out is the right answer.
+	 */
+
 	private static function explain(?Throwable $e): string
 	{
 		// Named on purpose. Everything else here is deliberately vague, because
