@@ -588,7 +588,7 @@
 	"ui.errors.admin.back_to_the_overview": "Back to the overview",
 	"ui.media.index.add_a_file": "Add a file",
 	"ui.media.index.nothing_here_yet": "Nothing here yet.",
-	"ui.media.index.up_to": "Up to",
+	"ui.media.index.up_to": "Up to {size}. Images, PDF, audio, video, zip and Office documents.",
 	"ui.media.index.upload": "Upload",
 	"ui.media.index.use_the_address": "Use the address",
 	"ui.pages.form.address": "Address",

@@ -596,7 +596,7 @@
 	"ui.errors.admin.back_to_the_overview": "Powrót do przeglądu",
 	"ui.media.index.add_a_file": "Dodaj plik",
 	"ui.media.index.nothing_here_yet": "Nic tu nie ma.",
-	"ui.media.index.up_to": "Do",
+	"ui.media.index.up_to": "Do {size}. Obrazy, PDF, audio, wideo, zip i dokumenty Office.",
 	"ui.media.index.upload": "Prześlij",
 	"ui.media.index.use_the_address": "Użyj adresu",
 	"ui.pages.form.address": "Adres",

@@ -588,7 +588,7 @@
 	"ui.errors.admin.back_to_the_overview": "Terug naar het overzicht",
 	"ui.media.index.add_a_file": "Een bestand toevoegen",
 	"ui.media.index.nothing_here_yet": "Hier staat nog niets.",
-	"ui.media.index.up_to": "Tot",
+	"ui.media.index.up_to": "Tot {size}. Afbeeldingen, PDF, audio, video, zip en Office-documenten.",
 	"ui.media.index.upload": "Uploaden",
 	"ui.media.index.use_the_address": "Gebruik het adres",
 	"ui.pages.form.address": "Adres",
