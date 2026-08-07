@@ -338,6 +338,31 @@ final class PageController extends Controller
 
 	public const PREVIEW_KEY = 'page_preview';
 
+	/**
+	 * What address a title would get.
+	 *
+	 * Exists so the editor does not have to fold a title itself. It used to, in
+	 * JavaScript, with a rule that agreed with Slug::make() for most of Europe
+	 * and dropped Polish ł entirely — and because it filled the field in, the
+	 * server used its answer and never saw the title.
+	 *
+	 * One implementation of a rule, on the side that has the table.
+	 */
+	public function slug(): never
+	{
+		// The router checks the token on every POST before a controller is
+		// reached, so there is nothing to repeat here.
+		header('Content-Type: application/json; charset=utf-8');
+		header('Cache-Control: no-store');
+
+		echo json_encode(
+			['slug' => Slug::make($this->c->request->post('title', ''), '')],
+			JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
+		) ?: '{}';
+
+		exit;
+	}
+
 	public function preview(): never
 	{
 		$inspected = (new Sanitizer())->inspect($this->c->request->post('content', ''));

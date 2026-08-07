@@ -11,6 +11,7 @@ final class SlugTest extends TestCase
 	{
 		$this->group('letters other alphabets fold to', fn () => $this->folding());
 		$this->group('the same address on every server', fn () => $this->deterministic());
+		$this->group('one implementation of the rule', fn () => $this->onlyOne());
 		$this->assertSame('about-us', Slug::make('About Us'), 'spaces become dashes, case is lowered');
 		$this->assertSame('a-b', Slug::make('a  ---  b'), 'runs of separators collapse');
 		$this->assertSame('cafe', Slug::make('Café'), 'accents are folded, with or without intl');
@@ -90,5 +91,36 @@ final class SlugTest extends TestCase
 			str_contains($source, "preg_match('/[^\\x00-\\x7F]/'"),
 			'and only when the string still has something outside ASCII in it',
 		);
+	}
+
+	/**
+	 * The browser does not fold titles itself.
+	 *
+	 * It used to, with NFD: split a letter from its accent, drop the accent, keep
+	 * what is left. That agrees with Slug::make() across most of Europe and fails
+	 * completely on Polish ł, which has no accent to split off — it is one
+	 * indivisible letter, and the next step threw it away. A page called Łódź got
+	 * the address "odz".
+	 *
+	 * Worse than the wrong answer was where it happened: the field was filled in
+	 * before the form was submitted, so the server used the browser's answer and
+	 * never saw the title. Slug::make() was correct the whole time and never
+	 * reached. Two implementations of one rule, and the one without the table won.
+	 */
+	private function onlyOne(): void
+	{
+		$js = (string) file_get_contents(dirname(__DIR__) . '/assets/admin/pluck.js');
+
+		$this->assertFalse(
+			str_contains($js, "normalize('NFD')"),
+			'the editor does not fold a title in the browser',
+		);
+		$this->assertTrue(
+			str_contains($js, 'page.slug'),
+			'it asks the server, which has the table',
+		);
+
+		// And the server answers with what Slug::make would give.
+		$this->assertSame('lodz', Slug::make('Łódź'), 'Łódź is lodz, wherever it is asked');
 	}
 }

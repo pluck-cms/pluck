@@ -38,13 +38,54 @@
 		target.addEventListener('input', function () { edited = true; });
 		source.addEventListener('input', function () {
 			if (edited) return;
-			target.value = source.value
-				.toLowerCase()
-				.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-				.replace(/[^a-z0-9]+/g, '-')
-				.replace(/^-+|-+$/g, '')
-				.slice(0, 120);
+			/*
+			 * Ask the server, rather than guessing here.
+			 *
+			 * This used to fold the title in the browser with NFD, which splits a
+			 * letter from its accent and then drops the accent. That works for ó
+			 * and ź and not at all for ł, which has no accent to split off: it is
+			 * one indivisible letter, so the next step threw it away. A page
+			 * called Łódź got the address "odz", and because this field was then
+			 * filled in, PHP used it and never saw the title.
+			 *
+			 * Slug::make() already knows how to do this, in one place, with a
+			 * table anybody can extend. Two implementations of the same rule is
+			 * one too many, and the one in the browser was the wrong one.
+			 */
+			suggest(source.value, target);
 		});
+	}
+
+	/**
+	 * Ask the server what the address should be.
+	 *
+	 * Debounced, because it fires on every keystroke. If the request fails —
+	 * offline, or an older Pluck — the field is left alone: an empty address is
+	 * filled in by the server on save anyway, which is the same answer arriving
+	 * later rather than a worse one arriving now.
+	 */
+	function suggest(title, target) {
+		window.clearTimeout(suggest.timer);
+
+		suggest.timer = window.setTimeout(function () {
+			var token = document.querySelector('input[name="_token"]');
+			if (!token) {
+				return;
+			}
+
+			var body = new FormData();
+			body.append('title', title);
+			body.append('_token', token.value);
+
+			window.fetch('admin.php?p=page.slug', { method: 'POST', body: body, credentials: 'same-origin' })
+				.then(function (r) { return r.ok ? r.json() : null; })
+				.then(function (data) {
+					if (data && typeof data.slug === 'string') {
+						target.value = data.slug;
+					}
+				})
+				.catch(function () { /* the server will do it on save */ });
+		}, 250);
 	}
 
 	/* Warn before leaving an edited form. */

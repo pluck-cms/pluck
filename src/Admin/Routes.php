@@ -37,6 +37,7 @@ final class Routes
 		$router->get('pages', PageController::class, 'index', 'page.view');
 		$router->get('page.new', PageController::class, 'create', 'page.create');
 		$router->get('page.edit', PageController::class, 'edit', 'page.view');
+		$router->post('page.slug', PageController::class, 'slug', 'page.view');
 		$router->post('page.preview', PageController::class, 'preview', 'page.view');
 		$router->post('page.preview.site', PageController::class, 'previewToSite', 'page.view');
 		$router->post('page.save', PageController::class, 'save', 'page.view');
