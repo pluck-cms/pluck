@@ -14,6 +14,20 @@ truth, and the test suite enforces that rather than trusting anyone to remember.
 That is the whole process. There is no extraction step, no `.po` file, no
 compilation.
 
+## The tool
+
+```sh
+php bin/lang            every language, with a percentage
+php bin/lang pl         exactly which keys are still English
+php bin/lang --leaks    English typed straight into a template
+php bin/lang --stub=de  start a new language from the English
+```
+
+Run `--leaks` even if you are not translating. A key nobody translated shows up
+as a gap; English written directly into a view shows up as nothing at all and
+stays English in every language forever. That is how Dutch reported 93% complete
+while the page editor still said "Save page".
+
 ## What the tests enforce
 
 `tests/CatalogueTest.php` is the specification. It fails the build when:
@@ -102,6 +116,44 @@ straight into the template, in attributes as well as text: it escapes with
 The practical consequence: **you cannot put HTML in a translation.** A string that
 needs a link around part of it needs the template to build the link and the
 catalogue to supply the words.
+
+## Regional variants
+
+`nl-BE` falls back to `nl`, then to `en`. A Flemish file only needs the words
+that differ from Dutch — not the other five hundred. The same applies to `en-GB`
+and `en-US`: English is written in British spelling, so an American file is a
+handful of keys rather than a copy.
+
+## Tone, and things worth watching
+
+**Length.** A button that says "Save" in English and "Instellingen opslaan" in
+Dutch still has to fit. The admin wraps rather than clips, but a nine-word button
+looks like a mistake. Polish runs about 60% longer than English in places; that
+is normal and fine.
+
+**Formality.** Pluck addresses people directly and plainly — "Your account cannot
+delete files", not "Insufficient privileges". Languages with a formal and an
+informal you should pick the informal one unless that reads as rude: this is a
+tool somebody uses alone, not a letter from a bank.
+
+**Error messages say what to do.** "The session folder is not writable" is a
+fact; "Give the web server write access to data/cache" is help. Where the English
+does the second, do not translate it back into the first.
+
+**Do not translate:** placeholders in braces, file paths, `ext-intl` and other
+technical names, and the keys themselves.
+
+## Languages that exist
+
+| | |
+|---|---|
+| `en` | English — the source |
+| `nl` | Dutch |
+| `pl` | Polish, contributed |
+
+Send a new one as a pull request against `pluck5.0`. Run `php bin/lang <code>`
+first: if it says 100%, it is complete, and if it does not, say which parts you
+left.
 
 ## Key naming
 

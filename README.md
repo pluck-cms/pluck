@@ -65,11 +65,17 @@ Polish translation by the Pluck community. Windows path handling reported and
 diagnosed by a contributor testing on XAMPP — Pluck did not run there at all,
 and nothing in this suite could have found it.
 
+## Contributing
+
+Pull requests against `pluck5.0`. [CONTRIBUTING.md](CONTRIBUTING.md) has what the
+project asks of a change; the short version is that `php tests/run.php` and
+`php bin/lang --leaks` both have to pass.
+
 ## Documentation
 
 - [Making a theme](docs/THEMES.md)
 - [Making a module](docs/MODULES.md)
-- [Translating Pluck](docs/LANGUAGES.md)
+- [Translating Pluck](docs/TRANSLATIONS.md)
 
 | | |
 |---|---|
