@@ -19,7 +19,7 @@ $human = static fn (int $bytes): string => $bytes >= 1048576
 		<?= $view->csrfField() ?>
 		<div class="field">
 			<label for="file"><?= $view->t('ui.media.index.add_a_file') ?></label>
-			<span class="hint"><?= $view->t('ui.media.index.up_to') ?><?= e($human($maxBytes)) ?>. Images, PDF, audio, video, zip and Office documents.</span>
+			<span class="hint"><?= $view->t('ui.media.index.up_to') ?> <?= e($human($maxBytes)) ?>. Images, PDF, audio, video, zip and Office documents.</span>
 			<input id="file" name="file" type="file" accept="<?= e($accept) ?>" required>
 		</div>
 		<button type="submit"><?= $view->t('ui.media.index.upload') ?></button>

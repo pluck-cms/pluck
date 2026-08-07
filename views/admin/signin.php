@@ -66,7 +66,7 @@ use Pluck\Bootstrap;
 		<?php endif; ?>
 	</div>
 
-	<p class="muted centered"><?= $view->t('ui.signin.managing') ?><?= e($siteTitle) ?></p>
+	<p class="muted centered"><?= $view->t('ui.signin.managing') ?> <?= e($siteTitle) ?></p>
 </div>
 </body>
 </html>

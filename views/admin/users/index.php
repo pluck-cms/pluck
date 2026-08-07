@@ -40,9 +40,9 @@ use Pluck\Admin\Controller;
 <div class="card">
 	<h2><?= $view->t('ui.users.index.what_the_roles_mean') ?></h2>
 	<ul class="checks">
-		<li class="pass"><span class="glyph">·</span><span><span class="name"><?= $view->t('ui.users.index.owner') ?></span><span class="detail"><?= $view->t('ui.users.index.everything_including_updates_and_other_owner') ?></span></span></li>
-		<li class="pass"><span class="glyph">·</span><span><span class="name"><?= $view->t('ui.users.index.administrator') ?></span><span class="detail"><?= $view->t('ui.users.index.everything_except_owner_accounts_and_removin') ?></span></span></li>
-		<li class="pass"><span class="glyph">·</span><span><span class="name"><?= $view->t('ui.users.index.editor') ?></span><span class="detail"><?= $view->t('ui.users.index.all_content_and_module_settings_no_site_sett') ?></span></span></li>
-		<li class="pass"><span class="glyph">·</span><span><span class="name"><?= $view->t('ui.users.index.author') ?></span><span class="detail"><?= $view->t('ui.users.index.their_own_pages_only') ?></span></span></li>
+		<li class="pass"><span class="glyph">·</span><span><span class="name"><?= $view->t('ui.users.index.owner') ?></span> <span class="detail"><?= $view->t('ui.users.index.everything_including_updates_and_other_owner') ?></span></span></li>
+		<li class="pass"><span class="glyph">·</span><span><span class="name"><?= $view->t('ui.users.index.administrator') ?></span> <span class="detail"><?= $view->t('ui.users.index.everything_except_owner_accounts_and_removin') ?></span></span></li>
+		<li class="pass"><span class="glyph">·</span><span><span class="name"><?= $view->t('ui.users.index.editor') ?></span> <span class="detail"><?= $view->t('ui.users.index.all_content_and_module_settings_no_site_sett') ?></span></span></li>
+		<li class="pass"><span class="glyph">·</span><span><span class="name"><?= $view->t('ui.users.index.author') ?></span> <span class="detail"><?= $view->t('ui.users.index.their_own_pages_only') ?></span></span></li>
 	</ul>
 </div>
