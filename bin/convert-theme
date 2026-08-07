@@ -1,0 +1,50 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+
+/**
+ * Turn a Pluck 4 theme into a Pluck 5 one.
+ *
+ *   php bin/convert-theme <old-theme-dir> [themes/<name>]
+ *
+ * Reports what it could not translate rather than dropping it: module spaces
+ * have no equivalent in Pluck 5, and anything else it did not recognise is left
+ * in the layout as an HTML comment for a person to look at.
+ */
+
+require __DIR__ . '/../src/autoload.php';
+
+use Pluck\Theme\LegacyThemeConverter;
+
+$source = $argv[1] ?? '';
+if ($source === '' || !is_dir($source)) {
+	fwrite(STDERR, "usage: php bin/convert-theme <old-theme-dir> [target]\n");
+	exit(1);
+}
+
+$source = rtrim($source, '/');
+
+try {
+	$converter = new LegacyThemeConverter();
+	$target = $argv[2] ?? (__DIR__ . '/../themes/' . basename($source));
+	$result = $converter->convert($source, $target);
+} catch (Throwable $e) {
+	fwrite(STDERR, 'Could not convert: ' . $e->getMessage() . "\n");
+	exit(1);
+}
+
+printf("%s -> %s (%d files)\n", $result['title'], $target, $result['files']);
+
+foreach ($result['notes'] as $note) {
+	printf("  note: %s\n", $note);
+}
+
+foreach ($result['attention'] as $item) {
+	printf("  needs a person: %s\n", $item);
+}
+
+if ($result['attention'] === []) {
+	print("  nothing needed a person.\n");
+}
+
+print("\nRead templates/layout.php before using it on a live site.\n");

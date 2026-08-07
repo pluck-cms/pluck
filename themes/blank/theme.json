@@ -1,0 +1,7 @@
+{
+	"name": "Blank",
+	"version": "1.0.0",
+	"author": "The Pluck project",
+	"license": "GPL-3.0-or-later",
+	"description": "The same markup as Columns with almost no styling. Meant to have a customer's own stylesheet dropped on top: every element carries the class or id it says it does, and nothing here fights you for it."
+}

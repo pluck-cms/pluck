@@ -1,0 +1,11 @@
+/data/**
+!/data/.htaccess
+!/data/index.html
+/vendor/
+/.phpunit.result.cache
+/composer.lock
+
+# The build-service manifest is not part of Pluck: it names a private registry
+# and a tag convention that belong to one person's infrastructure. Kept beside a
+# checkout, handed to the build service separately, never in a release.
+image.yaml

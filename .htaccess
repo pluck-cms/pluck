@@ -1,0 +1,32 @@
+# Pretty URLs, and a few things that should be true on any Pluck install.
+#
+# Rewriting is optional: with it off, Pluck addresses pages as ?page=path and
+# everything works. Turn it on in the admin once you have confirmed this file is
+# being read — on hosting without AllowOverride it silently is not, and enabling
+# the setting first would take the site down.
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+
+	# Serve anything that really exists — media, theme assets, admin.php —
+	# straight from disk. Only addresses with nothing behind them reach PHP.
+	RewriteCond %{REQUEST_FILENAME} -f [OR]
+	RewriteCond %{REQUEST_FILENAME} -d
+	RewriteRule ^ - [L]
+
+	RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+	Header always set X-Content-Type-Options "nosniff"
+	Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Directory listings are never useful here and occasionally expose something.
+Options -Indexes
+
+# The data folder has its own .htaccess denying everything; this is the belt to
+# that pair of braces, for the case where a server reads only the top one.
+<FilesMatch "\.(json|sqlite|sqlite3|db)$">
+	Require all denied
+</FilesMatch>

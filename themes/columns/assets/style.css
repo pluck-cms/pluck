@@ -1,0 +1,281 @@
+/*
+ * Columns.
+ *
+ * Rebuilt from a Pluck 4 theme that carried the 5grid framework — jQuery, a
+ * JavaScript viewport switcher, an off-canvas menu and eight stylesheets. All of
+ * it is replaced here by media queries and a checkbox, because that is what those
+ * things were standing in for before browsers could do them.
+ *
+ * Everything you would want to change is a variable at the top. Change the six
+ * colours and this is a different theme.
+ */
+
+:root {
+	--ink: #21252b;
+	--ink-soft: #5f6672;
+	--paper: #ffffff;
+	--band: #2f3540;
+	--band-ink: #f2f4f7;
+	--accent: #1f7a8c;
+	--rule: #dfe3e8;
+	--measure: 60rem;
+	--gap: 1.5rem;
+	--radius: 3px;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--ink: #e6e8ec;
+		--ink-soft: #9aa1ad;
+		--paper: #16181c;
+		--band: #0f1114;
+		--band-ink: #e6e8ec;
+		--accent: #4bb3c7;
+		--rule: #2b2f36;
+	}
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+	margin: 0;
+	background: var(--paper);
+	color: var(--ink);
+	font: 1rem/1.65 system-ui, -apple-system, "Segoe UI", sans-serif;
+	-webkit-text-size-adjust: 100%;
+}
+
+img { max-width: 100%; height: auto; }
+a { color: var(--accent); }
+
+.layout {
+	max-width: var(--measure);
+	margin-inline: auto;
+	padding-inline: var(--gap);
+}
+
+.skip { position: absolute; left: -9999px; }
+.skip:focus { position: static; display: inline-block; padding: 0.5rem; }
+
+.visually-hidden {
+	position: absolute;
+	width: 1px; height: 1px;
+	margin: -1px; padding: 0;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+/* ---- header ---- */
+
+#header-wrapper { background: var(--band); color: var(--band-ink); }
+#header { padding-top: 1.5rem; }
+
+#logo h1 { margin: 0; font-size: 1.6rem; }
+#logo h1 a { color: inherit; text-decoration: none; }
+#logo img { max-height: 4rem; width: auto; display: block; }
+.tagline { margin: 0.25rem 0 0; color: var(--band-ink); opacity: 0.7; font-size: 0.95rem; }
+
+/* ---- menu ---- */
+
+#menu-wrapper { margin-top: 1.25rem; border-top: 1px solid rgba(255, 255, 255, 0.12); }
+
+#menu ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#menu li { position: relative; }
+
+#menu a {
+	display: block;
+	padding: 0.75rem 1rem;
+	color: var(--band-ink);
+	text-decoration: none;
+	font-size: 0.95rem;
+}
+
+#menu a:hover { background: rgba(255, 255, 255, 0.08); }
+#menu .is-active > a { box-shadow: inset 0 -3px 0 var(--accent); }
+
+/* Sub-pages of the open branch, alongside on a wide screen. */
+#menu li ul { flex-basis: 100%; padding-left: 1rem; }
+#menu li ul a { padding-block: 0.4rem; font-size: 0.9rem; opacity: 0.85; }
+
+/*
+ * The button, and the checkbox that drives it.
+ *
+ * A checkbox rather than a script: nothing can get the state wrong, and nothing
+ * can leave the page unscrollable. The theme this replaces bound touchmove and
+ * cleared its own flag in an animation callback, so an interrupted animation
+ * killed scrolling until the page was reloaded.
+ */
+.menu-toggle { position: absolute; opacity: 0; pointer-events: none; }
+.menu-button { display: none; }
+
+@media (max-width: 44rem) {
+	.menu-button {
+		display: inline-block;
+		padding: 0.6rem 0.9rem;
+		margin: 0.3rem 0;
+		font-size: 1.2rem;
+		line-height: 1;
+		color: var(--band-ink);
+		cursor: pointer;
+		user-select: none;
+	}
+
+	#menu {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows 0.2s ease;
+	}
+	#menu > ul { overflow: hidden; }
+
+	.menu-toggle:checked ~ #menu { grid-template-rows: 1fr; }
+
+	/* Visible focus for anyone using a keyboard. */
+	.menu-toggle:focus-visible + .menu-button { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+	#menu ul { display: block; }
+	#menu li ul { padding-left: 1.5rem; }
+	#menu a { border-top: 1px solid rgba(255, 255, 255, 0.08); }
+}
+
+/* ---- breadcrumbs ---- */
+
+.breadcrumbs {
+	padding-top: 0.9rem;
+	font-size: 0.85rem;
+	color: var(--ink-soft);
+}
+.breadcrumbs ol { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.breadcrumbs li + li::before { content: "/ "; color: var(--rule); }
+
+/* ---- the page ---- */
+
+#page-wrapper { padding-block: var(--gap) 3rem; }
+
+#content h1 { font-size: 1.9rem; line-height: 1.25; margin-top: 0; }
+#content h2 { font-size: 1.4rem; }
+
+blockquote {
+	margin-inline: 0;
+	padding-left: 1rem;
+	border-left: 3px solid var(--accent);
+	color: var(--ink-soft);
+}
+
+pre {
+	overflow-x: auto;
+	padding: 0.75rem;
+	background: color-mix(in srgb, var(--ink) 6%, transparent);
+	border-radius: var(--radius);
+	font-size: 0.9rem;
+}
+
+table { border-collapse: collapse; width: 100%; }
+th, td { padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--rule); text-align: left; }
+
+/* ---- footer ---- */
+
+#footer {
+	background: var(--band);
+	color: var(--band-ink);
+	padding-block: 1.5rem;
+	font-size: 0.9rem;
+}
+#footer p { margin: 0.2rem 0; }
+#footer .muted { opacity: 0.6; }
+
+/* ---- blog and albums, so the modules look at home ---- */
+
+.blog-post + .blog-post { border-top: 1px solid var(--rule); padding-top: var(--gap); margin-top: var(--gap); }
+.blog-post h2 a { color: inherit; text-decoration: none; }
+.blog-post__meta { margin-top: 0; font-size: 0.85rem; color: var(--ink-soft); }
+.blog-pagination { display: flex; justify-content: space-between; gap: 1rem; padding-top: var(--gap); border-top: 1px solid var(--rule); font-size: 0.9rem; }
+.blog-reactions { margin-top: 2rem; padding-top: var(--gap); border-top: 1px solid var(--rule); }
+
+.album-list, .album {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+	gap: 1rem;
+}
+.album-list a { display: block; color: inherit; text-decoration: none; }
+.album-list img, .album__item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
+.album__item { margin: 0; }
+.album__item figcaption { font-size: 0.8rem; color: var(--ink-soft); margin-top: 0.3rem; }
+
+.search-form { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: var(--gap); }
+.search-form input { flex: 1 1 12rem; padding: 0.45rem 0.6rem; font: inherit; border: 1px solid var(--rule); border-radius: var(--radius); }
+.search-results { margin: 0; padding: 0; list-style: none; }
+.search-result + .search-result { border-top: 1px solid var(--rule); padding-top: 1rem; margin-top: 1rem; }
+mark { background: color-mix(in srgb, var(--accent) 25%, transparent); color: inherit; }
+
+.site-search input {
+	width: 100%;
+	max-width: 18rem;
+	padding: 0.35rem 0.6rem;
+	font: inherit;
+	font-size: 0.9rem;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: var(--radius);
+	background: rgba(255, 255, 255, 0.08);
+	color: var(--band-ink);
+}
+
+
+/*
+ * A table that carries column widths gets fixed layout, so the widths somebody
+ * dragged in the editor are the widths on the page. Without this a browser sizes
+ * columns to their contents and treats <col width> as advice.
+ */
+table:has(colgroup) { table-layout: fixed; }
+
+/*
+ * Forms a module rendered: the contact form, and the reaction form under a post.
+ *
+ * The markup stacks on its own — a paragraph per field — so this is only about
+ * making the boxes a sensible size. Without it a text input is whatever width
+ * the browser picked in 1996.
+ */
+.contact-form .field,
+.reaction-form .field { margin-block: 0 1rem; }
+
+.contact-form label,
+.reaction-form label { font-size: 0.9rem; }
+
+.contact-form input,
+.contact-form textarea,
+.reaction-form input,
+.reaction-form textarea {
+	width: 100%;
+	max-width: 32rem;
+	padding: 0.5rem 0.6rem;
+	font: inherit;
+	font-size: 0.95rem;
+	border: 1px solid currentColor;
+	border-radius: 3px;
+	background: transparent;
+	color: inherit;
+}
+
+/* The sum is two characters, not a paragraph. */
+.contact-form input[inputmode="numeric"],
+.reaction-form input[inputmode="numeric"] { width: 6rem; }
+
+.contact-form button,
+.reaction-form button {
+	padding: 0.55rem 1.4rem;
+	font: inherit;
+	cursor: pointer;
+}
+
+.form-error { color: #a4231f; font-weight: 600; }
+.form-done { padding: 1rem 0; font-weight: 600; }

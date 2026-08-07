@@ -1,0 +1,36 @@
+# Uploads live in the document root so they can be linked to, which means the web
+# server must never treat one as a program. Belt and braces: turn the handlers
+# off, and refuse anything with an executable extension even if it slipped past
+# the upload allow-list.
+
+# Guarded on purpose: a bare php_flag is an unknown directive on a server running
+# PHP through fpm or cgi, and an unknown directive in .htaccess is a 500 for the
+# whole site. Where mod_php is not in play, the handler rules below do the work.
+<IfModule mod_php.c>
+	php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+	php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+	php_flag engine off
+</IfModule>
+
+RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .php8 .phps .pl .py .cgi .asp .aspx .shtml .sh
+RemoveType .php .phtml .php3 .php4 .php5 .php7 .php8 .phps
+
+<FilesMatch "\.(?i:php|phtml|php[3-8]|phps|pl|py|cgi|asp|aspx|shtml|sh|htaccess)$">
+	<IfModule mod_authz_core.c>
+		Require all denied
+	</IfModule>
+	<IfModule !mod_authz_core.c>
+		Order allow,deny
+		Deny from all
+	</IfModule>
+</FilesMatch>
+
+# Served, not run.
+<IfModule mod_headers.c>
+	Header set X-Content-Type-Options "nosniff"
+	Header set Content-Disposition "inline"
+</IfModule>

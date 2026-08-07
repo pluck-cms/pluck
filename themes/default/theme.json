@@ -1,0 +1,7 @@
+{
+	"name": "Default",
+	"version": "1.0.0",
+	"author": "The Pluck project",
+	"license": "GPL-3.0-or-later",
+	"description": "The theme Pluck ships with. Plain HTML and one stylesheet, meant to be read and copied rather than extended."
+}

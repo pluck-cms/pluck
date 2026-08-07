@@ -1,0 +1,19 @@
+# Nothing under data/ may be served or executed directly.
+<IfModule mod_authz_core.c>
+	Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+	Order allow,deny
+	Deny from all
+</IfModule>
+# Guarded: a bare php_flag on a server running PHP through fpm or cgi is an
+# unknown directive, which is a 500 for the whole site rather than a safe no-op.
+<IfModule mod_php.c>
+	php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+	php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+	php_flag engine off
+</IfModule>

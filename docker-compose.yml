@@ -1,0 +1,24 @@
+# For trying Pluck 5 out, or for running a real site behind your own proxy.
+#
+#   docker compose up --build
+#   open http://localhost:8080/install.php
+#
+# The two volumes are the whole state of the site: back those up and you have
+# backed up everything.
+
+services:
+  pluck:
+    build: .
+    image: pluck/pluck:5-dev
+    ports:
+      - "8080:80"
+    volumes:
+      - pluck-data:/var/www/html/data
+      - pluck-media:/var/www/html/media
+    restart: unless-stopped
+    environment:
+      TZ: Europe/Amsterdam
+
+volumes:
+  pluck-data:
+  pluck-media:

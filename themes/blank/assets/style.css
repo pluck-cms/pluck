@@ -1,0 +1,127 @@
+/*
+ * Blank.
+ *
+ * The same markup as Columns, with the styling taken out. It exists because most
+ * customer themes turn out to be one stylesheet over a structure that never
+ * changes, and starting from a theme that has opinions means undoing them first.
+ *
+ * So: enough to make the page legible and the menu usable, and nothing else. No
+ * colours beyond black on white, no typeface, no spacing anybody has to override.
+ *
+ * ## What you can rely on
+ *
+ *   #header-wrapper > #header > #logo        h1 or an <img>, plus .tagline
+ *   #menu-wrapper > #menu > ul > li > a      .is-active on the current page
+ *                                            .is-open on the branch you are in
+ *   .menu-toggle / .menu-button              the checkbox that opens the menu
+ *   .breadcrumbs > ol > li
+ *   #page-wrapper > #content
+ *   #footer
+ *   .layout                                  the width-limiting wrapper
+ *
+ * Module markup — .blog-post, .album-list, .search-result — is documented in the
+ * bundled Default theme's stylesheet.
+ *
+ * ## The one thing worth keeping
+ *
+ * The menu opens with a checkbox and no JavaScript. Whatever you restyle, leave
+ * that alone: the Pluck 4 theme this replaces used a script that blocked
+ * touchmove while the menu was open and cleared its flag in an animation
+ * callback, so an interrupted animation left the page unscrollable until it was
+ * reloaded. A checkbox cannot do that.
+ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body { margin: 0; }
+
+img { max-width: 100%; height: auto; }
+
+.layout { max-width: 60rem; margin-inline: auto; padding-inline: 1rem; }
+
+.skip { position: absolute; left: -9999px; }
+.skip:focus { position: static; display: inline-block; padding: 0.5rem; }
+
+.visually-hidden {
+	position: absolute;
+	width: 1px; height: 1px;
+	margin: -1px; padding: 0;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+#logo h1 { margin: 0; }
+#logo img { display: block; }
+
+#menu ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 0 1rem; }
+#menu li ul { flex-basis: 100%; padding-left: 1rem; }
+
+.breadcrumbs ol { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.breadcrumbs li + li::before { content: "/ "; }
+
+/* The menu button, and the only behaviour this stylesheet insists on. */
+.menu-toggle { position: absolute; opacity: 0; pointer-events: none; }
+.menu-button { display: none; }
+
+@media (max-width: 44rem) {
+	.menu-button { display: inline-block; padding: 0.5rem; cursor: pointer; user-select: none; }
+
+	#menu { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.2s ease; }
+	#menu > ul { overflow: hidden; display: block; }
+
+	.menu-toggle:checked ~ #menu { grid-template-rows: 1fr; }
+	.menu-toggle:focus-visible + .menu-button { outline: 2px solid currentColor; outline-offset: 2px; }
+}
+
+table { border-collapse: collapse; }
+
+
+/*
+ * A table that carries column widths gets fixed layout, so the widths somebody
+ * dragged in the editor are the widths on the page. Without this a browser sizes
+ * columns to their contents and treats <col width> as advice.
+ */
+table:has(colgroup) { table-layout: fixed; }
+
+/*
+ * Forms a module rendered: the contact form, and the reaction form under a post.
+ *
+ * The markup stacks on its own — a paragraph per field — so this is only about
+ * making the boxes a sensible size. Without it a text input is whatever width
+ * the browser picked in 1996.
+ */
+.contact-form .field,
+.reaction-form .field { margin-block: 0 1rem; }
+
+.contact-form label,
+.reaction-form label { font-size: 0.9rem; }
+
+.contact-form input,
+.contact-form textarea,
+.reaction-form input,
+.reaction-form textarea {
+	width: 100%;
+	max-width: 32rem;
+	padding: 0.5rem 0.6rem;
+	font: inherit;
+	font-size: 0.95rem;
+	border: 1px solid currentColor;
+	border-radius: 3px;
+	background: transparent;
+	color: inherit;
+}
+
+/* The sum is two characters, not a paragraph. */
+.contact-form input[inputmode="numeric"],
+.reaction-form input[inputmode="numeric"] { width: 6rem; }
+
+.contact-form button,
+.reaction-form button {
+	padding: 0.55rem 1.4rem;
+	font: inherit;
+	cursor: pointer;
+}
+
+.form-error { color: #a4231f; font-weight: 600; }
+.form-done { padding: 1rem 0; font-weight: 600; }

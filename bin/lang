@@ -1,0 +1,174 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+
+/**
+ * What is missing from a translation, and what was never translatable.
+ *
+ *   php bin/lang                 every language, summarised
+ *   php bin/lang nl              what nl is missing, key by key
+ *   php bin/lang --leaks         English written straight into a template
+ *   php bin/lang --stub=de       write lang/de.json with the English as a start
+ *
+ * The second report matters as much as the first. A key nobody translated shows
+ * up as a gap; English typed directly into a view shows up as nothing at all,
+ * and stays English in every language forever.
+ */
+
+require __DIR__ . '/../src/autoload.php';
+
+$langDir = __DIR__ . '/../lang';
+$viewDir = __DIR__ . '/../views';
+
+$english = json_decode((string) file_get_contents($langDir . '/en.json'), true);
+if (!is_array($english)) {
+	fwrite(STDERR, "Cannot read lang/en.json\n");
+	exit(1);
+}
+
+$argument = $argv[1] ?? '';
+
+if (str_starts_with($argument, '--stub=')) {
+	$code = preg_replace('/[^a-z-]/', '', substr($argument, 7)) ?: '';
+	$target = $langDir . '/' . $code . '.json';
+
+	if ($code === '' || is_file($target)) {
+		fwrite(STDERR, $code === '' ? "Give a language code.\n" : "lang/{$code}.json already exists.\n");
+		exit(1);
+	}
+
+	// English as the starting point rather than an empty file: a translator can
+	// see what each key is for, and anything left alone still reads.
+	file_put_contents($target, json_encode($english, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "\n");
+	printf("Wrote %s with %d keys to translate.\n", $target, count($english));
+	exit(0);
+}
+
+if ($argument === '--leaks') {
+	exit(reportLeaks($viewDir) ? 0 : 1);
+}
+
+$languages = [];
+foreach (glob($langDir . '/*.json') ?: [] as $file) {
+	$code = basename($file, '.json');
+	if ($code === 'en') {
+		continue;
+	}
+	$languages[$code] = json_decode((string) file_get_contents($file), true) ?: [];
+}
+
+if ($argument !== '' && isset($languages[$argument])) {
+	$missing = array_diff(array_keys($english), array_keys($languages[$argument]));
+	$extra = array_diff(array_keys($languages[$argument]), array_keys($english));
+
+	printf("%s: %d of %d translated\n\n", $argument, count($english) - count($missing), count($english));
+
+	foreach ($missing as $key) {
+		printf("  missing  %-44s %s\n", $key, is_string($english[$key]) ? $english[$key] : '(plural)');
+	}
+
+	foreach ($extra as $key) {
+		// A key that is not in English is one the code stopped using. Harmless,
+		// and worth removing so the next person does not translate it again.
+		printf("  unused   %s\n", $key);
+	}
+
+	exit($missing === [] ? 0 : 1);
+}
+
+printf("%-6s %-9s %s\n", 'code', 'done', 'missing');
+foreach ($languages as $code => $strings) {
+	$missing = count(array_diff(array_keys($english), array_keys($strings)));
+	printf(
+		"%-6s %5.1f%%    %d\n",
+		$code,
+		((count($english) - $missing) / max(1, count($english))) * 100,
+		$missing,
+	);
+}
+
+print("\nphp bin/lang <code> lists them; php bin/lang --leaks finds English in the templates.\n");
+
+/**
+ * English typed straight into a template.
+ *
+ * Deliberately rough: it looks for sentence-shaped text between tags and inside
+ * the attributes that are shown to people. It will point at things that are
+ * fine, which is the right way round — a false alarm costs a glance, a missed
+ * one costs a language.
+ */
+function reportLeaks(string $viewDir): bool
+{
+	$found = 0;
+
+	$iterator = new RecursiveIteratorIterator(
+		new RecursiveDirectoryIterator($viewDir, FilesystemIterator::SKIP_DOTS),
+	);
+
+	foreach ($iterator as $file) {
+		if (!$file->isFile() || $file->getExtension() !== 'php') {
+			continue;
+		}
+
+		$source = (string) file_get_contents($file->getPathname());
+		$lines = explode("\n", $source);
+
+		foreach ($lines as $number => $line) {
+			// Text between tags, and the attributes a person actually reads.
+			$patterns = [
+				'/>([A-Z][A-Za-z][A-Za-z \',.?!-]{3,})</',
+				'/\b(?:title|placeholder|aria-label|data-confirm)="([A-Z][A-Za-z][A-Za-z \',.?!-]{3,})"/',
+				"/'([A-Z][a-z]+ [a-z][A-Za-z ]{2,})'/",
+				// A word inside a ternary, which is where the last of these hid.
+				// An echo containing `$on ? 'on' : 'off'` is invisible to a
+				// pattern that looks between tags, and stays English in every
+				// language. Ternaries inside an attribute are skipped below: those
+				// are class names, and a tool that reports the same two lines
+				// forever is a tool nobody reads.
+				"/\\?\\s*'([a-z]{2,12})'\\s*:\\s*'([a-z]{2,12})'/",
+			];
+
+			/*
+			 * Attribute values are removed before looking, not used to skip the
+			 * line.
+			 *
+			 * A ternary inside an attribute is a class name or an icon; a ternary
+			 * in the text is wording. A single line often has both — the dashboard
+			 * has `class="<?= ... ?>"` and the on/off word on the same line — so
+			 * skipping the line loses the one that matters.
+			 */
+			$text = preg_replace('/="[^"]*"/', '=""', $line) ?? $line;
+
+			foreach ($patterns as $pattern) {
+				// The attribute patterns need the attributes; the rest are looking
+				// at what a person reads.
+				$against = str_contains($pattern, 'placeholder') ? $line : $text;
+
+				if (preg_match($pattern, $against, $m) !== 1) {
+					continue;
+				}
+
+				/*
+				 * A line already using the translator is usually fine — except for
+				 * the ternary, because a line can perfectly well call t() for the
+				 * label and hardcode the word beside it. That is exactly what the
+				 * dashboard did, and this exemption is why nothing reported it.
+				 */
+				$ternary = str_contains($pattern, "\\?\\s*'");
+
+				if (!$ternary && str_contains($line, '$view->t(') && !str_contains($m[1], ' ')) {
+					continue;
+				}
+
+				printf("%s:%d\n  %s\n", str_replace($viewDir . '/', '', $file->getPathname()), $number + 1, trim($m[1]));
+				$found++;
+
+				break;
+			}
+		}
+	}
+
+	printf("\n%d line(s) with wording that cannot be translated.\n", $found);
+
+	return $found === 0;
+}

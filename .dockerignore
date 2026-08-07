@@ -1,0 +1,16 @@
+.git
+.github
+.gitignore
+.editorconfig
+tests
+docs
+vendor
+data/*
+!data/index.html
+!data/.htaccess
+media/*
+!media/index.html
+!media/.htaccess
+**/*.md
+!README.md
+image.yaml

@@ -1,0 +1,223 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+
+/*
+ * Move a Pluck 4.x site into this installation.
+ *
+ *   php bin/migrate --from=/path/to/old/pluck            plan only, writes nothing
+ *   php bin/migrate --from=/path/to/old/pluck --commit --owner=bas
+ *
+ * The old install is only ever read. Run the plan first, read the report, then
+ * commit — the report is where renamed addresses, sanitised content and refused
+ * uploads show up, and all three want a human decision.
+ */
+
+if (PHP_SAPI !== 'cli') {
+	http_response_code(404);
+	exit;
+}
+
+require dirname(__DIR__) . '/src/autoload.php';
+
+use Pluck\Bootstrap;
+use Pluck\Install\Installer;
+use Pluck\Storage\DriverFactory;
+use Pluck\Migrate\LegacySite;
+use Pluck\Migrate\Migrator;
+use Pluck\Support\Path;
+
+$options = getopt('', ['from:', 'owner:', 'storage:', 'commit', 'report:', 'help']) ?: [];
+
+if (isset($options['help']) || !isset($options['from'])) {
+	fwrite(STDOUT, <<<'TEXT'
+		Move a Pluck 4.x site into this installation.
+
+		  --from=PATH     the old pluck directory (the one with data/settings in it)
+		  --owner=NAME    username for the new owner account; required with --commit
+		  --storage=KIND  flatfile (default) or sqlite, if this has to install first
+		  --commit        actually write. Without it, nothing is written
+		  --report=FILE   also save the report here
+
+		Nothing in the old directory is modified, ever.
+
+		TEXT);
+	exit(isset($options['help']) ? 0 : 1);
+}
+
+$from = (string) $options['from'];
+$commit = isset($options['commit']);
+
+$app = Bootstrap::boot(dirname(__DIR__));
+
+/*
+ * Migrating into the install you are migrating from.
+ *
+ * The obvious thing to try is unpacking Pluck 5 over the old site and keeping
+ * data/, the way an update works. Between 4 and 5 that does not, for two
+ * reasons worth stating rather than merely refusing.
+ *
+ * data/inc/ is not configuration — it is the whole of Pluck 4: its router, its
+ * sign-in, its settings code. Unpacking over the top leaves that on disk and
+ * reachable, so the old application and every hole it has are still being
+ * served.
+ *
+ * And the two stores have nothing in common. 4.x keeps pages as PHP files that
+ * declare variables; 5 keeps JSON or SQLite. The migrator reads one and writes
+ * the other, and pointing both ends at one directory means reading from what is
+ * being overwritten.
+ */
+$here = realpath(dirname(__DIR__));
+$there = realpath($from);
+
+if ($here !== false && $there !== false && ($here === $there || str_starts_with($here, $there . '/'))) {
+	fwrite(STDERR, implode("\n", [
+		'This is the same install, or inside it.',
+		'',
+		'Pluck 5 cannot be unpacked over Pluck 4 the way an update can: data/inc/ is',
+		'4.x\'s own code rather than its settings, and the two content stores have',
+		'nothing in common.',
+		'',
+		'Instead: install Pluck 5 in a new directory, run this from there pointing at',
+		'the old one, check the result, and only then swap them over.',
+		'',
+	]) . "\n");
+	exit(1);
+}
+
+// The same mistake, already made: Pluck 5 unpacked on top of a 4.x install.
+foreach (['data/inc', 'data/modules'] as $leftover) {
+	if (is_dir(dirname(__DIR__) . '/' . $leftover)) {
+		fwrite(STDERR, implode("\n", [
+			sprintf('This install still contains %s, which belongs to Pluck 4.', $leftover),
+			'',
+			'That is 4.x\'s own code, and a web server will happily run it. Start from a',
+			'clean copy of Pluck 5 rather than one unpacked over an old install.',
+			'',
+		]) . "\n");
+		exit(1);
+	}
+}
+
+/*
+ * Install first, if nobody has.
+ *
+ * This used to refuse and send you to install.php, which meant filling in a site
+ * title and creating an owner — and then supplying --owner as well, so the
+ * install ended up with two accounts and a Welcome page nobody wanted. Every
+ * answer install.php asks for is already in the old site, so it is asked for
+ * twice or not at all.
+ *
+ * The site title, the timezone and the language come across from 4.x. The
+ * password is generated and printed once, the same one the migration reports.
+ */
+$installed = $app->isInstalled();
+
+if (!$installed) {
+	if (!$commit) {
+		fwrite(STDOUT, "This install is empty, so a dry run has nothing to migrate into.\n"
+			. "Run it with --commit --owner=NAME and it will install Pluck 5 first.\n\n");
+	} elseif (!isset($options['owner'])) {
+		fwrite(STDERR, "--commit needs --owner=NAME so there is an account to sign in with.\n");
+		exit(1);
+	}
+}
+
+// Refusals about the target install come first: being told to add --owner, only
+// to learn afterwards that this install can never be migrated into, wastes a
+// run. State of the destination, then the arguments.
+if ($commit && $app->storage()->allPages() !== []) {
+	fwrite(STDERR, "This installation already has pages. Migrate into a fresh install so nothing is mixed together.\n");
+	exit(1);
+}
+
+if ($commit && !isset($options['owner'])) {
+	fwrite(STDERR, "--commit needs --owner=NAME so there is an account to sign in with.\n");
+	exit(1);
+}
+
+try {
+	$site = new LegacySite($from);
+} catch (Throwable $e) {
+	fwrite(STDERR, 'Cannot read the old install: ' . $e->getMessage() . "\n");
+	exit(1);
+}
+
+if (!$installed && $commit) {
+	$storageKind = (string) ($options['storage'] ?? DriverFactory::FLAT_FILE);
+	$old = $site->settings();
+
+	$errors = (new Installer($app))->run([
+		'storage' => $storageKind,
+		// Taken from the old site rather than asked for: it has answered all
+		// three already, and asking again is how the two drift apart.
+		'site_title' => (string) ($old['sitetitle'] ?? 'Pluck'),
+		'timezone' => (string) ($old['timezone'] ?? date_default_timezone_get()),
+		'language' => substr((string) ($old['langpref'] ?? 'en'), 0, 2),
+		'username' => (string) $options['owner'],
+		// Replaced a moment later: the migration resets this account to the
+		// one-time password it prints, so this one is never used by anybody.
+		'password' => bin2hex(random_bytes(16)),
+		'email' => (string) ($old['email'] ?? ''),
+	]);
+
+	if ($errors !== []) {
+		fwrite(STDERR, "Could not install:\n  " . implode("\n  ", $errors) . "\n");
+		exit(1);
+	}
+
+	// The installer leaves a Welcome page to look at. The migration is about to
+	// bring 25 real ones, and an English placeholder among them is litter.
+	$app->storage()->deletePage('welcome');
+
+	fwrite(STDOUT, "Installed Pluck 5 (" . $storageKind . ") before migrating.\n\n");
+}
+
+$mediaDir = dirname(__DIR__) . '/media';
+Path::ensureDir($mediaDir);
+
+$migrator = new Migrator($site, $app->storage(), $mediaDir);
+
+/*
+ * Who will own what this writes.
+ *
+ * A migration run from a shell leaves data/ and media/ owned by whoever ran it.
+ * When that is root and the web server is www-data, the site renders and signing
+ * in loops silently, because the session file cannot be written. Said here
+ * because it is far easier to fix before somebody spends twenty minutes on it.
+ */
+$owningUser = function_exists('posix_geteuid') ? posix_geteuid() : -1;
+
+$report = $commit
+	? $migrator->run((string) $options['owner'])
+	: $migrator->plan();
+
+$text = $report->toText();
+fwrite(STDOUT, $text);
+
+if (isset($options['report'])) {
+	file_put_contents((string) $options['report'], $text);
+	fwrite(STDOUT, "\nReport written to " . $options['report'] . "\n");
+}
+
+if (!$commit && $report->ok()) {
+	fwrite(STDOUT, "\nNothing was written. Add --commit --owner=NAME to go ahead.\n");
+}
+
+if ($commit && $owningUser === 0) {
+	// Everything just written is owned by root. The site will render — Apache can
+	// read it — and signing in will loop, because the session file cannot be
+	// written and PHP says nothing useful about that on its own.
+	fwrite(STDOUT, implode("\n", [
+		'',
+		'--- One more thing ---',
+		'  This ran as root, so data/ and media/ are owned by root and the web server',
+		'  is not. The site will render and signing in will not work.',
+		'',
+		'    chown -R www-data:www-data ' . dirname(__DIR__) . '/data ' . dirname(__DIR__) . '/media',
+		'',
+		'  Use whichever user your web server runs as.',
+	]) . "\n");
+}
+
+exit($report->ok() ? 0 : 1);

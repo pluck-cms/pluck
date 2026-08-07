@@ -1,0 +1,7 @@
+{
+	"name": "One page",
+	"version": "1.0.0",
+	"author": "The Pluck project",
+	"license": "GPL-3.0-or-later",
+	"description": "Every top-level page becomes a section on one continuous page, and the menu links to anchors. You keep editing separate pages; a visitor gets one. Meant for a handful of pages, not a hundred."
+}

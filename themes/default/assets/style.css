@@ -1,0 +1,325 @@
+/*
+ * The bundled theme.
+ *
+ * Written to be read: one file, no preprocessor, no framework, no build step.
+ * Someone who knows a little CSS should be able to open this and change their
+ * site, which is the same reason Pluck has no database.
+ */
+
+:root {
+	--ink: #1c1c1c;
+	--ink-soft: #5a5a5a;
+	--paper: #fdfdfc;
+	--rule: #e2e0da;
+	--accent: #7a2e1e;
+	--measure: 38rem;
+	--gap: 1.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--ink: #e8e6e1;
+		--ink-soft: #a09c94;
+		--paper: #1a1917;
+		--rule: #33312d;
+		--accent: #d98b6a;
+	}
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+	margin: 0;
+	padding: 0 var(--gap);
+	background: var(--paper);
+	color: var(--ink);
+	font: 1rem/1.6 Georgia, "Times New Roman", serif;
+	-webkit-text-size-adjust: 100%;
+}
+
+img { max-width: 100%; height: auto; }
+a { color: var(--accent); }
+
+/* Visible only when tabbed to. */
+.skip {
+	position: absolute;
+	left: -9999px;
+}
+.skip:focus {
+	position: static;
+	display: inline-block;
+	padding: 0.5rem;
+}
+
+.site-header,
+.site-main,
+.site-footer,
+.breadcrumbs {
+	max-width: var(--measure);
+	margin-inline: auto;
+}
+
+.site-header {
+	padding: var(--gap) 0 1rem;
+	border-bottom: 1px solid var(--rule);
+}
+
+.site-title {
+	margin: 0 0 0.75rem;
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+.site-title a { color: inherit; text-decoration: none; }
+
+.site-nav ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 1rem;
+	font-family: system-ui, sans-serif;
+	font-size: 0.9rem;
+}
+
+/* Sub-menus stack under their parent rather than beside it. */
+.site-nav li ul {
+	flex-basis: 100%;
+	padding-left: 1rem;
+}
+
+.site-nav .is-active > a { font-weight: bold; }
+
+.breadcrumbs {
+	padding-top: 0.75rem;
+	font-family: system-ui, sans-serif;
+	font-size: 0.85rem;
+	color: var(--ink-soft);
+}
+.breadcrumbs ol {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+}
+.breadcrumbs li + li::before { content: "/ "; color: var(--rule); }
+
+.site-main { padding: var(--gap) 0 3rem; }
+
+h1 { font-size: 1.8rem; line-height: 1.25; margin-top: 0; }
+h2 { font-size: 1.35rem; line-height: 1.3; }
+
+blockquote {
+	margin-inline: 0;
+	padding-left: 1rem;
+	border-left: 3px solid var(--rule);
+	color: var(--ink-soft);
+}
+
+pre {
+	overflow-x: auto;
+	padding: 0.75rem;
+	background: color-mix(in srgb, var(--ink) 6%, transparent);
+	font-size: 0.9rem;
+}
+
+table { border-collapse: collapse; width: 100%; }
+th, td { padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--rule); text-align: left; }
+
+/* ---- blog ---- */
+
+.blog-post { padding-bottom: var(--gap); }
+.blog-post + .blog-post { border-top: 1px solid var(--rule); padding-top: var(--gap); }
+.blog-post h2 { margin-bottom: 0.25rem; }
+.blog-post h2 a { color: inherit; text-decoration: none; }
+.blog-post h2 a:hover { text-decoration: underline; }
+
+.blog-post__meta {
+	margin-top: 0;
+	font-family: system-ui, sans-serif;
+	font-size: 0.85rem;
+	color: var(--ink-soft);
+}
+
+.blog-pagination {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 1rem;
+	padding-top: var(--gap);
+	border-top: 1px solid var(--rule);
+	font-family: system-ui, sans-serif;
+	font-size: 0.9rem;
+}
+.blog-pagination__where { color: var(--ink-soft); margin-inline: auto; }
+
+.blog-reactions {
+	margin-top: 2rem;
+	padding-top: var(--gap);
+	border-top: 1px solid var(--rule);
+}
+.blog-reaction { margin-bottom: var(--gap); }
+.blog-reaction h3 { margin: 0; font-size: 1rem; }
+
+/* ---- albums ---- */
+
+.album-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+	gap: 1rem;
+}
+.album-list a { display: block; color: inherit; text-decoration: none; }
+.album-list img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.album-list__title { display: block; font-weight: bold; margin-top: 0.4rem; }
+.album-list__count {
+	display: block;
+	font-family: system-ui, sans-serif;
+	font-size: 0.8rem;
+	color: var(--ink-soft);
+}
+
+.album {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+	gap: 1rem;
+}
+.album__item { margin: 0; }
+.album__item img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.album__item figcaption {
+	font-family: system-ui, sans-serif;
+	font-size: 0.8rem;
+	color: var(--ink-soft);
+	margin-top: 0.3rem;
+}
+
+.site-footer {
+	padding: 1rem 0 2rem;
+	border-top: 1px solid var(--rule);
+	font-family: system-ui, sans-serif;
+	font-size: 0.8rem;
+	color: var(--ink-soft);
+}
+
+/* ---- modules embedded in a page ---- */
+
+.blog-embed__list {
+	margin: 0 0 0.5rem;
+	padding: 0;
+	list-style: none;
+}
+.blog-embed__list li { padding: 0.35rem 0; border-bottom: 1px solid var(--rule); }
+.blog-embed__list time {
+	display: block;
+	font-family: system-ui, sans-serif;
+	font-size: 0.8rem;
+	color: var(--ink-soft);
+}
+.blog-embed__more,
+.album-embed__more {
+	font-family: system-ui, sans-serif;
+	font-size: 0.9rem;
+}
+.album-embed.album { margin-bottom: 0.5rem; }
+
+/* ---- search ---- */
+
+.site-search { margin-top: 0.75rem; }
+.site-search input {
+	width: 100%;
+	padding: 0.4rem 0.6rem;
+	font: inherit;
+	font-size: 0.9rem;
+	border: 1px solid var(--rule);
+	background: var(--paper);
+	color: var(--ink);
+}
+
+.search-form {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	align-items: baseline;
+	margin-bottom: var(--gap);
+}
+.search-form label { flex-basis: 100%; font-family: system-ui, sans-serif; font-size: 0.9rem; }
+.search-form input { flex: 1 1 12rem; padding: 0.4rem 0.6rem; font: inherit; border: 1px solid var(--rule); }
+.search-form button { padding: 0.4rem 1rem; font: inherit; }
+
+.search-results { margin: 0; padding: 0; list-style: none; }
+.search-result { padding-bottom: 1rem; }
+.search-result + .search-result { border-top: 1px solid var(--rule); padding-top: 1rem; }
+.search-result h2 { margin-bottom: 0.2rem; font-size: 1.2rem; }
+.search-result h2 a { color: inherit; text-decoration: none; }
+.search-result h2 a:hover { text-decoration: underline; }
+.search-result__kind {
+	margin: 0;
+	font-family: system-ui, sans-serif;
+	font-size: 0.8rem;
+	color: var(--ink-soft);
+}
+.search-result__snippet { margin-top: 0.3rem; }
+mark { background: color-mix(in srgb, var(--accent) 25%, transparent); color: inherit; }
+
+.visually-hidden {
+	position: absolute;
+	width: 1px; height: 1px;
+	margin: -1px; padding: 0;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+
+/*
+ * A table that carries column widths gets fixed layout, so the widths somebody
+ * dragged in the editor are the widths on the page. Without this a browser sizes
+ * columns to their contents and treats <col width> as advice.
+ */
+table:has(colgroup) { table-layout: fixed; }
+
+/*
+ * Forms a module rendered: the contact form, and the reaction form under a post.
+ *
+ * The markup stacks on its own — a paragraph per field — so this is only about
+ * making the boxes a sensible size. Without it a text input is whatever width
+ * the browser picked in 1996.
+ */
+.contact-form .field,
+.reaction-form .field { margin-block: 0 1rem; }
+
+.contact-form label,
+.reaction-form label { font-size: 0.9rem; }
+
+.contact-form input,
+.contact-form textarea,
+.reaction-form input,
+.reaction-form textarea {
+	width: 100%;
+	max-width: 32rem;
+	padding: 0.5rem 0.6rem;
+	font: inherit;
+	font-size: 0.95rem;
+	border: 1px solid currentColor;
+	border-radius: 3px;
+	background: transparent;
+	color: inherit;
+}
+
+/* The sum is two characters, not a paragraph. */
+.contact-form input[inputmode="numeric"],
+.reaction-form input[inputmode="numeric"] { width: 6rem; }
+
+.contact-form button,
+.reaction-form button {
+	padding: 0.55rem 1.4rem;
+	font: inherit;
+	cursor: pointer;
+}
+
+.form-error { color: #a4231f; font-weight: 600; }
+.form-done { padding: 1rem 0; font-weight: 600; }

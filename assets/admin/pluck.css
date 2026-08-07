@@ -1,0 +1,860 @@
+/*
+ * Pluck 5 design tokens.
+ *
+ * No web fonts and no build step: a Pluck install has to work on a server with
+ * no outbound network, and its themes are edited by hand. Everything below is
+ * one file, and a theme or a colour scheme overrides tokens, never rules.
+ */
+
+:root {
+	/* Paper is cool and slightly green rather than cream: this is a tool, not stationery. */
+	--paper:      #f1f4f1;
+	--paper-raised:#ffffff;
+	--ink:        #1c2320;
+	--ink-soft:   #5a655f;
+	--rule:       #ccd5cd;
+	--moss:       #3d6b49;   /* Pluck's green, muted down to something readable */
+	--moss-deep:  #2c4e35;
+	--ok:         #3d6b49;
+	--warn:       #8a6a18;
+	--stop:       #9b3a32;
+
+	--sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	--mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+	--step--1: 0.8125rem;
+	--step-0:  1rem;
+	--step-1:  1.1875rem;
+	--step-2:  1.5rem;
+	--step-3:  2.125rem;
+
+	--space-1: 0.375rem;
+	--space-2: 0.75rem;
+	--space-3: 1.25rem;
+	--space-4: 2rem;
+	--space-5: 3rem;
+
+	--radius: 3px;
+	--shadow: 0 1px 2px rgb(28 35 32 / 8%), 0 8px 24px -12px rgb(28 35 32 / 18%);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--paper:      #171b19;
+		--paper-raised:#1f2523;
+		--ink:        #e6ebe7;
+		--ink-soft:   #9aa5a0;
+		--rule:       #333c38;
+		--moss:       #74ab81;
+		--moss-deep:  #8fc09b;
+		--ok:         #74ab81;
+		--warn:       #d1a94a;
+		--stop:       #e08d84;
+	}
+}
+
+/*
+ * Chosen rather than inherited from the machine.
+ *
+ * Written out in full rather than through some indirection: a stylesheet
+ * somebody has to read at two in the morning is worth more than a short one.
+ */
+html.is-dark {
+	--paper:      #171b19;
+	--paper-raised:#1f2523;
+	--ink:        #e6ebe7;
+	--ink-soft:   #9aa5a0;
+	--rule:       #333c38;
+	--moss:       #74ab81;
+	--moss-deep:  #8fc09b;
+	--ok:         #74ab81;
+	--warn:       #d1a94a;
+	--stop:       #e08d84;
+	color-scheme: dark;
+}
+
+html.is-light {
+	--paper:      #f1f4f1;
+	--paper-raised:#ffffff;
+	--ink:        #1c2320;
+	--ink-soft:   #5a655f;
+	--rule:       #d3dbd5;
+	color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+	margin: 0;
+	padding: var(--space-4) var(--space-3) var(--space-5);
+	background: var(--paper);
+	color: var(--ink);
+	font: var(--step-0)/1.55 var(--sans);
+	-webkit-text-size-adjust: 100%;
+}
+
+.shell { max-width: 40rem; margin: 0 auto; }
+
+/* Wordmark: pluck has always been lowercase, so leave it lowercase and let the
+   version number do the talking. */
+.wordmark {
+	display: flex;
+	align-items: baseline;
+	gap: var(--space-2);
+	margin-bottom: var(--space-4);
+}
+.wordmark b {
+	font-size: var(--step-3);
+	font-weight: 700;
+	letter-spacing: -0.03em;
+	line-height: 1;
+}
+.wordmark span {
+	font-family: var(--mono);
+	font-size: var(--step--1);
+	color: var(--ink-soft);
+}
+
+.card {
+	background: var(--paper-raised);
+	border: 1px solid var(--rule);
+	border-radius: var(--radius);
+	box-shadow: var(--shadow);
+	padding: var(--space-3);
+	margin-bottom: var(--space-3);
+}
+
+h1 { font-size: var(--step-2); line-height: 1.2; margin: 0 0 var(--space-2); letter-spacing: -0.015em; }
+h2 { font-size: var(--step-1); line-height: 1.25; margin: 0 0 var(--space-2); }
+p  { margin: 0 0 var(--space-2); max-width: 60ch; }
+p:last-child { margin-bottom: 0; }
+.muted { color: var(--ink-soft); font-size: var(--step--1); }
+
+/* The step eyebrow earns its number: installing really is a sequence. */
+.eyebrow {
+	font-family: var(--mono);
+	font-size: var(--step--1);
+	color: var(--ink-soft);
+	text-transform: lowercase;
+	margin-bottom: var(--space-1);
+}
+
+/* Signature element: the requirements strip. Monospace rows with a glyph
+   gutter, so the one thing you stare at while installing reads like a checklist
+   on a workshop wall. */
+.checks { list-style: none; margin: 0; padding: 0; font-family: var(--mono); font-size: var(--step--1); }
+.checks li {
+	display: grid;
+	grid-template-columns: 1.5rem 1fr;
+	gap: var(--space-2);
+	padding: var(--space-2) 0;
+	border-top: 1px solid var(--rule);
+}
+.checks li:first-child { border-top: 0; }
+.checks .glyph { font-weight: 700; text-align: center; }
+.checks .pass .glyph { color: var(--ok); }
+.checks .note .glyph { color: var(--warn); }
+.checks .fail .glyph { color: var(--stop); }
+.checks .name { font-weight: 600; }
+.checks .detail { color: var(--ink-soft); font-family: var(--sans); }
+
+.field { margin-bottom: var(--space-3); }
+.field > label { display: block; font-weight: 600; margin-bottom: var(--space-1); }
+.field .hint { display: block; color: var(--ink-soft); font-size: var(--step--1); margin-bottom: var(--space-1); }
+
+input[type=text], input[type=password], input[type=email], select {
+	width: 100%;
+	padding: 0.625rem var(--space-2);
+	font: var(--step-0) var(--sans);
+	color: var(--ink);
+	background: var(--paper-raised);
+	border: 1px solid var(--rule);
+	border-radius: var(--radius);
+	min-height: 2.75rem; /* thumb-sized on a phone */
+}
+input:focus-visible, select:focus-visible, button:focus-visible, a:focus-visible {
+	outline: 2px solid var(--moss);
+	outline-offset: 2px;
+}
+
+/* Storage choice: two cards, tappable across their whole surface. */
+.choices { display: grid; gap: var(--space-2); }
+.choice {
+	display: grid;
+	grid-template-columns: 1.25rem 1fr;
+	gap: var(--space-2);
+	align-items: start;
+	padding: var(--space-2);
+	border: 1px solid var(--rule);
+	border-radius: var(--radius);
+	cursor: pointer;
+}
+.choice:has(input:checked) { border-color: var(--moss); box-shadow: inset 0 0 0 1px var(--moss); }
+.choice:has(input:disabled) { opacity: 0.55; cursor: not-allowed; }
+.choice input { margin: 0.3rem 0 0; }
+.choice b { display: block; }
+.choice .muted { display: block; }
+
+button {
+	font: 600 var(--step-0) var(--sans);
+	color: var(--paper-raised);
+	background: var(--moss);
+	border: 1px solid var(--moss-deep);
+	border-radius: var(--radius);
+	padding: 0.75rem var(--space-3);
+	min-height: 2.75rem;
+	width: 100%;
+	cursor: pointer;
+}
+button:hover { background: var(--moss-deep); }
+
+@media (prefers-color-scheme: dark) {
+	button { color: #10140f; }
+}
+
+.notice { border-left: 3px solid var(--rule); padding: var(--space-2) var(--space-3); margin-bottom: var(--space-3); }
+.notice-stop { border-color: var(--stop); }
+.notice-ok   { border-color: var(--ok); }
+.notice ul { margin: var(--space-1) 0 0; padding-left: 1.1rem; }
+
+code { font-family: var(--mono); font-size: 0.9em; background: color-mix(in srgb, var(--ink) 8%, transparent); padding: 0.1em 0.35em; border-radius: 2px; }
+
+@media (min-width: 40rem) {
+	body { padding: var(--space-5) var(--space-4); }
+	.card { padding: var(--space-4); }
+	.choices { grid-template-columns: 1fr 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ==========================================================================
+   The admin shell.
+
+   One column on a phone with the section nav pinned to the bottom, where a
+   thumb is; from 52rem the nav becomes a left rail and the column widens. There
+   is no third breakpoint and nothing is hidden behind a hamburger.
+   ========================================================================== */
+
+body.app {
+	padding: 0 0 5.5rem;
+	min-height: 100vh;
+}
+
+.topbar {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: var(--space-2);
+	padding: var(--space-3);
+	border-bottom: 1px solid var(--rule);
+	background: var(--paper-raised);
+}
+.topbar .wordmark { margin: 0; text-decoration: none; color: inherit; }
+.topbar .wordmark b { font-size: var(--step-1); }
+
+.whoami { text-align: right; font-size: var(--step--1); line-height: 1.3; }
+.whoami a { color: var(--ink); }
+.whoami .role { display: block; color: var(--ink-soft); font-family: var(--mono); }
+
+.layout { max-width: 106rem; margin: 0 auto; padding: var(--space-3); }
+/* Bottom nav on a phone: scrolls sideways if a role has many sections. */
+.nav {
+	position: fixed;
+	inset: auto 0 0 0;
+	z-index: 10;
+	display: flex;
+	gap: var(--space-1);
+	padding: var(--space-1) var(--space-2);
+	background: var(--paper-raised);
+	border-top: 1px solid var(--rule);
+	overflow-x: auto;
+	scrollbar-width: none;
+}
+.nav::-webkit-scrollbar { display: none; }
+
+.nav-link {
+	flex: 0 0 auto;
+	padding: 0.7rem var(--space-2);
+	min-height: 2.75rem;
+	display: flex;
+	align-items: center;
+	color: var(--ink-soft);
+	text-decoration: none;
+	font-size: var(--step--1);
+	font-weight: 600;
+	border-radius: var(--radius);
+	white-space: nowrap;
+}
+.nav-link.is-current { color: var(--moss); background: color-mix(in srgb, var(--moss) 10%, transparent); }
+.nav-link-site { margin-left: auto; font-weight: 400; }
+
+.footer { padding: 0 var(--space-3) var(--space-3); max-width: 106rem; margin: 0 auto; }
+
+.head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: var(--space-2);
+	margin-bottom: var(--space-3);
+	flex-wrap: wrap;
+}
+.head h1 { margin: 0; }
+
+/* Rows: the one list pattern used by pages, people and media. A tapped row
+   opens the thing; small controls sit outside the tap target. */
+.rows { list-style: none; margin: 0 0 var(--space-3); padding: 0; }
+.row {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	border: 1px solid var(--rule);
+	border-bottom-width: 0;
+	background: var(--paper-raised);
+}
+.row:first-child { border-radius: var(--radius) var(--radius) 0 0; }
+.row:last-child { border-bottom-width: 1px; border-radius: 0 0 var(--radius) var(--radius); }
+.row:only-child { border-radius: var(--radius); }
+
+.row-main {
+	flex: 1 1 auto;
+	min-width: 0;
+	display: block;
+	padding: var(--space-2) var(--space-3);
+	min-height: 3.25rem;
+	text-decoration: none;
+	color: var(--ink);
+}
+.row-main.is-locked { color: var(--ink-soft); }
+.row-title { display: block; font-weight: 600; overflow-wrap: anywhere; }
+.row-meta {
+	display: block;
+	font-family: var(--mono);
+	font-size: var(--step--1);
+	color: var(--ink-soft);
+	overflow-wrap: anywhere;
+}
+
+/* The tree's indentation is the hierarchy. Four fixed steps rather than an
+   inline custom property, because the admin sends a CSP with no inline styles —
+   and Slug::path caps a page at four segments anyway. */
+.tree .depth-0 .row-main { padding-left: var(--space-3); }
+.tree .depth-1 .row-main { padding-left: calc(var(--space-3) + 1.25rem); }
+.tree .depth-2 .row-main { padding-left: calc(var(--space-3) + 2.5rem); }
+.tree .depth-3 .row-main { padding-left: calc(var(--space-3) + 3.75rem); }
+.tree .depth-1 .row-title::before,
+.tree .depth-2 .row-title::before,
+.tree .depth-3 .row-title::before {
+	content: "";
+	display: inline-block;
+	width: 0.5rem;
+	height: 0.5rem;
+	margin-right: 0.4rem;
+	border-left: 1px solid var(--rule);
+	border-bottom: 1px solid var(--rule);
+	vertical-align: 0.15em;
+}
+
+.row-actions { display: flex; gap: var(--space-1); padding-right: var(--space-2); flex: 0 0 auto; }
+.row-actions form { margin: 0; }
+
+.tag {
+	display: inline-block;
+	font-family: var(--mono);
+	font-size: 0.7rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	padding: 0.1rem 0.3rem;
+	border: 1px solid var(--rule);
+	border-radius: 2px;
+	color: var(--ink-soft);
+	vertical-align: 0.1em;
+}
+.tag-off { color: var(--stop); border-color: var(--stop); }
+
+.btn, .btn-quiet, .btn-danger {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 2.75rem;
+	padding: 0.6rem var(--space-3);
+	border-radius: var(--radius);
+	font: 600 var(--step--1) var(--sans);
+	text-decoration: none;
+	cursor: pointer;
+	width: auto;
+}
+.btn { background: var(--moss); border: 1px solid var(--moss-deep); color: var(--paper-raised); }
+.btn:hover { background: var(--moss-deep); }
+.btn-quiet { background: transparent; border: 1px solid var(--rule); color: var(--ink); }
+.btn-quiet:hover { border-color: var(--ink-soft); }
+.btn-danger { background: var(--stop); border: 1px solid var(--stop); color: #fff; }
+
+@media (prefers-color-scheme: dark) {
+	.btn { color: #10140f; }
+	.btn-danger { color: #1a0f0e; }
+}
+
+.btn-icon {
+	width: 2.5rem;
+	min-height: 2.5rem;
+	padding: 0;
+	background: transparent;
+	border: 1px solid var(--rule);
+	color: var(--ink-soft);
+	font-size: var(--step-0);
+	line-height: 1;
+}
+.btn-icon:hover { color: var(--ink); border-color: var(--ink-soft); background: transparent; }
+.btn-icon-danger:hover { color: var(--stop); border-color: var(--stop); }
+
+.actions {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	flex-wrap: wrap;
+	margin-bottom: var(--space-3);
+}
+.actions button { width: auto; }
+
+textarea {
+	width: 100%;
+	padding: var(--space-2);
+	font: var(--step-0)/1.6 var(--mono);
+	color: var(--ink);
+	background: var(--paper-raised);
+	border: 1px solid var(--rule);
+	border-radius: 0 0 var(--radius) var(--radius);
+	resize: vertical;
+	min-height: 14rem;
+}
+
+/* Toolbar sits flush on top of the textarea so the two read as one field. */
+.toolbar {
+	display: flex;
+	gap: var(--space-1);
+	padding: var(--space-1);
+	border: 1px solid var(--rule);
+	border-bottom: 0;
+	border-radius: var(--radius) var(--radius) 0 0;
+	background: color-mix(in srgb, var(--ink) 4%, transparent);
+	overflow-x: auto;
+}
+.toolbar .btn-icon { width: 2.25rem; min-height: 2.25rem; background: var(--paper-raised); }
+
+input[type=file] {
+	width: 100%;
+	padding: var(--space-2);
+	border: 1px dashed var(--rule);
+	border-radius: var(--radius);
+	background: transparent;
+	color: var(--ink);
+	font: var(--step--1) var(--sans);
+}
+
+details.card > summary { cursor: pointer; list-style-position: outside; margin-bottom: var(--space-2); }
+details.card > summary h2 { display: inline; margin: 0; }
+details.card[open] > summary { margin-bottom: var(--space-3); }
+
+.card-danger { border-color: color-mix(in srgb, var(--stop) 40%, var(--rule)); }
+.card-danger h2 { color: var(--stop); }
+
+.notice-warn { border-color: var(--warn); }
+
+.secret code {
+	display: block;
+	padding: var(--space-2);
+	font-size: var(--step-1);
+	letter-spacing: 0.08em;
+	overflow-wrap: anywhere;
+	background: color-mix(in srgb, var(--ink) 6%, transparent);
+}
+
+.shell-narrow { max-width: 24rem; }
+.centered { text-align: center; }
+.spaced { margin-top: var(--space-3); }
+
+@media (min-width: 52rem) {
+	body.app { padding-bottom: 0; }
+
+	.layout {
+		display: grid;
+		grid-template-columns: 12rem 1fr;
+		gap: var(--space-4);
+		/* Wide enough for an editor and a preview of a real page. 62rem was set
+		   when this was a textarea and a list of pages. */
+		max-width: 106rem;
+		padding: var(--space-4) var(--space-3);
+		align-items: start;
+	}
+
+	.nav {
+		position: sticky;
+		top: var(--space-4);
+		inset: auto;
+		flex-direction: column;
+		gap: 2px;
+		padding: 0;
+		border: 0;
+		background: transparent;
+		overflow: visible;
+	}
+	.nav-link-site { margin-left: 0; margin-top: var(--space-2); }
+
+	.footer { max-width: 62rem; padding: 0 var(--space-3) var(--space-4); text-align: right; }
+	.footer form { display: inline; }
+}
+
+/* The media picker under the page editor. */
+.insert-media {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	margin-top: 0.5rem;
+}
+.insert-media select { flex: 1 1 12rem; min-width: 0; }
+.insert-media .hint { flex-basis: 100%; }
+
+/* Album thumbnails in the admin. */
+.album-thumb {
+	max-width: 10rem;
+	height: auto;
+	float: right;
+	margin-left: 1rem;
+}
+
+/* The permission grid. */
+.grid { border-collapse: collapse; width: 100%; }
+.grid th, .grid td { padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--rule, #ddd); }
+.grid thead th { text-align: left; font-size: 0.85rem; }
+.grid tbody th { text-align: left; font-weight: normal; }
+.grid tbody th .muted { display: block; font-size: 0.75rem; }
+.grid td { text-align: center; width: 6rem; }
+
+/* A box an owner has actually decided about, as opposed to the role default. */
+.grid-box.is-set { outline: 2px solid var(--accent, #7a2e1e); outline-offset: 2px; border-radius: 2px; }
+
+.visually-hidden {
+	position: absolute;
+	width: 1px; height: 1px;
+	margin: -1px; padding: 0;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+/* Release notes, as GitHub wrote them: plain text, wrapped, not rendered. */
+.release-notes {
+	max-height: 18rem;
+	overflow: auto;
+	white-space: pre-wrap;
+	word-break: break-word;
+	font-size: 0.85rem;
+}
+
+/* The live preview, beside the editor on a wide screen and under it otherwise. */
+.preview { margin-top: 1rem; }
+.preview h3 { margin: 0 0 0.2rem; font-size: 0.9rem; }
+/*
+ * Tall enough to show a page rather than a header.
+ *
+ * 16rem was short enough that a theme with a sticky bar across the top — which
+ * many have — filled the frame with the bar and nothing else. Drag the corner
+ * for more.
+ */
+.preview iframe {
+	width: 100%;
+	height: 34rem;
+	resize: vertical;
+	border: 1px solid var(--rule, #ddd);
+	background: #fff;
+}
+.preview-removed { color: var(--accent, #7a2e1e); }
+
+@media (min-width: 60rem) {
+	.editor-with-preview { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
+	.editor-with-preview .preview { margin-top: 0; }
+	.editor-with-preview textarea { min-height: 22rem; }
+}
+
+/* Diagnostics: three columns, and the state carried by colour and by wording. */
+.diagnostics { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+.diagnostics th, .diagnostics td { padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--rule, #ddd); text-align: left; vertical-align: top; }
+.diagnostics th { font-weight: normal; width: 32%; }
+.diagnostics__value { width: 20%; font-variant-numeric: tabular-nums; }
+.diagnostics__advice { color: var(--ink-soft, #666); }
+.diagnostics__whose { display: block; font-size: 0.8rem; opacity: 0.75; margin-top: 0.15rem; }
+.diagnostics .is-bad .diagnostics__value { color: #a4231f; font-weight: 600; }
+.diagnostics .is-warn .diagnostics__value { color: #8a5a00; }
+
+/* The stylesheet editor: a code field, so it should look like one. */
+#css {
+	width: 100%;
+	font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+	font-size: 0.85rem;
+	line-height: 1.5;
+	tab-size: 4;
+	white-space: pre;
+}
+
+/* ---- the visible editor ---- */
+
+/*
+ * The editable surface.
+ *
+ * A border and a background of its own, because without them there is nothing on
+ * screen saying where you may type and where you may not — the same reason the
+ * title field has them.
+ *
+ * A fixed height with its own scrollbar rather than growing without limit: a
+ * long page otherwise pushes the preview so far down that nobody knows it is
+ * there.
+ */
+.editor-surface {
+	height: 26rem;
+	padding: 0.75rem 0.9rem;
+	border: 1px solid var(--rule);
+	border-radius: 3px;
+	background: var(--paper-raised);
+	color: inherit;
+	font: 1rem/1.65 Georgia, "Times New Roman", serif;
+	overflow-y: auto;
+	resize: vertical;
+}
+
+.editor-surface:focus {
+	outline: 2px solid var(--accent, #7a2e1e);
+	outline-offset: -1px;
+}
+
+/* What the page will look like, near enough to be worth trusting while typing.
+   The real answer is the preview beside it, which runs the sanitiser. */
+.editor-surface > :first-child { margin-top: 0; }
+.editor-surface > :last-child { margin-bottom: 0; }
+.editor-surface h2 { font-size: 1.4rem; }
+.editor-surface h3 { font-size: 1.15rem; }
+/*
+ * A picture with no size of its own is capped, so a photograph straight off a
+ * camera does not fill the screen while being edited.
+ *
+ * One that has been given a width is left at it — otherwise dragging the corner
+ * would appear to do nothing past 20rem, which is the sort of thing that makes
+ * people stop trusting a control.
+ */
+.editor-surface img {
+	max-width: 100%;
+	height: auto;
+}
+
+.editor-surface img:not([width]) { max-width: min(100%, 20rem); }
+
+/* Borders in the editor, so a table is visibly a table while you are in it. */
+.editor-surface table { border-collapse: collapse; width: 100%; }
+.editor-surface th,
+.editor-surface td {
+	padding: 0.3rem 0.5rem;
+	border: 1px solid var(--rule);
+	min-width: 3rem;
+}
+.editor-surface blockquote {
+	margin-inline: 0;
+	padding-left: 1rem;
+	border-left: 3px solid var(--rule, #ddd);
+}
+.editor-surface pre {
+	padding: 0.5rem;
+	background: rgba(127, 127, 127, 0.12);
+	overflow-x: auto;
+	font-size: 0.9rem;
+}
+
+/* The source view is a code field, and should look like one. */
+textarea.is-source {
+	font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+	font-size: 0.85rem;
+	line-height: 1.5;
+	tab-size: 4;
+}
+
+/* While the markup is showing, the formatting buttons do nothing — say so. */
+.toolbar.is-source .btn-icon:not(.btn-source) { opacity: 0.4; }
+.btn-source[aria-pressed="true"] { background: var(--accent, #7a2e1e); color: #fff; }
+
+
+/* ---- appearance ---- */
+
+/*
+ * The system setting is followed by default; these two classes override it.
+ *
+ * Written as duplicates of the variable blocks rather than as a clever
+ * indirection, because a stylesheet somebody has to read is worth more than one
+ * that is shorter.
+ */
+/*
+ * One quiet control at the foot of the menu.
+ *
+ * It inherits .nav-link, so the only thing said here is what makes it not look
+ * like a button: no background, no border of its own. The hover it had was the
+ * default button hover, which on a dark background is a lit green box for
+ * something somebody sets once a year.
+ */
+.nav-appearance {
+	display: block;
+	width: 100%;
+	text-align: left;
+	background: none;
+	border: 0;
+	box-shadow: none;
+	font: inherit;
+	cursor: pointer;
+	opacity: 0.55;
+}
+
+.nav-appearance:hover,
+.nav-appearance:focus-visible {
+	background: none;
+	border: 0;
+	color: inherit;
+	opacity: 0.9;
+}
+
+/* Signing out, next to the name it signs out of. */
+.whoami form { display: inline; }
+
+.btn-link {
+	padding: 0;
+	font: inherit;
+	font-size: 0.85rem;
+	background: none;
+	border: 0;
+	color: inherit;
+	opacity: 0.7;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.btn-link:hover { opacity: 1; }
+
+/* ---- dialogues ---- */
+
+.dialog {
+	width: min(30rem, 92vw);
+	padding: var(--space-3);
+	border: 1px solid var(--rule);
+	border-radius: var(--radius);
+	background: var(--paper-raised);
+	color: var(--ink);
+}
+
+.dialog::backdrop { background: rgba(0, 0, 0, 0.45); }
+.dialog h2 { margin-top: 0; font-size: var(--step-1); }
+.dialog .field { display: block; margin-bottom: var(--space-2); }
+.dialog .field input[type="text"] { width: 100%; }
+
+.dialog__error {
+	margin: 0 0 var(--space-2);
+	color: var(--stop);
+	font-size: var(--step--1);
+}
+
+.dialog__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-2);
+	justify-content: flex-end;
+	margin-top: var(--space-3);
+}
+
+/* ---- tables while editing ---- */
+
+/*
+ * Dotted, so it is clear these lines are an editing aid and not something the
+ * page will have. The site draws its own borders, or none.
+ */
+/*
+ * table-layout: fixed, or the widths are only a suggestion.
+ *
+ * With automatic layout a browser sizes columns to fit their contents and treats
+ * <col width> as advice, so dragging an edge moves the line and then the table
+ * springs back. Fixed makes the numbers mean what they say.
+ */
+.editor-surface table {
+	border-collapse: collapse;
+	width: 100%;
+	table-layout: fixed;
+	margin-block: var(--space-2);
+}
+
+.editor-surface th,
+.editor-surface td {
+	padding: 0.35rem 0.5rem;
+	border: 1px dashed var(--rule);
+	min-width: 2rem;
+	vertical-align: top;
+}
+
+.editor-surface th { background: color-mix(in srgb, var(--ink) 6%, transparent); text-align: left; }
+
+/* The last few pixels of a cell are the handle for the column edge. */
+.editor-surface th:not(:last-child),
+.editor-surface td:not(:last-child) { cursor: col-resize; }
+
+.editor-surface th:not(:last-child) > *,
+.editor-surface td:not(:last-child) > * { cursor: auto; }
+
+/* While dragging, nothing else should be selectable — a drag that highlights
+   half the table is a drag that looks broken. */
+.editor-surface.is-resizing { user-select: none; }
+
+.dialog__pair { display: flex; gap: var(--space-2); }
+.dialog__pair .field { flex: 1 1 0; }
+
+/* ---- resizing a picture ---- */
+
+.editor-holder { position: relative; }
+
+/*
+ * The frame around a selected picture, drawn over the editor rather than inside
+ * it: anything inside a contenteditable can be dragged into the text or deleted
+ * with backspace, and a resize handle in somebody's paragraph is a bug that
+ * looks like magic.
+ */
+.img-frame {
+	position: absolute;
+	pointer-events: none;
+	outline: 2px solid var(--moss);
+	outline-offset: 1px;
+	z-index: 2;
+}
+
+.img-frame__grip {
+	position: absolute;
+	right: -6px;
+	bottom: -6px;
+	width: 12px;
+	height: 12px;
+	background: var(--moss);
+	border-radius: 2px;
+	pointer-events: auto;
+	cursor: nwse-resize;
+}
+
+.img-frame__size {
+	position: absolute;
+	left: 0;
+	top: -1.6rem;
+	padding: 0.1rem 0.35rem;
+	background: var(--moss);
+	color: var(--paper);
+	font-size: 0.7rem;
+	font-variant-numeric: tabular-nums;
+	border-radius: 2px;
+	white-space: nowrap;
+}
+
+/* Nothing else selectable while dragging: a resize that highlights half the
+   page looks broken even when it worked. */
+.editor-holder.is-sizing { user-select: none; }
+.editor-holder.is-sizing .editor-surface { cursor: nwse-resize; }

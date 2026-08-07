@@ -1,0 +1,7 @@
+{
+	"name": "Columns",
+	"version": "1.0.0",
+	"author": "The Pluck project",
+	"license": "GPL-3.0-or-later",
+	"description": "A header, a menu and a page, rebuilt from a Pluck 4 theme without its JavaScript framework. Set a logo and a tagline in Settings; the rest is one stylesheet."
+}
