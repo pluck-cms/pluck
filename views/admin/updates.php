@@ -104,6 +104,23 @@ $human = static function (int $bytes): string {
 	</ol>
 </details>
 
+<?php
+/*
+ * Defensive, because this view survived its controller.
+ *
+ * During an update the files are replaced one by one while a request is already
+ * running, and OPcache may hand back a controller compiled before the swap while
+ * the view is read after it. A view that fatals on a variable the older
+ * controller did not pass turns a cosmetic mismatch into a white page, on the
+ * one screen somebody is looking at when it happens.
+ *
+ * The cache is cleared after a swap now, which should make this impossible. That
+ * is a reason to keep this line, not to remove it: a view is the last thing that
+ * should decide a page cannot be shown.
+ */
+$blocked = $blocked ?? [];
+$foldersWritable = $foldersWritable ?? true;
+?>
 <?php if ($blocked !== []): ?>
 <?php /* Said before anybody presses a button, not after half an update. */ ?>
 <div class="notice notice-stop">
