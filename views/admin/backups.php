@@ -93,21 +93,4 @@ $human = static function (int $bytes): string {
 	</ul>
 <?php endif; ?>
 
-<form class="card" method="post" action="<?= e(Controller::url('backup.settings')) ?>">
-	<?= $view->csrfField() ?>
-	<h2><?= $view->t('backup.title.settings') ?></h2>
-
-	<label class="field">
-		<span><?= $view->t('backup.label.keep') ?></span>
-		<input type="number" name="backup_keep" min="1" max="50" value="<?= e((string) $keep) ?>">
-		<span class="muted"><?= $view->t('backup.help.keep') ?></span>
-	</label>
-
-	<label class="field">
-		<span><?= $view->t('backup.label.interval') ?></span>
-		<input type="number" name="backup_interval_days" min="0" max="365" value="<?= e((string) $intervalDays) ?>">
-		<span class="muted"><?= $view->t('backup.help.interval') ?></span>
-	</label>
-
-	<button class="btn" type="submit"><?= $view->t('backup.action.save_settings') ?></button>
-</form>
+<p class="hint"><?= $view->t('backup.help.settings_moved') ?></p>

@@ -47,10 +47,30 @@ final class MediaController extends Controller
 		// rather than hashing every file on every visit.
 		$hashes = $this->library()->register();
 
+		/*
+		 * Which files belong to a module, so the list can be narrowed.
+		 *
+		 * A media folder is one flat directory by design — the same picture can
+		 * be in an album and on a page, and giving each module its own copy hides
+		 * that relationship and lets the copies drift. But flat also means an
+		 * album of forty photos buries the three files somebody uploaded for a
+		 * page, so the folder stays flat and the view does the narrowing.
+		 */
+		$owners = $this->owners();
+		$filter = $this->c->request->query('kind', '');
+		$files = $this->listFiles($hashes, $owners);
+
 		$this->render('admin/media/index', [
 			'duplicate' => basename($this->c->request->query('duplicate', '')),
 			'title' => $this->t('media.title.media'),
-			'files' => $this->listFiles($hashes),
+			'filter' => in_array($filter, ['image', 'file', 'module'], true) ? $filter : '',
+			'counts' => [
+				'all' => count($files),
+				'image' => count(array_filter($files, static fn (array $f): bool => $f['isImage'] && $f['owner'] === '')),
+				'file' => count(array_filter($files, static fn (array $f): bool => !$f['isImage'] && $f['owner'] === '')),
+				'module' => count(array_filter($files, static fn (array $f): bool => $f['owner'] !== '')),
+			],
+			'files' => $this->narrow($files, $filter),
 			'canUpload' => $this->c->auth->can('file.upload'),
 			'maxBytes' => $this->maxBytes(),
 			'accept' => '.' . implode(',.', array_keys(self::ALLOWED)),
@@ -151,7 +171,45 @@ final class MediaController extends Controller
 
 	/** @return list<array{name:string,size:int,modified:int,isImage:bool}> */
 	/** @param array<string,string> $hashes name => sha256 */
-	private function listFiles(array $hashes = []): array
+	/**
+	 * Which module claims which file.
+	 *
+	 * @return array<string,string> media name => the album or module name
+	 */
+	private function owners(): array
+	{
+		$owners = [];
+
+		foreach ($this->c->modules?->all() ?? [] as $module) {
+			foreach ($this->c->storage->listModuleData($module->name(), 'media:') as $key => $value) {
+				$name = substr($key, 6);
+
+				// An album's own name where there is one, so the label reads as
+				// "Open dag 4 februari 2012" rather than "albums".
+				$owners[$name] = is_array($value) && isset($value['album'])
+					? (string) $value['album']
+					: $module->name();
+			}
+		}
+
+		return $owners;
+	}
+
+	/**
+	 * @param list<array{isImage:bool,owner:string}> $files
+	 * @return list<array<string,mixed>>
+	 */
+	private function narrow(array $files, string $filter): array
+	{
+		return match ($filter) {
+			'image' => array_values(array_filter($files, static fn (array $f): bool => $f['isImage'] && $f['owner'] === '')),
+			'file' => array_values(array_filter($files, static fn (array $f): bool => !$f['isImage'] && $f['owner'] === '')),
+			'module' => array_values(array_filter($files, static fn (array $f): bool => $f['owner'] !== '')),
+			default => $files,
+		};
+	}
+
+	private function listFiles(array $hashes = [], array $owners = []): array
 	{
 		$dir = $this->mediaDir();
 		Path::ensureDir($dir);
@@ -174,6 +232,7 @@ final class MediaController extends Controller
 				// Shown so an upload can be checked against the sender's own
 				// checksum, and so a link handed out can be published with one.
 				'hash' => $hashes[$entry] ?? '',
+				'owner' => $owners[$entry] ?? '',
 			];
 		}
 

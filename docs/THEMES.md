@@ -100,6 +100,53 @@ has shipped twice. If a value comes from the translator, print it directly.
 may or may not have readable addresses switched on. `$urls` knows; a hand-written
 `/about` does not, and breaks on every install that is not at the root.
 
+## Things the site fills in
+
+A theme can ask for values it cannot know: this season's motto, the dates, a
+line for the footer. Declare them in `theme.json` and they appear under
+Appearance for somebody to fill in.
+
+```json
+{
+	"parameters": {
+		"carnavalsdata": {
+			"label": "De drie dagen",
+			"default": "7, 8 en 9 februari 2027",
+			"help": "Wordt boven elke pagina getoond. Laat leeg om de balk te verbergen."
+		},
+		"motto": "Kielekielekiele"
+	}
+}
+```
+
+A bare string is the default, for a parameter that needs no explaining.
+
+Templates read them from `$params`, which always holds the full declared set with
+defaults where nothing was typed — so no template has to check whether anybody
+has been to that screen yet:
+
+```php
+$motto = $params['motto'] ?? '';
+```
+
+Three things worth knowing.
+
+**Values are text.** Tags and control characters are stripped on the way in, so a
+parameter cannot become markup. Escape it anyway when you print it: `e()` is what
+makes that a guarantee rather than a habit.
+
+**Only what you declare exists.** A value stored for a parameter the current
+theme does not declare is not returned, so removing one from `theme.json` removes
+it from the site rather than leaving something behind.
+
+**Values are kept per theme.** Switching to another theme and back finds what was
+there.
+
+This is what Pluck 4's template editor was for, minus the part that made it a
+shell. Editing PHP through a browser is a shell whatever it is called — but most
+of what people used that editor for was changing words, and there is no reason
+that should need FTP.
+
 ## The other templates
 
 `layout.php` and `page.php` are required. These are optional, and Pluck falls

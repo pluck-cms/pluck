@@ -12,6 +12,7 @@ use Pluck\Security\Csp;
 use Pluck\Security\Csrf;
 use Pluck\Storage\StorageDriver;
 use Pluck\Theme\Theme;
+use Pluck\Theme\ThemeParameters;
 use Pluck\View\Raw;
 use Pluck\View\View;
 
@@ -289,6 +290,14 @@ final class SiteRenderer
 			'trail' => Menu::trail($this->withPreview($pages), $activePath),
 			'siteTitle' => $siteTitle,
 			'theme' => $this->theme,
+			/*
+			 * What the site filled in for this theme's parameters.
+			 *
+			 * Always the full declared set, with defaults where nothing was
+			 * typed, so a template can read $params['x'] without checking whether
+			 * anybody has been to the settings screen yet.
+			 */
+			'params' => (new ThemeParameters($this->storage))->values($this->theme),
 			'themeAssets' => $this->urls->asset('themes/' . $this->theme->name . '/assets'),
 			'activePath' => $activePath,
 			'searchEnabled' => (bool) $this->storage->getSetting('search_enabled', false),

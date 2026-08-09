@@ -35,6 +35,10 @@ final class SettingsController extends Controller
 			'enabledModules' => $this->enabled('modules_enabled'),
 			'frameHostNames' => \Pluck\Security\Csp::frameHostNames(),
 			'frameHosts' => $this->enabled('frame_hosts'),
+			// Backups: how many to keep and how often. The backups screen lists
+			// what exists; deciding the policy belongs with the other decisions.
+			'backupKeep' => (int) $this->c->storage->getSetting('backup_keep', 5),
+			'backupIntervalDays' => (int) $this->c->storage->getSetting('backup_interval_days', 7),
 			'activeTheme' => (string) $storage->getSetting('theme', ThemeRepository::FALLBACK),
 			'prettyUrls' => (bool) $storage->getSetting('pretty_urls', false),
 		]);
@@ -112,6 +116,11 @@ final class SettingsController extends Controller
 			$request->postArray('frame_hosts'),
 			\Pluck\Security\Csp::frameHostNames(),
 		)));
+
+		$storage->setSetting('backup_keep', max(1, min(50, (int) $request->post('backup_keep', '5'))));
+		// Zero switches the automatic backup off, which has to stay possible: on a
+		// site with a large media folder somebody may prefer to run it themselves.
+		$storage->setSetting('backup_interval_days', max(0, min(365, (int) $request->post('backup_interval_days', '7'))));
 
 		$challenge = $request->post('form_challenge', 'sum');
 		$storage->setSetting('form_challenge', in_array($challenge, ['none', 'sum', 'recaptcha'], true) ? $challenge : 'sum');

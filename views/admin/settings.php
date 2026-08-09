@@ -106,6 +106,22 @@ use Pluck\Admin\Controller;
 <?php endforeach; ?>
 		</fieldset>
 
+		<fieldset class="field">
+			<legend><?= $view->t('backup.title.settings') ?></legend>
+
+			<label class="choice-field">
+				<span><?= $view->t('backup.label.keep') ?></span>
+				<input type="number" name="backup_keep" min="1" max="50" value="<?= e((string) $backupKeep) ?>">
+				<span class="muted"><?= $view->t('backup.help.keep') ?></span>
+			</label>
+
+			<label class="choice-field">
+				<span><?= $view->t('backup.label.interval') ?></span>
+				<input type="number" name="backup_interval_days" min="0" max="365" value="<?= e((string) $backupIntervalDays) ?>">
+				<span class="muted"><?= $view->t('backup.help.interval') ?></span>
+			</label>
+		</fieldset>
+
 		<label class="field">
 			<span><?= $view->t('settings.label.form_challenge') ?></span>
 			<select name="form_challenge">

@@ -1,114 +1,133 @@
-# rc32 → rc37
+# rc32 → rc38
 
-On top of the `pluck5.0` branch. All of it found by running real sites.
+On top of the `pluck5.0` branch. The admin's navigation moves, so this is worth
+merging before anybody else starts in `views/admin/`.
 
-## 1. The editor wrapped text at half the width of its box
+## 1. A theme can ask the site to fill things in
+
+`src/Theme/Theme.php`, `src/Theme/ThemeParameters.php`, `src/Site/SiteRenderer.php`,
+`src/Admin/ThemeController.php`, `views/admin/themes.php`, `docs/THEMES.md`
+
+A theme declares parameters in `theme.json`; an owner fills them in under
+Appearance; templates read `$params`.
+
+```json
+"parameters": {
+    "carnavalsdata": { "label": "De drie dagen", "default": "7, 8 en 9 februari 2027" },
+    "motto": "Kielekielekiele"
+}
+```
+
+This is what Pluck 4's template editor was for, minus the part that made it a
+shell. Editing PHP through a browser is a shell whatever it is called — but most
+of what that editor was used for was changing words, and there is no reason that
+should need FTP. The person who knows this year's motto is not the person with
+the SSH key.
+
+Four decisions worth stating:
+
+- **Only declared parameters exist.** Anything else posted is dropped, and a
+  stored value for a parameter the theme no longer declares is not returned. A
+  theme can rely on its parameters existing; a site cannot accumulate values that
+  nothing reads.
+- **Values are text.** Entities are decoded first, then tags stripped, then
+  control characters replaced — `&lt;script&gt;` cannot survive as a tag that
+  something decodes back later, and a newline cannot turn one attribute into two.
+  Templates escape anyway; this makes that a guarantee rather than a habit.
+- **Stored per theme**, so switching and switching back finds what was there.
+- **Empty means default**, so resetting never has to know what the default was,
+  and a theme that changes its default afterwards is followed.
+
+## 2. Appearance, and Modules, as their own sections
+
+`views/admin/layout.php`, `src/Admin/ModulesController.php`, `views/admin/modules.php`
+
+Theme, parameters and stylesheet now sit together under Appearance. The
+stylesheet used to be its own entry three places away from the theme picker it
+belongs with, and changing how a site looked was a tour of the admin.
+
+Modules were appended to the main navigation, one entry each. With two bundled
+ones that was a short list; with a site's own modules added, the navigation was
+being decided by whatever happened to be installed, and pages and media sank
+further down each time. They have a section of their own now.
+
+Which modules load stays under Settings: enabling one is a security decision and
+belongs with the other ones.
+
+## 3. Backup policy under Settings, backups page lists backups
+
+`views/admin/settings.php`, `views/admin/backups.php`, `src/Admin/SettingsController.php`
+
+How many to keep and how often to run is a decision; the backups page is a list.
+
+## 4. The media list can be narrowed
+
+`src/Admin/MediaController.php`, `views/admin/media/index.php`
+
+Everything / pictures / files / in an album or module, with counts. The folder
+stays flat — the same picture can be in an album and on a page, and giving each
+module its own copy hides that and lets the copies drift — so the view does the
+narrowing instead.
+
+## 5. Relative addresses in page content broke on nested pages
+
+`src/Site/SiteRenderer.php`, `tests/SiteRouteTest.php`
+
+`media/photo.jpg` is right until a page is nested and readable addresses are on —
+then the browser looks in `/de-club/media/photo.jpg` and every picture is a 404.
+It reached a live site while the preview looked fine, because the preview runs at
+a different path.
+
+A `<base>` is the obvious fix and a trap: it also changes what `#anchor` means.
+
+## 6. The editor wrapped text at half the width of its box
 
 `assets/admin/pluck.css`
 
-`p { max-width: 60ch }` is a reading measure, and right for the admin's own
-prose. It also applied to the paragraphs somebody is typing, so text wrapped at
-about half the visible width — writing against an invisible edge with empty space
-to the right of it, and long words breaking mid-word for no reason a writer could
-work out.
+`p { max-width: 60ch }` is a reading measure and right for the admin's own prose.
+It also applied to the paragraphs somebody is typing. Removed there, and in the
+preview, where it made the preview a lie.
 
-The preview panel had it too, which made it a lie: it is showing what the page
-will look like, with a measure the site does not have.
+A `<pre>` scrolled sideways rather than wrapping, which is right for code and
+wrong for the song lyrics somebody pasted. Also removed: `.editor-with-preview`,
+a grid for a class nothing has ever carried.
 
-Also removed: `.editor-with-preview`, a two-column grid for a class nothing has
-ever carried. Dead CSS is a wrong answer waiting for whoever is debugging a
-width, and it was mine for ten minutes.
+## 7. An owner who loses their password cannot get back in
 
-## 2. Long text, and a `<pre>`, ran out of the box
+`bin/account`
 
-`assets/admin/pluck.css`
+The only advice available was "migrate again", which is starting over and does
+not work anyway. The password is generated rather than typed: one on a command
+line ends up in the shell history.
 
-`overflow-wrap: anywhere` rather than `break-word`: only `anywhere` also lowers
-the element's minimum width, which is what a flex or grid parent measures itself
-by.
+## 8. A module of your own had nowhere to live
 
-A `<pre>` was worse because it was deliberate: `overflow-x: auto` is right for
-code and wrong for the song lyrics somebody pasted, whose lines simply left the
-screen on a phone. `white-space: pre-wrap` keeps the breaks the writer put in and
-lets the browser break the rest. The two rules were folded into one rather than
-stacked — two rules working against each other is how the next person finds the
-wrong one.
+`src/Module/Modules.php`, `src/Update/Applier.php`, `modules/`
 
-## 3. Relative addresses in page content broke on nested pages
+`src/` is replaced wholesale by the updater, so a third-party module was gone the
+first time somebody pressed the button. `modules/` is preserved, and a module
+there loads only when its name is enabled.
 
-`src/Site/SiteRenderer.php`, `tests/SiteRouteTest.php`, `docs/ISSUES.md`
+## 9. A page could not embed a video, and should still not be able to
 
-The editor writes `media/photo.jpg`. Right until a page is nested and readable
-addresses are on — then the browser looks in `/de-club/media/photo.jpg` and every
-picture is a 404. It reached a live site while the preview looked fine, because
-the preview runs at a different path.
+`src/Security/Csp.php`
 
-Relative `src` and `href` in page content are rewritten to be relative to the
-install. Fragments, rooted paths, other sites and `mailto:` are left as written.
+The sanitiser strips `<iframe>`, correctly, so an embed belongs in a module — but
+the CSP refused it too. `frame_hosts` names services from a short list rather
+than taking hosts as written.
 
-A `<base>` in the layout is the obvious fix and is a trap: it also changes what
-`#anchor` means, so every in-page link — including the skip link — starts
-navigating to the front page.
+## 10. Two settings with no screen, and an untranslatable hint
 
-Verified by removing the call: both assertions fail.
+`src/Admin/SettingsController.php`, `src/Http/Request.php`, `bin/lang`,
+`views/admin/media/index.php`
 
-## 4. An owner who loses their password cannot get back in
-
-`bin/account`, `docs/ISSUES.md`, `README.md`
-
-There was no way back. The only advice available was "migrate again from the 4.x
-copy", which is starting over and does not work anyway, because `bin/migrate`
-refuses an install that already has pages.
-
-The password is generated rather than typed: one on a command line ends up in the
-shell history. Anybody who can run this can already read `data/`, so shell access
-is the whole of the permission check.
-
-## 5. A module of your own had nowhere to live
-
-`src/Module/Modules.php`, `src/Update/Applier.php`, `index.php`, `admin.php`,
-`modules/`, `docs/MODULES.md`
-
-The registry is built in code — deliberately — so a third-party module had to go
-in `src/`, which the updater replaces wholesale. It would have been gone the first
-time somebody pressed the button.
-
-`modules/` is preserved now, and a module there loads only when its name is
-enabled. Both steps are needed: a folder nobody has named is inert.
-
-## 6. A page could not embed a video, and should still not be able to
-
-`src/Security/Csp.php`, `index.php`, `docs/MODULES.md`
-
-The sanitiser strips `<iframe>`, correctly. A module renders on the other side of
-that line — but the CSP refused it too, since `frame-src` falls back to
-`default-src 'self'`, and what a visitor saw was the browser's own "This content
-is blocked" with no cause and no cure in it.
-
-`siteHeaders()` takes hosts from a `frame_hosts` setting, checked against a short
-list of service names rather than taken as written. An allow-list rather than a
-syntax check: "anything that parses as a host" lets one careless setting point a
-frame wherever somebody talked an owner into typing.
-
-## 7. Two settings with no screen
-
-`src/Admin/SettingsController.php`, `views/admin/settings.php`,
-`src/Http/Request.php`, `lang/*.json`, `assets/admin/pluck.css`
-
-`modules_enabled` and `frame_hosts` could only be changed by writing them by
-hand. A setting nobody can reach is a setting nobody has, and I built both that
-way in the same afternoon.
-
+`modules_enabled` and `frame_hosts` could only be set by hand.
 `Request::postArray()` is new — a group of checkboxes posts a list and there was
 no way to read one.
 
-## 8. An upload hint that was never translatable
+## 11. Version
 
-`views/admin/media/index.php`, `lang/*.json`, `bin/lang`
+rc32 → rc38. 4511 assertions over 31 suites.
 
-Text after a closing PHP tag was in none of the `--leaks` patterns. One key with
-a placeholder now, and the tool finds this shape.
-
-## 9. Version
-
-rc32 → rc37. Polish is at 99.4%: the four keys added by item 7.
+Polish is at 95.8%: 31 keys, almost all from the new Appearance and Modules
+screens. `php bin/lang pl` lists them.

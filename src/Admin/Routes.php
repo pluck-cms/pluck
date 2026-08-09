@@ -63,6 +63,10 @@ final class Routes
 		$router->post('update.apply', UpdateController::class, 'apply', 'update.run');
 		$router->post('update.delete', UpdateController::class, 'delete', 'update.run');
 
+		$router->get('modules', ModulesController::class, 'show', 'page.view');
+		$router->get('themes', ThemeController::class, 'show', 'theme.view');
+		$router->post('theme.save', ThemeController::class, 'save', 'theme.view');
+		$router->post('theme.reset', ThemeController::class, 'reset', 'theme.view');
 		$router->get('stylesheet', StylesheetController::class, 'edit', 'theme.view');
 		$router->post('stylesheet.save', StylesheetController::class, 'save', 'theme.view');
 		$router->post('stylesheet.undo', StylesheetController::class, 'undo', 'theme.view');

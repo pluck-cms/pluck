@@ -24,11 +24,15 @@ foreach ([
 	['pages', 'nav.pages', 'page.view'],
 	['media', 'nav.media', 'file.view'],
 	['settings', 'nav.settings', 'settings.view'],
+	// Appearance, before the people-shaped entries: it is what an owner comes
+	// back to, and the stylesheet used to be its own entry three places down
+	// from the theme picker it belongs with.
+	['themes', 'nav.appearance', 'theme.view'],
+	['modules', 'nav.modules', 'page.view'],
 	['users', 'nav.people', 'user.view'],
 	['access', 'nav.permissions', 'user.view'],
 	['messages', 'nav.messages', 'page.view'],
 	['backups', 'nav.backups', 'user.view'],
-	['stylesheet', 'nav.stylesheet', 'theme.view'],
 	['diagnostics', 'nav.diagnostics', 'settings.view'],
 	// The badge is part of the label rather than a separate element, so a theme
 	// that restyles the navigation cannot lose it.
@@ -46,14 +50,13 @@ foreach ([
 }
 
 /*
- * Modules go after the core sections, in the order the registry gave them.
- * ModuleRegistry::navigation() has already dropped the ones this account may not
- * manage, so nothing here has to know about permissions — a menu entry leading to
- * a screen you are refused is worse than no entry.
+ * Modules used to be appended here, one entry each.
+ *
+ * They now live behind a Modules entry of their own. With two bundled modules it
+ * was a short list; with a site's own modules added it was the navigation being
+ * decided by whatever happened to be installed, and the things somebody uses
+ * every day — pages, media — sank further down each time.
  */
-foreach ($moduleNav ?? [] as $item) {
-	$nav[] = ['route' => $item['route'], 'label' => $item['label']];
-}
 ?>
 <!DOCTYPE html>
 <html lang="<?= e($locale ?? 'en') ?>">

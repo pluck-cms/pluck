@@ -276,6 +276,10 @@ final class CsrfSurfaceTest extends TestCase
 		'access',    // renders the permission grid; both writes are POSTs
 		'backups',   // lists the archives
 		'messages',  // lists what came in through the contact form
+		// Both show and change nothing: modules lists what is installed, themes
+		// renders the picker and the parameter table. Their saves are POSTs.
+		'modules',
+		'themes',
 		'stylesheet',
 		'diagnostics',
 		'diagnostics.phpinfo', // prints phpinfo(); owner-only, changes nothing

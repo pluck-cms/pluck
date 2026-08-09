@@ -12,6 +12,32 @@ $human = static fn (int $bytes): string => $bytes >= 1048576
 	: max(1, (int) round($bytes / 1024)) . ' kB';
 ?>
 <h1><?= $view->t('nav.media') ?></h1>
+
+<?php /* Narrowing the list, not searching it: four links, no JavaScript. */ ?>
+<nav class="filters" aria-label="<?= $view->t('media.filter.label') ?>">
+<?php
+/*
+ * Written out rather than looped over a map of keys.
+ *
+ * The catalogue test finds keys by reading the source for t('...'), so a key
+ * reached through a variable looks unused — and the fix for that is not to
+ * loosen the test, which is the one thing keeping the catalogue honest.
+ */
+$labels = [
+	'' => $view->t('media.filter.all'),
+	'image' => $view->t('media.filter.images'),
+	'file' => $view->t('media.filter.files'),
+	'module' => $view->t('media.filter.module'),
+];
+?>
+<?php foreach ($labels as $kind => $label): ?>
+<?php $count = $counts[$kind === '' ? 'all' : $kind] ?? 0; ?>
+	<a class="filters__item<?= $filter === $kind ? ' is-active' : '' ?>"
+	   href="<?= e(Controller::url('media') . ($kind !== '' ? '&kind=' . $kind : '')) ?>">
+		<?= $label ?> <span class="filters__count"><?= e((string) $count) ?></span>
+	</a>
+<?php endforeach; ?>
+</nav>
 <p class="muted"><?= $view->t('media.file_count', ['count' => count($files)], count($files)) ?></p>
 
 <?php if ($canUpload): ?>
