@@ -32,6 +32,7 @@ final class SiteRouteTest extends TestCase
 	{
 		$this->group('an install that moved', fn () => $this->movedInstall());
 		$this->group('a site with nothing in it', fn () => $this->emptySite());
+		$this->group('relative addresses in content', fn () => $this->relativeLinks());
 
 		$this->group('the rewrite probe', fn () => $this->probe());
 		$this->group('plain urls', fn () => $this->plainUrls());
@@ -310,5 +311,59 @@ final class SiteRouteTest extends TestCase
 			str_contains($html, 'not found'),
 			'and does not claim something is missing',
 		);
+	}
+
+	/**
+	 * `media/photo.jpg` in a page means the install, not the page's folder.
+	 *
+	 * The editor writes it that way, and it is right until a page is nested and
+	 * readable addresses are on — then the browser looks in
+	 * /de-club/media/photo.jpg and every picture on the page is a 404. It showed
+	 * up on a live site while the preview looked fine, because the preview runs
+	 * at a different path.
+	 */
+	private function relativeLinks(): void
+	{
+		$dir = $this->tempDir('pluck-relative');
+		$storage = DriverFactory::make(DriverFactory::FLAT_FILE, $dir);
+		$storage->install();
+
+		$storage->savePage(new Page(path: 'club', title: 'Club', content: '<p>x</p>'));
+		$storage->savePage(new Page(
+			path: 'club/tocht',
+			title: 'Tocht',
+			content: '<p><img src="media/medaille.jpg" alt="">'
+				. '<a href="media/regels.pdf">regels</a>'
+				. '<a href="#top">omhoog</a>'
+				. '<a href="/al/goed">al goed</a>'
+				. '<a href="https://example.com/x">elders</a>'
+				. '<a href="mailto:a@b.nl">mail</a></p>',
+		));
+
+		$renderer = $this->withoutSessionWarnings(fn (): SiteRenderer => new SiteRenderer(
+			Theme::load(dirname(__DIR__) . '/themes', 'default'),
+			$storage,
+			new Urls('/new/', true),
+			new Csrf(new Session()),
+			new Csp(),
+			new Translator(Locale::fallback(), dirname(__DIR__) . '/lang'),
+		));
+
+		$html = $renderer->page($storage->findPage('club/tocht'));
+
+		$this->assertTrue(
+			str_contains($html, 'src="/new/media/medaille.jpg"'),
+			'a relative picture points at the install, not at the page folder',
+		);
+		$this->assertTrue(
+			str_contains($html, 'href="/new/media/regels.pdf"'),
+			'and so does a relative link',
+		);
+
+		// The four kinds that must be left exactly as written.
+		$this->assertTrue(str_contains($html, 'href="#top"'), 'a fragment is untouched');
+		$this->assertTrue(str_contains($html, 'href="/al/goed"'), 'an already-rooted path is untouched');
+		$this->assertTrue(str_contains($html, 'href="https://example.com/x"'), 'another site is untouched');
+		$this->assertTrue(str_contains($html, 'href="mailto:a@b.nl"'), 'and mailto is untouched');
 	}
 }

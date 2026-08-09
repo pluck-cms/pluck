@@ -30,6 +30,21 @@ work anyway because `bin/migrate` refuses an install that already has pages.
 the next sign-in. Anybody who can run it can already read `data/`, so shell
 access is the whole of the permission check.
 
+### ~~Relative addresses in page content broke on nested pages~~ — fixed
+
+The editor writes `media/photo.jpg`, which is right until a page is nested and
+readable addresses are on: the browser then looks in `/de-club/media/photo.jpg`
+and every picture on the page is a 404. It reached a live site while the preview
+looked fine, because the preview runs at a different path.
+
+`SiteRenderer` rewrites relative `src` and `href` in page content to be relative
+to the install. Fragments, rooted paths, other sites and `mailto:` are left
+exactly as written.
+
+A `<base>` in the layout would have been the obvious fix and is a trap: it also
+changes what `#anchor` means, so every in-page link — including the skip link —
+starts navigating to the front page.
+
 ### Sites that used the SEO module have addresses v5 cannot serve
 
 `pluck-cms/seo-module` rewrote module URLs as `/<page>/.blog/<post>` and

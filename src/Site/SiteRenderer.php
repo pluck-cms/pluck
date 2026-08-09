@@ -175,9 +175,53 @@ final class SiteRenderer
 
 	private function expand(string $html): string
 	{
-		return $this->modules === null
+		$html = $this->modules === null
 			? $html
 			: (new Embed($this->modules, $this->storage, $this->urls))->expand($html);
+
+		return $this->absolute($html);
+	}
+
+	/**
+	 * Relative addresses in page content, made relative to the install instead.
+	 *
+	 * The editor writes `media/photo.jpg`, which is right when the browser's idea
+	 * of "here" is the install — with `?page=x`, or for a page at the top level.
+	 * It is wrong the moment a page is nested and readable addresses are on:
+	 * on /de-club/de-11-kroegentocht the browser looks in
+	 * /de-club/media/photo.jpg, and every picture on the page is a 404.
+	 *
+	 * The obvious fix is a `<base>` in the layout, and it is a trap: `<base>` also
+	 * changes what `#anchor` means, so every in-page link — including the skip
+	 * link — starts navigating to the front page. Rewriting here fixes it for
+	 * every theme without that.
+	 *
+	 * Left alone: anything with a scheme, anything protocol-relative, anything
+	 * already rooted at /, fragments, mailto: and tel:.
+	 */
+	private function absolute(string $html): string
+	{
+		$base = $this->urls->base();
+
+		return (string) preg_replace_callback(
+			'/\b(src|href)="([^"]*)"/i',
+			static function (array $m) use ($base): string {
+				$value = $m[2];
+
+				if (
+					$value === ''
+					|| str_starts_with($value, '/')
+					|| str_starts_with($value, '#')
+					|| str_starts_with($value, '?')
+					|| preg_match('~^[a-z][a-z0-9+.-]*:~i', $value) === 1
+				) {
+					return $m[0];
+				}
+
+				return $m[1] . '="' . $base . ltrim($value, './') . '"';
+			},
+			$html,
+		) ?: $html;
 	}
 
 	/**
