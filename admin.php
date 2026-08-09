@@ -101,7 +101,13 @@ $view->share('can', static fn (string $permission): bool => $auth->can($permissi
  * and asking GitHub each time would spend the rate limit telling one person the
  * same thing forty times.
  */
-$view->share('updateAvailable', (new Updates($app->rootDir . '/data', $storage, (string) $storage->getSetting('version', '5.0.0-dev')))->updateAvailable());
+// The same answer the updates screen gives. These asked storage with different
+// fallbacks, and since nothing writes that setting the fallback was the answer.
+$view->share('updateAvailable', (new Updates(
+	$app->rootDir . '/data',
+	$storage,
+	Updates::runningVersion($storage),
+))->updateAvailable());
 
 $router = Routes::table($modules);
 

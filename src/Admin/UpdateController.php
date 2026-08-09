@@ -233,7 +233,7 @@ final class UpdateController extends Controller
 
 	private function version(): string
 	{
-		return (string) $this->c->storage->getSetting('version', Bootstrap::VERSION);
+		return Updates::runningVersion($this->c->storage);
 	}
 
 	private function updates(): Updates

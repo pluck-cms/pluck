@@ -100,6 +100,22 @@ final class Updates
 			// Recorded as an attempt either way, so a server that cannot reach
 			// GitHub does not try again on every page load.
 			$this->storage->setSetting(self::LAST_CHECK, time());
+
+			/*
+			 * A 404 means the release is gone, so what was remembered is wrong.
+			 *
+			 * Anything else — no network, a timeout, GitHub having a bad day — is
+			 * a reason to keep it: the release is still out there and forgetting
+			 * it would hide an update behind a dropped connection.
+			 *
+			 * A withdrawn release is the case that matters. Somebody pulls one
+			 * because it was broken, and every install that had seen it goes on
+			 * offering it until somebody notices.
+			 */
+			if (str_contains($e->getMessage(), '404')) {
+				$this->storage->deleteSetting(self::LAST_SEEN);
+			}
+
 			throw $e;
 		}
 
@@ -149,6 +165,30 @@ final class Updates
 	}
 
 	/** Whether a newer release is known about, without asking GitHub. */
+	/**
+	 * The version this install is running.
+	 *
+	 * One answer, in one place. There were two: the admin's badge asked storage
+	 * with a fallback of '5.0.0-dev' and this screen asked with a fallback of
+	 * Bootstrap::VERSION — and nothing ever writes that setting, so the fallback
+	 * was the answer both times. 'dev' sorts below everything in
+	 * version_compare(), so the badge thought any release it had ever seen was
+	 * newer, including ones older than the code running.
+	 *
+	 * The constant is the honest answer: it is compiled from the files that are
+	 * actually there. The stored setting is kept as an override for anyone who
+	 * needs one, but it can no longer make the running version look older than it
+	 * is by being absent.
+	 */
+	public static function runningVersion(StorageDriver $storage): string
+	{
+		$stored = $storage->getSetting('version', '');
+
+		return is_string($stored) && $stored !== '' && $stored !== '5.0.0-dev'
+			? $stored
+			: Bootstrap::VERSION;
+	}
+
 	public function updateAvailable(): bool
 	{
 		return $this->cached()?->isNewerThan($this->version) ?? false;
