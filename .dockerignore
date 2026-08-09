@@ -14,3 +14,4 @@ media/*
 **/*.md
 !README.md
 image.yaml
+CHANGES.md
