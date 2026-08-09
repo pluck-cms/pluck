@@ -41,10 +41,13 @@ final class Csp
 		]);
 	}
 
-	/** @return array<string,string> */
-	public function siteHeaders(): array
+	/**
+	 * @param list<string> $frameHosts hosts a page may embed a frame from
+	 * @return array<string,string>
+	 */
+	public function siteHeaders(array $frameHosts = []): array
 	{
-		return $this->common([
+		$directives = [
 			"default-src 'self'",
 			"script-src 'self'",
 			"style-src 'self' 'unsafe-inline'",
@@ -54,7 +57,66 @@ final class Csp
 			"form-action 'self'",
 			"base-uri 'self'",
 			"object-src 'none'",
-		]);
+		];
+
+		/*
+		 * Frames are refused unless somebody named the host.
+		 *
+		 * Without frame-src, a frame falls back to default-src 'self' and a
+		 * YouTube embed simply does not appear — which is correct until somebody
+		 * actually wants one, and then it is a blank space with nothing in the
+		 * page to explain it.
+		 *
+		 * So it is a setting an owner fills in with the hosts they mean, checked
+		 * against a short list of names rather than taken as written. A module
+		 * cannot widen this on its own: a module that could would be a module that
+		 * can point a frame anywhere.
+		 */
+		$allowed = self::cleanHosts($frameHosts);
+
+		if ($allowed !== []) {
+			$directives[] = "frame-src 'self' " . implode(' ', $allowed);
+		}
+
+		return $this->common($directives);
+	}
+
+	/**
+	 * Hosts that may be named, and nothing else.
+	 *
+	 * An allow-list rather than a syntax check. "Anything that parses as a host"
+	 * lets one careless setting point a frame at whatever somebody talked an owner
+	 * into typing, and the people running these sites are not the people who
+	 * should have to judge that.
+	 *
+	 * @param list<string> $hosts
+	 * @return list<string>
+	 */
+	private static function cleanHosts(array $hosts): array
+	{
+		$known = [
+			'youtube' => 'https://www.youtube-nocookie.com',
+			'vimeo' => 'https://player.vimeo.com',
+			'openstreetmap' => 'https://www.openstreetmap.org',
+		];
+
+		$out = [];
+
+		foreach ($hosts as $host) {
+			$key = is_string($host) ? strtolower(trim($host)) : '';
+
+			if (isset($known[$key]) && !in_array($known[$key], $out, true)) {
+				$out[] = $known[$key];
+			}
+		}
+
+		return $out;
+	}
+
+	/** The names siteHeaders() accepts, for a settings screen to offer. */
+	public static function frameHostNames(): array
+	{
+		return ['youtube', 'vimeo', 'openstreetmap'];
 	}
 
 	/**

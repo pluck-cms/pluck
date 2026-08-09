@@ -58,9 +58,17 @@ if (!$app->isInstalled()) {
 	exit;
 }
 
-Csp::send($app->csp()->siteHeaders());
-
 $storage = $app->storage();
+
+/*
+ * The headers, once storage exists to be asked.
+ *
+ * Frame hosts come from a setting, so a page can embed a video only where an
+ * owner has named the service — see Csp::frameHostNames() for what is accepted.
+ * Sent here rather than earlier because it needs that setting, and reading it
+ * before the driver is built is how this was written the first time.
+ */
+Csp::send($app->csp()->siteHeaders((array) $storage->getSetting('frame_hosts', [])));
 $translator = $app->translator();
 
 $urls = new Urls(

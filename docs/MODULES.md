@@ -188,6 +188,22 @@ No English in your PHP. Put it in `modules/mine/lang/en.json` and reach for it
 with `$view->t('mine.some.key')` — the site's own language files and yours are
 merged, so a translator can do your module without touching Pluck.
 
+## Embedding a frame
+
+The sanitiser strips `<iframe>` and should keep doing so: an allow-list that
+accepts a frame accepts one pointing anywhere, and a page is text somebody typed.
+A module renders on the other side of that line, so a video embed belongs in one.
+
+The CSP still refuses it. `frame-src` falls back to `default-src 'self'`, and a
+module cannot widen that on its own — one that could would be one that can point
+a frame anywhere. An owner names the service in the `frame_hosts` setting, which
+is checked against `Csp::frameHostNames()` rather than taken as written.
+
+Worth doing what the bundled video module does: render a still and a link, and
+only put the frame in the page once somebody has clicked. An embed in the markup
+means every visitor to the page is a visitor to that service whether they watch
+or not, and nobody agreed to that by reading a page.
+
 ## What a module cannot do
 
 Deliberately, and these are the ones people ask about:
