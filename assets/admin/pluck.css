@@ -127,6 +127,27 @@ body {
 h1 { font-size: var(--step-2); line-height: 1.2; margin: 0 0 var(--space-2); letter-spacing: -0.015em; }
 h2 { font-size: var(--step-1); line-height: 1.25; margin: 0 0 var(--space-2); }
 p  { margin: 0 0 var(--space-2); max-width: 60ch; }
+
+/*
+ * Not inside the editor.
+ *
+ * 60ch is a reading measure and right for the admin's own prose. Applied to a
+ * paragraph somebody is typing, it wraps their text at about half the width of
+ * the box they can see — so they are writing against an invisible edge with
+ * empty space to the right of it, and a long word breaks mid-word for no reason
+ * they can work out.
+ *
+ * The preview panel too: it is showing what the page will look like, and a
+ * measure the site does not have makes that a lie.
+ */
+.editor-surface p,
+.editor-surface li,
+.editor-surface blockquote,
+.preview p,
+.preview li,
+.preview blockquote {
+	max-width: none;
+}
 p:last-child { margin-bottom: 0; }
 .muted { color: var(--ink-soft); font-size: var(--step--1); }
 
@@ -574,9 +595,9 @@ details.card[open] > summary { margin-bottom: var(--space-3); }
 .preview-removed { color: var(--accent, #7a2e1e); }
 
 @media (min-width: 60rem) {
-	.editor-with-preview { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
-	.editor-with-preview .preview { margin-top: 0; }
-	.editor-with-preview textarea { min-height: 22rem; }
+	/* .editor-with-preview was here: a two-column grid for a class nothing has
+	   ever carried. Removed rather than left — dead CSS is a wrong answer waiting
+	   for somebody debugging a width, and it was mine for ten minutes. */
 }
 
 /* Diagnostics: three columns, and the state carried by colour and by wording. */
