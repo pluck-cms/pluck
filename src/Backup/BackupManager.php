@@ -171,15 +171,26 @@ final class BackupManager
 	 *
 	 * @return list<array{path:string,full:string}>
 	 */
+	/** Sessions and anything else transient. Rebuilt on demand, never restored. */
+	private const CACHE = 'cache';
+
 	private function collect(): array
 	{
 		$files = [];
 
-		// The lock is excluded as well as the backup folder: it is written before
-		// the files are collected, so it would travel inside every archive — and a
-		// restore would then put a lock file back and block backups for a quarter
-		// of an hour for no reason anybody could see.
-		$this->walk($this->dataDir, 'data', $files, [self::DIRECTORY, self::LOCK]);
+		/*
+		 * The lock is excluded as well as the backup folder: it is written before
+		 * the files are collected, so it would travel inside every archive — and a
+		 * restore would then put a lock file back and block backups for a quarter
+		 * of an hour for no reason anybody could see.
+		 *
+		 * The cache goes too, and sessions are the reason. They are somebody's
+		 * signed-in state, they are worthless an hour later, and on shared hosting
+		 * they are the files most likely to belong to a different account than the
+		 * one running the backup — which filled a server's error log with
+		 * permission warnings for files that had no business being in an archive.
+		 */
+		$this->walk($this->dataDir, 'data', $files, [self::DIRECTORY, self::LOCK, self::CACHE]);
 		$this->walk($this->mediaDir, 'media', $files, []);
 
 		return $files;

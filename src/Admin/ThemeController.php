@@ -36,6 +36,11 @@ final class ThemeController extends Controller
 			'declared' => $active->parameters(),
 			'values' => (new ThemeParameters($this->c->storage))->values($active),
 			'problems' => $repository->problems(),
+			// The logo and the tagline are what a theme shows, not what the site
+			// is configured to do, so they belong here rather than under Settings.
+			'media' => (new \Pluck\Media\MediaLibrary($this->c->app->rootDir . '/media'))->names(),
+			'logo' => (string) $this->c->storage->getSetting('site_logo', ''),
+			'tagline' => (string) $this->c->storage->getSetting('site_tagline', ''),
 		]);
 	}
 
@@ -68,6 +73,14 @@ final class ThemeController extends Controller
 		}
 
 		(new ThemeParameters($this->c->storage))->save($active, $given);
+
+		// Checked against the library rather than saved as posted: a logo naming a
+		// file that is not there renders as a broken image on every page.
+		$logo = $request->post('site_logo', '');
+		$images = (new \Pluck\Media\MediaLibrary($this->c->app->rootDir . '/media'))->names();
+
+		$this->c->storage->setSetting('site_logo', in_array($logo, $images, true) ? $logo : '');
+		$this->c->storage->setSetting('site_tagline', mb_substr($request->post('site_tagline', ''), 0, 120));
 
 		$this->c->flash->ok($this->t('theme.flash.saved'));
 		$this->back('themes');

@@ -179,8 +179,19 @@ p:last-child { margin-bottom: 0; }
 .checks .name { font-weight: 600; }
 .checks .detail { color: var(--ink-soft); font-family: var(--sans); }
 
-.field { margin-bottom: var(--space-3); }
-.field > label { display: block; font-weight: 600; margin-bottom: var(--space-1); }
+/*
+ * A field is a block, whichever element carries the class.
+ *
+ * Some screens write <div class="field"><label>, others
+ * <label class="field"><span> — and a <label> is inline, so the second kind ran
+ * every field into the one before it. The label of one setting appeared at the
+ * end of the help text of the previous, which reads as scrambled rather than as
+ * a layout fault, so it survived a long time.
+ */
+.field { display: block; margin-bottom: var(--space-3); }
+.field > label,
+label.field > span:first-child { display: block; font-weight: 600; margin-bottom: var(--space-1); }
+label.field > .muted { display: block; margin-top: var(--space-1); }
 .field .hint { display: block; color: var(--ink-soft); font-size: var(--step--1); margin-bottom: var(--space-1); }
 
 input[type=text], input[type=password], input[type=email], select {
@@ -326,8 +337,17 @@ body.app {
 /* Rows: the one list pattern used by pages, people and media. A tapped row
    opens the thing; small controls sit outside the tap target. */
 .rows { list-style: none; margin: 0 0 var(--space-3); padding: 0; }
+/*
+ * A row that gives way rather than crushing its text.
+ *
+ * Without wrap the buttons take the width they need and whatever is left goes to
+ * the text — which on a phone was a few pixels, so a version number came out one
+ * character per line. min-width: 0 is the other half: a flex item will not
+ * shrink below its content unless it is told it may.
+ */
 .row {
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
 	gap: var(--space-2);
 	border: 1px solid var(--rule);
@@ -339,7 +359,10 @@ body.app {
 .row:only-child { border-radius: var(--radius); }
 
 .row-main {
-	flex: 1 1 auto;
+	/* 14rem rather than auto: with auto the text got whatever the buttons left
+	   over, which on a phone was a few pixels and a version number one character
+	   per line. A basis gives it a width to fall back to, and the row wraps. */
+	flex: 1 1 14rem;
 	min-width: 0;
 	display: block;
 	padding: var(--space-2) var(--space-3);
@@ -360,10 +383,18 @@ body.app {
 /* The tree's indentation is the hierarchy. Four fixed steps rather than an
    inline custom property, because the admin sends a CSP with no inline styles —
    and Slug::path caps a page at four segments anyway. */
-.tree .depth-0 .row-main { padding-left: var(--space-3); }
-.tree .depth-1 .row-main { padding-left: calc(var(--space-3) + 1.25rem); }
-.tree .depth-2 .row-main { padding-left: calc(var(--space-3) + 2.5rem); }
-.tree .depth-3 .row-main { padding-left: calc(var(--space-3) + 3.75rem); }
+.tree .depth-0 .row-main { flex: 1 1 14rem; min-width: 0; }
+
+.row-main { padding-left: var(--space-3); }
+.tree .depth-1 .row-main { flex: 1 1 14rem; min-width: 0; }
+
+.row-main { padding-left: calc(var(--space-3) + 1.25rem); }
+.tree .depth-2 .row-main { flex: 1 1 14rem; min-width: 0; }
+
+.row-main { padding-left: calc(var(--space-3) + 2.5rem); }
+.tree .depth-3 .row-main { flex: 1 1 14rem; min-width: 0; }
+
+.row-main { padding-left: calc(var(--space-3) + 3.75rem); }
 .tree .depth-1 .row-title::before,
 .tree .depth-2 .row-title::before,
 .tree .depth-3 .row-title::before {
@@ -928,3 +959,29 @@ fieldset.field .choice { margin-bottom: 0.35rem; }
 .cards { list-style: none; margin: 0 0 var(--space-3); padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); gap: var(--space-2); }
 .cards a { display: block; padding: var(--space-3); border: 1px solid var(--rule); border-radius: var(--radius); text-decoration: none; color: inherit; font-weight: 600; }
 .cards a:hover { border-color: var(--ink-soft); }
+
+/* An explanation that is a click away rather than in the way. */
+details.explainer > summary {
+	font-size: var(--step-1);
+	font-weight: 600;
+	cursor: pointer;
+	list-style: none;
+}
+
+details.explainer > summary::-webkit-details-marker { display: none; }
+
+details.explainer > summary::before {
+	content: "i";
+	display: inline-grid;
+	place-items: center;
+	width: 1.3rem;
+	height: 1.3rem;
+	margin-right: var(--space-2);
+	border: 1px solid currentColor;
+	border-radius: 50%;
+	font-size: var(--step--1);
+	font-style: italic;
+	vertical-align: 0.05em;
+}
+
+details.explainer[open] > summary { margin-bottom: var(--space-2); }

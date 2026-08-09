@@ -42,7 +42,70 @@ final class UpdateController extends Controller
 			'online' => $updates->canReachInternet(),
 			'enabled' => (bool) $this->c->storage->getSetting('updates_check_enabled', true),
 			'error' => $error,
+			/*
+			 * What would stop an install, before anybody presses Install.
+			 *
+			 * Checked against the files this install already has rather than
+			 * against a release: those are the ones that have to be replaced, and
+			 * an archive does not have to be downloaded to know that root owns
+			 * half of them.
+			 */
+			'blocked' => $this->wouldFail(),
+			// Which of the two situations it is. The folders taking writes while
+			// the files do not is ordinary shared hosting, and the advice for it
+			// is the opposite of the advice for a bad chown.
+			'foldersWritable' => is_writable($this->c->app->rootDir),
 		]);
+	}
+
+	/**
+	 * A dry run of the permission part.
+	 *
+	 * The files an update replaces are the ones in the directories the updater
+	 * owns, so walking those answers the question without a download. It is not
+	 * the same set as a real release — a release may add files — but the cause is
+	 * always ownership, and one file with the wrong owner means all of them do.
+	 *
+	 * @return list<string>
+	 */
+	private function wouldFail(): array
+	{
+		$root = $this->c->app->rootDir;
+		$files = [];
+
+		foreach (['src', 'views', 'lang', 'assets', 'bin', 'docs'] as $owned) {
+			$dir = $root . '/' . $owned;
+
+			if (!is_dir($dir)) {
+				continue;
+			}
+
+			$walk = new \RecursiveIteratorIterator(
+				new \RecursiveDirectoryIterator($dir, \FilesystemIterator::SKIP_DOTS),
+			);
+
+			foreach ($walk as $file) {
+				if ($file->isFile()) {
+					$files[] = str_replace($root . '/', '', $file->getPathname());
+				}
+			}
+		}
+
+		/*
+		 * The loose files in the root as well — with scandir, not glob.
+		 *
+		 * glob() does not match a leading dot, so a first attempt at this walked
+		 * straight past .dockerignore: the one file that had actually stopped an
+		 * update on a real server. A check that misses the case it was written for
+		 * is worse than none, because it says everything is fine.
+		 */
+		foreach (scandir($root) ?: [] as $entry) {
+			if ($entry !== '.' && $entry !== '..' && is_file($root . '/' . $entry)) {
+				$files[] = $entry;
+			}
+		}
+
+		return Applier::unwritable($root, $files);
 	}
 
 	public function download(): never

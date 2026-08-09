@@ -5,6 +5,7 @@ namespace Pluck\Tests;
 
 use Pluck\Storage\DriverFactory;
 use Pluck\Storage\StorageDriver;
+use Pluck\Update\Applier;
 use Pluck\Update\Download;
 use Pluck\Update\Release;
 use Pluck\Update\Updates;
@@ -26,6 +27,8 @@ final class UpdateTest extends TestCase
 	public function run(): void
 	{
 		$this->group('where releases are looked for', fn () => $this->source());
+		$this->group('files the web server cannot replace', fn () => $this->unwritable());
+		$this->group('compiled code is thrown away', fn () => $this->cacheCleared());
 
 		$this->group('which version is newer', fn () => $this->versions());
 		$this->group('how often GitHub is asked', fn () => $this->caching());
@@ -245,5 +248,114 @@ final class UpdateTest extends TestCase
 				'refused and fell back: ' . $bad,
 			);
 		}
+	}
+
+	/**
+	 * An update refuses rather than half-applies.
+	 *
+	 * The rollback works — it has been through a real failure on a real server —
+	 * but a recovery that could have been a refusal is a bad trade. The case that
+	 * found this was an install unpacked by hand as root, so some files belonged
+	 * to root and the web server could not replace them.
+	 */
+	private function unwritable(): void
+	{
+		$dir = $this->tempDir('pluck-writable');
+
+		@mkdir($dir . '/src', 0o755, true);
+		file_put_contents($dir . '/index.php', '<?php');
+		file_put_contents($dir . '/src/Bootstrap.php', '<?php');
+
+		$this->assertSame(
+			[],
+			Applier::unwritable($dir, ['index.php', 'src/Bootstrap.php']),
+			'an install it can write reports nothing',
+		);
+
+		// A file that does not exist yet is fine when its directory takes it.
+		$this->assertSame(
+			[],
+			Applier::unwritable($dir, ['src/New.php', 'deeper/still/New.php']),
+			'and so is a file the release would add',
+		);
+
+		// Read-only stands in for another owner: this suite does not run as root,
+		// so it cannot make a file somebody else owns.
+		chmod($dir . '/index.php', 0o444);
+
+		$blocked = Applier::unwritable($dir, ['index.php', 'src/Bootstrap.php']);
+		chmod($dir . '/index.php', 0o644);
+
+		$this->assertSame(['index.php'], $blocked, 'and names the one it cannot');
+
+		/*
+		 * Two situations that look identical and want opposite answers.
+		 *
+		 * Folders unwritable too: somebody unpacked as the wrong user, and handing
+		 * the files back is right. Folders writable and files not: ordinary shared
+		 * hosting, PHP running as one account and the files owned by another — and
+		 * telling somebody to chown everything to the web server there takes their
+		 * own files away from them.
+		 *
+		 * The first version of this message gave the chown advice in both cases.
+		 * It reached a real server where it was the wrong half.
+		 */
+		$hosting = Applier::explainUnwritable(['index.php'], $dir);
+
+		$this->assertTrue(str_contains($hosting, 'index.php'), 'the message names the file');
+		$this->assertTrue(
+			str_contains($hosting, 'Nothing has been changed'),
+			'and says nothing was touched, which is the part somebody needs first',
+		);
+		$this->assertTrue(
+			str_contains($hosting, 'PHP runs as one account'),
+			'a writable folder means the owner is not the problem',
+		);
+		$this->assertFalse(
+			str_contains($hosting, 'chown -R'),
+			'and it does not tell them to hand their files to the web server',
+		);
+
+		chmod($dir, 0o555);
+		$accident = Applier::explainUnwritable(['index.php'], $dir);
+		chmod($dir, 0o755);
+
+		$this->assertTrue(
+			str_contains($accident, 'chown -R'),
+			'a folder that refuses writes too is an ownership accident, and there chown is right',
+		);
+	}
+
+	/**
+	 * An update throws the compiled code away.
+	 *
+	 * OPcache holds the compiled form of every .php and, by default, only asks
+	 * whether a file changed every couple of seconds. Immediately after replacing
+	 * 251 files that means old bytecode running against new files, and not evenly
+	 * — some classes reloaded, some not, in whatever combination the timing
+	 * produced.
+	 *
+	 * On the first real update it showed as "Bijgewerkt naar rc40" above "Je
+	 * draait rc39", because Bootstrap::VERSION was still the old compiled
+	 * constant. Harmless that time. The version it is not harmless is a new class
+	 * calling a method an old one does not have yet.
+	 *
+	 * Asserted against the source: a reset in this process would throw away the
+	 * suite's own compiled code mid-run, which is a strange thing to do to
+	 * yourself for one assertion.
+	 */
+	private function cacheCleared(): void
+	{
+		$source = (string) file_get_contents(dirname(__DIR__) . '/src/Update/Applier.php');
+
+		$this->assertSame(
+			2,
+			substr_count($source, '@opcache_reset()'),
+			'after a successful swap and after a rollback, which puts old files back under new bytecode',
+		);
+		$this->assertTrue(
+			str_contains($source, "function_exists('opcache_reset')"),
+			'without assuming the extension is loaded',
+		);
 	}
 }

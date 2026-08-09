@@ -81,8 +81,19 @@ $human = static function (int $bytes): string {
 </div>
 <?php endif; ?>
 
-<div class="card">
-	<h2><?= $view->t('update.title.how_to_install') ?></h2>
+<?php
+/*
+ * The explanation, folded away.
+ *
+ * It sat between the release and the download it belongs to, so the two halves
+ * of one action had a page of prose between them. <details> keeps it a click
+ * away for the first time somebody does this and out of the way every time
+ * after — and it needs no JavaScript to do that.
+ */
+?>
+<details class="card explainer">
+	<summary><?= $view->t('update.title.how_to_install') ?></summary>
+
 	<p><?= $view->t('update.help.button_or_by_hand') ?></p>
 	<p class="muted"><?= $view->t('update.help.why_not_automatic') ?></p>
 	<ol>
@@ -91,7 +102,47 @@ $human = static function (int $bytes): string {
 		<li><?= $view->t('update.step.upload') ?></li>
 		<li><?= $view->t('update.step.visit') ?></li>
 	</ol>
+</details>
+
+<?php
+/*
+ * Defensive, because this view survived its controller.
+ *
+ * During an update the files are replaced one by one while a request is already
+ * running, and OPcache may hand back a controller compiled before the swap while
+ * the view is read after it. A view that fatals on a variable the older
+ * controller did not pass turns a cosmetic mismatch into a white page, on the
+ * one screen somebody is looking at when it happens.
+ *
+ * The cache is cleared after a swap now, which should make this impossible. That
+ * is a reason to keep this line, not to remove it: a view is the last thing that
+ * should decide a page cannot be shown.
+ */
+$blocked = $blocked ?? [];
+$foldersWritable = $foldersWritable ?? true;
+?>
+<?php if ($blocked !== []): ?>
+<?php /* Said before anybody presses a button, not after half an update. */ ?>
+<div class="notice notice-stop">
+	<p><strong><?= $view->t('update.blocked.heading') ?></strong></p>
+	<p><?= $view->t('update.blocked.body', ['count' => count($blocked)]) ?></p>
+	<ul>
+<?php foreach (array_slice($blocked, 0, 5) as $path): ?>
+		<li><code><?= e($path) ?></code></li>
+<?php endforeach; ?>
+<?php if (count($blocked) > 5): ?>
+		<li><?= $view->t('update.blocked.and_more', ['count' => count($blocked) - 5]) ?></li>
+<?php endif; ?>
+	</ul>
+<?php if ($foldersWritable): ?>
+	<p><?= $view->t('update.blocked.fix_hosting') ?></p>
+	<p><code>chmod -R g+w .</code></p>
+<?php else: ?>
+	<p><?= $view->t('update.blocked.fix') ?></p>
+	<p><code>chown -R &lt;web user&gt; .</code></p>
+<?php endif; ?>
 </div>
+<?php endif; ?>
 
 <?php if ($downloads !== []): ?>
 <div class="card">
