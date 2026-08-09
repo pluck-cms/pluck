@@ -59,6 +59,7 @@ $suites = [
 	Pluck\Tests\AccessListTest::class,
 	Pluck\Tests\EmbedTest::class,
 	Pluck\Tests\SearchTest::class,
+	Pluck\Tests\ArchiveStoreTest::class,
 	Pluck\Tests\BackupTest::class,
 	Pluck\Tests\UpdateTest::class,
 	Pluck\Tests\FormGuardTest::class,

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Pluck\Module;
 
+use Pluck\I18n\Translates;
 use Pluck\Form\Guard;
 use Pluck\I18n\Translator;
 use Pluck\Security\Escaper;
@@ -27,6 +28,8 @@ use Pluck\Storage\StorageDriver;
  */
 final class ContactModule implements SiteModule, PublicForm
 {
+	use Translates;
+
 	public function __construct(private readonly ?Translator $translator = null)
 	{
 	}
@@ -253,8 +256,4 @@ final class ContactModule implements SiteModule, PublicForm
 	}
 
 	/** @param array<string,string|int> $replacements */
-	private function t(string $key, array $replacements = []): string
-	{
-		return $this->translator?->get($key, $replacements) ?? $key;
-	}
 }

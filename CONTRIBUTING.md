@@ -58,6 +58,21 @@ before anyone noticed, and it came back once afterwards.
 Everything else gets `e()`. The exceptions are page content and `$content`, which
 have been through the sanitiser and are markup on purpose.
 
+## One rule, one place
+
+A rule lives in one class. If you find yourself writing a second implementation
+of something the codebase already decides — a default, a name check, a list of
+allowed things, a resolution with a fallback — extract it instead. Two routes to
+the same answer is not a design; it is a bug that has not happened yet, and this
+project has had six of them.
+
+The tell is a default. Two places asking the same question with different
+fallbacks do not have a default between them, they have a disagreement waiting
+for the setting to be absent.
+
+This applies to JavaScript against the server too. If a script is about to decide
+something the server already decides, ask the server.
+
 ## Security boundaries
 
 Three things carry the weight. Changes near them need care and a test:

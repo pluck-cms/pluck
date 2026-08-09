@@ -6,6 +6,7 @@ namespace Pluck\Update;
 use Pluck\Bootstrap;
 
 use Pluck\Storage\StorageDriver;
+use Pluck\Archive\ArchiveStore;
 use Pluck\Support\Path;
 use RuntimeException;
 use Throwable;
@@ -258,16 +259,10 @@ final class Updates
 	/** @return list<Download> newest first */
 	public function downloads(): array
 	{
-		if (!is_dir($this->downloadDir())) {
-			return [];
-		}
-
-		$found = [];
-		foreach (scandir($this->downloadDir()) ?: [] as $entry) {
-			if (preg_match('/^pluck-[A-Za-z0-9._-]+-[0-9a-f]{8}\.tar\.gz$/', $entry) === 1) {
-				$found[] = $this->describe($entry);
-			}
-		}
+		$found = array_map(
+			fn (string $name): Download => $this->describe($name),
+			$this->store()->names(),
+		);
 
 		usort($found, static fn (Download $a, Download $b): int => $b->downloadedAt <=> $a->downloadedAt);
 
@@ -295,29 +290,29 @@ final class Updates
 	 * Rebuilt from a basename and matched against the pattern, so a name arriving
 	 * from a form cannot address a file elsewhere.
 	 */
+	/** The download folder, sharing its rules with the backup folder. */
+	private function store(): ArchiveStore
+	{
+		return new ArchiveStore(
+			$this->downloadDir(),
+			'/^pluck-[A-Za-z0-9._-]+-[0-9a-f]{8}\.tar\.gz$/',
+			'That is not the name of a downloaded release.',
+		);
+	}
+
 	public function pathOf(string $name): string
 	{
-		$name = basename($name);
-
-		if (preg_match('/^pluck-[A-Za-z0-9._-]+-[0-9a-f]{8}\.tar\.gz$/', $name) !== 1) {
-			throw new RuntimeException('That is not the name of a downloaded release.');
-		}
-
-		return Path::within($this->downloadDir(), $name);
+		return $this->store()->pathOf($name);
 	}
 
 	public function exists(string $name): bool
 	{
-		try {
-			return is_file($this->pathOf($name));
-		} catch (Throwable) {
-			return false;
-		}
+		return $this->store()->exists($name);
 	}
 
 	public function delete(string $name): bool
 	{
-		return $this->exists($name) && @unlink($this->pathOf($name));
+		return $this->store()->delete($name);
 	}
 
 	public function downloadDir(): string

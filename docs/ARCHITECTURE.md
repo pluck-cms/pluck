@@ -226,8 +226,12 @@ With JavaScript off none of it happens and the textarea is the editor.
 
 ## One rule, one place
 
-Three faults in three days had the same shape: a rule implemented twice, and the
-copy without the fallback or the table won because it ran first.
+**A rule lives in one class. Two routes to the same answer is not a design, it is
+a bug that has not happened yet.** That is a hard rule, not a preference, and it
+applies to PHP against PHP as much as to JavaScript against the server.
+
+Six faults have had this shape, and every one of them was invisible until it was
+not:
 
 - The browser folded a title into an address with its own regex. It dropped
   Polish `ł`, filled the field in, and the server used that answer instead of
@@ -242,6 +246,25 @@ editor's list of image extensions included `svg` where the media picker's did
 not, and its paste allow-list had lost `hr`, `sub`, `sup`, `mark`, `q` and the
 definition list. Neither list is written twice now — the server hands them over
 in a data attribute.
+
+A second audit, of PHP against PHP, found four more:
+
+- `'5.0.0-dev'` as a fallback for "which version am I", against
+  `Bootstrap::VERSION` elsewhere. Nothing writes that setting, so the fallback
+  was the answer — and `dev` sorts below everything, so the update badge counted
+  releases older than the running code as new. Now `Updates::runningVersion()`.
+- The default upload limit, written as `8 * 1024 * 1024` in one place and
+  `8388608` in two others. They agreed, which is the dangerous version.
+- `detectMime()` in two classes, already drifted: one had the PHP 8.5 fix and one
+  did not. It decides whether a `.jpg` is really a script.
+- `pathOf`, `exists`, `delete` and a listing, in `BackupManager` and `Updates`.
+  Now `Archive\ArchiveStore`, which took a latent fault with it: the backup
+  listing accepted names `pathOf()` would refuse, and then called `describe()` on
+  them — so one stray file in `data/backups` threw on the backups page.
+
+The tell each time was a *default*: if two places ask the same question with
+different fallbacks, there is no default, there is a disagreement waiting for the
+setting to be absent.
 
 `CsrfSurfaceTest` asserts that only the settings screen reads the theme setting
 directly, and `SlugTest` that the browser folds nothing. The general rule: if

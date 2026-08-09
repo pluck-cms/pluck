@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Pluck\Form;
 
+use Pluck\I18n\Translates;
 use Pluck\I18n\Translator;
 use Pluck\Security\Escaper;
 use Pluck\Security\Session;
@@ -39,6 +40,8 @@ use Pluck\Storage\StorageDriver;
  */
 final class Guard
 {
+	use Translates;
+
 	/** The field a person never sees. Named to look worth filling in. */
 	public const HONEYPOT = 'website_url';
 
@@ -408,8 +411,4 @@ final class Guard
 	}
 
 	/** @param array<string,string|int> $replacements */
-	private function t(string $key, array $replacements = []): string
-	{
-		return $this->translator?->get($key, $replacements) ?? $key;
-	}
 }

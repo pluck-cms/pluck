@@ -131,7 +131,9 @@ register_shutdown_function(static function () use ($app, $storage, $auth): void 
 		new BackupManager(
 			$app->rootDir . '/data',
 			$app->rootDir . '/media',
-			(string) $storage->getSetting('version', '5.0.0-dev'),
+			// The same answer everywhere: this ends up in a backup manifest, and two
+			// backups of one install should not disagree about what it was running.
+			Updates::runningVersion($storage),
 		),
 		$storage,
 	))->runIfDue();

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Pluck\Admin;
 
-use Pluck\Theme\ThemeRepository;
+use Pluck\Media\MediaLibrary;
 
 final class SettingsController extends Controller
 {
@@ -23,14 +23,10 @@ final class SettingsController extends Controller
 			// The same list the account screen uses: whatever lang/*.json exists,
 			// which is the only honest answer to "which languages are there".
 			'languages' => $this->c->app->translator()->available(),
-			'maxMb' => round(((int) $storage->getSetting('media_max_bytes', 8388608)) / 1048576, 1),
-			'logo' => (string) $storage->getSetting('site_logo', ''),
-			'tagline' => (string) $storage->getSetting('site_tagline', ''),
-			'media' => (new \Pluck\Media\MediaLibrary($this->c->app->rootDir . '/media'))->names(),
+			'maxMb' => round(((int) $storage->getSetting('media_max_bytes', MediaLibrary::DEFAULT_MAX_BYTES)) / 1048576, 1),
 			'formChallenge' => (string) $storage->getSetting('form_challenge', 'sum'),
 			'recaptchaSiteKey' => (string) $storage->getSetting('recaptcha_site_key', ''),
 			'recaptchaSecret' => (string) $storage->getSetting('recaptcha_secret', '') === '' ? '' : '••••••••',
-			'themes' => $this->themes()->available(),
 			'availableModules' => $this->modulesOnDisk(),
 			'enabledModules' => $this->enabled('modules_enabled'),
 			'frameHostNames' => \Pluck\Security\Csp::frameHostNames(),
@@ -39,7 +35,6 @@ final class SettingsController extends Controller
 			// what exists; deciding the policy belongs with the other decisions.
 			'backupKeep' => (int) $this->c->storage->getSetting('backup_keep', 5),
 			'backupIntervalDays' => (int) $this->c->storage->getSetting('backup_interval_days', 7),
-			'activeTheme' => (string) $storage->getSetting('theme', ThemeRepository::FALLBACK),
 			'prettyUrls' => (bool) $storage->getSetting('pretty_urls', false),
 		]);
 	}
@@ -67,12 +62,14 @@ final class SettingsController extends Controller
 		// form, or a directory removed between rendering and saving, would
 		// otherwise be stored and then silently fall back on every request, which
 		// reads as "the setting does not work".
-		// Only a file that is really in the media library: a name typed into the
-		// form would otherwise be printed as an image source on every page.
-		$logo = basename($request->post('site_logo', ''));
-		$library = (new \Pluck\Media\MediaLibrary($this->c->app->rootDir . '/media'))->names();
-		$storage->setSetting('site_logo', in_array($logo, $library, true) ? $logo : '');
-		$storage->setSetting('site_tagline', mb_substr(trim($request->post('site_tagline', '')), 0, 120));
+		/*
+		 * The logo and the tagline moved to Appearance, and these lines stayed.
+		 *
+		 * The form here no longer has those fields, so every save posted nothing
+		 * for them and wrote the nothing back — one press of Save under Settings
+		 * silently cleared a logo set on the other screen. Removed rather than
+		 * guarded: the screen that owns a setting is the screen that writes it.
+		 */
 
 		/*
 		 * The timezone first, before anything that can refuse.
@@ -133,10 +130,9 @@ final class SettingsController extends Controller
 			$storage->setSetting('recaptcha_secret', mb_substr($secret, 0, 100));
 		}
 
-		$theme = $request->post('theme');
-		if (in_array($theme, $this->themes()->available(), true)) {
-			$storage->setSetting('theme', $theme);
-		}
+		// The theme moved too. It was harmless — in_array on an empty post never
+		// matched, so nothing was written — but a line that only works because it
+		// always fails is a line waiting to be fixed into a bug.
 
 		$this->savePrettyUrls($request->postBool('pretty_urls'));
 
@@ -247,8 +243,4 @@ final class SettingsController extends Controller
 		return is_array($stored) ? array_values(array_filter($stored, 'is_string')) : [];
 	}
 
-	private function themes(): ThemeRepository
-	{
-		return new ThemeRepository($this->c->app->rootDir . '/themes');
-	}
 }

@@ -121,12 +121,19 @@ final class CsrfSurfaceTest extends TestCase
 			}
 		}
 
-		// SettingsController shows the stored name in a dropdown, which is the one
-		// legitimate reason to read it raw: it is editing the setting, not using it.
+		/*
+		 * Nothing reads it raw any more.
+		 *
+		 * SettingsController used to, legitimately: it showed the stored name in a
+		 * dropdown. That dropdown moved to Appearance, and ThemeController resolves
+		 * through ThemeRepository like everything else — so the exception this test
+		 * carried is no longer needed, which is the good direction for an exception
+		 * to move in.
+		 */
 		$this->assertSame(
-			['SettingsController.php'],
+			[],
 			$offenders,
-			'only the screen that edits the setting reads it directly',
+			'every screen resolves the theme the way the site does',
 		);
 
 		// The installer names one that exists.
