@@ -7,6 +7,9 @@
  * @var array<string,array{label:string,default:string,help:string}> $declared
  * @var array<string,string> $values
  * @var list<string> $problems
+ * @var list<string> $media
+ * @var string $logo
+ * @var string $tagline
  * @var \Pluck\View\View $view
  */
 
@@ -36,6 +39,23 @@ use Pluck\Admin\Controller;
 			<option value="<?= e($name) ?>"<?= $name === $active->name ? ' selected' : '' ?>><?= e($name) ?></option>
 <?php endforeach; ?>
 		</select>
+	</div>
+
+	<div class="field">
+		<label for="site_logo"><?= $view->t('settings.label.logo') ?></label>
+		<span class="hint"><?= $view->t('settings.help.logo') ?></span>
+		<select id="site_logo" name="site_logo">
+			<option value=""><?= $view->t('settings.label.no_logo') ?></option>
+<?php foreach ($media as $name): ?>
+			<option value="<?= e($name) ?>"<?= $name === $logo ? ' selected' : '' ?>><?= e($name) ?></option>
+<?php endforeach; ?>
+		</select>
+	</div>
+
+	<div class="field">
+		<label for="site_tagline"><?= $view->t('settings.label.tagline') ?></label>
+		<span class="hint"><?= $view->t('settings.help.tagline') ?></span>
+		<input id="site_tagline" type="text" name="site_tagline" maxlength="120" value="<?= e($tagline) ?>">
 	</div>
 
 <?php if ($declared === []): ?>

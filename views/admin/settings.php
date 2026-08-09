@@ -41,17 +41,7 @@ use Pluck\Admin\Controller;
 	</div>
 
 	<div class="card">
-		<h2><?= $view->t('settings.heading.appearance') ?></h2>
-
-		<label class="field">
-			<span><?= $view->t('settings.label.theme') ?></span>
-			<select name="theme">
-<?php foreach ($themes as $name): ?>
-				<option value="<?= e($name) ?>"<?= $name === $activeTheme ? ' selected' : '' ?>><?= e($name) ?></option>
-<?php endforeach; ?>
-			</select>
-			<span class="muted"><?= $view->t('settings.help.theme') ?></span>
-		</label>
+		<h2><?= $view->t('settings.heading.language') ?></h2>
 
 		<label class="field">
 			<span><?= $view->t('settings.label.site_language') ?></span>
@@ -61,23 +51,6 @@ use Pluck\Admin\Controller;
 <?php endforeach; ?>
 			</select>
 			<span class="muted"><?= $view->t('settings.help.site_language') ?></span>
-		</label>
-
-		<label class="field">
-			<span><?= $view->t('settings.label.logo') ?></span>
-			<select name="site_logo">
-				<option value=""><?= $view->t('settings.label.no_logo') ?></option>
-<?php foreach ($media as $name): ?>
-				<option value="<?= e($name) ?>"<?= $name === $logo ? ' selected' : '' ?>><?= e($name) ?></option>
-<?php endforeach; ?>
-			</select>
-			<span class="muted"><?= $view->t('settings.help.logo') ?></span>
-		</label>
-
-		<label class="field">
-			<span><?= $view->t('settings.label.tagline') ?></span>
-			<input type="text" name="site_tagline" maxlength="120" value="<?= e($tagline) ?>">
-			<span class="muted"><?= $view->t('settings.help.tagline') ?></span>
 		</label>
 
 <?php if (($availableModules ?? []) !== []): ?>
@@ -93,34 +66,6 @@ use Pluck\Admin\Controller;
 <?php endforeach; ?>
 		</fieldset>
 <?php endif; ?>
-
-		<fieldset class="field">
-			<legend><?= $view->t('settings.label.frame_hosts') ?></legend>
-			<span class="muted"><?= $view->t('settings.help.frame_hosts') ?></span>
-
-<?php foreach ($frameHostNames as $host): ?>
-			<label class="choice">
-				<input type="checkbox" name="frame_hosts[]" value="<?= e($host) ?>"<?= in_array($host, $frameHosts, true) ? ' checked' : '' ?>>
-				<span><?= e($host) ?></span>
-			</label>
-<?php endforeach; ?>
-		</fieldset>
-
-		<fieldset class="field">
-			<legend><?= $view->t('backup.title.settings') ?></legend>
-
-			<label class="choice-field">
-				<span><?= $view->t('backup.label.keep') ?></span>
-				<input type="number" name="backup_keep" min="1" max="50" value="<?= e((string) $backupKeep) ?>">
-				<span class="muted"><?= $view->t('backup.help.keep') ?></span>
-			</label>
-
-			<label class="choice-field">
-				<span><?= $view->t('backup.label.interval') ?></span>
-				<input type="number" name="backup_interval_days" min="0" max="365" value="<?= e((string) $backupIntervalDays) ?>">
-				<span class="muted"><?= $view->t('backup.help.interval') ?></span>
-			</label>
-		</fieldset>
 
 		<label class="field">
 			<span><?= $view->t('settings.label.form_challenge') ?></span>
@@ -151,6 +96,35 @@ use Pluck\Admin\Controller;
 
 	<div class="card">
 		<h2><?= $view->t('ui.settings.features') ?></h2>
+
+		<fieldset class="field">
+			<legend><?= $view->t('settings.label.frame_hosts') ?></legend>
+			<span class="muted"><?= $view->t('settings.help.frame_hosts') ?></span>
+
+<?php foreach ($frameHostNames as $host): ?>
+			<label class="choice">
+				<input type="checkbox" name="frame_hosts[]" value="<?= e($host) ?>"<?= in_array($host, $frameHosts, true) ? ' checked' : '' ?>>
+				<span><?= e($host) ?></span>
+			</label>
+<?php endforeach; ?>
+		</fieldset>
+
+		<fieldset class="field">
+			<legend><?= $view->t('backup.title.settings') ?></legend>
+
+			<label class="choice-field">
+				<span><?= $view->t('backup.label.keep') ?></span>
+				<input type="number" name="backup_keep" min="1" max="50" value="<?= e((string) $backupKeep) ?>">
+				<span class="muted"><?= $view->t('backup.help.keep') ?></span>
+			</label>
+
+			<label class="choice-field">
+				<span><?= $view->t('backup.label.interval') ?></span>
+				<input type="number" name="backup_interval_days" min="0" max="365" value="<?= e((string) $backupIntervalDays) ?>">
+				<span class="muted"><?= $view->t('backup.help.interval') ?></span>
+			</label>
+		</fieldset>
+
 
 		<label class="choice">
 			<input type="checkbox" name="search_enabled" value="1"<?= $searchEnabled ? ' checked' : '' ?>>

@@ -179,8 +179,19 @@ p:last-child { margin-bottom: 0; }
 .checks .name { font-weight: 600; }
 .checks .detail { color: var(--ink-soft); font-family: var(--sans); }
 
-.field { margin-bottom: var(--space-3); }
-.field > label { display: block; font-weight: 600; margin-bottom: var(--space-1); }
+/*
+ * A field is a block, whichever element carries the class.
+ *
+ * Some screens write <div class="field"><label>, others
+ * <label class="field"><span> — and a <label> is inline, so the second kind ran
+ * every field into the one before it. The label of one setting appeared at the
+ * end of the help text of the previous, which reads as scrambled rather than as
+ * a layout fault, so it survived a long time.
+ */
+.field { display: block; margin-bottom: var(--space-3); }
+.field > label,
+label.field > span:first-child { display: block; font-weight: 600; margin-bottom: var(--space-1); }
+label.field > .muted { display: block; margin-top: var(--space-1); }
 .field .hint { display: block; color: var(--ink-soft); font-size: var(--step--1); margin-bottom: var(--space-1); }
 
 input[type=text], input[type=password], input[type=email], select {
