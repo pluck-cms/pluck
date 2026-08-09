@@ -1,7 +1,6 @@
-# rc32 → rc36
+# rc32 → rc37
 
-On top of the `pluck5.0` branch. All of it found by running real sites, not by
-reading.
+On top of the `pluck5.0` branch. All of it found by running real sites.
 
 ## 1. Relative addresses in page content broke on nested pages
 
@@ -12,9 +11,9 @@ readable addresses are on — then the browser looks in `/de-club/media/photo.jp
 and every picture on the page is a 404. It reached a live site while the preview
 looked fine, because the preview runs at a different path.
 
-`SiteRenderer` now rewrites relative `src` and `href` in page content to be
-relative to the install. Fragments, rooted paths, other sites and `mailto:` are
-left exactly as written.
+`SiteRenderer` rewrites relative `src` and `href` in page content to be relative
+to the install. Fragments, rooted paths, other sites and `mailto:` are left
+exactly as written.
 
 A `<base>` in the layout is the obvious fix and is a trap: it also changes what
 `#anchor` means, so every in-page link — including the skip link — starts
@@ -22,17 +21,20 @@ navigating to the front page.
 
 Verified by removing the call: both assertions fail.
 
-## 2. Long unbroken text ran out of its box
+## 2. Long text, and a <pre>, ran out of the box
 
 `assets/admin/pluck.css`
 
-A run of comma-separated names with no spaces the browser likes is one word to a
-line breaker, so it pushed the editor wider than its box and the text scrolled
-sideways out of view while there was still room below.
+A run with no spaces the browser likes is one word to a line breaker, so it
+pushed the editor wider than its box and the text scrolled sideways out of view
+while there was still room below. `overflow-wrap: anywhere` rather than
+`break-word`: only `anywhere` also lowers the minimum width, which is what a flex
+or grid parent measures itself by.
 
-`overflow-wrap: anywhere` rather than `break-word`: only `anywhere` also lowers
-the element's minimum width, which is what a flex or grid parent measures itself
-by. Tables in the editor scroll on their own rather than widening the page.
+A `<pre>` was worse, because it was deliberate: `overflow-x: auto` is right for
+code and wrong for the song lyrics somebody pasted, whose lines simply left the
+screen. `white-space: pre-wrap` keeps the breaks the writer put in and lets the
+browser break the rest.
 
 ## 3. An owner who loses their password cannot get back in
 
@@ -93,4 +95,4 @@ a placeholder now, and the tool finds this shape.
 
 ## 8. Version
 
-rc32 → rc36. Polish is at 99.4%: the four keys added by item 6.
+rc32 → rc37. Polish is at 99.4%: the four keys added by item 6.

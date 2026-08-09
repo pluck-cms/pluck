@@ -663,10 +663,19 @@ details.card[open] > summary { margin-bottom: var(--space-3); }
 	padding-left: 1rem;
 	border-left: 3px solid var(--rule, #ddd);
 }
+/*
+ * A <pre> in the editor wraps.
+ *
+ * It kept its whitespace and scrolled sideways instead — right for code, wrong
+ * for the song lyrics somebody pasted, whose lines ran off the side of the box
+ * and had to be dragged into view to edit. `pre-wrap` keeps the breaks the
+ * writer put in and lets the browser break the rest.
+ */
 .editor-surface pre {
 	padding: 0.5rem;
 	background: rgba(127, 127, 127, 0.12);
-	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
 	font-size: 0.9rem;
 }
 
