@@ -373,7 +373,28 @@ final class Updates
 		}
 
 		if ($status !== 200) {
-			throw new RuntimeException(sprintf('GitHub answered %d rather than 200.', $status));
+			/*
+			 * Say which repository was asked.
+			 *
+			 * A bare "GitHub answered 404" sends somebody to look at their release,
+			 * their tag and their pre-release flag — when the actual cause can be
+			 * that update_source still holds the example from the documentation.
+			 * That happened on the first install to use it.
+			 *
+			 * Only owner/repo, never the whole URL: it is the part that differs and
+			 * the part somebody can check, and a 404 page is not the place to print
+			 * configuration back at whoever is reading it.
+			 */
+			$repo = preg_match('~/repos/([^/]+/[^/]+)/~', $url, $m) === 1 ? $m[1] : 'the repository';
+
+			throw new RuntimeException(sprintf(
+				'GitHub answered %d rather than 200 for %s. %s',
+				$status,
+				$repo,
+				$status === 404
+					? 'That means no published release there — check the name, and that the release is not marked as a pre-release, which /releases/latest skips.'
+					: '',
+			));
 		}
 
 		return $body;

@@ -46,7 +46,9 @@ Where the updater looks for releases. Unset means the Pluck repository, which is
 what a normal install wants.
 
 ```php
-'update_source' => 'https://api.github.com/repos/yourname/pluck/releases/latest',
+// Replace the owner and repository with your own. Leaving the example as written
+// gives a 404, because there is no repository called that.
+'update_source' => 'https://api.github.com/repos/OWNER/REPO/releases/latest',
 ```
 
 Only that shape is accepted — `api.github.com`, over TLS, a repository's latest

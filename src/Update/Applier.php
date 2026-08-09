@@ -76,10 +76,51 @@ final class Applier
 			$this->check($release);
 
 			$files = $this->filesIn($release);
+
+			/*
+			 * Everything the release will write, before anything is written.
+			 *
+			 * Half an update is the worst outcome. The rollback works — it has now
+			 * been through a real failure on a real server — but it is a recovery,
+			 * and a recovery that could have been a refusal is a bad trade.
+			 *
+			 * The case that found this: an install unpacked by hand as root, so
+			 * some files belonged to root and the web server could not replace
+			 * them. Nothing about that is visible until the write fails.
+			 */
+			$blocked = self::unwritable($this->rootDir, $files);
+
+			if ($blocked !== []) {
+				throw new RuntimeException(self::explainUnwritable($blocked, $this->rootDir));
+			}
+
 			$rollback = $this->stagingDir('rollback');
 
 			$replaced = $this->swap($release, $files, $rollback);
 			$removed = $this->removeObsolete($files, $rollback);
+
+			/*
+			 * Throw away every compiled file, because 251 of them just changed.
+			 *
+			 * OPcache holds the compiled form of each .php and, by default, only
+			 * asks whether a file changed every couple of seconds. Immediately
+			 * after an update that means old bytecode running against new files —
+			 * and not evenly: some classes already reloaded, some not, in whatever
+			 * combination the timing produced.
+			 *
+			 * What it looked like on the first real update was harmless and
+			 * confusing: "Bijgewerkt naar rc40" above "Je draait rc39", because
+			 * Bootstrap::VERSION was still the compiled old constant. What it
+			 * could look like is a new class calling a method an old one does not
+			 * have yet.
+			 *
+			 * A reset rather than invalidating each file: this is the one moment
+			 * where throwing the whole cache away is proportionate, and a list of
+			 * paths to invalidate is a list that can be incomplete.
+			 */
+			if (function_exists('opcache_reset')) {
+				@opcache_reset();
+			}
 
 			return [
 				'replaced' => $replaced,
@@ -211,6 +252,91 @@ final class Applier
 		if (!is_dir($release . '/views') || !is_dir($release . '/lang')) {
 			throw new RuntimeException('This does not look like a Pluck release: views or lang is missing.');
 		}
+	}
+
+	/**
+	 * Which of these the web server cannot replace.
+	 *
+	 * A file that exists has to be writable; one that does not has to have a
+	 * writable directory to be created in, and that directory may not exist yet
+	 * either — so the check walks up until it finds something that does.
+	 *
+	 * @param list<string> $files paths relative to the install
+	 * @return list<string>
+	 */
+	public static function unwritable(string $rootDir, array $files): array
+	{
+		$blocked = [];
+
+		foreach ($files as $relative) {
+			$target = $rootDir . '/' . $relative;
+
+			if (file_exists($target)) {
+				if (!is_writable($target)) {
+					$blocked[] = $relative;
+				}
+
+				continue;
+			}
+
+			$dir = dirname($target);
+
+			while (!file_exists($dir) && strlen($dir) > strlen($rootDir)) {
+				$dir = dirname($dir);
+			}
+
+			if (!is_writable($dir)) {
+				$blocked[] = $relative;
+			}
+		}
+
+		return $blocked;
+	}
+
+	/**
+	 * What to do about it, which depends on why.
+	 *
+	 * Two situations look identical in the error and want opposite answers.
+	 *
+	 * A file whose directory is *also* unwritable is an ownership accident: an
+	 * install unpacked by hand as somebody else. Handing it back to the account
+	 * the site runs as is right.
+	 *
+	 * A file in a directory that *is* writable is the ordinary shared-hosting
+	 * layout: PHP runs as one account, the files belong to another, directories
+	 * are group-writable and files are not. Telling somebody to chown everything
+	 * to the web server there is bad advice — it takes their own files away from
+	 * them, and they will notice the next time they open FTP. The fix belongs on
+	 * the server: run PHP as the account that owns the site.
+	 *
+	 * Names a handful and counts the rest: four hundred paths is not a message.
+	 *
+	 * @param list<string> $blocked
+	 */
+	public static function explainUnwritable(array $blocked, string $rootDir = ''): string
+	{
+		$shown = array_slice($blocked, 0, 5);
+		$rest = count($blocked) - count($shown);
+
+		// If the directories take writes, the owner is not the problem.
+		$directoriesTakeWrites = $rootDir !== '' && is_writable($rootDir);
+
+		$advice = $directoriesTakeWrites
+			? 'The folders can be written but the files cannot, which means PHP runs as one account '
+				. 'and the files belong to another. Chowning everything to the web server would take the '
+				. 'files away from you — the fix belongs on the server: run PHP as the account that owns '
+				. 'the site (a PHP-FPM pool of its own), or make the files group-writable with chmod -R g+w .'
+			: 'This is almost always an install unpacked by hand as another user — give the files back to '
+				. 'the account the site runs as, for example: chown -R <web user> .';
+
+		return sprintf(
+			'%d file%s cannot be replaced: %s%s. Nothing has been changed. %s',
+			count($blocked),
+			count($blocked) === 1 ? '' : 's',
+			implode(', ', $shown),
+			$rest > 0 ? sprintf(' and %d more', $rest) : '',
+			$advice,
+		);
 	}
 
 	// ---- swapping -------------------------------------------------------
@@ -393,6 +519,13 @@ final class Applier
 			} catch (Throwable) {
 				continue;
 			}
+		}
+
+		// The same reason as after a successful swap, and more pressing: a
+		// rollback puts old files back under whatever bytecode the half-finished
+		// update had already compiled.
+		if (function_exists('opcache_reset')) {
+			@opcache_reset();
 		}
 	}
 
