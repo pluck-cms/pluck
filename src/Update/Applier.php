@@ -37,7 +37,16 @@ final class Applier
 	private const OWNED = ['src', 'views', 'lang', 'assets', 'bin', 'docs'];
 
 	/** Never replaced, whatever the archive holds. */
-	private const KEEP = ['data', 'media', 'instances'];
+	/*
+	 * modules/ is here because a module of your own had nowhere to live that
+	 * survived an update: src/ is replaced wholesale, so anything added there was
+	 * gone the first time somebody pressed the button.
+	 *
+	 * 'instances' is a leftover from an idea that was never built. It costs
+	 * nothing and removing it from a list that protects things is the kind of
+	 * tidying that goes wrong once.
+	 */
+	private const KEEP = ['data', 'media', 'modules', 'instances'];
 
 	public function __construct(
 		private readonly string $rootDir,

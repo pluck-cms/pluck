@@ -72,7 +72,7 @@ $urls = new Urls(
 // without it, in ?page=. Both go through Slug::path(), so a request can never
 // describe something the storage layer would refuse to look up.
 $requested = Slug::path((string) ($_GET['page'] ?? '')) ?: Slug::path(Urls::detectPath($_SERVER));
-$modules = Modules::registry($translator);
+$modules = Modules::registry($translator, $storage);
 
 $themes = new ThemeRepository(__DIR__ . '/themes');
 $renderer = new SiteRenderer(

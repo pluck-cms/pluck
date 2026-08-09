@@ -72,7 +72,7 @@ $storage = $app->storage();
 $request = Request::capture();
 // Modules are built before Auth, because the access list needs to know which
 // module permissions exist before it can answer about them.
-$modules = Modules::registry($app->translator());
+$modules = Modules::registry($app->translator(), $app->storage());
 $auth = new Auth($storage, $app->session(), new Throttle($storage), $modules);
 $flash = new Flash($app->session());
 // The account's own language wins over the site's, so resolve the user before the

@@ -203,9 +203,16 @@ wrong place for it and a small application beside the site is the right one.
 
 ## Installing one
 
-Put the folder in `modules/`. It is picked up on the next request; there is no
-registry and nothing to enable. A module with a `module.json` that does not parse
-is skipped and reported rather than fataling the site.
+Put the folder in `modules/`, then add its name to the `modules_enabled` setting.
+
+Both steps are required, and that is the point. "Drop a folder in and it runs" is
+how Pluck 4 worked, and it is exactly what made a compromised install so easy to
+keep: a web shell dropped into `data/modules` was a module. A folder here that
+nobody has named is inert.
+
+`modules/` is preserved by the updater. Anything in `src/` is not — that
+directory is replaced wholesale — so a module of your own belongs here and
+nowhere else.
 
 To remove one, delete the folder. Its data stays in `data/` until you remove
 that too, which is deliberate: an accidentally deleted module folder should not
