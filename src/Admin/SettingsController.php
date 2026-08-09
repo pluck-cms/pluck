@@ -31,6 +31,10 @@ final class SettingsController extends Controller
 			'recaptchaSiteKey' => (string) $storage->getSetting('recaptcha_site_key', ''),
 			'recaptchaSecret' => (string) $storage->getSetting('recaptcha_secret', '') === '' ? '' : '••••••••',
 			'themes' => $this->themes()->available(),
+			'availableModules' => $this->modulesOnDisk(),
+			'enabledModules' => $this->enabled('modules_enabled'),
+			'frameHostNames' => \Pluck\Security\Csp::frameHostNames(),
+			'frameHosts' => $this->enabled('frame_hosts'),
 			'activeTheme' => (string) $storage->getSetting('theme', ThemeRepository::FALLBACK),
 			'prettyUrls' => (bool) $storage->getSetting('pretty_urls', false),
 		]);
@@ -87,6 +91,27 @@ final class SettingsController extends Controller
 			$this->c->app->config->set('language', $language);
 			$this->c->app->config->save();
 		}
+
+		/*
+		 * Which extra modules load, and which services a page may frame.
+		 *
+		 * Both were settings with no screen: a folder in modules/ did nothing and
+		 * the only way to change that was to write the setting by hand. A setting
+		 * nobody can reach is a setting nobody has.
+		 *
+		 * Checked against what is actually there rather than saved as posted — a
+		 * name that is not a folder would be a line in the store that does nothing
+		 * and confuses whoever reads it next.
+		 */
+		$storage->setSetting('modules_enabled', array_values(array_intersect(
+			$request->postArray('modules_enabled'),
+			$this->modulesOnDisk(),
+		)));
+
+		$storage->setSetting('frame_hosts', array_values(array_intersect(
+			$request->postArray('frame_hosts'),
+			\Pluck\Security\Csp::frameHostNames(),
+		)));
 
 		$challenge = $request->post('form_challenge', 'sum');
 		$storage->setSetting('form_challenge', in_array($challenge, ['none', 'sum', 'recaptcha'], true) ? $challenge : 'sum');
@@ -179,6 +204,38 @@ final class SettingsController extends Controller
 		$body = @file_get_contents($url, false, $context);
 
 		return is_string($body) && trim($body) === Probe::MARKER;
+	}
+
+	/**
+	 * The module folders this install has.
+	 *
+	 * A folder with a module.json in it. Being here is not enough to run — the
+	 * name has to be ticked as well, which is the property that stops an upload
+	 * from becoming code.
+	 *
+	 * @return list<string>
+	 */
+	private function modulesOnDisk(): array
+	{
+		$found = [];
+
+		foreach (glob($this->c->app->rootDir . '/modules/*', GLOB_ONLYDIR) ?: [] as $dir) {
+			if (is_file($dir . '/module.json')) {
+				$found[] = basename($dir);
+			}
+		}
+
+		sort($found);
+
+		return $found;
+	}
+
+	/** @return list<string> */
+	private function enabled(string $setting): array
+	{
+		$stored = $this->c->storage->getSetting($setting, []);
+
+		return is_array($stored) ? array_values(array_filter($stored, 'is_string')) : [];
 	}
 
 	private function themes(): ThemeRepository

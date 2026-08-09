@@ -196,8 +196,8 @@ A module renders on the other side of that line, so a video embed belongs in one
 
 The CSP still refuses it. `frame-src` falls back to `default-src 'self'`, and a
 module cannot widen that on its own — one that could would be one that can point
-a frame anywhere. An owner names the service in the `frame_hosts` setting, which
-is checked against `Csp::frameHostNames()` rather than taken as written.
+a frame anywhere. An owner ticks the service under **Settings → Video en kaarten in een pagina**,
+which is checked against `Csp::frameHostNames()` rather than taken as written.
 
 Worth doing what the bundled video module does: render a still and a link, and
 only put the frame in the page once somebody has clicked. An embed in the markup
@@ -219,7 +219,7 @@ wrong place for it and a small application beside the site is the right one.
 
 ## Installing one
 
-Put the folder in `modules/`, then add its name to the `modules_enabled` setting.
+Put the folder in `modules/`, then tick it under **Settings → Extra modules**.
 
 Both steps are required, and that is the point. "Drop a folder in and it runs" is
 how Pluck 4 worked, and it is exactly what made a compromised install so easy to

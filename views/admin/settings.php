@@ -80,6 +80,32 @@ use Pluck\Admin\Controller;
 			<span class="muted"><?= $view->t('settings.help.tagline') ?></span>
 		</label>
 
+<?php if (($availableModules ?? []) !== []): ?>
+		<fieldset class="field">
+			<legend><?= $view->t('settings.label.modules') ?></legend>
+			<span class="muted"><?= $view->t('settings.help.modules') ?></span>
+
+<?php foreach ($availableModules as $module): ?>
+			<label class="choice">
+				<input type="checkbox" name="modules_enabled[]" value="<?= e($module) ?>"<?= in_array($module, $enabledModules, true) ? ' checked' : '' ?>>
+				<span><?= e($module) ?></span>
+			</label>
+<?php endforeach; ?>
+		</fieldset>
+<?php endif; ?>
+
+		<fieldset class="field">
+			<legend><?= $view->t('settings.label.frame_hosts') ?></legend>
+			<span class="muted"><?= $view->t('settings.help.frame_hosts') ?></span>
+
+<?php foreach ($frameHostNames as $host): ?>
+			<label class="choice">
+				<input type="checkbox" name="frame_hosts[]" value="<?= e($host) ?>"<?= in_array($host, $frameHosts, true) ? ' checked' : '' ?>>
+				<span><?= e($host) ?></span>
+			</label>
+<?php endforeach; ?>
+		</fieldset>
+
 		<label class="field">
 			<span><?= $view->t('settings.label.form_challenge') ?></span>
 			<select name="form_challenge">

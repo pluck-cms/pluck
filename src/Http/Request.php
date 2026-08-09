@@ -64,6 +64,34 @@ final class Request
 		return is_scalar($value) ? trim((string) $value) : $default;
 	}
 
+	/**
+	 * A body value that is a list, as a group of checkboxes sends.
+	 *
+	 * Only strings, and only scalars: a form can post arrays nested however deep
+	 * the sender likes, and a caller expecting a list of names should get a list
+	 * of names rather than whatever arrived.
+	 *
+	 * @return list<string>
+	 */
+	public function postArray(string $key): array
+	{
+		$value = $this->post[$key] ?? null;
+
+		if (!is_array($value)) {
+			return [];
+		}
+
+		$out = [];
+
+		foreach ($value as $item) {
+			if (is_scalar($item)) {
+				$out[] = trim((string) $item);
+			}
+		}
+
+		return $out;
+	}
+
 	/** The body value untrimmed, for content fields where whitespace is meaningful. */
 	public function raw(string $key, string $default = ''): string
 	{

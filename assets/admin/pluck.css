@@ -858,3 +858,15 @@ textarea.is-source {
    page looks broken even when it worked. */
 .editor-holder.is-sizing { user-select: none; }
 .editor-holder.is-sizing .editor-surface { cursor: nwse-resize; }
+
+/* A group of checkboxes that belong together. */
+fieldset.field {
+	margin: 0 0 var(--space-3);
+	padding: var(--space-2) var(--space-3) var(--space-3);
+	border: 1px solid var(--rule);
+	border-radius: var(--radius);
+}
+
+fieldset.field legend { padding-inline: var(--space-1); font-weight: 600; }
+fieldset.field .muted { display: block; margin-bottom: var(--space-2); }
+fieldset.field .choice { margin-bottom: 0.35rem; }
