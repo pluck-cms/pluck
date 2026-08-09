@@ -175,7 +175,14 @@ final class UpdateController extends Controller
 
 	private function updates(): Updates
 	{
-		return new Updates($this->c->app->rootDir . '/data', $this->c->storage, $this->version());
+		// The source comes from config.php when it is set there — see
+		// Updates::api() for why it is a file and not a setting.
+		return new Updates(
+			$this->c->app->rootDir . '/data',
+			$this->c->storage,
+			$this->version(),
+			(string) $this->c->app->config->get('update_source', ''),
+		);
 	}
 
 	private function backups(): BackupManager

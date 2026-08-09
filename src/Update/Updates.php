@@ -46,7 +46,37 @@ final class Updates
 		private readonly string $dataDir,
 		private readonly StorageDriver $storage,
 		private readonly string $version = Bootstrap::VERSION,
+		private readonly ?string $source = null,
 	) {
+	}
+
+	/**
+	 * Where releases are looked for.
+	 *
+	 * Overridable from `config.php` — `'update_source' => '...'` — and from there
+	 * only. Deliberately not a setting: an update source is code this install will
+	 * download and unpack, so anything that can change it can run code here. An
+	 * administrator cannot do that today and should not gain it through a text
+	 * field. Whoever can edit config.php can already replace src/ outright, so
+	 * nothing is given away.
+	 *
+	 * It exists because testing the updater otherwise means publishing a real
+	 * release on the shared repository, which makes a release candidate the
+	 * headline release for everybody still on 4.7. Point a test install at a fork
+	 * instead.
+	 *
+	 * Only api.github.com over TLS: not a general "fetch from anywhere", which is
+	 * the same hole by a longer road.
+	 */
+	private function api(): string
+	{
+		if ($this->source === null || $this->source === '') {
+			return self::API;
+		}
+
+		return preg_match('~^https://api\\.github\\.com/repos/[A-Za-z0-9._-]+/[A-Za-z0-9._-]+/releases/latest$~', $this->source) === 1
+			? $this->source
+			: self::API;
 	}
 
 	// ---- checking -------------------------------------------------------
@@ -126,7 +156,7 @@ final class Updates
 
 	private function fetch(): ?Release
 	{
-		$json = $this->get(self::API);
+		$json = $this->get($this->api());
 		$data = json_decode($json, true);
 
 		if (!is_array($data) || !isset($data['tag_name'])) {

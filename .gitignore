@@ -9,3 +9,4 @@
 # and a tag convention that belong to one person's infrastructure. Kept beside a
 # checkout, handed to the build service separately, never in a release.
 image.yaml
+changes.md

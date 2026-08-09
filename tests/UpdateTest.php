@@ -25,6 +25,8 @@ final class UpdateTest extends TestCase
 {
 	public function run(): void
 	{
+		$this->group('where releases are looked for', fn () => $this->source());
+
 		$this->group('which version is newer', fn () => $this->versions());
 		$this->group('how often GitHub is asked', fn () => $this->caching());
 		$this->group('reaching the internet', fn () => $this->reaching());
@@ -190,5 +192,58 @@ final class UpdateTest extends TestCase
 		$storage->install();
 
 		return [new Updates($dir, $storage, '5.0.0'), $storage];
+	}
+
+	/**
+	 * The update source can be moved, from config.php and nowhere else.
+	 *
+	 * An update source is code this install downloads and unpacks, so anything
+	 * that can change it can run code here. An administrator cannot do that today
+	 * and must not gain it through a text field — whoever can edit config.php can
+	 * already replace src/ outright, so putting it there gives nothing away.
+	 *
+	 * It exists because testing the updater otherwise means publishing a real
+	 * release on the shared repository, and /releases/latest skips pre-releases:
+	 * a release candidate would have to go out as a normal release and become the
+	 * headline release for everybody still on 4.7.
+	 */
+	private function source(): void
+	{
+		$dir = $this->tempDir('pluck-update-source');
+		$storage = DriverFactory::make(DriverFactory::FLAT_FILE, $dir);
+		$storage->install();
+
+		$api = new \ReflectionMethod(Updates::class, 'api');
+		$api->setAccessible(true);
+
+		$default = 'https://api.github.com/repos/pluck-cms/pluck/releases/latest';
+
+		$this->assertSame(
+			$default,
+			$api->invoke(new Updates($dir, $storage, '5.0.0', '')),
+			'unset means the Pluck repository',
+		);
+
+		$fork = 'https://api.github.com/repos/somebody/pluck/releases/latest';
+		$this->assertSame(
+			$fork,
+			$api->invoke(new Updates($dir, $storage, '5.0.0', $fork)),
+			'a fork on the same host is accepted',
+		);
+
+		// Anything else falls back rather than being fetched. A general "get it
+		// from wherever this says" is the same hole by a longer road.
+		foreach ([
+			'https://evil.example/releases/latest',
+			'http://api.github.com/repos/a/b/releases/latest',
+			'https://api.github.com/repos/a/b/releases/latest?x=1',
+			'https://api.github.com.evil.example/repos/a/b/releases/latest',
+		] as $bad) {
+			$this->assertSame(
+				$default,
+				$api->invoke(new Updates($dir, $storage, '5.0.0', $bad)),
+				'refused and fell back: ' . $bad,
+			);
+		}
 	}
 }

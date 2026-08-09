@@ -40,6 +40,30 @@ return [
 This file must not be served over HTTP. `data/.htaccess` denies the whole
 directory on Apache; on nginx you have to say so yourself — see `NGINX.md`.
 
+### `update_source`
+
+Where the updater looks for releases. Unset means the Pluck repository, which is
+what a normal install wants.
+
+```php
+'update_source' => 'https://api.github.com/repos/yourname/pluck/releases/latest',
+```
+
+Only that shape is accepted — `api.github.com`, over TLS, a repository's latest
+release. Anything else falls back to the default rather than being fetched: a
+general "get it from wherever this says" is the same hole by a longer road.
+
+It is here rather than in Settings on purpose. An update source is code this
+install downloads and unpacks, so anything that can change it can run code here,
+and an administrator cannot do that today. Whoever can edit this file can already
+replace `src/` outright, so putting it here gives nothing away.
+
+The reason it exists: testing the updater otherwise means publishing a real
+release on the shared repository, and `/releases/latest` skips pre-releases — so
+a release candidate would have to go out as a normal release and become the
+headline release for everybody still on 4.7. Point a test install at a fork
+instead.
+
 ## Settings in storage
 
 | Key | Type | Default | Set where |
