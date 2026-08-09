@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Pluck\Module;
 
+use Pluck\I18n\Translates;
 use Pluck\I18n\Translator;
 use Pluck\Security\Escaper;
 use Pluck\Site\Search;
@@ -21,6 +22,8 @@ use Pluck\Storage\StorageDriver;
  */
 final class AlbumsModule implements SiteModule
 {
+	use Translates;
+
 	public function __construct(private readonly ?Translator $translator = null)
 	{
 	}
@@ -306,8 +309,4 @@ final class AlbumsModule implements SiteModule
 	}
 
 	/** @param array<string,string|int> $replacements */
-	private function t(string $key, array $replacements = [], ?int $count = null): string
-	{
-		return $this->translator?->get($key, $replacements, $count) ?? $key;
-	}
 }

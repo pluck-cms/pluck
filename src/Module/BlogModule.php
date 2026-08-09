@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Pluck\Module;
 
+use Pluck\I18n\Translates;
 use Pluck\I18n\Translator;
 use Pluck\Security\Escaper;
 use Pluck\Form\Guard;
@@ -26,6 +27,8 @@ use Pluck\Support\Excerpt;
  */
 final class BlogModule implements SiteModule, PublicForm
 {
+	use Translates;
+
 	public function __construct(private readonly ?Translator $translator = null)
 	{
 	}
@@ -522,8 +525,4 @@ final class BlogModule implements SiteModule, PublicForm
 	}
 
 	/** @param array<string,string|int> $replacements */
-	private function t(string $key, array $replacements = [], ?int $count = null): string
-	{
-		return $this->translator?->get($key, $replacements, $count) ?? $key;
-	}
 }

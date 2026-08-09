@@ -59,6 +59,15 @@ class MediaLibrary
 	 * One list, and the browser is told what is on it rather than keeping a
 	 * second copy.
 	 */
+	/**
+	 * How large an upload may be when nobody has said.
+	 *
+	 * A constant because three callers each wrote it out: `8 * 1024 * 1024` in
+	 * one, `8388608` in two others. They agreed, which is the dangerous version —
+	 * a default written three ways is one somebody will change in one place.
+	 */
+	public const DEFAULT_MAX_BYTES = 8 * 1024 * 1024;
+
 	public const IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg'];
 
 	/** Setting holding name => sha256, so a duplicate is recognised without rereading the folder. */

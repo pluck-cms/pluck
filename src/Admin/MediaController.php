@@ -253,24 +253,10 @@ final class MediaController extends Controller
 		);
 	}
 
-	private function detectMime(string $path): ?string
-	{
-		if (!function_exists('finfo_open')) {
-			return null;
-		}
-		$finfo = finfo_open(FILEINFO_MIME_TYPE);
-		if ($finfo === false) {
-			return null;
-		}
-		$mime = finfo_file($finfo, $path);
-		finfo_close($finfo);
-
-		return is_string($mime) ? $mime : null;
-	}
 
 	private function maxBytes(): int
 	{
-		$configured = (int) $this->c->storage->getSetting('media_max_bytes', 8 * 1024 * 1024);
+		$configured = (int) $this->c->storage->getSetting('media_max_bytes', MediaLibrary::DEFAULT_MAX_BYTES);
 
 		return max(65536, min($configured, 512 * 1024 * 1024));
 	}

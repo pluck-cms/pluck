@@ -5,6 +5,7 @@ namespace Pluck\Backup;
 
 use Pluck\Bootstrap;
 
+use Pluck\Archive\ArchiveStore;
 use Pluck\Support\Path;
 use RuntimeException;
 use Throwable;
@@ -236,17 +237,13 @@ final class BackupManager
 	/** @return list<Backup> newest first */
 	public function all(): array
 	{
-		if (!is_dir($this->backupDir())) {
-			return [];
-		}
-
-		$backups = [];
-		foreach (scandir($this->backupDir()) ?: [] as $entry) {
-			if (!str_starts_with($entry, 'pluck-') || !preg_match('/\.tar(\.gz)?$/', $entry)) {
-				continue;
-			}
-			$backups[] = $this->describe($entry);
-		}
+		// The store says which names are backups; describing one is this class's
+		// own business, because a backup and a download describe themselves
+		// differently and that is the part that genuinely belongs to each.
+		$backups = array_map(
+			fn (string $name): Backup => $this->describe($name),
+			$this->store()->names(),
+		);
 
 		usort($backups, static fn (Backup $a, Backup $b): int => $b->createdAt <=> $a->createdAt);
 
@@ -277,29 +274,35 @@ final class BackupManager
 	 * arriving from a form cannot address a file elsewhere — the delete route in
 	 * the 4.x module took `$_GET['delfile']` and unlinked it unchecked.
 	 */
+	/**
+	 * The folder of backups, and the rules for naming one.
+	 *
+	 * Shared with the updater's download folder — see Archive\ArchiveStore. They
+	 * had four identical methods each, which is how a rule ends up fixed in one
+	 * place and not the other.
+	 */
+	private function store(): ArchiveStore
+	{
+		return new ArchiveStore(
+			$this->backupDir(),
+			'/^pluck-\d{8}-\d{6}-[0-9a-f]{8}\.tar(\.gz)?$/',
+			'That is not the name of a backup.',
+		);
+	}
+
 	public function pathOf(string $name): string
 	{
-		$name = basename($name);
-
-		if (!preg_match('/^pluck-\d{8}-\d{6}-[0-9a-f]{8}\.tar(\.gz)?$/', $name)) {
-			throw new RuntimeException('That is not the name of a backup.');
-		}
-
-		return Path::within($this->backupDir(), $name);
+		return $this->store()->pathOf($name);
 	}
 
 	public function exists(string $name): bool
 	{
-		try {
-			return is_file($this->pathOf($name));
-		} catch (Throwable) {
-			return false;
-		}
+		return $this->store()->exists($name);
 	}
 
 	public function delete(string $name): bool
 	{
-		return $this->exists($name) && @unlink($this->pathOf($name));
+		return $this->store()->delete($name);
 	}
 
 	/**

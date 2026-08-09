@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Pluck\Tests;
 
+use Pluck\Bootstrap;
 use Pluck\Storage\DriverFactory;
 use Pluck\Storage\StorageDriver;
 use Pluck\Update\Applier;
@@ -29,6 +30,7 @@ final class UpdateTest extends TestCase
 		$this->group('where releases are looked for', fn () => $this->source());
 		$this->group('files the web server cannot replace', fn () => $this->unwritable());
 		$this->group('compiled code is thrown away', fn () => $this->cacheCleared());
+		$this->group('which version is running', fn () => $this->running());
 
 		$this->group('which version is newer', fn () => $this->versions());
 		$this->group('how often GitHub is asked', fn () => $this->caching());
@@ -356,6 +358,63 @@ final class UpdateTest extends TestCase
 		$this->assertTrue(
 			str_contains($source, "function_exists('opcache_reset')"),
 			'without assuming the extension is loaded',
+		);
+	}
+
+	/**
+	 * One answer to "what am I running", asked in one place.
+	 *
+	 * There were two. The admin's badge asked storage with a fallback of
+	 * '5.0.0-dev'; the updates screen asked with a fallback of Bootstrap::VERSION.
+	 * Nothing ever writes that setting, so the fallback was the answer both times
+	 * — and 'dev' sorts below everything in version_compare(), so the badge
+	 * counted any release it had ever seen as newer, including ones older than
+	 * the code running.
+	 *
+	 * It showed as "Updates (1)" beside a screen saying the check had failed and
+	 * there was nothing to install.
+	 */
+	private function running(): void
+	{
+		$dir = $this->tempDir('pluck-running');
+		$storage = DriverFactory::make(DriverFactory::FLAT_FILE, $dir);
+		$storage->install();
+
+		$this->assertSame(
+			Bootstrap::VERSION,
+			Updates::runningVersion($storage),
+			'with nothing stored, the constant compiled from the files that are there',
+		);
+
+		$storage->setSetting('version', '5.0.0-dev');
+		$this->assertSame(
+			Bootstrap::VERSION,
+			Updates::runningVersion($storage),
+			'and the old sentinel is treated as nothing rather than as a version below everything',
+		);
+
+		$storage->setSetting('version', '5.0.0-rc9');
+		$this->assertSame(
+			'5.0.0-rc9',
+			Updates::runningVersion($storage),
+			'a real stored value is still an override',
+		);
+
+		// The badge, which is what somebody actually sees.
+		$storage->deleteSetting('version');
+		$storage->setSetting(Updates::LAST_SEEN, [
+			'version' => '1.0.0',
+			'name' => 'old',
+			'url' => '',
+			'archive' => '',
+			'published' => '',
+			'notes' => '',
+			'prerelease' => false,
+		]);
+
+		$this->assertFalse(
+			(new Updates($dir, $storage, Updates::runningVersion($storage)))->updateAvailable(),
+			'a remembered release older than the code running is not an update',
 		);
 	}
 }

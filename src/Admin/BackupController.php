@@ -190,7 +190,7 @@ final class BackupController extends Controller
 		return new BackupManager(
 			$this->c->app->rootDir . '/data',
 			$this->c->app->rootDir . '/media',
-			(string) $this->c->storage->getSetting('version', Bootstrap::VERSION),
+			\Pluck\Update\Updates::runningVersion($this->c->storage),
 		);
 	}
 

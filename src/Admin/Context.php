@@ -73,7 +73,7 @@ final class Context
 				: new View($viewDir, $this->csrf, $this->app->csp(), $this->app->translator()),
 			accessList: $this->auth->accessList(),
 			library: new MediaLibrary($this->app->rootDir . '/media', $this->storage),
-			mediaMaxBytes: (int) $this->storage->getSetting('media_max_bytes', 8388608),
+			mediaMaxBytes: (int) $this->storage->getSetting('media_max_bytes', MediaLibrary::DEFAULT_MAX_BYTES),
 		);
 	}
 
