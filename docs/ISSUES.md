@@ -20,6 +20,16 @@ Confirmed on a real server, which is the only place it could be: OPcache in CLI
 is per-process, so no test in this suite starts with the shared cache the failure
 needs.
 
+### ~~An owner who loses their password cannot get back in~~ — fixed
+
+There was no way back at all. The only advice available was to migrate the site
+again from a 4.x copy, which is not advice — it is starting over, and it does not
+work anyway because `bin/migrate` refuses an install that already has pages.
+
+`bin/account password <username>` sets a new one and asks for it to be changed on
+the next sign-in. Anybody who can run it can already read `data/`, so shell
+access is the whole of the permission check.
+
 ### Sites that used the SEO module have addresses v5 cannot serve
 
 `pluck-cms/seo-module` rewrote module URLs as `/<page>/.blog/<post>` and

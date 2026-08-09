@@ -48,6 +48,7 @@ have backed up the site.
     admin.php            the admin front controller
     index.php            the site front controller
     install.php          deletes itself when it is done
+    bin/account          accounts and password resets, from the shell
     bin/migrate          the 4.x migrator (see docs/MIGRATION.md)
     src/                 all the code, PSR-4 under the Pluck namespace
     views/               admin templates, plain PHP

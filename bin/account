@@ -1,0 +1,158 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+
+/**
+ * Accounts, from the command line.
+ *
+ *   php bin/account list
+ *   php bin/account password <username>
+ *   php bin/account owner <username>
+ *
+ * This exists because there was no way back. An owner who lost their password
+ * could not sign in, and the only advice available was to migrate the site again
+ * from a 4.x copy — which is not advice, it is starting over. Anybody who can run
+ * this can already read data/ and change anything in it, so requiring shell
+ * access is the whole of the permission check.
+ *
+ * The new password is generated rather than typed: a password on a command line
+ * ends up in the shell history, and asking somebody to invent one at this moment
+ * is asking for the one they use elsewhere.
+ */
+
+require dirname(__DIR__) . '/src/autoload.php';
+
+use Pluck\Bootstrap;
+use Pluck\Model\Role;
+use Pluck\Model\User;
+
+$root = dirname(__DIR__);
+$command = $argv[1] ?? '';
+$username = $argv[2] ?? '';
+
+$app = Bootstrap::boot($root);
+
+if (!$app->isInstalled()) {
+	fwrite(STDERR, "This install has no config.php yet, so there are no accounts.\n");
+	exit(1);
+}
+
+$storage = $app->storage();
+
+if ($command === 'list') {
+	$users = $storage->listUsers();
+
+	if ($users === []) {
+		fwrite(STDOUT, "No accounts. `php bin/account create <username>` makes one.\n");
+		exit(0);
+	}
+
+	printf("%-24s %-14s %s\n", 'username', 'role', '');
+	foreach ($users as $user) {
+		printf(
+			"%-24s %-14s %s\n",
+			$user->username,
+			$user->role->value,
+			$user->active ? '' : '(switched off)',
+		);
+	}
+
+	exit(0);
+}
+
+if ($username === '') {
+	fwrite(STDERR, usage());
+	exit(1);
+}
+
+$user = $storage->findUserByUsername($username);
+
+if ($command === 'create') {
+	if ($user !== null) {
+		fwrite(STDERR, "There is already an account called {$username}.\n");
+		exit(1);
+	}
+
+	$password = passphrase();
+	$user = User::create($username, $password, Role::Owner);
+	$user->mustChangePassword = true;
+	$storage->saveUser($user);
+
+	printf("Created %s as owner.\n\n  password: %s\n\n%s", $username, $password, shownOnce());
+	exit(0);
+}
+
+if ($user === null) {
+	fwrite(STDERR, "No account called {$username}. `php bin/account list` shows them.\n");
+	exit(1);
+}
+
+if ($command === 'password') {
+	$password = passphrase();
+
+	$user->setPassword($password);
+	// Asked to choose their own on the way in: this one has been on a screen and
+	// in a shell history, which is two places a password should not stay.
+	$user->mustChangePassword = true;
+	$user->active = true;
+	$storage->saveUser($user);
+
+	printf("New password for %s.\n\n  password: %s\n\n%s", $username, $password, shownOnce());
+	exit(0);
+}
+
+if ($command === 'owner') {
+	$user->role = Role::Owner;
+	$user->active = true;
+	$storage->saveUser($user);
+
+	printf("%s is now an owner.\n", $username);
+	exit(0);
+}
+
+fwrite(STDERR, usage());
+exit(1);
+
+/**
+ * Words rather than characters.
+ *
+ * Long enough to be worth having and short enough to read down a phone to
+ * somebody, which is what actually happens when an account is locked out.
+ */
+function passphrase(): string
+{
+	$words = [
+		'amber', 'anchor', 'basil', 'beacon', 'cedar', 'cobalt', 'copper', 'dune',
+		'ember', 'fathom', 'flint', 'garnet', 'granite', 'harbour', 'indigo', 'ivory',
+		'jasmine', 'kestrel', 'lantern', 'marble', 'meadow', 'oak', 'onyx', 'pewter',
+		'quartz', 'raven', 'rowan', 'saffron', 'slate', 'thistle', 'umber', 'willow',
+	];
+
+	$picked = [];
+	for ($i = 0; $i < 4; $i++) {
+		$picked[] = $words[random_int(0, count($words) - 1)];
+	}
+
+	return implode('-', $picked) . '-' . random_int(10, 99);
+}
+
+function shownOnce(): string
+{
+	return "Shown once. The account is asked to change it on the next sign-in.\n";
+}
+
+function usage(): string
+{
+	return <<<TEXT
+	Accounts, from the command line.
+
+	  php bin/account list
+	  php bin/account password <username>    give an account a new one
+	  php bin/account owner <username>       make an account an owner
+	  php bin/account create <username>      add an owner, when there are none
+
+	Anybody who can run this can already read data/ and change anything in it, so
+	shell access is the permission check.
+
+	TEXT;
+}
