@@ -77,15 +77,22 @@ Pluck ships `assets/site/colours.css`: twenty-four classes named `.c-red`,
 `.c-blue`, `.c-grey-dark` and so on. The editor's colour button offers exactly
 those, and stores the class rather than a colour — `<span class="c-red">`.
 
-Link it in your layout **before** your own stylesheet:
+**You do not have to link it.** Pluck puts it in the head itself, straight after
+`<head>` and therefore before anything your theme loads.
+
+That is deliberate rather than convenient. A theme is a folder somebody edits
+over FTP, and plenty of the people running these sites have neither FTP nor a
+reason to learn it. A colour picker that only works once a file has been edited
+by hand is a picker that appears in the editor, does nothing to the page, and
+explains itself to nobody. Pluck 4 assembled part of the head at run time for the
+same reason.
+
+If you want it somewhere specific, link it yourself and Pluck leaves it alone —
+the check is for the filename:
 
 ```php
 <link rel="stylesheet" href="<?= e($siteAssets) ?>/colours.css">
-<link rel="stylesheet" href="<?= e($themeAssets) ?>/style.css?v=<?= e($theme->version()) ?>">
 ```
-
-A theme that does not link it shows no colours at all — the classes are simply
-unknown — so this line is worth having even if you never intend to change them.
 
 ### Making one your own
 

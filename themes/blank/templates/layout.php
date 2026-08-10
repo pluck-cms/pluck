@@ -39,9 +39,6 @@ $tagline = $tagline ?? '';
 <?php if ($noindex ?? false): ?>
 <meta name="robots" content="noindex, follow">
 <?php endif; ?>
-<!-- Pluck's own, before the theme's: a theme overrules any of it by saying
-     the rule again, because later rules win. -->
-<link rel="stylesheet" href="<?= e($siteAssets) ?>/colours.css">
 <link rel="stylesheet" href="<?= e($themeAssets) ?>/style.css">
 </head>
 <body>

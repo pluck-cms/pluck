@@ -4,6 +4,16 @@ declare(strict_types=1);
 namespace Pluck\Tests;
 
 use Pluck\Security\Sanitizer;
+use Pluck\I18n\Locale;
+use Pluck\I18n\Translator;
+use Pluck\Security\Session;
+use Pluck\Security\Csp;
+use Pluck\Security\Csrf;
+use Pluck\Theme\Theme;
+use Pluck\Site\Urls;
+use Pluck\Site\SiteRenderer;
+use Pluck\Model\Page;
+use Pluck\Storage\DriverFactory;
 use Pluck\Site\Palette;
 
 /**
@@ -20,6 +30,7 @@ final class PaletteTest extends TestCase
 	{
 		$this->group('read from the stylesheet', fn () => $this->reading());
 		$this->group('what the sanitiser keeps', fn () => $this->survives());
+		$this->group('the stylesheet reaches the page', fn () => $this->reaches());
 	}
 
 	private function reading(): void
@@ -69,6 +80,57 @@ final class PaletteTest extends TestCase
 		$this->assertFalse(
 			str_contains($sanitizer->inspect('<font color="red">rood</font>')->html, 'font'),
 			'and neither is <font>',
+		);
+	}
+
+	/**
+	 * Pluck puts its own stylesheet in the head, not the theme.
+	 *
+	 * A theme is a folder somebody edits over FTP, and plenty of the people
+	 * running these sites have neither FTP nor a reason to learn it. A colour
+	 * picker that only works once a file has been edited by hand is a picker that
+	 * appears, does nothing, and explains itself to nobody.
+	 *
+	 * Straight after <head>, so everything a theme loads comes later and wins —
+	 * that is what makes `.c-red` in a theme's stylesheet an override.
+	 */
+	private function reaches(): void
+	{
+		$dir = $this->tempDir('pluck-head');
+		$storage = DriverFactory::make(DriverFactory::FLAT_FILE, $dir);
+		$storage->install();
+		$storage->savePage(new Page(path: 'home', title: 'Home', content: '<p>x</p>'));
+
+		$renderer = $this->withoutSessionWarnings(fn (): SiteRenderer => new SiteRenderer(
+			Theme::load(dirname(__DIR__) . '/themes', 'default'),
+			$storage,
+			new Urls('/', true),
+			new Csrf(new Session()),
+			new Csp(),
+			new Translator(Locale::fallback(), dirname(__DIR__) . '/lang'),
+		));
+
+		$html = $renderer->page($storage->findPage('home'));
+
+		$this->assertSame(
+			1,
+			substr_count($html, 'site/colours.css'),
+			'linked once, by Pluck, on a theme that never asked',
+		);
+
+		$colours = strpos($html, 'site/colours.css');
+		$theme = strpos($html, 'themes/default/assets/style.css');
+
+		$this->assertTrue(
+			$colours !== false && $theme !== false && $colours < $theme,
+			'and before the theme, so the theme can override it',
+		);
+
+		// A theme that links it itself is left alone rather than given a second.
+		$twice = \Pluck\Site\SiteRenderer::class;
+		$this->assertTrue(
+			str_contains((string) file_get_contents(dirname(__DIR__) . '/src/Site/SiteRenderer.php'), "str_contains(\$document, 'site/colours.css')"),
+			'a theme that links it explicitly does not get it twice',
 		);
 	}
 }
