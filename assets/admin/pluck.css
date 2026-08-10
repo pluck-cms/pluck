@@ -1066,3 +1066,74 @@ details.explainer[open] > summary { margin-bottom: var(--space-2); }
 /* White on a light panel, and black on a dark one, need an edge to be a square
    rather than a hole. The border is already there; this makes it visible. */
 .swatch.c-white, .swatch.c-black { border-color: var(--ink-soft); }
+
+/*
+ * The Pluck menu: what a page can hold from Pluck itself.
+ *
+ * Nested <details> rather than a script-driven flyout. It opens and closes on
+ * its own, the keyboard works without anything being written for it, and it
+ * cannot get stuck open.
+ */
+.pluckmenu { position: relative; display: inline-block; }
+
+.pluckmenu > summary {
+	list-style: none;
+	cursor: pointer;
+	font-weight: 700;
+	font-size: var(--step-1);
+}
+
+.pluckmenu > summary::-webkit-details-marker { display: none; }
+
+.pluckmenu__panel {
+	position: absolute;
+	z-index: 20;
+	top: calc(100% + 0.35rem);
+	left: 0;
+	width: 17rem;
+	max-height: 60vh;
+	overflow-y: auto;
+	padding: var(--space-2);
+	background: var(--paper-raised);
+	border: 1px solid var(--rule);
+	border-radius: var(--radius);
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.pluckmenu__group > summary,
+.pluckmenu__sub > summary {
+	padding: 0.4rem 0.3rem;
+	cursor: pointer;
+	border-radius: var(--radius);
+}
+
+.pluckmenu__group > summary { font-weight: 700; }
+.pluckmenu__sub > summary { font-size: var(--step--1); color: var(--ink-soft); }
+
+.pluckmenu__group > summary:hover,
+.pluckmenu__sub > summary:hover { background: color-mix(in srgb, var(--ink) 6%, transparent); }
+
+.pluckmenu__group ul,
+.pluckmenu__sub ul { margin: 0; padding: 0 0 0 var(--space-2); list-style: none; }
+
+.pluckmenu__item {
+	display: block;
+	width: 100%;
+	padding: 0.35rem 0.4rem;
+	background: transparent;
+	border: 0;
+	border-radius: var(--radius);
+	color: var(--ink);
+	font: inherit;
+	font-size: var(--step--1);
+	text-align: left;
+	cursor: pointer;
+	/* A filename or a page title can be long, and a menu that grows sideways is
+	   a menu with a horizontal scrollbar. */
+	overflow-wrap: anywhere;
+}
+
+.pluckmenu__item:hover { background: var(--ink); color: var(--paper); }
+
+/* The same clipping problem the colour picker had: the toolbar scrolls. */
+.toolbar:has(.pluckmenu[open]) { overflow: visible; }

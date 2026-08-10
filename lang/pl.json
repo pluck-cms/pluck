@@ -424,7 +424,6 @@
 	"nav.updates": "Aktualizacje",
 	"nav.updates_available": "Aktualizacje (1)",
 	"nav.view_site": "Zobacz stronę",
-	"page.action.insert": "Wstaw w miejscu kursora",
 	"page.action.preview": "Podgląd",
 	"page.action.save_and_close": "Zapisz i zamknąć",
 	"page.action.show_html": "Pokaż kod HTML",
@@ -448,9 +447,6 @@
 	"page.flash.page_saved": "Strona została zapisana.",
 	"page.flash.parent_page_does_not_exist": "Strona nadrzędna nie istnieje.",
 	"page.help.editor": "Pisz tak, jak zwykle. Przyciski robią to, co akceptuje witryna; wszystko inne zostanie usunięte podczas zapisywania. Kliknij obrazek, aby zmienić jego rozmiar, przeciągnij linię między kolumnami tabeli, aby je poszerzyć, i naciśnij </>, aby zobaczyć i edytować kod HTML.",
-	"page.help.insert_file": "Otwiera okno linku z już wpisanym adresem, więc musisz jedynie podać nazwę, pod jaką ma się wyświetlać.",
-	"page.help.insert_from_media": "Dodaje znacznik <img> lub link w miejscu kursora. Są to te same pliki, których używają Twoje albumy — nic nie jest kopiowane.",
-	"page.help.insert_module": "Umieszcza znacznik typu [module:blog] w miejscu kursora. Strona wyświetli fragment modułu wraz z odnośnikiem do niego.",
 	"page.help.preview": "Jak strona będzie wyglądać po zapisaniu — przetwarzana przez tę samą listę dozwolonych elementów, więc to, co widzisz tutaj, jest tym, co otrzymasz.",
 	"page.help.preview_failed": "Nie można wygenerować podglądu: {why}",
 	"page.hidden_count": {
@@ -458,9 +454,6 @@
 		"few": "{count} strony ukryte z menu",
 		"many": "{count} stron ukrytych z menu"
 	},
-	"page.label.insert_file": "Link do pliku",
-	"page.label.insert_image": "Wstaw zdjęcie",
-	"page.label.insert_module": "Wstaw moduł",
 	"page.label.preview": "Podgląd",
 	"page.label.removed_on_save": "Zostanie usunięte podczas zapisywania:",
 	"page.label.uploaded": "Przesłano",

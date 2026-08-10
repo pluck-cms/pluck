@@ -25,7 +25,7 @@ use Pluck\Support\Excerpt;
  * CSRF token, a rate limit and a spam decision, and none of those belong in a
  * read path; the posting side is a controller of its own.
  */
-final class BlogModule implements SiteModule, PublicForm
+final class BlogModule implements SiteModule, Insertable, PublicForm
 {
 	use Translates;
 
@@ -89,6 +89,34 @@ final class BlogModule implements SiteModule, PublicForm
 	 *
 	 * Parameters: `count` (default 3, capped at 20) and `category`.
 	 */
+	/**
+	 * What a page can hold from the blog.
+	 *
+	 * The two shapes, and then the categories this site actually has — a list of
+	 * every category in the abstract would be a list of nothing.
+	 *
+	 * @return list<array{label:string,marker:string}>
+	 */
+	public function embedOptions(StorageDriver $storage): array
+	{
+		$options = [
+			['label' => $this->t('blog.insert.titles'), 'marker' => '[module:blog count=5]'],
+			['label' => $this->t('blog.insert.summaries'), 'marker' => '[module:blog count=5 show=summary]'],
+		];
+
+		foreach ($storage->listModuleData('blog', 'category:') as $key => $value) {
+			$slug = substr($key, 9);
+			$name = is_array($value) ? (string) ($value['name'] ?? $slug) : $slug;
+
+			$options[] = [
+				'label' => $this->t('blog.insert.category', ['name' => $name]),
+				'marker' => '[module:blog count=5 show=summary category=' . $slug . ']',
+			];
+		}
+
+		return $options;
+	}
+
 	public function embed(array $parameters, StorageDriver $storage, Urls $urls): ?string
 	{
 		$settings = self::settings($storage);

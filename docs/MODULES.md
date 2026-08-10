@@ -188,6 +188,66 @@ No English in your PHP. Put it in `modules/mine/lang/en.json` and reach for it
 with `$view->t('mine.some.key')` — the site's own language files and yours are
 merged, so a translator can do your module without touching Pluck.
 
+## Saying what can be inserted from your module
+
+The editor's **Pluck** menu lists what a page can hold. Implement `Insertable`
+and your module appears there with its own options:
+
+```php
+use Pluck\Module\Insertable;
+
+final class RecipesModule implements SiteModule, Insertable
+{
+	public function embedOptions(StorageDriver $storage): array
+	{
+		$options = [
+			['label' => $this->t('recipes.insert.latest'), 'marker' => '[module:recipes count=5]'],
+		];
+
+		foreach ($storage->listModuleData('recipes', 'course:') as $key => $course) {
+			$options[] = [
+				'label' => (string) $course['name'],
+				'marker' => '[module:recipes course=' . substr($key, 7) . ']',
+			];
+		}
+
+		return $options;
+	}
+}
+```
+
+Optional. A module without it is offered as `[module:name]`, which is what every
+module got before this existed.
+
+Two things worth knowing.
+
+**Storage is passed because the useful answers are about content.** "All albums"
+is a fair option; "Open dag 2019" is the one somebody is actually looking for.
+List what this site has, not what a module could in principle hold.
+
+**Something the writer has to fill in** goes in as a placeholder:
+
+```php
+[
+	'label' => $this->t('video.insert.url'),
+	'marker' => '[module:video id=PLAK-HIER-DE-YOUTUBE-LINK]',
+	'select' => 'PLAK-HIER-DE-YOUTUBE-LINK',
+],
+```
+
+The editor selects that text after inserting, so the next thing typed replaces
+it. Write the placeholder as words rather than as `<id>` or `%s`: one that
+survives into a saved page has to read on the live site as "somebody did not
+finish this", not as markup that looks deliberate. And make sure your module says
+something useful when it arrives — a placeholder that renders as a blank space is
+worse than one that renders as a sentence explaining itself.
+
+**The editor is told, never asked to work it out.** It has no idea that the blog
+takes `show=summary` — it renders labels and markers it was handed. An editor
+that knew would be a second place holding your module's parameters, and the two
+drift the first time either is touched. There is a test asserting the editor
+mentions no module by name.
+
 ## The bundled blog's embed
 
 `[module:blog]` takes three parameters:

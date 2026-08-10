@@ -232,6 +232,120 @@ document.addEventListener('click', function (event) {
 });
 
 /*
+ * The Pluck menu in the editor's toolbar.
+ *
+ * Same insertion as the pickers it replaced — one `pluck:insert` event, which
+ * the visible editor listens for and the textarea falls back on. A second way
+ * of putting text into that field would be a second way to get it wrong.
+ *
+ * The menu closes after a choice: leaving it open would cover the very text
+ * somebody wants to look at to see whether they picked the right thing.
+ */
+/*
+ * Where the cursor was before the menu opened.
+ *
+ * The textarea has the same problem the visible editor has: clicking the menu
+ * button moves focus out of it, and selectionStart then reads 0 — so everything
+ * was inserted at the very beginning of the text rather than where somebody was
+ * working.
+ */
+var insertAt = null;
+
+document.addEventListener('mousedown', function (event) {
+	if (!event.target.closest('.pluckmenu > summary')) {
+		return;
+	}
+
+	var field = document.getElementById('content');
+
+	insertAt = field && !field.hidden
+		? { start: field.selectionStart, end: field.selectionEnd }
+		: null;
+});
+
+document.addEventListener('click', function (event) {
+	var item = event.target.closest('.pluckmenu__item');
+	if (!item) {
+		return;
+	}
+
+	event.preventDefault();
+
+	var field = document.getElementById('content');
+	var snippet = null;
+
+	if (item.hasAttribute('data-insert-raw')) {
+		// A module marker is already exactly what belongs in the text.
+		snippet = item.getAttribute('data-insert-raw');
+	} else if (item.hasAttribute('data-insert-media')) {
+		var name = item.getAttribute('data-insert-media');
+		snippet = '<img src="media/' + encodeURIComponent(name) + '" alt="">';
+	} else if (item.hasAttribute('data-insert-file-name')) {
+		var file = item.getAttribute('data-insert-file-name');
+		/* A file is something to click, and it opens in its own tab: a PDF in
+		   this one replaces the page somebody was reading. */
+		snippet = '<a href="media/' + encodeURIComponent(file)
+			+ '" target="_blank" rel="noopener">' + file + '</a>';
+	} else if (item.hasAttribute('data-insert-link')) {
+		var path = item.getAttribute('data-insert-link');
+		var title = item.getAttribute('data-link-title') || path;
+		snippet = '<a href="' + path + '">' + title + '</a>';
+	}
+
+	if (snippet === null) {
+		return;
+	}
+
+	/*
+	 * The part somebody still has to fill in.
+	 *
+	 * A video marker cannot be complete — only the person inserting it knows
+	 * which video — so the module hands over a placeholder and the editor selects
+	 * it. The next thing typed replaces it, which is the difference between a
+	 * placeholder that gets filled in and one that reaches the live site.
+	 */
+	var select = item.getAttribute('data-select');
+
+	document.dispatchEvent(new CustomEvent('pluck:insert', {
+		detail: { snippet: snippet, select: select },
+	}));
+
+	// Close every part of the menu, not only the branch that was open: a menu
+	// that reopens where it was left is a menu that hides its own top level.
+	var menu = item.closest('.pluckmenu');
+	if (menu) {
+		menu.removeAttribute('open');
+		menu.querySelectorAll('details[open]').forEach(function (open) {
+			open.removeAttribute('open');
+		});
+	}
+
+	if (!field || field.hidden) {
+		return;
+	}
+
+	// Where the cursor was when the menu was opened, not where it is now.
+	var start = insertAt ? insertAt.start : field.selectionStart;
+	var end = insertAt ? insertAt.end : field.selectionEnd;
+
+	field.value = field.value.slice(0, start) + snippet + field.value.slice(end);
+	field.focus();
+
+	var placeholder = select ? snippet.indexOf(select) : -1;
+
+	if (placeholder !== -1) {
+		field.selectionStart = start + placeholder;
+		field.selectionEnd = start + placeholder + select.length;
+	} else {
+		// Cursor after what was inserted, so typing continues where the person
+		// was rather than at the top of the field.
+		field.selectionStart = field.selectionEnd = start + snippet.length;
+	}
+
+	field.dispatchEvent(new Event('input', { bubbles: true }));
+});
+
+/*
  * Live preview, showing what the sanitiser will leave behind.
  *
  * Rendered by the server rather than in the browser on purpose. Dropping the raw

@@ -117,6 +117,28 @@ there are forty pages with a red that now clashes and no way to find them.
 `style="color:red"` and `<font color>` are both stripped by the sanitiser, and
 that is deliberate rather than an oversight.
 
+## Wording of your own
+
+A theme can carry `lang/en.json` and `lang/nl.json` beside its templates, in the
+same shape as Pluck's own. They are read after Pluck's, so a key of yours simply
+exists — and a key of Pluck's you dislike can be replaced without editing a file
+that is not yours.
+
+```
+themes/bravely/
+	lang/
+		nl.json
+		en.json
+```
+
+```php
+<?= $view->t('wsj.phase.before') ?>
+```
+
+Before this a theme with words of its own had two options: put them in Pluck's
+catalogue, which is everybody's file, or write them into its templates in one
+language — and then a Polish reader gets Dutch.
+
 ## Escaping
 
 `e()` escapes. Use it on everything except two things: `$content`, and a page's

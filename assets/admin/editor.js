@@ -505,7 +505,9 @@
 	 * Only the summary opens the picker, so only the summary needs to remember.
 	 */
 	toolbar.addEventListener('mousedown', function (event) {
-		if (event.target.closest('.swatches > summary')) {
+		// Any menu that takes focus loses the selection by opening. Both of them
+		// remember it here rather than each solving it once.
+		if (event.target.closest('.swatches > summary, .pluckmenu > summary')) {
 			rememberSelection();
 		}
 	});
@@ -978,8 +980,59 @@
 			return;
 		}
 
+		/*
+		 * Put the cursor back before inserting.
+		 *
+		 * Opening the menu moved focus to its button, and focus leaving a
+		 * contenteditable collapses the selection — so insertHTML landed at the
+		 * start of the document rather than where somebody was typing. The
+		 * selection is remembered when the menu opens; this is the other half.
+		 */
 		editor.focus();
+		restoreSelection();
 		document.execCommand('insertHTML', false, event.detail.snippet);
 		sync();
+
+		/*
+		 * Select the part somebody still has to fill in.
+		 *
+		 * A video marker cannot be complete — only the person inserting it knows
+		 * which video — so the module hands over a placeholder. Selecting it means
+		 * the next thing typed replaces it, which is the difference between a
+		 * placeholder that gets filled in and one that reaches the live site as
+		 * PLAK-HIER-DE-YOUTUBE-LINK.
+		 */
+		if (event.detail.select) {
+			selectText(event.detail.select);
+		}
 	});
+
+	/**
+	 * Put the selection around the first occurrence of some text in the editor.
+	 *
+	 * Walks the text nodes rather than searching the HTML: a marker sits in a
+	 * text node, and an offset into the markup is not an offset into the text.
+	 */
+	function selectText(needle) {
+		var walker = document.createTreeWalker(editor, NodeFilter.SHOW_TEXT);
+		var node;
+
+		while ((node = walker.nextNode())) {
+			var at = node.nodeValue.indexOf(needle);
+
+			if (at === -1) {
+				continue;
+			}
+
+			var range = document.createRange();
+			range.setStart(node, at);
+			range.setEnd(node, at + needle.length);
+
+			var selection = window.getSelection();
+			selection.removeAllRanges();
+			selection.addRange(range);
+
+			return;
+		}
+	}
 })();

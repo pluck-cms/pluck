@@ -165,8 +165,8 @@ final class PaletteTest extends TestCase
 		 * gone, which is two symptoms of one line.
 		 */
 		$this->assertTrue(
-			str_contains($js, "closest('.swatches > summary')"),
-			'only opening the picker remembers the selection, not clicking a swatch',
+			str_contains($js, ".swatches > summary, .pluckmenu > summary"),
+			'only opening a menu remembers the selection, not clicking inside it',
 		);
 		$this->assertFalse(
 			str_contains($js, "event.target.closest('.swatches')) {\n\t\t\trememberSelection"),

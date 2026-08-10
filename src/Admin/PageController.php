@@ -13,6 +13,7 @@ use Pluck\Site\Urls;
 use Pluck\Site\SiteRenderer;
 
 use Pluck\Media\MediaLibrary;
+use Pluck\Module\Insertable;
 
 use Pluck\Model\Page;
 use Pluck\Support\Slug;
@@ -44,10 +45,11 @@ final class PageController extends Controller
 			// it — see Site\Palette for why it is not listed here as well.
 			'palette' => Palette::read($this->c->app->rootDir . '/assets/site/colours.css'),
 			// Modules that have something to show inside a page.
-			'embeddable' => array_map(
-				static fn ($module): string => $module->mountPath(),
-				$this->c->modules?->all() ?? [],
-			),
+			// What the Pluck menu offers under Modules: each module and the things
+			// it says can be inserted from it.
+			'embeddable' => $this->insertable(),
+			// And under Pages: somewhere to link to.
+			'linkable' => $this->linkable(),
 			'title' => $this->t('page.title.new_page'),
 			'page' => new Page(path: '', title: ''),
 			'parent' => $parent,
@@ -72,10 +74,11 @@ final class PageController extends Controller
 			// it — see Site\Palette for why it is not listed here as well.
 			'palette' => Palette::read($this->c->app->rootDir . '/assets/site/colours.css'),
 			// Modules that have something to show inside a page.
-			'embeddable' => array_map(
-				static fn ($module): string => $module->mountPath(),
-				$this->c->modules?->all() ?? [],
-			),
+			// What the Pluck menu offers under Modules: each module and the things
+			// it says can be inserted from it.
+			'embeddable' => $this->insertable(),
+			// And under Pages: somewhere to link to.
+			'linkable' => $this->linkable(),
 			'title' => $this->t('page.title.edit_page'),
 			'page' => $page,
 			'parent' => $page->parent() ?? '',
@@ -258,6 +261,67 @@ final class PageController extends Controller
 	 *
 	 * @return array<string,list<string>>
 	 */
+	/**
+	 * Each module, with what it says can be inserted from it.
+	 *
+	 * A module implementing Insertable lists its own options — the blog knows it
+	 * can be titles or summaries, the albums know their own names. One that does
+	 * not gets the bare marker, which is what every module had before.
+	 *
+	 * The editor is deliberately told rather than asked to work it out: an editor
+	 * that knows the blog takes `show=summary` is an editor carrying a copy of
+	 * the blog's parameters, and the two drift the first time either is touched.
+	 *
+	 * @return list<array{name:string,options:list<array{label:string,marker:string}>}>
+	 */
+	private function insertable(): array
+	{
+		$out = [];
+
+		foreach ($this->c->modules?->all() ?? [] as $module) {
+			$name = $module->mountPath();
+
+			$options = $module instanceof Insertable
+				? $module->embedOptions($this->c->storage)
+				: [];
+
+			if ($options === []) {
+				$options = [['label' => $name, 'marker' => '[module:' . $name . ']']];
+			}
+
+			$out[] = ['name' => $name, 'options' => $options];
+		}
+
+		return $out;
+	}
+
+	/**
+	 * The pages somebody might link to, in menu order.
+	 *
+	 * Addresses rather than titles are what a link needs, and typing one from
+	 * memory is how a link ends up pointing at a page that was renamed.
+	 *
+	 * @return list<array{path:string,title:string,depth:int}>
+	 */
+	private function linkable(): array
+	{
+		$out = [];
+
+		foreach ($this->c->storage->allPages(includeHidden: true) as $page) {
+			$out[] = [
+				'path' => $page->path,
+				'title' => $page->title,
+				// So a sub-page reads as one, without the menu tree being rebuilt
+				// here just to indent a list.
+				'depth' => substr_count($page->path, '/'),
+			];
+		}
+
+		usort($out, static fn (array $a, array $b): int => $a['path'] <=> $b['path']);
+
+		return $out;
+	}
+
 	private function mediaGroups(): array
 	{
 		$library = new MediaLibrary($this->c->app->rootDir . '/media');
