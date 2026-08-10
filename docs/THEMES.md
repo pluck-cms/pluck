@@ -71,6 +71,45 @@ themes/mine/
 
 That is a working site. Everything below is detail.
 
+## Colours a writer picked
+
+Pluck ships `assets/site/colours.css`: twenty-four classes named `.c-red`,
+`.c-blue`, `.c-grey-dark` and so on. The editor's colour button offers exactly
+those, and stores the class rather than a colour — `<span class="c-red">`.
+
+Link it in your layout **before** your own stylesheet:
+
+```php
+<link rel="stylesheet" href="<?= e($siteAssets) ?>/colours.css">
+<link rel="stylesheet" href="<?= e($themeAssets) ?>/style.css?v=<?= e($theme->version()) ?>">
+```
+
+A theme that does not link it shows no colours at all — the classes are simply
+unknown — so this line is worth having even if you never intend to change them.
+
+### Making one your own
+
+Say the rule again in your own stylesheet. Later rules win, and yours is later:
+
+```css
+.c-red   { color: #a62b31; }   /* the red from our logo, not Pluck's */
+.c-white { color: #fffdf8; }   /* on a dark page, white needs to be warm */
+```
+
+The picker keeps showing the shipped swatch — the admin does not read your
+stylesheet — so the square is the wrong red while the page is the right one.
+That is a small lie, and the alternative is a CSS parser in the admin, which is a
+worse thing to own.
+
+### Why a class and not a colour
+
+Because a colour written into the text lives exactly as long as the theme it was
+chosen against. Pick a red that suits this site, change the theme next year, and
+there are forty pages with a red that now clashes and no way to find them.
+
+`style="color:red"` and `<font color>` are both stripped by the sanitiser, and
+that is deliberate rather than an oversight.
+
 ## Escaping
 
 `e()` escapes. Use it on everything except two things: `$content`, and a page's

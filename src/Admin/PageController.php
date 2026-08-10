@@ -8,6 +8,7 @@ use Throwable;
 use Pluck\Security\Escaper;
 use Pluck\Theme\Theme;
 use Pluck\Theme\ThemeRepository;
+use Pluck\Site\Palette;
 use Pluck\Site\Urls;
 use Pluck\Site\SiteRenderer;
 
@@ -39,6 +40,9 @@ final class PageController extends Controller
 		$this->render('admin/pages/form', [
 			// So a picture already uploaded can be inserted without typing its path.
 			'media' => $this->mediaGroups(),
+			// The palette the editor offers, read from the stylesheet that defines
+			// it — see Site\Palette for why it is not listed here as well.
+			'palette' => Palette::read($this->c->app->rootDir . '/assets/site/colours.css'),
 			// Modules that have something to show inside a page.
 			'embeddable' => array_map(
 				static fn ($module): string => $module->mountPath(),
@@ -64,6 +68,9 @@ final class PageController extends Controller
 		$this->render('admin/pages/form', [
 			// So a picture already uploaded can be inserted without typing its path.
 			'media' => $this->mediaGroups(),
+			// The palette the editor offers, read from the stylesheet that defines
+			// it — see Site\Palette for why it is not listed here as well.
+			'palette' => Palette::read($this->c->app->rootDir . '/assets/site/colours.css'),
 			// Modules that have something to show inside a page.
 			'embeddable' => array_map(
 				static fn ($module): string => $module->mountPath(),

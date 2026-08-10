@@ -398,6 +398,95 @@
 		return box.innerHTML;
 	}
 
+	/* ---- colour -------------------------------------------------------- */
+
+	/*
+	 * A class, not a colour.
+	 *
+	 * The selection is wrapped in <span class="c-name">, which is what the
+	 * sanitiser keeps — it strips style attributes and <font> deliberately. A
+	 * colour written into the content lives exactly as long as the theme it was
+	 * chosen against; a class survives a theme change, and changing what the
+	 * colour means is then one rule in a stylesheet rather than forty pages.
+	 */
+	function wrappingColour(node) {
+		while (node && node !== editor) {
+			if (node.nodeType === 1 && /^c-[a-z0-9-]+$/.test(node.className || '')) {
+				return node;
+			}
+			node = node.parentNode;
+		}
+
+		return null;
+	}
+
+	function applyColour(name) {
+		var selection = window.getSelection();
+		if (!selection || selection.rangeCount === 0) {
+			return;
+		}
+
+		var range = selection.getRangeAt(0);
+		var existing = wrappingColour(range.commonAncestorContainer);
+
+		if (existing) {
+			if (name === '') {
+				while (existing.firstChild) {
+					existing.parentNode.insertBefore(existing.firstChild, existing);
+				}
+				existing.parentNode.removeChild(existing);
+			} else {
+				existing.className = 'c-' + name;
+			}
+
+			return;
+		}
+
+		if (name === '' || selection.isCollapsed) {
+			return;
+		}
+
+		var span = document.createElement('span');
+		span.className = 'c-' + name;
+
+		try {
+			range.surroundContents(span);
+		} catch (e) {
+			/*
+			 * surroundContents refuses a selection crossing an element boundary —
+			 * half a paragraph and half the next. Doing nothing is better than
+			 * flattening the structure between them, which is what the usual
+			 * extract-and-reinsert fallback costs.
+			 */
+			return;
+		}
+	}
+
+	toolbar.addEventListener('click', function (event) {
+		var swatch = event.target.closest('[data-colour]');
+		if (!swatch || !field.hidden) {
+			return;
+		}
+
+		event.preventDefault();
+		restoreSelection();
+		applyColour(swatch.getAttribute('data-colour') || '');
+		sync();
+
+		var picker = swatch.closest('details');
+		if (picker) {
+			picker.removeAttribute('open');
+		}
+	});
+
+	// The selection is lost the moment the picker takes focus, so it is kept
+	// when the picker opens and put back when a swatch is chosen.
+	toolbar.addEventListener('mousedown', function (event) {
+		if (event.target.closest('.swatches')) {
+			rememberSelection();
+		}
+	});
+
 	/* ---- tables -------------------------------------------------------- */
 
 	var tableDialog = document.getElementById('table-dialog');

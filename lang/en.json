@@ -434,6 +434,8 @@
 	"page.action.save_and_close": "Save and close",
 	"page.action.show_html": "Show the HTML",
 	"page.action.view_published": "View published",
+	"page.colour.none": "No colour",
+	"page.colour.title": "Colour",
 	"page.count": {
 		"one": "{count} page",
 		"other": "{count} pages"

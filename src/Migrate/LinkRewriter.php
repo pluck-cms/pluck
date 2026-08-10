@@ -35,7 +35,12 @@ final class LinkRewriter
 	 * @param array<string,string> $pages old page path => new page path
 	 * @param array<string,string> $modules old module address => new one
 	 */
-	public function __construct(array $uploads, array $pages, array $modules = [])
+	/**
+	 * @param array<string,string> $uploads new media name => original path
+	 * @param array<string,string> $duplicates original path => the media name it
+	 *        shares content with, for copies that were not carried twice
+	 */
+	public function __construct(array $uploads, array $pages, array $modules = [], array $duplicates = [])
 	{
 		foreach ($uploads as $name => $original) {
 			// 4.x kept uploads in two directories and referred to them by that
@@ -44,6 +49,26 @@ final class LinkRewriter
 			$this->map[$original] = 'media/' . $name;
 			$this->map['/' . $original] = 'media/' . $name;
 			// The encoded spelling too, for the exact-match path above.
+			$this->map[str_replace(' ', '%20', $original)] = 'media/' . $name;
+		}
+
+		/*
+		 * A copy that was not carried still needs somewhere to point.
+		 *
+		 * migrateUploads() keeps identical content once — 4.x put a picture in
+		 * every album that used it — and records the rest as duplicates. Without
+		 * these, a page linking to the copy that was dropped kept pointing at
+		 * images/ while every other picture on it was rewritten: one broken
+		 * photograph in a page that otherwise came across perfectly, which is the
+		 * hardest kind to notice.
+		 *
+		 * Added after the uploads rather than merged into them: several originals
+		 * can share one media name, and merging would have each overwrite the
+		 * last — and the real upload with it.
+		 */
+		foreach ($duplicates as $original => $name) {
+			$this->map[$original] = 'media/' . $name;
+			$this->map['/' . $original] = 'media/' . $name;
 			$this->map[str_replace(' ', '%20', $original)] = 'media/' . $name;
 		}
 

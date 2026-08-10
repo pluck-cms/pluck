@@ -64,6 +64,29 @@ use Pluck\Admin\Controller;
 				<button class="btn-icon" type="button" data-wrap="code" aria-label="Code">&lt;&gt;</button>
 				<button class="btn-icon" type="button" data-link aria-label="Link" title="Ctrl+K">↗</button>
 
+<?php if ($palette !== []): ?>
+				<!--
+					Colour. A <details> rather than a script-driven popover: it opens
+					and closes on its own, it closes when the page is clicked away
+					from, and it cannot get stuck open the way a hand-rolled one can.
+				-->
+				<details class="swatches">
+					<summary class="btn-icon" title="<?= e($view->t('page.colour.title')) ?>"
+					         aria-label="<?= e($view->t('page.colour.title')) ?>">A</summary>
+					<div class="swatches__grid">
+<?php foreach ($palette as $name => $value): ?>
+						<button class="swatch" type="button" data-colour="<?= e($name) ?>"
+						        style="--swatch: <?= e($value) ?>"
+						        title="<?= e(\Pluck\Site\Palette::label($name)) ?>"
+						        aria-label="<?= e(\Pluck\Site\Palette::label($name)) ?>"></button>
+<?php endforeach; ?>
+						<button class="swatch swatch--none" type="button" data-colour=""
+						        title="<?= e($view->t('page.colour.none')) ?>"
+						        aria-label="<?= e($view->t('page.colour.none')) ?>">&times;</button>
+					</div>
+				</details>
+<?php endif; ?>
+
 				<!-- The way out. Whatever the editor does, the markup is one click
 				     away — which is how anybody who knows HTML will work, and how
 				     the rest will fix something that went strange. -->

@@ -312,6 +312,15 @@ final class SiteRenderer
 			 */
 			'params' => (new ThemeParameters($this->storage))->values($this->theme),
 			'themeAssets' => $this->urls->asset('themes/' . $this->theme->name . '/assets'),
+			/*
+			 * Pluck's own stylesheet for things a writer can choose.
+			 *
+			 * Linked by a theme before its own, so a theme overrules any of it by
+			 * saying the rule again — later wins, and a theme's stylesheet is
+			 * always later. A file rather than a <style> block, so it needs no
+			 * 'unsafe-inline' and a browser caches it.
+			 */
+			'siteAssets' => $this->urls->asset('assets/site'),
 			'activePath' => $activePath,
 			'searchEnabled' => (bool) $this->storage->getSetting('search_enabled', false),
 			// Branding a theme can use without being rewritten. A theme that wants

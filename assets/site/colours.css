@@ -1,0 +1,74 @@
+/*
+ * Colours a writer can pick, and a theme can overrule.
+ *
+ * Pluck ships this file and every theme links it before its own stylesheet, so
+ * anything here can be replaced by a theme simply by saying it again — later
+ * rules win, and a theme's stylesheet is always later.
+ *
+ * ## Why classes and not a colour in the text
+ *
+ * The editor stores `<span class="c-red">`, never `style="color:red"` and never
+ * `<font color>`. A colour written into the content survives exactly as long as
+ * the theme it was chosen against: pick a red that suits this site, change the
+ * theme next year, and you have forty pages with a red that now clashes and no
+ * way to find them all.
+ *
+ * A class survives. Change what `.c-red` means and every page follows.
+ *
+ * ## Overruling one
+ *
+ * In your theme's own stylesheet:
+ *
+ *     .c-red { color: #a62b31; }
+ *
+ * That is the whole of it. The picker still offers "Red"; it just is your red.
+ *
+ * ## The palette
+ *
+ * Twenty-four: four neutrals and ten hues in a normal and a dark tone. Chosen to
+ * be distinguishable from each other on a white page and on a warm one, and to
+ * stay legible at body-text size — which rules out the very light tints that
+ * look good in a picker and disappear in a paragraph.
+ */
+
+/* ---- neutrals ---- */
+
+.c-black      { color: #1b1b1b; }
+.c-grey-dark  { color: #4a4a4a; }
+.c-grey       { color: #7a7a7a; }
+.c-white      { color: #ffffff; }
+
+/* ---- hues, normal ---- */
+
+.c-red        { color: #c0392b; }
+.c-orange     { color: #d35400; }
+.c-amber      { color: #b7791f; }
+.c-green      { color: #3f7d3a; }
+.c-teal       { color: #2c7a7b; }
+.c-blue       { color: #2b6cb0; }
+.c-indigo     { color: #4c51bf; }
+.c-purple     { color: #6b46c1; }
+.c-pink       { color: #b83280; }
+.c-brown      { color: #7b5230; }
+
+/* ---- hues, dark ---- */
+
+.c-red-dark    { color: #8c2820; }
+.c-orange-dark { color: #9c3d00; }
+.c-amber-dark  { color: #855a14; }
+.c-green-dark  { color: #2c5a29; }
+.c-teal-dark   { color: #1f5859; }
+.c-blue-dark   { color: #1e4e80; }
+.c-indigo-dark { color: #363a8c; }
+.c-purple-dark { color: #4c3190; }
+.c-pink-dark   { color: #83235c; }
+.c-brown-dark  { color: #573920; }
+
+/*
+ * White on white is invisible, and somebody will pick it by accident.
+ *
+ * Not prevented — a white word on a dark band is a real thing to want — but the
+ * editor shows the swatch with a border so it is not a blank square, and a theme
+ * with a dark page should say what `.c-white` means there rather than leaving it
+ * to chance.
+ */

@@ -36,6 +36,7 @@ printf("Pluck 5 test suite - PHP %s\n\n", PHP_VERSION);
 $suites = [
 	Pluck\Tests\SecurityTest::class,
 	Pluck\Tests\SlugTest::class,
+	Pluck\Tests\PaletteTest::class,
 	Pluck\Tests\PathTest::class,
 	Pluck\Tests\StorageParityTest::class,
 	Pluck\Tests\SchemaUpgradeTest::class,

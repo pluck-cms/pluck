@@ -434,6 +434,8 @@
 	"page.action.save_and_close": "Opslaan en sluiten",
 	"page.action.show_html": "De HTML tonen",
 	"page.action.view_published": "Gepubliceerde versie",
+	"page.colour.none": "Geen kleur",
+	"page.colour.title": "Kleur",
 	"page.count": {
 		"one": "{count} pagina",
 		"other": "{count} pagina's"
