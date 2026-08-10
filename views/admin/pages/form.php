@@ -75,8 +75,10 @@ use Pluck\Admin\Controller;
 					         aria-label="<?= e($view->t('page.colour.title')) ?>">A</summary>
 					<div class="swatches__grid">
 <?php foreach ($palette as $name => $value): ?>
-						<button class="swatch" type="button" data-colour="<?= e($name) ?>"
-						        style="--swatch: <?= e($value) ?>"
+						<?php /* The colour comes from the class, not an inline style: the
+						         admin's CSP has no 'unsafe-inline' for styles, and a
+						         nonce does not apply to an attribute. */ ?>
+						<button class="swatch c-<?= e($name) ?>" type="button" data-colour="<?= e($name) ?>"
 						        title="<?= e(\Pluck\Site\Palette::label($name)) ?>"
 						        aria-label="<?= e(\Pluck\Site\Palette::label($name)) ?>"></button>
 <?php endforeach; ?>

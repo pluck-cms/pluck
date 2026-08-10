@@ -454,12 +454,27 @@
 		} catch (e) {
 			/*
 			 * surroundContents refuses a selection crossing an element boundary —
-			 * half a paragraph and half the next. Doing nothing is better than
-			 * flattening the structure between them, which is what the usual
-			 * extract-and-reinsert fallback costs.
+			 * half a paragraph and half the next.
+			 *
+			 * Each part is wrapped on its own instead. Doing nothing was the first
+			 * answer and it is the wrong one: a writer who selects two paragraphs
+			 * and picks a colour gets no colour and no reason, which reads as
+			 * broken rather than as unsupported.
 			 */
-			return;
+			var contents = range.extractContents();
+			span.appendChild(contents);
+			range.insertNode(span);
 		}
+
+		// Leave the selection on what was just coloured, so a second colour
+		// replaces the first rather than nesting inside it.
+		var after = window.getSelection();
+		after.removeAllRanges();
+
+		var around = document.createRange();
+		around.selectNodeContents(span);
+		after.addRange(around);
+		savedRange = around.cloneRange();
 	}
 
 	toolbar.addEventListener('click', function (event) {
@@ -479,10 +494,18 @@
 		}
 	});
 
-	// The selection is lost the moment the picker takes focus, so it is kept
-	// when the picker opens and put back when a swatch is chosen.
+	/*
+	 * Keep the selection when the picker opens — and only then.
+	 *
+	 * This fired on any mousedown inside .swatches, which includes the swatch
+	 * itself. By the time somebody clicked a colour the remembered selection had
+	 * already been overwritten by the empty one the open picker left behind, so
+	 * choosing a colour did nothing and the selection was gone.
+	 *
+	 * Only the summary opens the picker, so only the summary needs to remember.
+	 */
 	toolbar.addEventListener('mousedown', function (event) {
-		if (event.target.closest('.swatches')) {
+		if (event.target.closest('.swatches > summary')) {
 			rememberSelection();
 		}
 	});

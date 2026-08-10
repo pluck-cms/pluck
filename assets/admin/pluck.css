@@ -995,6 +995,21 @@ details.explainer[open] > summary { margin-bottom: var(--space-2); }
  */
 .swatches { position: relative; display: inline-block; }
 
+/*
+ * The toolbar stops clipping while the picker is open.
+ *
+ * .toolbar has overflow-x: auto so the buttons can scroll on a narrow screen,
+ * and an overflow other than visible clips an absolutely positioned child — so
+ * the grid was drawn and immediately cut away. Nothing to hover, nothing to
+ * click, and nothing in the markup to suggest why.
+ *
+ * :has() rather than a class toggled by script: the picker is a <details>, it
+ * already knows whether it is open, and nothing should have to be told twice.
+ * Scrolling is only wanted when the buttons do not fit, and they cannot be
+ * scrolled while a menu is over them anyway.
+ */
+.toolbar:has(.swatches[open]) { overflow: visible; }
+
 .swatches > summary {
 	list-style: none;
 	cursor: pointer;
@@ -1026,16 +1041,28 @@ details.explainer[open] > summary { margin-bottom: var(--space-2); }
 	padding: 0;
 	border: 1px solid rgba(127, 127, 127, 0.5);
 	border-radius: 3px;
-	background: var(--swatch, transparent);
+	/*
+	 * The swatch wears the colour class, and paints itself with it.
+	 *
+	 * .c-red sets `color`, so currentColor is that red — one definition doing
+	 * both jobs, and a theme that overrules .c-red in the admin would change the
+	 * swatch too. No inline style, which the CSP would refuse anyway.
+	 */
+	background: currentColor;
 	cursor: pointer;
 }
 
 .swatch:hover { outline: 2px solid var(--ink); outline-offset: 1px; }
 
-/* Clearing the colour, and the one swatch that would otherwise be invisible. */
+/* Clearing the colour. No colour class, so currentColor would paint it in the
+   text colour — spelled out instead. */
 .swatch--none {
-	background: transparent;
+	background: transparent !important;
 	color: var(--ink);
 	font-size: 1rem;
 	line-height: 1;
 }
+
+/* White on a light panel, and black on a dark one, need an edge to be a square
+   rather than a hole. The border is already there; this makes it visible. */
+.swatch.c-white, .swatch.c-black { border-color: var(--ink-soft); }

@@ -31,6 +31,7 @@ final class PaletteTest extends TestCase
 		$this->group('read from the stylesheet', fn () => $this->reading());
 		$this->group('what the sanitiser keeps', fn () => $this->survives());
 		$this->group('the stylesheet reaches the page', fn () => $this->reaches());
+		$this->group('the picker is reachable', fn () => $this->reachable());
 	}
 
 	private function reading(): void
@@ -131,6 +132,75 @@ final class PaletteTest extends TestCase
 		$this->assertTrue(
 			str_contains((string) file_get_contents(dirname(__DIR__) . '/src/Site/SiteRenderer.php'), "str_contains(\$document, 'site/colours.css')"),
 			'a theme that links it explicitly does not get it twice',
+		);
+	}
+
+	/**
+	 * The picker is not clipped away by the toolbar.
+	 *
+	 * `.toolbar` has `overflow-x: auto` so the buttons can scroll on a narrow
+	 * screen, and an overflow other than visible clips an absolutely positioned
+	 * child. The grid was drawn and immediately cut off: nothing to hover,
+	 * nothing to click, and nothing in the markup to suggest why.
+	 *
+	 * Asserted against the stylesheet, because this is a rendering fault and
+	 * there is no browser here to render in. Second best and said out loud.
+	 */
+	private function reachable(): void
+	{
+		$css = (string) file_get_contents(dirname(__DIR__) . '/assets/admin/pluck.css');
+
+		$this->assertTrue(
+			str_contains($css, '.toolbar:has(.swatches[open]) { overflow: visible; }'),
+			'the toolbar stops clipping while the picker is open',
+		);
+
+		$js = (string) file_get_contents(dirname(__DIR__) . '/assets/admin/editor.js');
+
+		/*
+		 * The selection was remembered on any mousedown inside .swatches, which
+		 * includes the swatch itself — so by the time somebody clicked a colour,
+		 * the good selection had been overwritten by the empty one the open
+		 * picker left behind. Choosing a colour did nothing and the selection was
+		 * gone, which is two symptoms of one line.
+		 */
+		$this->assertTrue(
+			str_contains($js, "closest('.swatches > summary')"),
+			'only opening the picker remembers the selection, not clicking a swatch',
+		);
+		$this->assertFalse(
+			str_contains($js, "event.target.closest('.swatches')) {\n\t\t\trememberSelection"),
+			'and not on the swatch, which overwrote it with nothing',
+		);
+
+		/*
+		 * No inline style on a swatch.
+		 *
+		 * The admin's CSP is `style-src 'self' 'nonce-…'` with no
+		 * 'unsafe-inline', and a nonce does not apply to a style attribute — so
+		 * `style="--swatch: #c0392b"` was refused and every swatch came out
+		 * blank. A grid of empty squares, with the colours defined and none of
+		 * them shown.
+		 *
+		 * The swatch wears the colour class instead and paints itself with
+		 * currentColor, which is one definition doing both jobs.
+		 */
+		$form = (string) file_get_contents(dirname(__DIR__) . '/views/admin/pages/form.php');
+
+		$this->assertFalse(
+			str_contains($form, 'style="--swatch'),
+			'a swatch carries no inline style, which the CSP would refuse',
+		);
+		$this->assertTrue(
+			str_contains($form, 'class="swatch c-<?= e($name) ?>"'),
+			'it wears the colour class',
+		);
+
+		$layout = (string) file_get_contents(dirname(__DIR__) . '/views/admin/layout.php');
+
+		$this->assertTrue(
+			str_contains($layout, 'assets/site/colours.css'),
+			'and the admin loads the stylesheet that defines it',
 		);
 	}
 }
