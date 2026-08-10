@@ -110,14 +110,40 @@ final class BlogModule implements SiteModule, PublicForm
 				. Escaper::html($this->t('blog.no_posts')) . '</p></div>';
 		}
 
-		$html = '<div class="blog-embed"><ul class="blog-embed__list">';
-		foreach ($posts as $post) {
-			$html .= '<li><a href="' . Escaper::html($urls->to('blog/' . $post['slug'])) . '">'
-				. Escaper::html((string) $post['title']) . '</a>';
-			$html .= $this->time((string) ($post['published_at'] ?? ''), $settings);
-			$html .= '</li>';
+		/*
+		 * Two shapes, because two things get asked for.
+		 *
+		 * A list of titles is the right answer for "latest posts" in a sidebar.
+		 * It is the wrong one for a site whose posts *are* the page — a caterer
+		 * whose weekly menu is one post per dish wants the pictures and the first
+		 * lines, not seven links.
+		 *
+		 *     [module:blog count=7]              titles
+		 *     [module:blog count=7 show=summary] the same summaries the blog's own
+		 *                                        index uses
+		 *
+		 * The summary rendering is the one the index already had, called from
+		 * here rather than written again: a second implementation of "what a post
+		 * looks like in a list" would drift from the first the moment either was
+		 * touched.
+		 */
+		$asSummaries = ($parameters['show'] ?? '') === 'summary';
+
+		if ($asSummaries) {
+			$html = '<div class="blog-embed blog-embed--summaries">';
+			foreach ($posts as $post) {
+				$html .= $this->summary($post, $urls, $storage, $settings);
+			}
+		} else {
+			$html = '<div class="blog-embed"><ul class="blog-embed__list">';
+			foreach ($posts as $post) {
+				$html .= '<li><a href="' . Escaper::html($urls->to('blog/' . $post['slug'])) . '">'
+					. Escaper::html((string) $post['title']) . '</a>';
+				$html .= $this->time((string) ($post['published_at'] ?? ''), $settings);
+				$html .= '</li>';
+			}
+			$html .= '</ul>';
 		}
-		$html .= '</ul>';
 
 		$path = $category !== '' ? 'blog/category/' . $category : 'blog';
 		$html .= '<p class="blog-embed__more"><a href="' . Escaper::html($urls->to($path)) . '">'
@@ -211,6 +237,27 @@ final class BlogModule implements SiteModule, PublicForm
 		$link = $urls->to('blog/' . $post['slug']);
 
 		$out = '<article class="blog-post blog-post--summary">';
+
+		/*
+		 * The post's first picture, before the words.
+		 *
+		 * An excerpt is the first paragraph or the first so many characters, and
+		 * on most posts the photograph comes after that — so a summary of a post
+		 * with a picture in it showed no picture. On a site whose posts are dishes
+		 * that is the whole of what somebody is choosing with.
+		 *
+		 * Lifted rather than duplicated: it is the post's own image, linked to the
+		 * post, and a theme decides whether to show it by styling
+		 * .blog-post__thumb — or not, in which case nothing changes for anybody
+		 * who liked the old shape.
+		 */
+		$thumb = $this->firstImage((string) ($post['content'] ?? ''));
+
+		if ($thumb !== '') {
+			$out .= '<a class="blog-post__thumb" href="' . Escaper::html($link) . '">'
+				. '<img src="' . Escaper::html($thumb) . '" alt="" loading="lazy"></a>';
+		}
+
 		$out .= '<h2><a href="' . Escaper::html($link) . '">' . Escaper::html((string) $post['title']) . '</a></h2>';
 		$out .= $this->byline($post, $urls, $storage, $settings);
 		$out .= '<div class="blog-post__body">' . $this->excerpt((string) ($post['content'] ?? ''), $settings) . '</div>';
@@ -466,6 +513,22 @@ final class BlogModule implements SiteModule, PublicForm
 	 * rather than being a string cut in half. Cutting sanitised HTML by length
 	 * is how you produce an unclosed tag that eats the rest of the layout.
 	 */
+	/**
+	 * The address of the first picture in a post, or nothing.
+	 *
+	 * Deliberately only the src, and only from an <img> the sanitiser has already
+	 * been over — a post's body is stored sanitised, so this is reading what is
+	 * there rather than trusting what arrived.
+	 */
+	private function firstImage(string $html): string
+	{
+		if (preg_match('/<img\b[^>]*\bsrc="([^"]+)"/i', $html, $m) !== 1) {
+			return '';
+		}
+
+		return $m[1];
+	}
+
 	private function excerpt(string $html, array $settings): string
 	{
 		// A character limit, cut on the tree rather than the string — see

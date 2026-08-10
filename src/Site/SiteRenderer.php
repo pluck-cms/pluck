@@ -82,7 +82,20 @@ final class SiteRenderer
 			title: $module->title,
 			data: [
 				'page' => null,
-				'content' => new Raw($module->html),
+				/*
+				 * Through absolute() as well, and not only expand().
+				 *
+				 * A page's content was rewritten and a module's was not, so a blog
+				 * post written with `media/photo.jpg` — which is what the editor
+				 * produces — was a 404 on /blog/<post> while the same picture on a
+				 * page worked. The posts are the site on a blog, so this was every
+				 * picture on it.
+				 *
+				 * Not expand(): a module's output is already rendered, and running
+				 * embeds over it would let a post's text contain a marker that the
+				 * module never meant to expand.
+				 */
+				'content' => new Raw($this->absolute($module->html)),
 				'description' => $module->meta['description'] ?? '',
 				'keywords' => $module->meta['keywords'] ?? '',
 				'canonical' => $module->canonical,

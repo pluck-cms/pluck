@@ -22,7 +22,7 @@ use Pluck\Support\Path;
  */
 final class Bootstrap
 {
-	public const VERSION = '5.0.0-rc47';
+	public const VERSION = '5.0.0-rc49';
 
 	private ?StorageDriver $storage = null;
 	private ?Session $session = null;

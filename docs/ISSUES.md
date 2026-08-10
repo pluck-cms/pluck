@@ -30,6 +30,17 @@ work anyway because `bin/migrate` refuses an install that already has pages.
 the next sign-in. Anybody who can run it can already read `data/`, so shell
 access is the whole of the permission check.
 
+### ~~Relative addresses broke in module output~~ — fixed
+
+A page's content was rewritten and a module's was not, so `media/photo.jpg` in a
+blog post — which is what the editor writes — was a 404 at `/blog/<slug>` while
+the same picture on a page worked. On a blog that is every picture on the site.
+
+Fixed in rc49. Module output goes through the same rewrite; it does not go
+through `expand()`, because a module's output is already rendered and running
+embeds over it would let a post's text contain a marker the module never meant
+to expand.
+
 ### ~~Relative addresses in page content broke on nested pages~~ — fixed
 
 The editor writes `media/photo.jpg`, which is right until a page is nested and

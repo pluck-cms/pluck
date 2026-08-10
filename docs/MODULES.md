@@ -188,6 +188,25 @@ No English in your PHP. Put it in `modules/mine/lang/en.json` and reach for it
 with `$view->t('mine.some.key')` — the site's own language files and yours are
 merged, so a translator can do your module without touching Pluck.
 
+## The bundled blog's embed
+
+`[module:blog]` takes three parameters:
+
+```
+[module:blog count=5]
+[module:blog count=5 category=recepten]
+[module:blog count=7 show=summary]
+```
+
+`show=summary` renders the same summaries the blog's own index uses — title,
+byline, excerpt, and the post's first picture as `.blog-post__thumb` — rather
+than a list of titles. It exists because a site whose posts *are* the page wants
+the pictures and the first lines: a caterer whose weekly menu is one post per
+dish is choosing with their eyes, and seven links is not a menu.
+
+A theme that does not style `.blog-post__thumb` shows no picture, so nothing
+changes for anybody who liked the older shape.
+
 ## Embedding a frame
 
 The sanitiser strips `<iframe>` and should keep doing so: an allow-list that

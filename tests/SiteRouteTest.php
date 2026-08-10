@@ -33,6 +33,7 @@ final class SiteRouteTest extends TestCase
 		$this->group('an install that moved', fn () => $this->movedInstall());
 		$this->group('a site with nothing in it', fn () => $this->emptySite());
 		$this->group('relative addresses in content', fn () => $this->relativeLinks());
+		$this->group('relative addresses in a module', fn () => $this->relativeInModule());
 
 		$this->group('the rewrite probe', fn () => $this->probe());
 		$this->group('plain urls', fn () => $this->plainUrls());
@@ -365,5 +366,45 @@ final class SiteRouteTest extends TestCase
 		$this->assertTrue(str_contains($html, 'href="/al/goed"'), 'an already-rooted path is untouched');
 		$this->assertTrue(str_contains($html, 'href="https://example.com/x"'), 'another site is untouched');
 		$this->assertTrue(str_contains($html, 'href="mailto:a@b.nl"'), 'and mailto is untouched');
+	}
+
+	/**
+	 * A module's output gets the same treatment as a page's.
+	 *
+	 * It did not, and on a blog that is every picture on the site: the editor
+	 * writes `media/photo.jpg`, a post lives at /blog/<slug>, and the browser
+	 * looks in /blog/media/. The page next to it worked, which is what made it
+	 * look like a content problem rather than a rendering one.
+	 */
+	private function relativeInModule(): void
+	{
+		$dir = $this->tempDir('pluck-module-links');
+		$storage = DriverFactory::make(DriverFactory::FLAT_FILE, $dir);
+		$storage->install();
+
+		$renderer = $this->withoutSessionWarnings(fn (): SiteRenderer => new SiteRenderer(
+			Theme::load(dirname(__DIR__) . '/themes', 'default'),
+			$storage,
+			new Urls('/new/', true),
+			new Csrf(new Session()),
+			new Csp(),
+			new Translator(Locale::fallback(), dirname(__DIR__) . '/lang'),
+		));
+
+		$html = $renderer->module(
+			new \Pluck\Module\ModuleView(
+				title: 'A dish',
+				html: '<p><img src="media/dish.jpg" alt=""><a href="#top">up</a>'
+					. '<a href="https://example.com">elsewhere</a></p>',
+			),
+			'blog/a-dish',
+		);
+
+		$this->assertTrue(
+			str_contains($html, 'src="/new/media/dish.jpg"'),
+			'a relative picture in module output points at the install',
+		);
+		$this->assertTrue(str_contains($html, 'href="#top"'), 'a fragment is untouched');
+		$this->assertTrue(str_contains($html, 'href="https://example.com"'), 'another site is untouched');
 	}
 }
