@@ -185,6 +185,25 @@ final class DiagnosticsController extends Controller
 	{
 		$rows = [];
 
+		/*
+		 * A contact form that mails nobody.
+		 *
+		 * There was nowhere to set the site's address at all: the migrator wrote
+		 * it and a fresh install never did. The message is stored and shows under
+		 * Berichten either way, so nothing is lost — but somebody waiting for a
+		 * reply that never comes has no way to find out why, and this is where
+		 * they look.
+		 */
+		$contact = (string) $this->c->storage->getSetting('contact_email', '');
+
+		$rows[] = $this->row(
+			'diagnostics.server.contact_email',
+			$contact !== '' ? $contact : 'diagnostics.server.contact_email.none',
+			$contact !== '' ? self::OK : self::WARN,
+			'diagnostics.advice.contact_email',
+			'you',
+		);
+
 		// Whether data/ is refused over HTTP differs between Apache and nginx —
 		// Apache reads the .htaccess Pluck ships, nginx ignores it entirely — and
 		// getting it wrong exposes the content store and every account in it.

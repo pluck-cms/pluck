@@ -82,7 +82,20 @@ final class SiteRenderer
 			title: $module->title,
 			data: [
 				'page' => null,
-				'content' => new Raw($module->html),
+				/*
+				 * Through absolute() as well, and not only expand().
+				 *
+				 * A page's content was rewritten and a module's was not, so a blog
+				 * post written with `media/photo.jpg` — which is what the editor
+				 * produces — was a 404 on /blog/<post> while the same picture on a
+				 * page worked. The posts are the site on a blog, so this was every
+				 * picture on it.
+				 *
+				 * Not expand(): a module's output is already rendered, and running
+				 * embeds over it would let a post's text contain a marker that the
+				 * module never meant to expand.
+				 */
+				'content' => new Raw($this->absolute($module->html)),
 				'description' => $module->meta['description'] ?? '',
 				'keywords' => $module->meta['keywords'] ?? '',
 				'canonical' => $module->canonical,
@@ -299,6 +312,15 @@ final class SiteRenderer
 			 */
 			'params' => (new ThemeParameters($this->storage))->values($this->theme),
 			'themeAssets' => $this->urls->asset('themes/' . $this->theme->name . '/assets'),
+			/*
+			 * Pluck's own stylesheet for things a writer can choose.
+			 *
+			 * Linked by a theme before its own, so a theme overrules any of it by
+			 * saying the rule again — later wins, and a theme's stylesheet is
+			 * always later. A file rather than a <style> block, so it needs no
+			 * 'unsafe-inline' and a browser caches it.
+			 */
+			'siteAssets' => $this->urls->asset('assets/site'),
 			'activePath' => $activePath,
 			'searchEnabled' => (bool) $this->storage->getSetting('search_enabled', false),
 			// Branding a theme can use without being rewritten. A theme that wants
@@ -335,7 +357,41 @@ final class SiteRenderer
 		];
 
 		$body = $view->partial($template, $data);
+		$document = $view->partial('layout', ['content' => new Raw($body)] + $data);
 
-		return $view->partial('layout', ['content' => new Raw($body)] + $data);
+		return self::withSiteStylesheet($document, $this->urls->asset('assets/site'));
+	}
+
+	/**
+	 * Pluck's own stylesheet, put in the head by Pluck.
+	 *
+	 * Not left to the theme. A theme is a folder somebody edits over FTP, and
+	 * plenty of the people running these sites have neither FTP nor any reason to
+	 * learn it — so a feature that only works once a file has been edited by hand
+	 * is a feature that does not work. The colour picker would have appeared in
+	 * the editor, done nothing on the page, and explained itself to nobody.
+	 *
+	 * Pluck 4 assembled part of the head at run time for the same reason.
+	 *
+	 * Inserted straight after <head>, not before </head>: everything a theme
+	 * loads comes later and therefore wins, which is what makes `.c-red` in a
+	 * theme's own stylesheet an override rather than a fight.
+	 *
+	 * A theme that links it explicitly gets nothing extra — the check is for the
+	 * filename, so linking it in a particular position stays possible.
+	 */
+	private static function withSiteStylesheet(string $document, string $assets): string
+	{
+		if (str_contains($document, 'site/colours.css')) {
+			return $document;
+		}
+
+		$link = '<link rel="stylesheet" href="' . Escaper::html($assets . '/colours.css') . '">';
+
+		// A <head> with attributes is still a <head>. A document without one is
+		// something else — a fragment, a feed — and is left alone.
+		$replaced = preg_replace('/<head\b[^>]*>/i', '$0' . "\n" . $link, $document, 1);
+
+		return is_string($replaced) ? $replaced : $document;
 	}
 }

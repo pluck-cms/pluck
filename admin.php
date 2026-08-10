@@ -107,6 +107,8 @@ $view->share('updateAvailable', (new Updates(
 	$app->rootDir . '/data',
 	$storage,
 	Updates::runningVersion($storage),
+	null,
+	Updates::channelOf($storage),
 ))->updateAvailable());
 
 $router = Routes::table($modules);

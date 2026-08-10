@@ -43,12 +43,49 @@ final class Updates
 
 	private const API = 'https://api.github.com/repos/pluck-cms/pluck/releases/latest';
 
+	/*
+	 * Two channels, and only two.
+	 *
+	 * Stable is what a site running somebody's business should be on. The other
+	 * exists because testing an update otherwise means publishing a release
+	 * candidate as the headline release for everybody — which is a lot of risk to
+	 * take on other people's installs so that one of yours can be tried out.
+	 *
+	 * Not "the newest tag": a tag is not a release, it has no notes and nobody
+	 * decided it was ready. Something has to have been published on purpose.
+	 */
+	public const STABLE = 'stable';
+
+	public const PRERELEASE = 'prerelease';
+
 	public function __construct(
 		private readonly string $dataDir,
 		private readonly StorageDriver $storage,
 		private readonly string $version = Bootstrap::VERSION,
 		private readonly ?string $source = null,
+		private readonly string $channel = self::STABLE,
 	) {
+	}
+
+	/**
+	 * Which channel this install is on.
+	 *
+	 * A setting rather than config.php, unlike the update source — and the
+	 * difference is worth being clear about. The source decides *where* code
+	 * comes from, which is code execution, and an administrator does not have
+	 * that and must not gain it through a text field.
+	 *
+	 * A channel only chooses among releases from the same trusted repository.
+	 * Somebody who switches it on could already have installed that release by
+	 * hand; they gain an offer, not a permission. What they do gain is
+	 * less-tested code on a running site, and the screen says so rather than the
+	 * setting hiding it.
+	 */
+	public static function channelOf(StorageDriver $storage): string
+	{
+		return $storage->getSetting('updates_channel', self::STABLE) === self::PRERELEASE
+			? self::PRERELEASE
+			: self::STABLE;
 	}
 
 	/**
@@ -197,10 +234,34 @@ final class Updates
 
 	private function fetch(): ?Release
 	{
-		$json = $this->get($this->api());
+		/*
+		 * A different address per channel.
+		 *
+		 * `/releases/latest` is GitHub's own idea of the newest published release
+		 * and skips pre-releases entirely, which is exactly right for stable and
+		 * useless for the other one. `/releases` is the list, newest first, and
+		 * the first one that suits is the answer.
+		 */
+		$json = $this->get($this->channel === self::PRERELEASE
+			? preg_replace('~/releases/latest$~', '/releases', $this->api()) ?? $this->api()
+			: $this->api());
+
 		$data = json_decode($json, true);
 
-		if (!is_array($data) || !isset($data['tag_name'])) {
+		if (!is_array($data)) {
+			throw new RuntimeException('GitHub answered with something this does not understand.');
+		}
+
+		// The list form: take the newest that this channel accepts.
+		if (!isset($data['tag_name'])) {
+			$data = self::pick($data);
+
+			if ($data === null) {
+				return null;
+			}
+		}
+
+		if (!isset($data['tag_name'])) {
 			throw new RuntimeException('GitHub answered with something this does not understand.');
 		}
 
@@ -218,6 +279,33 @@ final class Updates
 			notes: (string) ($data['body'] ?? ''),
 			prerelease: (bool) ($data['prerelease'] ?? false),
 		);
+	}
+
+	/**
+	 * The newest release in a list that is worth offering.
+	 *
+	 * GitHub returns them newest first, so the first that qualifies is the
+	 * answer. A draft never qualifies whatever the channel says: a draft is
+	 * somebody still writing, and its tag may not even exist yet.
+	 *
+	 * @param array<int|string,mixed> $releases
+	 * @return array<string,mixed>|null
+	 */
+	private static function pick(array $releases): ?array
+	{
+		foreach ($releases as $release) {
+			if (!is_array($release) || !isset($release['tag_name'])) {
+				continue;
+			}
+
+			if (($release['draft'] ?? false) === true) {
+				continue;
+			}
+
+			return $release;
+		}
+
+		return null;
 	}
 
 	// ---- downloading ----------------------------------------------------

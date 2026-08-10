@@ -66,6 +66,13 @@ foreach ([
 <meta name="robots" content="noindex, nofollow">
 <meta name="color-scheme" content="light dark">
 <title><?= e($title) ?> · <?= e($siteTitle ?? 'Pluck') ?></title>
+<!--
+	The same colours the site uses, so the editor shows coloured text in its
+	colour and the picker can draw its swatches without an inline style — which
+	the admin's CSP refuses, and rightly: style-src has no 'unsafe-inline' and a
+	nonce does not apply to an attribute.
+-->
+<link rel="stylesheet" href="assets/site/colours.css?v=<?= e(\Pluck\Bootstrap::VERSION) ?>">
 <link rel="stylesheet" href="assets/admin/pluck.css?v=<?= e(\Pluck\Bootstrap::VERSION) ?>">
 </head>
 <body class="app">

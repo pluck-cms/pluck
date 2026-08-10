@@ -398,6 +398,120 @@
 		return box.innerHTML;
 	}
 
+	/* ---- colour -------------------------------------------------------- */
+
+	/*
+	 * A class, not a colour.
+	 *
+	 * The selection is wrapped in <span class="c-name">, which is what the
+	 * sanitiser keeps — it strips style attributes and <font> deliberately. A
+	 * colour written into the content lives exactly as long as the theme it was
+	 * chosen against; a class survives a theme change, and changing what the
+	 * colour means is then one rule in a stylesheet rather than forty pages.
+	 */
+	function wrappingColour(node) {
+		while (node && node !== editor) {
+			if (node.nodeType === 1 && /^c-[a-z0-9-]+$/.test(node.className || '')) {
+				return node;
+			}
+			node = node.parentNode;
+		}
+
+		return null;
+	}
+
+	function applyColour(name) {
+		var selection = window.getSelection();
+		if (!selection || selection.rangeCount === 0) {
+			return;
+		}
+
+		var range = selection.getRangeAt(0);
+		var existing = wrappingColour(range.commonAncestorContainer);
+
+		if (existing) {
+			if (name === '') {
+				while (existing.firstChild) {
+					existing.parentNode.insertBefore(existing.firstChild, existing);
+				}
+				existing.parentNode.removeChild(existing);
+			} else {
+				existing.className = 'c-' + name;
+			}
+
+			return;
+		}
+
+		if (name === '' || selection.isCollapsed) {
+			return;
+		}
+
+		var span = document.createElement('span');
+		span.className = 'c-' + name;
+
+		try {
+			range.surroundContents(span);
+		} catch (e) {
+			/*
+			 * surroundContents refuses a selection crossing an element boundary —
+			 * half a paragraph and half the next.
+			 *
+			 * Each part is wrapped on its own instead. Doing nothing was the first
+			 * answer and it is the wrong one: a writer who selects two paragraphs
+			 * and picks a colour gets no colour and no reason, which reads as
+			 * broken rather than as unsupported.
+			 */
+			var contents = range.extractContents();
+			span.appendChild(contents);
+			range.insertNode(span);
+		}
+
+		// Leave the selection on what was just coloured, so a second colour
+		// replaces the first rather than nesting inside it.
+		var after = window.getSelection();
+		after.removeAllRanges();
+
+		var around = document.createRange();
+		around.selectNodeContents(span);
+		after.addRange(around);
+		savedRange = around.cloneRange();
+	}
+
+	toolbar.addEventListener('click', function (event) {
+		var swatch = event.target.closest('[data-colour]');
+		if (!swatch || !field.hidden) {
+			return;
+		}
+
+		event.preventDefault();
+		restoreSelection();
+		applyColour(swatch.getAttribute('data-colour') || '');
+		sync();
+
+		var picker = swatch.closest('details');
+		if (picker) {
+			picker.removeAttribute('open');
+		}
+	});
+
+	/*
+	 * Keep the selection when the picker opens — and only then.
+	 *
+	 * This fired on any mousedown inside .swatches, which includes the swatch
+	 * itself. By the time somebody clicked a colour the remembered selection had
+	 * already been overwritten by the empty one the open picker left behind, so
+	 * choosing a colour did nothing and the selection was gone.
+	 *
+	 * Only the summary opens the picker, so only the summary needs to remember.
+	 */
+	toolbar.addEventListener('mousedown', function (event) {
+		// Any menu that takes focus loses the selection by opening. Both of them
+		// remember it here rather than each solving it once.
+		if (event.target.closest('.swatches > summary, .pluckmenu > summary')) {
+			rememberSelection();
+		}
+	});
+
 	/* ---- tables -------------------------------------------------------- */
 
 	var tableDialog = document.getElementById('table-dialog');
@@ -866,8 +980,59 @@
 			return;
 		}
 
+		/*
+		 * Put the cursor back before inserting.
+		 *
+		 * Opening the menu moved focus to its button, and focus leaving a
+		 * contenteditable collapses the selection — so insertHTML landed at the
+		 * start of the document rather than where somebody was typing. The
+		 * selection is remembered when the menu opens; this is the other half.
+		 */
 		editor.focus();
+		restoreSelection();
 		document.execCommand('insertHTML', false, event.detail.snippet);
 		sync();
+
+		/*
+		 * Select the part somebody still has to fill in.
+		 *
+		 * A video marker cannot be complete — only the person inserting it knows
+		 * which video — so the module hands over a placeholder. Selecting it means
+		 * the next thing typed replaces it, which is the difference between a
+		 * placeholder that gets filled in and one that reaches the live site as
+		 * PLAK-HIER-DE-YOUTUBE-LINK.
+		 */
+		if (event.detail.select) {
+			selectText(event.detail.select);
+		}
 	});
+
+	/**
+	 * Put the selection around the first occurrence of some text in the editor.
+	 *
+	 * Walks the text nodes rather than searching the HTML: a marker sits in a
+	 * text node, and an offset into the markup is not an offset into the text.
+	 */
+	function selectText(needle) {
+		var walker = document.createTreeWalker(editor, NodeFilter.SHOW_TEXT);
+		var node;
+
+		while ((node = walker.nextNode())) {
+			var at = node.nodeValue.indexOf(needle);
+
+			if (at === -1) {
+				continue;
+			}
+
+			var range = document.createRange();
+			range.setStart(node, at);
+			range.setEnd(node, at + needle.length);
+
+			var selection = window.getSelection();
+			selection.removeAllRanges();
+			selection.addRange(range);
+
+			return;
+		}
+	}
 })();

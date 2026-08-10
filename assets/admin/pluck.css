@@ -985,3 +985,155 @@ details.explainer > summary::before {
 }
 
 details.explainer[open] > summary { margin-bottom: var(--space-2); }
+
+/*
+ * The colour picker.
+ *
+ * A <details> rather than a script-driven popover: it opens and closes on its
+ * own, and it cannot get stuck open the way a hand-rolled one can — which is the
+ * same reasoning as the themes' menus.
+ */
+.swatches { position: relative; display: inline-block; }
+
+/*
+ * The toolbar stops clipping while the picker is open.
+ *
+ * .toolbar has overflow-x: auto so the buttons can scroll on a narrow screen,
+ * and an overflow other than visible clips an absolutely positioned child — so
+ * the grid was drawn and immediately cut away. Nothing to hover, nothing to
+ * click, and nothing in the markup to suggest why.
+ *
+ * :has() rather than a class toggled by script: the picker is a <details>, it
+ * already knows whether it is open, and nothing should have to be told twice.
+ * Scrolling is only wanted when the buttons do not fit, and they cannot be
+ * scrolled while a menu is over them anyway.
+ */
+.toolbar:has(.swatches[open]) { overflow: visible; }
+
+.swatches > summary {
+	list-style: none;
+	cursor: pointer;
+	font-weight: 700;
+	/* The letter is the button; the underline says it is about colour. */
+	border-bottom: 3px solid var(--ink-soft);
+}
+
+.swatches > summary::-webkit-details-marker { display: none; }
+
+.swatches__grid {
+	position: absolute;
+	z-index: 20;
+	top: calc(100% + 0.35rem);
+	left: 0;
+	display: grid;
+	grid-template-columns: repeat(6, 1.5rem);
+	gap: 0.25rem;
+	padding: 0.5rem;
+	background: var(--paper-raised);
+	border: 1px solid var(--rule);
+	border-radius: var(--radius);
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.swatch {
+	width: 1.5rem;
+	height: 1.5rem;
+	padding: 0;
+	border: 1px solid rgba(127, 127, 127, 0.5);
+	border-radius: 3px;
+	/*
+	 * The swatch wears the colour class, and paints itself with it.
+	 *
+	 * .c-red sets `color`, so currentColor is that red — one definition doing
+	 * both jobs, and a theme that overrules .c-red in the admin would change the
+	 * swatch too. No inline style, which the CSP would refuse anyway.
+	 */
+	background: currentColor;
+	cursor: pointer;
+}
+
+.swatch:hover { outline: 2px solid var(--ink); outline-offset: 1px; }
+
+/* Clearing the colour. No colour class, so currentColor would paint it in the
+   text colour — spelled out instead. */
+.swatch--none {
+	background: transparent !important;
+	color: var(--ink);
+	font-size: 1rem;
+	line-height: 1;
+}
+
+/* White on a light panel, and black on a dark one, need an edge to be a square
+   rather than a hole. The border is already there; this makes it visible. */
+.swatch.c-white, .swatch.c-black { border-color: var(--ink-soft); }
+
+/*
+ * The Pluck menu: what a page can hold from Pluck itself.
+ *
+ * Nested <details> rather than a script-driven flyout. It opens and closes on
+ * its own, the keyboard works without anything being written for it, and it
+ * cannot get stuck open.
+ */
+.pluckmenu { position: relative; display: inline-block; }
+
+.pluckmenu > summary {
+	list-style: none;
+	cursor: pointer;
+	font-weight: 700;
+	font-size: var(--step-1);
+}
+
+.pluckmenu > summary::-webkit-details-marker { display: none; }
+
+.pluckmenu__panel {
+	position: absolute;
+	z-index: 20;
+	top: calc(100% + 0.35rem);
+	left: 0;
+	width: 17rem;
+	max-height: 60vh;
+	overflow-y: auto;
+	padding: var(--space-2);
+	background: var(--paper-raised);
+	border: 1px solid var(--rule);
+	border-radius: var(--radius);
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.pluckmenu__group > summary,
+.pluckmenu__sub > summary {
+	padding: 0.4rem 0.3rem;
+	cursor: pointer;
+	border-radius: var(--radius);
+}
+
+.pluckmenu__group > summary { font-weight: 700; }
+.pluckmenu__sub > summary { font-size: var(--step--1); color: var(--ink-soft); }
+
+.pluckmenu__group > summary:hover,
+.pluckmenu__sub > summary:hover { background: color-mix(in srgb, var(--ink) 6%, transparent); }
+
+.pluckmenu__group ul,
+.pluckmenu__sub ul { margin: 0; padding: 0 0 0 var(--space-2); list-style: none; }
+
+.pluckmenu__item {
+	display: block;
+	width: 100%;
+	padding: 0.35rem 0.4rem;
+	background: transparent;
+	border: 0;
+	border-radius: var(--radius);
+	color: var(--ink);
+	font: inherit;
+	font-size: var(--step--1);
+	text-align: left;
+	cursor: pointer;
+	/* A filename or a page title can be long, and a menu that grows sideways is
+	   a menu with a horizontal scrollbar. */
+	overflow-wrap: anywhere;
+}
+
+.pluckmenu__item:hover { background: var(--ink); color: var(--paper); }
+
+/* The same clipping problem the colour picker had: the toolbar scrolls. */
+.toolbar:has(.pluckmenu[open]) { overflow: visible; }

@@ -245,6 +245,7 @@ final class UpdateController extends Controller
 			$this->c->storage,
 			$this->version(),
 			(string) $this->c->app->config->get('update_source', ''),
+			Updates::channelOf($this->c->storage),
 		);
 	}
 

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Pluck\Admin;
 
+use Pluck\Form\Guard;
+use Pluck\Model\Role;
 use Pluck\Media\MediaLibrary;
 
 final class SettingsController extends Controller
@@ -24,7 +26,7 @@ final class SettingsController extends Controller
 			// which is the only honest answer to "which languages are there".
 			'languages' => $this->c->app->translator()->available(),
 			'maxMb' => round(((int) $storage->getSetting('media_max_bytes', MediaLibrary::DEFAULT_MAX_BYTES)) / 1048576, 1),
-			'formChallenge' => (string) $storage->getSetting('form_challenge', 'sum'),
+			'formChallenge' => (string) $storage->getSetting('form_challenge', Guard::CHALLENGE_SUM),
 			'recaptchaSiteKey' => (string) $storage->getSetting('recaptcha_site_key', ''),
 			'recaptchaSecret' => (string) $storage->getSetting('recaptcha_secret', '') === '' ? '' : '••••••••',
 			'availableModules' => $this->modulesOnDisk(),
@@ -36,6 +38,24 @@ final class SettingsController extends Controller
 			'backupKeep' => (int) $this->c->storage->getSetting('backup_keep', 5),
 			'backupIntervalDays' => (int) $this->c->storage->getSetting('backup_interval_days', 7),
 			'prettyUrls' => (bool) $storage->getSetting('pretty_urls', false),
+			// Where a contact form sends to. There was nowhere to set this: the
+			// migrator wrote it and a fresh install never did, so on a new site
+			// the contact form quietly mailed nobody.
+			'contactEmail' => (string) $storage->getSetting('contact_email', ''),
+			/*
+			 * How many submissions an hour one address may make.
+			 *
+			 * There was no way to change it, and five is low for the case that
+			 * turned up: an order form at a club evening, where everybody is on
+			 * the same wifi and therefore the same address. The sixth person is
+			 * refused and has no idea why.
+			 */
+			'formLimit' => (int) $storage->getSetting('form_hourly_limit', 5),
+			// Which releases this install is offered. Owner-only: it is not a
+			// permission an administrator lacks, but it puts less-tested code on a
+			// running site, and that is the owner's call rather than a helper's.
+			'updatesChannel' => \Pluck\Update\Updates::channelOf($storage),
+			'isOwner' => $this->c->auth->user()?->role === Role::Owner,
 		]);
 	}
 
@@ -119,7 +139,48 @@ final class SettingsController extends Controller
 		// site with a large media folder somebody may prefer to run it themselves.
 		$storage->setSetting('backup_interval_days', max(0, min(365, (int) $request->post('backup_interval_days', '7'))));
 
-		$challenge = $request->post('form_challenge', 'sum');
+		/*
+		 * Stored only when it is really an address.
+		 *
+		 * An empty value clears it, which has to stay possible — a site with no
+		 * contact form does not want one. Anything else that is not an address is
+		 * refused rather than saved, because a typo here is a form that keeps
+		 * working and mails nobody.
+		 */
+		$contact = trim($request->post('contact_email', ''));
+
+		if ($contact === '' || filter_var($contact, FILTER_VALIDATE_EMAIL) !== false) {
+			$storage->setSetting('contact_email', mb_substr($contact, 0, 200));
+		} else {
+			$this->c->flash->stop($this->t('settings.error.contact_email'));
+		}
+
+		// Never zero: a limit of nothing is a form that refuses everybody, and an
+		// owner reaching for "off" wants a high number rather than a broken form.
+		$storage->setSetting(
+			'form_hourly_limit',
+			max(1, min(100, (int) $request->post('form_hourly_limit', '5'))),
+		);
+
+		// Guard's own constant, not the string again: two spellings of one default
+		// is one somebody changes in a single place.
+		/*
+		 * Only an owner may move the channel.
+		 *
+		 * The field is not rendered for anybody else, and a form that is not
+		 * rendered is still a form somebody can post — so it is checked here as
+		 * well as hidden there.
+		 */
+		if ($this->c->auth->user()?->role === Role::Owner) {
+			$storage->setSetting(
+				'updates_channel',
+				$request->post('updates_channel', '') === \Pluck\Update\Updates::PRERELEASE
+					? \Pluck\Update\Updates::PRERELEASE
+					: \Pluck\Update\Updates::STABLE,
+			);
+		}
+
+		$challenge = $request->post('form_challenge', Guard::CHALLENGE_SUM);
 		$storage->setSetting('form_challenge', in_array($challenge, ['none', 'sum', 'recaptcha'], true) ? $challenge : 'sum');
 		$storage->setSetting('recaptcha_site_key', mb_substr(trim($request->post('recaptcha_site_key', '')), 0, 100));
 

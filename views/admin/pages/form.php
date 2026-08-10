@@ -64,6 +64,124 @@ use Pluck\Admin\Controller;
 				<button class="btn-icon" type="button" data-wrap="code" aria-label="Code">&lt;&gt;</button>
 				<button class="btn-icon" type="button" data-link aria-label="Link" title="Ctrl+K">↗</button>
 
+				<?php
+				/*
+				 * Everything a page can hold from Pluck itself.
+				 *
+				 * Nested <details>, not a script-driven flyout. It opens and closes
+				 * on its own, it works with the keyboard without anything being
+				 * written for it, and it cannot get stuck open — which the editor's
+				 * old grid menu could, and did.
+				 *
+				 * The three groups are the three questions somebody has: a picture,
+				 * something the site already knows how to show, or a link to
+				 * another page.
+				 */
+				?>
+				<details class="pluckmenu">
+					<summary class="btn-icon" title="<?= e($view->t('page.insert.title')) ?>"
+					         aria-label="<?= e($view->t('page.insert.title')) ?>">+</summary>
+					<div class="pluckmenu__panel">
+
+<?php if (($media['images'] ?? []) !== [] || ($media['files'] ?? []) !== []): ?>
+						<details class="pluckmenu__group" open>
+							<summary><?= $view->t('page.insert.media') ?></summary>
+
+<?php foreach (($media['images'] ?? []) as $group => $names): ?>
+							<details class="pluckmenu__sub">
+								<summary><?= $group !== '' ? e($group) : e($view->t('page.label.uploaded')) ?></summary>
+								<ul>
+<?php foreach ($names as $name): ?>
+									<li><button type="button" class="pluckmenu__item"
+									            data-insert-media="<?= e($name) ?>"><?= e($name) ?></button></li>
+<?php endforeach; ?>
+								</ul>
+							</details>
+<?php endforeach; ?>
+
+<?php if (($media['files'] ?? []) !== []): ?>
+							<?php /* Files are their own thing: a photograph goes into the
+							         page, a PDF is something to click. */ ?>
+							<details class="pluckmenu__sub">
+								<summary><?= $view->t('page.insert.files') ?></summary>
+								<ul>
+<?php foreach (($media['files'] ?? []) as $names): ?>
+<?php foreach ($names as $name): ?>
+									<li><button type="button" class="pluckmenu__item"
+									            data-insert-file-name="<?= e($name) ?>"><?= e($name) ?></button></li>
+<?php endforeach; ?>
+<?php endforeach; ?>
+								</ul>
+							</details>
+<?php endif; ?>
+						</details>
+<?php endif; ?>
+
+<?php if (($embeddable ?? []) !== []): ?>
+						<details class="pluckmenu__group">
+							<summary><?= $view->t('page.insert.modules') ?></summary>
+<?php foreach ($embeddable as $module): ?>
+							<details class="pluckmenu__sub">
+								<summary><?= e($module['name']) ?></summary>
+								<ul>
+<?php foreach ($module['options'] as $option): ?>
+									<?php /* data-select: the bit the writer has to replace. The
+									         editor selects it after inserting, so the next thing
+									         typed lands in the right place. */ ?>
+									<li><button type="button" class="pluckmenu__item"
+									            data-insert-raw="<?= e($option['marker']) ?>"
+<?php if (($option['select'] ?? '') !== ''): ?>
+									            data-select="<?= e($option['select']) ?>"
+<?php endif; ?>
+									            ><?= e($option['label']) ?></button></li>
+<?php endforeach; ?>
+								</ul>
+							</details>
+<?php endforeach; ?>
+						</details>
+<?php endif; ?>
+
+<?php if (($linkable ?? []) !== []): ?>
+						<details class="pluckmenu__group">
+							<summary><?= $view->t('page.insert.pages') ?></summary>
+							<ul>
+<?php foreach ($linkable as $target): ?>
+								<li><button type="button" class="pluckmenu__item"
+								            data-depth="<?= e((string) $target['depth']) ?>"
+								            data-insert-link="<?= e($target['path']) ?>"
+								            data-link-title="<?= e($target['title']) ?>"><?= e($target['title']) ?></button></li>
+<?php endforeach; ?>
+							</ul>
+						</details>
+<?php endif; ?>
+					</div>
+				</details>
+
+<?php if ($palette !== []): ?>
+				<!--
+					Colour. A <details> rather than a script-driven popover: it opens
+					and closes on its own, it closes when the page is clicked away
+					from, and it cannot get stuck open the way a hand-rolled one can.
+				-->
+				<details class="swatches">
+					<summary class="btn-icon" title="<?= e($view->t('page.colour.title')) ?>"
+					         aria-label="<?= e($view->t('page.colour.title')) ?>">A</summary>
+					<div class="swatches__grid">
+<?php foreach ($palette as $name => $value): ?>
+						<?php /* The colour comes from the class, not an inline style: the
+						         admin's CSP has no 'unsafe-inline' for styles, and a
+						         nonce does not apply to an attribute. */ ?>
+						<button class="swatch c-<?= e($name) ?>" type="button" data-colour="<?= e($name) ?>"
+						        title="<?= e(\Pluck\Site\Palette::label($name)) ?>"
+						        aria-label="<?= e(\Pluck\Site\Palette::label($name)) ?>"></button>
+<?php endforeach; ?>
+						<button class="swatch swatch--none" type="button" data-colour=""
+						        title="<?= e($view->t('page.colour.none')) ?>"
+						        aria-label="<?= e($view->t('page.colour.none')) ?>">&times;</button>
+					</div>
+				</details>
+<?php endif; ?>
+
 				<!-- The way out. Whatever the editor does, the markup is one click
 				     away — which is how anybody who knows HTML will work, and how
 				     the rest will fix something that went strange. -->
@@ -86,60 +204,6 @@ use Pluck\Admin\Controller;
 				<iframe title="<?= e($view->t('page.label.preview')) ?>" sandbox="" referrerpolicy="no-referrer"></iframe>
 			</div>
 
-<?php if (($media['images'] ?? []) !== []): ?>
-			<div class="insert-media">
-				<label for="insert-media"><?= $view->t('page.label.insert_image') ?></label>
-				<select id="insert-media" data-image-extensions="<?= e(implode(',', \Pluck\Media\MediaLibrary::IMAGE_EXTENSIONS)) ?>">
-<?php foreach ($media['images'] as $group => $names): ?>
-				<optgroup label="<?= $group !== '' ? e($group) : e($view->t('page.label.uploaded')) ?>">
-<?php foreach ($names as $name): ?>
-					<option value="<?= e($name) ?>"><?= e($name) ?></option>
-<?php endforeach; ?>
-				</optgroup>
-<?php endforeach; ?>
-				</select>
-				<button class="btn-quiet" type="button"
-				        data-insert-target="content" data-insert-source="insert-media"><?= $view->t('page.action.insert') ?></button>
-				<span class="hint"><?= $view->t('page.help.insert_from_media') ?></span>
-			</div>
-<?php endif; ?>
-
-<?php if (($media['files'] ?? []) !== []): ?>
-			<!--
-				Files are their own picker, as they were in 4.x. Inserting a
-				photograph and linking to a PDF have nothing in common but the
-				folder they live in: one goes into the page, the other is
-				something to click.
-			-->
-			<div class="insert-media">
-				<label for="insert-file"><?= $view->t('page.label.insert_file') ?></label>
-				<select id="insert-file">
-<?php foreach ($media['files'] as $group => $names): ?>
-				<optgroup label="<?= $group !== '' ? e($group) : e($view->t('page.label.uploaded')) ?>">
-<?php foreach ($names as $name): ?>
-					<option value="<?= e($name) ?>"><?= e($name) ?></option>
-<?php endforeach; ?>
-				</optgroup>
-<?php endforeach; ?>
-				</select>
-				<button class="btn-quiet" type="button" data-insert-file><?= $view->t('page.action.insert') ?></button>
-				<span class="hint"><?= $view->t('page.help.insert_file') ?></span>
-			</div>
-<?php endif; ?>
-
-<?php if (($embeddable ?? []) !== []): ?>
-			<div class="insert-media">
-				<label for="insert-module"><?= $view->t('page.label.insert_module') ?></label>
-				<select id="insert-module">
-<?php foreach ($embeddable as $name): ?>
-					<option value="[module:<?= e($name) ?>]"><?= e($name) ?></option>
-<?php endforeach; ?>
-				</select>
-				<button class="btn-quiet" type="button"
-				        data-insert-target="content" data-insert-source="insert-module" data-insert-raw><?= $view->t('page.action.insert') ?></button>
-				<span class="hint"><?= $view->t('page.help.insert_module') ?></span>
-			</div>
-<?php endif; ?>
 		</div>
 	</div>
 

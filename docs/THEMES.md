@@ -71,6 +71,74 @@ themes/mine/
 
 That is a working site. Everything below is detail.
 
+## Colours a writer picked
+
+Pluck ships `assets/site/colours.css`: twenty-four classes named `.c-red`,
+`.c-blue`, `.c-grey-dark` and so on. The editor's colour button offers exactly
+those, and stores the class rather than a colour — `<span class="c-red">`.
+
+**You do not have to link it.** Pluck puts it in the head itself, straight after
+`<head>` and therefore before anything your theme loads.
+
+That is deliberate rather than convenient. A theme is a folder somebody edits
+over FTP, and plenty of the people running these sites have neither FTP nor a
+reason to learn it. A colour picker that only works once a file has been edited
+by hand is a picker that appears in the editor, does nothing to the page, and
+explains itself to nobody. Pluck 4 assembled part of the head at run time for the
+same reason.
+
+If you want it somewhere specific, link it yourself and Pluck leaves it alone —
+the check is for the filename:
+
+```php
+<link rel="stylesheet" href="<?= e($siteAssets) ?>/colours.css">
+```
+
+### Making one your own
+
+Say the rule again in your own stylesheet. Later rules win, and yours is later:
+
+```css
+.c-red   { color: #a62b31; }   /* the red from our logo, not Pluck's */
+.c-white { color: #fffdf8; }   /* on a dark page, white needs to be warm */
+```
+
+The picker keeps showing the shipped swatch — the admin does not read your
+stylesheet — so the square is the wrong red while the page is the right one.
+That is a small lie, and the alternative is a CSS parser in the admin, which is a
+worse thing to own.
+
+### Why a class and not a colour
+
+Because a colour written into the text lives exactly as long as the theme it was
+chosen against. Pick a red that suits this site, change the theme next year, and
+there are forty pages with a red that now clashes and no way to find them.
+
+`style="color:red"` and `<font color>` are both stripped by the sanitiser, and
+that is deliberate rather than an oversight.
+
+## Wording of your own
+
+A theme can carry `lang/en.json` and `lang/nl.json` beside its templates, in the
+same shape as Pluck's own. They are read after Pluck's, so a key of yours simply
+exists — and a key of Pluck's you dislike can be replaced without editing a file
+that is not yours.
+
+```
+themes/bravely/
+	lang/
+		nl.json
+		en.json
+```
+
+```php
+<?= $view->t('wsj.phase.before') ?>
+```
+
+Before this a theme with words of its own had two options: put them in Pluck's
+catalogue, which is everybody's file, or write them into its templates in one
+language — and then a Polish reader gets Dutch.
+
 ## Escaping
 
 `e()` escapes. Use it on everything except two things: `$content`, and a page's

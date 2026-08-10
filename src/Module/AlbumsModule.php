@@ -20,7 +20,7 @@ use Pluck\Storage\StorageDriver;
  * traversal bug ever written. Here the pictures are ordinary files in media/,
  * served by the web server, and no PHP is involved in delivering them.
  */
-final class AlbumsModule implements SiteModule
+final class AlbumsModule implements SiteModule, Insertable
 {
 	use Translates;
 
@@ -53,6 +53,34 @@ final class AlbumsModule implements SiteModule
 	 * quietly showing a different one — a page that shows the wrong album is
 	 * harder to notice than a page that shows none.
 	 */
+	/**
+	 * What a page can hold from the albums.
+	 *
+	 * All of them, and then each one by name — which is the answer somebody is
+	 * looking for: they want "Open dag 2019" on this page, not the idea of an
+	 * album list.
+	 *
+	 * @return list<array{label:string,marker:string}>
+	 */
+	public function embedOptions(StorageDriver $storage): array
+	{
+		$options = [
+			['label' => $this->t('albums.insert.all'), 'marker' => '[module:albums]'],
+		];
+
+		foreach ($storage->listModuleData('albums', 'album:') as $key => $value) {
+			$slug = substr($key, 6);
+			$name = is_array($value) ? (string) ($value['title'] ?? $slug) : $slug;
+
+			$options[] = [
+				'label' => $name,
+				'marker' => '[module:albums album=' . $slug . ']',
+			];
+		}
+
+		return $options;
+	}
+
 	public function embed(array $parameters, StorageDriver $storage, Urls $urls): ?string
 	{
 		$count = max(1, min(50, (int) ($parameters['count'] ?? 12)));

@@ -555,7 +555,20 @@ final class Migrator
 			$modules[$entry['from']] = $entry['to'];
 		}
 
-		$rewriter = new LinkRewriter($report->uploads, $pages, $modules);
+		/*
+		 * The duplicates belong here too.
+		 *
+		 * migrateUploads() carries identical content once and records the rest in
+		 * duplicateUploads — the albums already merge that in, and this did not.
+		 * So a page linking to the copy that was not carried kept pointing at
+		 * images/, and every other picture on the page was rewritten: one broken
+		 * photograph in a page that otherwise came across perfectly, which is the
+		 * hardest kind to notice.
+		 *
+		 * Keyed the same way as $report->uploads — new name => original path — so
+		 * the rewriter needs no idea that some of them were duplicates.
+		 */
+		$rewriter = new LinkRewriter($report->uploads, $pages, $modules, $report->duplicateUploads);
 		$changed = 0;
 
 		foreach ($this->storage->allPages(includeHidden: true) as $page) {

@@ -41,6 +41,12 @@ use Pluck\Admin\Controller;
 	</div>
 
 	<div class="card">
+		<label class="field">
+			<span><?= $view->t('settings.label.contact_email') ?></span>
+			<input type="email" name="contact_email" maxlength="200" value="<?= e($contactEmail) ?>">
+			<span class="muted"><?= $view->t('settings.help.contact_email') ?></span>
+		</label>
+
 		<h2><?= $view->t('settings.heading.language') ?></h2>
 
 		<label class="field">
@@ -108,6 +114,29 @@ use Pluck\Admin\Controller;
 			</label>
 <?php endforeach; ?>
 		</fieldset>
+
+<?php if ($isOwner): ?>
+		<?php /* Owner-only: less-tested code on a running site is the owner's
+		         call, not a helper's. Checked when saving as well. */ ?>
+		<label class="field">
+			<span><?= $view->t('settings.label.updates_channel') ?></span>
+			<select name="updates_channel">
+				<option value="stable"<?= $updatesChannel === 'stable' ? ' selected' : '' ?>>
+					<?= $view->t('settings.channel.stable') ?>
+				</option>
+				<option value="prerelease"<?= $updatesChannel === 'prerelease' ? ' selected' : '' ?>>
+					<?= $view->t('settings.channel.prerelease') ?>
+				</option>
+			</select>
+			<span class="muted"><?= $view->t('settings.help.updates_channel') ?></span>
+		</label>
+<?php endif; ?>
+
+		<label class="field">
+			<span><?= $view->t('settings.label.form_limit') ?></span>
+			<input type="number" name="form_hourly_limit" min="1" max="100" value="<?= e((string) $formLimit) ?>">
+			<span class="muted"><?= $view->t('settings.help.form_limit') ?></span>
+		</label>
 
 		<fieldset class="field">
 			<legend><?= $view->t('backup.title.settings') ?></legend>

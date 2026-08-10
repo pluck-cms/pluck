@@ -22,7 +22,7 @@ use Pluck\Support\Path;
  */
 final class Bootstrap
 {
-	public const VERSION = '5.0.0-rc47';
+	public const VERSION = '5.0.0-rc62';
 
 	private ?StorageDriver $storage = null;
 	private ?Session $session = null;
@@ -105,7 +105,23 @@ final class Bootstrap
 			return $this->translator;
 		}
 
-		$this->translator = new Translator($this->siteLocale(), $this->rootDir . '/lang');
+		/*
+		 * A theme's own wording, after Pluck's.
+		 *
+		 * Translator already took several sources; the theme simply never got to
+		 * be one. A theme with words of its own had two options before this: put
+		 * them in Pluck's catalogue, which is other people's file, or write them
+		 * into its templates in one language — which is what the video module was
+		 * told off for.
+		 *
+		 * Later sources win, so a theme can also replace a word of Pluck's it does
+		 * not like without anybody editing lang/nl.json.
+		 */
+		$this->translator = new Translator(
+			$this->siteLocale(),
+			$this->rootDir . '/lang',
+			$this->rootDir . '/themes/' . $this->activeThemeName() . '/lang',
+		);
 
 		foreach (['themes', 'modules'] as $group) {
 			foreach (glob($this->rootDir . '/' . $group . '/*/lang', GLOB_ONLYDIR) ?: [] as $directory) {
@@ -120,6 +136,30 @@ final class Bootstrap
 	 * The language the site falls back to. Comes from install-time config, which is
 	 * readable before storage exists — the installer needs a language too.
 	 */
+	/**
+	 * Which theme is in use, for the sake of its language files.
+	 *
+	 * Read rather than resolved through ThemeRepository: this runs while the
+	 * translator is being built, and ThemeRepository wants a translator for its
+	 * error messages. A name that turns out not to exist costs nothing —
+	 * Translator ignores a source directory that is not there.
+	 *
+	 * Not a second way of deciding which theme is active: this asks for a folder
+	 * name, and the site still resolves the theme itself, with the fallback, when
+	 * it renders.
+	 */
+	private function activeThemeName(): string
+	{
+		if (!$this->config->exists()) {
+			return '';
+		}
+
+		$stored = $this->storage()->getSetting('theme');
+		$name = is_string($stored) ? basename($stored) : '';
+
+		return preg_match('/^[A-Za-z0-9._-]+$/', $name) === 1 ? $name : '';
+	}
+
 	public function siteLocale(): Locale
 	{
 		$configured = $this->config->get('language');
