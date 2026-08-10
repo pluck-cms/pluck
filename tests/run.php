@@ -65,6 +65,7 @@ $suites = [
 	Pluck\Tests\ArchiveStoreTest::class,
 	Pluck\Tests\BackupTest::class,
 	Pluck\Tests\UpdateTest::class,
+	Pluck\Tests\ContactAddressTest::class,
 	Pluck\Tests\ExtraModuleTest::class,
 	Pluck\Tests\FormGuardTest::class,
 	Pluck\Tests\RedirectTest::class,

@@ -36,6 +36,10 @@ final class SettingsController extends Controller
 			'backupKeep' => (int) $this->c->storage->getSetting('backup_keep', 5),
 			'backupIntervalDays' => (int) $this->c->storage->getSetting('backup_interval_days', 7),
 			'prettyUrls' => (bool) $storage->getSetting('pretty_urls', false),
+			// Where a contact form sends to. There was nowhere to set this: the
+			// migrator wrote it and a fresh install never did, so on a new site
+			// the contact form quietly mailed nobody.
+			'contactEmail' => (string) $storage->getSetting('contact_email', ''),
 		]);
 	}
 
@@ -118,6 +122,22 @@ final class SettingsController extends Controller
 		// Zero switches the automatic backup off, which has to stay possible: on a
 		// site with a large media folder somebody may prefer to run it themselves.
 		$storage->setSetting('backup_interval_days', max(0, min(365, (int) $request->post('backup_interval_days', '7'))));
+
+		/*
+		 * Stored only when it is really an address.
+		 *
+		 * An empty value clears it, which has to stay possible — a site with no
+		 * contact form does not want one. Anything else that is not an address is
+		 * refused rather than saved, because a typo here is a form that keeps
+		 * working and mails nobody.
+		 */
+		$contact = trim($request->post('contact_email', ''));
+
+		if ($contact === '' || filter_var($contact, FILTER_VALIDATE_EMAIL) !== false) {
+			$storage->setSetting('contact_email', mb_substr($contact, 0, 200));
+		} else {
+			$this->c->flash->stop($this->t('settings.error.contact_email'));
+		}
 
 		$challenge = $request->post('form_challenge', 'sum');
 		$storage->setSetting('form_challenge', in_array($challenge, ['none', 'sum', 'recaptcha'], true) ? $challenge : 'sum');

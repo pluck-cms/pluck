@@ -41,6 +41,12 @@ use Pluck\Admin\Controller;
 	</div>
 
 	<div class="card">
+		<label class="field">
+			<span><?= $view->t('settings.label.contact_email') ?></span>
+			<input type="email" name="contact_email" maxlength="200" value="<?= e($contactEmail) ?>">
+			<span class="muted"><?= $view->t('settings.help.contact_email') ?></span>
+		</label>
+
 		<h2><?= $view->t('settings.heading.language') ?></h2>
 
 		<label class="field">

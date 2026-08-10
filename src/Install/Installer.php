@@ -52,6 +52,19 @@ final class Installer
 			$storage->setSetting('updates_channel', 'stable');
 
 			$owner = User::create($input['username'], $input['password'], Role::Owner, $input['email']);
+
+			/*
+			 * The site's own address starts as the owner's.
+			 *
+			 * It was never set at all, so a fresh install had a contact form that
+			 * mailed nobody — the message was stored under Berichten, which is
+			 * true and no help to somebody waiting for a reply.
+			 *
+			 * A setting rather than a read of the owner's account, because the
+			 * two drift on purpose: the person running the site is often not the
+			 * address people should write to.
+			 */
+			$storage->setSetting('contact_email', $input['email']);
 			$storage->saveUser($owner);
 
 			$storage->savePage(new Page(

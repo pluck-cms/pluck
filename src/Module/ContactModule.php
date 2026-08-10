@@ -184,6 +184,15 @@ final class ContactModule implements SiteModule, PublicForm
 	private function email(StorageDriver $storage, string $name, string $email, string $subject, string $message): void
 	{
 		$to = (string) $storage->getSetting('contact_email', '');
+
+		/*
+		 * No address means nothing is sent, and that is worth knowing.
+		 *
+		 * The message is stored either way and appears under Berichten, so it is
+		 * not lost — but somebody who set up a contact form and never gets a mail
+		 * has no way to find out why. A line in the diagnostics is where somebody
+		 * looks when something is not happening.
+		 */
 		if ($to === '' || !function_exists('mail')) {
 			return;
 		}
