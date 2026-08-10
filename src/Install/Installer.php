@@ -49,7 +49,14 @@ final class Installer
 			$storage->setSetting('theme', 'default');
 			$storage->setSetting('search_enabled', false);
 			$storage->setSetting('updates_check_enabled', true);
-			$storage->setSetting('updates_channel', 'stable');
+			/*
+			 * No `updates_channel`: it was written here and read nowhere.
+			 *
+			 * A setting nothing reads is worse than no setting — somebody finds it
+			 * in the store, believes there is a beta channel, and goes looking for
+			 * the screen that switches it. There is one update source and it is in
+			 * config.php.
+			 */
 
 			$owner = User::create($input['username'], $input['password'], Role::Owner, $input['email']);
 

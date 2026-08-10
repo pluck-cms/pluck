@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Pluck\Admin;
 
+use Pluck\Form\Guard;
 use Pluck\Media\MediaLibrary;
 
 final class SettingsController extends Controller
@@ -24,7 +25,7 @@ final class SettingsController extends Controller
 			// which is the only honest answer to "which languages are there".
 			'languages' => $this->c->app->translator()->available(),
 			'maxMb' => round(((int) $storage->getSetting('media_max_bytes', MediaLibrary::DEFAULT_MAX_BYTES)) / 1048576, 1),
-			'formChallenge' => (string) $storage->getSetting('form_challenge', 'sum'),
+			'formChallenge' => (string) $storage->getSetting('form_challenge', Guard::CHALLENGE_SUM),
 			'recaptchaSiteKey' => (string) $storage->getSetting('recaptcha_site_key', ''),
 			'recaptchaSecret' => (string) $storage->getSetting('recaptcha_secret', '') === '' ? '' : '••••••••',
 			'availableModules' => $this->modulesOnDisk(),
@@ -40,6 +41,15 @@ final class SettingsController extends Controller
 			// migrator wrote it and a fresh install never did, so on a new site
 			// the contact form quietly mailed nobody.
 			'contactEmail' => (string) $storage->getSetting('contact_email', ''),
+			/*
+			 * How many submissions an hour one address may make.
+			 *
+			 * There was no way to change it, and five is low for the case that
+			 * turned up: an order form at a club evening, where everybody is on
+			 * the same wifi and therefore the same address. The sixth person is
+			 * refused and has no idea why.
+			 */
+			'formLimit' => (int) $storage->getSetting('form_hourly_limit', 5),
 		]);
 	}
 
@@ -139,7 +149,16 @@ final class SettingsController extends Controller
 			$this->c->flash->stop($this->t('settings.error.contact_email'));
 		}
 
-		$challenge = $request->post('form_challenge', 'sum');
+		// Never zero: a limit of nothing is a form that refuses everybody, and an
+		// owner reaching for "off" wants a high number rather than a broken form.
+		$storage->setSetting(
+			'form_hourly_limit',
+			max(1, min(100, (int) $request->post('form_hourly_limit', '5'))),
+		);
+
+		// Guard's own constant, not the string again: two spellings of one default
+		// is one somebody changes in a single place.
+		$challenge = $request->post('form_challenge', Guard::CHALLENGE_SUM);
 		$storage->setSetting('form_challenge', in_array($challenge, ['none', 'sum', 'recaptcha'], true) ? $challenge : 'sum');
 		$storage->setSetting('recaptcha_site_key', mb_substr(trim($request->post('recaptcha_site_key', '')), 0, 100));
 

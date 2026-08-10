@@ -44,6 +44,7 @@ $suites = [
 	Pluck\Tests\CatalogueTest::class,
 	Pluck\Tests\InsertMenuTest::class,
 	Pluck\Tests\InstallerTest::class,
+	Pluck\Tests\SettingsReachableTest::class,
 	Pluck\Tests\SessionOrderTest::class,
 	Pluck\Tests\AuthTest::class,
 	Pluck\Tests\RouteAccessTest::class,

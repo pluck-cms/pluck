@@ -115,6 +115,12 @@ use Pluck\Admin\Controller;
 <?php endforeach; ?>
 		</fieldset>
 
+		<label class="field">
+			<span><?= $view->t('settings.label.form_limit') ?></span>
+			<input type="number" name="form_hourly_limit" min="1" max="100" value="<?= e((string) $formLimit) ?>">
+			<span class="muted"><?= $view->t('settings.help.form_limit') ?></span>
+		</label>
+
 		<fieldset class="field">
 			<legend><?= $view->t('backup.title.settings') ?></legend>
 
