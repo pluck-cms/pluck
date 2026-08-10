@@ -40,6 +40,21 @@ return [
 This file must not be served over HTTP. `data/.htaccess` denies the whole
 directory on Apache; on nginx you have to say so yourself — see `NGINX.md`.
 
+### `updates_channel` — a setting, not a config key
+
+Which releases an install is offered: `stable`, or also release candidates. It
+lives under Settings and is owner-only.
+
+Worth being clear about the difference with `update_source` below. The source
+decides *where* code comes from, which is code execution, and an administrator
+does not have that and must not gain it through a text field. A channel only
+chooses among releases from the same repository — somebody who switches it on
+could already have installed that release by hand. They gain an offer, not a
+permission.
+
+What they do gain is less-tested code on a running site, so the screen says so
+rather than the setting hiding it.
+
 ### `update_source`
 
 Where the updater looks for releases. Unset means the Pluck repository, which is

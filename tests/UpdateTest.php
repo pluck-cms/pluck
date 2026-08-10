@@ -31,6 +31,7 @@ final class UpdateTest extends TestCase
 		$this->group('files the web server cannot replace', fn () => $this->unwritable());
 		$this->group('compiled code is thrown away', fn () => $this->cacheCleared());
 		$this->group('which version is running', fn () => $this->running());
+		$this->group('which releases are offered', fn () => $this->channel());
 
 		$this->group('which version is newer', fn () => $this->versions());
 		$this->group('how often GitHub is asked', fn () => $this->caching());
@@ -415,6 +416,72 @@ final class UpdateTest extends TestCase
 		$this->assertFalse(
 			(new Updates($dir, $storage, Updates::runningVersion($storage)))->updateAvailable(),
 			'a remembered release older than the code running is not an update',
+		);
+	}
+
+	/**
+	 * Stable, or also release candidates.
+	 *
+	 * `updates_channel` existed before this: the installer wrote it and nothing
+	 * read it, so an install carried a setting that did nothing. The plumbing for
+	 * pre-releases was there too — Release has the flag, the screen labels it —
+	 * and it could never fire, because /releases/latest never returns one.
+	 *
+	 * A setting rather than config.php, unlike the update source. The source
+	 * decides where code comes from, which is code execution. A channel only
+	 * chooses among releases from the same trusted repository: somebody who
+	 * switches it on could already have installed that release by hand.
+	 */
+	private function channel(): void
+	{
+		$dir = $this->tempDir('pluck-channel');
+		$storage = DriverFactory::make(DriverFactory::FLAT_FILE, $dir);
+		$storage->install();
+
+		$this->assertSame(
+			Updates::STABLE,
+			Updates::channelOf($storage),
+			'an install starts on stable',
+		);
+
+		$storage->setSetting('updates_channel', Updates::PRERELEASE);
+		$this->assertSame(Updates::PRERELEASE, Updates::channelOf($storage), 'and can be moved');
+
+		// Anything unrecognised is stable: a typo must not quietly put a live
+		// site on release candidates.
+		$storage->setSetting('updates_channel', 'nightly');
+		$this->assertSame(Updates::STABLE, Updates::channelOf($storage), 'and nonsense means stable');
+
+		/*
+		 * A draft is never offered, whatever the channel says.
+		 *
+		 * A draft is somebody still writing, and its tag may not exist yet — so
+		 * it would be an update to a version that cannot be downloaded.
+		 */
+		$pick = new \ReflectionMethod(Updates::class, 'pick');
+		$pick->setAccessible(true);
+
+		$chosen = $pick->invoke(null, [
+			['tag_name' => 'v5.0.0-rc62', 'draft' => true, 'prerelease' => true],
+			['tag_name' => 'v5.0.0-rc61', 'draft' => false, 'prerelease' => true],
+			['tag_name' => 'v4.7.19', 'draft' => false, 'prerelease' => false],
+		]);
+
+		$this->assertSame('v5.0.0-rc61', $chosen['tag_name'] ?? '', 'the newest that is not a draft');
+		$this->assertSame(null, $pick->invoke(null, []), 'an empty list offers nothing');
+		$this->assertSame(
+			null,
+			$pick->invoke(null, [['tag_name' => 'x', 'draft' => true]]),
+			'and a list of drafts offers nothing rather than a draft',
+		);
+
+		// Only an owner may move it. The field is not rendered for anybody else,
+		// and a form that is not rendered is still a form somebody can post.
+		$controller = (string) file_get_contents(dirname(__DIR__) . '/src/Admin/SettingsController.php');
+
+		$this->assertTrue(
+			str_contains($controller, "auth->user()?->role === Role::Owner"),
+			'the save checks the role rather than trusting the form',
 		);
 	}
 }

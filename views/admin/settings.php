@@ -115,6 +115,23 @@ use Pluck\Admin\Controller;
 <?php endforeach; ?>
 		</fieldset>
 
+<?php if ($isOwner): ?>
+		<?php /* Owner-only: less-tested code on a running site is the owner's
+		         call, not a helper's. Checked when saving as well. */ ?>
+		<label class="field">
+			<span><?= $view->t('settings.label.updates_channel') ?></span>
+			<select name="updates_channel">
+				<option value="stable"<?= $updatesChannel === 'stable' ? ' selected' : '' ?>>
+					<?= $view->t('settings.channel.stable') ?>
+				</option>
+				<option value="prerelease"<?= $updatesChannel === 'prerelease' ? ' selected' : '' ?>>
+					<?= $view->t('settings.channel.prerelease') ?>
+				</option>
+			</select>
+			<span class="muted"><?= $view->t('settings.help.updates_channel') ?></span>
+		</label>
+<?php endif; ?>
+
 		<label class="field">
 			<span><?= $view->t('settings.label.form_limit') ?></span>
 			<input type="number" name="form_hourly_limit" min="1" max="100" value="<?= e((string) $formLimit) ?>">

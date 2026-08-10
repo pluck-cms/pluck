@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Pluck\Admin;
 
 use Pluck\Form\Guard;
+use Pluck\Model\Role;
 use Pluck\Media\MediaLibrary;
 
 final class SettingsController extends Controller
@@ -50,6 +51,11 @@ final class SettingsController extends Controller
 			 * refused and has no idea why.
 			 */
 			'formLimit' => (int) $storage->getSetting('form_hourly_limit', 5),
+			// Which releases this install is offered. Owner-only: it is not a
+			// permission an administrator lacks, but it puts less-tested code on a
+			// running site, and that is the owner's call rather than a helper's.
+			'updatesChannel' => \Pluck\Update\Updates::channelOf($storage),
+			'isOwner' => $this->c->auth->user()?->role === Role::Owner,
 		]);
 	}
 
@@ -158,6 +164,22 @@ final class SettingsController extends Controller
 
 		// Guard's own constant, not the string again: two spellings of one default
 		// is one somebody changes in a single place.
+		/*
+		 * Only an owner may move the channel.
+		 *
+		 * The field is not rendered for anybody else, and a form that is not
+		 * rendered is still a form somebody can post — so it is checked here as
+		 * well as hidden there.
+		 */
+		if ($this->c->auth->user()?->role === Role::Owner) {
+			$storage->setSetting(
+				'updates_channel',
+				$request->post('updates_channel', '') === \Pluck\Update\Updates::PRERELEASE
+					? \Pluck\Update\Updates::PRERELEASE
+					: \Pluck\Update\Updates::STABLE,
+			);
+		}
+
 		$challenge = $request->post('form_challenge', Guard::CHALLENGE_SUM);
 		$storage->setSetting('form_challenge', in_array($challenge, ['none', 'sum', 'recaptcha'], true) ? $challenge : 'sum');
 		$storage->setSetting('recaptcha_site_key', mb_substr(trim($request->post('recaptcha_site_key', '')), 0, 100));
