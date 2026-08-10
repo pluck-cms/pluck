@@ -188,6 +188,29 @@ No English in your PHP. Put it in `modules/mine/lang/en.json` and reach for it
 with `$view->t('mine.some.key')` — the site's own language files and yours are
 merged, so a translator can do your module without touching Pluck.
 
+## A module of your own can have an admin screen
+
+Put both classes in `modules/<name>/`. Pluck loads whatever it finds there that
+implements `SiteModule` or `AdminModule` and whose `name()` matches the folder:
+
+```
+modules/voortgang/
+	VoortgangModule.php        implements SiteModule
+	VoortgangAdminModule.php   implements AdminModule, plus its controller
+	views/voortgang/edit.php
+	lang/nl.json
+	module.json
+```
+
+Either half may be missing. A module that only renders is fine; so is one that
+is only a screen.
+
+An admin controller is handed a `ModuleContext`, not the admin's own — see that
+class for what it deliberately cannot do. In short: `get`, `set`, `list` and
+`delete` inside your own space, `render()` for a template of yours wrapped in
+the admin layout, and `back()` to redirect. Reaching past it would be a module
+drawing its own admin, which is how two admins start to exist.
+
 ## Saying what can be inserted from your module
 
 The editor's **Pluck** menu lists what a page can hold. Implement `Insertable`

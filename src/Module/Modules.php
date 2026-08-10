@@ -79,17 +79,46 @@ final class Modules
 				require_once $file;
 			}
 
+			/*
+			 * Both halves of a module, not only the site half.
+			 *
+			 * This looked for SiteModule alone, so a module of your own could draw
+			 * something on the site but never have a screen to manage it — the
+			 * admin routes were simply never registered, and the entry never
+			 * appeared. Which meant anything a third-party module stored had to be
+			 * put there by hand, over FTP, which is the thing modules exist to
+			 * avoid.
+			 *
+			 * Both are looked for and both may be missing: a module that only
+			 * renders is fine, and so is one that is only a screen.
+			 *
+			 * Not `break` on the first match any more — a module is commonly two
+			 * classes in the same folder, and stopping at the first found whichever
+			 * one happened to be declared first.
+			 */
 			foreach (get_declared_classes() as $class) {
-				if (!is_subclass_of($class, SiteModule::class) || !str_contains($class, 'Pluck\\Module\\')) {
+				if (!str_contains($class, 'Pluck\\Module\\')) {
 					continue;
 				}
 
-				$module = new $class($translator);
+				$isSite = is_subclass_of($class, SiteModule::class);
+				$isAdmin = is_subclass_of($class, AdminModule::class);
+
+				if (!$isSite && !$isAdmin) {
+					continue;
+				}
+
+				/*
+				 * An admin module takes no translator; a site module does. Asking
+				 * the constructor rather than assuming, because a module written by
+				 * somebody else may take neither.
+				 */
+				$module = (new \ReflectionClass($class))->getConstructor()?->getNumberOfParameters() > 0
+					? new $class($translator)
+					: new $class();
 
 				if ($module->name() === $name) {
 					$loaded[] = $module;
-
-					break;
 				}
 			}
 		}
