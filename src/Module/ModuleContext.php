@@ -129,8 +129,11 @@ final class ModuleContext
 	 * what makes removeMedia() safe to offer.
 	 *
 	 * @param array<string,mixed> $file an entry from $_FILES
+	 * @param string $group what the media screen files it under — an album's own
+	 *        name where a module has one, so the picker reads as "Open dag 2019"
+	 *        rather than as the module's name nine times
 	 */
-	public function addMedia(array $file): MediaResult
+	public function addMedia(array $file, string $group = ''): MediaResult
 	{
 		if ($this->library === null) {
 			return MediaResult::failed(MediaResult::COULD_NOT_WRITE);
@@ -142,9 +145,16 @@ final class ModuleContext
 			$this->set('media:' . $result->name, [
 				'added_at' => gmdate('c'),
 				'by' => $this->identity->id,
-				// Grouping the picker by "albums" would be true and useless on a
-				// site with nine of them.
-				'album' => $group,
+				/*
+				 * Grouping the picker by "albums" would be true and useless on a
+				 * site with nine of them, so a module may name the group itself.
+				 *
+				 * $group was used here without being a parameter, so every upload
+				 * through a module raised a warning and filed the picture under
+				 * nothing — and on a server with display_errors on, printed that
+				 * warning into the response.
+				 */
+				'album' => $group !== '' ? $group : $this->module,
 			]);
 		}
 
@@ -215,6 +225,23 @@ final class ModuleContext
 	public function t(string $key, array $replacements = [], ?int $count = null): string
 	{
 		return $this->translator->get($key, $replacements, $count);
+	}
+
+	/**
+	 * The language this screen is speaking.
+	 *
+	 * A module is handed a translator and may reasonably ask which language it
+	 * is: how a date reads, which separator a number takes, whether a name goes
+	 * first or last. Those are the module's own decisions and it needs the
+	 * language to make them.
+	 *
+	 * Not a way into site settings. It answers one question, and the module still
+	 * decides what to do about the answer — a currency, for instance, does not
+	 * follow from a language: English is the pound, the dollar and the euro.
+	 */
+	public function locale(): string
+	{
+		return $this->translator->locale()->code;
 	}
 
 	/**
