@@ -143,7 +143,21 @@ final class ModuleAdminTest extends TestCase
 		$this->assertSame(
 			[
 				'__construct', 'addMedia', 'back', 'can', 'delete', 'get', 'isAtLeast',
-				'list', 'media', 'module', 'ownsMedia', 'removeMedia', 'render', 'set',
+				'list',
+			/*
+			 * Which language this screen speaks.
+			 *
+			 * A module is handed a translator and may reasonably ask which
+			 * language it is: how a date reads, which separator a number takes.
+			 * Those are the module's own decisions and it needs the language to
+			 * make them.
+			 *
+			 * Not a way into site settings — it answers one question, and the
+			 * module still decides what to do about the answer. A currency does
+			 * not follow from a language: English is the pound, the dollar and
+			 * the euro.
+			 */
+			'locale', 'media', 'module', 'ownsMedia', 'removeMedia', 'render', 'set',
 				't', 'transaction', 'user',
 			],
 			$methods,
