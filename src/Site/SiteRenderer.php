@@ -212,14 +212,27 @@ final class SiteRenderer
 	 *
 	 * Left alone: anything with a scheme, anything protocol-relative, anything
 	 * already rooted at /, fragments, mailto: and tel:.
+	 *
+	 * A link to a page goes through Urls::to() rather than being glued onto the
+	 * base. Gluing works while readable addresses are on and breaks the moment
+	 * they are off: the editor writes `behandelmethoden/acupunctuur`, which has
+	 * to become `?page=behandelmethoden/acupunctuur` and became
+	 * `/behandelmethoden/acupunctuur` — an address the install does not answer
+	 * to. Whoever inserted that link from the menu got a 404 and no way to see
+	 * why, because the markup they typed was right.
+	 *
+	 * A file keeps the old treatment: `media/photo.jpg` is a file on disk and
+	 * `?page=media/photo.jpg` would be nonsense.
 	 */
 	private function absolute(string $html): string
 	{
 		$base = $this->urls->base();
+		$urls = $this->urls;
+		$storage = $this->storage;
 
 		return (string) preg_replace_callback(
 			'/\b(src|href)="([^"]*)"/i',
-			static function (array $m) use ($base): string {
+			static function (array $m) use ($base, $urls, $storage): string {
 				$value = $m[2];
 
 				if (
@@ -232,7 +245,20 @@ final class SiteRenderer
 					return $m[0];
 				}
 
-				return $m[1] . '="' . $base . ltrim($value, './') . '"';
+				$path = ltrim($value, './');
+
+				/*
+				 * Only href, and only when a page of that name really exists.
+				 *
+				 * A src is a file by definition, and a name that is not a page is
+				 * a file too — so an install with no page called `brochure.pdf`
+				 * keeps linking to the file, as it always did.
+				 */
+				if (strtolower($m[1]) === 'href' && $storage->pageExists($path)) {
+					return $m[1] . '="' . $urls->to($path) . '"';
+				}
+
+				return $m[1] . '="' . $base . $path . '"';
 			},
 			$html,
 		) ?: $html;

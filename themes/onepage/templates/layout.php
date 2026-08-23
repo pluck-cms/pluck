@@ -28,11 +28,53 @@
 $sections = $menu->items();
 
 /*
- * A module or a search result is not part of the stack: it is one thing the
- * visitor asked for. Those get the plain layout, with the menu still pointing
- * home so there is a way back into the one-pager.
+ * Standalone means: not part of the stack.
+ *
+ * A module or a search result is one thing the visitor asked for, and so is any
+ * page the stack does not contain — a sub-page, or a page hidden from the menu.
+ *
+ * This used to be `$page === null` alone, which is a narrower question than the
+ * one that matters. The stack is built from $menu->items(); a sub-page or a
+ * hidden page is not in there, so it fell into the stacked branch and the loop
+ * never reached it. The visitor got the front page back with none of the content
+ * they asked for, at ?page= and at a readable address alike — which reads like a
+ * routing fault rather than a theme one, and sent at least one person looking in
+ * the wrong place.
+ *
+ * Asked of the stack rather than guessed from the address: a slash in the path
+ * finds sub-pages and misses hidden pages, and it is the stack that decides.
  */
-$standalone = $page === null;
+$inStack = false;
+
+if ($page !== null) {
+	foreach ($sections as $item) {
+		if ($item->path() === $page->path) {
+			$inStack = true;
+		}
+	}
+}
+
+$standalone = $page === null || !$inStack;
+
+/*
+ * The page above a sub-page, for the way back.
+ *
+ * Found in the menu tree rather than by asking storage: $sections is already
+ * built, and a theme that reaches for the storage driver is doing the renderer's
+ * job. Null when the parent is itself hidden — no link is better than one that
+ * lands somewhere the visitor cannot use.
+ */
+$parent = null;
+
+if ($page !== null && str_contains($page->path, '/')) {
+	$parentPath = substr($page->path, 0, (int) strrpos($page->path, '/'));
+
+	foreach ($sections as $item) {
+		if ($item->path() === $parentPath) {
+			$parent = $item;
+		}
+	}
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?= e($locale) ?>">
@@ -56,6 +98,15 @@ $standalone = $page === null;
 	engine would see the same content a dozen times over.
 -->
 <link rel="canonical" href="<?= e($urls->to('')) ?>#<?= e($page->path) ?>">
+<?php elseif ($page !== null): ?>
+<!--
+	A page outside the stack is its own address and says so.
+
+	It used to get the anchor above, which tells a search engine "I am really the
+	front page" — so a sub-page explaining what somebody actually does was not
+	indexed at all. Exactly the page people search for.
+-->
+<link rel="canonical" href="<?= e($urls->to($page->path)) ?>">
 <?php endif; ?>
 <link rel="stylesheet" href="<?= e($themeAssets) ?>/style.css">
 </head>
@@ -101,6 +152,15 @@ $standalone = $page === null;
 
 <?php if ($standalone): ?>
 <main id="sections" class="layout standalone">
+<?php if ($parent !== null): ?>
+	<?php /* The way back, above the text rather than under it: whoever wants it
+	         wants it before they have read the page again. It points at the
+	         anchor, because that is where the parent's content lives — its own
+	         address would reload the front page and land at the top. */ ?>
+	<p class="section__back">
+		<a href="<?= e($urls->to('')) ?>#<?= e($parent->path()) ?>">&larr; <?= e($parent->title()) ?></a>
+	</p>
+<?php endif; ?>
 <?= $content ?>
 </main>
 <?php else: ?>

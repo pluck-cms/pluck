@@ -234,6 +234,61 @@ the theme has to handle it — by the time the content reaches you it is already
 rendered. Style it with whatever classes the module emits: `.blog-post`,
 `.album-list`, `.search-result`.
 
+## One-pagers: which pages are in the stack
+
+A theme that stacks every section onto the front page has one question to answer
+on each request: **is this page part of the stack, or is it on its own?**
+
+Ask the stack, not the address:
+
+```php
+$sections = $menu->items();
+
+$inStack = false;
+
+if ($page !== null) {
+	foreach ($sections as $item) {
+		if ($item->path() === $page->path) {
+			$inStack = true;
+		}
+	}
+}
+
+$standalone = $page === null || !$inStack;
+```
+
+`$page === null` alone is not enough. That catches modules and search results and
+nothing else — but the stack is built from `$menu->items()`, and two kinds of
+page are missing from that:
+
+- a **sub-page**, which is never a section of its own
+- a page **hidden from the menu**, which a writer links to by hand
+
+Both are real pages that a visitor can reach. Treated as part of the stack they
+fall into the loop that never contains them, so the front page comes back with
+none of the content that was asked for — at `?page=` and at a readable address
+alike. It looks like a routing fault and it is a theme one.
+
+Guessing from the address (`str_contains($page->path, '/')`) finds sub-pages and
+misses hidden pages. The stack knows; ask it.
+
+### The canonical goes with it
+
+A stacked section lives at an anchor, and saying so keeps a search engine from
+finding the same content a dozen times over. A page **outside** the stack lives
+at its own address, and must say that instead:
+
+```php
+<?php if (!$standalone && $page !== null): ?>
+<link rel="canonical" href="<?= e($urls->to('')) ?>#<?= e($page->path) ?>">
+<?php elseif ($page !== null): ?>
+<link rel="canonical" href="<?= e($urls->to($page->path)) ?>">
+<?php endif; ?>
+```
+
+Miss the second half and every sub-page tells Google it is really the front page,
+which is a quiet way to keep the pages people search for out of the index.
+
 ## JavaScript
 
 None of the bundled themes has any, and that is worth copying. The menu opens
