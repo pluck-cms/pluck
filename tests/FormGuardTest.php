@@ -290,7 +290,6 @@ final class FormGuardTest extends TestCase
 		// Reaches for the same private signing the Guard uses, so the fixture
 		// cannot drift away from the implementation without failing.
 		$method = new \ReflectionMethod($guard, 'signTime');
-		$method->setAccessible(true);
 
 		return (string) $method->invoke($guard, $when);
 	}

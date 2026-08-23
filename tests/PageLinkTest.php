@@ -51,17 +51,21 @@ final class PageLinkTest extends TestCase
 			content: '',
 		));
 
+		/*
+		 * No setAccessible(): it has done nothing since PHP 8.1 and is deprecated
+		 * in 8.5, where it prints a line per call. Pluck needs 8.3, so the calls
+		 * were pure noise — and a test run full of noise is where a real warning
+		 * goes to hide.
+		 */
 		$class = new \ReflectionClass(\Pluck\Site\SiteRenderer::class);
 		$renderer = $class->newInstanceWithoutConstructor();
 
 		foreach (['storage' => $storage, 'urls' => new Urls('/', $pretty)] as $name => $value) {
 			$property = $class->getProperty($name);
-			$property->setAccessible(true);
 			$property->setValue($renderer, $value);
 		}
 
 		$method = $class->getMethod('absolute');
-		$method->setAccessible(true);
 
 		return (string) $method->invoke($renderer, $html);
 	}

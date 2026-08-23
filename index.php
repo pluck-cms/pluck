@@ -229,10 +229,10 @@ if ($mounted !== null) {
 		$body = $renderer->module($view, $requested);
 	}
 } else {
+	// Which page sits at the root is SiteRenderer::isFrontPage()'s question — it
+	// needs the answer for the canonical tag, and two places answering it is how
+	// a page ends up naming an address it is not served at.
 	$page = $requested === ''
-		// The front page is the first page in menu order, which is what the admin
-		// list shows at the top, so "move it up" and "make it the front page" are
-		// the same action rather than two.
 		? ($storage->listPages(null, false)[0] ?? null)
 		: $storage->findPage($requested);
 
