@@ -52,7 +52,7 @@
 			 * table anybody can extend. Two implementations of the same rule is
 			 * one too many, and the one in the browser was the wrong one.
 			 */
-			suggest(source.value, target);
+			suggest(source.value, target, function () { return edited; });
 		});
 	}
 
@@ -64,10 +64,27 @@
 	 * filled in by the server on save anyway, which is the same answer arriving
 	 * later rather than a worse one arriving now.
 	 */
-	function suggest(title, target) {
+	function suggest(title, target, wasEdited) {
 		window.clearTimeout(suggest.timer);
 
 		suggest.timer = window.setTimeout(function () {
+			/*
+			 * Asked again here, and again when the answer arrives.
+			 *
+			 * The flag was only checked when the request was scheduled, and
+			 * between that and the field being written there is a 250ms wait plus
+			 * a round trip. Somebody who types a title, tabs straight to the
+			 * address and corrects it lands inside that window: the pending
+			 * answer overwrites what they typed.
+			 *
+			 * Silently, because by then they are already typing the text — so the
+			 * page ends up at an address they never chose, and the link they
+			 * inserted from the menu points at the address they did.
+			 */
+			if (wasEdited()) {
+				return;
+			}
+
 			var token = document.querySelector('input[name="_token"]');
 			if (!token) {
 				return;
@@ -80,6 +97,10 @@
 			window.fetch('admin.php?p=page.slug', { method: 'POST', body: body, credentials: 'same-origin' })
 				.then(function (r) { return r.ok ? r.json() : null; })
 				.then(function (data) {
+					if (wasEdited()) {
+						return;
+					}
+
 					if (data && typeof data.slug === 'string') {
 						target.value = data.slug;
 					}

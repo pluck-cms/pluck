@@ -262,3 +262,8 @@ table:has(colgroup) { table-layout: fixed; }
 
 .form-error { color: #a4231f; font-weight: 600; }
 .form-done { padding: 1rem 0; font-weight: 600; }
+
+/* The way back from a sub-page, above the heading where somebody looks for it. */
+.section__back { margin: 0 0 0.6rem; font-size: 0.9rem; }
+.section__back a { text-decoration: none; opacity: 0.8; }
+.section__back a:hover { opacity: 1; }

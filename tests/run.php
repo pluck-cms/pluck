@@ -54,6 +54,7 @@ $suites = [
 	Pluck\Tests\SafeZipTest::class,
 	Pluck\Tests\UploadNamingTest::class,
 	Pluck\Tests\MigrateTest::class,
+	Pluck\Tests\PageLinkTest::class,
 	Pluck\Tests\SiteRouteTest::class,
 	Pluck\Tests\ThemeLangTest::class,
 	Pluck\Tests\ThemeTest::class,
