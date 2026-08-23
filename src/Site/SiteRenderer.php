@@ -57,6 +57,23 @@ final class SiteRenderer
 
 	private ?Page $preview = null;
 
+	/**
+	 * Which page is served at the root.
+	 *
+	 * The first page in menu order, which is what the admin list shows at the
+	 * top — so "move it up" and "make it the front page" stay one action rather
+	 * than two.
+	 *
+	 * Here rather than in index.php's `if`, because two places would answer this
+	 * and the canonical below is the second one. It is asked of the page, not of
+	 * the request: the front page is also reachable at its own address, and both
+	 * have to name the same canonical or the tag does nothing.
+	 */
+	public function isFrontPage(Page $page): bool
+	{
+		return ($this->storage->listPages(null, false)[0] ?? null)?->path === $page->path;
+	}
+
 	public function page(Page $page): string
 	{
 		return $this->render(
@@ -64,6 +81,23 @@ final class SiteRenderer
 			title: $page->title,
 			data: [
 				'page' => $page,
+				/*
+				 * A page says where it lives.
+				 *
+				 * Every theme in the box already has the `if ($canonical !== null)`
+				 * waiting for it; nothing ever passed a value, so no ordinary page
+				 * has ever carried the tag. A module did.
+				 *
+				 * It is worth having because one page answers to more than one
+				 * address: `/` and `/welkom` are the same page, and so are `?page=x`
+				 * and `/x` while a site still has old links pointing at it.
+				 *
+				 * The front page names the root rather than itself. `/` is what
+				 * people link to and what a card in a search result should show.
+				 */
+				'canonical' => $this->isFrontPage($page)
+					? $this->urls->to('')
+					: $this->urls->to($page->path),
 				// Markers are expanded here rather than on save, so a page shows
 				// what the module holds now rather than what it held when the page
 				// was last edited.

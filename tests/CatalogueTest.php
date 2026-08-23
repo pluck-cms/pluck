@@ -92,7 +92,7 @@ final class CatalogueTest extends TestCase
 	 * rise, which is what stops the admin drifting back to English-only one
 	 * template at a time.
 	 */
-	private const LITERAL_WORDS_IN_VIEWS = 423;
+	private const LITERAL_WORDS_IN_VIEWS = 95;
 
 	public function run(): void
 	{

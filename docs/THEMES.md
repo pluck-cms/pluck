@@ -272,6 +272,15 @@ alike. It looks like a routing fault and it is a theme one.
 Guessing from the address (`str_contains($page->path, '/')`) finds sub-pages and
 misses hidden pages. The stack knows; ask it.
 
+### What `$canonical` holds
+
+An ordinary page names its own address, and the front page names the root —
+`/` rather than `/welkom`, because that is what people link to and what a search
+result should show. A module names whatever it decided.
+
+A one-pager is the case where a theme overrules this: a stacked section lives at
+an anchor and should say so.
+
 ### The canonical goes with it
 
 A stacked section lives at an anchor, and saying so keeps a search engine from

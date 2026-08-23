@@ -220,7 +220,6 @@ final class UpdateTest extends TestCase
 		$storage->install();
 
 		$api = new \ReflectionMethod(Updates::class, 'api');
-		$api->setAccessible(true);
 
 		$default = 'https://api.github.com/repos/pluck-cms/pluck/releases/latest';
 
@@ -459,7 +458,6 @@ final class UpdateTest extends TestCase
 		 * it would be an update to a version that cannot be downloaded.
 		 */
 		$pick = new \ReflectionMethod(Updates::class, 'pick');
-		$pick->setAccessible(true);
 
 		$chosen = $pick->invoke(null, [
 			['tag_name' => 'v5.0.0-rc62', 'draft' => true, 'prerelease' => true],

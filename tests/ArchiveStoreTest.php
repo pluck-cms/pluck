@@ -37,7 +37,20 @@ final class ArchiveStoreTest extends TestCase
 		$good = 'pluck-20260809-143804-320fe32d.tar.gz';
 		touch($dir . '/' . $good);
 
-		$this->assertSame($dir . '/' . $good, $store->pathOf($good), 'a real name resolves');
+		/*
+		 * Both sides resolved before comparing.
+		 *
+		 * pathOf() resolves the path, and on macOS the system temp directory is
+		 * /var/folders/... where /var is a symlink to /private/var — so the
+		 * expected string and the real one differ by a prefix nobody typed. The
+		 * test failed on every Mac and passed everywhere else, which is the
+		 * worst kind of red: it says nothing about the code.
+		 */
+		$this->assertSame(
+			realpath($dir . '/' . $good),
+			realpath((string) $store->pathOf($good)),
+			'a real name resolves',
+		);
 		$this->assertTrue($store->exists($good), 'and exists');
 
 		// The uncompressed form, for a server without zlib.
