@@ -91,16 +91,16 @@ instead.
 | `media_max_bytes` | int | `8388608` (8 MB) | Admin → Settings, in MB |
 | `search_enabled` | bool | `false` | Admin → Settings. Puts a search box in the theme and answers `/search`. |
 | `updates_check_enabled` | bool | `true` | Admin → Settings |
-| `updates_channel` | `stable` | `stable` | not settable yet |
+| `updates_channel` | `stable`, `prerelease` | `stable` | Admin → Settings |
 | `update_last_check` | timestamp | `0` | written by the checker; GitHub is asked at most once every six hours |
 | `update_last_seen` | the newest release | `{}` | cached so several admins do not each spend a call |
 | `schema_version` | int | `1` | written by the upgrade path, never by hand |
 | `media_hashes` | name → sha256 | `{}` | written by the media library; rebuilt when it disagrees with the folder |
-| `theme` | theme directory name | `default` | **not settable yet** |
-| `pretty_urls` | bool | `false` | **not settable yet** |
+| `theme` | theme directory name | `default` | Admin → Appearance |
+| `pretty_urls` | bool | `false` | Admin → Settings, behind the rewrite probe below |
 
-The last two are read and honoured but have no field in the admin. Set them with
-a one-off script if you need them before that lands:
+All three have a field in the admin now. If you ever need to set one before
+signing in — scripting an install, say — a one-off script still works:
 
 ```php
 require 'src/autoload.php';

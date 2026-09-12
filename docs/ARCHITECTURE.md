@@ -71,12 +71,15 @@ module built, both wrapped in `Raw` so they are visible in review.
 
 ## Modules
 
-`Module\SiteModule` is three methods: a name, a mount path, and `render()`, which
+`Module\SiteModule` is five methods: a name, a mount path, `render()`, which
 gets the remaining path, validated query parameters, read access to storage and a
-URL builder, and returns a `ModuleView` or null. A module does not echo, does not
-touch the filesystem, does not know what theme is in use, and cannot reach the
-admin session. Returning null means "nothing here" — the front controller decides
-what a 404 is, because a module does not know what else might claim an address.
+URL builder, and returns a `ModuleView` or null; `embed()`, a separate, smaller
+view for a page that only contains a glimpse of the module; and `search()`,
+returning this module's own `SearchResult` matches. A module does not echo, does
+not touch the filesystem, does not know what theme is in use, and cannot reach the
+admin session. Returning null from `render()` means "nothing here" — the front
+controller decides what a 404 is, because a module does not know what else might
+claim an address.
 
 Modules mount on a first path segment: `blog` owns `/blog` and everything under
 it, never `/news/blog`. Nesting under pages would make a post's address depend on

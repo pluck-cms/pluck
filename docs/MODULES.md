@@ -29,8 +29,15 @@ modules/mine/
 }
 ```
 
-The `name` is used as an address and as a storage prefix, so it is lowercase,
-letters and dashes only, and it cannot be `search` — that one is reserved.
+Keep `module.json`'s own `name` the same as the folder and as the string
+`SiteModule::name()`/`AdminModule::name()` return in your PHP — Pluck matches
+the *class's* `name()` against the enabled folder name to decide what to load,
+not anything in this file. `module.json` itself is only checked for existing
+(it is what makes a folder show up under Settings → Extra modules); `title`,
+`version`, `author`, `license` and `requires` are for whoever reads the folder,
+not for Pluck. Whatever name you settle on is used as an address and as a
+storage prefix, so it is lowercase, letters and dashes only, and it cannot be
+`search` — that one is reserved.
 
 ## Showing something on the site
 
@@ -45,6 +52,7 @@ namespace Pluck\Module\Mine;
 use Pluck\Module\ModuleView;
 use Pluck\Module\SiteModule;
 use Pluck\Security\Escaper;
+use Pluck\Site\SearchResult;
 use Pluck\Site\Urls;
 use Pluck\Storage\StorageDriver;
 
@@ -85,10 +93,31 @@ final class Mine implements SiteModule
 		return $this->render('', [], $storage, $urls)?->html;
 	}
 
-	/** Optional: your things appear in the site's search. */
+	/**
+	 * Optional: your things appear in the site's search.
+	 *
+	 * @return list<SearchResult>
+	 */
 	public function search(string $query, StorageDriver $storage): array
 	{
-		return [];
+		$results = [];
+
+		foreach ($storage->listModuleData('mine', 'notice:') as $key => $notice) {
+			$text = (string) ($notice['text'] ?? '');
+			if (stripos($text, $query) === false) {
+				continue;
+			}
+
+			$results[] = new SearchResult(
+				title: $text,
+				path: 'notices',
+				snippet: $text,
+				score: 1,
+				kindKey: 'mine.search.kind.notice',
+			);
+		}
+
+		return $results; // no matches is an ordinary [], not an error
 	}
 }
 ```
@@ -115,33 +144,73 @@ and the site owner's choice of driver stops being your problem.
 
 ## An admin screen
 
-Implement `Pluck\Module\AdminModule`. Your controller is given a
-`ModuleContext` rather than the run of the admin:
+Implement `Pluck\Module\AdminModule`. There is no single dispatch method —
+`adminRoutes()` registers your screens in the same route table the rest of the
+admin uses, each one a named route pointing at a method on a controller of
+your own:
 
 ```php
-public function handle(string $action, ModuleContext $context): ModuleResponse
+final class MineAdminModule implements AdminModule
 {
-	if ($action === 'save') {
-		$context->requireCsrf();
-
-		$text = $context->post('text', '');
-		$context->set('notice:' . gmdate('Ymd-His'), ['text' => $text]);
-
-		return ModuleResponse::back('Saved.');
+	public function name(): string
+	{
+		return 'mine';
 	}
 
-	return ModuleResponse::view('index', ['notices' => $context->all('notice:')]);
+	public function adminRoutes(Router $router): void
+	{
+		$permission = ModulePermission::manage('mine');
+
+		$router->get('module.mine.index', MineAdminController::class, 'index', $permission, module: 'mine');
+		$router->post('module.mine.save', MineAdminController::class, 'save', $permission, module: 'mine');
+	}
+
+	public function navigation(): ?array
+	{
+		return ['route' => 'module.mine.index', 'label' => 'mine.nav.mine', 'permission' => ModulePermission::manage('mine')];
+	}
+
+	public function viewDir(): ?string
+	{
+		return null; // null uses the core views/ directory; otherwise your own
+	}
 }
 ```
 
-`ModuleContext` gives you: `get`/`set`/`all`/`delete` for your own data,
-`post()` and `query()` for the request, `requireCsrf()`, `addMedia()`, and
-`can(ModulePermission::manage('mine'))`. It gives you nothing else, and that is
-the point — a module cannot read the user table, cannot write outside its own
+The controller extends `Pluck\Module\ModuleController` and runs on a
+`ModuleContext` rather than the admin's own — see that class for what it
+deliberately cannot do:
+
+```php
+final class MineAdminController extends ModuleController
+{
+	public function index(): never
+	{
+		$this->render('admin/mine/index', ['notices' => $this->c->list('notice:')]);
+	}
+
+	public function save(): never
+	{
+		$text = trim($this->c->request->post('text', ''));
+		$this->c->set('notice:' . gmdate('Ymd-His'), ['text' => $text]);
+
+		$this->c->flash->ok($this->t('mine.flash.saved'));
+		$this->back('module.mine.index');
+	}
+}
+```
+
+CSRF is not something you call for — the router checks the token for every
+POST before your controller ever runs. `ModuleContext` gives you: `get`/`set`/
+`list`/`delete`/`transaction()` for your own data, `request` (`post()`,
+`query()`) and `flash` (`ok()`/`stop()`/`warn()`), `addMedia()`/`removeMedia()`,
+`can()`, `render()` and `back()`. It gives you nothing else, and that is the
+point — a module cannot read the user table, cannot write outside its own
 data, and cannot reach the filesystem.
 
-Templates live in `modules/mine/views/` and are rendered the same way themes are:
-`e()` on everything, `$view->t()` for wording.
+Templates live in `modules/mine/views/` (or wherever `viewDir()` points) and
+are rendered the same way admin templates are: `e()` on everything, and
+`$this->t('mine.some.key')` in the controller for wording.
 
 ## Taking something from a visitor
 
@@ -184,9 +253,32 @@ renders: the theme is not yours to assume.
 
 ## Wording
 
-No English in your PHP. Put it in `modules/mine/lang/en.json` and reach for it
-with `$view->t('mine.some.key')` — the site's own language files and yours are
-merged, so a translator can do your module without touching Pluck.
+No English in your PHP. Put it in `modules/mine/lang/en.json` — the site's own
+language files and yours are merged, so a translator can do your module
+without touching Pluck.
+
+`render()` and `embed()` are not handed a `View`, so reach for wording with
+`use Pluck\I18n\Translates;` and a constructor-injected `?Translator`, the way
+the bundled blog and contact modules do:
+
+```php
+use Pluck\I18n\Translates;
+use Pluck\I18n\Translator;
+
+final class Mine implements SiteModule
+{
+	use Translates;
+
+	public function __construct(private readonly ?Translator $translator = null)
+	{
+	}
+
+	// ... $this->t('mine.some.key') anywhere in the class
+}
+```
+
+In an admin controller it is simpler: `ModuleController`/`ModuleContext`
+already carry a translator, so it is just `$this->t('mine.some.key')`.
 
 ## A module of your own can have an admin screen
 
@@ -338,13 +430,23 @@ take a year of blog posts with it.
 
 ## Bringing a 4.x plugin across
 
-```sh
-php bin/migrate-module /old/site/data/modules/name
-```
+The bundled 4.x modules do not need this: `bin/migrate` (see
+`docs/MIGRATION.md`) already carries the blog, its categories and reactions,
+and albums with their images straight into the `blog` and `albums` modules —
+there is nothing to rewrite for those.
 
-It reports what the plugin did — which hooks it used, what it wrote, where it
-wrote it — and produces a skeleton against these interfaces. It does not convert
-the code, and it is not pretending to: a 4.x plugin's whole shape assumed global
-scope, and the interesting part is deciding what it should be instead.
+For a genuinely third-party 4.x plugin there is, today, no tool that converts
+it for you. `bin/migrate`'s report names each module your old site had and
+says which of them it already handles; anything it does not recognise it lists
+as needing a hand review, because a 4.x plugin's whole shape assumed the
+global scope this document exists to fence off, and deciding what it should
+become is not something a script can do for you.
+
+What the report does give you: any bare top-level variables the plugin wrote
+into a page are preserved under that page's `legacy` key, so nothing is lost
+while you decide what the module's replacement should read instead. From
+there, write it as an ordinary `SiteModule`/`AdminModule` pair against the
+interfaces above — there is no shortcut, only a smaller job than it looks,
+since the fencing (storage, media, permissions) is already done for you.
 
 Expect to rewrite it. The report is there so you know what you are rewriting.

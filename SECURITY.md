@@ -49,10 +49,13 @@ The rest, briefly:
   no screen can be the one that forgot. Tokens are bound to an action. This is
   what closes the family of 4.x issues where an attacker got a logged-in admin to
   click a link.
-- **Passwords.** Argon2id where available, bcrypt otherwise, with a policy check
-  that prefers length over punctuation. Sign-in is throttled and compares against
-  a dummy hash when the account does not exist, so a wrong username and a wrong
-  password take the same time.
+- **Passwords.** Hashed with PHP's own `password_hash()` default (bcrypt on
+  current PHP versions; Pluck picks up Argon2id automatically if a future PHP
+  release changes that default), with a policy check that prefers length over
+  punctuation — twelve characters minimum, nothing about mixing cases or
+  symbols. Sign-in is throttled and compares against a dummy hash when the
+  account does not exist, so a wrong username and a wrong password take the
+  same time.
 - **Uploads.** The stored filename is rebuilt from a slug plus one validated
   extension, never cleaned (`Support\UploadName`). The declared content type is
   ignored in favour of what the bytes look like. `media/.htaccess` turns handlers

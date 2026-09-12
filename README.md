@@ -9,9 +9,11 @@ place — the security model above all — while keeping the thing that made Plu
 worth using: it runs on the cheapest shared hosting there is, and you can
 understand the whole of it in an afternoon.
 
-**Status: phases 1 to 3.** The admin area, both storage drivers, the installer,
-authentication and the 4.x migrator are written and tested. Themes, modules and
-the self-updater are not. Do not put this on a live site yet.
+**Status: 5.0.0-rc.** The admin area, both storage drivers, the installer,
+authentication, the 4.x migrator, themes, modules, search and the self-updater
+are all written and tested — see `docs/ROADMAP.md` for what is still open
+before a final 5.0 tag (the updater applying a real release, mainly). One
+production site has been running it since August 2026.
 
 ## What you need
 
@@ -147,7 +149,7 @@ No PHPUnit, no composer install — the runner is 40 lines and the base class is
 three assertion methods. That is deliberate: someone fixing one screen should be
 able to run the suite without setting up a toolchain first.
 
-Roughly 1720 assertions across 25 suites. Anything the current PHP build cannot
+Roughly 1720 assertions across 40 suites. Anything the current PHP build cannot
 run is reported as a skip rather than silently passing.
 
 ## Contributing

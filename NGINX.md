@@ -35,6 +35,15 @@ server {
 		}
 	}
 
+	# modules/ is PHP that Pluck includes, never pages a browser fetches. On
+	# Apache modules/.htaccess denies the whole folder; nginx needs the same
+	# line here, or a direct request reaches php-fpm outside Pluck's own
+	# routing and access checks entirely.
+	location ^~ /modules/ {
+		deny all;
+		return 404;
+	}
+
 	location ~ \.php$ {
 		include fastcgi_params;
 		fastcgi_pass unix:/run/php/php8.3-fpm.sock;
