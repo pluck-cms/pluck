@@ -76,18 +76,34 @@ the same way new uploads are, so a name that was itself an XSS payload
 **Settings**: site title, contact email, language. The theme name is stored as
 `legacy_theme` so you know what it was.
 
+**The blog**, into the `blog` module: posts with their category, publish date
+and content (through the sanitiser, same as pages), plus categories and
+reactions. Reactions come across already approved — they were visible for
+years on the old site, so a moderation queue on moving day would be a
+surprise rather than a safety measure — though a reaction's e-mail address is
+not carried, since 4.x never showed it either. The old blog-enhancements
+settings (`reverse_posts`, `truncate_posts` and the rest) come across too, so
+an install that used it keeps its ordering and date formats.
+
+**Albums**, into the `albums` module: each album's title, description and
+images, with captions, in their original order. A picture used in more than
+one album is stored once and shared, the way Pluck 5's single media folder
+works; an entry whose image file is missing or was refused by the upload
+policy is reported and skipped rather than guessed at.
+
 ## What does not come across
 
 **Themes.** 4.x themes are PHP. Themes in 5 are templates. The migrator records
-which theme you had and leaves the conversion to you.
+which theme you had and leaves the conversion to you — see "Themes from Pluck
+4" below, or `docs/THEMES.md`.
 
-**Modules.** The bundled 4.x modules are being rewritten in core. Third-party
-modules need a hand review — a 4.x module is arbitrary PHP running inside the
-admin session, which is precisely the thing v5 is careful about.
-
-**Blog and albums.** Not yet. The data is read and reported, but there is nowhere
-for it to land in 5 at the moment. If you have a blog or albums, migrate the
-pages now and wait for this before switching DNS, or export those two by hand.
+**Third-party modules.** The blog, albums and contact form are handled as
+above; search, the updater, pretty URLs and a few other 4.x modules are things
+Pluck 5 already does natively (the report says which, per module). Anything
+else — a plugin nobody here wrote — needs a hand review: a 4.x module is
+arbitrary PHP running inside the admin session, which is precisely the thing
+v5 is careful about, and there is today no tool that converts one for you. See
+"Bringing a 4.x plugin across" in `docs/MODULES.md`.
 
 **Accounts.** 4.x had one shared password, not accounts. There is nothing to
 carry over; you create the owner during the migration and the rest afterwards.
